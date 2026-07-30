@@ -17,6 +17,8 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 
+from . import context_spec as spec
+from .calibration import AbsoluteCalibrator, Calibrator
 from .config import Config, TRANSITION_CLASS
 from .graph import sequence_to_graphs
 
@@ -97,8 +99,15 @@ def sliding_window_inference(model, long_sequence, cfg, reg_mean, reg_std,
     return predictions
 
 
-def build_tactical_context(predictions):
-    """Summarise a chain of window predictions into (context_str, summary_dict)."""
+def build_tactical_context(predictions, calibrator: "Calibrator | None" = None):
+    """Summarise a chain of window predictions into (context_str, summary_dict).
+
+    calibrator: maps raw STGT scalars to the frozen narrative vocabulary in
+    context_spec.py (see calibration.py). Defaults to AbsoluteCalibrator() — today's
+    hardcoded cutoffs — so every existing caller sees byte-identical output. Pass a
+    fitted PercentileCalibrator once the STGT retrain changes units.
+    """
+    calibrator = calibrator or AbsoluteCalibrator()
     n = len(predictions)
     if n == 0:
         return "No predictions available.", {}
@@ -114,20 +123,20 @@ def build_tactical_context(predictions):
     velocities = [p["centroid_velocity"] for p in predictions]
     mid = n // 2
     delta_v = (np.mean(velocities[mid:]) - np.mean(velocities[:mid])) if mid > 0 else 0.0
-    vel_trend = "accelerating" if delta_v > 0.5 else "decelerating" if delta_v < -0.5 else "steady"
+    vel_trend = calibrator.velocity_trend(float(delta_v))
 
     stabilities = [p["formation_stability"] for p in predictions]
     mean_stability = float(np.mean(stabilities))
     early, late = np.mean(stabilities[:max(1, mid)]), (np.mean(stabilities[mid:]) if mid > 0 else stabilities[-1])
-    stab_trend = "degrading" if late < early - 0.1 else "improving" if late > early + 0.1 else "holding"
+    stab_trend = calibrator.stability_trend(float(early), float(late))
 
     approach = [p["approach_rate"] for p in predictions]
     mean_approach = float(np.mean(approach))
-    approach_summary = ("converging (drones closing in)" if mean_approach < -0.1
-                        else "dispersing (drones spreading out)" if mean_approach > 0.1
-                        else "stable spread")
+    approach_summary = calibrator.spread_dynamics(mean_approach)
 
-    role_flag = sum(1 for p in predictions if p["role_differentiation"]) > (n // 2)
+    role_true_count = sum(1 for p in predictions if p["role_differentiation"])
+    role_str = calibrator.role_differentiation(role_true_count, n)
+    role_flag = (role_str == spec.ROLE_DIFFERENTIATION_PRESENT)  # summary dict keeps its bool shape
     confidences = [p["formation_confidence"] for p in predictions]
     mean_conf, low_conf = float(np.mean(confidences)), sum(1 for c in confidences if c < 0.6)
 
@@ -138,13 +147,13 @@ def build_tactical_context(predictions):
         f"Formation history: {' -> '.join(dict.fromkeys(formation_seq))}",
     ]
     lines += ([f"Transition at t={t['at_time_s']}s: {t['from']} -> {t['to']}" for t in transitions]
-              or ["No formation transitions detected."])
+              or [spec.NO_TRANSITIONS_DETECTED])
     lines += [
         f"Velocity trend: {vel_trend} (delta_v={delta_v:+.2f})",
         f"Formation stability: {stab_trend} (mean={mean_stability:.2f})",
         f"Spread dynamics: {approach_summary} (mean approach_rate={mean_approach:.3f})",
-        f"Role differentiation: {'present' if role_flag else 'not prominent'}",
-        f"Classifier confidence: mean={mean_conf:.2f} ({low_conf} low-confidence windows)",
+        f"Role differentiation: {role_str}",
+        spec.CONFIDENCE_LINE_TEMPLATE.format(mean_conf=mean_conf, low_conf=low_conf),
     ]
     summary = {
         "dominant_formation": dominant, "formation_history": list(dict.fromkeys(formation_seq)),
