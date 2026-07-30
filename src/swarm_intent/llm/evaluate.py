@@ -9,6 +9,10 @@ KEY FIX over the original eval (see CODE_REVIEW.md):
     evaluating your fine-tuned Qwen), or None to skip judging entirely.
   * Objective intent/threat accuracy is the HEADLINE metric and is always
     reported. Judge scores are secondary/advisory only.
+  * recommended_action accuracy is now scored too (via match_action/ACTION_FAMILIES
+    in prompts.py) — previously computed nowhere. abstention_rate ("unknown"
+    responses) is reported as its own metric, separate from accuracy and
+    hallucination_rate, since a correct abstention is neither a hit nor a hallucination.
 """
 from __future__ import annotations
 
@@ -19,7 +23,7 @@ import numpy as np
 
 from .client import LLMClient
 from .prompts import (TEST_CASES, JUDGE_PROMPT, match_intent, match_threat,
-                      is_hallucination)
+                      match_action, is_hallucination)
 
 def judge(judge_client: LLMClient, tactical_context: str, assessment: dict) -> dict:
     import json
@@ -53,10 +57,21 @@ def evaluate_llm(run_case: Callable[[dict], tuple],
 
         intents = [a.get("likely_intent", "") for a, _ in runs]
         threats = [a.get("threat_level", "") for a, _ in runs]
+        actions = [a.get("recommended_action", "") for a, _ in runs]
 
         intent_hits = [match_intent(i, case["expected_intent"]) for i in intents]
         threat_hits = [match_threat(t, case["expected_threat"]) for t in threats]
+        # expected_action is required per TEST_CASES; if a caller passes custom test
+        # cases without one, action accuracy for that case is left unreported (None)
+        # rather than silently scored against a made-up expectation.
+        action_hits = ([match_action(ac, case["expected_action"]) for ac in actions]
+                       if "expected_action" in case else None)
         halluc = [is_hallucination(i, t) for i, t in zip(intents, threats)]
+        # Abstention: the model declined to commit to a specific intent (schema-legal
+        # "unknown"). Tracked separately — it is neither a hit/miss on the expected
+        # intent nor (since the §D vocab fix) a hallucination.
+        abstentions = [i.strip().lower() in {"unknown", "unclear", "indeterminate",
+                                              "insufficient data"} for i in intents]
 
         judge_scores = []
         if judge_client is not None:
@@ -69,16 +84,22 @@ def evaluate_llm(run_case: Callable[[dict], tuple],
             "name": case["name"],
             "intent_accuracy": float(np.mean(intent_hits)),
             "threat_accuracy": float(np.mean(threat_hits)),
+            "action_accuracy": float(np.mean(action_hits)) if action_hits is not None else None,
             "hallucination_rate": float(np.mean(halluc)),
+            "abstention_rate": float(np.mean(abstentions)),
             "judge_overall_mean": float(np.mean(judge_scores)) if judge_scores else None,
             "majority_intent": Counter(intents).most_common(1)[0][0] if intents else None,
             "majority_threat": Counter(threats).most_common(1)[0][0] if threats else None,
+            "majority_action": Counter(actions).most_common(1)[0][0] if actions else None,
         })
 
+    action_accuracies = [r["action_accuracy"] for r in results if r["action_accuracy"] is not None]
     agg = {
         "mean_intent_accuracy": float(np.mean([r["intent_accuracy"] for r in results])),
         "mean_threat_accuracy": float(np.mean([r["threat_accuracy"] for r in results])),
+        "mean_action_accuracy": float(np.mean(action_accuracies)) if action_accuracies else None,
         "mean_hallucination_rate": float(np.mean([r["hallucination_rate"] for r in results])),
+        "mean_abstention_rate": float(np.mean([r["abstention_rate"] for r in results])),
         "n_cases": len(results), "n_runs": n_runs,
     }
     return {"per_case": results, "aggregate": agg}
