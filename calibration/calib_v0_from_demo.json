@@ -1,0 +1,12 @@
+{
+  "version": "calib-v1-percentile",
+  "velocity_threshold": 0.012399999999999998,
+  "approach_threshold": 0.0001000000000000001,
+  "stability_delta_threshold": 0.055279999999999996,
+  "low_pct": 10.0,
+  "high_pct": 90.0,
+  "sensitivity": 0.5,
+  "n_fit_samples": 9,
+  "fitted": true,
+  "note": "Fitted from n=9 real STGT prediction windows in evaluation/llm_run_output.json \u2014 the only captured real pipeline run on disk (evaluation/finetuned_eval.json does not exist; see AUDIT.md sec A). AUDIT.md sec F/F2 report n=18 for these same underlying metrics, but that count comes from ALSO reading evaluation/sliding_window_predictions_demo.json, which is a standalone export of this exact same runs predictions list, not independent data -- the true independent sample size is 9, not 18. Either way: 9 (or 18 double-counted) windows from a single flight scenario is far too small to trust as a fitted distribution. This is a PLACEHOLDER ONLY, to be refit once the new STGT model produces real inference logs across many scenarios -- do not treat these thresholds as calibrated."
+}
