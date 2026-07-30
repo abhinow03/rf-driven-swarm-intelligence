@@ -1,0 +1,136 @@
+"""
+Two non-LLM(-ish) baselines for the 4-way eval. Both expose the same
+``run_case(case) -> (assessment_dict, tactical_context_str)`` callback signature
+``evaluate_llm`` already expects (see ``evaluate_finetuned.py`` for the existing
+LocalHFClient precedent).
+
+a. rules_lookup — NO model call. Builds the same synth_context() tactical-context
+   text every other system in the 4-way eval sees, then regexes the (from, to)
+   formation pair back OUT of that text — the way any real downstream consumer would
+   have to, not by reading case["formation_a"]/["formation_b"] directly — looks the
+   pair up in RULES, and emits schema-valid JSON with canned (non-model) prose. If
+   extraction fails, or the extracted pair isn't a RULES key, it returns
+   likely_intent="unknown" and abstains. It does NOT fall back to DEFAULT_RULE —
+   abstention on an unparseable/unknown scenario is the intended behaviour, not a
+   bug to paper over. This is the control: what a 49-entry dict already achieves
+   on clean synthetic inputs, with zero model involved.
+
+b. rules_in_prompt — the base Qwen2.5-7B-Instruct model, no adapter, via the same
+   LocalHFClient code path as every other LLM-backed system, but with
+   llm_finetuning/RULES.txt's full text passed as ``system_prompt`` (see the small
+   additive change to LocalHFClient in src/swarm_intent/llm/client.py — default
+   system_prompt=None, so every existing caller is unaffected).
+"""
+from __future__ import annotations
+
+import os
+import re
+import sys
+from random import Random
+
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
+
+from swarm_intent.inference import build_llm_prompt  # noqa: E402
+
+from build_sft_dataset import RULES, synth_context  # type: ignore  # noqa: E402
+
+RULES_TXT_PATH = os.path.join(os.path.dirname(__file__), "RULES.txt")
+
+# Matches synth_context()'s exact phrasing (llm_finetuning/build_sft_dataset.py:140).
+# NOTE: production's build_tactical_context() phrases this line differently
+# ("Transition at t=...s: A -> B", no "detected") — this regex intentionally targets
+# only the synthetic-context format every system in this eval is actually fed, per
+# AUDIT.md sec H.
+_TRANSITION_RE = re.compile(r"Transition detected at t=[\d.]+s:\s*(\w+)\s*->\s*(\w+)")
+_DOMINANT_RE = re.compile(r"Dominant formation:\s*(\w+)")
+_NO_TRANSITION_RE = re.compile(r"No formation transitions detected\.")
+
+
+def _extract_pair(ctx: str):
+    """Regex the (from, to) formation pair out of a tactical-context string — does
+    NOT use any ground-truth case values. Returns (from, to) or None."""
+    m = _TRANSITION_RE.search(ctx)
+    if m:
+        return m.group(1), m.group(2)
+    if _NO_TRANSITION_RE.search(ctx):
+        dm = _DOMINANT_RE.search(ctx)
+        if dm:
+            return dm.group(1), dm.group(1)
+    return None
+
+
+def _canned_assessment(threat: str, intent: str, action: str, from_f: str, to_f: str) -> dict:
+    steady = from_f == to_f
+    return {
+        "situation_summary": (f"Swarm holding {from_f} formation." if steady
+                               else f"Swarm transitioning from {from_f} to {to_f} formation."),
+        "threat_level": threat,
+        "threat_reasoning": f"Rule-table lookup for ({from_f} -> {to_f}): {threat} threat.",
+        "likely_intent": intent,
+        "recommended_action": action,
+        "confidence_in_assessment": "high",
+        "key_indicators": ([f"{from_f} steady-state", "rule-table lookup"] if steady
+                            else [f"{from_f} -> {to_f} transition", "rule-table lookup"]),
+        "follow_up_watch": "Monitor for the next formation change.",
+    }
+
+
+def _abstain(reason: str) -> dict:
+    # threat_level has no schema-legal "unknown" the way likely_intent does (this
+    # asymmetry is itself documented in AUDIT.md sec D) — using "unknown" here for
+    # both fields consistently means is_hallucination() will flag the threat side,
+    # which is an accurate reflection of that already-known gap, not something this
+    # function is trying to hide.
+    return {
+        "situation_summary": f"Unable to determine formation transition from context ({reason}).",
+        "threat_level": "unknown",
+        "threat_reasoning": "Formation pair could not be extracted from the tactical context.",
+        "likely_intent": "unknown",
+        "recommended_action": "monitor",
+        "confidence_in_assessment": "low",
+        "key_indicators": [],
+        "follow_up_watch": "Re-acquire a parseable tactical context.",
+    }
+
+
+def make_rules_lookup_run_case(seed: int = 0):
+    """No model call. Returns a run_case(case) -> (assessment, ctx) callback."""
+    rng = Random(seed)
+
+    def run_case(case):
+        ctx, _key_windows = synth_context(case["formation_a"], case["formation_b"], rng)
+        pair = _extract_pair(ctx)
+        if pair is None:
+            return _abstain("regex could not locate a formation pair in the context"), ctx
+        rule = RULES.get(pair)
+        if rule is None:
+            # Explicitly NOT falling back to DEFAULT_RULE — abstention is the point.
+            return _abstain(f"pair {pair} is not a RULES key"), ctx
+        threat, intent, action = rule
+        return _canned_assessment(threat, intent, action, *pair), ctx
+
+    return run_case
+
+
+def make_rules_in_prompt_run_case(client, seed: int = 0):
+    """client: an LLMClient (e.g. LocalHFClient constructed with the RULES.txt text
+    as system_prompt). Returns a run_case(case) -> (assessment, ctx) callback."""
+    rng = Random(seed)
+
+    def run_case(case):
+        ctx, key_windows = synth_context(case["formation_a"], case["formation_b"], rng)
+        preds = [{**kw, "time_start_s": 0, "time_end_s": 0, "formation_type": kw["formation"],
+                  "centroid_velocity": kw["velocity"], "approach_rate": kw["approach"],
+                  "formation_stability": kw["stability"], "formation_confidence": kw["confidence"],
+                  "role_differentiation": False, "transition_from": kw["from"],
+                  "transition_to": kw["to"]} for kw in key_windows]
+        prompt = build_llm_prompt(preds, ctx, {})
+        assessment = client.complete(prompt)
+        return assessment, ctx
+
+    return run_case
+
+
+def load_rules_txt() -> str:
+    with open(RULES_TXT_PATH) as f:
+        return f.read()

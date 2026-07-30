@@ -99,12 +99,14 @@ class LocalHFClient(LLMClient):
     """
 
     def __init__(self, model_path: str, adapter_path: Optional[str] = None,
-                 temperature: float = 0.3, max_new_tokens: int = 512, load_4bit: bool = True):
+                 temperature: float = 0.3, max_new_tokens: int = 512, load_4bit: bool = True,
+                 system_prompt: Optional[str] = None):
         import torch
         from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
         self.temperature = temperature
         self.max_new_tokens = max_new_tokens
+        self.system_prompt = system_prompt
         self.tok = AutoTokenizer.from_pretrained(model_path)
         quant = (BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_quant_type="nf4",
                                     bnb_4bit_compute_dtype=torch.float16)
@@ -120,7 +122,8 @@ class LocalHFClient(LLMClient):
 
     def generate(self, prompt: str) -> str:
         import torch
-        messages = [{"role": "user", "content": f"Return ONLY valid JSON.\n\n{prompt}"}]
+        messages = ([{"role": "system", "content": self.system_prompt}] if self.system_prompt else [])
+        messages.append({"role": "user", "content": f"Return ONLY valid JSON.\n\n{prompt}"})
         enc = self.tok.apply_chat_template(messages, add_generation_prompt=True,
                                            return_dict=True, return_tensors="pt").to(self.model.device)
         sample_kwargs = ({"do_sample": True, "temperature": self.temperature}
