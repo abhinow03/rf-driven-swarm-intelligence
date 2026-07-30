@@ -56,6 +56,16 @@ ALL_VALID_INTENT_TOKENS = {t for fam in INTENT_FAMILIES.values() for t in fam}
 ALL_VALID_THREAT_TOKENS = {t for fam in THREAT_FAMILIES.values() for t in fam}
 ALL_VALID_ACTION_TOKENS = {t for fam in ACTION_FAMILIES.values() for t in fam}
 
+# Single source of truth for "this response is abstaining", used by evaluate_llm to
+# exclude abstained responses from accuracy/hallucination scoring (see evaluate.py's
+# module docstring) and by baselines.py's rules_lookup to signal "could not extract
+# a formation pair, will not guess". Same token set as INTENT_FAMILIES["unknown"].
+ABSTENTION_TOKENS = {"unknown", "unclear", "indeterminate", "insufficient data"}
+
+
+def is_abstention(likely_intent: str) -> bool:
+    return likely_intent.strip().lower() in ABSTENTION_TOKENS
+
 
 def match_intent(predicted: str, expected_family: str) -> bool:
     pred = predicted.lower().strip()

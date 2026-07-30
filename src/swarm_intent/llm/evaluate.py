@@ -13,6 +13,20 @@ KEY FIX over the original eval (see CODE_REVIEW.md):
     in prompts.py) — previously computed nowhere. abstention_rate ("unknown"
     responses) is reported as its own metric, separate from accuracy and
     hallucination_rate, since a correct abstention is neither a hit nor a hallucination.
+  * ABSTENTION-AWARE SCORING: an abstaining response (likely_intent in
+    ABSTENTION_TOKENS) is excluded from intent/threat/action accuracy AND
+    hallucination_rate entirely, not counted as a miss or a hallucination in either.
+    Before this fix, an always-abstaining run_case scored intent/threat/action
+    accuracy 0.0 AND hallucination_rate 1.0 simultaneously — i.e. abstention was
+    being penalized twice, as both "always wrong" and "always hallucinating", while
+    abstention_rate=1.0 sat right next to those numbers uncommented. Per-case
+    accuracy/hallucination fields are None (not 0.0) when every run for that case
+    abstained — None means "not applicable", 0.0 would silently claim "confidently
+    wrong every time", a different and false statement.
+  * has_ground_truth=False cases (see llm_finetuning/degradation.py): for inputs
+    that have no defensible expected answer, correct behaviour IS abstention.
+    These cases skip intent/threat/action accuracy (there's nothing to compare
+    against) and instead report correct_abstention_rate.
 """
 from __future__ import annotations
 
@@ -23,7 +37,7 @@ import numpy as np
 
 from .client import LLMClient
 from .prompts import (TEST_CASES, JUDGE_PROMPT, match_intent, match_threat,
-                      match_action, is_hallucination)
+                      match_action, is_hallucination, is_abstention)
 
 def judge(judge_client: LLMClient, tactical_context: str, assessment: dict) -> dict:
     import json
@@ -47,9 +61,14 @@ def evaluate_llm(run_case: Callable[[dict], tuple],
     judge_client : independent LLM client (MUST differ from the system under
         test) or None.
     n_runs : repetitions per case (>=5 recommended for meaningful consistency).
+    test_cases : each case needs expected_intent/expected_threat (+ optionally
+        expected_action) UNLESS it sets has_ground_truth=False, in which case no
+        expected_* fields are read at all — the only thing scored is whether the
+        system correctly abstained (see correct_abstention_rate).
     """
     results = []
     for case in test_cases:
+        has_gt = case.get("has_ground_truth", True)
         runs = []
         for _ in range(n_runs):
             assessment, ctx = run_case(case)
@@ -58,20 +77,13 @@ def evaluate_llm(run_case: Callable[[dict], tuple],
         intents = [a.get("likely_intent", "") for a, _ in runs]
         threats = [a.get("threat_level", "") for a, _ in runs]
         actions = [a.get("recommended_action", "") for a, _ in runs]
-
-        intent_hits = [match_intent(i, case["expected_intent"]) for i in intents]
-        threat_hits = [match_threat(t, case["expected_threat"]) for t in threats]
-        # expected_action is required per TEST_CASES; if a caller passes custom test
-        # cases without one, action accuracy for that case is left unreported (None)
-        # rather than silently scored against a made-up expectation.
-        action_hits = ([match_action(ac, case["expected_action"]) for ac in actions]
-                       if "expected_action" in case else None)
-        halluc = [is_hallucination(i, t) for i, t in zip(intents, threats)]
-        # Abstention: the model declined to commit to a specific intent (schema-legal
-        # "unknown"). Tracked separately — it is neither a hit/miss on the expected
-        # intent nor (since the §D vocab fix) a hallucination.
-        abstentions = [i.strip().lower() in {"unknown", "unclear", "indeterminate",
-                                              "insufficient data"} for i in intents]
+        abstentions = [is_abstention(i) for i in intents]
+        abstention_rate = float(np.mean(abstentions))
+        # Everything below is scored on the NON-abstained subset only. An abstaining
+        # response isn't claiming a specific intent/threat/action, so it can't be a
+        # hit, a miss, or a hallucination on those axes -- it's a third outcome,
+        # tracked only via abstention_rate. See module docstring.
+        scored_idx = [k for k, ab in enumerate(abstentions) if not ab]
 
         judge_scores = []
         if judge_client is not None:
@@ -80,27 +92,65 @@ def evaluate_llm(run_case: Callable[[dict], tuple],
                 if "overall_score" in js:
                     judge_scores.append(js["overall_score"])
 
-        results.append({
+        result = {
             "name": case["name"],
-            "intent_accuracy": float(np.mean(intent_hits)),
-            "threat_accuracy": float(np.mean(threat_hits)),
-            "action_accuracy": float(np.mean(action_hits)) if action_hits is not None else None,
-            "hallucination_rate": float(np.mean(halluc)),
-            "abstention_rate": float(np.mean(abstentions)),
+            "has_ground_truth": has_gt,
+            "n_runs": len(runs),
+            "n_abstained": len(runs) - len(scored_idx),
+            "abstention_rate": abstention_rate,
             "judge_overall_mean": float(np.mean(judge_scores)) if judge_scores else None,
             "majority_intent": Counter(intents).most_common(1)[0][0] if intents else None,
             "majority_threat": Counter(threats).most_common(1)[0][0] if threats else None,
             "majority_action": Counter(actions).most_common(1)[0][0] if actions else None,
-        })
+        }
 
-    action_accuracies = [r["action_accuracy"] for r in results if r["action_accuracy"] is not None]
+        if has_gt:
+            intent_hits = [match_intent(intents[k], case["expected_intent"]) for k in scored_idx]
+            threat_hits = [match_threat(threats[k], case["expected_threat"]) for k in scored_idx]
+            # expected_action is required per TEST_CASES; if a caller passes custom
+            # test cases without one, action accuracy is left unreported (None)
+            # rather than silently scored against a made-up expectation. Same None
+            # result either way if every run for this case abstained.
+            action_hits = ([match_action(actions[k], case["expected_action"]) for k in scored_idx]
+                           if "expected_action" in case else None)
+            halluc = [is_hallucination(intents[k], threats[k]) for k in scored_idx]
+            result.update({
+                "correct_abstention_rate": None,  # n/a — this case HAS an expected answer
+                "intent_accuracy": float(np.mean(intent_hits)) if intent_hits else None,
+                "threat_accuracy": float(np.mean(threat_hits)) if threat_hits else None,
+                "action_accuracy": float(np.mean(action_hits)) if action_hits else None,
+                "hallucination_rate": float(np.mean(halluc)) if halluc else None,
+            })
+        else:
+            # No defensible expected answer for this case -- correct behaviour IS
+            # abstention. Accuracy fields don't apply (nothing to compare against).
+            result.update({
+                "correct_abstention_rate": abstention_rate,
+                "intent_accuracy": None, "threat_accuracy": None, "action_accuracy": None,
+                # hallucination_rate still computed over non-abstained runs: a
+                # vocabulary-valid guess on an unanswerable input isn't what
+                # is_hallucination() checks for, but garbage vocabulary still is.
+                "hallucination_rate": (float(np.mean([is_hallucination(intents[k], threats[k])
+                                                       for k in scored_idx])) if scored_idx else None),
+            })
+        results.append(result)
+
+    def mean_or_none(key):
+        vals = [r[key] for r in results if r[key] is not None]
+        return float(np.mean(vals)) if vals else None
+
+    gt_results = [r for r in results if r["has_ground_truth"]]
+    no_gt_results = [r for r in results if not r["has_ground_truth"]]
     agg = {
-        "mean_intent_accuracy": float(np.mean([r["intent_accuracy"] for r in results])),
-        "mean_threat_accuracy": float(np.mean([r["threat_accuracy"] for r in results])),
-        "mean_action_accuracy": float(np.mean(action_accuracies)) if action_accuracies else None,
-        "mean_hallucination_rate": float(np.mean([r["hallucination_rate"] for r in results])),
-        "mean_abstention_rate": float(np.mean([r["abstention_rate"] for r in results])),
-        "n_cases": len(results), "n_runs": n_runs,
+        "mean_intent_accuracy": mean_or_none("intent_accuracy"),
+        "mean_threat_accuracy": mean_or_none("threat_accuracy"),
+        "mean_action_accuracy": mean_or_none("action_accuracy"),
+        "mean_hallucination_rate": mean_or_none("hallucination_rate"),
+        "mean_abstention_rate": mean_or_none("abstention_rate"),
+        "mean_correct_abstention_rate": (float(np.mean([r["correct_abstention_rate"] for r in no_gt_results]))
+                                         if no_gt_results else None),
+        "n_cases": len(results), "n_cases_with_ground_truth": len(gt_results),
+        "n_cases_without_ground_truth": len(no_gt_results), "n_runs": n_runs,
     }
     return {"per_case": results, "aggregate": agg}
 

@@ -77,10 +77,14 @@ def _canned_assessment(threat: str, intent: str, action: str, from_f: str, to_f:
 
 def _abstain(reason: str) -> dict:
     # threat_level has no schema-legal "unknown" the way likely_intent does (this
-    # asymmetry is itself documented in AUDIT.md sec D) — using "unknown" here for
-    # both fields consistently means is_hallucination() will flag the threat side,
-    # which is an accurate reflection of that already-known gap, not something this
-    # function is trying to hide.
+    # asymmetry is documented in AUDIT.md sec D) — this response is still
+    # schema-imperfect on that field. It used to also break evaluate_llm's scoring
+    # (is_hallucination flagged the threat side, so an abstention scored as BOTH
+    # 100% wrong AND 100% hallucinated, on top of abstention_rate=1.0 sitting right
+    # next to those numbers uncommented). That's now fixed at the evaluate_llm layer
+    # instead — abstained responses are excluded from accuracy/hallucination scoring
+    # entirely (see evaluate.py), so this function doesn't need a fake schema-legal
+    # threat value to avoid mis-scoring.
     return {
         "situation_summary": f"Unable to determine formation transition from context ({reason}).",
         "threat_level": "unknown",
@@ -93,21 +97,28 @@ def _abstain(reason: str) -> dict:
     }
 
 
+def _assess_from_context(ctx: str) -> dict:
+    """Core rules_lookup decision logic given an arbitrary tactical-context string.
+    Split out from make_rules_lookup_run_case so it's directly unit-testable without
+    going through synth_context() (see tests/test_abstention.py)."""
+    pair = _extract_pair(ctx)
+    if pair is None:
+        return _abstain("regex could not locate a formation pair in the context")
+    rule = RULES.get(pair)
+    if rule is None:
+        # Explicitly NOT falling back to DEFAULT_RULE — abstention is the point.
+        return _abstain(f"pair {pair} is not a RULES key")
+    threat, intent, action = rule
+    return _canned_assessment(threat, intent, action, *pair)
+
+
 def make_rules_lookup_run_case(seed: int = 0):
     """No model call. Returns a run_case(case) -> (assessment, ctx) callback."""
     rng = Random(seed)
 
     def run_case(case):
         ctx, _key_windows = synth_context(case["formation_a"], case["formation_b"], rng)
-        pair = _extract_pair(ctx)
-        if pair is None:
-            return _abstain("regex could not locate a formation pair in the context"), ctx
-        rule = RULES.get(pair)
-        if rule is None:
-            # Explicitly NOT falling back to DEFAULT_RULE — abstention is the point.
-            return _abstain(f"pair {pair} is not a RULES key"), ctx
-        threat, intent, action = rule
-        return _canned_assessment(threat, intent, action, *pair), ctx
+        return _assess_from_context(ctx), ctx
 
     return run_case
 

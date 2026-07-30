@@ -40,11 +40,17 @@ from baselines import (make_rules_lookup_run_case,  # noqa: E402
                         make_rules_in_prompt_run_case, load_rules_txt)
 
 
+def pct_or_na(x) -> str:
+    return f"{x:.2%}" if x is not None else "N/A"
+
+
 def print_summary(name: str, res: dict):
     agg = res["aggregate"]
-    print(f"  {name}: intent={agg['mean_intent_accuracy']:.2%} threat={agg['mean_threat_accuracy']:.2%} "
-          f"action={agg['mean_action_accuracy']:.2%} halluc={agg['mean_hallucination_rate']:.2%} "
-          f"abstain={agg['mean_abstention_rate']:.2%}")
+    print(f"  {name}: intent={pct_or_na(agg['mean_intent_accuracy'])} "
+          f"threat={pct_or_na(agg['mean_threat_accuracy'])} "
+          f"action={pct_or_na(agg['mean_action_accuracy'])} "
+          f"halluc={pct_or_na(agg['mean_hallucination_rate'])} "
+          f"abstain={pct_or_na(agg['mean_abstention_rate'])}")
 
 
 def judge_mean_str(res: dict) -> str:
@@ -116,9 +122,9 @@ def main():
     print("|---|---|---|---|---|---|---|")
     for name, res in all_results.items():
         agg = res["aggregate"]
-        print(f"| {name} | {agg['mean_intent_accuracy']:.2%} | {agg['mean_threat_accuracy']:.2%} | "
-              f"{agg['mean_action_accuracy']:.2%} | {agg['mean_hallucination_rate']:.2%} | "
-              f"{agg['mean_abstention_rate']:.2%} | {judge_mean_str(res)} |")
+        print(f"| {name} | {pct_or_na(agg['mean_intent_accuracy'])} | {pct_or_na(agg['mean_threat_accuracy'])} | "
+              f"{pct_or_na(agg['mean_action_accuracy'])} | {pct_or_na(agg['mean_hallucination_rate'])} | "
+              f"{pct_or_na(agg['mean_abstention_rate'])} | {judge_mean_str(res)} |")
 
 
 if __name__ == "__main__":
