@@ -1,0 +1,41 @@
+# QLoRA config reference for a free Colab T4 (16 GB).
+# These mirror the train_qlora.py defaults; keep them in sync.
+
+base_model: Qwen/Qwen2.5-7B-Instruct   # alt: mistralai/Mistral-7B-Instruct-v0.3
+                                        # low-latency: Qwen/Qwen2.5-3B-Instruct
+
+quantization:
+  load_in_4bit: true
+  bnb_4bit_quant_type: nf4
+  bnb_4bit_compute_dtype: bfloat16   # falls back to float16 on GPUs without bf16 (e.g. T4)
+  double_quant: true
+
+lora:
+  r: 16
+  alpha: 32
+  dropout: 0.05
+  target_modules: [q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj]
+
+training:
+  epochs: 3
+  max_seq_len: 1024          # raise to 1536 only if VRAM allows
+  per_device_batch_size: 1
+  grad_accum: 8              # effective batch size = 8
+  lr: 2.0e-4
+  scheduler: cosine
+  warmup_ratio: 0.03
+  bf16: true                 # fp16 only on GPUs without bf16 support
+  gradient_checkpointing: true
+  optim: paged_adamw_8bit
+
+data:
+  train: data/sft_train.jsonl
+  val: data/sft_train_val.jsonl
+  n_examples_target: 500-1000   # start here; scale with scenario diversity
+
+notes: |
+  - Expect ~10-20 min/epoch on a T4 for ~600 short examples.
+  - If you OOM: drop max_seq_len to 768, or switch to the 3B base model.
+  - Save only the adapter (a few hundred MB), not the full model.
+  - Merge adapter for deployment with peft's merge_and_unload(), then export
+    to GGUF/ONNX if targeting edge.

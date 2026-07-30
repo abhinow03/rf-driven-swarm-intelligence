@@ -1,0 +1,84 @@
+UAV SWARM TACTICAL DECISION RULES
+==============================================================================
+
+The canonical decision policy the fine-tuned LLM learns. One row per
+formation transition observed by the ML pipeline. SOURCE OF TRUTH is the
+RULES dict in llm_finetuning/build_sft_dataset.py — edit it THERE, then
+regenerate this file and the SFT dataset. This file is for human review.
+
+STEADY STATE (formation holding)
+------------------------------------------------------------------------------
+FROM           TO             THREAT     LIKELY INTENT         RECOMMENDED ACTION
+------------------------------------------------------------------------------
+encirclement   encirclement   high       encircle              alert_operator
+converging     converging     high       approach              alert_operator
+v_shape        v_shape        medium     surveillance          increase_surveillance
+shield         shield         medium     defensive             monitor
+column         column         low        patrol                monitor
+diamond        diamond        low        patrol                monitor
+dispersed      dispersed      low        surveillance          monitor
+
+ESCALATING TRANSITIONS (high / critical threat)
+------------------------------------------------------------------------------
+FROM           TO             THREAT     LIKELY INTENT         RECOMMENDED ACTION
+------------------------------------------------------------------------------
+converging     encirclement   critical   encircle              deploy_countermeasure
+encirclement   converging     critical   encircle              deploy_countermeasure
+column         converging     high       approach              alert_operator
+column         encirclement   high       encircle              alert_operator
+column         v_shape        high       attack_preparation    alert_operator
+diamond        converging     high       approach              alert_operator
+diamond        encirclement   high       encircle              alert_operator
+dispersed      converging     high       approach              alert_operator
+dispersed      encirclement   high       encircle              alert_operator
+dispersed      v_shape        high       rally                 alert_operator
+v_shape        converging     high       approach              alert_operator
+v_shape        encirclement   high       encircle              alert_operator
+
+MEDIUM-THREAT TRANSITIONS
+------------------------------------------------------------------------------
+FROM           TO             THREAT     LIKELY INTENT         RECOMMENDED ACTION
+------------------------------------------------------------------------------
+column         diamond        medium     consolidate           monitor
+column         shield         medium     defensive_transition  monitor
+converging     diamond        medium     consolidate           monitor
+converging     shield         medium     defensive             monitor
+converging     v_shape        medium     regroup               increase_surveillance
+diamond        dispersed      medium     area_search           monitor
+diamond        shield         medium     defensive_transition  monitor
+diamond        v_shape        medium     reposition            increase_surveillance
+dispersed      diamond        medium     consolidate           increase_surveillance
+dispersed      shield         medium     defensive_transition  monitor
+encirclement   diamond        medium     consolidate           monitor
+encirclement   shield         medium     defensive             monitor
+encirclement   v_shape        medium     regroup               increase_surveillance
+shield         column         medium     reposition            monitor
+shield         converging     medium     approach              increase_surveillance
+shield         diamond        medium     defensive             monitor
+shield         encirclement   medium     encircle              increase_surveillance
+shield         v_shape        medium     reposition            increase_surveillance
+v_shape        diamond        medium     defensive_transition  monitor
+v_shape        shield         medium     defensive_transition  monitor
+
+LOW-THREAT / DE-ESCALATING TRANSITIONS
+------------------------------------------------------------------------------
+FROM           TO             THREAT     LIKELY INTENT         RECOMMENDED ACTION
+------------------------------------------------------------------------------
+column         dispersed      low        area_search           monitor
+converging     column         low        patrol                monitor
+converging     dispersed      low        withdraw              monitor
+diamond        column         low        transit               monitor
+dispersed      column         low        transit               monitor
+encirclement   column         low        withdraw              monitor
+encirclement   dispersed      low        withdraw              monitor
+shield         dispersed      low        surveillance          monitor
+v_shape        column         low        transit               monitor
+v_shape        dispersed      low        area_search           monitor
+
+VOCABULARY
+------------------------------------------------------------------------------
+Threat levels : low, medium, high, critical
+Intents (14)  : approach, area_search, attack_preparation, consolidate, defensive, defensive_transition, encircle, patrol, rally, regroup, reposition, surveillance, transit, withdraw
+Actions (4)   : alert_operator, deploy_countermeasure, increase_surveillance, monitor
+
+Total rules: 49 = 7 steady-state + 12 escalating + 20 medium + 10 low
