@@ -2,13 +2,13 @@
   "per_case": [
     {
       "name": "Converging Attack",
-      "intent_accuracy": 0.2,
-      "threat_accuracy": 0.2,
+      "intent_accuracy": 0.4,
+      "threat_accuracy": 0.0,
       "action_accuracy": 0.0,
-      "hallucination_rate": 0.0,
+      "hallucination_rate": 0.2,
       "abstention_rate": 0.0,
       "judge_overall_mean": null,
-      "majority_intent": "encircle",
+      "majority_intent": "approach",
       "majority_threat": "medium",
       "majority_action": "increase_surveillance"
     },
@@ -27,8 +27,8 @@
     {
       "name": "Encirclement Behavior",
       "intent_accuracy": 1.0,
-      "threat_accuracy": 0.8,
-      "action_accuracy": 0.2,
+      "threat_accuracy": 1.0,
+      "action_accuracy": 0.0,
       "hallucination_rate": 0.0,
       "abstention_rate": 0.0,
       "judge_overall_mean": null,
@@ -44,7 +44,7 @@
       "hallucination_rate": 0.0,
       "abstention_rate": 0.0,
       "judge_overall_mean": null,
-      "majority_intent": "approach",
+      "majority_intent": "surveillance",
       "majority_threat": "medium",
       "majority_action": "increase_surveillance"
     },
@@ -68,16 +68,16 @@
       "hallucination_rate": 0.0,
       "abstention_rate": 0.0,
       "judge_overall_mean": null,
-      "majority_intent": "surveillance",
+      "majority_intent": "patrol",
       "majority_threat": "medium",
       "majority_action": "increase_surveillance"
     }
   ],
   "aggregate": {
-    "mean_intent_accuracy": 0.19999999999999998,
+    "mean_intent_accuracy": 0.2333333333333333,
     "mean_threat_accuracy": 0.5333333333333333,
-    "mean_action_accuracy": 0.06666666666666667,
-    "mean_hallucination_rate": 0.0,
+    "mean_action_accuracy": 0.03333333333333333,
+    "mean_hallucination_rate": 0.03333333333333333,
     "mean_abstention_rate": 0.0,
     "n_cases": 6,
     "n_runs": 5
