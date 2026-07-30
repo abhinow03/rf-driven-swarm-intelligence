@@ -1,0 +1,20 @@
+# Core swarm model
+numpy>=1.24
+scipy>=1.10
+scikit-learn>=1.3
+torch>=2.1
+torch-geometric>=2.4
+matplotlib>=3.7
+seaborn>=0.12
+tqdm>=4.66
+
+# LLM layer (baseline API client)
+requests>=2.31
+
+# LLM fine-tuning (see llm_finetuning/). Install on the GPU box / Colab only.
+# transformers>=4.44
+# peft>=0.12
+# bitsandbytes>=0.43
+# datasets>=2.20
+# accelerate>=0.33
+# trl>=0.9

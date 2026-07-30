@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# Data & model artifacts (regenerate with scripts/)
+swarm_data/
+*.npy
+*.pt
+*.safetensors
+checkpoints/
+adapters/
+
+# Secrets
+.env
+*.key
+
+# Experiment tracking
+wandb/
+runs/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Keep notebook outputs out of git (run: nbstripout *.ipynb)
