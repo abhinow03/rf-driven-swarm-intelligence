@@ -8,12 +8,20 @@ evaluation/llm_run_output.json is the only real captured STGT pipeline run on di
 (see AUDIT.md sec A — evaluation/finetuned_eval.json does not exist). It does NOT
 contain the raw tactical_context STRING (only its "predictions" input list and its
 "ml_summary" dict, the function's second return value) — so this test rebuilds the
-expected string from a frozen, inlined copy of the exact pre-refactor logic (git
-commit ac5b730, before context_spec.py/calibration.py existed) applied to that same
-real predictions list, rather than comparing against a saved string that was never
-written to disk. It additionally cross-checks the refactored function's summary dict
-against the ACTUAL saved ml_summary field, which does exist in the file — that part
-compares against real historical output, not just a same-session oracle.
+expected string from a frozen, inlined copy of the exact pre-refactor logic applied
+to that same real predictions list, rather than comparing against a saved string
+that was never written to disk. It additionally cross-checks the refactored
+function's summary dict against the ACTUAL saved ml_summary field, which does exist
+in the file — that part compares against real historical output, not just a
+same-session oracle.
+
+PROVENANCE CHECK (done): `git show 2653c96:src/swarm_intent/inference.py` — the
+initial commit, and inference.py's only ancestor before the calibration refactor
+(e083950); the file was untouched in between — was diffed line-for-line against the
+`_pre_refactor_build_tactical_context` function below. The only differences were
+blank lines and the docstring; every line of executable logic matched exactly. The
+oracle below is not just "written to look right", it has been checked against the
+actual git history it claims to reproduce.
 
 Uses stdlib unittest (no pytest in this repo's dependencies) — run with:
     python -m unittest tests.test_context_calibration -v
