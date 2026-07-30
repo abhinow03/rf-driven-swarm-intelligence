@@ -151,6 +151,13 @@ def main():
     ap.add_argument("--base", default="Qwen/Qwen2.5-7B-Instruct")
     ap.add_argument("--limit", type=int, default=None, help="cap rows per val file (smoke test)")
     ap.add_argument("--out", default=str(REPO / "evaluation/masked_loss.json"))
+    ap.add_argument("--common-heldout", default=None,
+                     help="path to a single val file (relative to repo root) that NONE of the "
+                          "three systems trained on. When set, scores base/qwen-swarm/"
+                          "qwen-swarm-v2 all on this one file (removing the different-val-set "
+                          "confound from the default per-adapter-own-val-set plan) and writes "
+                          "the result under a 'common_heldout' key, merged into --out rather "
+                          "than overwriting its existing 'rows' key.")
     args = ap.parse_args()
 
     import torch
@@ -177,12 +184,20 @@ def main():
                                             adapter_name="qwen-swarm")
     peft_model.load_adapter(str(REPO / "adapters/qwen-swarm-v2"), adapter_name="qwen-swarm-v2")
 
-    plan = [
-        ("base (no adapter)", None, REPO / "data/sft_train_val.jsonl"),
-        ("qwen-swarm", "qwen-swarm", REPO / "data/sft_train_val.jsonl"),
-        ("base (no adapter)", None, REPO / "data/sft_train_v2_val.jsonl"),
-        ("qwen-swarm-v2", "qwen-swarm-v2", REPO / "data/sft_train_v2_val.jsonl"),
-    ]
+    if args.common_heldout:
+        heldout_path = REPO / args.common_heldout
+        plan = [
+            ("base (no adapter)", None, heldout_path),
+            ("qwen-swarm", "qwen-swarm", heldout_path),
+            ("qwen-swarm-v2", "qwen-swarm-v2", heldout_path),
+        ]
+    else:
+        plan = [
+            ("base (no adapter)", None, REPO / "data/sft_train_val.jsonl"),
+            ("qwen-swarm", "qwen-swarm", REPO / "data/sft_train_val.jsonl"),
+            ("base (no adapter)", None, REPO / "data/sft_train_v2_val.jsonl"),
+            ("qwen-swarm-v2", "qwen-swarm-v2", REPO / "data/sft_train_v2_val.jsonl"),
+        ]
 
     results = []
     for label, adapter_name, val_path in plan:
@@ -202,16 +217,26 @@ def main():
 
     out_path = Path(args.out)
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    out_path.write_text(json.dumps({
-        "base_model": args.base,
-        "note": ("masked_loss_assistant_only = mean cross-entropy over assistant-turn tokens "
-                 "only (labels=-100 before the assistant span). unmasked_loss_full_sequence = "
-                 "mean cross-entropy over the entire prompt+answer sequence, i.e. what "
-                 "train_qlora.py actually optimized (assistant_only_loss=False, per AUDIT.md "
-                 "sec B). Both are token-count-weighted means across all scored rows, not a "
-                 "mean of per-row means."),
-        "rows": results,
-    }, indent=2))
+    existing = json.loads(out_path.read_text()) if out_path.exists() else {}
+    existing["base_model"] = args.base
+    existing["note"] = ("masked_loss_assistant_only = mean cross-entropy over assistant-turn tokens "
+                         "only (labels=-100 before the assistant span). unmasked_loss_full_sequence = "
+                         "mean cross-entropy over the entire prompt+answer sequence, i.e. what "
+                         "train_qlora.py actually optimized (assistant_only_loss=False, per AUDIT.md "
+                         "sec B). Both are token-count-weighted means across all scored rows, not a "
+                         "mean of per-row means.")
+    if args.common_heldout:
+        existing["common_heldout"] = {
+            "val_file": args.common_heldout,
+            "note": ("All three systems scored on the SAME file, which none of them trained on "
+                     "(sft_train_final.jsonl/_val is 100% teacher prose, built after and separately "
+                     "from qwen-swarm/qwen-swarm-v2's training data) — removes the different-val-set "
+                     "confound present in the per-adapter-own-val-set 'rows' above."),
+            "rows": results,
+        }
+    else:
+        existing["rows"] = results
+    out_path.write_text(json.dumps(existing, indent=2))
     print(f"\nwrote {out_path}")
 
     print("\n| system | val_file | n_scored | masked (assistant-only) | unmasked (full-seq) | assistant token % |")
