@@ -123,6 +123,20 @@ def synth_context(form_a: str, form_b: str, rng: random.Random) -> tuple[str, li
     """Fabricate a realistic tactical-context string + key windows for a scenario.
 
     Independent of a trained checkpoint so you can build SFT data immediately.
+
+    DELIBERATELY NOT RESCALED to match the current STGT model's normalized-space
+    output magnitudes (AUDIT.md sec F/F2/H found this function's sampling ranges —
+    e.g. approach ~U(-1.5,0.5), delta_v ~U(-1.0,2.0) — are ~1000x wider than the one
+    real captured pipeline run's values, meaning branches like "dispersing" and
+    "accelerating" are trained-for but effectively unreachable in production today).
+    That mismatch is a symptom of the STGT units bug (CODE_REVIEW.md), not something
+    to patch here piecemeal: the STGT model is being retrained and its regression
+    outputs may land on a different, wider scale entirely. These wide ranges are
+    reachable once units are fixed — narrowing them now would just have to be undone
+    (or worse, quietly wrong again) after the retrain. See context_spec.py /
+    calibration.py for the actual fix: a PercentileCalibrator refit on real STGT
+    output once the new model exists, so the narrative thresholds scale with
+    whatever units come out, instead of hardcoded literals on either side.
     """
     transitioning = form_a != form_b
     mean_conf = round(rng.uniform(0.7, 0.98), 2)
