@@ -1,0 +1,58 @@
+{
+  "base_model": "Qwen/Qwen2.5-7B-Instruct",
+  "note": "masked_loss_assistant_only = mean cross-entropy over assistant-turn tokens only (labels=-100 before the assistant span). unmasked_loss_full_sequence = mean cross-entropy over the entire prompt+answer sequence, i.e. what train_qlora.py actually optimized (assistant_only_loss=False, per AUDIT.md sec B). Both are token-count-weighted means across all scored rows, not a mean of per-row means.",
+  "rows": [
+    {
+      "system": "base (no adapter)",
+      "val_file": "data/sft_train_val.jsonl",
+      "n_rows_total": 300,
+      "n_rows_scored": 300,
+      "n_rows_skipped_boundary_mismatch": 0,
+      "n_rows_skipped_empty_assistant_span": 0,
+      "masked_loss_assistant_only": 1.2828033867545026,
+      "unmasked_loss_full_sequence": 2.1104692261766775,
+      "assistant_token_pct_mean": 20.027540877444682,
+      "total_assistant_tokens_scored": 38049,
+      "total_sequence_tokens_scored": 189672
+    },
+    {
+      "system": "qwen-swarm",
+      "val_file": "data/sft_train_val.jsonl",
+      "n_rows_total": 300,
+      "n_rows_scored": 300,
+      "n_rows_skipped_boundary_mismatch": 0,
+      "n_rows_skipped_empty_assistant_span": 0,
+      "masked_loss_assistant_only": 1.1418225018524384e-05,
+      "unmasked_loss_full_sequence": 0.05291960080424457,
+      "assistant_token_pct_mean": 20.027540877444682,
+      "total_assistant_tokens_scored": 38049,
+      "total_sequence_tokens_scored": 189672
+    },
+    {
+      "system": "base (no adapter)",
+      "val_file": "data/sft_train_v2_val.jsonl",
+      "n_rows_total": 90,
+      "n_rows_scored": 90,
+      "n_rows_skipped_boundary_mismatch": 0,
+      "n_rows_skipped_empty_assistant_span": 0,
+      "masked_loss_assistant_only": 0.8600698873863457,
+      "unmasked_loss_full_sequence": 2.0931968287947904,
+      "assistant_token_pct_mean": 21.160002746254722,
+      "total_assistant_tokens_scored": 12880,
+      "total_sequence_tokens_scored": 60595
+    },
+    {
+      "system": "qwen-swarm-v2",
+      "val_file": "data/sft_train_v2_val.jsonl",
+      "n_rows_total": 90,
+      "n_rows_scored": 90,
+      "n_rows_skipped_boundary_mismatch": 0,
+      "n_rows_skipped_empty_assistant_span": 0,
+      "masked_loss_assistant_only": 0.11949463338122605,
+      "unmasked_loss_full_sequence": 0.07565165221548502,
+      "assistant_token_pct_mean": 21.160002746254722,
+      "total_assistant_tokens_scored": 12880,
+      "total_sequence_tokens_scored": 60595
+    }
+  ]
+}
