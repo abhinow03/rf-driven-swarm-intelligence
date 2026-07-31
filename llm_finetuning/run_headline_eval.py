@@ -49,7 +49,8 @@ from swarm_intent.llm.evaluate import evaluate_llm  # noqa: E402
 from swarm_intent.llm.prompts import TEST_CASES  # noqa: E402
 from swarm_intent.progress import Reporter  # noqa: E402
 
-from baselines import make_rules_lookup_run_case, make_rules_in_prompt_run_case, load_rules_txt  # noqa: E402
+from baselines import (make_rules_lookup_run_case, make_rules_in_prompt_run_case,  # noqa: E402
+                       make_batched_run_case, load_rules_txt)
 
 # label -> adapter subdir under adapters/, or None for the base model with no adapter
 LLM_SYSTEMS = [
@@ -77,6 +78,14 @@ def main():
     ap.add_argument("--base", default="Qwen/Qwen2.5-7B-Instruct")
     ap.add_argument("--n-runs", type=int, default=5)
     ap.add_argument("--out-dir", default=str(REPO / "evaluation"))
+    ap.add_argument("--batch-size", type=int, default=1,
+                    help="generation batch size for LocalHFClient-backed systems. "
+                         "1 = exact reproduction of pre-batching results (sequential "
+                         "generate(), byte-identical prompts/ctx). >1 pre-generates "
+                         "the whole battery for that system in one batched pass BEFORE "
+                         "evaluate_llm's scoring loop runs -- so the progress reporter "
+                         "will appear to jump from ~0%% to 100%% quickly once scoring "
+                         "starts, since all GPU time was already spent generating.")
     ap.add_argument("--rate-hint", type=float, default=0.25,
                     help="generations/sec used for the upfront runtime estimate "
                          "(observed ~0.2-0.28/s for 4-bit Qwen2.5-7B on this GPU "
@@ -133,10 +142,14 @@ def main():
                 torch.cuda.empty_cache()
             client = LocalHFClient(args.base, adapter_path=str(REPO / adapter_subdir), temperature=0.3)
 
-        run_case = make_rules_in_prompt_run_case(client, seed=0)
+        if args.batch_size > 1:
+            run_case = make_batched_run_case(client, TEST_CASES, args.n_runs, args.batch_size, seed=0)
+        else:
+            run_case = make_rules_in_prompt_run_case(client, seed=0)
         res = evaluate_llm(run_case, TEST_CASES, judge_client=judge, n_runs=args.n_runs,
                            progress_reporter=reporter)
-        fname = f"eval_expanded_{label.replace('qwen-swarm-', '')}.json"
+        suffix = f"_batch{args.batch_size}" if args.batch_size > 1 else ""
+        fname = f"eval_expanded_{label.replace('qwen-swarm-', '')}{suffix}.json"
         (out_dir / fname).write_text(json.dumps(res, indent=2))
         all_results[label] = res
         agg = res["aggregate"]

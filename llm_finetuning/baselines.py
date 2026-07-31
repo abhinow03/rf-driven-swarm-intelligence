@@ -142,6 +142,48 @@ def make_rules_in_prompt_run_case(client, seed: int = 0):
     return run_case
 
 
+def make_batched_run_case(client, test_cases: list, n_runs: int, batch_size: int, seed: int = 0):
+    """Step 2 of the throughput-optimization session (AUDIT.md sec U): a
+    run_case(case) -> (assessment, ctx) callback with the exact same signature
+    and RNG-driven ctx values as make_rules_in_prompt_run_case, but generated
+    via ONE batched pass through client.generate_batch instead of one call per
+    case per run.
+
+    evaluate_llm calls run_case(case) in a fixed order -- case-major, run-minor
+    (case1 x n_runs, then case2 x n_runs, ...), advancing a single shared
+    Random(seed) each call via synth_context(). This function pre-computes ALL
+    (case, run) ctx/prompt pairs up front in that SAME order (so the ctx text
+    for a given (case, run) is byte-identical to the unbatched path -- same rng
+    draws, same seed), generates every completion in one batched pass, then
+    replays them via a closure that just advances an index -- a drop-in
+    replacement for make_rules_in_prompt_run_case wherever batching is wanted.
+    """
+    rng = Random(seed)
+    ctxs, prompts = [], []
+    for case in test_cases:
+        for _ in range(n_runs):
+            ctx, key_windows = synth_context(case["formation_a"], case["formation_b"], rng)
+            preds = [{**kw, "time_start_s": 0, "time_end_s": 0, "formation_type": kw["formation"],
+                     "centroid_velocity": kw["velocity"], "approach_rate": kw["approach"],
+                     "formation_stability": kw["stability"], "formation_confidence": kw["confidence"],
+                     "role_differentiation": False, "transition_from": kw["from"],
+                     "transition_to": kw["to"]} for kw in key_windows]
+            ctxs.append(ctx)
+            prompts.append(build_llm_prompt(preds, ctx, {}))
+
+    assessments = (client.complete_batch(prompts, batch_size=batch_size) if batch_size > 1
+                  else [client.complete(p) for p in prompts])
+
+    call_idx = [0]
+
+    def run_case(case):
+        i = call_idx[0]
+        call_idx[0] += 1
+        return assessments[i], ctxs[i]
+
+    return run_case
+
+
 def load_rules_txt() -> str:
     with open(RULES_TXT_PATH) as f:
         return f.read()

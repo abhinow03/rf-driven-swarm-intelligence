@@ -46,6 +46,16 @@ def _extract_json(text: str) -> dict:
         raise
 
 
+def _parse_llm_response(text: str) -> dict:
+    """_extract_json wrapped in the same tolerant try/except complete() uses for
+    its final attempt -- shared so batched paths (no retry/backoff, since local
+    generation isn't network-flaky) parse identically to the single-call path."""
+    try:
+        return _extract_json(text)
+    except json.JSONDecodeError:
+        return {"error": "JSON parse failed"}
+
+
 class LLMClient:
     """Base interface. Implement ``generate(prompt) -> str``."""
 
@@ -62,7 +72,19 @@ class LLMClient:
                 time.sleep(2 ** attempt)
         return {"error": "unreachable"}
 
+    def complete_batch(self, prompts: list[str], batch_size: int = 8) -> list[dict]:
+        """Default: no batching support, falls back to sequential complete().
+        Clients that can batch (LocalHFClient) override generate_batch()."""
+        try:
+            raw = self.generate_batch(prompts, batch_size=batch_size)
+            return [_parse_llm_response(r) for r in raw]
+        except NotImplementedError:
+            return [self.complete(p) for p in prompts]
+
     def generate(self, prompt: str) -> str:  # pragma: no cover - interface
+        raise NotImplementedError
+
+    def generate_batch(self, prompts: list[str]) -> list[str]:  # pragma: no cover - interface
         raise NotImplementedError
 
 
@@ -132,3 +154,47 @@ class LocalHFClient(LLMClient):
             out = self.model.generate(**enc, max_new_tokens=self.max_new_tokens,
                                       pad_token_id=self.tok.eos_token_id, **sample_kwargs)
         return self.tok.decode(out[0][enc["input_ids"].shape[1]:], skip_special_tokens=True)
+
+    def generate_batch(self, prompts: list[str], batch_size: int = 1) -> list[str]:
+        """Batched generation: LEFT-padding (required for correct batched causal-LM
+        generation -- all sequences must end at the same position so the new-token
+        start offset is identical across the batch), prompts sorted by tokenized
+        length before chunking into `batch_size` groups to cut padding waste, then
+        restored to the caller's original order. Same message-building and
+        sampling settings as generate(), so a batch_size=1 call reproduces
+        generate()'s output distribution exactly (same seed/temperature aside)."""
+        import torch
+
+        old_padding_side = self.tok.padding_side
+        self.tok.padding_side = "left"
+        try:
+            all_messages = []
+            for prompt in prompts:
+                messages = ([{"role": "system", "content": self.system_prompt}]
+                           if self.system_prompt else [])
+                messages.append({"role": "user", "content": f"Return ONLY valid JSON.\n\n{prompt}"})
+                all_messages.append(messages)
+
+            # Sort by prompt length (not exact token count, but effectively monotonic
+            # with it) so each chunk pads to a similar length, not the global max.
+            order = sorted(range(len(prompts)), key=lambda i: len(prompts[i]))
+            results: list[Optional[str]] = [None] * len(prompts)
+            sample_kwargs = ({"do_sample": True, "temperature": self.temperature}
+                             if self.temperature > 0 else {"do_sample": False})
+
+            for start in range(0, len(order), batch_size):
+                chunk_idx = order[start:start + batch_size]
+                chunk_messages = [all_messages[i] for i in chunk_idx]
+                enc = self.tok.apply_chat_template(
+                    chunk_messages, add_generation_prompt=True, return_dict=True,
+                    return_tensors="pt", padding=True).to(self.model.device)
+                with torch.no_grad():
+                    out = self.model.generate(**enc, max_new_tokens=self.max_new_tokens,
+                                              pad_token_id=self.tok.eos_token_id, **sample_kwargs)
+                prompt_len = enc["input_ids"].shape[1]  # identical for every row: left-padded to one length
+                for row, i in enumerate(chunk_idx):
+                    results[i] = self.tok.decode(out[row][prompt_len:], skip_special_tokens=True)
+
+            return results
+        finally:
+            self.tok.padding_side = old_padding_side
