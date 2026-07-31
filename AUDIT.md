@@ -817,3 +817,69 @@ mode is more/more-diverse low-threat training examples, not more training steps 
 masking change; training `v4` on the existing `sft_train_final_abstain.jsonl` (which
 has the same ~4.8-examples-per-pair ceiling) would not be expected to fix it either,
 and was not attempted on that basis.
+
+## T. GPU memory benchmark — measured, not estimated (RTX 4090, 24GB)
+
+`scripts/bench_memory.py` measures `torch.cuda.max_memory_allocated()` for the two
+real workloads this box runs. Generation runs through the SAME `LocalHFClient`
+4-bit/fp16 path production eval uses; training runs through the SAME `SFTTrainer`
+path `train_qlora.py` uses (not a hand-rolled forward/backward — see the debugging
+note below on why that distinction mattered).
+
+| phase | grad_checkpointing | batch | peak GB | fits ≥15% headroom (≤19.98GB)? |
+|---|---|---|---|---|
+| train | False | 1 | 9.14 | YES |
+| train | False | 2 | 9.46 | YES |
+| train | False | 4 | 10.19 | YES |
+| train | False | 8 | 13.09 | YES |
+| train | True | 1 | 9.14 | YES |
+| train | True | 2 | 9.46 | YES |
+| train | True | 4 | 10.20 | YES |
+| train | True | 8 | 13.10 | YES |
+| generate | n/a | 1 | 5.76 | YES |
+| generate | n/a | 8 | 5.86 | YES |
+| generate | n/a | 16 | 6.11 | YES |
+| generate | n/a | 32 | 6.60 | YES |
+| generate | n/a | 64 | 7.58 | YES |
+
+**Every configuration tested fits comfortably** — even train batch=8 (13.1GB) and
+generate batch=64 (7.6GB) leave well over 15% headroom on a 24GB card. Nothing here
+needed to be estimated or extrapolated; all 13 rows are real measurements.
+
+**Two real bugs surfaced and were fixed while building this benchmark, both worth
+recording since they'd silently corrupt any future memory sweep that reused the same
+mistakes:**
+
+1. A hand-rolled forward/backward reimplementation (instead of going through the real
+   `SFTTrainer` path) used `padding="max_length"` fixed at 1024 tokens for every batch
+   regardless of actual content length. This alone produced a reproducible false OOM at
+   **batch=1** (22GB+ for a single sequence) — contradicting the fact that v2/v3a/
+   v3a-nomask/v3b/v3c had all just trained successfully at batch=1 on this exact GPU
+   minutes earlier. Real training rows are 668–813 tokens (mean 734); forcing every
+   benchmark sequence to 1024 combined with subtly different loss-computation memory
+   behavior outside the real trainer path produced numbers that had nothing to do with
+   reality. Fixed by routing the training benchmark through the actual `SFTTrainer`
+   class (same dynamic-padding collator as production).
+2. Reusing one Python process across all 8 (grad_checkpointing, batch_size) configs —
+   reloading a fresh model object between configs but staying in the same CUDA context —
+   leaked memory specifically **after a config OOM'd mid-step**: the next config's model
+   reload itself then OOM'd during `prepare_model_for_kbit_training` (21.95GB already "in
+   use" before the new model finished loading), because `del`/`gc.collect()`/
+   `empty_cache()` could not fully reclaim a trainer that failed mid-backward. Caught by
+   cross-checking one contaminated result (`grad_checkpointing=True batch=8`, which
+   crashed during the *next* config's load) against an isolated re-measurement — 13.10GB
+   clean vs an apparent OOM contaminated by the leak. Fixed by giving **every config its
+   own subprocess** (fresh CUDA context, not just a fresh model object) — costs a few
+   extra seconds of reload time per config but is the only way every number here is
+   actually trustworthy.
+
+**Interesting real finding, not guessed:** at this project's actual sequence lengths
+(~734 tokens mean) and LoRA-only backprop (base model frozen), `gradient_checkpointing`
+makes essentially **no measurable memory difference** (9.14/9.46/10.19–10.20/13.09–13.10
+GB, matching to within rounding at every batch size). This is plausible precisely
+*because* only ~40M LoRA parameters need gradients out of 7.6B total — there's
+comparatively little activation memory to trade away by checkpointing in the first
+place, unlike full fine-tuning where checkpointing's savings are much larger. This does
+not mean `gradient_checkpointing=True` should be dropped (step 5 keeps it per the
+session's request, and it costs nothing measurable here), just that it isn't doing the
+heavy lifting some might assume.
