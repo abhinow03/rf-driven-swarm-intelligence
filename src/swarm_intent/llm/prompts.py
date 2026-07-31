@@ -133,6 +133,14 @@ ORIGINAL_TEST_CASES = [
 # tested twice, once hand-written with narrative framing, once systematically --
 # not a bug). Includes all 7 steady-state (a==b) pairs and all 13 threat=="low"
 # (de-escalation) pairs, both of which ORIGINAL_TEST_CASES under-represented.
+#
+# IN-DISTRIBUTION CAVEAT (AUDIT.md sec J): llm_finetuning/check_training_coverage.py
+# confirms all three SFT files (sft_train_v2/final/final_abstain.jsonl) already cover
+# 49/49 of these RULES pairs. TEST_CASES (= ORIGINAL_TEST_CASES + this list) is
+# therefore a rule-table RECALL battery for every adapter trained on those files
+# (v2/v3a/v3a-nomask/v3b), NOT a held-out generalization test -- a 100% score here
+# is not evidence of generalization and should not be cited as such. The held-out
+# generalization test is llm_finetuning/holdout_shapes.py, not this file.
 RULES_COVERAGE_CASES = [
     {"name": "v_shape->v_shape", "formation_a": "v_shape", "formation_b": "v_shape",
      "expected_intent": "surveillance", "expected_threat": "medium",

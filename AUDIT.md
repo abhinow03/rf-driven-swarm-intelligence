@@ -421,3 +421,43 @@ irrelevant line in the same context. Neither shows up as `hallucination_rate>0` 
 `over_abstention_rate>0` in the aggregate; both are only visible by reading per-case
 majority-vote fields against `RULES` by hand, which this section did but no automated
 metric in this codebase currently does.
+
+## J. The 55-case battery is in-distribution — its 100% scores are recall, not generalization
+
+`qwen-swarm-v2` scored 100.00% ± 0.00% `accuracy_when_answerable` on the 55-case
+`TEST_CASES` battery (identical to `rules_lookup`, the symbolic oracle) across all 5
+runs. Before citing that number, `llm_finetuning/check_training_coverage.py` was
+written to check the obvious confound: does v2's training data already contain every
+`(formation_a, formation_b)` pair the battery tests?
+
+The script parses `Dominant formation:` / `Formation history:` out of each row's user
+message in the three SFT files (`build_sft_dataset.py`'s `synth_context()` writes both
+deterministically, so the exact `(form_a, form_b)` pair each training row was sampled
+for can be recovered exactly, not inferred) and cross-references against the 49 keys
+of `RULES` (a complete function over `BASE_FORMATIONS × BASE_FORMATIONS`, 7×7=49 — see
+`CLAUDE.md`).
+
+| training file | rows | RULES pairs covered | examples per covered pair (min/mean/max) |
+|---|---|---|---|
+| `sft_train_v2.jsonl` (trains v2) | 810 | **49/49 (100%)** | 8 / 16.5 / 28 |
+| `sft_train_final.jsonl` (trains v3a, v3a-nomask) | 234 | **49/49 (100%)** | 1 / 4.8 / 11 |
+| `sft_train_final_abstain.jsonl` (trains v3b) | 270 (32 rows are OOV/held-out-shape, non-pair) | **49/49 (100%)** | 1 / 4.9 / 11 |
+
+**All three files — meaning every adapter evaluated in section headline tables,
+not just v2 — already cover 100% of the 49 RULES pairs the 55-case `TEST_CASES`
+battery draws on.** Every `RULES_COVERAGE_CASES` entry has a same-pair counterpart
+somewhere in that adapter's training data (though not a byte-identical row: the
+random `delta_v`/`approach_rate`/`stability` floats and window text differ per
+`synth_context()` call, so this is rule-table-pair recall under a noisy surface
+form, not verbatim example memorization).
+
+**Conclusion: `TEST_CASES` (`ORIGINAL_TEST_CASES + RULES_COVERAGE_CASES`) is a
+rule-table RECALL battery for every fine-tuned system in this project, not a
+generalization test.** v2's 100% — and the other adapters' `accuracy_when_answerable`
+figures on this same battery (section headline tables, step 3/4) — should be reported
+as "recall of the trained rule table," not cited as evidence of generalization. This
+caveat is now recorded in code comments at `src/swarm_intent/llm/prompts.py`
+(`RULES_COVERAGE_CASES`) and `llm_finetuning/run_headline_eval.py`. The actual
+generalization test in this project remains `llm_finetuning/holdout_shapes.py` (AUDIT.md
+secs G/I), whose three shapes are verified absent from training data by string search —
+`TEST_CASES` makes no such claim and never has.

@@ -5,6 +5,14 @@ instead of the original 6. Same evaluate_llm() harness, same n_runs, so results 
 directly comparable to run_4way_eval.py's numbers in kind (not magnitude -- 55 cases
 is a different, larger, more representative sample of RULES than 6).
 
+IN-DISTRIBUTION CAVEAT (AUDIT.md sec J): this battery covers 49/49 RULES pairs, and
+so does every SFT training file (sft_train_v2/final/final_abstain.jsonl) -- see
+llm_finetuning/check_training_coverage.py. For qwen-swarm-v2/v3a/v3a-nomask/v3b this
+is therefore a rule-table RECALL battery, not a generalization test. High
+accuracy_when_answerable here should be reported as "recall on the trained rule
+table," not "generalization accuracy." The generalization test is
+llm_finetuning/holdout_shapes.py.
+
 Systems: rules_lookup, base, rules_in_prompt, qwen-swarm-v2, qwen-swarm-v3a,
 qwen-swarm-v3a-nomask, qwen-swarm-v3b -- the full set this session's ablation
 produced. rules_lookup is excluded from the shared progress Reporter (its "units"
