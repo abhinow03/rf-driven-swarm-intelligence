@@ -1009,3 +1009,79 @@ token). **Batching is confirmed safe to adopt elsewhere in this project's eval/
 degradation runners** — this check was the gate for doing so, per the session's
 explicit instruction not to mix batched and unbatched results in the same comparison
 table without it passing first.
+
+## Y. Logit inspection — the low-threat collapse is MIXED: calibration for v3b, partly genuine gap for v3a
+
+(Note on lettering: the requesting session asked for "section T" — already claimed by
+sec T earlier the same day (throughput session). Using the next free letter, Y.)
+
+`llm_finetuning/logit_inspection.py` greedily generates each case's real completion,
+locates the exact token position where `"threat_level": "`'s value begins, and does
+sequence-scored teacher-forcing over the four candidate strings (handles multi-token
+candidates correctly) to get `P(low)/P(medium)/P(high)/P(critical)` — a distribution
+over the four candidates, not the full vocabulary. Then applies a logit-prior
+correction (`corrected_logP(c) = raw_logP(c) - log(train_freq(c))`, each model's own
+training file's class frequency) and re-scores.
+
+**v3a — 15 low-threat cases:**
+
+| case | P(low) | P(medium) | raw | corrected |
+|---|---|---|---|---|
+| Stable Patrol | 51.1% | 48.8% | low | low |
+| Breaking Contact | 73.7% | 26.3% | low | low |
+| column→column | 51.1% | 48.8% | low | low |
+| diamond→diamond | 56.1% | 43.7% | low | low |
+| dispersed→dispersed | 70.2% | 29.7% | low | low |
+| converging→dispersed | 73.7% | 26.3% | low | low |
+| diamond→column | 43.4% | 56.6% | medium | **low** (flipped) |
+| encirclement→column | **7.0%** | 84.3% | medium | medium |
+| encirclement→dispersed | **13.7%** | 84.2% | medium | medium |
+| converging→column | 15.5% | 83.7% | medium | medium |
+| v_shape→column | 27.7% | 71.9% | medium | medium |
+| v_shape→dispersed | 32.6% | 66.9% | medium | medium |
+| column→dispersed | **10.9%** | 88.2% | medium | medium |
+| dispersed→column | **8.6%** | 86.6% | medium | medium |
+| shield→dispersed | **9.3%** | 89.3% | medium | medium |
+
+v3a low-threat accuracy: raw (greedy) **40.0%** → corrected **46.7%** (+6.7pts, n=15).
+
+**v3b — same 15 cases:** raw (greedy) **53.3%** → corrected **86.7%** (+33.4pts, n=15) —
+only `encirclement→column` and `encirclement→dispersed` remain wrong after correction
+(both stuck with `P(low)` in the 19–22% range, not competitive even after the prior
+shift).
+
+**Critical (n=2, both models):** raw 0.0% → corrected 50.0%. `converging→encirclement`
+flips to the correct `critical` after correction (both models). `encirclement→converging`
+stays `high` in both models even after correction — `P(critical)` raw is only 5.4–7.7%,
+nowhere close to competitive.
+
+**Verdict — stated plainly, and it does NOT collapse into a clean binary:**
+
+- **For v3b, this is predominantly a decoding/calibration problem.** A simple, free
+  prior correction recovers low-threat accuracy from 53.3% to 86.7% — 13/15 cases. The
+  v4 coverage-aware data pipeline is **not justified by this evidence** as the fix for
+  v3b's low-threat collapse; a cheap decoding-time correction gets most of the way
+  there already.
+- **For v3a, the picture is genuinely mixed, not purely calibration.** 6/15 cases
+  already have `P(low)` winning even under raw greedy decoding (never showed up in the
+  n_runs=5 sampled-decode collapse because temperature=0.3 sampling doesn't always pick
+  the argmax). Of the 9 that fail raw, correction only flips 1 (`diamond→column`). The
+  remaining **8 cases have `P(low)` genuinely crushed to 7–33%** against `medium`'s
+  67–89% — several of these (7.0%, 8.6%, 9.3%, 10.9%) are far too lopsided for any
+  single constant log-prior shift to fix (the correction here is a fixed
+  `log(0.470/0.248) ≈ 0.64` nats added to `low`'s log-odds against `medium` — nowhere
+  near enough to overturn a 7%/84% split). **For v3a specifically, roughly half the
+  low-threat failures look like a genuine knowledge gap, not a decoding artifact** — the
+  v4 program has real justification here, though scoped to a subset of pairs
+  (`encirclement→*`, `*→column`, `*→dispersed` are overrepresented among the
+  unrecoverable cases), not the whole low-threat class uniformly.
+- **Critical-threat evidence (n=2) is too thin to generalize**, but is directionally
+  consistent: one direction (`converging→encirclement`) is calibration-fixable, the
+  other (`encirclement→converging`) shows a genuine near-zero `P(critical)` even under
+  correction.
+
+**Net: this test does not give a single "build v4" / "don't build v4" answer — it gives
+a much more precise one. The v4 case is weak for v3b (mostly free via calibration) and
+real but narrower than "the whole low-threat class" for v3a (concentrated in specific
+pair patterns the model's raw distribution treats as confidently wrong, not merely
+under-preferred).**
