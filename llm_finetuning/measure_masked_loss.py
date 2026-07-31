@@ -158,6 +158,13 @@ def main():
                           "confound from the default per-adapter-own-val-set plan) and writes "
                           "the result under a 'common_heldout' key, merged into --out rather "
                           "than overwriting its existing 'rows' key.")
+    ap.add_argument("--extra-adapters", default=None,
+                     help="comma-separated adapter directory names under adapters/ (e.g. "
+                          "'qwen-swarm-v3a,qwen-swarm-v3b') to ADD to the --common-heldout run, "
+                          "on top of (not instead of) base/qwen-swarm/qwen-swarm-v2. Results are "
+                          "merged into the existing common_heldout.rows list by system name "
+                          "(update-or-append), so previously-measured systems in --out are kept "
+                          "without re-measuring them.")
     args = ap.parse_args()
 
     import torch
@@ -179,14 +186,18 @@ def main():
     base_model = AutoModelForCausalLM.from_pretrained(args.base, quantization_config=bnb, device_map="auto")
     device = base_model.device
 
+    extra_adapters = args.extra_adapters.split(",") if args.extra_adapters else []
+
     print("wrapping with PEFT (multi-adapter, switchable) ...", flush=True)
     peft_model = PeftModel.from_pretrained(base_model, str(REPO / "adapters/qwen-swarm"),
                                             adapter_name="qwen-swarm")
     peft_model.load_adapter(str(REPO / "adapters/qwen-swarm-v2"), adapter_name="qwen-swarm-v2")
+    for name in extra_adapters:
+        peft_model.load_adapter(str(REPO / "adapters" / name), adapter_name=name)
 
     if args.common_heldout:
         heldout_path = REPO / args.common_heldout
-        plan = [
+        plan = [(name, name, heldout_path) for name in extra_adapters] if extra_adapters else [
             ("base (no adapter)", None, heldout_path),
             ("qwen-swarm", "qwen-swarm", heldout_path),
             ("qwen-swarm-v2", "qwen-swarm-v2", heldout_path),
@@ -226,13 +237,17 @@ def main():
                          "sec B). Both are token-count-weighted means across all scored rows, not a "
                          "mean of per-row means.")
     if args.common_heldout:
+        prior = existing.get("common_heldout", {}).get("rows", [])
+        by_system = {r["system"]: r for r in prior}
+        for r in results:
+            by_system[r["system"]] = r  # update-or-append, never silently drop a prior system
         existing["common_heldout"] = {
             "val_file": args.common_heldout,
-            "note": ("All three systems scored on the SAME file, which none of them trained on "
+            "note": ("All systems scored on the SAME file, which none of them trained on "
                      "(sft_train_final.jsonl/_val is 100% teacher prose, built after and separately "
                      "from qwen-swarm/qwen-swarm-v2's training data) — removes the different-val-set "
                      "confound present in the per-adapter-own-val-set 'rows' above."),
-            "rows": results,
+            "rows": list(by_system.values()),
         }
     else:
         existing["rows"] = results

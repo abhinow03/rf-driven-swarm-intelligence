@@ -57,7 +57,7 @@
   ],
   "common_heldout": {
     "val_file": "data/sft_train_final_val.jsonl",
-    "note": "All three systems scored on the SAME file, which none of them trained on (sft_train_final.jsonl/_val is 100% teacher prose, built after and separately from qwen-swarm/qwen-swarm-v2's training data) \u2014 removes the different-val-set confound present in the per-adapter-own-val-set 'rows' above.",
+    "note": "All systems scored on the SAME file, which none of them trained on (sft_train_final.jsonl/_val is 100% teacher prose, built after and separately from qwen-swarm/qwen-swarm-v2's training data) \u2014 removes the different-val-set confound present in the per-adapter-own-val-set 'rows' above.",
     "rows": [
       {
         "system": "base (no adapter)",
@@ -94,6 +94,32 @@
         "n_rows_skipped_empty_assistant_span": 0,
         "masked_loss_assistant_only": 0.9694924457042812,
         "unmasked_loss_full_sequence": 0.32373000141674424,
+        "assistant_token_pct_mean": 28.505113469614756,
+        "total_assistant_tokens_scored": 5490,
+        "total_sequence_tokens_scored": 19166
+      },
+      {
+        "system": "qwen-swarm-v3a",
+        "val_file": "data/sft_train_final_val.jsonl",
+        "n_rows_total": 26,
+        "n_rows_scored": 26,
+        "n_rows_skipped_boundary_mismatch": 0,
+        "n_rows_skipped_empty_assistant_span": 0,
+        "masked_loss_assistant_only": 0.4971001116087311,
+        "unmasked_loss_full_sequence": 1.8073914217498597,
+        "assistant_token_pct_mean": 28.505113469614756,
+        "total_assistant_tokens_scored": 5490,
+        "total_sequence_tokens_scored": 19166
+      },
+      {
+        "system": "qwen-swarm-v3b",
+        "val_file": "data/sft_train_final_val.jsonl",
+        "n_rows_total": 26,
+        "n_rows_scored": 26,
+        "n_rows_skipped_boundary_mismatch": 0,
+        "n_rows_skipped_empty_assistant_span": 0,
+        "masked_loss_assistant_only": 0.5004801699806867,
+        "unmasked_loss_full_sequence": 1.948849666595061,
         "assistant_token_pct_mean": 28.505113469614756,
         "total_assistant_tokens_scored": 5490,
         "total_sequence_tokens_scored": 19166
