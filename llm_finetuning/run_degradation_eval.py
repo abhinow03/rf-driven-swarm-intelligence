@@ -57,10 +57,10 @@ def run_system(label: str, run_case, battery: dict, judge, n_runs: int) -> dict:
             n_gt, n_no_gt = agg["n_cases_with_ground_truth"], agg["n_cases_without_ground_truth"]
             gt = f"{n_gt}gt/{n_no_gt}no-gt" if (n_gt and n_no_gt) else ("gt" if n_gt else "no-gt")
             print(f"    {axis} sev={severity} ({gt}): "
-                  f"intent={_fmt(agg['mean_intent_accuracy'])} "
-                  f"correct_abstain={_fmt(agg['mean_correct_abstention_rate'])} "
-                  f"halluc={_fmt(agg['mean_hallucination_rate'])} "
-                  f"abstain={_fmt(agg['mean_abstention_rate'])}", flush=True)
+                  f"acc_when_answerable={_fmt(agg['accuracy_when_answerable'])} "
+                  f"abstain_when_unanswerable={_fmt(agg['abstention_rate_when_unanswerable'])} "
+                  f"over_abstain={_fmt(agg['over_abstention_rate'])} "
+                  f"halluc={_fmt(agg['mean_hallucination_rate'])}", flush=True)
         out["axes"][axis] = axis_results
     return out
 
@@ -125,6 +125,14 @@ def main():
     all_results["qwen-swarm-v2"] = res
 
     print("\n\n=== PER-AXIS SUMMARY (n_runs={}) ===".format(args.n_runs))
+    print("NOTE: rules_lookup's abstention on multi_hop/terminal_transitioning is BY")
+    print("CONSTRUCTION -- RULES has no key for those inputs, so it cannot do anything")
+    print("else. That is not a measured behaviour, it's the baseline's definition.")
+    print("Three decomposed metrics per cell (never one blended number -- a cell can")
+    print("mix has_ground_truth=True/False cases, e.g. dropped_lines):")
+    print("  acc      = accuracy_when_answerable          (N/A if no gt cases in cell)")
+    print("  abstain  = abstention_rate_when_unanswerable  (N/A if no non-gt cases in cell)")
+    print("  overabst = over_abstention_rate                (abstaining on answerable cases)")
     for axis in battery:
         print(f"\n--- {axis} ---")
         severities = [s for s, _ in group_by_severity(battery[axis])]
@@ -135,10 +143,11 @@ def main():
             cells = []
             for sev_block in res["axes"][axis]:
                 agg = sev_block["aggregate"]
-                metric = (agg["mean_intent_accuracy"] if agg["n_cases_with_ground_truth"] > 0
-                         else agg["mean_correct_abstention_rate"])
-                cells.append(_fmt(metric))
-            print(f"| {system} | " + " | ".join(cells) + " |")
+                cells.append(f"acc={_fmt(agg['accuracy_when_answerable'])} "
+                            f"abstain={_fmt(agg['abstention_rate_when_unanswerable'])} "
+                            f"overabst={_fmt(agg['over_abstention_rate'])}")
+            note = "  <- by construction" if system == "rules_lookup" else ""
+            print(f"| {system} | " + " | ".join(cells) + f" |{note}")
 
 
 if __name__ == "__main__":

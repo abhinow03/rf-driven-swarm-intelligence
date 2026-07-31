@@ -2,13 +2,16 @@
 Plots evaluation/degradation_curves.png from evaluation/degradation_{system}.json --
 one panel per axis, four curves (one per system), severity on x.
 
-Y-axis is a blended "success rate": for each (system, axis, severity) cell,
-weight-averages mean_intent_accuracy (over cases that HAD a ground-truth answer)
-with mean_correct_abstention_rate (over cases that did NOT), weighted by how many
-cases of each kind were in that cell. This is the single number that answers "did
-the system do the objectively correct thing" whether "correct" means matching the
-expected intent or correctly abstaining -- computed from evaluate_llm's own
-aggregate fields, not a new scoring rule.
+Y-axis is a blended "success rate", for VISUALIZATION ONLY -- the underlying
+numbers evaluate_llm reports are NOT blended (see evaluate.py's module
+docstring: accuracy_when_answerable, abstention_rate_when_unanswerable and
+over_abstention_rate are three separate, always-computed fields precisely so
+a cell that mixes has_ground_truth=True/False cases doesn't get one metric
+silently dropped). This plot weight-averages accuracy_when_answerable with
+abstention_rate_when_unanswerable, weighted by how many cases of each kind
+were in that cell, into one line so five axes fit in one figure. For the real
+per-metric numbers (including over_abstention_rate, which this plot does not
+show at all), read the JSON directly or run run_degradation_eval.py's summary.
 
 Colors: fixed categorical assignment (not re-ordered by rank/performance), from the
 project's validated palette -- same color for the same system in every panel.
@@ -55,8 +58,8 @@ def blended_success(agg: dict):
     total = n_gt + n_no_gt
     if total == 0:
         return None
-    gt_part = (agg["mean_intent_accuracy"] or 0.0) * n_gt
-    no_gt_part = (agg["mean_correct_abstention_rate"] or 0.0) * n_no_gt
+    gt_part = (agg["accuracy_when_answerable"] or 0.0) * n_gt
+    no_gt_part = (agg["abstention_rate_when_unanswerable"] or 0.0) * n_no_gt
     return 100.0 * (gt_part + no_gt_part) / total
 
 

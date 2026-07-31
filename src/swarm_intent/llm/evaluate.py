@@ -27,6 +27,23 @@ KEY FIX over the original eval (see CODE_REVIEW.md):
     that have no defensible expected answer, correct behaviour IS abstention.
     These cases skip intent/threat/action accuracy (there's nothing to compare
     against) and instead report correct_abstention_rate.
+  * DECOMPOSED METRICS (not a single blended number): a severity group can mix
+    has_ground_truth=True and False cases (e.g. degradation.py's dropped_lines
+    axis, where whether the transition line survives is per-case), so picking
+    ONE of mean_intent_accuracy / mean_correct_abstention_rate per cell silently
+    drops whichever case type is a minority in that cell. The aggregate reports
+    three separate, always-computed fields instead:
+      - accuracy_when_answerable: intent accuracy, scored ONLY over
+        has_ground_truth=True cases (alias of mean_intent_accuracy).
+      - abstention_rate_when_unanswerable: how often the system abstained on
+        has_ground_truth=False cases -- abstaining there IS correct, so this
+        doubles as "correct abstention rate" (alias of mean_correct_abstention_rate).
+      - over_abstention_rate (NEW): how often the system abstained on
+        has_ground_truth=True cases, i.e. cases it should have been able to
+        answer. This was previously invisible -- mean_abstention_rate blended
+        it with abstention_rate_when_unanswerable into one number that couldn't
+        distinguish "correctly declined an unanswerable case" from "wrongly
+        declined an answerable one."
 """
 from __future__ import annotations
 
@@ -141,14 +158,25 @@ def evaluate_llm(run_case: Callable[[dict], tuple],
 
     gt_results = [r for r in results if r["has_ground_truth"]]
     no_gt_results = [r for r in results if not r["has_ground_truth"]]
+    accuracy_when_answerable = mean_or_none("intent_accuracy")
+    abstention_rate_when_unanswerable = (float(np.mean([r["correct_abstention_rate"] for r in no_gt_results]))
+                                         if no_gt_results else None)
+    over_abstention_rate = (float(np.mean([r["abstention_rate"] for r in gt_results]))
+                            if gt_results else None)
     agg = {
-        "mean_intent_accuracy": mean_or_none("intent_accuracy"),
+        # Decomposed metrics -- see module docstring. Always compute all three;
+        # never pick one per cell based on which case type dominates.
+        "accuracy_when_answerable": accuracy_when_answerable,
+        "abstention_rate_when_unanswerable": abstention_rate_when_unanswerable,
+        "over_abstention_rate": over_abstention_rate,
         "mean_threat_accuracy": mean_or_none("threat_accuracy"),
         "mean_action_accuracy": mean_or_none("action_accuracy"),
         "mean_hallucination_rate": mean_or_none("hallucination_rate"),
         "mean_abstention_rate": mean_or_none("abstention_rate"),
-        "mean_correct_abstention_rate": (float(np.mean([r["correct_abstention_rate"] for r in no_gt_results]))
-                                         if no_gt_results else None),
+        # Kept as aliases of the two fields above for backward compatibility with
+        # existing readers (run_degradation_eval.py, plot_degradation.py, tests).
+        "mean_intent_accuracy": accuracy_when_answerable,
+        "mean_correct_abstention_rate": abstention_rate_when_unanswerable,
         "n_cases": len(results), "n_cases_with_ground_truth": len(gt_results),
         "n_cases_without_ground_truth": len(no_gt_results), "n_runs": n_runs,
     }

@@ -15,7 +15,10 @@
           "n_cases": 6,
           "n_cases_with_ground_truth": 6,
           "n_cases_without_ground_truth": 0,
-          "n_runs": 5
+          "n_runs": 5,
+          "accuracy_when_answerable": 1.0,
+          "abstention_rate_when_unanswerable": null,
+          "over_abstention_rate": 0.0
         },
         "per_case": [
           {
@@ -128,7 +131,10 @@
           "n_cases": 6,
           "n_cases_with_ground_truth": 0,
           "n_cases_without_ground_truth": 6,
-          "n_runs": 5
+          "n_runs": 5,
+          "accuracy_when_answerable": null,
+          "abstention_rate_when_unanswerable": 1.0,
+          "over_abstention_rate": null
         },
         "per_case": [
           {
@@ -241,7 +247,10 @@
           "n_cases": 6,
           "n_cases_with_ground_truth": 0,
           "n_cases_without_ground_truth": 6,
-          "n_runs": 5
+          "n_runs": 5,
+          "accuracy_when_answerable": null,
+          "abstention_rate_when_unanswerable": 1.0,
+          "over_abstention_rate": null
         },
         "per_case": [
           {
@@ -356,7 +365,10 @@
           "n_cases": 6,
           "n_cases_with_ground_truth": 0,
           "n_cases_without_ground_truth": 6,
-          "n_runs": 5
+          "n_runs": 5,
+          "accuracy_when_answerable": null,
+          "abstention_rate_when_unanswerable": 1.0,
+          "over_abstention_rate": null
         },
         "per_case": [
           {
@@ -469,7 +481,10 @@
           "n_cases": 6,
           "n_cases_with_ground_truth": 0,
           "n_cases_without_ground_truth": 6,
-          "n_runs": 5
+          "n_runs": 5,
+          "accuracy_when_answerable": null,
+          "abstention_rate_when_unanswerable": 1.0,
+          "over_abstention_rate": null
         },
         "per_case": [
           {
@@ -582,7 +597,10 @@
           "n_cases": 6,
           "n_cases_with_ground_truth": 0,
           "n_cases_without_ground_truth": 6,
-          "n_runs": 5
+          "n_runs": 5,
+          "accuracy_when_answerable": null,
+          "abstention_rate_when_unanswerable": 1.0,
+          "over_abstention_rate": null
         },
         "per_case": [
           {
@@ -697,7 +715,10 @@
           "n_cases": 6,
           "n_cases_with_ground_truth": 6,
           "n_cases_without_ground_truth": 0,
-          "n_runs": 5
+          "n_runs": 5,
+          "accuracy_when_answerable": 1.0,
+          "abstention_rate_when_unanswerable": null,
+          "over_abstention_rate": 0.0
         },
         "per_case": [
           {
@@ -810,7 +831,10 @@
           "n_cases": 6,
           "n_cases_with_ground_truth": 6,
           "n_cases_without_ground_truth": 0,
-          "n_runs": 5
+          "n_runs": 5,
+          "accuracy_when_answerable": 1.0,
+          "abstention_rate_when_unanswerable": null,
+          "over_abstention_rate": 0.0
         },
         "per_case": [
           {
@@ -923,7 +947,10 @@
           "n_cases": 6,
           "n_cases_with_ground_truth": 6,
           "n_cases_without_ground_truth": 0,
-          "n_runs": 5
+          "n_runs": 5,
+          "accuracy_when_answerable": 1.0,
+          "abstention_rate_when_unanswerable": null,
+          "over_abstention_rate": 0.0
         },
         "per_case": [
           {
@@ -1036,7 +1063,10 @@
           "n_cases": 6,
           "n_cases_with_ground_truth": 6,
           "n_cases_without_ground_truth": 0,
-          "n_runs": 5
+          "n_runs": 5,
+          "accuracy_when_answerable": 1.0,
+          "abstention_rate_when_unanswerable": null,
+          "over_abstention_rate": 0.0
         },
         "per_case": [
           {
@@ -1149,7 +1179,10 @@
           "n_cases": 6,
           "n_cases_with_ground_truth": 6,
           "n_cases_without_ground_truth": 0,
-          "n_runs": 5
+          "n_runs": 5,
+          "accuracy_when_answerable": 1.0,
+          "abstention_rate_when_unanswerable": null,
+          "over_abstention_rate": 0.0
         },
         "per_case": [
           {
@@ -1264,7 +1297,10 @@
           "n_cases": 6,
           "n_cases_with_ground_truth": 6,
           "n_cases_without_ground_truth": 0,
-          "n_runs": 5
+          "n_runs": 5,
+          "accuracy_when_answerable": 1.0,
+          "abstention_rate_when_unanswerable": null,
+          "over_abstention_rate": 0.0
         },
         "per_case": [
           {
@@ -1377,7 +1413,10 @@
           "n_cases": 6,
           "n_cases_with_ground_truth": 3,
           "n_cases_without_ground_truth": 3,
-          "n_runs": 5
+          "n_runs": 5,
+          "accuracy_when_answerable": 1.0,
+          "abstention_rate_when_unanswerable": 1.0,
+          "over_abstention_rate": 0.0
         },
         "per_case": [
           {
@@ -1490,7 +1529,10 @@
           "n_cases": 6,
           "n_cases_with_ground_truth": 5,
           "n_cases_without_ground_truth": 1,
-          "n_runs": 5
+          "n_runs": 5,
+          "accuracy_when_answerable": 1.0,
+          "abstention_rate_when_unanswerable": 1.0,
+          "over_abstention_rate": 0.0
         },
         "per_case": [
           {
@@ -1603,7 +1645,10 @@
           "n_cases": 6,
           "n_cases_with_ground_truth": 4,
           "n_cases_without_ground_truth": 2,
-          "n_runs": 5
+          "n_runs": 5,
+          "accuracy_when_answerable": 1.0,
+          "abstention_rate_when_unanswerable": 1.0,
+          "over_abstention_rate": 0.0
         },
         "per_case": [
           {
@@ -1718,7 +1763,10 @@
           "n_cases": 6,
           "n_cases_with_ground_truth": 6,
           "n_cases_without_ground_truth": 0,
-          "n_runs": 5
+          "n_runs": 5,
+          "accuracy_when_answerable": 1.0,
+          "abstention_rate_when_unanswerable": null,
+          "over_abstention_rate": 0.0
         },
         "per_case": [
           {
@@ -1831,7 +1879,10 @@
           "n_cases": 6,
           "n_cases_with_ground_truth": 6,
           "n_cases_without_ground_truth": 0,
-          "n_runs": 5
+          "n_runs": 5,
+          "accuracy_when_answerable": 1.0,
+          "abstention_rate_when_unanswerable": null,
+          "over_abstention_rate": 0.0
         },
         "per_case": [
           {
@@ -1944,7 +1995,10 @@
           "n_cases": 6,
           "n_cases_with_ground_truth": 6,
           "n_cases_without_ground_truth": 0,
-          "n_runs": 5
+          "n_runs": 5,
+          "accuracy_when_answerable": 1.0,
+          "abstention_rate_when_unanswerable": null,
+          "over_abstention_rate": 0.0
         },
         "per_case": [
           {
@@ -2046,5 +2100,6 @@
         ]
       }
     ]
-  }
+  },
+  "note": "rules_lookup's abstention on multi_hop (severity>=3) and terminal_transitioning (all severities) is BY CONSTRUCTION: RULES (build_sft_dataset.py) has no key for those inputs, so it structurally cannot do anything else. This is the baseline's definition, not a measured behaviour -- see degradation.py's module docstring."
 }
