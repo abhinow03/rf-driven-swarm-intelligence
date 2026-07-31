@@ -712,3 +712,38 @@ collapsing, most plausibly for the sample-size reasons in sec O). If `v3b`'s
 abstention behavior (secs G/I/K) is specifically what's being demonstrated, be aware it
 inherits the same near-total low-threat failure as v3a — pick a demo scenario
 deliberately, not one drawn at random from `low`-threat inputs.
+
+## S. Field-structure check — does `likely_intent` survive low-data fine-tuning better than `threat_level`/`recommended_action`?
+
+(Note on lettering: the requesting session asked for this to be appended as "section
+Q" — that letter was already used for sec Q above, "Demo impact," written earlier in
+the same day's work before this request arrived. Using the next free letter, S,
+instead of renumbering what's already committed.)
+
+`llm_finetuning/report_field_structure.py` puts `mean_intent_accuracy`,
+`mean_threat_accuracy`, `mean_action_accuracy` side by side for every system
+evaluated on the 55-case battery, to test whether `likely_intent` (whose correct
+values often lexically echo the input formation names — e.g. `encircle` for an
+`encirclement` transition) is systematically easier to learn from limited data than
+`threat_level`/`recommended_action` (which require applying the full arbitrary RULES
+mapping with no lexical shortcut).
+
+| system | intent | threat | action | intent > threat | intent > action |
+|---|---|---|---|---|---|
+| `rules_lookup` | 100.0% | 100.0% | 100.0% | n/a (ceiling) | n/a (ceiling) |
+| `base` | 25.8% | 50.5% | 19.6% | **no** | yes |
+| `rules_in_prompt` | 59.3% | 57.5% | 69.5% | yes | **no** |
+| `qwen-swarm-v2` | 100.0% | 94.5% | 99.3% | yes | yes |
+| `qwen-swarm-v3a` | 68.7% | 56.4% | 44.7% | yes | yes |
+| `qwen-swarm-v3a-nomask` | 55.3% | 57.1% | 50.9% | **no** (by 1.8pts) | yes |
+| `qwen-swarm-v3b` | 77.5% | 61.1% | 63.3% | yes | yes |
+
+**The pattern does not hold universally — it is not a clean rule.** `intent > threat`
+in 4/6 non-oracle systems (fails for `base` and `v3a-nomask`, the latter only by 1.8
+points); `intent > action` in 5/6 (fails for `rules_in_prompt`). It holds for every
+*fine-tuned* adapter except `v3a-nomask`'s near-tie on `threat`, and fails for both
+non-fine-tuned baselines in different directions (`base` has weaker intent than
+threat; `rules_in_prompt` has weaker intent than action) — so the "lexically-
+recoverable fields survive" story is a reasonable read **for the fine-tuned adapters
+specifically**, not a fact about the task's field structure in general that would hold
+for any system reading these prompts.
