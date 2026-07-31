@@ -34,6 +34,7 @@ sys.path.insert(0, str(REPO / "llm_finetuning"))
 from swarm_intent.llm.client import GroqClient, LocalHFClient  # noqa: E402
 from swarm_intent.llm.evaluate import evaluate_llm  # noqa: E402
 from swarm_intent.llm.prompts import TEST_CASES  # noqa: E402
+from swarm_intent.progress import Reporter  # noqa: E402
 
 from baselines import load_rules_txt  # noqa: E402
 from degradation import build_battery, make_rules_lookup_battery_run_case, make_llm_battery_run_case  # noqa: E402
@@ -46,12 +47,13 @@ def group_by_severity(cases: list[dict]) -> list[tuple]:
     return sorted(by_sev.items(), key=lambda kv: (isinstance(kv[0], str), kv[0]))
 
 
-def run_system(label: str, run_case, battery: dict, judge, n_runs: int) -> dict:
+def run_system(label: str, run_case, battery: dict, judge, n_runs: int, reporter=None) -> dict:
     out = {"system": label, "n_runs": n_runs, "axes": {}}
     for axis, cases in battery.items():
         axis_results = []
         for severity, sev_cases in group_by_severity(cases):
-            res = evaluate_llm(run_case, sev_cases, judge_client=judge, n_runs=n_runs)
+            res = evaluate_llm(run_case, sev_cases, judge_client=judge, n_runs=n_runs,
+                               progress_reporter=reporter)
             agg = res["aggregate"]
             axis_results.append({"severity": severity, "aggregate": agg, "per_case": res["per_case"]})
             n_gt, n_no_gt = agg["n_cases_with_ground_truth"], agg["n_cases_without_ground_truth"]
@@ -91,23 +93,27 @@ def main():
     out_dir.mkdir(parents=True, exist_ok=True)
     all_results = {}
 
+    n_battery_cases = sum(len(cases) for cases in battery.values())
+    n_systems = 4
+    reporter = Reporter("run_degradation_eval", n_battery_cases * args.n_runs * n_systems)
+
     print("\n=== rules_lookup (no model call) ===")
     run_case = make_rules_lookup_battery_run_case()
-    res = run_system("rules_lookup", run_case, battery, judge, args.n_runs)
+    res = run_system("rules_lookup", run_case, battery, judge, args.n_runs, reporter=reporter)
     (out_dir / "degradation_rules_lookup.json").write_text(json.dumps(res, indent=2))
     all_results["rules_lookup"] = res
 
     print("\n=== base (no adapter) ===")
     base_client = LocalHFClient(args.base, adapter_path=None, temperature=0.3)
     run_case = make_llm_battery_run_case(base_client)
-    res = run_system("base", run_case, battery, judge, args.n_runs)
+    res = run_system("base", run_case, battery, judge, args.n_runs, reporter=reporter)
     (out_dir / "degradation_base.json").write_text(json.dumps(res, indent=2))
     all_results["base"] = res
 
     print("\n=== rules_in_prompt (base + RULES.txt system prompt) ===")
     base_client.system_prompt = load_rules_txt()
     run_case = make_llm_battery_run_case(base_client)
-    res = run_system("rules_in_prompt", run_case, battery, judge, args.n_runs)
+    res = run_system("rules_in_prompt", run_case, battery, judge, args.n_runs, reporter=reporter)
     (out_dir / "degradation_rules_in_prompt.json").write_text(json.dumps(res, indent=2))
     all_results["rules_in_prompt"] = res
 
@@ -120,9 +126,11 @@ def main():
     v2_client = LocalHFClient(args.base, adapter_path=str(REPO / "adapters/qwen-swarm-v2"),
                               temperature=0.3)
     run_case = make_llm_battery_run_case(v2_client)
-    res = run_system("qwen-swarm-v2", run_case, battery, judge, args.n_runs)
+    res = run_system("qwen-swarm-v2", run_case, battery, judge, args.n_runs, reporter=reporter)
     (out_dir / "degradation_v2.json").write_text(json.dumps(res, indent=2))
     all_results["qwen-swarm-v2"] = res
+    reporter.status = "done"
+    reporter._write()
 
     print("\n\n=== PER-AXIS SUMMARY (n_runs={}) ===".format(args.n_runs))
     print("NOTE: rules_lookup's abstention on multi_hop/terminal_transitioning is BY")

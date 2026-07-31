@@ -55,6 +55,7 @@ import numpy as np
 from .client import LLMClient
 from .prompts import (TEST_CASES, JUDGE_PROMPT, match_intent, match_threat,
                       match_action, is_hallucination, is_abstention)
+from ..progress import Reporter
 
 def judge(judge_client: LLMClient, tactical_context: str, assessment: dict) -> dict:
     import json
@@ -67,7 +68,52 @@ def judge(judge_client: LLMClient, tactical_context: str, assessment: dict) -> d
 def evaluate_llm(run_case: Callable[[dict], tuple],
                  test_cases: list = TEST_CASES,
                  judge_client: Optional[LLMClient] = None,
-                 n_runs: int = 1) -> dict:
+                 n_runs: int = 1,
+                 progress_task: Optional[str] = None,
+                 progress_rate_hint: Optional[float] = None,
+                 progress_reporter: Optional[Reporter] = None) -> dict:
+    """Evaluate the LLM layer objectively. See _evaluate_llm_impl for the scoring
+    logic; this wrapper only owns the progress-reporter lifecycle (writes
+    status="failed" + the crashing line to evaluation/progress/<progress_task>.json
+    on an uncaught exception, status="done" on success) so a run_case() crash
+    partway through a long battery doesn't leave a stale "running" progress file.
+
+    progress_task : if set, creates a fresh swarm_intent.progress.Reporter scoped
+        to just THIS call (one unit per run_case(), len(test_cases) * n_runs
+        total) and owns its lifecycle. None (default) disables progress reporting
+        for this call — existing callers/tests are unaffected.
+    progress_reporter : pass an ALREADY-CONSTRUCTED Reporter (e.g. one shared
+        across several evaluate_llm calls covering different systems/axes, with
+        .total set to the grand total up front) when the caller wants one
+        continuous progress file across multiple calls instead of a fresh one per
+        call. The caller owns this Reporter's lifecycle (start/done/failed), not
+        this function. Takes precedence over progress_task if both are given.
+    """
+    if progress_reporter is not None:
+        return _evaluate_llm_impl(run_case, test_cases, judge_client, n_runs,
+                                  reporter=progress_reporter)
+
+    if not progress_task:
+        return _evaluate_llm_impl(run_case, test_cases, judge_client, n_runs, reporter=None)
+
+    total_units = len(test_cases) * n_runs
+    reporter = Reporter(progress_task, total_units, rate_hint=progress_rate_hint)
+    try:
+        result = _evaluate_llm_impl(run_case, test_cases, judge_client, n_runs, reporter=reporter)
+    except Exception as exc:
+        import traceback as _tb
+        reporter.status = "failed"
+        reporter.error_line = _tb.format_exception_only(type(exc), exc)[-1].strip()
+        reporter._write()
+        raise
+    reporter.status = "done"
+    reporter._write()
+    return result
+
+
+def _evaluate_llm_impl(run_case: Callable[[dict], tuple], test_cases: list,
+                       judge_client: Optional[LLMClient], n_runs: int,
+                       reporter: Optional[Reporter]) -> dict:
     """Evaluate the LLM layer objectively.
 
     Parameters
@@ -84,12 +130,23 @@ def evaluate_llm(run_case: Callable[[dict], tuple],
         system correctly abstained (see correct_abstention_rate).
     """
     results = []
+    # run_correct_by_run[key][case_idx] holds one entry per run (True/False/None,
+    # None = abstained that run) so callers can compute mean/std ACROSS runs (run
+    # index r aggregated over all cases), not just the within-case mean this
+    # function already reports per case. Exposed on the returned dict, not printed
+    # here -- computing run-level aggregates from it is the caller's job (see
+    # llm_finetuning/run_headline_eval.py).
+    run_correct_by_run = {"intent": [], "threat": [], "action": [],
+                          "abstained": [], "correct_abstention": []}
+
     for case in test_cases:
         has_gt = case.get("has_ground_truth", True)
         runs = []
         for _ in range(n_runs):
             assessment, ctx = run_case(case)
             runs.append((assessment, ctx))
+            if reporter:
+                reporter.update(1, item=case["name"])
 
         intents = [a.get("likely_intent", "") for a, _ in runs]
         threats = [a.get("threat_level", "") for a, _ in runs]
@@ -152,6 +209,29 @@ def evaluate_llm(run_case: Callable[[dict], tuple],
             })
         results.append(result)
 
+        # Per-run raw correctness (True/False/None; None = not applicable that
+        # run), one entry per run index, so run-level (not just case-level)
+        # aggregates can be computed after the loop -- see run-level mean/std
+        # below and the module docstring.
+        per_run_intent = [None] * len(runs)
+        per_run_threat = [None] * len(runs)
+        per_run_action = [None] * len(runs)
+        per_run_correct_abstention = [None] * len(runs)
+        if has_gt:
+            for k in scored_idx:
+                per_run_intent[k] = match_intent(intents[k], case["expected_intent"])
+                per_run_threat[k] = match_threat(threats[k], case["expected_threat"])
+                if "expected_action" in case:
+                    per_run_action[k] = match_action(actions[k], case["expected_action"])
+        else:
+            for k in range(len(runs)):
+                per_run_correct_abstention[k] = abstentions[k]  # abstaining IS correct here
+        run_correct_by_run["intent"].append(per_run_intent)
+        run_correct_by_run["threat"].append(per_run_threat)
+        run_correct_by_run["action"].append(per_run_action)
+        run_correct_by_run["abstained"].append(list(abstentions))
+        run_correct_by_run["correct_abstention"].append(per_run_correct_abstention)
+
     def mean_or_none(key):
         vals = [r[key] for r in results if r[key] is not None]
         return float(np.mean(vals)) if vals else None
@@ -163,6 +243,32 @@ def evaluate_llm(run_case: Callable[[dict], tuple],
                                          if no_gt_results else None)
     over_abstention_rate = (float(np.mean([r["abstention_rate"] for r in gt_results]))
                             if gt_results else None)
+
+    # Run-level (not just case-level) series: for each run index r, the mean over
+    # all cases' r-th response -- n_runs independent replicate measurements of the
+    # SAME aggregate metric. Lets a caller report mean +/- std ACROSS runs (error
+    # bars from repeated sampling), distinct from the within-case means above.
+    case_has_gt = [r["has_ground_truth"] for r in results]
+
+    def _run_level_series(per_case_lists, filter_has_gt):
+        series = []
+        for run_idx in range(n_runs):
+            vals = [case_runs[run_idx] for ci, case_runs in enumerate(per_case_lists)
+                    if case_has_gt[ci] == filter_has_gt and case_runs[run_idx] is not None]
+            series.append(float(np.mean(vals)) if vals else None)
+        return series
+
+    def _mean_std(series):
+        vals = [v for v in series if v is not None]
+        return (float(np.mean(vals)), float(np.std(vals))) if vals else (None, None)
+
+    accuracy_when_answerable_by_run = _run_level_series(run_correct_by_run["intent"], True)
+    abstention_rate_when_unanswerable_by_run = _run_level_series(run_correct_by_run["correct_abstention"], False)
+    over_abstention_rate_by_run = _run_level_series(run_correct_by_run["abstained"], True)
+    acc_mean_r, acc_std_r = _mean_std(accuracy_when_answerable_by_run)
+    abst_mean_r, abst_std_r = _mean_std(abstention_rate_when_unanswerable_by_run)
+    overabst_mean_r, overabst_std_r = _mean_std(over_abstention_rate_by_run)
+
     agg = {
         # Decomposed metrics -- see module docstring. Always compute all three;
         # never pick one per cell based on which case type dominates.
@@ -177,6 +283,16 @@ def evaluate_llm(run_case: Callable[[dict], tuple],
         # existing readers (run_degradation_eval.py, plot_degradation.py, tests).
         "mean_intent_accuracy": accuracy_when_answerable,
         "mean_correct_abstention_rate": abstention_rate_when_unanswerable,
+        # Error bars ACROSS RUNS (n_runs independent replicate measurements of the
+        # same aggregate, each computed from one response per case) -- distinct
+        # from case-level variability. None when a metric has no applicable cases
+        # (e.g. abstention_rate_when_unanswerable_std when every case has_gt=True).
+        "accuracy_when_answerable_mean_across_runs": acc_mean_r,
+        "accuracy_when_answerable_std_across_runs": acc_std_r,
+        "abstention_rate_when_unanswerable_mean_across_runs": abst_mean_r,
+        "abstention_rate_when_unanswerable_std_across_runs": abst_std_r,
+        "over_abstention_rate_mean_across_runs": overabst_mean_r,
+        "over_abstention_rate_std_across_runs": overabst_std_r,
         "n_cases": len(results), "n_cases_with_ground_truth": len(gt_results),
         "n_cases_without_ground_truth": len(no_gt_results), "n_runs": n_runs,
     }

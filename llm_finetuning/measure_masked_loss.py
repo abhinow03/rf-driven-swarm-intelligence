@@ -36,6 +36,9 @@ import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(REPO / "src"))
+
+from swarm_intent.progress import Reporter  # noqa: E402
 
 
 def load_val_rows(path: Path, limit: int | None = None):
@@ -71,7 +74,7 @@ def find_assistant_boundary(tok, messages, full_text: str):
     return boundary, True
 
 
-def measure_system(model, tok, rows, device, label: str, val_file: str):
+def measure_system(model, tok, rows, device, label: str, val_file: str, reporter: Reporter | None = None):
     import torch
     import torch.nn.functional as F
 
@@ -86,7 +89,9 @@ def measure_system(model, tok, rows, device, label: str, val_file: str):
 
     model.eval()
     with torch.no_grad():
-        for row in rows:
+        for row_idx, row in enumerate(rows):
+            if reporter:
+                reporter.update(1, item=f"{label} row {row_idx}")
             messages = row["messages"]
             full_text = tok.apply_chat_template(messages, tokenize=False, add_generation_prompt=False)
             boundary, ok = find_assistant_boundary(tok, messages, full_text)
@@ -210,21 +215,35 @@ def main():
             ("qwen-swarm-v2", "qwen-swarm-v2", REPO / "data/sft_train_v2_val.jsonl"),
         ]
 
+    rows_by_step = [load_val_rows(val_path, args.limit) for _, _, val_path in plan]
+    total_rows = sum(len(r) for r in rows_by_step)
+    reporter = Reporter("measure_masked_loss", total_rows)
+
     results = []
-    for label, adapter_name, val_path in plan:
-        rows = load_val_rows(val_path, args.limit)
-        print(f"measuring: {label} on {val_path.name} ({len(rows)} rows)", flush=True)
-        if adapter_name is None:
-            with peft_model.disable_adapter():
-                res = measure_system(peft_model, tok, rows, device, label, str(val_path.relative_to(REPO)))
-        else:
-            peft_model.set_adapter(adapter_name)
-            res = measure_system(peft_model, tok, rows, device, label, str(val_path.relative_to(REPO)))
-        results.append(res)
-        print(f"  masked={res['masked_loss_assistant_only']:.4f}  "
-              f"unmasked={res['unmasked_loss_full_sequence']:.4f}  "
-              f"assistant%={res['assistant_token_pct_mean']:.1f}  "
-              f"(scored {res['n_rows_scored']}/{res['n_rows_total']})", flush=True)
+    try:
+        for (label, adapter_name, val_path), rows in zip(plan, rows_by_step):
+            print(f"measuring: {label} on {val_path.name} ({len(rows)} rows)", flush=True)
+            if adapter_name is None:
+                with peft_model.disable_adapter():
+                    res = measure_system(peft_model, tok, rows, device, label,
+                                         str(val_path.relative_to(REPO)), reporter=reporter)
+            else:
+                peft_model.set_adapter(adapter_name)
+                res = measure_system(peft_model, tok, rows, device, label,
+                                     str(val_path.relative_to(REPO)), reporter=reporter)
+            results.append(res)
+            print(f"  masked={res['masked_loss_assistant_only']:.4f}  "
+                 f"unmasked={res['unmasked_loss_full_sequence']:.4f}  "
+                 f"assistant%={res['assistant_token_pct_mean']:.1f}  "
+                 f"(scored {res['n_rows_scored']}/{res['n_rows_total']})", flush=True)
+    except Exception as exc:
+        import traceback as _tb
+        reporter.status = "failed"
+        reporter.error_line = _tb.format_exception_only(type(exc), exc)[-1].strip()
+        reporter._write()
+        raise
+    reporter.status = "done"
+    reporter._write()
 
     out_path = Path(args.out)
     out_path.parent.mkdir(parents=True, exist_ok=True)
