@@ -970,3 +970,42 @@ never had more than one model's failure modes baked into it. This is inference f
 absence of contrary evidence, not a proven fact; a v4 decision resting heavily on this
 point should treat it as "no evidence of multi-source found," not "confirmed
 single-source."
+
+## U. Batched generation, and its equivalence check — PASS, ~2.8x speedup
+
+`LocalHFClient.generate_batch()` (`src/swarm_intent/llm/client.py`) adds left-padded,
+length-sorted batched generation alongside the existing single-prompt `generate()`
+(unchanged, still the default everywhere `--batch-size` isn't passed).
+`llm_finetuning/baselines.py`'s new `make_batched_run_case()` pre-generates every
+`(case, run)` completion for a battery in one batched pass, in the exact case-major/
+run-minor order `evaluate_llm` calls `run_case` — so `ctx` text is byte-identical to
+the unbatched path (same seeded RNG draws), and it's a drop-in replacement wherever
+`make_rules_in_prompt_run_case` was used. Wired into `run_headline_eval.py` via
+`--batch-size` (default 1 = exact reproduction).
+
+**Equivalence check (`llm_finetuning/run_batching_equivalence_check.py`,
+`qwen-swarm-v3a`, 55-case battery, `--n-runs 5`, batch_size=8 from sec T's memory
+bench):**
+
+| threat class | unbatched threat_acc | batched threat_acc | \|delta\| | within 1 unbatched-std? |
+|---|---|---|---|---|
+| low | 5.3% (std 13.6%) | 4.0% (std 10.8%) | 1.3% | yes |
+| medium | 92.5% (std 20.7%) | 91.7% (std 20.7%) | 0.8% | yes |
+| high | 60.0% (std 38.5%) | 61.4% (std 39.6%) | 1.4% | yes |
+| critical | 0.0% (std 0.0%) | 0.0% (std 0.0%) | 0.0% | yes |
+
+Overall `accuracy_when_answerable`: unbatched 66.18%±4.96%, batched 68.00%±3.37% —
+within one std. **PASS in every class.** (Note: this run's unbatched `low` figure,
+5.3%, differs slightly from sec M's 2.7% for the same `qwen-swarm-v3a` — expected
+run-to-run sampling noise at `temperature=0.3`, not a discrepancy between this check
+and prior sections; both are well within the collapsed regime this whole session's
+diagnosis concerns.)
+
+**Wall-clock: unbatched 22m36s → batched 8m07s, a 2.78x speedup** for the full
+55-case×5-run battery on one system — real, substantial, and below the naive 8x
+(batch_size) ceiling as expected (padding waste on the longest sequence per batch,
+and generation is only partially parallel-scaling since it's still autoregressive per
+token). **Batching is confirmed safe to adopt elsewhere in this project's eval/
+degradation runners** — this check was the gate for doing so, per the session's
+explicit instruction not to mix batched and unbatched results in the same comparison
+table without it passing first.
