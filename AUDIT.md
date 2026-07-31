@@ -602,3 +602,46 @@ The failure mode is the sec M over-escalation-toward-`medium` bias — something
 *how* these ~58 rows are learned (see sec O for whether v2's 216 low-threat rows, same
 proportion but ~4x the count, are diverse examples or near-duplicates), not how many of
 them there are.
+
+## O. Threshold hypothesis (memorization capacity vs data quality) — NOT supported by the data
+
+The hypothesis under test: v2 (810 rows, doesn't collapse) differs from
+`sft_train_final.jsonl` (234 rows, collapses) in both size AND teacher composition
+(CLAUDE.md: v2 is ~50% teacher/50% template fallback; `final` is ~100% teacher). If
+v2's advantage is really "16 near-identical template rows per pair," that's
+memorization capacity, not data quality, and should be described that way.
+`llm_finetuning/report_template_fallback.py` tests this directly by counting DISTINCT
+`situation_summary` strings per `(form_a, form_b)` pair — `build_sft_dataset.py`'s
+teacher-fallback template is a fixed string per pair regardless of context noise, so
+"1 distinct summary across N rows of a pair" is a template/memorization signature, while
+teacher-written rows vary row to row even for the same pair.
+
+| file | template-fallback rows | pairs where ALL rows are template | mean distinct summaries/pair | mean examples/pair |
+|---|---|---|---|---|
+| `sft_train_v2.jsonl` | 404/810 (49.9%) | **0/49** | 8.78 | 16.5 |
+| `sft_train_final.jsonl` | **0/234 (0.0%)** | 0/49 | 4.63 | 4.8 |
+
+**The hypothesis is not supported.** `sft_train_v2.jsonl` is not "16 near-identical
+rows per pair" — every one of its 49 pairs has at least 4 distinct teacher-written
+summaries, mean 8.78/16.5 ≈ 53% of its rows per pair are unique prose. And
+`sft_train_final.jsonl` (the file that DOES collapse) is *more* purely teacher-written
+than v2 (0% template fallback vs v2's 49.9%), not less — if template-fallback rows were
+memorization filler, `final.jsonl` should be the higher-quality file by this measure,
+yet it's the one that fails.
+
+Breaking down by threat class within each file also rules out `low` being
+selectively template-heavy or duplicate-heavy relative to `medium`/`high` in either
+file — `low` pairs have comparable or slightly *higher* example/distinct-summary counts
+than `medium` in both files (v2: low 16.62/9.15 vs medium 16.05/8.45; `final`: low
+4.46/4.46 vs medium 5.00/4.73).
+
+**What's left, by elimination: the two files differ materially only in raw example
+count per pair (16.5 vs 4.8, a ~3.4x difference) — not teacher-vs-template composition,
+not diversity, not class-specific representation.** The evidence points at plain
+sample-size sensitivity (v3a/v3a-nomask/v3b all sit at ≤4.8 examples/pair and collapse
+on `low`; v2 sits at 16.5/pair and doesn't) rather than any of the compositional
+explanations this step set out to test — stated plainly per the session's instruction,
+since the hypothesis being tested was not confirmed. This is inferred from elimination
+across two data points (not a controlled sweep across intermediate example-per-pair
+counts), and confirming it further would require training an intermediate-size adapter,
+which this session was explicitly told not to do.
