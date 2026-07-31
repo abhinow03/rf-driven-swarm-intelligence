@@ -32,6 +32,17 @@ def main():
     ap.add_argument("--lora-alpha",  type=int,   default=32)
     ap.add_argument("--grad-accum",  type=int,   default=8)
     ap.add_argument("--resume", default=None, help="path to checkpoint dir to resume from")
+    ap.add_argument("--assistant-only-loss", action="store_true",
+                     help="mask the loss to assistant turns only (trl SFTConfig.assistant_only_loss). "
+                          "Default off to keep v1/v2 adapters exactly reproducible. Qwen2.5-7B-Instruct's "
+                          "OWN chat template has no {%% generation %%} markers -- apply_chat_template("
+                          "return_assistant_tokens_mask=True) on it silently returns an all-zero mask, "
+                          "no error, just a warning (verified before adding this flag). trl>=1.8 detects "
+                          "this and auto-swaps in its bundled qwen2_5_training.jinja (which does have the "
+                          "markers) whenever the dataset is conversational -- see chat_template_utils."
+                          "get_training_chat_template. That auto-swap requires the dataset to still expose "
+                          "the raw 'messages' field, so when this flag is set we do NOT pre-flatten to a "
+                          "'text' column below.")
     args = ap.parse_args()
 
     import torch
@@ -69,13 +80,21 @@ def main():
     ds_train = load_dataset("json", data_files=args.train, split="train")
     ds_val   = load_dataset("json", data_files=args.val,   split="train")
 
-    def to_text(ex):
-        return {"text": tok.apply_chat_template(
-            ex["messages"], tokenize=False, add_generation_prompt=False)}
-    ds_train = ds_train.map(to_text)
-    ds_val   = ds_val.map(to_text)
+    if not args.assistant_only_loss:
+        # Legacy path (v1/v2): flatten to a plain "text" column up front, exactly
+        # as before -- untouched so those adapters stay reproducible.
+        def to_text(ex):
+            return {"text": tok.apply_chat_template(
+                ex["messages"], tokenize=False, add_generation_prompt=False)}
+        ds_train = ds_train.map(to_text)
+        ds_val   = ds_val.map(to_text)
+    # else: leave ds_train/ds_val as raw {"messages": [...]} rows. SFTTrainer's
+    # own tokenization path needs the conversational "messages" field present to
+    # detect assistant_only_loss is usable and auto-swap in the training chat
+    # template with {% generation %} markers (see --assistant-only-loss help).
 
     sft_cfg = SFTConfig(
+        assistant_only_loss=args.assistant_only_loss,
         output_dir=args.out,
         num_train_epochs=args.epochs,
         per_device_train_batch_size=1,
@@ -102,9 +121,31 @@ def main():
         eval_dataset=ds_val,
         processing_class=tok,
     )
+    if args.assistant_only_loss:
+        from trl.chat_template_utils import has_generation_markers
+        template_has_markers = has_generation_markers(tok.chat_template)
+        effective_template = trainer.chat_template or tok.chat_template
+        print(f"assistant_only_loss requested. Base tokenizer chat_template has "
+              f"{{% generation %}} markers: {template_has_markers}. "
+              f"trl auto-swapped a training template: {trainer.chat_template is not None}.")
+        sample = tok.apply_chat_template(
+            ds_train[0]["messages"], tokenize=True, return_assistant_tokens_mask=True,
+            return_dict=True, chat_template=effective_template)
+        n_masked = sum(sample["assistant_masks"])
+        assert n_masked > 0, "assistant_masks are all zero -- the chat template swap did not take effect"
+        print(f"Verified on a real training row: {n_masked}/{len(sample['assistant_masks'])} "
+              f"tokens masked as assistant-only.")
+
     trainer.train(resume_from_checkpoint=args.resume or None)
     trainer.save_model(args.out)
     tok.save_pretrained(args.out)
+
+    import torch as _torch
+    ta = _torch.load(f"{args.out}/training_args.bin", weights_only=False)
+    print(f"training_args.bin assistant_only_loss = {ta.assistant_only_loss}")
+    assert ta.assistant_only_loss == args.assistant_only_loss, \
+        "training_args.bin does not reflect the requested --assistant-only-loss setting"
+
     print(f"Saved LoRA adapter to {args.out}")
 
 
