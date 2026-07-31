@@ -679,3 +679,36 @@ reversal of the collapse; not enough independent samples here to resolve which.
 H, L) needs this per-class footnote: the aggregate `accuracy_when_answerable` figures
 average over a threat-level mix that, for v3a/v3a-nomask at least, is masking a
 near-total `low`-threat failure underneath a `medium`/`high` accuracy that looks fine.**
+
+## Q. Demo impact — can the system say "low" on a benign steady-state formation?
+
+Concrete answer for the literal capstone-demo scenario ("Stable Patrol" /
+`column->column` — a drone group holding a steady column formation, RULES says
+`low`/`patrol`/`monitor`, the textbook benign case):
+
+| adapter | `threat_level` on this exact scenario | across all 55 cases, how often does it ever output `low`? |
+|---|---|---|
+| `qwen-swarm-v2` | **`low`** (correct, 5/5 runs) | 14/55 |
+| `qwen-swarm-v3a` | `medium` (wrong, 2/5 runs said `low`) | **0/55 — never** |
+| `qwen-swarm-v3a-nomask` | `medium` (wrong, 0/5 runs said `low`) | **0/55 — never** |
+| `qwen-swarm-v3b` | `medium` (wrong, 1/5 runs said `low`) | 2/55 |
+
+**If the capstone demo runs a benign, steady-state, low-threat formation through
+`qwen-swarm-v3a` or `qwen-swarm-v3a-nomask`, the system will say `medium` threat
+(`increase_surveillance`), not `low` (`monitor`) — and it will do this on essentially
+every low-threat input, not occasionally. `v3a`/`v3a-nomask` cannot currently emit
+`low` at all on this battery (0/55).** `v3b` can, rarely (2/55, ~13% correct on
+low-threat cases per sec M). **`qwen-swarm-v2` is the only adapter that behaves
+correctly here** (`low` on the benign case, `low` predicted 14/55 times, matching the
+RULES base rate).
+
+This is a visible, easily-triggered demo behavior, not an edge case: any operator
+running an idle/patrolling swarm through `v3a` or `v3a-nomask` during a live demo will
+see the system call it `medium` threat and recommend `increase_surveillance` on a
+scenario RULES and the training data both label `low`/`monitor`. **Recommendation: if
+the demo needs a fine-tuned (not base/rules_lookup) system, use `qwen-swarm-v2` — it is
+the only adapter without this failure mode** (secs M–P all converge on v2 not
+collapsing, most plausibly for the sample-size reasons in sec O). If `v3b`'s
+abstention behavior (secs G/I/K) is specifically what's being demonstrated, be aware it
+inherits the same near-total low-threat failure as v3a — pick a demo scenario
+deliberately, not one drawn at random from `low`-threat inputs.
