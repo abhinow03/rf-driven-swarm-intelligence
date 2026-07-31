@@ -1085,3 +1085,42 @@ a much more precise one. The v4 case is weak for v3b (mostly free via calibratio
 real but narrower than "the whole low-threat class" for v3a (concentrated in specific
 pair patterns the model's raw distribution treats as confidently wrong, not merely
 under-preferred).**
+
+## AA. Counterintuitive-rule hypothesis — does NOT hold; only 3/8 pairs match
+
+Prediction under test: if v3a's 8 unrecoverable low-threat failures (sec Y) are caused
+by a pretraining semantic prior conflicting with a counterintuitive rule (e.g.
+`encirclement->column` being `low` reads as surprising), then `rules_in_prompt` — base
+Qwen2.5-7B-Instruct + `RULES.txt` in the system prompt, **zero fine-tuning** — should
+fail on the same 8 pairs, since the conflict would be present in the base model
+regardless of any training. `llm_finetuning/report_prior_hypothesis.py` checks this
+against the already-collected `evaluation/eval_expanded_rules_in_prompt.json` (no new
+generations).
+
+| v3a-failing pair | rules_in_prompt majority | threat_accuracy | matches v3a's failure? |
+|---|---|---|---|
+| encirclement→column | medium | 20.0% | **YES** |
+| encirclement→dispersed | low | 100.0% | no |
+| converging→column | low | 60.0% | no |
+| v_shape→column | medium | 20.0% | **YES** |
+| v_shape→dispersed | low | 80.0% | no |
+| column→dispersed | low | 100.0% | no |
+| dispersed→column | medium | 40.0% | **YES** |
+| shield→dispersed | low | 100.0% | no |
+
+**Only 3/8 (37.5%) match.** `rules_in_prompt` — with zero fine-tuning, RULES text just
+pasted into its context — correctly resolves `low` on 5 of the 8 pairs v3a cannot
+recover even after logit-prior correction, several at high confidence
+(`encirclement->dispersed`, `column->dispersed`, `shield->dispersed`: 100% accuracy).
+The 4 pairs v3a succeeds on (steady-state ×3 + `converging→dispersed`) are also handled
+well by `rules_in_prompt` (60–100%), consistent, but that's not the discriminating test.
+
+**Hypothesis does NOT hold. The mechanism is not simply "a pretraining prior conflicts
+with the rule table" — if it were, the base model would show the same failure pattern
+independent of fine-tuning, and it mostly doesn't.** Only `encirclement→column`,
+`v_shape→column`, and `dispersed→column` show a pattern consistent with both systems
+struggling (worth separate scrutiny — all three end in `column`, a possible narrower
+lead), while the other 5 of v3a's 8 unrecoverable failures reflect something
+fine-tuning-specific: either the small-dataset diversity effect from secs N–O, or an
+interaction between fine-tuning and this particular subset of pairs not yet isolated.
+This narrows, rather than confirms, the "pretraining prior" explanation from sec Y.
