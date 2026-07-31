@@ -492,3 +492,35 @@ still overwhelmingly reliable, and is a within-mechanism check, not evidence of
 transfer to a structurally different unanswerability mechanism like contradiction or
 OOV vocabulary, which sec G already found does NOT transfer) — but it should be
 reported as ~95%, not ~100%, going forward.
+
+## L. Masking effect as a gradient — scales with distribution shift
+
+`llm_finetuning/report_masking_gradient.py` puts v3a-vs-v3a-nomask (the clean
+masking 2×2 isolating `assistant_only_loss`, sec H) side by side on the
+in-distribution clean 55-case battery (sec J — recall, not generalization) and the
+out-of-distribution degradation battery (secs C/H), pooling severities per axis
+weighted by `n_cases_with_ground_truth`.
+
+| battery | v3a acc | v3a-nomask acc | delta |
+|---|---|---|---|
+| clean 55-case [in-distribution] | 68.7% ± 2.7% (across runs) | 55.3% ± 3.7% (across runs) | **+13.5 pts** |
+| degradation: `multi_hop` sev2 [perturbed] | 83.3% ± 18.0% (across cases) | 66.7% ± 29.8% (across cases) | +16.7 pts |
+| degradation: `confidence_decay` [perturbed] | 84.0% ± 26.5% (across cases) | 60.0% ± 36.9% (across cases) | +24.0 pts |
+| degradation: `dropped_lines` [perturbed] | 81.1% ± 24.5% (across cases) | 70.0% ± 34.2% (across cases) | +11.1 pts |
+| degradation: `contradictory_cues` [perturbed] | 91.1% ± 15.2% (across cases) | 55.6% ± 36.9% (across cases) | +35.6 pts |
+| **mean of the 4 perturbed axes** | | | **+21.8 pts** |
+
+Std caveat: the clean-battery std is across RUNS (5 independent replicate
+whole-battery measurements — `evaluate.py`'s `*_std_across_runs`, added mid-session).
+The degradation-battery std is across CASES within an axis (`degradation_v3a*.json`
+predates that instrumentation; retroactively getting run-level std there would mean
+re-running the ~1080-generation battery for both adapters, not undertaken without being
+asked). The two stds measure different kinds of dispersion and should not be read as
+directly comparable error bars — only the deltas are being compared here.
+
+**Finding: the masking effect is larger under perturbation (+11.1 to +35.6 pts,
+mean +21.8) than on the clean in-distribution battery (+13.5 pts). Masking's benefit
+scales with distribution shift — it is not a fixed constant, and reporting a single
+number for "the masking effect" understates what it does specifically under the kind
+of input degradation (dropped lines, decayed confidence, contradictory cues, deeper
+chains) this project's degradation battery was built to simulate.**
