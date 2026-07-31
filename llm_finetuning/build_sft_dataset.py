@@ -38,6 +38,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
 from swarm_intent.config import BASE_FORMATIONS
 from swarm_intent.inference import build_llm_prompt, OUTPUT_SCHEMA  # noqa: F401
+from swarm_intent import context_spec as spec
 
 # ---------------------------------------------------------------------------
 # Canonical domain rules: scenario -> (threat, intent, action). This is the
@@ -137,13 +138,42 @@ def synth_context(form_a: str, form_b: str, rng: random.Random) -> tuple[str, li
     calibration.py for the actual fix: a PercentileCalibrator refit on real STGT
     output once the new model exists, so the narrative thresholds scale with
     whatever units come out, instead of hardcoded literals on either side.
+
+    Threshold logic below matches calibration.py's AbsoluteCalibrator exactly (same
+    +-0.5 velocity, +-0.1 approach, +-0.1 stability-delta cutoffs) -- this function
+    used to implement a narrower BINARY version of two of these three thresholds
+    (spread_dynamics had no "dispersing" branch at all; stability_trend compared a
+    single scalar against one cutoff instead of an early/late delta, so "improving"
+    was unreachable), and never rendered "Role differentiation: ..." into the context
+    text at all despite build_tactical_context() always emitting it in production —
+    two real train/serve mismatches (AUDIT.md sec X/Z-adjacent). Fixed here to reach
+    every context_spec.py value; RULES and its (form_a, form_b) decision logic are
+    untouched -- these are narrative-grammar fixes only.
     """
     transitioning = form_a != form_b
     mean_conf = round(rng.uniform(0.7, 0.98), 2)
-    mean_stab = round(rng.uniform(0.6, 0.95), 2)
-    approach = round(rng.uniform(-1.5, 0.5), 3)
+    stab_early = round(rng.uniform(0.5, 0.98), 2)
+    stab_late = round(rng.uniform(0.5, 0.98), 2)
+    mean_stab = round((stab_early + stab_late) / 2, 2)
+    approach = round(rng.uniform(-1.5, 1.5), 3)
     delta_v = round(rng.uniform(-1.0, 2.0), 2)
-    vel_trend = "accelerating" if delta_v > 0.5 else "decelerating" if delta_v < -0.5 else "steady"
+    vel_trend = (spec.VELOCITY_ACCELERATING if delta_v > 0.5
+                else spec.VELOCITY_DECELERATING if delta_v < -0.5 else spec.VELOCITY_STEADY)
+    if stab_late < stab_early - 0.1:
+        stab_trend = spec.STABILITY_DEGRADING
+    elif stab_late > stab_early + 0.1:
+        stab_trend = spec.STABILITY_IMPROVING
+    else:
+        stab_trend = spec.STABILITY_HOLDING
+    if approach < -0.1:
+        spread_trend = spec.SPREAD_CONVERGING
+    elif approach > 0.1:
+        spread_trend = spec.SPREAD_DISPERSING
+    else:
+        spread_trend = spec.SPREAD_STABLE
+    role_present = rng.random() < 0.3  # matches production's minority-case framing (a
+    # role split only shows up when one drone strays >2x the group's median distance)
+    role_str = spec.ROLE_DIFFERENTIATION_PRESENT if role_present else spec.ROLE_DIFFERENTIATION_NOT_PROMINENT
     dominant = form_a
     history = f"{form_a} -> transitioning -> {form_b}" if transitioning else form_a
 
@@ -154,20 +184,20 @@ def synth_context(form_a: str, form_b: str, rng: random.Random) -> tuple[str, li
         (f"Transition detected at t=20.0s: {form_a} -> {form_b}"
          if transitioning else "No formation transitions detected."),
         f"Velocity trend: {vel_trend} (delta_v={delta_v:+.2f})",
-        f"Formation stability: {'holding' if mean_stab > 0.7 else 'degrading'} (mean={mean_stab:.2f})",
-        f"Spread dynamics: {'converging (drones closing in)' if approach < -0.1 else 'stable spread'} "
-        f"(mean approach_rate={approach:.3f})",
+        f"Formation stability: {stab_trend} (mean={mean_stab:.2f})",
+        f"Spread dynamics: {spread_trend} (mean approach_rate={approach:.3f})",
+        f"Role differentiation: {role_str}",
         f"Classifier confidence: mean={mean_conf:.2f}",
     ])
     key_windows = [
         {"t": "0.0-25.0s", "formation": form_a, "confidence": mean_conf,
          "velocity": round(rng.uniform(0.0, 0.1), 3), "approach": approach,
-         "stability": mean_stab, "from": None, "to": None},
+         "stability": stab_early, "from": None, "to": None, "role_differentiation": role_present},
         {"t": "35.0-60.0s", "formation": "transitioning" if transitioning else form_a,
          "confidence": mean_conf, "velocity": round(rng.uniform(0.0, 0.1), 3),
-         "approach": approach, "stability": mean_stab,
+         "approach": approach, "stability": stab_late,
          "from": form_a if transitioning else None,
-         "to": form_b if transitioning else None},
+         "to": form_b if transitioning else None, "role_differentiation": role_present},
     ]
     return ctx, key_windows
 
@@ -265,7 +295,8 @@ def main():
             predictions=[{**kw, "time_start_s": 0, "time_end_s": 0,
                           "formation_type": kw["formation"], "centroid_velocity": kw["velocity"],
                           "approach_rate": kw["approach"], "formation_stability": kw["stability"],
-                          "formation_confidence": kw["confidence"], "role_differentiation": False,
+                          "formation_confidence": kw["confidence"],
+                          "role_differentiation": kw["role_differentiation"],
                           "transition_from": kw["from"], "transition_to": kw["to"]} for kw in key_windows],
             tactical_context=ctx, summary={})
         gold, used_teacher = gold_assessment(form_a, form_b, ctx, teacher, prompt=prompt)
