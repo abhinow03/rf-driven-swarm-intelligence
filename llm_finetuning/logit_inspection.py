@@ -71,21 +71,30 @@ def train_class_freq(path: str) -> dict:
     return {c: counts[c] / total for c in CANDIDATES}
 
 
-def build_case_prompt(case):
-    import random
-    rng = random.Random(0)
+def build_case_prompt(case, rng):
+    """rng MUST be a single shared Random instance advanced sequentially across
+    ALL 55 TEST_CASES in order -- NOT a fresh Random(0) per case. An earlier
+    version of this function did exactly that (fresh Random(0) per call), which
+    meant every case got the SAME first synth_context() draw (identical
+    mean_conf/stability/velocity/spread, differing only in formation_a/
+    formation_b) instead of the diverse, case-position-dependent draws every
+    other eval script in this project produces via make_rules_in_prompt_run_case's
+    shared advancing rng. That bug made this script's numbers not comparable to
+    any other eval result on disk -- caught by a step in AUDIT.md sec CC that
+    found batched vs unbatched greedy decoding agreed with each other (13.3% vs
+    6.67%) but neither matched this script's original 53.3%, which should have
+    been impossible if decode mode were the only variable."""
     ctx, key_windows = synth_context(case["formation_a"], case["formation_b"], rng)
     preds = [{**kw, "time_start_s": 0, "time_end_s": 0, "formation_type": kw["formation"],
              "centroid_velocity": kw["velocity"], "approach_rate": kw["approach"],
              "formation_stability": kw["stability"], "formation_confidence": kw["confidence"],
-             "role_differentiation": False, "transition_from": kw["from"],
-             "transition_to": kw["to"]} for kw in key_windows]
+             "transition_from": kw["from"], "transition_to": kw["to"]} for kw in key_windows]
     return build_llm_prompt(preds, ctx, {})
 
 
-def logit_inspect_case(model, tok, case, max_new_tokens=200):
+def logit_inspect_case(model, tok, case, rng, max_new_tokens=512):
     import torch
-    prompt = build_case_prompt(case)
+    prompt = build_case_prompt(case, rng)
     messages = [{"role": "user", "content": f"Return ONLY valid JSON.\n\n{prompt}"}]
     enc = tok.apply_chat_template(messages, add_generation_prompt=True,
                                   return_dict=True, return_tensors="pt").to(model.device)
@@ -141,16 +150,17 @@ def main():
     ap.add_argument("--out", default=str(REPO / "evaluation" / "logit_inspection.json"))
     args = ap.parse_args()
 
+    import random
     import torch
     from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
     from peft import PeftModel
 
-    low_cases = [c for c in TEST_CASES if c["expected_threat"] == "low"]
-    critical_cases = [c for c in TEST_CASES if c["expected_threat"] == "critical"]
+    low_cases = {c["name"] for c in TEST_CASES if c["expected_threat"] == "low"}
+    critical_cases = {c["name"] for c in TEST_CASES if c["expected_threat"] == "critical"}
     assert len(low_cases) == 15 and len(critical_cases) == 2
 
     all_results = {}
-    total_units = len(SYSTEMS) * (len(low_cases) + len(critical_cases) + len(TEST_CASES))
+    total_units = len(SYSTEMS) * len(TEST_CASES)
     reporter = Reporter("logit_inspection", total_units, rate_hint=0.3)
 
     for label, (adapter_path, train_file) in SYSTEMS.items():
@@ -168,18 +178,22 @@ def main():
         model = PeftModel.from_pretrained(model, str(REPO / adapter_path))
         model.eval()
 
-        # --- low/critical case logit tables ---
-        case_results = {}
-        for case in low_cases + critical_cases:
-            res, err = logit_inspect_case(model, tok, case)
+        # ONE pass over all 55 cases, ONE shared rng advanced sequentially in
+        # TEST_CASES order -- matching make_rules_in_prompt_run_case's protocol
+        # exactly, so every case gets its real, case-position-dependent
+        # synth_context() draw instead of a fixed first-draw repeated 55 times.
+        rng = random.Random(0)
+        case_results, battery_results = {}, {}
+        for case in TEST_CASES:
+            res, err = logit_inspect_case(model, tok, case, rng)
             reporter.update(1, item=f"{label}:{case['name']}")
             if err:
-                case_results[case["name"]] = {"error": err}
+                battery_results[case["name"]] = {"error": err, "expected_threat": case["expected_threat"]}
                 continue
             raw_p = softmax_over_candidates(res["logprobs"])
             corrected_logprobs = {c: res["logprobs"][c] - np.log(max(freq[c], 1e-6)) for c in CANDIDATES}
             corrected_p = softmax_over_candidates(corrected_logprobs)
-            case_results[case["name"]] = {
+            entry = {
                 "expected_threat": case["expected_threat"],
                 "raw_logprobs": res["logprobs"],
                 "raw_p": raw_p,
@@ -188,23 +202,9 @@ def main():
                 "corrected_argmax": max(corrected_p, key=corrected_p.get),
                 "greedy_completion_starts_with": res["greedy_completion_starts_with"],
             }
-
-        # --- full 55-case battery: before/after accuracy ---
-        battery_results = {}
-        for case in TEST_CASES:
-            res, err = logit_inspect_case(model, tok, case)
-            reporter.update(1, item=f"{label}:battery:{case['name']}")
-            if err:
-                battery_results[case["name"]] = {"error": err}
-                continue
-            raw_p = softmax_over_candidates(res["logprobs"])
-            corrected_logprobs = {c: res["logprobs"][c] - np.log(max(freq[c], 1e-6)) for c in CANDIDATES}
-            corrected_p = softmax_over_candidates(corrected_logprobs)
-            battery_results[case["name"]] = {
-                "expected_threat": case["expected_threat"],
-                "raw_argmax": max(raw_p, key=raw_p.get),
-                "corrected_argmax": max(corrected_p, key=corrected_p.get),
-            }
+            battery_results[case["name"]] = entry
+            if case["name"] in low_cases or case["name"] in critical_cases:
+                case_results[case["name"]] = entry
 
         all_results[label] = {"train_freq": freq, "low_critical_cases": case_results,
                               "battery": battery_results}
@@ -239,17 +239,15 @@ def main():
             print(f"| {name} | {p['low']:.1%} | {p['medium']:.1%} | {p['high']:.1%} | "
                   f"{p['critical']:.1%} | {r['raw_argmax']} | {r['corrected_argmax']} |")
 
-        battery = data["battery"]
+        battery = {k: v for k, v in data["battery"].items() if "raw_argmax" in v}
         for cls in ("low", "critical"):
             cases = [r for r in battery.values() if r.get("expected_threat") == cls]
             raw_acc = np.mean([r["raw_argmax"] == cls for r in cases])
             corrected_acc = np.mean([r["corrected_argmax"] == cls for r in cases])
             print(f"\n{label} {cls}-threat accuracy: raw={raw_acc:.1%} -> corrected={corrected_acc:.1%} "
                   f"(n={len(cases)})")
-        overall_raw = np.mean([r["raw_argmax"] == r["expected_threat"] for r in battery.values()
-                               if "expected_threat" in r])
-        overall_corrected = np.mean([r["corrected_argmax"] == r["expected_threat"] for r in battery.values()
-                                     if "expected_threat" in r])
+        overall_raw = np.mean([r["raw_argmax"] == r["expected_threat"] for r in battery.values()])
+        overall_corrected = np.mean([r["corrected_argmax"] == r["expected_threat"] for r in battery.values()])
         print(f"{label} OVERALL threat accuracy (55-case battery): "
               f"raw={overall_raw:.1%} -> corrected={overall_corrected:.1%}")
 
