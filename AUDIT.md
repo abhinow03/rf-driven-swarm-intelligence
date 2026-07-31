@@ -568,3 +568,37 @@ consistent with the threat-level collapse rather than an independent failure.
 specific to `threat_level` (and its downstream `recommended_action`), not a general
 inability to read the context.** Full per-system intent/action matrices in
 `evaluation/confusion_matrices.json`.
+
+## N. Training-data class balance — proportional, not underrepresented (correction: RULES is 13/49 low, not 15/49)
+
+Correction first: the session's opening premise cited "RULES' own 15/49" low-threat
+share. That 15 is the pooled 55-case `TEST_CASES` figure (`RULES_COVERAGE_CASES` + the
+6 `ORIGINAL_TEST_CASES`, 2 of which are themselves `low`). `RULES` alone (49 pairs) is
+**13/49 (26.5%) low**, 22/49 (44.9%) medium, 12/49 (24.5%) high, 2/49 (4.1%) critical
+(`llm_finetuning/report_class_balance.py`) — the 2-case difference doesn't change the
+conclusion below, but the number should be cited correctly going forward.
+
+`llm_finetuning/report_class_balance.py` parses the `threat_level` field out of every
+row's ASSISTANT TARGET (not the input context) in the three SFT files and compares
+each file's share to RULES' 13/22/12/2 baseline:
+
+| file (trains) | low | medium | high | critical |
+|---|---|---|---|---|
+| RULES (baseline) | 26.5% | 44.9% | 24.5% | 4.1% |
+| `sft_train_v2.jsonl` (v2) | 26.7% (216 rows) | 43.6% | 25.9% | 3.8% |
+| `sft_train_final.jsonl` (v3a, v3a-nomask) | 24.8% (**58 rows**) | 47.0% | 24.8% | 3.4% |
+| `sft_train_final_abstain.jsonl` (v3b) | 21.5% (58 rows) | 54.1% | 21.5% | 3.0% |
+
+**All three files are within a few points of RULES' own class balance — low-threat
+rows are NOT severely underrepresented relative to RULES.** `sft_train_final_abstain.jsonl`
+(v3b) shows the largest skew (low −5.0pts, medium +9.2pts) but it's still a mild skew,
+not the kind of order-of-magnitude imbalance that would on its own explain a collapse
+from ~27% representation to 2.7%/0.0%/13.3% recall.
+
+**This confirms the session's opening hypothesis: with 58 low-threat training rows
+(sft_train_final.jsonl, proportionally represented) producing 2.7% (v3a) / 0.0%
+(v3a-nomask) recall on low-threat test cases, class imbalance is not the explanation.**
+The failure mode is the sec M over-escalation-toward-`medium` bias — something about
+*how* these ~58 rows are learned (see sec O for whether v2's 216 low-threat rows, same
+proportion but ~4x the count, are diverse examples or near-duplicates), not how many of
+them there are.
