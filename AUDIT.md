@@ -461,3 +461,34 @@ caveat is now recorded in code comments at `src/swarm_intent/llm/prompts.py`
 generalization test in this project remains `llm_finetuning/holdout_shapes.py` (AUDIT.md
 secs G/I), whose three shapes are verified absent from training data by string search —
 `TEST_CASES` makes no such claim and never has.
+
+## K. Stratified abstention re-test — does ~100% hold beyond the original 6 base cases?
+
+The `multi_hop`/`terminal_transitioning` ~100% abstention finding (AUDIT.md secs G/I,
+`degradation_v3b.json`) was measured on perturbations of only the original 6
+`ORIGINAL_TEST_CASES`. `llm_finetuning/run_stratified_abstention_retest.py` re-runs
+just those two axes against a stratified 15-case sample drawn from the full 55-case
+pool: both `critical`-threat cases forced in, the remaining 13 slots allocated
+proportionally across `low`/`medium`/`high` (4/6/3), and within each threat stratum
+selection round-robins across distinct `formation_a` values for family diversity
+(6/7 `BASE_FORMATIONS` represented as `formation_a`, deterministic seed 42). 90
+perturbed cases (45 per axis) × 5 runs = 450 generations against `qwen-swarm-v3b`
+(~39 min actual).
+
+| axis | abstention_rate_when_unanswerable (mean ± std across runs) | original 6-case-battery figure |
+|---|---|---|
+| `multi_hop` (sev 3–4 unanswerable) | **100.00% ± 0.00%** | 100% |
+| `terminal_transitioning` (all severities unanswerable) | **94.67% ± 1.78%** | 100% |
+
+`over_abstention_rate` on `multi_hop`'s answerable sev-2 cells stayed 0.00% (no
+new over-triggering introduced by the larger sample).
+
+**Reading: `multi_hop` abstention survives unchanged at 100% on the more diverse
+15-case sample. `terminal_transitioning` abstention drops slightly, from 100% to
+94.67% ± 1.78% — real but small, and non-zero variance across runs (the original
+6-case measurement had none, at that scale one flip is enough to look categorical).**
+This does not overturn sec G/I's conclusion (`terminal_transitioning` abstention is
+still overwhelmingly reliable, and is a within-mechanism check, not evidence of
+transfer to a structurally different unanswerability mechanism like contradiction or
+OOV vocabulary, which sec G already found does NOT transfer) — but it should be
+reported as ~95%, not ~100%, going forward.
