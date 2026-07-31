@@ -1323,3 +1323,54 @@ should not be cited, and an actual decode-time logit-bias intervention (a
 `LogitsProcessor` subtracting the log-prior during real generation, then measuring
 the ACTUAL resulting accuracy rather than a post-hoc score) would be needed to
 validate the calibration story rigorously. That was not built this session.**
+
+## DD. Abstention-transfer ablation (`qwen-swarm-v3d`) — mostly a size effect, not abstention-specific
+
+v3a (234 rows) and v3b (270 rows = 234 + 36 abstention rows) differ in both dataset
+size AND abstention content, confounded. `qwen-swarm-v3d` isolates size alone:
+v3a's exact 234 rows + **36 new ordinary (non-abstention) rows**
+(`llm_finetuning/build_sft_dataset.py --n 36 --no-teacher --seed 777`, confirmed
+0/36 have `likely_intent="unknown"`) = 270 rows, matching v3b's size exactly.
+Identical hyperparameters and masking to v3a/v3b (`--assistant-only-loss`, 3 epochs,
+r=16/α=32, lr=2e-4) — trained for 102 steps, exactly matching v3b's step count
+(both 270 rows). One caveat: no `GROQ_API_KEY` was available in this environment, so
+the 36 new rows are 100% template-fallback prose, not teacher-distilled like v3a's
+234 (0% template) or v3b's added 36 (also teacher-distilled). Sec O found
+template-vs-teacher composition doesn't appear to drive the collapse either way (v2's
+49.9%-template data outperforms `sft_train_final`'s 0%-template data) — so this is
+a real but likely minor confound, disclosed rather than hidden.
+
+**Three-way comparison, greedy, using OBSERVED model output (not the unreliable
+scored proxy — sec CC found `raw_argmax` can disagree with what `model.generate()`
+actually produces) for "before," and the sequence-scored prior correction for
+"after":**
+
+| system | low observed | low corrected | medium observed | high observed | critical observed | critical corrected |
+|---|---|---|---|---|---|---|
+| v3a (234 rows, no abstention) | 0.0% (0/15) | 53.3% | 91.7% | 42.9% | 0.0% | 0.0% |
+| v3b (270 rows, +36 abstention) | 20.0% (3/15) | 86.7% | 91.7% | 50.0% | 0.0% | 50.0% |
+| v3d (270 rows, +36 ordinary) | **33.3% (5/15)** | 73.3% | 87.5% | 64.3% | 0.0% | 50.0% |
+
+**v3d does NOT fail to calibrate — it calibrates at least as much as v3b on raw
+observed accuracy (33.3% vs 20.0%), more than doubling v3a's 0%.** On the
+sequence-scored corrected metric v3b still leads (86.7% vs 73.3%), and v3d's
+`medium`-class accuracy dips slightly below v3a/v3b (87.5% vs 91.7%) — a small
+sign of the extra rows diluting `medium`'s dominance somewhat, consistent with
+`low`'s gain. Critical-threat accuracy improves identically for v3b and v3d (both
+0%→50% corrected) — no v3b-specific edge there at all.
+
+**Verdict, per the session's explicit test: "if v3d does not calibrate, the effect
+is specifically from abstention supervision." v3d DOES calibrate — comparably to or
+better than v3b on the metric that matters most (raw observed accuracy, the one sec
+CC validated as trustworthy). The abstention-transfer hypothesis is NOT supported as
+the primary mechanism.** What v3b (270 rows, +36 abstention) and v3d (270 rows, +36
+ordinary) share — 36 more rows than v3a, whatever their content — appears to matter
+far more than what makes v3b's 36 rows specifically abstention-flavored. This is
+consistent with, and reinforces, secs N/O/R's standing finding that raw *dataset
+size* (examples-per-pair) is the dominant lever on low-threat calibration in this
+project, not any one training-content property tried so far (teacher-vs-template
+composition in sec O, optimizer steps in sec R, and now abstention-content in this
+section). v3b's residual edge on the corrected metric and its unique abstention
+CAPABILITY (secs G/I/K — a property no accuracy metric here captures) remain real
+and are not explained away by this ablation; only the *low-threat calibration*
+improvement specifically is now understood to be substantially a size effect.

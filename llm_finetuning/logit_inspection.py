@@ -54,6 +54,7 @@ THREAT_KEY_MARKER = '"threat_level": "'
 SYSTEMS = {
     "v3a": ("adapters/qwen-swarm-v3a", "data/sft_train_final.jsonl"),
     "v3b": ("adapters/qwen-swarm-v3b", "data/sft_train_final_abstain.jsonl"),
+    "v3d": ("adapters/qwen-swarm-v3d", "data/sft_train_v3d.jsonl"),
 }
 
 

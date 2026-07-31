@@ -3478,5 +3478,1745 @@
         "greedy_completion_starts_with": "medium\",\n "
       }
     }
+  },
+  "v3d": {
+    "train_freq": {
+      "low": 0.25925925925925924,
+      "medium": 0.45185185185185184,
+      "high": 0.25555555555555554,
+      "critical": 0.03333333333333333
+    },
+    "low_critical_cases": {
+      "Stable Patrol": {
+        "expected_threat": "low",
+        "raw_logprobs": {
+          "low": -0.185302734375,
+          "medium": -1.779296875,
+          "high": -9.734375,
+          "critical": -11.796875
+        },
+        "raw_p": {
+          "low": 0.8311218174921691,
+          "medium": 0.16881142017417342,
+          "high": 5.9231849108133776e-05,
+          "critical": 7.530484549282325e-06
+        },
+        "raw_argmax": "low",
+        "corrected_p": {
+          "low": 0.8955094002745981,
+          "medium": 0.1043627462803853,
+          "high": 6.474551744215475e-05,
+          "critical": 6.310792757455385e-05
+        },
+        "corrected_argmax": "low",
+        "greedy_completion_starts_with": "low\",\n "
+      },
+      "Breaking Contact": {
+        "expected_threat": "low",
+        "raw_logprobs": {
+          "low": -0.0762939453125,
+          "medium": -2.623046875,
+          "high": -9.984375,
+          "critical": -13.0625
+        },
+        "raw_p": {
+          "low": 0.927310299479776,
+          "medium": 0.07264142235738233,
+          "high": 4.615302329533355e-05,
+          "critical": 2.1251395461453685e-06
+        },
+        "raw_argmax": "low",
+        "corrected_p": {
+          "low": 0.9569240807980235,
+          "medium": 0.04301054531561273,
+          "high": 4.831717172070391e-05,
+          "critical": 1.70567146429659e-05
+        },
+        "corrected_argmax": "low",
+        "greedy_completion_starts_with": "low\",\n "
+      },
+      "column->column": {
+        "expected_threat": "low",
+        "raw_logprobs": {
+          "low": -0.317626953125,
+          "medium": -1.3017578125,
+          "high": -9.4765625,
+          "critical": -13.0859375
+        },
+        "raw_p": {
+          "low": 0.7278698114305978,
+          "medium": 0.272051487966637,
+          "high": 7.662642061024095e-05,
+          "critical": 2.074182155082405e-06
+        },
+        "raw_argmax": "low",
+        "corrected_p": {
+          "low": 0.823327378155153,
+          "medium": 0.17656644171673622,
+          "high": 8.793187592620526e-05,
+          "critical": 1.8248252184650226e-05
+        },
+        "corrected_argmax": "low",
+        "greedy_completion_starts_with": "medium\",\n "
+      },
+      "diamond->diamond": {
+        "expected_threat": "low",
+        "raw_logprobs": {
+          "low": -1.05859375,
+          "medium": -0.480224609375,
+          "high": -3.46484375,
+          "critical": -6.24609375
+        },
+        "raw_p": {
+          "low": 0.34735890848392975,
+          "medium": 0.6193854051825654,
+          "high": 0.03131535535925819,
+          "critical": 0.0019403309742467385
+        },
+        "raw_argmax": "medium",
+        "corrected_p": {
+          "low": 0.4633894847597271,
+          "medium": 0.47409667575313263,
+          "high": 0.04238127586294062,
+          "critical": 0.020132563624199695
+        },
+        "corrected_argmax": "medium",
+        "greedy_completion_starts_with": "medium\",\n "
+      },
+      "dispersed->dispersed": {
+        "expected_threat": "low",
+        "raw_logprobs": {
+          "low": -0.127197265625,
+          "medium": -2.126953125,
+          "high": -9.71875,
+          "critical": -11.421875
+        },
+        "raw_p": {
+          "low": 0.8807088103882154,
+          "medium": 0.11922007921477527,
+          "high": 6.015530256418165e-05,
+          "critical": 1.0955094445305481e-05
+        },
+        "raw_argmax": "low",
+        "corrected_p": {
+          "low": 0.9277845939291904,
+          "medium": 0.07206135617135966,
+          "high": 6.42891495220464e-05,
+          "critical": 8.976074992797112e-05
+        },
+        "corrected_argmax": "low",
+        "greedy_completion_starts_with": "low\",\n "
+      },
+      "encirclement->converging": {
+        "expected_threat": "critical",
+        "raw_logprobs": {
+          "low": -6.4140625,
+          "medium": -2.318359375,
+          "high": -0.1473388671875,
+          "critical": -3.302734375
+        },
+        "raw_p": {
+          "low": 0.0016385890698208832,
+          "medium": 0.09844900252742879,
+          "high": 0.8631247038744937,
+          "critical": 0.036787704528256665
+        },
+        "raw_argmax": "high",
+        "corrected_p": {
+          "low": 0.0013432312329177834,
+          "medium": 0.046305252586299576,
+          "high": 0.717799620054855,
+          "critical": 0.23455189612592764
+        },
+        "corrected_argmax": "high",
+        "greedy_completion_starts_with": "high\",\n "
+      },
+      "converging->encirclement": {
+        "expected_threat": "critical",
+        "raw_logprobs": {
+          "low": -11.6796875,
+          "medium": -6.8203125,
+          "high": -0.3984375,
+          "critical": -1.1171875
+        },
+        "raw_p": {
+          "low": 8.466830890131268e-06,
+          "medium": 0.0010917435469848325,
+          "high": 0.6715919928664748,
+          "critical": 0.3273077967556503
+        },
+        "raw_argmax": "high",
+        "corrected_p": {
+          "low": 2.6231880145569653e-06,
+          "medium": 0.00019407400877341987,
+          "high": 0.21108773146463602,
+          "critical": 0.7887155713385758
+        },
+        "corrected_argmax": "critical",
+        "greedy_completion_starts_with": "high\",\n "
+      },
+      "encirclement->column": {
+        "expected_threat": "low",
+        "raw_logprobs": {
+          "low": -1.5791015625,
+          "medium": -0.25146484375,
+          "high": -4.203125,
+          "critical": -7.21875
+        },
+        "raw_p": {
+          "low": 0.20626284454260307,
+          "medium": 0.7780478441278658,
+          "high": 0.014956228906786787,
+          "critical": 0.0007330824227442192
+        },
+        "raw_argmax": "medium",
+        "corrected_p": {
+          "low": 0.30622856316990954,
+          "medium": 0.6627797134010606,
+          "high": 0.022526605144858415,
+          "critical": 0.008465118284171598
+        },
+        "corrected_argmax": "medium",
+        "greedy_completion_starts_with": "medium\",\n "
+      },
+      "encirclement->dispersed": {
+        "expected_threat": "low",
+        "raw_logprobs": {
+          "low": -1.1328125,
+          "medium": -0.398193359375,
+          "high": -5.3359375,
+          "critical": -7.3515625
+        },
+        "raw_p": {
+          "low": 0.3224112866219214,
+          "medium": 0.6721268978466688,
+          "high": 0.004819658226350088,
+          "critical": 0.0006421573050598654
+        },
+        "raw_argmax": "medium",
+        "corrected_p": {
+          "low": 0.4490771077988146,
+          "medium": 0.5371556713229423,
+          "high": 0.006810450990702366,
+          "critical": 0.006956769887540651
+        },
+        "corrected_argmax": "medium",
+        "greedy_completion_starts_with": "medium\",\n "
+      },
+      "converging->column": {
+        "expected_threat": "low",
+        "raw_logprobs": {
+          "low": -0.64892578125,
+          "medium": -0.74267578125,
+          "high": -7.0234375,
+          "critical": -10.7734375
+        },
+        "raw_p": {
+          "low": 0.5229428362290467,
+          "medium": 0.47614487079600926,
+          "high": 0.0008913308817924434,
+          "critical": 2.096209315160718e-05
+        },
+        "raw_argmax": "low",
+        "corrected_p": {
+          "low": 0.6559678730499088,
+          "medium": 0.34269334557463554,
+          "high": 0.0011342695011869045,
+          "critical": 0.00020451187426870823
+        },
+        "corrected_argmax": "low",
+        "greedy_completion_starts_with": "medium\",\n "
+      },
+      "converging->dispersed": {
+        "expected_threat": "low",
+        "raw_logprobs": {
+          "low": -0.075927734375,
+          "medium": -2.623046875,
+          "high": -10.203125,
+          "critical": -12.921875
+        },
+        "raw_p": {
+          "low": 0.9273430892493751,
+          "medium": 0.07261739281067071,
+          "high": 3.7072728465483424e-05,
+          "critical": 2.4452114884152016e-06
+        },
+        "raw_argmax": "low",
+        "corrected_p": {
+          "low": 0.956945791258494,
+          "medium": 0.0429957727227084,
+          "high": 3.8810603532173466e-05,
+          "critical": 1.962541526541777e-05
+        },
+        "corrected_argmax": "low",
+        "greedy_completion_starts_with": "low\",\n "
+      },
+      "v_shape->column": {
+        "expected_threat": "low",
+        "raw_logprobs": {
+          "low": -0.53125,
+          "medium": -0.890625,
+          "high": -7.140625,
+          "critical": -10.8125
+        },
+        "raw_p": {
+          "low": 0.5884102755945985,
+          "medium": 0.4107765744452228,
+          "high": 0.0007929853372032299,
+          "critical": 2.0164622975547415e-05
+        },
+        "raw_argmax": "low",
+        "corrected_p": {
+          "low": 0.7131700586728495,
+          "medium": 0.2856648015048155,
+          "high": 0.0009750501639425496,
+          "critical": 0.0001900896583923806
+        },
+        "corrected_argmax": "low",
+        "greedy_completion_starts_with": "medium\",\n "
+      },
+      "v_shape->dispersed": {
+        "expected_threat": "low",
+        "raw_logprobs": {
+          "low": -0.1474609375,
+          "medium": -1.9912109375,
+          "high": -8.3984375,
+          "critical": -11.0390625
+        },
+        "raw_p": {
+          "low": 0.8631832208300456,
+          "medium": 0.1365754180757212,
+          "high": 0.0002252938819410082,
+          "critical": 1.6067212292133045e-05
+        },
+        "raw_argmax": "low",
+        "corrected_p": {
+          "low": 0.9164279681833867,
+          "medium": 0.083196698625147,
+          "high": 0.00024265748533911793,
+          "critical": 0.0001326757061272708
+        },
+        "corrected_argmax": "low",
+        "greedy_completion_starts_with": "low\",\n "
+      },
+      "column->dispersed": {
+        "expected_threat": "low",
+        "raw_logprobs": {
+          "low": -0.65625,
+          "medium": -0.734375,
+          "high": -7.46875,
+          "critical": -9.765625
+        },
+        "raw_p": {
+          "low": 0.5191947933266271,
+          "medium": 0.4801766884361638,
+          "high": 0.0005710829188768397,
+          "critical": 5.743531833223667e-05
+        },
+        "raw_argmax": "low",
+        "corrected_p": {
+          "low": 0.652474371778029,
+          "medium": 0.3462361507172371,
+          "high": 0.0007280836008174332,
+          "critical": 0.0005613939039165017
+        },
+        "corrected_argmax": "low",
+        "greedy_completion_starts_with": "medium\",\n "
+      },
+      "diamond->column": {
+        "expected_threat": "low",
+        "raw_logprobs": {
+          "low": -1.044921875,
+          "medium": -0.435302734375,
+          "high": -7.60546875,
+          "critical": -11.703125
+        },
+        "raw_p": {
+          "low": 0.35196777371006277,
+          "medium": 0.6475258788247362,
+          "high": 0.0004980736827598044,
+          "critical": 8.273782441255769e-06
+        },
+        "raw_argmax": "medium",
+        "corrected_p": {
+          "low": 0.48609723555966583,
+          "medium": 0.5131160382428778,
+          "high": 0.0006978511434533866,
+          "critical": 8.887505400299361e-05
+        },
+        "corrected_argmax": "medium",
+        "greedy_completion_starts_with": "medium\",\n "
+      },
+      "dispersed->column": {
+        "expected_threat": "low",
+        "raw_logprobs": {
+          "low": -0.7841796875,
+          "medium": -0.6123046875,
+          "high": -6.86328125,
+          "critical": -11.125
+        },
+        "raw_p": {
+          "low": 0.4566518850871116,
+          "medium": 0.5422875312351039,
+          "high": 0.0010458393813192462,
+          "critical": 1.4744296465342365e-05
+        },
+        "raw_argmax": "medium",
+        "corrected_p": {
+          "low": 0.5938440214209463,
+          "medium": 0.4046270958613947,
+          "high": 0.0013797521335007965,
+          "critical": 0.00014913058415826124
+        },
+        "corrected_argmax": "low",
+        "greedy_completion_starts_with": "medium\",\n "
+      },
+      "shield->dispersed": {
+        "expected_threat": "low",
+        "raw_logprobs": {
+          "low": -0.75146484375,
+          "medium": -0.64208984375,
+          "high": -6.765625,
+          "critical": -9.1875
+        },
+        "raw_p": {
+          "low": 0.4720897198482429,
+          "medium": 0.5266541398346993,
+          "high": 0.001153740064941292,
+          "critical": 0.00010240025211656235
+        },
+        "raw_argmax": "medium",
+        "corrected_p": {
+          "low": 0.608178681383023,
+          "medium": 0.3892874123219741,
+          "high": 0.0015078688613675893,
+          "critical": 0.0010260374336351853
+        },
+        "corrected_argmax": "low",
+        "greedy_completion_starts_with": "medium\",\n "
+      }
+    },
+    "battery": {
+      "Converging Attack": {
+        "expected_threat": "high",
+        "raw_logprobs": {
+          "low": -6.25,
+          "medium": -1.109375,
+          "high": -0.421875,
+          "critical": -4.40625
+        },
+        "raw_p": {
+          "low": 0.0019310096663987478,
+          "medium": 0.32985989685835887,
+          "high": 0.6560047365947685,
+          "critical": 0.012204356880473869
+        },
+        "raw_argmax": "high",
+        "corrected_p": {
+          "low": 0.002029160756022232,
+          "medium": 0.19888394908934784,
+          "high": 0.6993392945159842,
+          "critical": 0.0997475956386456
+        },
+        "corrected_argmax": "high",
+        "greedy_completion_starts_with": "high\",\n "
+      },
+      "Stable Patrol": {
+        "expected_threat": "low",
+        "raw_logprobs": {
+          "low": -0.185302734375,
+          "medium": -1.779296875,
+          "high": -9.734375,
+          "critical": -11.796875
+        },
+        "raw_p": {
+          "low": 0.8311218174921691,
+          "medium": 0.16881142017417342,
+          "high": 5.9231849108133776e-05,
+          "critical": 7.530484549282325e-06
+        },
+        "raw_argmax": "low",
+        "corrected_p": {
+          "low": 0.8955094002745981,
+          "medium": 0.1043627462803853,
+          "high": 6.474551744215475e-05,
+          "critical": 6.310792757455385e-05
+        },
+        "corrected_argmax": "low",
+        "greedy_completion_starts_with": "low\",\n "
+      },
+      "Encirclement Behavior": {
+        "expected_threat": "high",
+        "raw_logprobs": {
+          "low": -6.796875,
+          "medium": -2.15625,
+          "high": -0.1717529296875,
+          "critical": -3.203125
+        },
+        "raw_p": {
+          "low": 0.00111759875336181,
+          "medium": 0.11579338202932114,
+          "high": 0.8424417192020238,
+          "critical": 0.040647300015293375
+        },
+        "raw_argmax": "high",
+        "corrected_p": {
+          "low": 0.0009024879443823961,
+          "medium": 0.053650953977910525,
+          "high": 0.6901513082534766,
+          "critical": 0.25529524982423046
+        },
+        "corrected_argmax": "high",
+        "greedy_completion_starts_with": "high\",\n "
+      },
+      "Defensive Shield": {
+        "expected_threat": "medium",
+        "raw_logprobs": {
+          "low": -0.48681640625,
+          "medium": -0.95556640625,
+          "high": -7.94140625,
+          "critical": -10.40625
+        },
+        "raw_p": {
+          "low": 0.6148503586170354,
+          "medium": 0.38476352272218917,
+          "high": 0.0003558624764494319,
+          "critical": 3.0256184325974382e-05
+        },
+        "raw_argmax": "low",
+        "corrected_p": {
+          "low": 0.7352798970702287,
+          "medium": 0.26400695206490254,
+          "high": 0.0004317321668137151,
+          "critical": 0.0002814186980549854
+        },
+        "corrected_argmax": "low",
+        "greedy_completion_starts_with": "medium\",\n "
+      },
+      "Area Search": {
+        "expected_threat": "medium",
+        "raw_logprobs": {
+          "low": -0.60205078125,
+          "medium": -0.80517578125,
+          "high": -5.4921875,
+          "critical": -7.7890625
+        },
+        "raw_p": {
+          "low": 0.5481095022279785,
+          "medium": 0.4473539378499912,
+          "high": 0.004121999535664876,
+          "critical": 0.0004145603863653665
+        },
+        "raw_argmax": "low",
+        "corrected_p": {
+          "low": 0.674850396070217,
+          "medium": 0.3160309741269271,
+          "high": 0.005148693790322763,
+          "critical": 0.0039699360125331614
+        },
+        "corrected_argmax": "low",
+        "greedy_completion_starts_with": "medium\",\n "
+      },
+      "Breaking Contact": {
+        "expected_threat": "low",
+        "raw_logprobs": {
+          "low": -0.0762939453125,
+          "medium": -2.623046875,
+          "high": -9.984375,
+          "critical": -13.0625
+        },
+        "raw_p": {
+          "low": 0.927310299479776,
+          "medium": 0.07264142235738233,
+          "high": 4.615302329533355e-05,
+          "critical": 2.1251395461453685e-06
+        },
+        "raw_argmax": "low",
+        "corrected_p": {
+          "low": 0.9569240807980235,
+          "medium": 0.04301054531561273,
+          "high": 4.831717172070391e-05,
+          "critical": 1.70567146429659e-05
+        },
+        "corrected_argmax": "low",
+        "greedy_completion_starts_with": "low\",\n "
+      },
+      "v_shape->v_shape": {
+        "expected_threat": "medium",
+        "raw_logprobs": {
+          "low": -0.94384765625,
+          "medium": -0.50634765625,
+          "high": -5.0546875,
+          "critical": -6.9453125
+        },
+        "raw_p": {
+          "low": 0.389453684145943,
+          "medium": 0.6031976659199242,
+          "high": 0.006384703831975656,
+          "critical": 0.0009639461021572702
+        },
+        "raw_argmax": "medium",
+        "corrected_p": {
+          "low": 0.5196004513628409,
+          "medium": 0.46175495539206346,
+          "high": 0.008641784036198377,
+          "critical": 0.010002809208897196
+        },
+        "corrected_argmax": "low",
+        "greedy_completion_starts_with": "medium\",\n "
+      },
+      "encirclement->encirclement": {
+        "expected_threat": "high",
+        "raw_logprobs": {
+          "low": -3.888671875,
+          "medium": -0.451171875,
+          "high": -1.123046875,
+          "critical": -4.125
+        },
+        "raw_p": {
+          "low": 0.02049702110905926,
+          "medium": 0.6376436365139695,
+          "high": 0.3256765020975764,
+          "critical": 0.01618284027939477
+        },
+        "raw_argmax": "medium",
+        "corrected_p": {
+          "low": 0.024325311629416556,
+          "medium": 0.4341940857749959,
+          "high": 0.3921055942166836,
+          "critical": 0.14937500837890383
+        },
+        "corrected_argmax": "medium",
+        "greedy_completion_starts_with": "medium\",\n "
+      },
+      "column->column": {
+        "expected_threat": "low",
+        "raw_logprobs": {
+          "low": -0.317626953125,
+          "medium": -1.3017578125,
+          "high": -9.4765625,
+          "critical": -13.0859375
+        },
+        "raw_p": {
+          "low": 0.7278698114305978,
+          "medium": 0.272051487966637,
+          "high": 7.662642061024095e-05,
+          "critical": 2.074182155082405e-06
+        },
+        "raw_argmax": "low",
+        "corrected_p": {
+          "low": 0.823327378155153,
+          "medium": 0.17656644171673622,
+          "high": 8.793187592620526e-05,
+          "critical": 1.8248252184650226e-05
+        },
+        "corrected_argmax": "low",
+        "greedy_completion_starts_with": "medium\",\n "
+      },
+      "diamond->diamond": {
+        "expected_threat": "low",
+        "raw_logprobs": {
+          "low": -1.05859375,
+          "medium": -0.480224609375,
+          "high": -3.46484375,
+          "critical": -6.24609375
+        },
+        "raw_p": {
+          "low": 0.34735890848392975,
+          "medium": 0.6193854051825654,
+          "high": 0.03131535535925819,
+          "critical": 0.0019403309742467385
+        },
+        "raw_argmax": "medium",
+        "corrected_p": {
+          "low": 0.4633894847597271,
+          "medium": 0.47409667575313263,
+          "high": 0.04238127586294062,
+          "critical": 0.020132563624199695
+        },
+        "corrected_argmax": "medium",
+        "greedy_completion_starts_with": "medium\",\n "
+      },
+      "dispersed->dispersed": {
+        "expected_threat": "low",
+        "raw_logprobs": {
+          "low": -0.127197265625,
+          "medium": -2.126953125,
+          "high": -9.71875,
+          "critical": -11.421875
+        },
+        "raw_p": {
+          "low": 0.8807088103882154,
+          "medium": 0.11922007921477527,
+          "high": 6.015530256418165e-05,
+          "critical": 1.0955094445305481e-05
+        },
+        "raw_argmax": "low",
+        "corrected_p": {
+          "low": 0.9277845939291904,
+          "medium": 0.07206135617135966,
+          "high": 6.42891495220464e-05,
+          "critical": 8.976074992797112e-05
+        },
+        "corrected_argmax": "low",
+        "greedy_completion_starts_with": "low\",\n "
+      },
+      "converging->converging": {
+        "expected_threat": "high",
+        "raw_logprobs": {
+          "low": -3.109375,
+          "medium": -0.359130859375,
+          "high": -1.40625,
+          "critical": -4.546875
+        },
+        "raw_p": {
+          "low": 0.04469263275476448,
+          "medium": 0.699281104205318,
+          "high": 0.24541083230047353,
+          "critical": 0.010615430739444163
+        },
+        "raw_argmax": "medium",
+        "corrected_p": {
+          "low": 0.0574860741604352,
+          "medium": 0.5160796261899095,
+          "high": 0.320235437485009,
+          "critical": 0.10619886216464638
+        },
+        "corrected_argmax": "medium",
+        "greedy_completion_starts_with": "medium\",\n "
+      },
+      "shield->shield": {
+        "expected_threat": "medium",
+        "raw_logprobs": {
+          "low": -0.8046875,
+          "medium": -0.6328125,
+          "high": -4.0546875,
+          "critical": -5.9765625
+        },
+        "raw_p": {
+          "low": 0.4480331881240543,
+          "medium": 0.5320525753503423,
+          "high": 0.017372131951831085,
+          "critical": 0.002542104573772377
+        },
+        "raw_argmax": "medium",
+        "corrected_p": {
+          "low": 0.5666248998543929,
+          "medium": 0.3860808215636095,
+          "high": 0.02228884368218555,
+          "critical": 0.025005434899812082
+        },
+        "corrected_argmax": "low",
+        "greedy_completion_starts_with": "medium\",\n "
+      },
+      "v_shape->converging": {
+        "expected_threat": "high",
+        "raw_logprobs": {
+          "low": -10.0234375,
+          "medium": -5.08984375,
+          "high": -0.0572509765625,
+          "critical": -3.009765625
+        },
+        "raw_p": {
+          "low": 4.435429182968535e-05,
+          "medium": 0.006159822405780399,
+          "high": 0.9444858641476538,
+          "critical": 0.0493099591547362
+        },
+        "raw_argmax": "high",
+        "corrected_p": {
+          "low": 3.297043610225334e-05,
+          "medium": 0.0026272139565082673,
+          "high": 0.7122516330274266,
+          "critical": 0.28508818257996293
+        },
+        "corrected_argmax": "high",
+        "greedy_completion_starts_with": "high\",\n "
+      },
+      "encirclement->converging": {
+        "expected_threat": "critical",
+        "raw_logprobs": {
+          "low": -6.4140625,
+          "medium": -2.318359375,
+          "high": -0.1473388671875,
+          "critical": -3.302734375
+        },
+        "raw_p": {
+          "low": 0.0016385890698208832,
+          "medium": 0.09844900252742879,
+          "high": 0.8631247038744937,
+          "critical": 0.036787704528256665
+        },
+        "raw_argmax": "high",
+        "corrected_p": {
+          "low": 0.0013432312329177834,
+          "medium": 0.046305252586299576,
+          "high": 0.717799620054855,
+          "critical": 0.23455189612592764
+        },
+        "corrected_argmax": "high",
+        "greedy_completion_starts_with": "high\",\n "
+      },
+      "column->converging": {
+        "expected_threat": "high",
+        "raw_logprobs": {
+          "low": -4.8046875,
+          "medium": -0.5537109375,
+          "high": -0.8974609375,
+          "critical": -4.7578125
+        },
+        "raw_p": {
+          "low": 0.008197887078772559,
+          "medium": 0.5752777745060546,
+          "high": 0.4079330265210709,
+          "critical": 0.00859131189410206
+        },
+        "raw_argmax": "medium",
+        "corrected_p": {
+          "low": 0.010010342556525352,
+          "medium": 0.40305360741810864,
+          "high": 0.5053413361538113,
+          "critical": 0.08159471387155469
+        },
+        "corrected_argmax": "high",
+        "greedy_completion_starts_with": "medium\",\n "
+      },
+      "diamond->converging": {
+        "expected_threat": "high",
+        "raw_logprobs": {
+          "low": -4.7578125,
+          "medium": -0.88330078125,
+          "high": -0.58642578125,
+          "critical": -3.8671875
+        },
+        "raw_p": {
+          "low": 0.008590985146511881,
+          "medium": 0.41373477707451767,
+          "high": 0.5567409959264228,
+          "critical": 0.020933241852547656
+        },
+        "raw_argmax": "high",
+        "corrected_p": {
+          "low": 0.008823904449318232,
+          "medium": 0.24382490603007023,
+          "high": 0.5801228605224289,
+          "critical": 0.16722832899818252
+        },
+        "corrected_argmax": "high",
+        "greedy_completion_starts_with": "high\",\n "
+      },
+      "dispersed->converging": {
+        "expected_threat": "high",
+        "raw_logprobs": {
+          "low": -6.59375,
+          "medium": -1.1708984375,
+          "high": -0.3896484375,
+          "critical": -4.515625
+        },
+        "raw_p": {
+          "low": 0.0013693230554172402,
+          "medium": 0.3101847414346115,
+          "high": 0.6775057637441112,
+          "critical": 0.010940171765860065
+        },
+        "raw_argmax": "high",
+        "corrected_p": {
+          "low": 0.0014387286378927241,
+          "medium": 0.18699569460268628,
+          "high": 0.7221624641734272,
+          "critical": 0.08940311258599375
+        },
+        "corrected_argmax": "high",
+        "greedy_completion_starts_with": "high\",\n "
+      },
+      "shield->converging": {
+        "expected_threat": "medium",
+        "raw_logprobs": {
+          "low": -5.59765625,
+          "medium": -1.3779296875,
+          "high": -0.3154296875,
+          "critical": -4.23828125
+        },
+        "raw_p": {
+          "low": 0.0037076003210307477,
+          "medium": 0.25217200548147795,
+          "high": 0.7296838922948635,
+          "critical": 0.01443650190262785
+        },
+        "raw_argmax": "high",
+        "corrected_p": {
+          "low": 0.003704120741196093,
+          "medium": 0.14455306523281736,
+          "high": 0.7395642886896189,
+          "critical": 0.11217852533636752
+        },
+        "corrected_argmax": "high",
+        "greedy_completion_starts_with": "high\",\n "
+      },
+      "v_shape->encirclement": {
+        "expected_threat": "high",
+        "raw_logprobs": {
+          "low": -9.1796875,
+          "medium": -4.29296875,
+          "high": -0.1676025390625,
+          "critical": -1.96484375
+        },
+        "raw_p": {
+          "low": 0.00010315039082344196,
+          "medium": 0.013669287109998964,
+          "high": 0.8459986047303875,
+          "critical": 0.14022895776879007
+        },
+        "raw_argmax": "high",
+        "corrected_p": {
+          "low": 5.2711785118882265e-05,
+          "medium": 0.004007937321952372,
+          "high": 0.43858668453181193,
+          "critical": 0.5573526663611168
+        },
+        "corrected_argmax": "critical",
+        "greedy_completion_starts_with": "high\",\n "
+      },
+      "column->encirclement": {
+        "expected_threat": "high",
+        "raw_logprobs": {
+          "low": -8.1953125,
+          "medium": -2.70703125,
+          "high": -0.11383056640625,
+          "critical": -3.20703125
+        },
+        "raw_p": {
+          "low": 0.00027597264287890265,
+          "medium": 0.06674155095518362,
+          "high": 0.8925016794708457,
+          "critical": 0.04048079693109186
+        },
+        "raw_argmax": "high",
+        "corrected_p": {
+          "low": 0.00021922469959107652,
+          "medium": 0.030419912112029435,
+          "high": 0.7192526029518723,
+          "critical": 0.2501082602365072
+        },
+        "corrected_argmax": "high",
+        "greedy_completion_starts_with": "high\",\n "
+      },
+      "diamond->encirclement": {
+        "expected_threat": "high",
+        "raw_logprobs": {
+          "low": -9.0546875,
+          "medium": -4.0078125,
+          "high": -0.115966796875,
+          "critical": -2.396484375
+        },
+        "raw_p": {
+          "low": 0.00011686166552290979,
+          "medium": 0.018176155728934867,
+          "high": 0.890654257514604,
+          "critical": 0.09105272509093826
+        },
+        "raw_argmax": "high",
+        "corrected_p": {
+          "low": 7.203473886790786e-05,
+          "medium": 0.006428507558160575,
+          "high": 0.5569651376824324,
+          "critical": 0.43653432002053905
+        },
+        "corrected_argmax": "high",
+        "greedy_completion_starts_with": "high\",\n "
+      },
+      "dispersed->encirclement": {
+        "expected_threat": "high",
+        "raw_logprobs": {
+          "low": -9.765625,
+          "medium": -3.66796875,
+          "high": -0.08990478515625,
+          "critical": -2.80859375
+        },
+        "raw_p": {
+          "low": 5.739699652852171e-05,
+          "medium": 0.025530988449691903,
+          "high": 0.9141154830392495,
+          "critical": 0.06029613151452995
+        },
+        "raw_argmax": "high",
+        "corrected_p": {
+          "low": 4.0677093406606814e-05,
+          "medium": 0.010381654797748942,
+          "high": 0.6572199828618354,
+          "critical": 0.33235768524700915
+        },
+        "corrected_argmax": "high",
+        "greedy_completion_starts_with": "high\",\n "
+      },
+      "converging->encirclement": {
+        "expected_threat": "critical",
+        "raw_logprobs": {
+          "low": -11.6796875,
+          "medium": -6.8203125,
+          "high": -0.3984375,
+          "critical": -1.1171875
+        },
+        "raw_p": {
+          "low": 8.466830890131268e-06,
+          "medium": 0.0010917435469848325,
+          "high": 0.6715919928664748,
+          "critical": 0.3273077967556503
+        },
+        "raw_argmax": "high",
+        "corrected_p": {
+          "low": 2.6231880145569653e-06,
+          "medium": 0.00019407400877341987,
+          "high": 0.21108773146463602,
+          "critical": 0.7887155713385758
+        },
+        "corrected_argmax": "critical",
+        "greedy_completion_starts_with": "high\",\n "
+      },
+      "shield->encirclement": {
+        "expected_threat": "medium",
+        "raw_logprobs": {
+          "low": -9.625,
+          "medium": -3.953125,
+          "high": -0.09393310546875,
+          "critical": -2.65625
+        },
+        "raw_p": {
+          "low": 6.606870705446652e-05,
+          "medium": 0.01919816953057542,
+          "high": 0.9105117754845733,
+          "critical": 0.0702239862777967
+        },
+        "raw_argmax": "high",
+        "corrected_p": {
+          "low": 4.461161168808465e-05,
+          "medium": 0.007437896610452644,
+          "high": 0.6237156216105475,
+          "critical": 0.36880187016731175
+        },
+        "corrected_argmax": "high",
+        "greedy_completion_starts_with": "high\",\n "
+      },
+      "encirclement->v_shape": {
+        "expected_threat": "medium",
+        "raw_logprobs": {
+          "low": -3.634765625,
+          "medium": -0.1497802734375,
+          "high": -2.244140625,
+          "critical": -5.2421875
+        },
+        "raw_p": {
+          "low": 0.026427261765077963,
+          "medium": 0.8621087920051782,
+          "high": 0.10616782745859203,
+          "critical": 0.00529611877115183
+        },
+        "raw_argmax": "medium",
+        "corrected_p": {
+          "low": 0.03944494747358502,
+          "medium": 0.7383112722458037,
+          "high": 0.1607611466698714,
+          "critical": 0.06148263361073981
+        },
+        "corrected_argmax": "medium",
+        "greedy_completion_starts_with": "medium\",\n "
+      },
+      "encirclement->column": {
+        "expected_threat": "low",
+        "raw_logprobs": {
+          "low": -1.5791015625,
+          "medium": -0.25146484375,
+          "high": -4.203125,
+          "critical": -7.21875
+        },
+        "raw_p": {
+          "low": 0.20626284454260307,
+          "medium": 0.7780478441278658,
+          "high": 0.014956228906786787,
+          "critical": 0.0007330824227442192
+        },
+        "raw_argmax": "medium",
+        "corrected_p": {
+          "low": 0.30622856316990954,
+          "medium": 0.6627797134010606,
+          "high": 0.022526605144858415,
+          "critical": 0.008465118284171598
+        },
+        "corrected_argmax": "medium",
+        "greedy_completion_starts_with": "medium\",\n "
+      },
+      "encirclement->diamond": {
+        "expected_threat": "medium",
+        "raw_logprobs": {
+          "low": -2.279296875,
+          "medium": -0.2171630859375,
+          "high": -2.451171875,
+          "critical": -5.15625
+        },
+        "raw_p": {
+          "low": 0.10244726208610247,
+          "medium": 0.8055150922969998,
+          "high": 0.08626924400618355,
+          "critical": 0.0057684016107142555
+        },
+        "raw_argmax": "medium",
+        "corrected_p": {
+          "low": 0.1469804345427877,
+          "medium": 0.6630878372500355,
+          "high": 0.12556370219749874,
+          "critical": 0.06436802600967795
+        },
+        "corrected_argmax": "medium",
+        "greedy_completion_starts_with": "medium\",\n "
+      },
+      "encirclement->dispersed": {
+        "expected_threat": "low",
+        "raw_logprobs": {
+          "low": -1.1328125,
+          "medium": -0.398193359375,
+          "high": -5.3359375,
+          "critical": -7.3515625
+        },
+        "raw_p": {
+          "low": 0.3224112866219214,
+          "medium": 0.6721268978466688,
+          "high": 0.004819658226350088,
+          "critical": 0.0006421573050598654
+        },
+        "raw_argmax": "medium",
+        "corrected_p": {
+          "low": 0.4490771077988146,
+          "medium": 0.5371556713229423,
+          "high": 0.006810450990702366,
+          "critical": 0.006956769887540651
+        },
+        "corrected_argmax": "medium",
+        "greedy_completion_starts_with": "medium\",\n "
+      },
+      "encirclement->shield": {
+        "expected_threat": "medium",
+        "raw_logprobs": {
+          "low": -3.091796875,
+          "medium": -0.358154296875,
+          "high": -1.4521484375,
+          "critical": -3.873046875
+        },
+        "raw_p": {
+          "low": 0.04545448154575476,
+          "medium": 0.6994917485010755,
+          "high": 0.23424319185949105,
+          "critical": 0.020810578093678703
+        },
+        "raw_argmax": "medium",
+        "corrected_p": {
+          "low": 0.0537096379285168,
+          "medium": 0.47423796809353275,
+          "high": 0.2807963399263468,
+          "critical": 0.19125605405160373
+        },
+        "corrected_argmax": "medium",
+        "greedy_completion_starts_with": "medium\",\n "
+      },
+      "converging->v_shape": {
+        "expected_threat": "medium",
+        "raw_logprobs": {
+          "low": -8.3046875,
+          "medium": -3.505859375,
+          "high": -0.22412109375,
+          "critical": -1.7705078125
+        },
+        "raw_p": {
+          "low": 0.000247420647446093,
+          "medium": 0.030028975341134793,
+          "high": 0.7994316530387574,
+          "critical": 0.17029195097266184
+        },
+        "raw_argmax": "high",
+        "corrected_p": {
+          "low": 0.000114919673628878,
+          "medium": 0.008002711625659586,
+          "high": 0.3766940271462561,
+          "critical": 0.6151883415544556
+        },
+        "corrected_argmax": "critical",
+        "greedy_completion_starts_with": "high\",\n "
+      },
+      "converging->column": {
+        "expected_threat": "low",
+        "raw_logprobs": {
+          "low": -0.64892578125,
+          "medium": -0.74267578125,
+          "high": -7.0234375,
+          "critical": -10.7734375
+        },
+        "raw_p": {
+          "low": 0.5229428362290467,
+          "medium": 0.47614487079600926,
+          "high": 0.0008913308817924434,
+          "critical": 2.096209315160718e-05
+        },
+        "raw_argmax": "low",
+        "corrected_p": {
+          "low": 0.6559678730499088,
+          "medium": 0.34269334557463554,
+          "high": 0.0011342695011869045,
+          "critical": 0.00020451187426870823
+        },
+        "corrected_argmax": "low",
+        "greedy_completion_starts_with": "medium\",\n "
+      },
+      "converging->diamond": {
+        "expected_threat": "medium",
+        "raw_logprobs": {
+          "low": -1.8369140625,
+          "medium": -0.180908203125,
+          "high": -5.2109375,
+          "critical": -9.0390625
+        },
+        "raw_p": {
+          "low": 0.15940464667138604,
+          "medium": 0.8350167431435049,
+          "high": 0.005459856347580132,
+          "critical": 0.00011875383752894605
+        },
+        "raw_argmax": "medium",
+        "corrected_p": {
+          "low": 0.24714847463539932,
+          "medium": 0.742831566052783,
+          "high": 0.008587902851825629,
+          "critical": 0.0014320564599920203
+        },
+        "corrected_argmax": "medium",
+        "greedy_completion_starts_with": "medium\",\n "
+      },
+      "converging->dispersed": {
+        "expected_threat": "low",
+        "raw_logprobs": {
+          "low": -0.075927734375,
+          "medium": -2.623046875,
+          "high": -10.203125,
+          "critical": -12.921875
+        },
+        "raw_p": {
+          "low": 0.9273430892493751,
+          "medium": 0.07261739281067071,
+          "high": 3.7072728465483424e-05,
+          "critical": 2.4452114884152016e-06
+        },
+        "raw_argmax": "low",
+        "corrected_p": {
+          "low": 0.956945791258494,
+          "medium": 0.0429957727227084,
+          "high": 3.8810603532173466e-05,
+          "critical": 1.962541526541777e-05
+        },
+        "corrected_argmax": "low",
+        "greedy_completion_starts_with": "low\",\n "
+      },
+      "converging->shield": {
+        "expected_threat": "medium",
+        "raw_logprobs": {
+          "low": -2.193359375,
+          "medium": -0.1300048828125,
+          "high": -4.69140625,
+          "critical": -8.3046875
+        },
+        "raw_p": {
+          "low": 0.11164706254899785,
+          "medium": 0.8789228825462265,
+          "high": 0.00918246597679071,
+          "critical": 0.0002475889279849982
+        },
+        "raw_argmax": "medium",
+        "corrected_p": {
+          "low": 0.17801202614952086,
+          "medium": 0.8040647495088056,
+          "high": 0.014852867928487916,
+          "critical": 0.00307035641318557
+        },
+        "corrected_argmax": "medium",
+        "greedy_completion_starts_with": "medium\",\n "
+      },
+      "v_shape->column": {
+        "expected_threat": "low",
+        "raw_logprobs": {
+          "low": -0.53125,
+          "medium": -0.890625,
+          "high": -7.140625,
+          "critical": -10.8125
+        },
+        "raw_p": {
+          "low": 0.5884102755945985,
+          "medium": 0.4107765744452228,
+          "high": 0.0007929853372032299,
+          "critical": 2.0164622975547415e-05
+        },
+        "raw_argmax": "low",
+        "corrected_p": {
+          "low": 0.7131700586728495,
+          "medium": 0.2856648015048155,
+          "high": 0.0009750501639425496,
+          "critical": 0.0001900896583923806
+        },
+        "corrected_argmax": "low",
+        "greedy_completion_starts_with": "medium\",\n "
+      },
+      "v_shape->diamond": {
+        "expected_threat": "medium",
+        "raw_logprobs": {
+          "low": -1.8505859375,
+          "medium": -0.209716796875,
+          "high": -3.537109375,
+          "critical": -6.6484375
+        },
+        "raw_p": {
+          "low": 0.1574044235118362,
+          "medium": 0.8121520528587277,
+          "high": 0.02914533896484676,
+          "critical": 0.0012981846645892306
+        },
+        "raw_argmax": "medium",
+        "corrected_p": {
+          "low": 0.2373916242661227,
+          "medium": 0.7027874776761409,
+          "high": 0.04459298235753407,
+          "critical": 0.015227915700202299
+        },
+        "corrected_argmax": "medium",
+        "greedy_completion_starts_with": "medium\",\n "
+      },
+      "v_shape->dispersed": {
+        "expected_threat": "low",
+        "raw_logprobs": {
+          "low": -0.1474609375,
+          "medium": -1.9912109375,
+          "high": -8.3984375,
+          "critical": -11.0390625
+        },
+        "raw_p": {
+          "low": 0.8631832208300456,
+          "medium": 0.1365754180757212,
+          "high": 0.0002252938819410082,
+          "critical": 1.6067212292133045e-05
+        },
+        "raw_argmax": "low",
+        "corrected_p": {
+          "low": 0.9164279681833867,
+          "medium": 0.083196698625147,
+          "high": 0.00024265748533911793,
+          "critical": 0.0001326757061272708
+        },
+        "corrected_argmax": "low",
+        "greedy_completion_starts_with": "low\",\n "
+      },
+      "v_shape->shield": {
+        "expected_threat": "medium",
+        "raw_logprobs": {
+          "low": -2.998046875,
+          "medium": -0.341796875,
+          "high": -1.529296875,
+          "critical": -3.826171875
+        },
+        "raw_p": {
+          "low": 0.049941448523211,
+          "medium": 0.7113049847808782,
+          "high": 0.21693576365645012,
+          "critical": 0.021817803039460473
+        },
+        "raw_argmax": "medium",
+        "corrected_p": {
+          "low": 0.058904259136589365,
+          "medium": 0.4813706698306598,
+          "high": 0.25957667650250316,
+          "critical": 0.2001483945302478
+        },
+        "corrected_argmax": "medium",
+        "greedy_completion_starts_with": "medium\",\n "
+      },
+      "column->v_shape": {
+        "expected_threat": "high",
+        "raw_logprobs": {
+          "low": -2.42578125,
+          "medium": -0.160888671875,
+          "high": -2.87890625,
+          "critical": -6.01953125
+        },
+        "raw_p": {
+          "low": 0.08854867490316785,
+          "medium": 0.8527317142957875,
+          "high": 0.056284962284503824,
+          "critical": 0.002434648516540744
+        },
+        "raw_argmax": "medium",
+        "corrected_p": {
+          "low": 0.13542497060742822,
+          "medium": 0.7482854628117832,
+          "high": 0.08732890449838611,
+          "critical": 0.028960662082402503
+        },
+        "corrected_argmax": "medium",
+        "greedy_completion_starts_with": "medium\",\n "
+      },
+      "column->diamond": {
+        "expected_threat": "medium",
+        "raw_logprobs": {
+          "low": -2.59765625,
+          "medium": -0.1595458984375,
+          "high": -2.70703125,
+          "critical": -5.47265625
+        },
+        "raw_p": {
+          "low": 0.07460352954103164,
+          "medium": 0.8543134556537925,
+          "high": 0.06687417167511506,
+          "critical": 0.004208843130061015
+        },
+        "raw_argmax": "medium",
+        "corrected_p": {
+          "low": 0.11212469032759256,
+          "medium": 0.7367113111688167,
+          "high": 0.10196455939317386,
+          "critical": 0.04919943911041675
+        },
+        "corrected_argmax": "medium",
+        "greedy_completion_starts_with": "medium\",\n "
+      },
+      "column->dispersed": {
+        "expected_threat": "low",
+        "raw_logprobs": {
+          "low": -0.65625,
+          "medium": -0.734375,
+          "high": -7.46875,
+          "critical": -9.765625
+        },
+        "raw_p": {
+          "low": 0.5191947933266271,
+          "medium": 0.4801766884361638,
+          "high": 0.0005710829188768397,
+          "critical": 5.743531833223667e-05
+        },
+        "raw_argmax": "low",
+        "corrected_p": {
+          "low": 0.652474371778029,
+          "medium": 0.3462361507172371,
+          "high": 0.0007280836008174332,
+          "critical": 0.0005613939039165017
+        },
+        "corrected_argmax": "low",
+        "greedy_completion_starts_with": "medium\",\n "
+      },
+      "column->shield": {
+        "expected_threat": "medium",
+        "raw_logprobs": {
+          "low": -1.5654296875,
+          "medium": -0.2529296875,
+          "high": -4.42578125,
+          "critical": -6.72265625
+        },
+        "raw_p": {
+          "low": 0.20927257418492007,
+          "medium": 0.7775419401861958,
+          "high": 0.011980568222154748,
+          "critical": 0.0012049174067293976
+        },
+        "raw_argmax": "medium",
+        "corrected_p": {
+          "low": 0.30914997272866607,
+          "medium": 0.6590508573905214,
+          "high": 0.017954911213906306,
+          "critical": 0.013844258666906214
+        },
+        "corrected_argmax": "medium",
+        "greedy_completion_starts_with": "medium\",\n "
+      },
+      "diamond->v_shape": {
+        "expected_threat": "medium",
+        "raw_logprobs": {
+          "low": -1.90625,
+          "medium": -0.1878662109375,
+          "high": -3.90625,
+          "critical": -6.6875
+        },
+        "raw_p": {
+          "low": 0.1488265597576088,
+          "medium": 0.8297839689411546,
+          "high": 0.020141484617926655,
+          "critical": 0.0012479866833100851
+        },
+        "raw_argmax": "medium",
+        "corrected_p": {
+          "low": 0.22719112415619533,
+          "medium": 0.726798742438344,
+          "high": 0.03119258347183506,
+          "critical": 0.014817549933625487
+        },
+        "corrected_argmax": "medium",
+        "greedy_completion_starts_with": "medium\",\n "
+      },
+      "diamond->column": {
+        "expected_threat": "low",
+        "raw_logprobs": {
+          "low": -1.044921875,
+          "medium": -0.435302734375,
+          "high": -7.60546875,
+          "critical": -11.703125
+        },
+        "raw_p": {
+          "low": 0.35196777371006277,
+          "medium": 0.6475258788247362,
+          "high": 0.0004980736827598044,
+          "critical": 8.273782441255769e-06
+        },
+        "raw_argmax": "medium",
+        "corrected_p": {
+          "low": 0.48609723555966583,
+          "medium": 0.5131160382428778,
+          "high": 0.0006978511434533866,
+          "critical": 8.887505400299361e-05
+        },
+        "corrected_argmax": "medium",
+        "greedy_completion_starts_with": "medium\",\n "
+      },
+      "diamond->dispersed": {
+        "expected_threat": "medium",
+        "raw_logprobs": {
+          "low": -0.4033203125,
+          "medium": -1.1064453125,
+          "high": -7.63671875,
+          "critical": -10.1875
+        },
+        "raw_p": {
+          "low": 0.6685321854215467,
+          "medium": 0.3309474300341871,
+          "high": 0.00048272222398593634,
+          "critical": 3.766232028026304e-05
+        },
+        "raw_argmax": "low",
+        "corrected_p": {
+          "low": 0.7780843606523141,
+          "medium": 0.2210047397965871,
+          "high": 0.0005699681772871452,
+          "critical": 0.00034093137381147184
+        },
+        "corrected_argmax": "low",
+        "greedy_completion_starts_with": "medium\",\n "
+      },
+      "diamond->shield": {
+        "expected_threat": "medium",
+        "raw_logprobs": {
+          "low": -2.724609375,
+          "medium": -0.08355712890625,
+          "high": -4.31640625,
+          "critical": -8.2734375
+        },
+        "raw_p": {
+          "low": 0.06563657399965413,
+          "medium": 0.9207470184678794,
+          "high": 0.013360948967269519,
+          "critical": 0.0002554585651970257
+        },
+        "raw_argmax": "medium",
+        "corrected_p": {
+          "low": 0.1076935345647722,
+          "medium": 0.866806695372594,
+          "high": 0.022239754105551277,
+          "critical": 0.0032600159570825376
+        },
+        "corrected_argmax": "medium",
+        "greedy_completion_starts_with": "medium\",\n "
+      },
+      "dispersed->v_shape": {
+        "expected_threat": "high",
+        "raw_logprobs": {
+          "low": -2.314453125,
+          "medium": -0.26806640625,
+          "high": -2.064453125,
+          "critical": -4.76953125
+        },
+        "raw_p": {
+          "low": 0.0989142573054437,
+          "medium": 0.765584891531707,
+          "high": 0.12700842045298083,
+          "critical": 0.008492430709868453
+        },
+        "raw_argmax": "medium",
+        "corrected_p": {
+          "low": 0.13492865248753594,
+          "medium": 0.5992069642447461,
+          "high": 0.17576271516434297,
+          "critical": 0.09010166810337497
+        },
+        "corrected_argmax": "medium",
+        "greedy_completion_starts_with": "medium\",\n "
+      },
+      "dispersed->column": {
+        "expected_threat": "low",
+        "raw_logprobs": {
+          "low": -0.7841796875,
+          "medium": -0.6123046875,
+          "high": -6.86328125,
+          "critical": -11.125
+        },
+        "raw_p": {
+          "low": 0.4566518850871116,
+          "medium": 0.5422875312351039,
+          "high": 0.0010458393813192462,
+          "critical": 1.4744296465342365e-05
+        },
+        "raw_argmax": "medium",
+        "corrected_p": {
+          "low": 0.5938440214209463,
+          "medium": 0.4046270958613947,
+          "high": 0.0013797521335007965,
+          "critical": 0.00014913058415826124
+        },
+        "corrected_argmax": "low",
+        "greedy_completion_starts_with": "medium\",\n "
+      },
+      "dispersed->diamond": {
+        "expected_threat": "medium",
+        "raw_logprobs": {
+          "low": -2.048828125,
+          "medium": -0.2216796875,
+          "high": -2.736328125,
+          "critical": -5.51953125
+        },
+        "raw_p": {
+          "low": 0.1290312191663071,
+          "medium": 0.8020755629924616,
+          "high": 0.06488097154090854,
+          "critical": 0.004012246300322912
+        },
+        "raw_argmax": "medium",
+        "corrected_p": {
+          "low": 0.18801921106966835,
+          "medium": 0.6705959394850496,
+          "high": 0.09591217045465059,
+          "critical": 0.045472678990631454
+        },
+        "corrected_argmax": "medium",
+        "greedy_completion_starts_with": "medium\",\n "
+      },
+      "dispersed->shield": {
+        "expected_threat": "medium",
+        "raw_logprobs": {
+          "low": -2.970703125,
+          "medium": -0.5791015625,
+          "high": -1.0634765625,
+          "critical": -3.173828125
+        },
+        "raw_p": {
+          "low": 0.05133062247607298,
+          "medium": 0.561094345928424,
+          "high": 0.34568019853090237,
+          "critical": 0.04189483306460064
+        },
+        "raw_argmax": "medium",
+        "corrected_p": {
+          "low": 0.04889521259691845,
+          "medium": 0.3066647862616588,
+          "high": 0.334051372068172,
+          "critical": 0.3103886290732508
+        },
+        "corrected_argmax": "high",
+        "greedy_completion_starts_with": "medium\",\n "
+      },
+      "shield->v_shape": {
+        "expected_threat": "medium",
+        "raw_logprobs": {
+          "low": -2.203125,
+          "medium": -0.171875,
+          "high": -3.140625,
+          "critical": -5.890625
+        },
+        "raw_p": {
+          "low": 0.11061640927707055,
+          "medium": 0.843296354826446,
+          "high": 0.04331800827568449,
+          "critical": 0.002769227620798968
+        },
+        "raw_argmax": "medium",
+        "corrected_p": {
+          "low": 0.16761097744170983,
+          "medium": 0.7331643417700829,
+          "high": 0.06658866855257986,
+          "critical": 0.03263601223562731
+        },
+        "corrected_argmax": "medium",
+        "greedy_completion_starts_with": "medium\",\n "
+      },
+      "shield->column": {
+        "expected_threat": "medium",
+        "raw_logprobs": {
+          "low": -1.373046875,
+          "medium": -0.294677734375,
+          "high": -6.69921875,
+          "critical": -11.0625
+        },
+        "raw_p": {
+          "low": 0.2534979106168994,
+          "medium": 0.7452537180031578,
+          "high": 0.0012326714266897335,
+          "critical": 1.569995325304857e-05
+        },
+        "raw_argmax": "medium",
+        "corrected_p": {
+          "low": 0.3714390343110336,
+          "medium": 0.6265496880948774,
+          "high": 0.0018323542332263428,
+          "critical": 0.00017892336086253332
+        },
+        "corrected_argmax": "medium",
+        "greedy_completion_starts_with": "medium\",\n "
+      },
+      "shield->diamond": {
+        "expected_threat": "medium",
+        "raw_logprobs": {
+          "low": -2.341796875,
+          "medium": -0.108154296875,
+          "high": -5.203125,
+          "critical": -8.6875
+        },
+        "raw_p": {
+          "low": 0.09622091990869311,
+          "medium": 0.8981071436473875,
+          "high": 0.005503139082492748,
+          "critical": 0.00016879736142657735
+        },
+        "raw_argmax": "medium",
+        "corrected_p": {
+          "low": 0.15559051798696952,
+          "medium": 0.833258940615186,
+          "high": 0.009027615641056797,
+          "critical": 0.0021229257567875882
+        },
+        "corrected_argmax": "medium",
+        "greedy_completion_starts_with": "medium\",\n "
+      },
+      "shield->dispersed": {
+        "expected_threat": "low",
+        "raw_logprobs": {
+          "low": -0.75146484375,
+          "medium": -0.64208984375,
+          "high": -6.765625,
+          "critical": -9.1875
+        },
+        "raw_p": {
+          "low": 0.4720897198482429,
+          "medium": 0.5266541398346993,
+          "high": 0.001153740064941292,
+          "critical": 0.00010240025211656235
+        },
+        "raw_argmax": "medium",
+        "corrected_p": {
+          "low": 0.608178681383023,
+          "medium": 0.3892874123219741,
+          "high": 0.0015078688613675893,
+          "critical": 0.0010260374336351853
+        },
+        "corrected_argmax": "low",
+        "greedy_completion_starts_with": "medium\",\n "
+      }
+    }
   }
 }
