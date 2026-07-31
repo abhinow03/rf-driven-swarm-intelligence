@@ -1,0 +1,348 @@
+{
+  "v2": {
+    "threat_level": {
+      "high": {
+        "high": 14
+      },
+      "low": {
+        "low": 13,
+        "medium": 2
+      },
+      "medium": {
+        "medium": 23,
+        "low": 1
+      },
+      "critical": {
+        "critical": 2
+      }
+    },
+    "likely_intent": {
+      "approach": {
+        "approach": 7
+      },
+      "patrol": {
+        "patrol": 4
+      },
+      "encircle": {
+        "encircle": 9
+      },
+      "defensive": {
+        "defensive": 5
+      },
+      "area_search": {
+        "area_search": 4
+      },
+      "withdraw": {
+        "withdraw": 4
+      },
+      "surveillance": {
+        "surveillance": 3
+      },
+      "regroup": {
+        "regroup": 2
+      },
+      "consolidate": {
+        "consolidate": 4
+      },
+      "transit": {
+        "transit": 3
+      },
+      "defensive_transition": {
+        "defensive_transition": 5
+      },
+      "attack_preparation": {
+        "attack_preparation": 1
+      },
+      "reposition": {
+        "reposition": 3
+      },
+      "rally": {
+        "rally": 1
+      }
+    },
+    "recommended_action": {
+      "alert_operator": {
+        "alert_operator": 14
+      },
+      "monitor": {
+        "monitor": 31
+      },
+      "increase_surveillance": {
+        "increase_surveillance": 8
+      },
+      "deploy_countermeasure": {
+        "deploy_countermeasure": 2
+      }
+    }
+  },
+  "v3a": {
+    "threat_level": {
+      "high": {
+        "medium": 5,
+        "high": 9
+      },
+      "low": {
+        "medium": 15
+      },
+      "medium": {
+        "medium": 23,
+        "high": 1
+      },
+      "critical": {
+        "high": 2
+      }
+    },
+    "likely_intent": {
+      "approach": {
+        "approach": 5,
+        "consolidate": 2
+      },
+      "patrol": {
+        "patrol": 2,
+        "surveillance": 1,
+        "reposition": 1
+      },
+      "encircle": {
+        "encircle": 9
+      },
+      "defensive": {
+        "defensive": 3,
+        "defensive_transition": 2
+      },
+      "area_search": {
+        "area_search": 3,
+        "withdraw": 1
+      },
+      "withdraw": {
+        "withdraw": 3,
+        "reposition": 1
+      },
+      "surveillance": {
+        "patrol": 1,
+        "surveillance": 1,
+        "withdraw": 1
+      },
+      "regroup": {
+        "reposition": 1,
+        "regroup": 1
+      },
+      "consolidate": {
+        "consolidate": 4
+      },
+      "transit": {
+        "transit": 2,
+        "consolidate": 1
+      },
+      "defensive_transition": {
+        "consolidate": 1,
+        "defensive_transition": 3,
+        "defensive": 1
+      },
+      "attack_preparation": {
+        "reposition": 1
+      },
+      "reposition": {
+        "reposition": 3
+      },
+      "rally": {
+        "consolidate": 1
+      }
+    },
+    "recommended_action": {
+      "alert_operator": {
+        "increase_surveillance": 6,
+        "alert_operator": 8
+      },
+      "monitor": {
+        "monitor": 7,
+        "increase_surveillance": 24
+      },
+      "increase_surveillance": {
+        "increase_surveillance": 7,
+        "alert_operator": 1
+      },
+      "deploy_countermeasure": {
+        "alert_operator": 2
+      }
+    }
+  },
+  "v3a-nomask": {
+    "threat_level": {
+      "high": {
+        "high": 11,
+        "medium": 3
+      },
+      "low": {
+        "medium": 15
+      },
+      "medium": {
+        "medium": 23,
+        "high": 1
+      },
+      "critical": {
+        "high": 2
+      }
+    },
+    "likely_intent": {
+      "approach": {
+        "consolidate": 3,
+        "approach": 4
+      },
+      "patrol": {
+        "patrol": 3,
+        "transit": 1
+      },
+      "encircle": {
+        "encircle": 8,
+        "approach": 1
+      },
+      "defensive": {
+        "patrol": 2,
+        "defensive": 2,
+        "reposition": 1
+      },
+      "area_search": {
+        "reposition": 3,
+        "withdraw": 1
+      },
+      "withdraw": {
+        "withdraw": 3,
+        "reposition": 1
+      },
+      "surveillance": {
+        "patrol": 1,
+        "surveillance": 1,
+        "reposition": 1
+      },
+      "regroup": {
+        "reposition": 2
+      },
+      "consolidate": {
+        "consolidate": 4
+      },
+      "transit": {
+        "reposition": 3
+      },
+      "defensive_transition": {
+        "reposition": 1,
+        "defensive": 2,
+        "defensive_transition": 2
+      },
+      "attack_preparation": {
+        "reposition": 1
+      },
+      "reposition": {
+        "reposition": 3
+      },
+      "rally": {
+        "reposition": 1
+      }
+    },
+    "recommended_action": {
+      "alert_operator": {
+        "alert_operator": 11,
+        "increase_surveillance": 3
+      },
+      "monitor": {
+        "monitor": 12,
+        "increase_surveillance": 19
+      },
+      "increase_surveillance": {
+        "increase_surveillance": 7,
+        "alert_operator": 1
+      },
+      "deploy_countermeasure": {
+        "alert_operator": 2
+      }
+    }
+  },
+  "v3b": {
+    "threat_level": {
+      "high": {
+        "high": 12,
+        "medium": 2
+      },
+      "low": {
+        "medium": 13,
+        "low": 2
+      },
+      "medium": {
+        "medium": 23,
+        "high": 1
+      },
+      "critical": {
+        "high": 2
+      }
+    },
+    "likely_intent": {
+      "approach": {
+        "approach": 7
+      },
+      "patrol": {
+        "patrol": 3,
+        "transit": 1
+      },
+      "encircle": {
+        "encircle": 8,
+        "approach": 1
+      },
+      "defensive": {
+        "defensive": 4,
+        "defensive_transition": 1
+      },
+      "area_search": {
+        "area_search": 4
+      },
+      "withdraw": {
+        "withdraw": 4
+      },
+      "surveillance": {
+        "surveillance": 2,
+        "area_search": 1
+      },
+      "regroup": {
+        "reposition": 1,
+        "rally": 1
+      },
+      "consolidate": {
+        "defensive_transition": 1,
+        "consolidate": 3
+      },
+      "transit": {
+        "transit": 3
+      },
+      "defensive_transition": {
+        "defensive_transition": 4,
+        "defensive": 1
+      },
+      "attack_preparation": {
+        "reposition": 1
+      },
+      "reposition": {
+        "reposition": 2,
+        "transit": 1
+      },
+      "rally": {
+        "reposition": 1
+      }
+    },
+    "recommended_action": {
+      "alert_operator": {
+        "alert_operator": 12,
+        "increase_surveillance": 2
+      },
+      "monitor": {
+        "monitor": 20,
+        "increase_surveillance": 11
+      },
+      "increase_surveillance": {
+        "monitor": 1,
+        "increase_surveillance": 6,
+        "alert_operator": 1
+      },
+      "deploy_countermeasure": {
+        "alert_operator": 2
+      }
+    }
+  }
+}

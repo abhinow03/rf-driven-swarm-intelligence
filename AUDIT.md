@@ -524,3 +524,47 @@ scales with distribution shift — it is not a fixed constant, and reporting a s
 number for "the masking effect" understates what it does specifically under the kind
 of input degradation (dropped lines, decayed confidence, contradictory cues, deeper
 chains) this project's degradation battery was built to simulate.**
+
+## M. Threat-level confusion matrices — the low-threat collapse is over-escalation to `medium`
+
+Sec (per-class breakdown, prior session) found `threat_level` accuracy on `low` cases
+collapses (v3a 2.7%, v3a-nomask 0.0%, v3b 13.3%) despite the pairs being in-distribution
+(sec J). `llm_finetuning/report_confusion_matrices.py` builds predicted-vs-expected
+confusion matrices from the existing 55-case battery JSONs (one vote per case — its
+majority label across the 5 runs, not per-run; `evaluate_llm` never persisted individual
+run predictions, see the script's docstring for the full caveat) to find out what `low`
+is being predicted AS.
+
+**`low` cases collapse to `medium`, specifically — never to `high` or `critical`:**
+
+| system | low→low | low→medium | low→high | low→critical | n |
+|---|---|---|---|---|---|
+| v2 | 13 | 2 | 0 | 0 | 15 |
+| v3a | **0** | **15** | 0 | 0 | 15 |
+| v3a-nomask | **0** | **15** | 0 | 0 | 15 |
+| v3b | 2 | 13 | 0 | 0 | 15 |
+
+v3a and v3a-nomask predict `medium` on literally every one of the 15 `low` cases — this
+is a systematic bias, not scattered noise. **This is over-escalation** (the system
+reports more threat than is warranted, in the direction a human operator would rather
+err toward, but still a real accuracy failure the demo needs to know about).
+
+The same central-tendency pull shows up at the other end of the scale, in the opposite
+direction: both `critical` cases (n=2, not statistically meaningful on their own, but
+consistent with the pattern) get predicted `high` for v3a/v3a-nomask/v3b — under-escalation
+toward the center. And v3a/v3a-nomask under-escalate part of `high` toward `medium` too
+(v3a: 5/14 high cases → medium; v3a-nomask: 3/14 → medium). **Reading: these adapters are
+not learning four distinct threat thresholds — they are regressing toward `medium` as a
+default/central answer, pulling both extremes inward.** v2 (810 rows) is the only adapter
+that does NOT show this pattern (13/15 low correct, all high/critical correct) — see sec N
+for whether that's a training-data-size or data-composition effect.
+
+`recommended_action` shows the same directional bias on the `monitor` action (the action
+tied to `low`/some `medium` cases): v2 31/31 correct; v3a 24/31 pulled to
+`increase_surveillance`, v3a-nomask 19/31, v3b 11/31 — same escalation direction,
+consistent with the threat-level collapse rather than an independent failure.
+`likely_intent` does NOT show this pattern — it is highly diagonal for all four systems
+(few off-diagonal cells, no consistent directional pull), meaning **the collapse is
+specific to `threat_level` (and its downstream `recommended_action`), not a general
+inability to read the context.** Full per-system intent/action matrices in
+`evaluation/confusion_matrices.json`.
