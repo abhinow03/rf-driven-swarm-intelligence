@@ -1101,7 +1101,22 @@ real but narrower than "the whole low-threat class" for v3a (concentrated in spe
 pair patterns the model's raw distribution treats as confidently wrong, not merely
 under-preferred).**
 
-## AA. Counterintuitive-rule hypothesis — does NOT hold; only 3/8 pairs match
+## AA. Counterintuitive-rule hypothesis — does NOT hold cleanly; 3/8 (original list) or 4/7 (corrected list, see sec CC)
+
+**Correction note (added after sec CC's fix to `logit_inspection.py`):** the "8
+unrecoverable pairs" this section originally tested were read off sec Y's buggy
+numbers. Recomputed with the corrected script, v3a's unrecoverable-after-correction
+set is actually 7 pairs, not 8, and not quite the same set:
+`encirclement→column, converging→column, v_shape→column, column→dispersed,
+diamond→column, dispersed→column, shield→dispersed`. Re-checking these against the
+same `eval_expanded_rules_in_prompt.json`: **4/7 (57%) match** (`encirclement→column`,
+`v_shape→column`, `diamond→column`, `dispersed→column` — note three of these four end
+in `→column`, strengthening the narrower "`→column` specifically" lead flagged
+below), vs the original analysis's 3/8 (37.5%). The conclusion shifts from "does not
+hold" to "holds for roughly half, concentrated in `→column` pairs" — still not a
+clean confirmation of a general pretraining-prior mechanism, but less of a clean
+rejection either. The original 3/8 analysis is left below for the record; the 4/7
+figure is the one to cite.
 
 Prediction under test: if v3a's 8 unrecoverable low-threat failures (sec Y) are caused
 by a pretraining semantic prior conflicting with a counterintuitive rule (e.g.
