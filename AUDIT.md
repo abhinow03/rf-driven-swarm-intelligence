@@ -645,3 +645,37 @@ since the hypothesis being tested was not confirmed. This is inferred from elimi
 across two data points (not a controlled sweep across intermediate example-per-pair
 counts), and confirming it further would require training an intermediate-size adapter,
 which this session was explicitly told not to do.
+
+## P. Does the collapse show up under perturbation too? — yes for v3a/v3a-nomask, mixed for v3b
+
+`llm_finetuning/report_degradation_by_class.py` re-cuts the existing degradation-battery
+JSONs (perturbations of the 6 `ORIGINAL_TEST_CASES` along 5 axes — only 2 of the 6 are
+`low`: "Stable Patrol", "Breaking Contact"; there is no `critical` base case in this
+battery at all) by the base case's `expected_threat`, giving `threat_accuracy` under
+perturbation per class.
+
+| system | low threat_accuracy | medium threat_accuracy | high threat_accuracy |
+|---|---|---|---|
+| rules_lookup | 100.0% (n=23) | 100.0% (n=25) | 100.0% (n=24) |
+| v2 | **100.0%** | 64.0% | 100.0% |
+| v3a | **13.0%** | 96.0% | 50.0% |
+| v3a-nomask | **0.0%** | 98.4% | 50.8% |
+| v3b | 52.2% | 76.8% | 52.5% |
+
+Caveat: n=23/25/24 here are perturbations of only 2/2/2 underlying base cases each —
+correlated samples from a handful of scenarios, not 23+ independent draws; treat the
+spread (std, not shown in this table but in the script output) accordingly.
+
+**For v3a and v3a-nomask, the collapse is systemic — it shows up under perturbation at
+the same order of magnitude as the clean 55-case battery (v3a: 13.0% perturbed vs 2.7%
+clean; v3a-nomask: 0.0% both), not an artifact specific to the 55-case battery's
+particular pairs.** v2 does not collapse under perturbation either, consistent with sec
+M/N/O. **v3b is the outlier: 52.2% low-threat accuracy under perturbation, much higher
+than its 13.3% on the clean battery** — with only 2 underlying base cases this could be
+those 2 specific scenarios happening to perturb more forgivingly for v3b, not a real
+reversal of the collapse; not enough independent samples here to resolve which.
+
+**Every pooled degradation-battery number reported previously in this project (secs C,
+H, L) needs this per-class footnote: the aggregate `accuracy_when_answerable` figures
+average over a threat-level mix that, for v3a/v3a-nomask at least, is masking a
+near-total `low`-threat failure underneath a `medium`/`high` accuracy that looks fine.**
