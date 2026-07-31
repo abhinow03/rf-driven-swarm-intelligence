@@ -1,0 +1,268 @@
+{
+  "rules_lookup": {
+    "low": {
+      "n": 15,
+      "intent_mean": 1.0,
+      "intent_std": 0.0,
+      "threat_mean": 1.0,
+      "threat_std": 0.0,
+      "action_mean": 1.0,
+      "action_std": 0.0
+    },
+    "medium": {
+      "n": 24,
+      "intent_mean": 1.0,
+      "intent_std": 0.0,
+      "threat_mean": 1.0,
+      "threat_std": 0.0,
+      "action_mean": 1.0,
+      "action_std": 0.0
+    },
+    "high": {
+      "n": 14,
+      "intent_mean": 1.0,
+      "intent_std": 0.0,
+      "threat_mean": 1.0,
+      "threat_std": 0.0,
+      "action_mean": 1.0,
+      "action_std": 0.0
+    },
+    "critical": {
+      "n": 2,
+      "intent_mean": 1.0,
+      "intent_std": 0.0,
+      "threat_mean": 1.0,
+      "threat_std": 0.0,
+      "action_mean": 1.0,
+      "action_std": 0.0
+    }
+  },
+  "base": {
+    "low": {
+      "n": 15,
+      "intent_mean": 0.02666666666666667,
+      "intent_std": 0.0679869268479038,
+      "threat_mean": 0.04000000000000001,
+      "threat_std": 0.08000000000000002,
+      "action_mean": 0.06666666666666667,
+      "action_std": 0.09428090415820635
+    },
+    "medium": {
+      "n": 24,
+      "intent_mean": 0.2333333333333333,
+      "intent_std": 0.3197221015541813,
+      "threat_mean": 0.9499999999999998,
+      "threat_std": 0.08660254037844385,
+      "action_mean": 0.3333333333333333,
+      "action_std": 0.4714045207910317
+    },
+    "high": {
+      "n": 14,
+      "intent_mean": 0.5142857142857142,
+      "intent_std": 0.318157963590287,
+      "threat_mean": 0.31428571428571433,
+      "threat_std": 0.3907084094622098,
+      "action_mean": 0.0,
+      "action_std": 0.0
+    },
+    "critical": {
+      "n": 2,
+      "intent_mean": 0.5,
+      "intent_std": 0.5,
+      "threat_mean": 0.0,
+      "threat_std": 0.0,
+      "action_mean": 0.9,
+      "action_std": 0.09999999999999998
+    }
+  },
+  "rules_in_prompt": {
+    "low": {
+      "n": 15,
+      "intent_mean": 0.44,
+      "intent_std": 0.3115552385479446,
+      "threat_mean": 0.6533333333333332,
+      "threat_std": 0.30521395046025596,
+      "action_mean": 0.76,
+      "action_std": 0.23323807579381203
+    },
+    "medium": {
+      "n": 24,
+      "intent_mean": 0.5666666666666667,
+      "intent_std": 0.4268749491621899,
+      "threat_mean": 0.6833333333333332,
+      "threat_std": 0.3693086634360056,
+      "action_mean": 0.875,
+      "action_std": 0.23673121185569654
+    },
+    "high": {
+      "n": 14,
+      "intent_mean": 0.7857142857142857,
+      "intent_std": 0.36617158908503705,
+      "threat_mean": 0.32857142857142857,
+      "threat_std": 0.42498499373267196,
+      "action_mean": 0.35714285714285715,
+      "action_std": 0.42880945770867523
+    },
+    "critical": {
+      "n": 2,
+      "intent_mean": 0.7,
+      "intent_std": 0.3,
+      "threat_mean": 0.4,
+      "threat_std": 0.4,
+      "action_mean": 0.4,
+      "action_std": 0.4
+    }
+  },
+  "v2": {
+    "low": {
+      "n": 15,
+      "intent_mean": 1.0,
+      "intent_std": 0.0,
+      "threat_mean": 0.8666666666666667,
+      "threat_std": 0.33993463423951903,
+      "action_mean": 1.0,
+      "action_std": 0.0
+    },
+    "medium": {
+      "n": 24,
+      "intent_mean": 1.0,
+      "intent_std": 0.0,
+      "threat_mean": 0.9583333333333334,
+      "threat_std": 0.1630865482565077,
+      "action_mean": 0.9833333333333334,
+      "action_std": 0.07993052538854532
+    },
+    "high": {
+      "n": 14,
+      "intent_mean": 1.0,
+      "intent_std": 0.0,
+      "threat_mean": 1.0,
+      "threat_std": 0.0,
+      "action_mean": 1.0,
+      "action_std": 0.0
+    },
+    "critical": {
+      "n": 2,
+      "intent_mean": 1.0,
+      "intent_std": 0.0,
+      "threat_mean": 1.0,
+      "threat_std": 0.0,
+      "action_mean": 1.0,
+      "action_std": 0.0
+    }
+  },
+  "v3a": {
+    "low": {
+      "n": 15,
+      "intent_mean": 0.5066666666666666,
+      "intent_std": 0.36417334089993775,
+      "threat_mean": 0.02666666666666667,
+      "threat_std": 0.09977753031397177,
+      "action_mean": 0.3466666666666667,
+      "action_std": 0.3222145592958552
+    },
+    "medium": {
+      "n": 24,
+      "intent_mean": 0.75,
+      "intent_std": 0.31754264805429416,
+      "threat_mean": 0.9249999999999999,
+      "threat_std": 0.20665994612728739,
+      "action_mean": 0.4666666666666666,
+      "action_std": 0.4109609335312651
+    },
+    "high": {
+      "n": 14,
+      "intent_mean": 0.7428571428571429,
+      "intent_std": 0.3736199094463435,
+      "threat_mean": 0.5999999999999999,
+      "threat_std": 0.38544964466377263,
+      "action_mean": 0.5857142857142856,
+      "action_std": 0.38887593110903423
+    },
+    "critical": {
+      "n": 2,
+      "intent_mean": 0.9,
+      "intent_std": 0.09999999999999998,
+      "threat_mean": 0.0,
+      "threat_std": 0.0,
+      "action_mean": 0.0,
+      "action_std": 0.0
+    }
+  },
+  "v3a-nomask": {
+    "low": {
+      "n": 15,
+      "intent_mean": 0.3733333333333333,
+      "intent_std": 0.385515527861359,
+      "threat_mean": 0.0,
+      "threat_std": 0.0,
+      "action_mean": 0.4266666666666667,
+      "action_std": 0.308688984074406
+    },
+    "medium": {
+      "n": 24,
+      "intent_mean": 0.5916666666666667,
+      "intent_std": 0.4061164310337068,
+      "threat_mean": 0.9333333333333332,
+      "threat_std": 0.20548046676563256,
+      "action_mean": 0.525,
+      "action_std": 0.3777675652214379
+    },
+    "high": {
+      "n": 14,
+      "intent_mean": 0.6857142857142857,
+      "intent_std": 0.3907084094622098,
+      "threat_mean": 0.6428571428571429,
+      "threat_std": 0.3717031951787911,
+      "action_mean": 0.6428571428571429,
+      "action_std": 0.3717031951787911
+    },
+    "critical": {
+      "n": 2,
+      "intent_mean": 0.5,
+      "intent_std": 0.5,
+      "threat_mean": 0.0,
+      "threat_std": 0.0,
+      "action_mean": 0.0,
+      "action_std": 0.0
+    }
+  },
+  "v3b": {
+    "low": {
+      "n": 15,
+      "intent_mean": 0.7066666666666667,
+      "intent_std": 0.2515728301881761,
+      "threat_mean": 0.13333333333333333,
+      "threat_std": 0.214993539954628,
+      "action_mean": 0.6933333333333331,
+      "action_std": 0.30868898407440604
+    },
+    "medium": {
+      "n": 24,
+      "intent_mean": 0.7666666666666667,
+      "intent_std": 0.29814239699997197,
+      "threat_mean": 0.9083333333333332,
+      "threat_std": 0.2079997329058114,
+      "action_mean": 0.6083333333333334,
+      "action_std": 0.3487079325484613
+    },
+    "high": {
+      "n": 14,
+      "intent_mean": 0.8714285714285713,
+      "intent_std": 0.3171943330167788,
+      "threat_mean": 0.7000000000000001,
+      "threat_std": 0.3359421718944242,
+      "action_mean": 0.7000000000000001,
+      "action_std": 0.3359421718944242
+    },
+    "critical": {
+      "n": 2,
+      "intent_mean": 0.7,
+      "intent_std": 0.3,
+      "threat_mean": 0.0,
+      "threat_std": 0.0,
+      "action_mean": 0.0,
+      "action_std": 0.0
+    }
+  }
+}

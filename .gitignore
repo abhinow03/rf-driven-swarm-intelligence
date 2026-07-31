@@ -22,6 +22,10 @@ adapters/
 wandb/
 runs/
 
+# Ephemeral progress-reporter status files (src/swarm_intent/progress.py) --
+# transient run state, not a deliverable, regenerated every run.
+evaluation/progress/
+
 # OS / editor
 .DS_Store
 .vscode/

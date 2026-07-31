@@ -1,0 +1,10 @@
+{
+  "clean_delta_pts": 13.454545454545453,
+  "degradation_deltas_pts": {
+    "degradation_multi_hop": 16.666666666666675,
+    "degradation_confidence_decay": 24.00000000000001,
+    "degradation_dropped_lines": 11.111111111111127,
+    "degradation_contradictory_cues": 35.55555555555554
+  },
+  "mean_degradation_delta_pts": 21.83333333333334
+}
