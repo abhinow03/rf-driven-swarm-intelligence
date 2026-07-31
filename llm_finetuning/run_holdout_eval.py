@@ -30,7 +30,7 @@ sys.path.insert(0, str(REPO / "llm_finetuning"))
 
 from swarm_intent.llm.client import GroqClient, LocalHFClient  # noqa: E402
 from swarm_intent.llm.evaluate import evaluate_llm  # noqa: E402
-from swarm_intent.llm.prompts import TEST_CASES  # noqa: E402
+from swarm_intent.llm.prompts import ORIGINAL_TEST_CASES  # noqa: E402
 
 from degradation import make_llm_battery_run_case  # noqa: E402
 from holdout_shapes import build_holdout_battery  # noqa: E402
@@ -61,7 +61,7 @@ def main():
         print("GROQ_API_KEY not set — running WITHOUT a judge; "
               "objective headline metrics are unaffected")
 
-    battery = build_holdout_battery(TEST_CASES)
+    battery = build_holdout_battery(ORIGINAL_TEST_CASES)
     print("held-out battery:", {shape: len(cases) for shape, cases in battery.items()})
 
     out_dir = Path(args.out_dir)

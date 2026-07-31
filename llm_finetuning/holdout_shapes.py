@@ -7,7 +7,7 @@ learned "insufficient information -> decline" capability or memorization of the 
 specific training substrings ("-> transitioning -> ... -> transitioning ->" chains
 and terminal "-> transitioning").
 
-Three shapes, each ~6 cases (one per TEST_CASES base), all has_ground_truth=False:
+Three shapes, each ~6 cases (one per ORIGINAL_TEST_CASES base), all has_ground_truth=False:
 
   a. deeper_chain      -- a 5-formation / 4-hop chain. Training's multi_hop axis
                           only ever went to chain length 4 (3 hops, severity=4).
@@ -40,7 +40,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 sys.path.insert(0, os.path.dirname(__file__))
 
 from swarm_intent import context_spec as spec  # noqa: E402
-from swarm_intent.llm.prompts import TEST_CASES  # noqa: E402
+from swarm_intent.llm.prompts import ORIGINAL_TEST_CASES  # noqa: E402
 
 from degradation import (_render_lines, _key_windows, _next_chain_formation,  # noqa: E402
                          _NEUTRAL, CHAIN_POOL)
@@ -126,7 +126,7 @@ SHAPES = {
 }
 
 
-def build_holdout_battery(test_cases=TEST_CASES) -> dict:
+def build_holdout_battery(test_cases=ORIGINAL_TEST_CASES) -> dict:
     return {shape: fn(test_cases) for shape, fn in SHAPES.items()}
 
 

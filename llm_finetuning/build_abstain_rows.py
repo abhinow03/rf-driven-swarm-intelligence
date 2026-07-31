@@ -15,7 +15,7 @@ same 3 perturbation types the task asked for ("multi-hop chains, terminal
 battery evaluates against later -- so training and eval share one definition of
 "unanswerable", not two that could quietly drift apart.
 
-The 6 TEST_CASES fan out to 18+18+24 = 60 total battery cases across these 3 axes;
+The 6 ORIGINAL_TEST_CASES fan out to 18+18+24 = 60 total battery cases across these 3 axes;
 36 of them have has_ground_truth=False. That is the actual count (not padded to
 match "~40" from the task -- the user's estimate was approximate, and manufacturing
 extra synthetic unanswerable rows beyond what the battery itself generates would
@@ -37,7 +37,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 sys.path.insert(0, os.path.dirname(__file__))
 
 from swarm_intent.inference import build_llm_prompt  # noqa: E402
-from swarm_intent.llm.prompts import TEST_CASES  # noqa: E402
+from swarm_intent.llm.prompts import ORIGINAL_TEST_CASES  # noqa: E402
 
 from degradation import build_battery  # noqa: E402
 
@@ -138,7 +138,7 @@ def main():
     with open(args.base) as f:
         base_rows = [json.loads(l) for l in f if l.strip()]
 
-    battery = build_battery(TEST_CASES)
+    battery = build_battery(ORIGINAL_TEST_CASES)
     abstain_rows = build_rows(battery)
 
     for r in abstain_rows:

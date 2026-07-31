@@ -1,5 +1,5 @@
 """
-The degradation battery: perturbed variants of the 6 TEST_CASES along five axes,
+The degradation battery: perturbed variants of the 6 ORIGINAL_TEST_CASES along five axes,
 each with a severity sweep, so results are curves rather than points.
 
 Ground-truth discipline (this is the point of the whole exercise): every generated

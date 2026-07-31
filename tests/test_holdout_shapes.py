@@ -12,7 +12,7 @@ import unittest
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "llm_finetuning"))
 
-from swarm_intent.llm.prompts import TEST_CASES
+from swarm_intent.llm.prompts import ORIGINAL_TEST_CASES
 
 from holdout_shapes import build_holdout_battery, verify_absent_from_training, OOV_FORMATION
 
@@ -23,13 +23,13 @@ TRAIN_PATH = os.path.join(REPO, "data", "sft_train_final_abstain.jsonl")
 class TestHoldoutShapeStructure(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.battery = build_holdout_battery(TEST_CASES)
+        cls.battery = build_holdout_battery(ORIGINAL_TEST_CASES)
 
     def test_three_shapes_six_cases_each(self):
         self.assertEqual(set(self.battery.keys()),
                          {"deeper_chain", "dominant_mismatch", "oov_formation"})
         for shape, cases in self.battery.items():
-            self.assertEqual(len(cases), len(TEST_CASES), shape)
+            self.assertEqual(len(cases), len(ORIGINAL_TEST_CASES), shape)
 
     def test_all_cases_are_unanswerable_by_design(self):
         for cases in self.battery.values():
@@ -60,7 +60,7 @@ class TestAbsentFromTrainingData(unittest.TestCase):
 
     def test_no_shape_appears_verbatim_in_training_file(self):
         self.assertTrue(os.path.exists(TRAIN_PATH), f"missing {TRAIN_PATH}")
-        battery = build_holdout_battery(TEST_CASES)
+        battery = build_holdout_battery(ORIGINAL_TEST_CASES)
         violations = verify_absent_from_training(TRAIN_PATH, battery)
         self.assertEqual(violations, {}, f"held-out shapes leaked into training data: {violations}")
 

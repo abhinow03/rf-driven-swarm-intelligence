@@ -33,7 +33,7 @@ sys.path.insert(0, str(REPO / "llm_finetuning"))
 
 from swarm_intent.llm.client import GroqClient, LocalHFClient  # noqa: E402
 from swarm_intent.llm.evaluate import evaluate_llm  # noqa: E402
-from swarm_intent.llm.prompts import TEST_CASES  # noqa: E402
+from swarm_intent.llm.prompts import ORIGINAL_TEST_CASES  # noqa: E402
 from swarm_intent.progress import Reporter  # noqa: E402
 
 from baselines import load_rules_txt  # noqa: E402
@@ -86,7 +86,7 @@ def main():
         print("GROQ_API_KEY not set — running WITHOUT a judge; "
               "objective headline metrics are unaffected")
 
-    battery = build_battery(TEST_CASES)
+    battery = build_battery(ORIGINAL_TEST_CASES)
     print("battery:", {axis: len(cases) for axis, cases in battery.items()})
 
     out_dir = Path(args.out_dir)

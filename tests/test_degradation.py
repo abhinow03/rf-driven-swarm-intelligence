@@ -14,7 +14,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "llm_finetuning"))
 
 from swarm_intent.llm.evaluate import evaluate_llm
-from swarm_intent.llm.prompts import TEST_CASES
+from swarm_intent.llm.prompts import ORIGINAL_TEST_CASES
 
 from degradation import build_battery, make_rules_lookup_battery_run_case, _stable_seed
 
@@ -24,7 +24,7 @@ REPO = os.path.join(os.path.dirname(__file__), "..")
 class TestBatteryStructure(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.battery = build_battery(TEST_CASES)
+        cls.battery = build_battery(ORIGINAL_TEST_CASES)
 
     def test_expected_axis_and_case_counts(self):
         expected = {"multi_hop": 18, "terminal_transitioning": 18, "confidence_decay": 30,
@@ -63,8 +63,8 @@ class TestStableSeedReproducibility(unittest.TestCase):
         script = (
             "import sys; sys.path.insert(0, 'src'); sys.path.insert(0, 'llm_finetuning')\n"
             "from degradation import build_battery\n"
-            "from swarm_intent.llm.prompts import TEST_CASES\n"
-            "battery = build_battery(TEST_CASES)\n"
+            "from swarm_intent.llm.prompts import ORIGINAL_TEST_CASES\n"
+            "battery = build_battery(ORIGINAL_TEST_CASES)\n"
             "print([(c['name'], c['has_ground_truth']) for c in battery['dropped_lines']])\n"
         )
         outputs = set()
@@ -78,7 +78,7 @@ class TestStableSeedReproducibility(unittest.TestCase):
 class TestRulesLookupOnBattery(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.battery = build_battery(TEST_CASES)
+        cls.battery = build_battery(ORIGINAL_TEST_CASES)
         # staticmethod() prevents the descriptor protocol from binding `self` as an
         # implicit first argument when a plain function is stored as a class attr.
         cls.run_case = staticmethod(make_rules_lookup_battery_run_case())
