@@ -747,3 +747,73 @@ threat; `rules_in_prompt` has weaker intent than action) — so the "lexically-
 recoverable fields survive" story is a reasonable read **for the fine-tuned adapters
 specifically**, not a fact about the task's field structure in general that would hold
 for any system reading these prompts.
+
+## R. Epoch-matched control (`qwen-swarm-v3c`) — under-training ruled out, `low` does NOT recover
+
+Sec O's "examples-per-pair" explanation was confounded the whole time with optimizer
+steps: `llm_finetuning/report_step_counts.py` reads `global_step` straight from each
+adapter's `trainer_state.json` —
+
+| adapter | rows | epochs | global_step | steps/epoch |
+|---|---|---|---|---|
+| `qwen-swarm-v2` | 810 | 3.0 | **306** | 102 |
+| `qwen-swarm-v3a` | 234 | 3.0 | **90** | 30 |
+| `qwen-swarm-v3a-nomask` | 234 | 3.0 | 90 | 30 |
+| `qwen-swarm-v3b` | 270 | 3.0 | 102 | 34 |
+
+v2:v3a step ratio (306:90 = 3.40:1) is nearly identical to sec O's examples-per-pair
+ratio (16.5:4.8 = 3.44:1) — not a coincidence: epochs and effective batch size (8) are
+constant, so step count is a direct linear function of row count. Every sec M–P finding
+attributed to "examples-per-pair" was equally attributable to "fewer optimizer steps,"
+undistinguished.
+
+**The decisive test:** `train_qlora.py` was extended with `--load-best-model`
+(`load_best_model_at_end`, `metric_for_best_model="eval_loss"`) and `--progress-task`
+(a `Reporter`-driven `TrainerCallback`), then `qwen-swarm-v3c` was trained on
+`sft_train_final.jsonl` — v3a's exact 234-row file, `assistant_only_loss=True`, same
+hyperparameters — for `--epochs 10.2` (`306 target steps / 30 steps-per-epoch`,
+computed exactly, not estimated) to match v2's 306 steps.
+
+**Eval loss by epoch — a clean overfitting curve, minimum at epoch 2:**
+
+| epoch | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 10.2 (final) |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| eval_loss | 0.550 | **0.495** | 0.497 | 0.532 | 0.589 | 0.641 | 0.780 | 0.836 | 0.874 | 0.876 | 0.876 |
+
+Eval loss nearly **doubles** from its epoch-2 minimum (0.495) to the epoch-10 endpoint
+(0.876) — training past ~epoch 2–3 on this 234-row file actively overfits, it does not
+converge toward v2-like performance. `--load-best-model` correctly rolled back and
+saved **`checkpoint-60` (epoch 2, 0.495 eval_loss)** as the final `qwen-swarm-v3c`
+adapter — meaning the "best" version of this epoch-matched run ends up trained for
+*fewer* effective steps than even v3a itself (60 vs v3a's 90), because nothing past
+that point improves on held-out loss.
+
+**v3c vs v3a on the 55-case battery, per threat class (`--n-runs 5`):**
+
+| system | overall acc | low threat_acc | medium threat_acc | high threat_acc | critical threat_acc | low predicted as |
+|---|---|---|---|---|---|---|
+| v3a | 68.7% ± 2.7% | 2.7% | 92.5% | 60.0% | 0.0% | 15/15 → `medium` |
+| v3c | 68.0% ± 1.9% | **1.3%** | 80.8% | 81.4% | 0.0% | **15/15 → `medium`** |
+
+(per-case `threat_accuracy`, mean within each expected-threat stratum, both computed
+identically — directly comparable.)
+
+**Verdict, stated plainly per the session's instruction: `low` stays at ~0%. v3c does
+NOT recover.** More optimizer steps on the same 234-row file does not fix the collapse
+— it cannot, because the model already overfits and eval loss climbs well before it
+would reach v2's step count. **This rules out under-training as the explanation.** By
+elimination (class balance ruled out in sec N, template/memorization composition ruled
+out in sec O, and now step count ruled out here), what's left is genuine **data
+diversity**: v2's ~16.5 examples per rule-pair, even with roughly the same ~50%
+template-fallback content sec O already showed isn't the mechanism, appears to give the
+model enough *varied restatements* of what "this specific pair is low-threat" looks
+like to actually learn the mapping, where v3a/v3c's ~4.8 distinct-but-few examples per
+pair do not — more steps over the same few examples just memorizes/overfits those
+specific rows instead of generalizing the class.
+
+**Per the session's explicit instruction, `qwen-swarm-v4` was NOT trained** — step 3 was
+conditional on v3c recovering `low`, and it did not. The path to fixing this failure
+mode is more/more-diverse low-threat training examples, not more training steps or a
+masking change; training `v4` on the existing `sft_train_final_abstain.jsonl` (which
+has the same ~4.8-examples-per-pair ceiling) would not be expected to fix it either,
+and was not attempted on that basis.

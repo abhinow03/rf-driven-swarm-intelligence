@@ -18,6 +18,11 @@ Usage (Colab):
 """
 from __future__ import annotations
 import argparse
+import sys
+from pathlib import Path
+
+REPO = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(REPO / "src"))
 
 
 def main():
@@ -32,6 +37,16 @@ def main():
     ap.add_argument("--lora-alpha",  type=int,   default=32)
     ap.add_argument("--grad-accum",  type=int,   default=8)
     ap.add_argument("--resume", default=None, help="path to checkpoint dir to resume from")
+    ap.add_argument("--load-best-model", action="store_true",
+                     help="keep the checkpoint with the lowest eval_loss across all epochs "
+                          "(trainer.save_model() then saves THAT checkpoint's weights, not "
+                          "necessarily the last epoch's) -- for high-epoch runs where "
+                          "overfitting past the optimum is a real risk. Off by default so "
+                          "v1/v2/v3a/v3b stay exactly reproducible if ever re-run.")
+    ap.add_argument("--progress-task", default=None,
+                     help="if set, writes evaluation/progress/<task>.json once per optimizer "
+                          "step via swarm_intent.progress.Reporter, total=expected step count "
+                          "computed from --epochs and the training file's row count.")
     ap.add_argument("--assistant-only-loss", action="store_true",
                      help="mask the loss to assistant turns only (trl SFTConfig.assistant_only_loss). "
                           "Default off to keep v1/v2 adapters exactly reproducible. Qwen2.5-7B-Instruct's "
@@ -112,7 +127,30 @@ def main():
         optim="paged_adamw_8bit",
         report_to="none",
         save_total_limit=2,
+        load_best_model_at_end=args.load_best_model,
+        metric_for_best_model="eval_loss" if args.load_best_model else None,
+        greater_is_better=False if args.load_best_model else None,
     )
+
+    callbacks = []
+    if args.progress_task:
+        from swarm_intent.progress import Reporter
+        from transformers import TrainerCallback
+
+        steps_per_epoch = -(-len(ds_train) // (sft_cfg.per_device_train_batch_size * args.grad_accum))  # ceil
+        total_steps = round(steps_per_epoch * args.epochs)
+        reporter = Reporter(args.progress_task, total_steps)
+
+        class ReporterCallback(TrainerCallback):
+            def on_step_end(self, targs, state, control, **kwargs):
+                reporter.update(1, item=f"step {state.global_step}/{total_steps} "
+                                        f"epoch {state.epoch:.2f}")
+
+            def on_train_end(self, targs, state, control, **kwargs):
+                reporter.status = "done"
+                reporter._write()
+
+        callbacks.append(ReporterCallback())
 
     trainer = SFTTrainer(
         model=model,
@@ -120,6 +158,7 @@ def main():
         train_dataset=ds_train,
         eval_dataset=ds_val,
         processing_class=tok,
+        callbacks=callbacks or None,
     )
     if args.assistant_only_loss:
         from trl.chat_template_utils import has_generation_markers
@@ -137,6 +176,14 @@ def main():
               f"tokens masked as assistant-only.")
 
     trainer.train(resume_from_checkpoint=args.resume or None)
+
+    eval_curve = [(e["epoch"], e["eval_loss"]) for e in trainer.state.log_history if "eval_loss" in e]
+    print("eval_loss by epoch:", ", ".join(f"{ep:.1f}->{loss:.4f}" for ep, loss in eval_curve))
+    if args.load_best_model:
+        print(f"best checkpoint: {trainer.state.best_model_checkpoint} "
+              f"(eval_loss={trainer.state.best_metric:.4f}) -- this is what gets saved below, "
+              f"not necessarily the final epoch's weights.")
+
     trainer.save_model(args.out)
     tok.save_pretrained(args.out)
 
