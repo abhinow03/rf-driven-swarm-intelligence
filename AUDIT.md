@@ -1596,3 +1596,43 @@ offset (-12.5 on y) is leaving the centroid average late in the window. Per the 
 instruction, **no threshold or label was changed this session** — this is a diagnosis, not
 a fix, filed here for whoever next touches `calibration.py`/`context_spec.py`'s velocity
 vocabulary.
+
+### Recalibrating `synth_context()` to the real distributions (generator only, `RULES` untouched)
+
+`synth_context()` (`llm_finetuning/build_sft_dataset.py`) previously sampled `centroid_velocity`,
+`approach_rate`, `delta_v`, and `stability` from hand-picked uniform ranges (documented as
+deliberate in the function's old docstring, pending the STGT retrain — sec F/F2). That retrain
+has now happened (sec V). Recalibrated: added `REAL_REG_PERCENTILES`, a committed 1%-step
+empirical-CDF snapshot (101 breakpoints/field) of `swarm_data/_reg_distribution_analysis.npz`
+(sec V, n=5879) — a literal, not a runtime dependency on the gitignored `swarm_data/` folder, so
+a fresh clone/CI can still call `synth_context()`. `velocity`/`approach`/`delta_v` are now direct
+bootstrap draws from that snapshot; `stability`'s early/late pair is derived from two independent
+real marginal draws (mean-stability, delta-stability) rather than a true joint real sample —
+`REAL_REG_PERCENTILES` only stores marginals, disclosed in the function's docstring as a known
+simplification. `RULES` untouched; no dataset regenerated.
+
+**Before/after narrative-field proportions** (`scripts/report_synth_context_recalibration.py`,
+n=5000 draws, seed 0):
+
+| field | value | before | after | real (sec V/W) |
+|---|---|---|---|---|
+| `spread_dynamics` | converging | 45.2% | **29.8%** | 29.73% |
+| | dispersing | 47.6% | **9.1%** | 9.66% |
+| | stable | 7.1% | **61.1%** | 60.60% |
+| `velocity_trend` | accelerating+decelerating | 65.9% | **33.7%** | 33.24% |
+| | steady | 34.1% | **66.3%** | 66.76% |
+| `stability_trend` | degrading+improving | 61.6% | **60.2%** | 63.02% |
+| | holding | 38.4% | **39.8%** | 36.98% |
+
+`spread_dynamics` (the one proportion match this session's test asserts, within 6 points) and
+`velocity_trend` land within ~1 point of the real population. `stability_trend` is within ~3
+points — the independent-marginals simplification (no joint early/late correlation) costs a
+little precision there but the qualitative picture doesn't materially change. The two biggest
+previous distortions — `spread_dynamics` sampling ~5x too much `dispersing` and ~1.5x too much
+`converging` relative to `stable`, and `velocity_trend` firing on 66% of samples instead of 33%
+— are both corrected.
+
+Test: `tests/test_synth_context_recalibration.py` — asserts every sampled field falls inside the
+real observed range (direct bootstrap draws, true by construction; `stability` checked against
+`[0,1]`, the production clip range, since it's a derived not a direct draw) and that
+converging/dispersing/stable proportions match the real rates within 6 points.
