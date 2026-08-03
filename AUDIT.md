@@ -144,6 +144,14 @@ a different consumer entirely).
 
 ## F. Scale check
 
+> **⚠ SUPERSEDED for the retrained model — see sec V.** This section's
+> `velocity_and_converging_branches_dead_in_production: true` verdict was measured on the
+> OLD pre-retrain checkpoint's normalised-space outputs (centroid_velocity ~0.04-0.07,
+> nowhere near threshold). The teammate's retrained model computes reg labels on
+> denormalised/physical positions and the same branches fire 33%/39% of the time. Do not
+> cite this section's verdict for the current deployed model — sec F2 below has the same
+> caveat.
+
 **Synthetic ranges parsed out of `synth_context()`** (`llm_finetuning/build_sft_dataset.py`):
 
 | label | low | high |
@@ -1374,3 +1382,129 @@ section). v3b's residual edge on the corrected metric and its unique abstention
 CAPABILITY (secs G/I/K — a property no accuracy metric here captures) remain real
 and are not explained away by this ablation; only the *low-threat calibration*
 improvement specifically is now understood to be substantially a size effect.
+
+---
+
+## V. Real regression-label distribution from the retrained STGT — supersedes sec F/F2
+
+**Correction notice:** sec F/F2's `velocity_and_converging_branches_dead_in_production:
+true` finding was measured on n=18/n=1 samples from the OLD (pre-retrain, normalised-space,
+"units bug" — CODE_REVIEW.md) checkpoint, where `centroid_velocity` sat at ~0.04-0.07 and
+`approach_rate` at ~-0.001, both far below their calibration thresholds. That finding is
+**superseded by this section** for the retrained model — it no longer describes production
+behaviour once the teammate's retrain (which computes reg labels on denormalised/physical
+positions, not normalised ones) is what's actually deployed. Sec F/F2 remain useful as a
+historical record of the old checkpoint's behaviour; do not cite their verdict for the
+current model.
+
+### Step 1 — recovering `reg_mean`/`reg_std`
+
+`swarm_data/best_model.pt`'s top-level keys: `epoch, model_state_dict,
+optimizer_state_dict, val_loss, val_acc, cfg, reg_mean, reg_std, train_mean, train_std`.
+**The checkpoint already embeds `reg_mean`/`reg_std`** — no reconstruction from scratch
+was needed to produce a *usable* value, but the reconstruction (via
+`dataset.py::compute_regression_labels`, imported directly rather than reimplemented, run
+on `X_raw = X_train.npy * train_std + train_mean`) was still done as an independent
+correctness check per the session's instruction, and it **caught a real discrepancy**:
+
+| field | checkpoint reg_mean | reconstructed reg_mean | ratio | checkpoint reg_std | reconstructed reg_std | ratio |
+|---|---|---|---|---|---|---|
+| centroid_velocity | 5.6669 | 2.8335 | **2.000x** | 1.4206 | 0.7103 | **2.000x** |
+| approach_rate | -0.04346 | -0.04346 | 1.000x | 0.12451 | 0.12451 | 1.000x |
+| stability | 0.79828 | 0.79828 | 1.000x | 0.11669 | 0.11669 | 1.000x |
+
+`approach_rate` and `stability` match this repo's `dataset.py` **exactly** — confirming
+the "units fix" (computing reg labels on denormalised/physical positions rather than
+normalised ones, per CODE_REVIEW.md's caveat) is fully captured by this repo's current
+formula given denormalised input. Only `centroid_velocity` is off, by a clean, uniform
+2.000x on both mean and std (the signature of a per-sample scalar multiplier, not a
+data/seed mismatch). Likeliest cause: this repo's `compute_regression_labels()` computes
+raw per-**frame** displacement (`deltas.mean()`, no time normalisation), while
+`inference.py::sliding_window_inference` already carries an explicit `dt=0.5s`/frame
+convention elsewhere in the same pipeline — dividing by `dt=0.5` is exactly `*2`, i.e. the
+checkpoint's convention is metres/**second**, this repo's is metres/**frame**. This was
+**not** independently verified against the teammate's source (out of scope — "do not
+retrain" — and her repo wasn't available to diff directly), but the exact, uniform-across-
+population 2.000x ratio is strong circumstantial evidence.
+
+**Recovered `swarm_data/reg_mean.npy` / `reg_std.npy` use the checkpoint's own embedded
+values**, not the reconstruction — the model's reg_head was trained to predict normalised
+targets against *those* stats; denormalising with any other numbers would silently rescale
+every downstream `centroid_velocity` reading by 2x. All distribution numbers below apply
+this same `*2` (`dt`) correction to every velocity-derived quantity so they're on the scale
+that actually reaches `calibration.py` at runtime; `approach_rate`/`stability` need no
+correction (exact match, above).
+
+### Step 2 — population distribution (n=5879 training sequences) and threshold verdicts
+
+| field | min | max | mean | std | p1 | p50 | p99 |
+|---|---|---|---|---|---|---|---|
+| `centroid_velocity` (physical, dt-corrected) | 2.842 | 9.224 | 5.667 | 1.421 | 3.166 | 5.624 | 8.386 |
+| `approach_rate` | -0.579 | 0.456 | -0.044 | 0.125 | -0.368 | -0.036 | 0.276 |
+| `stability` | 0.343 | 0.969 | 0.798 | 0.117 | 0.505 | 0.833 | 0.950 |
+
+Early/late-half deltas (each of the 5879 sequences split into two 25-step halves, same
+formulas re-run on each half — the closest available population-level analog to
+`build_tactical_context`'s early-vs-late-window comparison, since we have independent
+sequences, not one continuous multi-window stream):
+
+| quantity | min | max | mean | std |
+|---|---|---|---|---|
+| `delta_v` (late-early, physical) | -2.640 | 2.736 | 0.006 | 0.597 |
+| `delta_stability` (late-early) | -0.792 | 0.491 | -0.042 | 0.193 |
+
+**a. Fraction crossing ±0.5 `delta_v` threshold: 33.24% (1954/5879) — NOT ~0, contrary to
+the stated expectation.** But the per-class breakdown is the more informative result:
+
+| formation | n | frac \|delta_v\|>0.5 |
+|---|---|---|
+| shield | 539 | 60.3% |
+| column | 525 | 56.4% |
+| dispersed | 585 | 36.4% |
+| converging | 576 | 33.9% |
+| diamond | 562 | 31.9% |
+| v_shape | 520 | 31.5% |
+| encirclement | 572 | 29.0% |
+| **transitioning** | **2000** | **20.8% (lowest of all 8 classes)** |
+
+If genuine within-window acceleration were driving these crossings, the `transitioning`
+class — the one class explicitly modelling formation change — should show the *highest*
+rate, not the lowest. It shows the lowest. Combined with `delta_v`'s near-zero mean (0.006,
+not the systematic non-zero drift a real trend would produce) and symmetric distribution,
+**the 33% crossing rate looks like estimation noise from halving the window (only 24
+frame-diffs per 25-step half, vs 49 for the full 50-step sequence) rather than genuine
+acceleration** — consistent with the underlying constant-velocity-per-sequence simulator
+assumption after all, but the naive half-split methodology used to test it is noisy enough
+to spuriously cross ±0.5 about a third of the time regardless of formation. `column` and
+`shield`'s notably higher rates (56-60%) are flagged but not further diagnosed this
+session (would need a look at their specific `data_gen.py` motion profile). **Verdict:
+likely still "acceleration doesn't really exist here," but the naive test that would prove
+it cleanly needs a lower-noise estimator (e.g. compare against a matched null from
+resampling within a single formation) — not done this session, scope was measurement only.**
+
+**b. Fraction crossing ±0.1 `approach_rate` threshold: 39.39% (2316/5879) — FIRES, as
+expected.** Asymmetric: 29.73% converging vs 9.66% dispersing. This directly reverses sec
+F's "converging branch dead in production" finding — post units-fix, `spread_dynamics`'s
+converging/dispersing branches are very much alive, and skew converging.
+
+**c. Stability range [0.343, 0.969] (full population); fraction crossing ±0.1
+`delta_stability`: 63.02% (3705/5879) — discriminates, fires often.** Same half-window
+noise caveat as (a) likely inflates this somewhat (a 25-sample std/mean ratio is a noisier
+estimator than the 50-sample one used for the full-sequence value), but even allowing for
+that, the range is wide enough (0.343 to 0.969, more than 3x sec F2's real-sample range of
+0.79-0.96) that the relative ±0.1 rule plainly has room to fire — it does not look dead the
+way sec F's absolute cutoffs did.
+
+### Comparison vs `synth_context()`'s current sampling ranges (post sec BB fix)
+
+| field | synth_context() range | real p1-p99 | verdict |
+|---|---|---|---|
+| `approach` | [-1.5, 1.5] | [-0.368, 0.276] | synth range ~4-5x too wide, and NOT centered — real data skews converging (-0.044 mean), synth samples uniformly |
+| `stability` (early/late draw) | [0.5, 0.98] | [0.505, 0.950] | reasonably matched — synth range slightly wider on both ends but close |
+| `centroid_velocity` | not sampled in this convention (synth `velocity` field is a `key_windows`-local narrative number, not fit to this physical scale) | [3.166, 8.386] physical | **not comparable without a units decision** — synth's `velocity` field was never anchored to the checkpoint's metres/second convention; this is a live gap, flagged for any future `synth_context()` revision but out of scope for "generator fix only" (sec BB) |
+
+Net: `approach_rate`'s sampling range is the one clearest mismatch worth narrowing in a
+future generator pass — it's uniform and 4-5x too wide, while real data is skewed and
+narrower. `stability` is already close. `centroid_velocity` was never on a comparable
+scale to begin with and needs an explicit units decision (physical m/s vs some
+normalised/relative scale) before a synthetic range for it means anything.
