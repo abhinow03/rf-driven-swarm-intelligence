@@ -1422,10 +1422,13 @@ data/seed mismatch). Likeliest cause: this repo's `compute_regression_labels()` 
 raw per-**frame** displacement (`deltas.mean()`, no time normalisation), while
 `inference.py::sliding_window_inference` already carries an explicit `dt=0.5s`/frame
 convention elsewhere in the same pipeline — dividing by `dt=0.5` is exactly `*2`, i.e. the
-checkpoint's convention is metres/**second**, this repo's is metres/**frame**. This was
-**not** independently verified against the teammate's source (out of scope — "do not
-retrain" — and her repo wasn't available to diff directly), but the exact, uniform-across-
-population 2.000x ratio is strong circumstantial evidence.
+checkpoint's convention is metres/**second**, this repo's is metres/**frame**.
+
+**Confirmed directly against her source** (sec V step 3 cloned
+`github.com/pizz-beep/capstone` @ `b139dcee71f...` to vendor the STGT front-end — see
+below): her `dataset.py::compute_regression_labels` literally does
+`centroid_velocity = speeds.mean() / 0.5  # dt=0.5s, so divide by 0.5 to get m/s`. Confirmed,
+not just circumstantial.
 
 **Recovered `swarm_data/reg_mean.npy` / `reg_std.npy` use the checkpoint's own embedded
 values**, not the reconstruction — the model's reg_head was trained to predict normalised
