@@ -1511,3 +1511,88 @@ future generator pass — it's uniform and 4-5x too wide, while real data is ske
 narrower. `stability` is already close. `centroid_velocity` was never on a comparable
 scale to begin with and needs an explicit units decision (physical m/s vs some
 normalised/relative scale) before a synthetic range for it means anything.
+
+---
+
+## W. delta_v is GEOMETRY, not noise — velocity_trend narrates formation reconfiguration
+
+Sec V flagged `delta_v`'s 33.2% ±0.5 crossing rate as *probably* half-window estimation
+noise, based on indirect evidence (near-zero mean, `transitioning` showing the lowest
+crossing rate). This section settles it directly with a zero-noise regeneration.
+
+### Method
+
+Called the teammate's own `generate_transition_sequence` (`github.com/pizz-beep/capstone`
+@ `b139dcee71f`, already vendor-inspected in sec V step 3) with **`noise_std=0.0`** —
+removing the sensor/motion noise term entirely, so any remaining `delta_v` signal cannot
+be measurement noise by construction. Generated 504 sequences: 12 of the 42 ordered
+`(formation_a, formation_b)` pairs x 3 blend regimes x 14 sequences/regime, using her own
+`generate_transition_dataset`'s exact regime parameter ranges:
+
+- **Regime 0** (blend LATE, `blend_start ∈ [33,43)`): sequence is mostly `formation_a`
+- **Regime 1** (blend MID, `blend_start ∈ [10,25)`, spans ≥14-22 steps): mostly `"transitioning"`
+- **Regime 2** (blend EARLY, `blend_end ∈ [8,18)`): sequence is mostly `formation_b`
+
+`delta_v` computed the same way as sec V (25-step early/late halves), using her velocity
+formula (`speeds.mean()/dt`) directly — her full `compute_regression_labels` hardcodes
+`t = np.arange(50, ...)` for the `approach_rate` polyfit and crashes on a 25-step
+half-window, so only the velocity component (the only one needed here) was extracted
+standalone; documented in `scripts/check_delta_v_geometry.py`.
+
+### Mean formation offset (y-component, the axis every asymmetric formation skews on)
+
+| formation | mean offset (x, y, z) |
+|---|---|
+| `column` | (0, **-12.5**, 0) |
+| `v_shape` | (0, **-6.33**, 0) |
+| `shield` | (0, **+10.0**, 0) |
+| `converging`/`dispersed` | small, random (offsets are `rng.uniform` per-call, not fixed) |
+| `encirclement`, `diamond` | (0, 0, 0) — symmetric, no skew |
+
+Confirms the hypothesis's premise: several formations have a non-zero mean offset, so
+their centroid is not simply "swarm center" — blending toward/away from one shifts the
+apparent centroid position independent of true swarm translation.
+
+### Result — n=504, noise_std=0.0
+
+**Overall ±0.5 crossing rate: 34.13% (172/504)** — statistically indistinguishable from
+sec V's real-data (noisy) rate of **33.24%**. Since this run has **zero** noise, that
+near-identical rate is the whole answer: noise contributes essentially nothing to the
+crossing rate: **this is geometry, confirmed, not an estimation-noise artefact.**
+
+| regime | n | mean signed delta_v | std | frac \|delta_v\|>0.5 |
+|---|---|---|---|---|
+| 0 (blend LATE, mostly A) | 168 | **+0.236** | 0.627 | 39.29% |
+| 1 (blend MID, transitioning) | 168 | **-0.026** | 0.420 | 19.05% |
+| 2 (blend EARLY, mostly B) | 168 | **-0.304** | 0.679 | 44.05% |
+
+Exactly as predicted: regime 0 (shift concentrated late) skews positive, regime 2 (shift
+concentrated early) skews negative and roughly mirrors regime 0's magnitude, regime 1
+(shift spans the midpoint, splits across both halves) sits near zero with the tightest
+spread and the lowest crossing rate of the three — **the same ordering sec V found in the
+real population**, where the `transitioning` class (regime-1-like) had the lowest
+crossing rate (20.8%) of all 8 formations. Two independent measurements (real population,
+zero-noise synthetic) agree.
+
+The combined histogram (`evaluation/delta_v_geometry_histogram.png`) isn't a clean
+two-hump bimodal shape — it's a **three-component mixture**, regime 1 forming a tall
+narrow peak at zero, regime 0 stretching a long positive tail, regime 2 a mirrored
+negative tail, overlapping enough (std ~0.6 vs mean shift ~0.24-0.30) not to separate
+visually into distinct humps. That's arguably stronger evidence for the mechanism than
+simple bimodality would be: three regimes, three distinct signed shifts, in the exact
+predicted directions.
+
+### Verdict — recorded, no threshold changed
+
+**`velocity_trend` (`calibration.py`'s `AbsoluteCalibrator.velocity_trend`, driven by
+`delta_v`) reports FORMATION RECONFIGURATION TIMING (whether the blend/transition
+happened in the early, middle, or late part of the observation window), not
+acceleration.** The narrative labels `"accelerating"`/`"decelerating"` (`context_spec.py`'s
+`VELOCITY_ACCELERATING`/`VELOCITY_DECELERATING`) are **semantically wrong** for what this
+signal actually measures whenever a transition is present in the window — a swarm
+blending late from `column` to anything reads as `"accelerating"` regardless of whether
+its true translational speed changed at all, purely because `column`'s very negative mean
+offset (-12.5 on y) is leaving the centroid average late in the window. Per the session's
+instruction, **no threshold or label was changed this session** — this is a diagnosis, not
+a fix, filed here for whoever next touches `calibration.py`/`context_spec.py`'s velocity
+vocabulary.
