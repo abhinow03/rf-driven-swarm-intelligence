@@ -1,0 +1,458 @@
+{
+  "v3a": {
+    "Stable Patrol": {
+      "threat_level": {
+        "entropy_bits": 0.7748850317274706,
+        "observed_value_starts_with": "medium\",\n  \""
+      },
+      "likely_intent": {
+        "entropy_bits": 2.1753136163403903,
+        "observed_value_starts_with": "patrol\",\n "
+      }
+    },
+    "Breaking Contact": {
+      "threat_level": {
+        "entropy_bits": 0.9869217540456239,
+        "observed_value_starts_with": "medium\",\n  \""
+      },
+      "likely_intent": {
+        "entropy_bits": 0.1766385651869666,
+        "observed_value_starts_with": "withdraw\",\n  \""
+      }
+    },
+    "column->column": {
+      "threat_level": {
+        "entropy_bits": 1.0017150137422393,
+        "observed_value_starts_with": "medium\",\n  \""
+      },
+      "likely_intent": {
+        "entropy_bits": 0.2646936824287246,
+        "observed_value_starts_with": "surveillance\",\n "
+      }
+    },
+    "diamond->diamond": {
+      "threat_level": {
+        "entropy_bits": 0.7960182598654926,
+        "observed_value_starts_with": "medium\",\n  \""
+      },
+      "likely_intent": {
+        "entropy_bits": 0.8840733771072505,
+        "observed_value_starts_with": "surveillance\",\n "
+      }
+    },
+    "dispersed->dispersed": {
+      "threat_level": {
+        "entropy_bits": 0.9390197702661076,
+        "observed_value_starts_with": "medium\",\n  \""
+      },
+      "likely_intent": {
+        "entropy_bits": 1.1898007441706344,
+        "observed_value_starts_with": "patrol\",\n "
+      }
+    },
+    "encirclement->column": {
+      "threat_level": {
+        "entropy_bits": 0.4878253495193394,
+        "observed_value_starts_with": "medium\",\n  \""
+      },
+      "likely_intent": {
+        "entropy_bits": 1.8949461230426328,
+        "observed_value_starts_with": "reposition\",\n "
+      }
+    },
+    "encirclement->dispersed": {
+      "threat_level": {
+        "entropy_bits": 1.0045327774939756,
+        "observed_value_starts_with": "medium\",\n  \""
+      },
+      "likely_intent": {
+        "entropy_bits": 0.17294025026281276,
+        "observed_value_starts_with": "withdraw\",\n  \""
+      }
+    },
+    "converging->column": {
+      "threat_level": {
+        "entropy_bits": 0.7593873310929212,
+        "observed_value_starts_with": "medium\",\n  \""
+      },
+      "likely_intent": {
+        "entropy_bits": 1.295466884860744,
+        "observed_value_starts_with": "reposition\",\n "
+      }
+    },
+    "converging->dispersed": {
+      "threat_level": {
+        "entropy_bits": 1.0186215962526568,
+        "observed_value_starts_with": "medium\",\n  \""
+      },
+      "likely_intent": {
+        "entropy_bits": 0.12600687277295572,
+        "observed_value_starts_with": "withdraw\",\n  \""
+      }
+    },
+    "v_shape->column": {
+      "threat_level": {
+        "entropy_bits": 0.9911483996732283,
+        "observed_value_starts_with": "medium\",\n  \""
+      },
+      "likely_intent": {
+        "entropy_bits": 1.2891269164193375,
+        "observed_value_starts_with": "reposition\",\n "
+      }
+    },
+    "v_shape->dispersed": {
+      "threat_level": {
+        "entropy_bits": 0.8192648108173166,
+        "observed_value_starts_with": "medium\",\n  \""
+      },
+      "likely_intent": {
+        "entropy_bits": 2.9671052305782784,
+        "observed_value_starts_with": "withdraw\",\n  \""
+      }
+    },
+    "column->dispersed": {
+      "threat_level": {
+        "entropy_bits": 0.9742418171628108,
+        "observed_value_starts_with": "medium\",\n  \""
+      },
+      "likely_intent": {
+        "entropy_bits": 0.856600180527822,
+        "observed_value_starts_with": "area_search\",\n "
+      }
+    },
+    "diamond->column": {
+      "threat_level": {
+        "entropy_bits": 0.7319141345134927,
+        "observed_value_starts_with": "medium\",\n  \""
+      },
+      "likely_intent": {
+        "entropy_bits": 0.5233996168850097,
+        "observed_value_starts_with": "reposition\",\n "
+      }
+    },
+    "dispersed->column": {
+      "threat_level": {
+        "entropy_bits": 0.7586828901549871,
+        "observed_value_starts_with": "medium\",\n  \""
+      },
+      "likely_intent": {
+        "entropy_bits": 2.709279847294411,
+        "observed_value_starts_with": "consolidate\",\n"
+      }
+    },
+    "shield->dispersed": {
+      "threat_level": {
+        "entropy_bits": 0.5628483094093173,
+        "observed_value_starts_with": "medium\",\n  \""
+      },
+      "likely_intent": {
+        "entropy_bits": 0.7125420087203059,
+        "observed_value_starts_with": "reposition\",\n "
+      }
+    }
+  },
+  "v3b": {
+    "Stable Patrol": {
+      "threat_level": {
+        "entropy_bits": 0.5424195222092294,
+        "observed_value_starts_with": "low\",\n  \""
+      },
+      "likely_intent": {
+        "entropy_bits": 0.03147970441392849,
+        "observed_value_starts_with": "patrol\",\n "
+      }
+    },
+    "Breaking Contact": {
+      "threat_level": {
+        "entropy_bits": 0.8192648108173166,
+        "observed_value_starts_with": "medium\",\n  \""
+      },
+      "likely_intent": {
+        "entropy_bits": 0.8530779758381517,
+        "observed_value_starts_with": "withdraw\",\n  \""
+      }
+    },
+    "column->column": {
+      "threat_level": {
+        "entropy_bits": 0.3576798862360211,
+        "observed_value_starts_with": "low\",\n  \""
+      },
+      "likely_intent": {
+        "entropy_bits": 0.791087173299954,
+        "observed_value_starts_with": "surveillance\",\n "
+      }
+    },
+    "diamond->diamond": {
+      "threat_level": {
+        "entropy_bits": 0.691761001051251,
+        "observed_value_starts_with": "medium\",\n  \""
+      },
+      "likely_intent": {
+        "entropy_bits": 0.27173809180806524,
+        "observed_value_starts_with": "surveillance\",\n "
+      }
+    },
+    "dispersed->dispersed": {
+      "threat_level": {
+        "entropy_bits": 0.9347931246385032,
+        "observed_value_starts_with": "medium\",\n  \""
+      },
+      "likely_intent": {
+        "entropy_bits": 2.218988954492302,
+        "observed_value_starts_with": "patrol\",\n "
+      }
+    },
+    "encirclement->column": {
+      "threat_level": {
+        "entropy_bits": 0.9932617224870305,
+        "observed_value_starts_with": "medium\",\n  \""
+      },
+      "likely_intent": {
+        "entropy_bits": 0.012812019558675792,
+        "observed_value_starts_with": "withdraw\",\n  \""
+      }
+    },
+    "encirclement->dispersed": {
+      "threat_level": {
+        "entropy_bits": 0.8086981967483057,
+        "observed_value_starts_with": "medium\",\n  \""
+      },
+      "likely_intent": {
+        "entropy_bits": 0.8791422905417121,
+        "observed_value_starts_with": "withdraw\",\n  \""
+      }
+    },
+    "converging->column": {
+      "threat_level": {
+        "entropy_bits": 0.8178559289414485,
+        "observed_value_starts_with": "medium\",\n  \""
+      },
+      "likely_intent": {
+        "entropy_bits": 0.5896170650508117,
+        "observed_value_starts_with": "reposition\",\n "
+      }
+    },
+    "converging->dispersed": {
+      "threat_level": {
+        "entropy_bits": 0.9714240534110745,
+        "observed_value_starts_with": "medium\",\n  \""
+      },
+      "likely_intent": {
+        "entropy_bits": 1.9301681699393358,
+        "observed_value_starts_with": "withdraw\",\n  \""
+      }
+    },
+    "v_shape->column": {
+      "threat_level": {
+        "entropy_bits": 1.0024194546801732,
+        "observed_value_starts_with": "medium\",\n  \""
+      },
+      "likely_intent": {
+        "entropy_bits": 1.0566614069010962,
+        "observed_value_starts_with": "transit\",\n "
+      }
+    },
+    "v_shape->dispersed": {
+      "threat_level": {
+        "entropy_bits": 1.0052372184319096,
+        "observed_value_starts_with": "medium\",\n  \""
+      },
+      "likely_intent": {
+        "entropy_bits": 1.1728941616602169,
+        "observed_value_starts_with": "area_search\",\n "
+      }
+    },
+    "column->dispersed": {
+      "threat_level": {
+        "entropy_bits": 0.8967533139900637,
+        "observed_value_starts_with": "medium\",\n  \""
+      },
+      "likely_intent": {
+        "entropy_bits": 0.034627674855321346,
+        "observed_value_starts_with": "area_search\",\n "
+      }
+    },
+    "diamond->column": {
+      "threat_level": {
+        "entropy_bits": 0.9362020065143714,
+        "observed_value_starts_with": "medium\",\n  \""
+      },
+      "likely_intent": {
+        "entropy_bits": 0.9502908252730526,
+        "observed_value_starts_with": "reposition\",\n "
+      }
+    },
+    "dispersed->column": {
+      "threat_level": {
+        "entropy_bits": 0.9242265105694922,
+        "observed_value_starts_with": "medium\",\n  \""
+      },
+      "likely_intent": {
+        "entropy_bits": 0.5681316164438228,
+        "observed_value_starts_with": "transit\",\n "
+      }
+    },
+    "shield->dispersed": {
+      "threat_level": {
+        "entropy_bits": 0.9566307937144591,
+        "observed_value_starts_with": "medium\",\n  \""
+      },
+      "likely_intent": {
+        "entropy_bits": 2.183766907595599,
+        "observed_value_starts_with": "area_search\",\n "
+      }
+    }
+  },
+  "v3d": {
+    "Stable Patrol": {
+      "threat_level": {
+        "entropy_bits": 0.9263398333832944,
+        "observed_value_starts_with": "medium\",\n  \""
+      },
+      "likely_intent": {
+        "entropy_bits": 0.7509340398377125,
+        "observed_value_starts_with": "patrol\",\n "
+      }
+    },
+    "Breaking Contact": {
+      "threat_level": {
+        "entropy_bits": 0.3973046889948122,
+        "observed_value_starts_with": "low\",\n  \""
+      },
+      "likely_intent": {
+        "entropy_bits": 0.014507080565579634,
+        "observed_value_starts_with": "withdraw\",\n  \""
+      }
+    },
+    "column->column": {
+      "threat_level": {
+        "entropy_bits": 0.9904439587352942,
+        "observed_value_starts_with": "medium\",\n  \""
+      },
+      "likely_intent": {
+        "entropy_bits": 1.3750687108472932,
+        "observed_value_starts_with": "patrol\",\n "
+      }
+    },
+    "diamond->diamond": {
+      "threat_level": {
+        "entropy_bits": 1.0228482418802611,
+        "observed_value_starts_with": "medium\",\n  \""
+      },
+      "likely_intent": {
+        "entropy_bits": 0.3587365476429222,
+        "observed_value_starts_with": "surveillance\",\n "
+      }
+    },
+    "dispersed->dispersed": {
+      "threat_level": {
+        "entropy_bits": 0.734731898265229,
+        "observed_value_starts_with": "medium\",\n  \""
+      },
+      "likely_intent": {
+        "entropy_bits": 1.4638282690269855,
+        "observed_value_starts_with": "surveillance\",\n "
+      }
+    },
+    "encirclement->column": {
+      "threat_level": {
+        "entropy_bits": 0.5980703563060205,
+        "observed_value_starts_with": "medium\",\n  \""
+      },
+      "likely_intent": {
+        "entropy_bits": 2.5359873765626313,
+        "observed_value_starts_with": "reposition\",\n "
+      }
+    },
+    "encirclement->dispersed": {
+      "threat_level": {
+        "entropy_bits": 0.6442112377407017,
+        "observed_value_starts_with": "low\",\n  \""
+      },
+      "likely_intent": {
+        "entropy_bits": 0.10575419580735139,
+        "observed_value_starts_with": "withdraw\",\n  \""
+      }
+    },
+    "converging->column": {
+      "threat_level": {
+        "entropy_bits": 0.878437849603778,
+        "observed_value_starts_with": "medium\",\n  \""
+      },
+      "likely_intent": {
+        "entropy_bits": 0.15700227404205455,
+        "observed_value_starts_with": "patrol\",\n "
+      }
+    },
+    "converging->dispersed": {
+      "threat_level": {
+        "entropy_bits": 0.5885604036439106,
+        "observed_value_starts_with": "low\",\n  \""
+      },
+      "likely_intent": {
+        "entropy_bits": 1.4638282690269855,
+        "observed_value_starts_with": "area_search\",\n "
+      }
+    },
+    "v_shape->column": {
+      "threat_level": {
+        "entropy_bits": 0.9362020065143714,
+        "observed_value_starts_with": "medium\",\n  \""
+      },
+      "likely_intent": {
+        "entropy_bits": 1.326462286129843,
+        "observed_value_starts_with": "transit\",\n "
+      }
+    },
+    "v_shape->dispersed": {
+      "threat_level": {
+        "entropy_bits": 0.8382847161415364,
+        "observed_value_starts_with": "medium\",\n  \""
+      },
+      "likely_intent": {
+        "entropy_bits": 1.3419599867643923,
+        "observed_value_starts_with": "area_search\",\n "
+      }
+    },
+    "column->dispersed": {
+      "threat_level": {
+        "entropy_bits": 0.7981315826792947,
+        "observed_value_starts_with": "medium\",\n  \""
+      },
+      "likely_intent": {
+        "entropy_bits": 0.5381928765816251,
+        "observed_value_starts_with": "area_search\",\n "
+      }
+    },
+    "diamond->column": {
+      "threat_level": {
+        "entropy_bits": 1.0059416593698436,
+        "observed_value_starts_with": "medium\",\n  \""
+      },
+      "likely_intent": {
+        "entropy_bits": 0.6818988279201741,
+        "observed_value_starts_with": "transit\",\n "
+      }
+    },
+    "dispersed->column": {
+      "threat_level": {
+        "entropy_bits": 1.0080549821836458,
+        "observed_value_starts_with": "medium\",\n  \""
+      },
+      "likely_intent": {
+        "entropy_bits": 1.4877792609167435,
+        "observed_value_starts_with": "transit\",\n "
+      }
+    },
+    "shield->dispersed": {
+      "threat_level": {
+        "entropy_bits": 0.5801071123887018,
+        "observed_value_starts_with": "low\",\n  \""
+      },
+      "likely_intent": {
+        "entropy_bits": 1.360979892088612,
+        "observed_value_starts_with": "withdraw\",\n  \""
+      }
+    }
+  }
+}

@@ -1636,3 +1636,138 @@ Test: `tests/test_synth_context_recalibration.py` — asserts every sampled fiel
 real observed range (direct bootstrap draws, true by construction; `stability` checked against
 `[0,1]`, the production clip range, since it's a derived not a direct draw) and that
 converging/dispersing/stable proportions match the real rates within 6 points.
+
+---
+
+## Z. The prior-skew diagnosis — genuine model behaviour, plus one real (secondary) data artefact
+
+(Note on lettering: the session that requested this asked for "sec X," but sec X is already
+`## X. Coverage grid and teacher source...` from an earlier session. Using the next free
+letter — A-Y are all taken, this is the first section past that range.)
+
+RULES is 26.5% low-threat, yet v3a/v3a-nomask/v3b/v3d all predict `low` at ~0-33% raw
+observed accuracy (secs M, CC, DD), and a free logit-prior correction recovers tens of
+points every time (sec Y/CC: v3a 0→53.3%, v3b 20→86.7%, sec DD: v3d 33→73.3%). Three checks,
+run independently rather than assumed to have one shared cause.
+
+### a. Threat-level distribution of the ASSISTANT TARGETS (not RULES)
+
+`llm_finetuning/report_class_balance.py` (pre-existing, sec N) already computes exactly
+this, re-run here for the two files this diagnosis is about:
+
+| file (n) | low | medium | high | critical |
+|---|---|---|---|---|
+| RULES itself (49 pairs) | 26.5% | 44.9% | 24.5% | 4.1% |
+| `sft_train_v2.jsonl` (810) | 26.7% (+0.1pt) | 43.6% (-1.3pt) | 25.9% (+1.4pt) | 3.8% (-0.3pt) |
+| `sft_train_final.jsonl` (234, trains v3a) | 24.8% (-1.7pt) | 47.0% (+2.1pt) | 24.8% (+0.3pt) | 3.4% (-0.7pt) |
+| `sft_train_final_abstain.jsonl` (270, trains v3b) | 21.5% (-5.0pt) | **54.1% (+9.2pt)** | 21.5% (-3.0pt) | 3.0% (-1.1pt) |
+
+**v3a's training target distribution is NOT meaningfully skewed relative to RULES** — every
+delta is under 2.1 points, consistent with sampling noise from a 234-row draw. `medium` is
+not "over-represented" for the file that actually trains v3a. This directly rules out
+"skewed training targets" as the explanation for v3a's 0% raw observed low-threat accuracy —
+the data v3a trained on looks proportional.
+
+`sft_train_final_abstain.jsonl` (v3b's file) is a different story — see part (b).
+
+### b. Are (from, to) pairs sampled uniformly?
+
+`build_sft_dataset.py::main()` samples `form_a, form_b = rng.choice(pairs)` where
+`pairs = list(RULES.keys()) + [(a,b) for a in BASE_FORMATIONS for b in BASE_FORMATIONS]` —
+literally the same 49-pair set concatenated with itself (`RULES.keys()` already **is**
+`BASE_FORMATIONS x BASE_FORMATIONS`, confirmed byte-for-byte in sec BB's coverage test), so
+every pair has an identical duplicate count (2) in the sampling pool — uniform by
+construction, not just in expectation. Confirmed empirically against `sft_train_final.jsonl`
+itself: extracting `(form_a, form_b)` from each row's `Formation history:` line, all 49
+pairs appear (min count 1, max 11, mean 4.78 — exactly 234/49), consistent with unbiased
+multinomial sampling noise, no pair systematically over/under-drawn.
+
+**But `sft_train_final_abstain.jsonl`'s extra 36 rows are not RULES-sampled at all.** They
+come from `llm_finetuning/build_abstain_rows.py`, which builds them from
+`degradation.py`'s `multi_hop` / `terminal_transitioning` / `dropped_lines` battery cases
+(sec R's abstention work) — and `gold_abstain_assessment()` hardcodes:
+
+```python
+"threat_level": "medium",  # schema has no "unknown" threat_level (see prompts.py)
+```
+
+**All 36 of these rows are `threat_level="medium"`, unconditionally, regardless of the
+underlying scenario.** This is a real, mechanical, verifiable data artefact — confirmed
+directly against the file: `sft_train_final_abstain.jsonl`'s 36 rows beyond
+`sft_train_final.jsonl`'s 234 are 36/36 medium, 0 of any other class. It is exactly what
+pushes that file's medium share from the base 234 rows' 47.0% up to the full file's 54.1%
+(+7.1pt absolute, and the RULES-relative delta from +2.1pt to +9.2pt in the table above).
+The comment's justification (the output schema has no `"unknown"` threat_level to abstain
+into, sec's prompts.py `OUTPUT_SCHEMA`) is real, but picking the single most frequent
+RULES class as the filler was a choice, not a forced one — `DEFAULT_RULE`
+(`("medium", "reposition", "monitor")`, `build_sft_dataset.py:147`) sets the same
+precedent elsewhere in the pipeline.
+
+**However, this artefact does not explain the cross-adapter pattern.** If hardcoded-medium
+abstention rows were the primary driver of the low-threat collapse, v3b (which has them)
+should calibrate *worse* than v3a (which doesn't) — it does the opposite: v3b's raw
+observed low-threat accuracy (20.0%, sec CC) is higher than v3a's (0.0%), and v3d (sec DD,
+36 *non*-abstention filler rows, confirmed NOT medium-skewed — see below) does better
+still (33.3%). This is a real bug worth fixing on its own merits, but it is a secondary
+confound layered on top of something else, not the root cause.
+
+(For comparison: `data/sft_extra36_notabstain.jsonl`, the sec DD ablation's 36 filler rows,
+has threat_level low=12/medium=12/high=11/critical=1 — roughly balanced, nothing like the
+abstention rows' 36/36 medium. This is *why* v3d didn't inherit v3b's medium-skew and still
+calibrated at least as well, consistent with sec DD's "mostly a size effect" verdict.)
+
+### c. Token-level: is P(medium) elevated specifically, or is the whole distribution flattened?
+
+`llm_finetuning/measure_threat_intent_entropy.py`: for the 15 low-threat cases, greedily
+generated each system's real completion (same shared-rng protocol as sec CC/Y, so results
+are positionally comparable), located both the `threat_level` and `likely_intent` value
+positions, and computed full-vocabulary Shannon entropy (bits) at each via a teacher-forced
+forward pass. Max possible entropy over the 4 threat candidates alone would be 2.0 bits
+(log2(4)); over the full ~150k-token vocabulary the theoretical max is far higher, so a
+"flattened" distribution would read as high entropy, a confidently-concentrated one as low
+entropy regardless of whether it's concentrated on the right or wrong answer.
+
+| system | n | mean H(threat_level) | mean H(likely_intent) | delta |
+|---|---|---|---|---|
+| v3a | 15 | 0.840 bits | 1.149 bits | -0.309 |
+| v3b | 15 | 0.844 bits | 0.903 bits | -0.059 |
+| v3d | 15 | 0.797 bits | 0.998 bits | -0.201 |
+
+**`threat_level`'s entropy is LOWER than `likely_intent`'s in all three systems, not
+higher.** If the model were generically flattened/uncertain on these hard cases, threat_level
+— the field it gets wrong — should show *higher* entropy than likely_intent, which sec S
+already found does not collapse. The opposite is true: the model is *more* confident
+(lower entropy, more concentrated probability mass) at the position where it is wrong than
+at the position where it is right. v3a in particular predicts `medium` on all 15/15 low
+cases at a fairly tight, unremarkable entropy band (0.49-1.02 bits) — not the signature of
+a coin-flip or a flattened distribution, but of a specific, consistently-applied,
+confidently-held (and wrong) decision boundary.
+
+Minor note: this run's raw observed low-threat count for v3b (2/15 = 13.3%: `Stable Patrol`,
+`column->column`) differs slightly from sec CC's previously recorded 20.0% (3/15) on a
+separate run of the same greedy, same-seed protocol — consistent with the 4-bit-quantization
+numerical-precision sensitivity sec CC already documented (greedy decoding is not perfectly
+reproducible run-to-run under NF4 quantization). Doesn't change this section's qualitative
+entropy finding, which compares within a single run.
+
+### Verdict
+
+**Primarily genuine model behaviour, not a pipeline bug or training-data skew — plus one
+real, secondary data artefact that should still be fixed.**
+
+- Parts (a) and (b) rule out training-target skew and non-uniform pair sampling as the
+  explanation for v3a's collapse: its training file is proportional to RULES within noise,
+  and pair sampling is uniform by construction and by direct measurement.
+- Part (c) rules out "the model is just generally uncertain here" — entropy at the
+  `threat_level` position is *lower*, not higher, than at `likely_intent`, meaning the
+  model holds a confident, specific, wrong preference for `medium` on these cases, not a
+  flattened non-answer. Combined with the fact that a simple frequency-prior correction
+  recovers most of the accuracy (secs Y/CC/DD), the most consistent picture is a genuine
+  learned decision boundary — plausibly inherited from the base model's own pretrained
+  tendency to hedge toward a middle/moderate label under ambiguity, not fully overridden by
+  fine-tuning on a few hundred rows — not a bug anywhere in this pipeline.
+- The one real bug found (`build_abstain_rows.py`'s hardcoded `threat_level="medium"` for
+  all 36 abstention rows) is genuine and worth fixing, but it is not the primary driver:
+  it exists only in v3b's training file (not v3a's, which still collapses), and the adapter
+  that carries it (v3b) calibrates *better*, not worse, than the one that doesn't (v3a) —
+  the opposite of what "the artefact causes the collapse" would predict.
