@@ -144,6 +144,14 @@ a different consumer entirely).
 
 ## F. Scale check
 
+> **⚠ SUPERSEDED for the retrained model — see sec V.** This section's
+> `velocity_and_converging_branches_dead_in_production: true` verdict was measured on the
+> OLD pre-retrain checkpoint's normalised-space outputs (centroid_velocity ~0.04-0.07,
+> nowhere near threshold). The teammate's retrained model computes reg labels on
+> denormalised/physical positions and the same branches fire 33%/39% of the time. Do not
+> cite this section's verdict for the current deployed model — sec F2 below has the same
+> caveat.
+
 **Synthetic ranges parsed out of `synth_context()`** (`llm_finetuning/build_sft_dataset.py`):
 
 | label | low | high |
@@ -1374,3 +1382,392 @@ section). v3b's residual edge on the corrected metric and its unique abstention
 CAPABILITY (secs G/I/K — a property no accuracy metric here captures) remain real
 and are not explained away by this ablation; only the *low-threat calibration*
 improvement specifically is now understood to be substantially a size effect.
+
+---
+
+## V. Real regression-label distribution from the retrained STGT — supersedes sec F/F2
+
+**Correction notice:** sec F/F2's `velocity_and_converging_branches_dead_in_production:
+true` finding was measured on n=18/n=1 samples from the OLD (pre-retrain, normalised-space,
+"units bug" — CODE_REVIEW.md) checkpoint, where `centroid_velocity` sat at ~0.04-0.07 and
+`approach_rate` at ~-0.001, both far below their calibration thresholds. That finding is
+**superseded by this section** for the retrained model — it no longer describes production
+behaviour once the teammate's retrain (which computes reg labels on denormalised/physical
+positions, not normalised ones) is what's actually deployed. Sec F/F2 remain useful as a
+historical record of the old checkpoint's behaviour; do not cite their verdict for the
+current model.
+
+### Step 1 — recovering `reg_mean`/`reg_std`
+
+`swarm_data/best_model.pt`'s top-level keys: `epoch, model_state_dict,
+optimizer_state_dict, val_loss, val_acc, cfg, reg_mean, reg_std, train_mean, train_std`.
+**The checkpoint already embeds `reg_mean`/`reg_std`** — no reconstruction from scratch
+was needed to produce a *usable* value, but the reconstruction (via
+`dataset.py::compute_regression_labels`, imported directly rather than reimplemented, run
+on `X_raw = X_train.npy * train_std + train_mean`) was still done as an independent
+correctness check per the session's instruction, and it **caught a real discrepancy**:
+
+| field | checkpoint reg_mean | reconstructed reg_mean | ratio | checkpoint reg_std | reconstructed reg_std | ratio |
+|---|---|---|---|---|---|---|
+| centroid_velocity | 5.6669 | 2.8335 | **2.000x** | 1.4206 | 0.7103 | **2.000x** |
+| approach_rate | -0.04346 | -0.04346 | 1.000x | 0.12451 | 0.12451 | 1.000x |
+| stability | 0.79828 | 0.79828 | 1.000x | 0.11669 | 0.11669 | 1.000x |
+
+`approach_rate` and `stability` match this repo's `dataset.py` **exactly** — confirming
+the "units fix" (computing reg labels on denormalised/physical positions rather than
+normalised ones, per CODE_REVIEW.md's caveat) is fully captured by this repo's current
+formula given denormalised input. Only `centroid_velocity` is off, by a clean, uniform
+2.000x on both mean and std (the signature of a per-sample scalar multiplier, not a
+data/seed mismatch). Likeliest cause: this repo's `compute_regression_labels()` computes
+raw per-**frame** displacement (`deltas.mean()`, no time normalisation), while
+`inference.py::sliding_window_inference` already carries an explicit `dt=0.5s`/frame
+convention elsewhere in the same pipeline — dividing by `dt=0.5` is exactly `*2`, i.e. the
+checkpoint's convention is metres/**second**, this repo's is metres/**frame**.
+
+**Confirmed directly against her source** (sec V step 3 cloned
+`github.com/pizz-beep/capstone` @ `b139dcee71f...` to vendor the STGT front-end — see
+below): her `dataset.py::compute_regression_labels` literally does
+`centroid_velocity = speeds.mean() / 0.5  # dt=0.5s, so divide by 0.5 to get m/s`. Confirmed,
+not just circumstantial.
+
+**Recovered `swarm_data/reg_mean.npy` / `reg_std.npy` use the checkpoint's own embedded
+values**, not the reconstruction — the model's reg_head was trained to predict normalised
+targets against *those* stats; denormalising with any other numbers would silently rescale
+every downstream `centroid_velocity` reading by 2x. All distribution numbers below apply
+this same `*2` (`dt`) correction to every velocity-derived quantity so they're on the scale
+that actually reaches `calibration.py` at runtime; `approach_rate`/`stability` need no
+correction (exact match, above).
+
+### Step 2 — population distribution (n=5879 training sequences) and threshold verdicts
+
+| field | min | max | mean | std | p1 | p50 | p99 |
+|---|---|---|---|---|---|---|---|
+| `centroid_velocity` (physical, dt-corrected) | 2.842 | 9.224 | 5.667 | 1.421 | 3.166 | 5.624 | 8.386 |
+| `approach_rate` | -0.579 | 0.456 | -0.044 | 0.125 | -0.368 | -0.036 | 0.276 |
+| `stability` | 0.343 | 0.969 | 0.798 | 0.117 | 0.505 | 0.833 | 0.950 |
+
+Early/late-half deltas (each of the 5879 sequences split into two 25-step halves, same
+formulas re-run on each half — the closest available population-level analog to
+`build_tactical_context`'s early-vs-late-window comparison, since we have independent
+sequences, not one continuous multi-window stream):
+
+| quantity | min | max | mean | std |
+|---|---|---|---|---|
+| `delta_v` (late-early, physical) | -2.640 | 2.736 | 0.006 | 0.597 |
+| `delta_stability` (late-early) | -0.792 | 0.491 | -0.042 | 0.193 |
+
+**a. Fraction crossing ±0.5 `delta_v` threshold: 33.24% (1954/5879) — NOT ~0, contrary to
+the stated expectation.** But the per-class breakdown is the more informative result:
+
+| formation | n | frac \|delta_v\|>0.5 |
+|---|---|---|
+| shield | 539 | 60.3% |
+| column | 525 | 56.4% |
+| dispersed | 585 | 36.4% |
+| converging | 576 | 33.9% |
+| diamond | 562 | 31.9% |
+| v_shape | 520 | 31.5% |
+| encirclement | 572 | 29.0% |
+| **transitioning** | **2000** | **20.8% (lowest of all 8 classes)** |
+
+If genuine within-window acceleration were driving these crossings, the `transitioning`
+class — the one class explicitly modelling formation change — should show the *highest*
+rate, not the lowest. It shows the lowest. Combined with `delta_v`'s near-zero mean (0.006,
+not the systematic non-zero drift a real trend would produce) and symmetric distribution,
+**the 33% crossing rate looks like estimation noise from halving the window (only 24
+frame-diffs per 25-step half, vs 49 for the full 50-step sequence) rather than genuine
+acceleration** — consistent with the underlying constant-velocity-per-sequence simulator
+assumption after all, but the naive half-split methodology used to test it is noisy enough
+to spuriously cross ±0.5 about a third of the time regardless of formation. `column` and
+`shield`'s notably higher rates (56-60%) are flagged but not further diagnosed this
+session (would need a look at their specific `data_gen.py` motion profile). **Verdict:
+likely still "acceleration doesn't really exist here," but the naive test that would prove
+it cleanly needs a lower-noise estimator (e.g. compare against a matched null from
+resampling within a single formation) — not done this session, scope was measurement only.**
+
+**b. Fraction crossing ±0.1 `approach_rate` threshold: 39.39% (2316/5879) — FIRES, as
+expected.** Asymmetric: 29.73% converging vs 9.66% dispersing. This directly reverses sec
+F's "converging branch dead in production" finding — post units-fix, `spread_dynamics`'s
+converging/dispersing branches are very much alive, and skew converging.
+
+**c. Stability range [0.343, 0.969] (full population); fraction crossing ±0.1
+`delta_stability`: 63.02% (3705/5879) — discriminates, fires often.** Same half-window
+noise caveat as (a) likely inflates this somewhat (a 25-sample std/mean ratio is a noisier
+estimator than the 50-sample one used for the full-sequence value), but even allowing for
+that, the range is wide enough (0.343 to 0.969, more than 3x sec F2's real-sample range of
+0.79-0.96) that the relative ±0.1 rule plainly has room to fire — it does not look dead the
+way sec F's absolute cutoffs did.
+
+### Comparison vs `synth_context()`'s current sampling ranges (post sec BB fix)
+
+| field | synth_context() range | real p1-p99 | verdict |
+|---|---|---|---|
+| `approach` | [-1.5, 1.5] | [-0.368, 0.276] | synth range ~4-5x too wide, and NOT centered — real data skews converging (-0.044 mean), synth samples uniformly |
+| `stability` (early/late draw) | [0.5, 0.98] | [0.505, 0.950] | reasonably matched — synth range slightly wider on both ends but close |
+| `centroid_velocity` | not sampled in this convention (synth `velocity` field is a `key_windows`-local narrative number, not fit to this physical scale) | [3.166, 8.386] physical | **not comparable without a units decision** — synth's `velocity` field was never anchored to the checkpoint's metres/second convention; this is a live gap, flagged for any future `synth_context()` revision but out of scope for "generator fix only" (sec BB) |
+
+Net: `approach_rate`'s sampling range is the one clearest mismatch worth narrowing in a
+future generator pass — it's uniform and 4-5x too wide, while real data is skewed and
+narrower. `stability` is already close. `centroid_velocity` was never on a comparable
+scale to begin with and needs an explicit units decision (physical m/s vs some
+normalised/relative scale) before a synthetic range for it means anything.
+
+---
+
+## W. delta_v is GEOMETRY, not noise — velocity_trend narrates formation reconfiguration
+
+Sec V flagged `delta_v`'s 33.2% ±0.5 crossing rate as *probably* half-window estimation
+noise, based on indirect evidence (near-zero mean, `transitioning` showing the lowest
+crossing rate). This section settles it directly with a zero-noise regeneration.
+
+### Method
+
+Called the teammate's own `generate_transition_sequence` (`github.com/pizz-beep/capstone`
+@ `b139dcee71f`, already vendor-inspected in sec V step 3) with **`noise_std=0.0`** —
+removing the sensor/motion noise term entirely, so any remaining `delta_v` signal cannot
+be measurement noise by construction. Generated 504 sequences: 12 of the 42 ordered
+`(formation_a, formation_b)` pairs x 3 blend regimes x 14 sequences/regime, using her own
+`generate_transition_dataset`'s exact regime parameter ranges:
+
+- **Regime 0** (blend LATE, `blend_start ∈ [33,43)`): sequence is mostly `formation_a`
+- **Regime 1** (blend MID, `blend_start ∈ [10,25)`, spans ≥14-22 steps): mostly `"transitioning"`
+- **Regime 2** (blend EARLY, `blend_end ∈ [8,18)`): sequence is mostly `formation_b`
+
+`delta_v` computed the same way as sec V (25-step early/late halves), using her velocity
+formula (`speeds.mean()/dt`) directly — her full `compute_regression_labels` hardcodes
+`t = np.arange(50, ...)` for the `approach_rate` polyfit and crashes on a 25-step
+half-window, so only the velocity component (the only one needed here) was extracted
+standalone; documented in `scripts/check_delta_v_geometry.py`.
+
+### Mean formation offset (y-component, the axis every asymmetric formation skews on)
+
+| formation | mean offset (x, y, z) |
+|---|---|
+| `column` | (0, **-12.5**, 0) |
+| `v_shape` | (0, **-6.33**, 0) |
+| `shield` | (0, **+10.0**, 0) |
+| `converging`/`dispersed` | small, random (offsets are `rng.uniform` per-call, not fixed) |
+| `encirclement`, `diamond` | (0, 0, 0) — symmetric, no skew |
+
+Confirms the hypothesis's premise: several formations have a non-zero mean offset, so
+their centroid is not simply "swarm center" — blending toward/away from one shifts the
+apparent centroid position independent of true swarm translation.
+
+### Result — n=504, noise_std=0.0
+
+**Overall ±0.5 crossing rate: 34.13% (172/504)** — statistically indistinguishable from
+sec V's real-data (noisy) rate of **33.24%**. Since this run has **zero** noise, that
+near-identical rate is the whole answer: noise contributes essentially nothing to the
+crossing rate: **this is geometry, confirmed, not an estimation-noise artefact.**
+
+| regime | n | mean signed delta_v | std | frac \|delta_v\|>0.5 |
+|---|---|---|---|---|
+| 0 (blend LATE, mostly A) | 168 | **+0.236** | 0.627 | 39.29% |
+| 1 (blend MID, transitioning) | 168 | **-0.026** | 0.420 | 19.05% |
+| 2 (blend EARLY, mostly B) | 168 | **-0.304** | 0.679 | 44.05% |
+
+Exactly as predicted: regime 0 (shift concentrated late) skews positive, regime 2 (shift
+concentrated early) skews negative and roughly mirrors regime 0's magnitude, regime 1
+(shift spans the midpoint, splits across both halves) sits near zero with the tightest
+spread and the lowest crossing rate of the three — **the same ordering sec V found in the
+real population**, where the `transitioning` class (regime-1-like) had the lowest
+crossing rate (20.8%) of all 8 formations. Two independent measurements (real population,
+zero-noise synthetic) agree.
+
+The combined histogram (`evaluation/delta_v_geometry_histogram.png`) isn't a clean
+two-hump bimodal shape — it's a **three-component mixture**, regime 1 forming a tall
+narrow peak at zero, regime 0 stretching a long positive tail, regime 2 a mirrored
+negative tail, overlapping enough (std ~0.6 vs mean shift ~0.24-0.30) not to separate
+visually into distinct humps. That's arguably stronger evidence for the mechanism than
+simple bimodality would be: three regimes, three distinct signed shifts, in the exact
+predicted directions.
+
+### Verdict — recorded, no threshold changed
+
+**`velocity_trend` (`calibration.py`'s `AbsoluteCalibrator.velocity_trend`, driven by
+`delta_v`) reports FORMATION RECONFIGURATION TIMING (whether the blend/transition
+happened in the early, middle, or late part of the observation window), not
+acceleration.** The narrative labels `"accelerating"`/`"decelerating"` (`context_spec.py`'s
+`VELOCITY_ACCELERATING`/`VELOCITY_DECELERATING`) are **semantically wrong** for what this
+signal actually measures whenever a transition is present in the window — a swarm
+blending late from `column` to anything reads as `"accelerating"` regardless of whether
+its true translational speed changed at all, purely because `column`'s very negative mean
+offset (-12.5 on y) is leaving the centroid average late in the window. Per the session's
+instruction, **no threshold or label was changed this session** — this is a diagnosis, not
+a fix, filed here for whoever next touches `calibration.py`/`context_spec.py`'s velocity
+vocabulary.
+
+### Recalibrating `synth_context()` to the real distributions (generator only, `RULES` untouched)
+
+`synth_context()` (`llm_finetuning/build_sft_dataset.py`) previously sampled `centroid_velocity`,
+`approach_rate`, `delta_v`, and `stability` from hand-picked uniform ranges (documented as
+deliberate in the function's old docstring, pending the STGT retrain — sec F/F2). That retrain
+has now happened (sec V). Recalibrated: added `REAL_REG_PERCENTILES`, a committed 1%-step
+empirical-CDF snapshot (101 breakpoints/field) of `swarm_data/_reg_distribution_analysis.npz`
+(sec V, n=5879) — a literal, not a runtime dependency on the gitignored `swarm_data/` folder, so
+a fresh clone/CI can still call `synth_context()`. `velocity`/`approach`/`delta_v` are now direct
+bootstrap draws from that snapshot; `stability`'s early/late pair is derived from two independent
+real marginal draws (mean-stability, delta-stability) rather than a true joint real sample —
+`REAL_REG_PERCENTILES` only stores marginals, disclosed in the function's docstring as a known
+simplification. `RULES` untouched; no dataset regenerated.
+
+**Before/after narrative-field proportions** (`scripts/report_synth_context_recalibration.py`,
+n=5000 draws, seed 0):
+
+| field | value | before | after | real (sec V/W) |
+|---|---|---|---|---|
+| `spread_dynamics` | converging | 45.2% | **29.8%** | 29.73% |
+| | dispersing | 47.6% | **9.1%** | 9.66% |
+| | stable | 7.1% | **61.1%** | 60.60% |
+| `velocity_trend` | accelerating+decelerating | 65.9% | **33.7%** | 33.24% |
+| | steady | 34.1% | **66.3%** | 66.76% |
+| `stability_trend` | degrading+improving | 61.6% | **60.2%** | 63.02% |
+| | holding | 38.4% | **39.8%** | 36.98% |
+
+`spread_dynamics` (the one proportion match this session's test asserts, within 6 points) and
+`velocity_trend` land within ~1 point of the real population. `stability_trend` is within ~3
+points — the independent-marginals simplification (no joint early/late correlation) costs a
+little precision there but the qualitative picture doesn't materially change. The two biggest
+previous distortions — `spread_dynamics` sampling ~5x too much `dispersing` and ~1.5x too much
+`converging` relative to `stable`, and `velocity_trend` firing on 66% of samples instead of 33%
+— are both corrected.
+
+Test: `tests/test_synth_context_recalibration.py` — asserts every sampled field falls inside the
+real observed range (direct bootstrap draws, true by construction; `stability` checked against
+`[0,1]`, the production clip range, since it's a derived not a direct draw) and that
+converging/dispersing/stable proportions match the real rates within 6 points.
+
+---
+
+## Z. The prior-skew diagnosis — genuine model behaviour, plus one real (secondary) data artefact
+
+(Note on lettering: the session that requested this asked for "sec X," but sec X is already
+`## X. Coverage grid and teacher source...` from an earlier session. Using the next free
+letter — A-Y are all taken, this is the first section past that range.)
+
+RULES is 26.5% low-threat, yet v3a/v3a-nomask/v3b/v3d all predict `low` at ~0-33% raw
+observed accuracy (secs M, CC, DD), and a free logit-prior correction recovers tens of
+points every time (sec Y/CC: v3a 0→53.3%, v3b 20→86.7%, sec DD: v3d 33→73.3%). Three checks,
+run independently rather than assumed to have one shared cause.
+
+### a. Threat-level distribution of the ASSISTANT TARGETS (not RULES)
+
+`llm_finetuning/report_class_balance.py` (pre-existing, sec N) already computes exactly
+this, re-run here for the two files this diagnosis is about:
+
+| file (n) | low | medium | high | critical |
+|---|---|---|---|---|
+| RULES itself (49 pairs) | 26.5% | 44.9% | 24.5% | 4.1% |
+| `sft_train_v2.jsonl` (810) | 26.7% (+0.1pt) | 43.6% (-1.3pt) | 25.9% (+1.4pt) | 3.8% (-0.3pt) |
+| `sft_train_final.jsonl` (234, trains v3a) | 24.8% (-1.7pt) | 47.0% (+2.1pt) | 24.8% (+0.3pt) | 3.4% (-0.7pt) |
+| `sft_train_final_abstain.jsonl` (270, trains v3b) | 21.5% (-5.0pt) | **54.1% (+9.2pt)** | 21.5% (-3.0pt) | 3.0% (-1.1pt) |
+
+**v3a's training target distribution is NOT meaningfully skewed relative to RULES** — every
+delta is under 2.1 points, consistent with sampling noise from a 234-row draw. `medium` is
+not "over-represented" for the file that actually trains v3a. This directly rules out
+"skewed training targets" as the explanation for v3a's 0% raw observed low-threat accuracy —
+the data v3a trained on looks proportional.
+
+`sft_train_final_abstain.jsonl` (v3b's file) is a different story — see part (b).
+
+### b. Are (from, to) pairs sampled uniformly?
+
+`build_sft_dataset.py::main()` samples `form_a, form_b = rng.choice(pairs)` where
+`pairs = list(RULES.keys()) + [(a,b) for a in BASE_FORMATIONS for b in BASE_FORMATIONS]` —
+literally the same 49-pair set concatenated with itself (`RULES.keys()` already **is**
+`BASE_FORMATIONS x BASE_FORMATIONS`, confirmed byte-for-byte in sec BB's coverage test), so
+every pair has an identical duplicate count (2) in the sampling pool — uniform by
+construction, not just in expectation. Confirmed empirically against `sft_train_final.jsonl`
+itself: extracting `(form_a, form_b)` from each row's `Formation history:` line, all 49
+pairs appear (min count 1, max 11, mean 4.78 — exactly 234/49), consistent with unbiased
+multinomial sampling noise, no pair systematically over/under-drawn.
+
+**But `sft_train_final_abstain.jsonl`'s extra 36 rows are not RULES-sampled at all.** They
+come from `llm_finetuning/build_abstain_rows.py`, which builds them from
+`degradation.py`'s `multi_hop` / `terminal_transitioning` / `dropped_lines` battery cases
+(sec R's abstention work) — and `gold_abstain_assessment()` hardcodes:
+
+```python
+"threat_level": "medium",  # schema has no "unknown" threat_level (see prompts.py)
+```
+
+**All 36 of these rows are `threat_level="medium"`, unconditionally, regardless of the
+underlying scenario.** This is a real, mechanical, verifiable data artefact — confirmed
+directly against the file: `sft_train_final_abstain.jsonl`'s 36 rows beyond
+`sft_train_final.jsonl`'s 234 are 36/36 medium, 0 of any other class. It is exactly what
+pushes that file's medium share from the base 234 rows' 47.0% up to the full file's 54.1%
+(+7.1pt absolute, and the RULES-relative delta from +2.1pt to +9.2pt in the table above).
+The comment's justification (the output schema has no `"unknown"` threat_level to abstain
+into, sec's prompts.py `OUTPUT_SCHEMA`) is real, but picking the single most frequent
+RULES class as the filler was a choice, not a forced one — `DEFAULT_RULE`
+(`("medium", "reposition", "monitor")`, `build_sft_dataset.py:147`) sets the same
+precedent elsewhere in the pipeline.
+
+**However, this artefact does not explain the cross-adapter pattern.** If hardcoded-medium
+abstention rows were the primary driver of the low-threat collapse, v3b (which has them)
+should calibrate *worse* than v3a (which doesn't) — it does the opposite: v3b's raw
+observed low-threat accuracy (20.0%, sec CC) is higher than v3a's (0.0%), and v3d (sec DD,
+36 *non*-abstention filler rows, confirmed NOT medium-skewed — see below) does better
+still (33.3%). This is a real bug worth fixing on its own merits, but it is a secondary
+confound layered on top of something else, not the root cause.
+
+(For comparison: `data/sft_extra36_notabstain.jsonl`, the sec DD ablation's 36 filler rows,
+has threat_level low=12/medium=12/high=11/critical=1 — roughly balanced, nothing like the
+abstention rows' 36/36 medium. This is *why* v3d didn't inherit v3b's medium-skew and still
+calibrated at least as well, consistent with sec DD's "mostly a size effect" verdict.)
+
+### c. Token-level: is P(medium) elevated specifically, or is the whole distribution flattened?
+
+`llm_finetuning/measure_threat_intent_entropy.py`: for the 15 low-threat cases, greedily
+generated each system's real completion (same shared-rng protocol as sec CC/Y, so results
+are positionally comparable), located both the `threat_level` and `likely_intent` value
+positions, and computed full-vocabulary Shannon entropy (bits) at each via a teacher-forced
+forward pass. Max possible entropy over the 4 threat candidates alone would be 2.0 bits
+(log2(4)); over the full ~150k-token vocabulary the theoretical max is far higher, so a
+"flattened" distribution would read as high entropy, a confidently-concentrated one as low
+entropy regardless of whether it's concentrated on the right or wrong answer.
+
+| system | n | mean H(threat_level) | mean H(likely_intent) | delta |
+|---|---|---|---|---|
+| v3a | 15 | 0.840 bits | 1.149 bits | -0.309 |
+| v3b | 15 | 0.844 bits | 0.903 bits | -0.059 |
+| v3d | 15 | 0.797 bits | 0.998 bits | -0.201 |
+
+**`threat_level`'s entropy is LOWER than `likely_intent`'s in all three systems, not
+higher.** If the model were generically flattened/uncertain on these hard cases, threat_level
+— the field it gets wrong — should show *higher* entropy than likely_intent, which sec S
+already found does not collapse. The opposite is true: the model is *more* confident
+(lower entropy, more concentrated probability mass) at the position where it is wrong than
+at the position where it is right. v3a in particular predicts `medium` on all 15/15 low
+cases at a fairly tight, unremarkable entropy band (0.49-1.02 bits) — not the signature of
+a coin-flip or a flattened distribution, but of a specific, consistently-applied,
+confidently-held (and wrong) decision boundary.
+
+Minor note: this run's raw observed low-threat count for v3b (2/15 = 13.3%: `Stable Patrol`,
+`column->column`) differs slightly from sec CC's previously recorded 20.0% (3/15) on a
+separate run of the same greedy, same-seed protocol — consistent with the 4-bit-quantization
+numerical-precision sensitivity sec CC already documented (greedy decoding is not perfectly
+reproducible run-to-run under NF4 quantization). Doesn't change this section's qualitative
+entropy finding, which compares within a single run.
+
+### Verdict
+
+**Primarily genuine model behaviour, not a pipeline bug or training-data skew — plus one
+real, secondary data artefact that should still be fixed.**
+
+- Parts (a) and (b) rule out training-target skew and non-uniform pair sampling as the
+  explanation for v3a's collapse: its training file is proportional to RULES within noise,
+  and pair sampling is uniform by construction and by direct measurement.
+- Part (c) rules out "the model is just generally uncertain here" — entropy at the
+  `threat_level` position is *lower*, not higher, than at `likely_intent`, meaning the
+  model holds a confident, specific, wrong preference for `medium` on these cases, not a
+  flattened non-answer. Combined with the fact that a simple frequency-prior correction
+  recovers most of the accuracy (secs Y/CC/DD), the most consistent picture is a genuine
+  learned decision boundary — plausibly inherited from the base model's own pretrained
+  tendency to hedge toward a middle/moderate label under ambiguity, not fully overridden by
+  fine-tuning on a few hundred rows — not a bug anywhere in this pipeline.
+- The one real bug found (`build_abstain_rows.py`'s hardcoded `threat_level="medium"` for
+  all 36 abstention rows) is genuine and worth fixing, but it is not the primary driver:
+  it exists only in v3b's training file (not v3a's, which still collapses), and the adapter
+  that carries it (v3b) calibrates *better*, not worse, than the one that doesn't (v3a) —
+  the opposite of what "the artefact causes the collapse" would predict.
