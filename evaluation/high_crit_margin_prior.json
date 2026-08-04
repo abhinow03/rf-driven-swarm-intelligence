@@ -1,0 +1,306 @@
+{
+  "Converging Attack": {
+    "raw_p": {
+      "low": 0.02091927374095285,
+      "medium": 0.8227628391694798,
+      "high": 0.15457368722078746,
+      "critical": 0.0017441998687798641
+    },
+    "margin": 0.6681891519486923,
+    "raw_argmax": "medium",
+    "corrected_p": {
+      "low": 0.030499483530167876,
+      "medium": 0.7088285830480994,
+      "high": 0.24414259435889046,
+      "critical": 0.016529339062842194
+    },
+    "corrected_argmax": "medium",
+    "greedy_completion_starts_with": "medium\",\n ",
+    "expected_threat": "high"
+  },
+  "Encirclement Behavior": {
+    "raw_p": {
+      "low": 0.00013157539186097516,
+      "medium": 0.011301661275980148,
+      "high": 0.884638620036903,
+      "critical": 0.10392814329525582
+    },
+    "margin": 0.7807104767416472,
+    "raw_argmax": "high",
+    "corrected_p": {
+      "low": 8.019460615301304e-05,
+      "medium": 0.004070365841583685,
+      "high": 0.5841151736509964,
+      "critical": 0.4117342659012669
+    },
+    "corrected_argmax": "high",
+    "greedy_completion_starts_with": "high\",\n ",
+    "expected_threat": "high"
+  },
+  "encirclement->encirclement": {
+    "raw_p": {
+      "low": 0.7213361735962013,
+      "medium": 0.27796411081203104,
+      "high": 0.0005796333358376815,
+      "critical": 0.00012008225592996153
+    },
+    "margin": 0.44337206278417024,
+    "raw_argmax": "low",
+    "corrected_p": {
+      "low": 0.8132348284561841,
+      "medium": 0.18517726075693725,
+      "high": 0.0007079355458653223,
+      "critical": 0.0008799752410132882
+    },
+    "corrected_argmax": "low",
+    "greedy_completion_starts_with": "medium\",\n ",
+    "expected_threat": "high"
+  },
+  "converging->converging": {
+    "raw_p": {
+      "low": 0.9701969429316479,
+      "medium": 0.029787851640954814,
+      "high": 1.1345362286682657e-05,
+      "critical": 3.860065110428424e-06
+    },
+    "margin": 0.9404090912906932,
+    "raw_argmax": "low",
+    "corrected_p": {
+      "low": 0.9821435042429715,
+      "medium": 0.017818654229272726,
+      "high": 1.2442152544927233e-05,
+      "critical": 2.539937521096731e-05
+    },
+    "corrected_argmax": "low",
+    "greedy_completion_starts_with": "low\",\n ",
+    "expected_threat": "high"
+  },
+  "v_shape->converging": {
+    "raw_p": {
+      "low": 0.1315635803708319,
+      "medium": 0.7817012681814721,
+      "high": 0.08628150250739658,
+      "critical": 0.00045364894029946434
+    },
+    "margin": 0.6501376878106402,
+    "raw_argmax": "medium",
+    "corrected_p": {
+      "low": 0.1906999598250282,
+      "medium": 0.6695398115163776,
+      "high": 0.13548609425225946,
+      "critical": 0.004274134406334557
+    },
+    "corrected_argmax": "medium",
+    "greedy_completion_starts_with": "medium\",\n ",
+    "expected_threat": "high"
+  },
+  "column->converging": {
+    "raw_p": {
+      "low": 0.042194198433299836,
+      "medium": 0.8477000633382523,
+      "high": 0.10944342331845108,
+      "critical": 0.0006623149099967808
+    },
+    "margin": 0.7382566400198012,
+    "raw_argmax": "medium",
+    "corrected_p": {
+      "low": 0.06335687571628924,
+      "medium": 0.7521490288557351,
+      "high": 0.17802983416759663,
+      "critical": 0.006464261260378986
+    },
+    "corrected_argmax": "medium",
+    "greedy_completion_starts_with": "medium\",\n ",
+    "expected_threat": "high"
+  },
+  "diamond->converging": {
+    "raw_p": {
+      "low": 0.053988806388222586,
+      "medium": 0.8993785115464334,
+      "high": 0.04617907327107132,
+      "critical": 0.00045360879427272364
+    },
+    "margin": 0.8453897051582109,
+    "raw_argmax": "medium",
+    "corrected_p": {
+      "low": 0.08456687489342837,
+      "medium": 0.8324530221482905,
+      "high": 0.07836170472550917,
+      "critical": 0.004618398232771913
+    },
+    "corrected_argmax": "medium",
+    "greedy_completion_starts_with": "medium\",\n ",
+    "expected_threat": "high"
+  },
+  "dispersed->converging": {
+    "raw_p": {
+      "low": 0.1634096329098566,
+      "medium": 0.7916671141162496,
+      "high": 0.04467370768617883,
+      "critical": 0.00024954528771484674
+    },
+    "margin": 0.628257481206393,
+    "raw_argmax": "medium",
+    "corrected_p": {
+      "low": 0.2398738690644862,
+      "medium": 0.6867023948576992,
+      "high": 0.07104268881681286,
+      "critical": 0.0023810472610017144
+    },
+    "corrected_argmax": "medium",
+    "greedy_completion_starts_with": "medium\",\n ",
+    "expected_threat": "high"
+  },
+  "v_shape->encirclement": {
+    "raw_p": {
+      "low": 9.327429089688795e-05,
+      "medium": 0.0055064175418181715,
+      "high": 0.7782798102617723,
+      "critical": 0.21612049790551272
+    },
+    "margin": 0.5621593123562596,
+    "raw_argmax": "high",
+    "corrected_p": {
+      "low": 4.143191397366628e-05,
+      "medium": 0.0014453161375033903,
+      "high": 0.3745164609578738,
+      "critical": 0.6239967909906492
+    },
+    "corrected_argmax": "critical",
+    "greedy_completion_starts_with": "critical\",\n ",
+    "expected_threat": "high"
+  },
+  "column->encirclement": {
+    "raw_p": {
+      "low": 0.002259516839991051,
+      "medium": 0.1354904289559824,
+      "high": 0.7445339295475579,
+      "critical": 0.11771612465646861
+    },
+    "margin": 0.6090435005915755,
+    "raw_argmax": "high",
+    "corrected_p": {
+      "low": 0.0013660467527481473,
+      "medium": 0.04840377907273355,
+      "high": 0.48763692175199486,
+      "critical": 0.4625932524225234
+    },
+    "corrected_argmax": "high",
+    "greedy_completion_starts_with": "high\",\n ",
+    "expected_threat": "high"
+  },
+  "diamond->encirclement": {
+    "raw_p": {
+      "low": 0.001793863775790851,
+      "medium": 0.09948400003108743,
+      "high": 0.7584272092907322,
+      "critical": 0.14029492690238968
+    },
+    "margin": 0.6181322823883425,
+    "raw_argmax": "high",
+    "corrected_p": {
+      "low": 0.0009998536392945697,
+      "medium": 0.032765808001237365,
+      "high": 0.4579551878735249,
+      "critical": 0.5082791504859432
+    },
+    "corrected_argmax": "critical",
+    "greedy_completion_starts_with": "high\",\n ",
+    "expected_threat": "high"
+  },
+  "dispersed->encirclement": {
+    "raw_p": {
+      "low": 0.0024470115064007254,
+      "medium": 0.11999446439752821,
+      "high": 0.7234825819478125,
+      "critical": 0.15407594214825854
+    },
+    "margin": 0.5694066397995539,
+    "raw_argmax": "high",
+    "corrected_p": {
+      "low": 0.0013165749268835832,
+      "medium": 0.03814972850288915,
+      "high": 0.4216962651583163,
+      "critical": 0.538837431411911
+    },
+    "corrected_argmax": "critical",
+    "greedy_completion_starts_with": "high\",\n ",
+    "expected_threat": "high"
+  },
+  "column->v_shape": {
+    "raw_p": {
+      "low": 0.675796301784725,
+      "medium": 0.32409232232918256,
+      "high": 0.00010045221453353027,
+      "critical": 1.0923671558865163e-05
+    },
+    "margin": 0.3517039794555425,
+    "raw_argmax": "low",
+    "corrected_p": {
+      "low": 0.7790291749401677,
+      "medium": 0.22076352804583343,
+      "high": 0.00012544678438728974,
+      "critical": 8.185022961171965e-05
+    },
+    "corrected_argmax": "low",
+    "greedy_completion_starts_with": "medium\",\n ",
+    "expected_threat": "high"
+  },
+  "dispersed->v_shape": {
+    "raw_p": {
+      "low": 0.8757218098704271,
+      "medium": 0.12426442478778107,
+      "high": 1.1781083560901623e-05,
+      "critical": 1.984258230890482e-06
+    },
+    "margin": 0.751457385082646,
+    "raw_argmax": "low",
+    "corrected_p": {
+      "low": 0.9226122404265334,
+      "medium": 0.07736072506469752,
+      "high": 1.3446225453814576e-05,
+      "critical": 1.3588283315307586e-05
+    },
+    "corrected_argmax": "low",
+    "greedy_completion_starts_with": "low\",\n ",
+    "expected_threat": "high"
+  },
+  "encirclement->converging": {
+    "raw_p": {
+      "low": 0.013269245591969398,
+      "medium": 0.6601264568533276,
+      "high": 0.3217984952753827,
+      "critical": 0.004805802279320359
+    },
+    "margin": 0.3383279615779449,
+    "raw_argmax": "medium",
+    "corrected_p": {
+      "low": 0.0169424171838097,
+      "medium": 0.4980545932023547,
+      "high": 0.44511809995629764,
+      "critical": 0.0398848896575378
+    },
+    "corrected_argmax": "medium",
+    "greedy_completion_starts_with": "medium\",\n ",
+    "expected_threat": "critical"
+  },
+  "converging->encirclement": {
+    "raw_p": {
+      "low": 5.0154026696713555e-06,
+      "medium": 0.0004191777109903073,
+      "high": 0.647467745956612,
+      "critical": 0.35210806092972796
+    },
+    "margin": 0.2953596850268841,
+    "raw_argmax": "high",
+    "corrected_p": {
+      "low": 1.6771798859749895e-06,
+      "medium": 8.283095943488662e-05,
+      "high": 0.23456007048271815,
+      "critical": 0.765355421377961
+    },
+    "corrected_argmax": "critical",
+    "greedy_completion_starts_with": "critical\",\n ",
+    "expected_threat": "critical"
+  }
+}
