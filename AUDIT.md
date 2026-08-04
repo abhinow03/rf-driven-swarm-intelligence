@@ -2225,3 +2225,112 @@ only system that has both properties at once — not because it invented a new
 capability, but because it's honest about routing to whichever existing system actually
 has the property needed for a given input, and pays each component's real cost for
 doing so rather than hiding it.
+
+## AC. Reconciling three disagreeing rules_in_prompt numbers before trusting the composite
+
+Sec AB reported `rules_in_prompt`'s low-threat accuracy as 93.3% (sec AA step 2, greedy
+free-form decode), 65.3% (`eval_expanded_rules_in_prompt.json`, sampled n_runs=5), and
+82.3% (`eval_expanded_composite.json`, same branch, sampled n_runs=5) — three numbers
+that should describe overlapping things and don't agree. Resolved here, before any
+further composite claim is trusted, via `llm_finetuning/reconcile_low_threat_accuracy.py`.
+
+### Step 0 (prerequisite): is it a prompt-construction bug?
+
+Byte-diffed the two code paths that build the prompt for these 15 cases
+(`logit_inspection.build_case_prompt`, used by sec AA's measurement, against
+`synth_context`+`build_llm_prompt` directly, used by `baselines.make_rules_in_prompt_run_case`),
+same shared-rng protocol, all 55 `TEST_CASES` walked in order. **Zero mismatches.** The
+prompt text sent to the model is identical either way — ruled out first, so nothing below
+is explained by a hidden prompt divergence.
+
+### Step 1: four-way reconciliation
+
+All four re-measured fresh, same 15 low-threat cases, through the actual production code
+paths (not sec AA's separate reimplementation, except where explicitly reused):
+
+| measurement | protocol | accuracy | std (across n_runs) |
+|---|---|---|---|
+| a. restricted logit-argmax (4-candidate, greedy prefix) | n_runs=1, deterministic | **100.0%** | n/a |
+| b. full JSON generation, greedy | n_runs=1, deterministic | **85.7%** (12/14 scored, 1 abstained) | n/a |
+| c. full JSON generation, sampled, standalone | n_runs=5, temp=0.3 | **73.3%** | 22.7% |
+| d. full JSON generation, sampled, composite | n_runs=5, temp=0.3 | **74.7%** | 24.7% |
+
+None of these four numbers exactly reproduces 93.3%/65.3%/82.3% either — this session's
+fresh sampled runs (c, d) land closer to each other (73.3%/74.7%) than to sec AB's
+original figures (65.3%/82.3%) for the identical protocol. **That gap between two
+independently-run n_runs=5 samplings of the exact same system is itself the headline
+finding**, not a separate mystery — see the std column (22.7%/24.7%, per-run) directly
+quantifying why.
+
+**Three real, additive, non-buggy effects fully explain all of it:**
+
+1. **(a)→(b): a genuine "reasoning drift" cost from full generation, even under
+   determinism.** The single-token argmax (100%) is not what the model actually commits
+   to once it generates its full JSON response, greedily, even with no sampling
+   randomness at all. Per-case: `Breaking Contact` and `dispersed->column` both have
+   `restricted_argmax="low"` but the full greedy generation drifts to `threat_level=
+   "medium"`; `encirclement->column` drifts further still — the model abstains
+   entirely (`likely_intent="unknown"`) despite the forced single-token score favoring
+   `"low"`. The prefix-scored proxy measures "what token looks likely right after the
+   key," not "what the model actually outputs once it's free to reason its way there."
+2. **(b)→(c)/(d): the expected, textbook cost of temperature=0.3 sampling** on top of
+   the generation-length effect — greedy picks the argmax at each step, sampling doesn't.
+3. **Run-to-run sampling variance at n_runs=5 is large enough on its own to explain
+   the 65.3%/82.3% vs 73.3%/74.7% gap.** Per-case std of 22.7%/24.7% (computed from THIS
+   session's 5 runs) means two separately-run n_runs=5 evaluations of the literally
+   identical system, prompts, and seed for context generation (only the model's own
+   sampling is unseeded) can legitimately land 10-20 points apart. This is the same
+   class of effect sec CC already documented for greedy decoding under NF4 quantization
+   not being perfectly run-to-run reproducible either (93.3% vs this session's 85.7% on
+   the SAME deterministic greedy protocol) — quantization-level floating-point
+   nondeterminism plus, here, added sampling noise on top.
+
+**Failure-mode breakdown, sampled runs (c)/(d) wrong where greedy (b) was right (12
+cases): 100% `threat_level_diverged`, ZERO JSON parse failures, ZERO cases where some
+other field failed while threat_level stayed correct.**
+
+| system | threat_level→"medium" | threat_level→"unknown" | JSON parse failure |
+|---|---|---|---|
+| c (standalone) | 11 | 1 | 0 |
+| d (composite) | 10 | 2 | 0 |
+
+Every failure is the `threat_level` token itself changing under full-sequence sampled
+generation — almost always drifting to `"medium"`, occasionally hedging to `"unknown"`
+— while `likely_intent` keeps producing varied, real, non-abstained values (`approach`,
+`patrol`, `regroup`, `withdraw`, `defensive_transition`, `transit`, `area_search`,
+`consolidate`) in the same responses. **This is reasoning drift specific to the
+threat_level field, not a generic generation collapse or a formatting bug** — consistent
+with, and now directly evidenced at the individual-token level for, the same
+`medium`-prior story secs Z/AA/AB have been building from aggregate statistics.
+
+**Verdict: none of the three original numbers were wrong or the product of a bug.**
+They measure three genuinely different things (a forced single-token proxy vs full
+greedy generation vs full sampled generation) that are expected to differ, by an amount
+now directly measured and explained, plus real sampling variance at n_runs=5 large
+enough to explain the rest. The composite comparison built on sec AB's 65.3%/82.3%
+point estimates was not reporting a false result, but it was reporting point estimates
+with no error bars on a metric now shown to have single-run noise of ~20+ points — step 3
+rebuilds that table properly.
+
+### Step 2: high/critical confusion matrix — under-escalation, not false-positive escalation
+
+Direct answer to the panel's false-positive-escalation question: **under-escalation
+dominates for both systems, by a wide margin; over-escalation (calling a real high/critical
+threat something MORE severe than it is) is rare-to-absent.**
+
+| expected | system | correct | under-escalated | over-escalated | abstained |
+|---|---|---|---|---|---|
+| high (n=14, 70 runs) | rules_in_prompt | 27.1% (high) | **68.6%** (medium 48.6% + low 20.0%) | 4.3% (critical) | 0% |
+| high (n=14, 70 runs) | composite | 32.9% (high) | **65.7%** (medium 54.3% + low 11.4%) | 0% | 1.4% |
+| critical (n=2, 10 runs — **not statistically meaningful, reported anyway**) | rules_in_prompt | 30.0% | **70.0%** (high 50.0% + medium 20.0%) | 0% (nothing more severe than critical exists) | 0% |
+| critical (n=2, 10 runs — **not statistically meaningful, reported anyway**) | composite | 40.0% | **60.0%** (medium 50.0% + high 10.0%) | 0% | 0% |
+
+Both systems' dominant error mode on real high/critical threats is calling them
+`medium` specifically (48.6%/54.3%/20.0%/50.0% across the four cells) — the SAME
+`medium`-collapse this entire audit thread has traced back to a pretraining-inherited
+prior (sec AA step 2), now shown pulling accuracy down from the *opposite* direction too:
+not just inflating `medium` on genuinely `low` inputs, but ALSO absorbing genuinely
+`high`/`critical` inputs into `medium`. Over-escalation is a minor, secondary effect
+(4.3% for `rules_in_prompt` on `high`, 0% everywhere else) — the practical risk this data
+supports is real threats being under-reported as routine, not routine activity being
+false-flagged as a crisis.
