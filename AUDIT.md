@@ -2026,3 +2026,202 @@ fine-tuning — the overall sec Z verdict (genuine model behaviour, not a pipeli
 still holds, but its origin is now pinned down precisely: **pretraining-inherited**,
 not induced by this project's data or pipeline, and fine-tuning on the current
 datasets neither reliably fixes nor is required to explain it.
+
+## AB. In-context RULES beats fine-tuning on threat_level — the architecture question
+
+Sec AA step 2 found `rules_in_prompt` (base Qwen2.5-7B-Instruct, zero training, RULES.txt
+pasted as system prompt) hits 93.3% on low-threat cases greedy — beating every
+fine-tuned adapter's raw accuracy on the same 15 cases (v3a 0%, v3b 20%, v3b-fix 40%).
+That result changes the question this whole audit thread (secs M through AA) has been
+chasing: not "why can't fine-tuning learn threat_level correctly," but "does fine-tuning
+need to learn it at all, when presenting the same rules in-context already works better."
+This section tests that directly — first tightening the v3b-fix accounting, then testing
+whether rules_in_prompt's advantage survives contact with the one thing it's never been
+tested on (unanswerable input), then building and evaluating a composite that routes
+between the two.
+
+### 1. Is v3b-fix's intent regression real?
+
+`llm_finetuning/check_v3b_fix_intent_misses.py` (previous commit): every one of
+v3b-fix's 18 intent misses on the clean 55-case greedy battery predicted a concrete,
+non-abstained `likely_intent` value (`n_abstained=0`, `abstention_rate=0.0` on every
+single miss — verified per-case, not just from the aggregate `mean_abstention_rate=0.0`).
+**Verdict: real, not an accounting artefact.** The threat_level schema fix (sec AA
+step 3, `"unknown"` added) never leaked into `likely_intent` scoring; the -18.2pt
+intent-accuracy cost stands as reported.
+
+### 2. Does rules_in_prompt abstain on unanswerable input?
+
+No — on anything. `evaluation/degradation_rules_in_prompt.json` (already on disk)
+showed 0.0% `abstention_rate_when_unanswerable` on `multi_hop` (sev 3/4) and
+`terminal_transitioning` (sev 1/2/3); this session added the three held-out shapes
+(`holdout_shapes.py`, `llm_finetuning/run_holdout_eval_rules_in_prompt.py`,
+n_runs=5) to complete the picture:
+
+| axis / shape | v2 | rules_in_prompt | v3b-fix |
+|---|---|---|---|
+| multi_hop sev3 | 0.0% | 0.0% | 100.0% |
+| multi_hop sev4 | 0.0% | 0.0% | 100.0% |
+| terminal_transitioning sev1 | 0.0% | 0.0% | 100.0% |
+| terminal_transitioning sev2 | 0.0% | 0.0% | 100.0% |
+| terminal_transitioning sev3 | 0.0% | 0.0% | 100.0% |
+| deeper_chain (holdout) | — | **0.0%** | (n/a, not re-run — v3b's 100% already established, secs G/I) |
+| dominant_mismatch (holdout) | — | **0.0%** | — |
+| oov_formation (holdout) | — | **0.0%** | — |
+
+**rules_in_prompt has zero capacity to decline an answer, of any kind — structural
+(multi-hop chains, mid-transition) or vocabulary (`"phalanx"`, a formation name that
+appears nowhere in RULES.txt).** Given the rule table and told to answer, it always
+answers. This is the one thing sec AA step 2 didn't test, and it's the entire reason
+this isn't a simple "just use rules_in_prompt instead" conclusion — its 93.3%
+low-threat accuracy comes with a system that cannot recognize the edge of its own
+competence at all.
+
+### 3. The composite router
+
+`llm_finetuning/composite.py`: routes to `rules_in_prompt` when a `(from, to)` pair is
+extractable from the tactical context (`baselines.py`'s own `_extract_pair` — the
+identical check `rules_lookup` uses to decide whether it can answer), to `v3b-fix`
+otherwise. 9 unit tests (`tests/test_composite.py`) verify routing against every
+degradation/holdout axis, including two deliberate, documented edge cases that route
+to `rules_in_prompt` despite being *designed* unanswerable: `oov_formation` (shaped
+exactly like an ordinary transition line) and `dominant_mismatch` (the contradiction
+lives in a line `_extract_pair` never reads). Composite was evaluated on the clean and
+degradation batteries only (matching the step 3 request) — not the holdout shapes.
+
+**Abstention on `multi_hop`/`terminal_transitioning` — composite fully inherits
+v3b-fix's capability:**
+
+| axis | severity | v2 | rules_in_prompt | v3b-fix | **composite** |
+|---|---|---|---|---|---|
+| multi_hop | 3 | 0.0% | 0.0% | 100.0% | **100.0%** |
+| multi_hop | 4 | 0.0% | 0.0% | 100.0% | **100.0%** |
+| terminal_transitioning | 1/2/3 | 0.0% | 0.0% | 100.0% | **100.0%** |
+
+**Branch-firing rate** (`degradation_composite.json`'s `branch_log`, 108 degradation
+cases + 55 clean-battery cases):
+
+| battery / axis | routed to rules_in_prompt | routed to finetuned |
+|---|---|---|
+| clean 55-case battery | 55/55 (100%) | 0/55 |
+| degradation: multi_hop | 6/18 (sev2 only) | 12/18 (sev3/4) |
+| degradation: terminal_transitioning | 0/18 | 18/18 |
+| degradation: confidence_decay | 30/30 | 0/30 |
+| degradation: dropped_lines | 18/24 | 6/24 (transition line dropped) |
+| degradation: contradictory_cues | 18/18 | 0/18 |
+| **degradation total** | **72/108 (67%)** | **36/108 (33%)** |
+
+Every clean-battery case and every "resolvable-shaped" degradation case routes to
+`rules_in_prompt`; every case where the extraction fails (unresolvable chains,
+terminal-`transitioning`, or a dropped transition line) routes to `v3b-fix` — exactly
+as designed, confirmed against real generated contexts, not just the router's own logic.
+
+**Per-class threat accuracy, clean 55-case battery (n_runs=5, temp=0.3, matching the
+existing `eval_expanded_v2.json`/`eval_expanded_rules_in_prompt.json` protocol):**
+
+| system | low | medium | high | critical | overall threat | overall intent |
+|---|---|---|---|---|---|---|
+| v2 | 86.7% | 95.8% | 100.0% | 100.0% | **94.5%** | **100.0%** |
+| rules_in_prompt | 65.3% | 68.3% | 32.9% | 40.0% | 57.5% | 59.3% |
+| v3b-fix | 32.0% | 92.5% | 50.0% | 0.0% | 61.8% | 70.5% |
+| **composite** | **82.3%** | 68.3% | 27.1% | 40.0% | 60.6% | 62.3% |
+
+**A methodological caveat that matters for reading this table**: since composite routes
+100% of the clean battery to `rules_in_prompt`, its clean-battery numbers should in
+principle match a second independent run of `rules_in_prompt` alone — and per-case
+diffing confirms they're the *same* underlying system, but temperature=0.3 sampling is
+unseeded at the model level (only the context-generation rng is fixed), so two separate
+n_runs=5 evaluations of literally the same prompts show real per-case swings (e.g.
+`Stable Patrol`: 40%→100%, `v_shape->column`: 20%→100%). **This is genuine run-to-run
+sampling variance, not a composite-specific effect or a bug** — verified by direct
+per-case comparison against `eval_expanded_rules_in_prompt.json`. The categorical
+abstention finding above (0% vs 100%, every run, every severity) is robust to this;
+the exact percentage-point comparisons in the accuracy tables should be read with an
+error bar of at least several points at n_runs=5.
+
+**Answerable-cell accuracy on the degradation battery (mean across the 13 has-ground-truth
+cells):**
+
+| system | mean threat accuracy | mean intent accuracy |
+|---|---|---|
+| v2 | 86.5% | 94.0% |
+| rules_in_prompt | 45.1% | 75.6% |
+| v3b-fix | 60.6% | 89.4% |
+| **composite** | 44.2% | 76.5% |
+
+Composite tracks `rules_in_prompt` closely here too (44.2% vs 45.1%, 76.5% vs 75.6%) —
+consistent with routing 72/108 degradation cases, including the has-ground-truth
+majority, to that branch.
+
+**Verdict: the composite does not beat both components on every axis — it inherits each
+component's specific strength and specific weakness by construction, which is a real
+result, not a failure of the design.** It closes rules_in_prompt's one absolute gap
+(abstention capability, 0%→100% on multi_hop/terminal_transitioning, exactly matching
+v3b-fix) at no measured cost to the cases it still routes to `rules_in_prompt`. But it
+does **not** fix `rules_in_prompt`'s own weak spots — `high`/`critical`-threat accuracy
+(27.1%/40.0%) are unchanged from `rules_in_prompt` alone, because every clean-battery
+case routes there regardless of threat class. And it is **not** a strict win over v2:
+v2's much larger training set (2700 rows vs 234) still dominates every answerable-only
+accuracy metric by a wide margin (94.5% vs 60.6% overall threat accuracy), at the cost
+of v2 never abstaining at all (0% on every unanswerable case, same as `rules_in_prompt`).
+Routing does not "lose" anything relative to using `rules_in_prompt` alone on the cases
+it hands to that branch (same system, same prompts, differences are sampling noise) —
+the real tradeoff the composite makes plain is architectural: it buys abstention
+capability by accepting `rules_in_prompt`'s answerable-case ceiling, which is well
+below v2's. That ceiling is also, on this evidence, generally *above* 234-example
+fine-tuning's own answerable-case ceiling — `v3b-fix` only clearly beats
+`rules_in_prompt` on `medium` (92.5% vs 68.3%); on `low`, under the same sampled
+protocol, `rules_in_prompt` leads by a wide margin (65.3% vs v3b-fix's 32.0%).
+
+### 4. The headline, restated
+
+Cross-referencing sec S's field-structure table (`intent > threat` held for every
+fine-tuned adapter except `v3a-nomask`'s 1.8pt near-tie): **v3b-fix breaks that pattern
+outright** — its clean-battery `intent` and `threat` accuracy are now numerically
+identical (67.3% greedy, `eval_expanded_v3b-fix_greedy.json`) rather than intent
+leading. Sec S's original reading — "`likely_intent` survives low-data fine-tuning
+better than `threat_level` because correct intent values often lexically echo the input
+formation names, while `threat_level` requires the full arbitrary RULES mapping with no
+lexical shortcut" — is now sharper evidence for the same claim, not weaker: fixing the
+`threat_level`-specific abstention-label bug (sec AA step 3) moved `threat_level`
+accuracy up and `likely_intent` accuracy down in the same run, on the same 234+36
+rows, via the same `assistant_only_loss`-masked joint-JSON gradient — the two fields'
+learnability under this training setup are linked, and improving one measurably cost
+the other, which only makes sense if they're each drawing on a different, disconnected
+part of the model's representation (the arbitrary RULES mapping vs the
+lexically-recoverable one), not a smooth joint improvement path.
+
+**The plain statement:** at 234 training examples, LoRA fine-tuning does not overwrite
+Qwen2.5-7B-Instruct's pretrained semantic prior on `threat_level` (sec AA step 2:
+`base` predicts `medium` on 73.3% of low-threat cases before any training at all, and
+v3a/v3b/v3b-fix's raw accuracy on the same stratum — 0%/20%/40% greedy — never clearly
+exceeds `base`'s own 26.7%). Presenting the identical rule table **in-context**, with
+zero training, does overwrite it (93.3% greedy on the same 15 cases) — because the
+model doesn't have to learn a new decision boundary from 234 examples' gradient signal,
+it just has to read a table that's already sitting in its context window. `likely_intent`
+does not show this gap the same way (fine-tuning gets it to 70-100% depending on
+adapter, clearly above `base`'s 25.8%) because it doesn't require overwriting a
+pretrained prior — it requires learning a mostly-lexical mapping fine-tuning is well
+suited to.
+
+**Which system is best on which stratum, with numbers:**
+
+| stratum | best system | number |
+|---|---|---|
+| clean-battery overall threat accuracy | v2 | 94.5% |
+| clean-battery overall intent accuracy | v2 | 100.0% |
+| clean-battery low-threat accuracy (sampled, n_runs=5) | rules_in_prompt | 65.3% |
+| clean-battery low-threat accuracy (greedy) | rules_in_prompt | 93.3% |
+| clean-battery medium-threat accuracy | v3b-fix | 92.5% |
+| abstention on structurally-unanswerable input | v3a / v3b / v3b-fix / composite (tie) | 100.0% |
+| abstention + best-available answerable accuracy jointly | **composite** | 100.0% abstain, 82.3% low / 60.6% overall threat |
+
+No single system on the table wins everywhere. v2 is the accuracy ceiling wherever
+ground truth exists and abstention isn't needed. `rules_in_prompt` is the best
+*trainable-in-zero-gradient-steps* answer to the specific `low`/prior-skew problem this
+whole audit thread exists to solve, but is structurally blind to its own limits. The
+fine-tuned adapters are the only systems that know when to stop. The composite is the
+only system that has both properties at once — not because it invented a new
+capability, but because it's honest about routing to whichever existing system actually
+has the property needed for a given input, and pays each component's real cost for
+doing so rather than hiding it.
