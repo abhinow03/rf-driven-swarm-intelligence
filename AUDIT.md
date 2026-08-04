@@ -1923,6 +1923,95 @@ recording plainly:
   fine-tuning and in-context rule injection for this task, not just a diagnostic
   footnote.
 
+### 3. Fixing the hardcoded-medium abstention bug — did it help?
+
+sec Z part (b) found `build_abstain_rows.py` hardcoded `threat_level="medium"` on
+all 36 abstention rows in `sft_train_final_abstain.jsonl` (v3b's training file) and
+flagged it as real but secondary (v3b calibrates *better* than v3a despite carrying
+it). Fixed properly this session: `threat_level="unknown"` is now schema-legal
+(`prompts.py` `THREAT_FAMILIES` gained an `"unknown"` family, matching
+`likely_intent`'s existing precedent; `OUTPUT_SCHEMA` updated to match) and
+`build_abstain_rows.py` now emits it instead of `"medium"`. Regenerated ONLY the 36
+abstention rows (`data/sft_train_final_abstain_fix.jsonl` — the base 234 rows are
+byte-identical to `sft_train_final_abstain.jsonl`, verified by diff) and trained
+`qwen-swarm-v3b-fix` with IDENTICAL hyperparameters to v3b (r=16/α=32, 3 epochs,
+lr=2e-4, `--assistant-only-loss`, same val file `sft_train_final_val.jsonl`) —
+102 steps, matching v3b's step count exactly (`llm_finetuning/eval_v3b_fix.py`,
+`llm_finetuning/train_qlora.py` invocation logged in the commit).
+
+**Per-class threat accuracy, greedy 55-case battery (matches the existing
+`eval_expanded_v3b_greedy.json` protocol exactly — same cases, same temperature=0.0,
+same seed):**
+
+| threat class | v3b | v3b-fix | delta |
+|---|---|---|---|
+| low | 20.0% (3/15) | **40.0% (6/15)** | **+20.0pt** |
+| medium | 87.5% (21/24) | 91.7% (22/24) | +4.2pt |
+| high | 71.4% (10/14) | 64.3% (9/14) | -7.1pt |
+| critical | 0.0% (0/2) | 0.0% (0/2) | +0.0pt |
+| **overall (mean_threat_accuracy)** | **61.8%** | **67.3%** | **+5.5pt** |
+
+The bug WAS suppressing threat-level calibration quality, specifically on the
+`low` stratum this whole audit thread has been chasing since sec M — fixing it
+recovers 20 points of low-threat accuracy and 5.5 points overall, with no
+change to `critical` (still 0/2, n too small to read anything into) and a modest
+7.1pt give-back on `high`.
+
+**But this did not come for free.** The same greedy run's `mean_intent_accuracy`
+(`accuracy_when_answerable`, over the SAME 55 answerable cases) dropped
+substantially: **85.5% (v3b) → 67.3% (v3b-fix), -18.2pt.** Per-case diffing shows
+this is concentrated almost entirely in `low`/`medium` (`low`: 86.7%→53.3%, 5 cases
+flip correct→wrong, 0 flip the other way; `medium`: 87.5%→66.7%, 6 flip wrong,
+1 flips right; `high`/`critical`: unchanged, 0 flips either direction) —
+i.e. exactly the strata the 36 rewritten rows' training signal touches most, not a
+uniform regression. `mean_action_accuracy` improved (67.3%→74.5%, +7.3pt) and
+`mean_hallucination_rate` stayed at 0% both ways. **Net: a real tradeoff, not a
+clean win** — better calibrated on threat_level (the thing this fix targeted),
+worse on likely_intent (collateral, not targeted) — most plausibly because
+`assistant_only_loss` trains on the full JSON object jointly, so changing 36 rows'
+`threat_level` target also perturbs the gradient signal for every other field on
+those same rows, including `likely_intent`.
+
+**Abstention rate on `multi_hop` + `terminal_transitioning` (the axes RULES
+structurally cannot answer) is UNCHANGED — the fix did not touch the abstention
+capability itself, for better or worse:**
+
+| axis | severity | v3b abstain_when_unanswerable | v3b-fix abstain_when_unanswerable |
+|---|---|---|---|
+| multi_hop | 3 | 100.0% | 100.0% |
+| multi_hop | 4 | 100.0% | 100.0% |
+| terminal_transitioning | 1 | 100.0% | 100.0% |
+| terminal_transitioning | 2 | 100.0% | 100.0% |
+| terminal_transitioning | 3 | 100.0% | 100.0% |
+
+Both adapters abstain 100% of the time on every genuinely-unanswerable multi-hop and
+terminal-transitioning case, identically, before and after the fix — this capability
+was never affected by what value the training targets asserted for `threat_level`.
+`multi_hop` sev=2 (the one has-ground-truth cell on that axis) also improved slightly
+(86.7%→90.0% intent accuracy).
+
+**Over-abstention** (wrongly abstaining on an answerable case) stayed at ~0% almost
+everywhere for both adapters, with one small new instance: `contradictory_cues`
+sev=1/2 went from 0.00%→3.33% (1 run out of 30). Not zero, but small enough not to
+change the overall picture.
+
+**One known, unrelated limitation is unchanged by this fix, as expected:**
+`dropped_lines` sev=1/2 (where the transition/no-transition line is dropped, the
+*only* line distinguishing "held steady" from "changed formation") still abstains
+0.00% of the time on the no-ground-truth cases for both v3b and v3b-fix — the
+model still cannot recognize an *omitted* line as a signal to abstain, only an
+explicit "transitioning" token. This is the same narrow-generalization limit
+`ADAPTER_VERSIONS.md` and secs G/I/K already documented; this fix was never
+expected to touch it (the 36 rewritten rows are `multi_hop`/`terminal_transitioning`
+cases, not `dropped_lines`) and it didn't.
+
+**Verdict: the bug was real and fixing it delivers the specific improvement it
+should — +20pt low-threat, +5.5pt overall threat accuracy, zero change to
+abstention capability — but at a real, disclosed cost to intent accuracy on the
+same battery (-18.2pt, concentrated in low/medium). This is not a strict
+improvement; it is a genuine calibration/intent tradeoff a real deployment
+decision would need to weigh, not a clean bug-fix win.**
+
 ### Verdict, superseding sec Z's part (c)
 
 The entropy-based "confidently wrong, not flattened" argument in sec Z part (c) does
