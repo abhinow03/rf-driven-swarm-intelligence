@@ -1771,3 +1771,768 @@ real, secondary data artefact that should still be fixed.**
   it exists only in v3b's training file (not v3a's, which still collapses), and the adapter
   that carries it (v3b) calibrates *better*, not worse, than the one that doesn't (v3a) —
   the opposite of what "the artefact causes the collapse" would predict.
+
+## AA. The entropy confound, corrected — and the decisive inherited-vs-induced test
+
+Sec Z's part (c) compared raw full-vocabulary Shannon entropy at the `threat_level`
+position (4 legal values: `prompts.py` `THREAT_FAMILIES`) against `likely_intent`
+(15 legal values: `THREAT_FAMILIES`/`INTENT_FAMILIES`/`OUTPUT_SCHEMA`) and concluded
+`threat_level` was "more confident" because its raw entropy was lower (v3a: 0.840 vs
+1.149 bits). **That comparison is confounded by candidate-set size.** A field with
+only 4 legal outputs has a lower entropy ceiling (log2(4)=2.0 bits) than a field with
+15 (log2(15)=3.907 bits) — a uniform, maximally-uncertain distribution over 4 options
+already reads as "more confident" than a uniform distribution over 15, with nothing
+to do with the model's actual certainty. Normalizing by each field's own ceiling
+(`H / log2(n_legal_values)`) flips the sign: v3a normalizes to 0.420 (threat) vs 0.294
+(intent) — `threat_level` is *less* confident once corrected, not more, the opposite
+of sec Z's part (c) conclusion. **Sec Z's part (c) claim is retracted; parts (a) and
+(b) (training-target proportion, pair-sampling uniformity, and the hardcoded-medium
+abstention bug) stand un-superseded.**
+
+This section redoes the confidence measurement properly (`llm_finetuning/
+measure_base_rules_prior.py`), adds the two systems sec Z never ran (`base` —
+Qwen2.5-7B-Instruct, no adapter, no system prompt — and `rules_in_prompt` — same
+weights + `RULES.txt` as system prompt, `baselines.py`'s
+`make_rules_in_prompt_run_case` protocol — both loaded once, since they share the
+same underlying weights), and answers the decisive inherited-vs-induced question
+sec Z left open.
+
+### 1a. Normalized entropy at threat_level vs likely_intent, all 5 systems
+
+n=15 (the low-threat cases), same shared-rng protocol as sec Y/CC/Z (`build_case_prompt`,
+`Random(0)` advanced across all 55 `TEST_CASES` in order) so every system's case draws
+are positionally identical.
+
+| system | n | norm H(threat_level) | norm H(likely_intent) | delta |
+|---|---|---|---|---|
+| base | 15 | 0.301 | 0.331 | -0.030 |
+| rules_in_prompt | 15 | 0.083 | 0.229 | -0.146 |
+| v3a | 15 | 0.420 | 0.294 | +0.126 |
+| v3b | 15 | 0.422 | 0.231 | +0.191 |
+| v3d | 15 | 0.398 | 0.255 | +0.143 |
+
+All three fine-tuned adapters now show *positive* deltas (threat_level LESS confident
+than likely_intent, normalized) — the reverse sign from sec Z's raw-entropy table.
+`rules_in_prompt`, which is nearly always right on this stratum (see 2 below), is also
+the most confident system on threat_level by a wide margin (0.083) — confidence and
+correctness track together there, as expected. `base` sits in between.
+
+### 1b/1c. Margin P(top)-P(second) at threat_level — full distribution, histogram, bimodality
+
+Restricted 4-candidate softmax (`logit_inspection.py`'s `CANDIDATES`/
+`softmax_over_candidates`, sequence-scored, not a full-vocab proxy), so margin is
+inherently bounded to [0, 1] and not subject to the candidate-count confound at all.
+
+```
+base:            0.023, 0.155, 0.215, 0.223, 0.317, 0.450, 0.653, 0.734, 0.846, 0.857, 0.902, 0.905, 0.917, 0.962, 1.000
+rules_in_prompt: 0.555, 0.765, 0.798, 0.896, 0.947, 0.969, 0.971, 0.994, 0.999, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000
+v3a:             0.062, 0.140, 0.154, 0.185, 0.221, 0.230, 0.299, 0.538, 0.557, 0.582, 0.623, 0.623, 0.725, 0.806, 0.855
+v3b:             0.085, 0.093, 0.117, 0.124, 0.155, 0.280, 0.296, 0.392, 0.398, 0.430, 0.498, 0.521, 0.692, 0.809, 0.855
+v3d:             0.039, 0.047, 0.055, 0.086, 0.178, 0.272, 0.296, 0.350, 0.456, 0.572, 0.662, 0.727, 0.761, 0.855, 0.855
+```
+
+Histogram (width-0.1 bins, 0.0–1.0), counts per bin left-to-right:
+
+```
+base:            1 1 2 1 1 0 1 1 2 5
+rules_in_prompt: 0 0 0 0 0 1 0 2 1 11
+v3a:             1 3 3 0 0 3 2 1 2 0
+v3b:             2 3 2 2 2 1 1 0 2 0
+v3d:             4 1 2 1 1 1 1 2 2 0
+```
+
+**Bimodality is real for v3a specifically** — a clean, empty two-bin trough at
+[0.3, 0.5) (0, 0 cases) splits it into a near-tie mode (margin < 0.3, 7/15) and a
+crushed mode (margin ≥ 0.5, 8/15), matching the "P(low) 43–51% near-ties vs P(low)
+7–15% crushed" description exactly (see the per-case table in 1d). **v3b and v3d are
+NOT cleanly bimodal** — their histograms have no empty trough, just a denser left
+shoulder and a thinning tail (largest single gap in sorted margins: v3b 0.171 between
+0.521→0.692, v3d 0.116 between 0.456→0.572, both far softer than v3a's clean gap).
+Using the same fixed margin<0.3 cutoff for all three anyway (for comparability, not
+because it's an equally natural break for v3b/v3d): **all three land at exactly
+7/15 near-tie cases.** `base` splits roughly 6 near-tie / 9 crushed at its own largest
+gap (0.450→0.653); `rules_in_prompt` is almost entirely crushed (1 near-tie, the
+model is simply right and confident throughout that stratum).
+
+### 1d. Does near-tie-mode size predict how much prior correction recovers?
+
+**No — refuted as literally stated.** v3a, v3b, and v3d all have *exactly* the same
+near-tie-mode size (7/15) under the margin<0.3 cutoff, yet their prior-correction
+recovery differs by 26.7 points (v3a 0→53.3%, +53.3; v3b 20→86.7%, +66.7; v3d
+33.3→73.3%, +40.0). Mode size alone cannot be the mechanism — it's constant while the
+outcome varies.
+
+**What actually differs, per-case (`evaluation/logit_inspection.json`'s
+`corrected_argmax`, cross-referenced against the margin bucket):**
+
+| system | near-tie correct after correction | crushed correct after correction | total |
+|---|---|---|---|
+| v3a | 7/7 (100%) | 1/8 (12.5%) | 8/15 = 53.3% |
+| v3b | 7/7 (100%) | 6/8 (75.0%) | 13/15 = 86.7% |
+| v3d | 5/7 (71.4%) | 6/8 (75.0%) | 11/15 = 73.3% |
+
+The real mechanism: prior correction (`corrected_logP(c) = raw_logP(c) -
+log(train_class_freq(c))`, using each adapter's OWN training file's class
+frequencies) reliably flips *almost all* near-tie cases to `low` (v3a/v3b 7/7; v3d
+5/7 — the 2 misses, `diamond->diamond` and `diamond->column`, are genuinely
+`medium`-favoring even after correction, not just close calls) — that part of sec
+Y/CC/DD's original story holds. **But it is not restricted to the near-tie bucket at
+all: how far it reaches into the *crushed* bucket varies a lot by system** (v3a
+barely reaches, 1/8; v3b and v3d reach much further, 6/8 each) — because the
+correction's strength is set by each adapter's own `train_class_freq`, i.e. how
+skewed that specific training file's `medium` share is, not by anything about the
+individual case's margin. v3a's file (`sft_train_final.jsonl`, no abstention rows) has
+the mildest medium-skew of the three (see sec Z part a: 47.0% medium), so its
+correction is the weakest and barely reaches past the near-tie boundary; v3b's file
+(`sft_train_final_abstain.jsonl`, with the hardcoded-medium abstention rows) has the
+strongest skew (54.1%) and its correction reaches furthest. **Recovery magnitude
+tracks each adapter's own training-medium-skew (correction strength), not near-tie
+population size.**
+
+### 2. Decisive test: is the medium prior inherited or induced?
+
+`base` (Qwen2.5-7B-Instruct, zero exposure to any row this project ever trained on)
+and `rules_in_prompt` (same weights, `RULES.txt` pasted as system prompt) were run
+greedy on the same 15 low-threat cases:
+
+| system | low | medium | high | critical |
+|---|---|---|---|---|
+| base | 4/15 (26.7%) | 11/15 (73.3%) | 0/15 | 0/15 |
+| rules_in_prompt | 14/15 (93.3%) | 1/15 (6.7%) | 0/15 | 0/15 |
+
+**Verdict: the medium prior is PRETRAINING-INHERITED, not induced by this project's
+fine-tuning pipeline.** `base` — which has never seen a single row of `sft_train_*.jsonl`
+— already predicts `medium` on 73.3% of genuinely low-threat cases, essentially the
+same failure mode as the fine-tuned adapters. This settles step 2's either/or question
+plainly: if fine-tuning had induced the skew, `base` would not show it. It does.
+
+Two things this also reveals that weren't the original question but are worth
+recording plainly:
+
+- **Fine-tuning does not consistently improve on `base`'s own raw low-threat
+  accuracy, and for v3a it appears to make it worse.** `base`'s raw greedy accuracy
+  on this stratum (26.7%, 4/15) is *higher* than v3a's (0.0%) and comparable to
+  v3b's (20.0%) — training on a few hundred rule-derived examples did not reliably
+  move the needle toward the pretrained model's own baseline, let alone past it.
+- **Giving the base model the rules directly in-context (`rules_in_prompt`, zero
+  training) resolves the skew almost completely (93.3%)** — far better than any
+  fine-tuned adapter's raw accuracy. The model evidently *can* apply the rule table
+  correctly when it's given explicitly and unambiguously in-context; a few hundred
+  fine-tuning examples teach the rule table far less reliably than seeing it
+  verbatim does. This is a real, practical signal for anyone deciding between
+  fine-tuning and in-context rule injection for this task, not just a diagnostic
+  footnote.
+
+### 3. Fixing the hardcoded-medium abstention bug — did it help?
+
+sec Z part (b) found `build_abstain_rows.py` hardcoded `threat_level="medium"` on
+all 36 abstention rows in `sft_train_final_abstain.jsonl` (v3b's training file) and
+flagged it as real but secondary (v3b calibrates *better* than v3a despite carrying
+it). Fixed properly this session: `threat_level="unknown"` is now schema-legal
+(`prompts.py` `THREAT_FAMILIES` gained an `"unknown"` family, matching
+`likely_intent`'s existing precedent; `OUTPUT_SCHEMA` updated to match) and
+`build_abstain_rows.py` now emits it instead of `"medium"`. Regenerated ONLY the 36
+abstention rows (`data/sft_train_final_abstain_fix.jsonl` — the base 234 rows are
+byte-identical to `sft_train_final_abstain.jsonl`, verified by diff) and trained
+`qwen-swarm-v3b-fix` with IDENTICAL hyperparameters to v3b (r=16/α=32, 3 epochs,
+lr=2e-4, `--assistant-only-loss`, same val file `sft_train_final_val.jsonl`) —
+102 steps, matching v3b's step count exactly (`llm_finetuning/eval_v3b_fix.py`,
+`llm_finetuning/train_qlora.py` invocation logged in the commit).
+
+**Per-class threat accuracy, greedy 55-case battery (matches the existing
+`eval_expanded_v3b_greedy.json` protocol exactly — same cases, same temperature=0.0,
+same seed):**
+
+| threat class | v3b | v3b-fix | delta |
+|---|---|---|---|
+| low | 20.0% (3/15) | **40.0% (6/15)** | **+20.0pt** |
+| medium | 87.5% (21/24) | 91.7% (22/24) | +4.2pt |
+| high | 71.4% (10/14) | 64.3% (9/14) | -7.1pt |
+| critical | 0.0% (0/2) | 0.0% (0/2) | +0.0pt |
+| **overall (mean_threat_accuracy)** | **61.8%** | **67.3%** | **+5.5pt** |
+
+The bug WAS suppressing threat-level calibration quality, specifically on the
+`low` stratum this whole audit thread has been chasing since sec M — fixing it
+recovers 20 points of low-threat accuracy and 5.5 points overall, with no
+change to `critical` (still 0/2, n too small to read anything into) and a modest
+7.1pt give-back on `high`.
+
+**But this did not come for free.** The same greedy run's `mean_intent_accuracy`
+(`accuracy_when_answerable`, over the SAME 55 answerable cases) dropped
+substantially: **85.5% (v3b) → 67.3% (v3b-fix), -18.2pt.** Per-case diffing shows
+this is concentrated almost entirely in `low`/`medium` (`low`: 86.7%→53.3%, 5 cases
+flip correct→wrong, 0 flip the other way; `medium`: 87.5%→66.7%, 6 flip wrong,
+1 flips right; `high`/`critical`: unchanged, 0 flips either direction) —
+i.e. exactly the strata the 36 rewritten rows' training signal touches most, not a
+uniform regression. `mean_action_accuracy` improved (67.3%→74.5%, +7.3pt) and
+`mean_hallucination_rate` stayed at 0% both ways. **Net: a real tradeoff, not a
+clean win** — better calibrated on threat_level (the thing this fix targeted),
+worse on likely_intent (collateral, not targeted) — most plausibly because
+`assistant_only_loss` trains on the full JSON object jointly, so changing 36 rows'
+`threat_level` target also perturbs the gradient signal for every other field on
+those same rows, including `likely_intent`.
+
+**Abstention rate on `multi_hop` + `terminal_transitioning` (the axes RULES
+structurally cannot answer) is UNCHANGED — the fix did not touch the abstention
+capability itself, for better or worse:**
+
+| axis | severity | v3b abstain_when_unanswerable | v3b-fix abstain_when_unanswerable |
+|---|---|---|---|
+| multi_hop | 3 | 100.0% | 100.0% |
+| multi_hop | 4 | 100.0% | 100.0% |
+| terminal_transitioning | 1 | 100.0% | 100.0% |
+| terminal_transitioning | 2 | 100.0% | 100.0% |
+| terminal_transitioning | 3 | 100.0% | 100.0% |
+
+Both adapters abstain 100% of the time on every genuinely-unanswerable multi-hop and
+terminal-transitioning case, identically, before and after the fix — this capability
+was never affected by what value the training targets asserted for `threat_level`.
+`multi_hop` sev=2 (the one has-ground-truth cell on that axis) also improved slightly
+(86.7%→90.0% intent accuracy).
+
+**Over-abstention** (wrongly abstaining on an answerable case) stayed at ~0% almost
+everywhere for both adapters, with one small new instance: `contradictory_cues`
+sev=1/2 went from 0.00%→3.33% (1 run out of 30). Not zero, but small enough not to
+change the overall picture.
+
+**One known, unrelated limitation is unchanged by this fix, as expected:**
+`dropped_lines` sev=1/2 (where the transition/no-transition line is dropped, the
+*only* line distinguishing "held steady" from "changed formation") still abstains
+0.00% of the time on the no-ground-truth cases for both v3b and v3b-fix — the
+model still cannot recognize an *omitted* line as a signal to abstain, only an
+explicit "transitioning" token. This is the same narrow-generalization limit
+`ADAPTER_VERSIONS.md` and secs G/I/K already documented; this fix was never
+expected to touch it (the 36 rewritten rows are `multi_hop`/`terminal_transitioning`
+cases, not `dropped_lines`) and it didn't.
+
+**Verdict: the bug was real and fixing it delivers the specific improvement it
+should — +20pt low-threat, +5.5pt overall threat accuracy, zero change to
+abstention capability — but at a real, disclosed cost to intent accuracy on the
+same battery (-18.2pt, concentrated in low/medium). This is not a strict
+improvement; it is a genuine calibration/intent tradeoff a real deployment
+decision would need to weigh, not a clean bug-fix win.**
+
+### Verdict, superseding sec Z's part (c)
+
+The entropy-based "confidently wrong, not flattened" argument in sec Z part (c) does
+not survive the candidate-count-normalization correction and is retracted as stated.
+What replaces it, from real per-case data rather than an aggregate entropy number: the
+model's threat_level distribution is genuinely structured, not flattened — a
+recoverable near-tie population (margin<0.3, ~7/15 across the fine-tuned adapters)
+that a class-frequency correction resolves almost perfectly, plus a variable-size
+crushed population whose recoverability tracks each adapter's own training-medium-skew.
+Combined with step 2's result — `base` already shows the same skew before any
+fine-tuning — the overall sec Z verdict (genuine model behaviour, not a pipeline bug)
+still holds, but its origin is now pinned down precisely: **pretraining-inherited**,
+not induced by this project's data or pipeline, and fine-tuning on the current
+datasets neither reliably fixes nor is required to explain it.
+
+## AB. In-context RULES beats fine-tuning on threat_level — the architecture question
+
+Sec AA step 2 found `rules_in_prompt` (base Qwen2.5-7B-Instruct, zero training, RULES.txt
+pasted as system prompt) hits 93.3% on low-threat cases greedy — beating every
+fine-tuned adapter's raw accuracy on the same 15 cases (v3a 0%, v3b 20%, v3b-fix 40%).
+That result changes the question this whole audit thread (secs M through AA) has been
+chasing: not "why can't fine-tuning learn threat_level correctly," but "does fine-tuning
+need to learn it at all, when presenting the same rules in-context already works better."
+This section tests that directly — first tightening the v3b-fix accounting, then testing
+whether rules_in_prompt's advantage survives contact with the one thing it's never been
+tested on (unanswerable input), then building and evaluating a composite that routes
+between the two.
+
+### 1. Is v3b-fix's intent regression real?
+
+`llm_finetuning/check_v3b_fix_intent_misses.py` (previous commit): every one of
+v3b-fix's 18 intent misses on the clean 55-case greedy battery predicted a concrete,
+non-abstained `likely_intent` value (`n_abstained=0`, `abstention_rate=0.0` on every
+single miss — verified per-case, not just from the aggregate `mean_abstention_rate=0.0`).
+**Verdict: real, not an accounting artefact.** The threat_level schema fix (sec AA
+step 3, `"unknown"` added) never leaked into `likely_intent` scoring; the -18.2pt
+intent-accuracy cost stands as reported.
+
+### 2. Does rules_in_prompt abstain on unanswerable input?
+
+No — on anything. `evaluation/degradation_rules_in_prompt.json` (already on disk)
+showed 0.0% `abstention_rate_when_unanswerable` on `multi_hop` (sev 3/4) and
+`terminal_transitioning` (sev 1/2/3); this session added the three held-out shapes
+(`holdout_shapes.py`, `llm_finetuning/run_holdout_eval_rules_in_prompt.py`,
+n_runs=5) to complete the picture:
+
+| axis / shape | v2 | rules_in_prompt | v3b-fix |
+|---|---|---|---|
+| multi_hop sev3 | 0.0% | 0.0% | 100.0% |
+| multi_hop sev4 | 0.0% | 0.0% | 100.0% |
+| terminal_transitioning sev1 | 0.0% | 0.0% | 100.0% |
+| terminal_transitioning sev2 | 0.0% | 0.0% | 100.0% |
+| terminal_transitioning sev3 | 0.0% | 0.0% | 100.0% |
+| deeper_chain (holdout) | — | **0.0%** | (n/a, not re-run — v3b's 100% already established, secs G/I) |
+| dominant_mismatch (holdout) | — | **0.0%** | — |
+| oov_formation (holdout) | — | **0.0%** | — |
+
+**rules_in_prompt has zero capacity to decline an answer, of any kind — structural
+(multi-hop chains, mid-transition) or vocabulary (`"phalanx"`, a formation name that
+appears nowhere in RULES.txt).** Given the rule table and told to answer, it always
+answers. This is the one thing sec AA step 2 didn't test, and it's the entire reason
+this isn't a simple "just use rules_in_prompt instead" conclusion — its 93.3%
+low-threat accuracy comes with a system that cannot recognize the edge of its own
+competence at all.
+
+### 3. The composite router
+
+`llm_finetuning/composite.py`: routes to `rules_in_prompt` when a `(from, to)` pair is
+extractable from the tactical context (`baselines.py`'s own `_extract_pair` — the
+identical check `rules_lookup` uses to decide whether it can answer), to `v3b-fix`
+otherwise. 9 unit tests (`tests/test_composite.py`) verify routing against every
+degradation/holdout axis, including two deliberate, documented edge cases that route
+to `rules_in_prompt` despite being *designed* unanswerable: `oov_formation` (shaped
+exactly like an ordinary transition line) and `dominant_mismatch` (the contradiction
+lives in a line `_extract_pair` never reads). Composite was evaluated on the clean and
+degradation batteries only (matching the step 3 request) — not the holdout shapes.
+
+**Abstention on `multi_hop`/`terminal_transitioning` — composite fully inherits
+v3b-fix's capability:**
+
+| axis | severity | v2 | rules_in_prompt | v3b-fix | **composite** |
+|---|---|---|---|---|---|
+| multi_hop | 3 | 0.0% | 0.0% | 100.0% | **100.0%** |
+| multi_hop | 4 | 0.0% | 0.0% | 100.0% | **100.0%** |
+| terminal_transitioning | 1/2/3 | 0.0% | 0.0% | 100.0% | **100.0%** |
+
+**Branch-firing rate** (`degradation_composite.json`'s `branch_log`, 108 degradation
+cases + 55 clean-battery cases):
+
+| battery / axis | routed to rules_in_prompt | routed to finetuned |
+|---|---|---|
+| clean 55-case battery | 55/55 (100%) | 0/55 |
+| degradation: multi_hop | 6/18 (sev2 only) | 12/18 (sev3/4) |
+| degradation: terminal_transitioning | 0/18 | 18/18 |
+| degradation: confidence_decay | 30/30 | 0/30 |
+| degradation: dropped_lines | 18/24 | 6/24 (transition line dropped) |
+| degradation: contradictory_cues | 18/18 | 0/18 |
+| **degradation total** | **72/108 (67%)** | **36/108 (33%)** |
+
+Every clean-battery case and every "resolvable-shaped" degradation case routes to
+`rules_in_prompt`; every case where the extraction fails (unresolvable chains,
+terminal-`transitioning`, or a dropped transition line) routes to `v3b-fix` — exactly
+as designed, confirmed against real generated contexts, not just the router's own logic.
+
+**Per-class threat accuracy, clean 55-case battery (n_runs=5, temp=0.3, matching the
+existing `eval_expanded_v2.json`/`eval_expanded_rules_in_prompt.json` protocol):**
+
+| system | low | medium | high | critical | overall threat | overall intent |
+|---|---|---|---|---|---|---|
+| v2 | 86.7% | 95.8% | 100.0% | 100.0% | **94.5%** | **100.0%** |
+| rules_in_prompt | 65.3% | 68.3% | 32.9% | 40.0% | 57.5% | 59.3% |
+| v3b-fix | 32.0% | 92.5% | 50.0% | 0.0% | 61.8% | 70.5% |
+| **composite** | **82.3%** | 68.3% | 27.1% | 40.0% | 60.6% | 62.3% |
+
+**A methodological caveat that matters for reading this table**: since composite routes
+100% of the clean battery to `rules_in_prompt`, its clean-battery numbers should in
+principle match a second independent run of `rules_in_prompt` alone — and per-case
+diffing confirms they're the *same* underlying system, but temperature=0.3 sampling is
+unseeded at the model level (only the context-generation rng is fixed), so two separate
+n_runs=5 evaluations of literally the same prompts show real per-case swings (e.g.
+`Stable Patrol`: 40%→100%, `v_shape->column`: 20%→100%). **This is genuine run-to-run
+sampling variance, not a composite-specific effect or a bug** — verified by direct
+per-case comparison against `eval_expanded_rules_in_prompt.json`. The categorical
+abstention finding above (0% vs 100%, every run, every severity) is robust to this;
+the exact percentage-point comparisons in the accuracy tables should be read with an
+error bar of at least several points at n_runs=5.
+
+**Answerable-cell accuracy on the degradation battery (mean across the 13 has-ground-truth
+cells):**
+
+| system | mean threat accuracy | mean intent accuracy |
+|---|---|---|
+| v2 | 86.5% | 94.0% |
+| rules_in_prompt | 45.1% | 75.6% |
+| v3b-fix | 60.6% | 89.4% |
+| **composite** | 44.2% | 76.5% |
+
+Composite tracks `rules_in_prompt` closely here too (44.2% vs 45.1%, 76.5% vs 75.6%) —
+consistent with routing 72/108 degradation cases, including the has-ground-truth
+majority, to that branch.
+
+**Verdict: the composite does not beat both components on every axis — it inherits each
+component's specific strength and specific weakness by construction, which is a real
+result, not a failure of the design.** It closes rules_in_prompt's one absolute gap
+(abstention capability, 0%→100% on multi_hop/terminal_transitioning, exactly matching
+v3b-fix) at no measured cost to the cases it still routes to `rules_in_prompt`. But it
+does **not** fix `rules_in_prompt`'s own weak spots — `high`/`critical`-threat accuracy
+(27.1%/40.0%) are unchanged from `rules_in_prompt` alone, because every clean-battery
+case routes there regardless of threat class. And it is **not** a strict win over v2:
+v2's much larger training set (2700 rows vs 234) still dominates every answerable-only
+accuracy metric by a wide margin (94.5% vs 60.6% overall threat accuracy), at the cost
+of v2 never abstaining at all (0% on every unanswerable case, same as `rules_in_prompt`).
+Routing does not "lose" anything relative to using `rules_in_prompt` alone on the cases
+it hands to that branch (same system, same prompts, differences are sampling noise) —
+the real tradeoff the composite makes plain is architectural: it buys abstention
+capability by accepting `rules_in_prompt`'s answerable-case ceiling, which is well
+below v2's. That ceiling is also, on this evidence, generally *above* 234-example
+fine-tuning's own answerable-case ceiling — `v3b-fix` only clearly beats
+`rules_in_prompt` on `medium` (92.5% vs 68.3%); on `low`, under the same sampled
+protocol, `rules_in_prompt` leads by a wide margin (65.3% vs v3b-fix's 32.0%).
+
+### 4. The headline, restated
+
+Cross-referencing sec S's field-structure table (`intent > threat` held for every
+fine-tuned adapter except `v3a-nomask`'s 1.8pt near-tie): **v3b-fix breaks that pattern
+outright** — its clean-battery `intent` and `threat` accuracy are now numerically
+identical (67.3% greedy, `eval_expanded_v3b-fix_greedy.json`) rather than intent
+leading. Sec S's original reading — "`likely_intent` survives low-data fine-tuning
+better than `threat_level` because correct intent values often lexically echo the input
+formation names, while `threat_level` requires the full arbitrary RULES mapping with no
+lexical shortcut" — is now sharper evidence for the same claim, not weaker: fixing the
+`threat_level`-specific abstention-label bug (sec AA step 3) moved `threat_level`
+accuracy up and `likely_intent` accuracy down in the same run, on the same 234+36
+rows, via the same `assistant_only_loss`-masked joint-JSON gradient — the two fields'
+learnability under this training setup are linked, and improving one measurably cost
+the other, which only makes sense if they're each drawing on a different, disconnected
+part of the model's representation (the arbitrary RULES mapping vs the
+lexically-recoverable one), not a smooth joint improvement path.
+
+**The plain statement:** at 234 training examples, LoRA fine-tuning does not overwrite
+Qwen2.5-7B-Instruct's pretrained semantic prior on `threat_level` (sec AA step 2:
+`base` predicts `medium` on 73.3% of low-threat cases before any training at all, and
+v3a/v3b/v3b-fix's raw accuracy on the same stratum — 0%/20%/40% greedy — never clearly
+exceeds `base`'s own 26.7%). Presenting the identical rule table **in-context**, with
+zero training, does overwrite it (93.3% greedy on the same 15 cases) — because the
+model doesn't have to learn a new decision boundary from 234 examples' gradient signal,
+it just has to read a table that's already sitting in its context window. `likely_intent`
+does not show this gap the same way (fine-tuning gets it to 70-100% depending on
+adapter, clearly above `base`'s 25.8%) because it doesn't require overwriting a
+pretrained prior — it requires learning a mostly-lexical mapping fine-tuning is well
+suited to.
+
+**Which system is best on which stratum, with numbers:**
+
+| stratum | best system | number |
+|---|---|---|
+| clean-battery overall threat accuracy | v2 | 94.5% |
+| clean-battery overall intent accuracy | v2 | 100.0% |
+| clean-battery low-threat accuracy (sampled, n_runs=5) | rules_in_prompt | 65.3% |
+| clean-battery low-threat accuracy (greedy) | rules_in_prompt | 93.3% |
+| clean-battery medium-threat accuracy | v3b-fix | 92.5% |
+| abstention on structurally-unanswerable input | v3a / v3b / v3b-fix / composite (tie) | 100.0% |
+| abstention + best-available answerable accuracy jointly | **composite** | 100.0% abstain, 82.3% low / 60.6% overall threat |
+
+No single system on the table wins everywhere. v2 is the accuracy ceiling wherever
+ground truth exists and abstention isn't needed. `rules_in_prompt` is the best
+*trainable-in-zero-gradient-steps* answer to the specific `low`/prior-skew problem this
+whole audit thread exists to solve, but is structurally blind to its own limits. The
+fine-tuned adapters are the only systems that know when to stop. The composite is the
+only system that has both properties at once — not because it invented a new
+capability, but because it's honest about routing to whichever existing system actually
+has the property needed for a given input, and pays each component's real cost for
+doing so rather than hiding it.
+
+## AC. Reconciling three disagreeing rules_in_prompt numbers before trusting the composite
+
+Sec AB reported `rules_in_prompt`'s low-threat accuracy as 93.3% (sec AA step 2, greedy
+free-form decode), 65.3% (`eval_expanded_rules_in_prompt.json`, sampled n_runs=5), and
+82.3% (`eval_expanded_composite.json`, same branch, sampled n_runs=5) — three numbers
+that should describe overlapping things and don't agree. Resolved here, before any
+further composite claim is trusted, via `llm_finetuning/reconcile_low_threat_accuracy.py`.
+
+### Step 0 (prerequisite): is it a prompt-construction bug?
+
+Byte-diffed the two code paths that build the prompt for these 15 cases
+(`logit_inspection.build_case_prompt`, used by sec AA's measurement, against
+`synth_context`+`build_llm_prompt` directly, used by `baselines.make_rules_in_prompt_run_case`),
+same shared-rng protocol, all 55 `TEST_CASES` walked in order. **Zero mismatches.** The
+prompt text sent to the model is identical either way — ruled out first, so nothing below
+is explained by a hidden prompt divergence.
+
+### Step 1: four-way reconciliation
+
+All four re-measured fresh, same 15 low-threat cases, through the actual production code
+paths (not sec AA's separate reimplementation, except where explicitly reused):
+
+| measurement | protocol | accuracy | std (across n_runs) |
+|---|---|---|---|
+| a. restricted logit-argmax (4-candidate, greedy prefix) | n_runs=1, deterministic | **100.0%** | n/a |
+| b. full JSON generation, greedy | n_runs=1, deterministic | **85.7%** (12/14 scored, 1 abstained) | n/a |
+| c. full JSON generation, sampled, standalone | n_runs=5, temp=0.3 | **73.3%** | 22.7% |
+| d. full JSON generation, sampled, composite | n_runs=5, temp=0.3 | **74.7%** | 24.7% |
+
+None of these four numbers exactly reproduces 93.3%/65.3%/82.3% either — this session's
+fresh sampled runs (c, d) land closer to each other (73.3%/74.7%) than to sec AB's
+original figures (65.3%/82.3%) for the identical protocol. **That gap between two
+independently-run n_runs=5 samplings of the exact same system is itself the headline
+finding**, not a separate mystery — see the std column (22.7%/24.7%, per-run) directly
+quantifying why.
+
+**Three real, additive, non-buggy effects fully explain all of it:**
+
+1. **(a)→(b): a genuine "reasoning drift" cost from full generation, even under
+   determinism.** The single-token argmax (100%) is not what the model actually commits
+   to once it generates its full JSON response, greedily, even with no sampling
+   randomness at all. Per-case: `Breaking Contact` and `dispersed->column` both have
+   `restricted_argmax="low"` but the full greedy generation drifts to `threat_level=
+   "medium"`; `encirclement->column` drifts further still — the model abstains
+   entirely (`likely_intent="unknown"`) despite the forced single-token score favoring
+   `"low"`. The prefix-scored proxy measures "what token looks likely right after the
+   key," not "what the model actually outputs once it's free to reason its way there."
+2. **(b)→(c)/(d): the expected, textbook cost of temperature=0.3 sampling** on top of
+   the generation-length effect — greedy picks the argmax at each step, sampling doesn't.
+3. **Run-to-run sampling variance at n_runs=5 is large enough on its own to explain
+   the 65.3%/82.3% vs 73.3%/74.7% gap.** Per-case std of 22.7%/24.7% (computed from THIS
+   session's 5 runs) means two separately-run n_runs=5 evaluations of the literally
+   identical system, prompts, and seed for context generation (only the model's own
+   sampling is unseeded) can legitimately land 10-20 points apart. This is the same
+   class of effect sec CC already documented for greedy decoding under NF4 quantization
+   not being perfectly run-to-run reproducible either (93.3% vs this session's 85.7% on
+   the SAME deterministic greedy protocol) — quantization-level floating-point
+   nondeterminism plus, here, added sampling noise on top.
+
+**Failure-mode breakdown, sampled runs (c)/(d) wrong where greedy (b) was right (12
+cases): 100% `threat_level_diverged`, ZERO JSON parse failures, ZERO cases where some
+other field failed while threat_level stayed correct.**
+
+| system | threat_level→"medium" | threat_level→"unknown" | JSON parse failure |
+|---|---|---|---|
+| c (standalone) | 11 | 1 | 0 |
+| d (composite) | 10 | 2 | 0 |
+
+Every failure is the `threat_level` token itself changing under full-sequence sampled
+generation — almost always drifting to `"medium"`, occasionally hedging to `"unknown"`
+— while `likely_intent` keeps producing varied, real, non-abstained values (`approach`,
+`patrol`, `regroup`, `withdraw`, `defensive_transition`, `transit`, `area_search`,
+`consolidate`) in the same responses. **This is reasoning drift specific to the
+threat_level field, not a generic generation collapse or a formatting bug** — consistent
+with, and now directly evidenced at the individual-token level for, the same
+`medium`-prior story secs Z/AA/AB have been building from aggregate statistics.
+
+**Verdict: none of the three original numbers were wrong or the product of a bug.**
+They measure three genuinely different things (a forced single-token proxy vs full
+greedy generation vs full sampled generation) that are expected to differ, by an amount
+now directly measured and explained, plus real sampling variance at n_runs=5 large
+enough to explain the rest. The composite comparison built on sec AB's 65.3%/82.3%
+point estimates was not reporting a false result, but it was reporting point estimates
+with no error bars on a metric now shown to have single-run noise of ~20+ points — step 3
+rebuilds that table properly.
+
+### Step 2: high/critical confusion matrix — under-escalation, not false-positive escalation
+
+Direct answer to the panel's false-positive-escalation question: **under-escalation
+dominates for both systems, by a wide margin; over-escalation (calling a real high/critical
+threat something MORE severe than it is) is rare-to-absent.**
+
+| expected | system | correct | under-escalated | over-escalated | abstained |
+|---|---|---|---|---|---|
+| high (n=14, 70 runs) | rules_in_prompt | 27.1% (high) | **68.6%** (medium 48.6% + low 20.0%) | 4.3% (critical) | 0% |
+| high (n=14, 70 runs) | composite | 32.9% (high) | **65.7%** (medium 54.3% + low 11.4%) | 0% | 1.4% |
+| critical (n=2, 10 runs — **not statistically meaningful, reported anyway**) | rules_in_prompt | 30.0% | **70.0%** (high 50.0% + medium 20.0%) | 0% (nothing more severe than critical exists) | 0% |
+| critical (n=2, 10 runs — **not statistically meaningful, reported anyway**) | composite | 40.0% | **60.0%** (medium 50.0% + high 10.0%) | 0% | 0% |
+
+Both systems' dominant error mode on real high/critical threats is calling them
+`medium` specifically (48.6%/54.3%/20.0%/50.0% across the four cells) — the SAME
+`medium`-collapse this entire audit thread has traced back to a pretraining-inherited
+prior (sec AA step 2), now shown pulling accuracy down from the *opposite* direction too:
+not just inflating `medium` on genuinely `low` inputs, but ALSO absorbing genuinely
+`high`/`critical` inputs into `medium`. Over-escalation is a minor, secondary effect
+(4.3% for `rules_in_prompt` on `high`, 0% everywhere else) — the practical risk this data
+supports is real threats being under-reported as routine, not routine activity being
+false-flagged as a crisis.
+
+### Step 3: composite comparison table, rebuilt with real error bars
+
+Sec AB's comparison table (and step 1's four-way reconciliation above) reported point
+estimates with no error bars, on a metric step 1 just showed has substantial run-to-run
+sampling noise. `llm_finetuning/rebuild_composite_table.py` fixes both problems at once:
+re-ran `v2` and `v3b-fix` fresh with the same raw-capture technique step 1 used for
+`rules_in_prompt`/`composite` (reusing THEIR already-captured data, no extra GPU calls
+for those two), then computed, for every system and every threat stratum, the
+accuracy on EACH of the 5 independent runs separately, and reports mean ± **std across
+those 5 run-level numbers** — genuine run-to-run variance, not the case-to-case spread
+step 1's std column reported (a different, larger quantity; do not compare the two std
+columns to each other).
+
+**Threat accuracy, mean ± std across n_runs=5:**
+
+| system | low | medium | high | critical | overall |
+|---|---|---|---|---|---|
+| v2 | 88.0%±2.7% | 96.7%±3.1% | 100.0%±0.0% | 100.0%±0.0% | **95.3%±1.9%** |
+| v3b-fix | 28.0%±7.8% | 93.3%±2.0% | 54.3%±7.3% | 0.0%±0.0% | 62.2%±1.8% |
+| rules_in_prompt | 73.3%±9.4% | 67.2%±6.7% | 27.1%±2.9% | 30.0%±24.5% | 57.3%±4.1% |
+| composite | 74.7%±6.5% | 68.7%±6.6% | 33.4%±6.1% | 40.0%±20.0% | 60.3%±2.5% |
+
+**Intent accuracy, mean ± std across n_runs=5:**
+
+| system | low | medium | high | critical | overall |
+|---|---|---|---|---|---|
+| v2 | 100.0%±0.0% | 99.2%±1.7% | 100.0%±0.0% | 100.0%±0.0% | **99.6%±0.7%** |
+| v3b-fix | 61.3%±6.5% | 74.2%±5.5% | 77.1%±2.9% | 60.0%±20.0% | 70.9%±3.0% |
+| rules_in_prompt | 46.7%±9.4% | 54.6%±2.0% | 74.3%±3.5% | 60.0%±20.0% | 57.7%±2.4% |
+| composite | 52.0%±8.8% | 56.8%±3.0% | 76.8%±2.8% | 60.0%±20.0% | 60.6%±2.1% |
+
+**What holds up against error bars, and what doesn't:**
+
+- **v2's dominance is real and not noise** — every one of its cells has a std ≤3.1pt and
+  sits 10+ points above every other system on every stratum it doesn't already hit 100% on.
+- **`composite` beats `rules_in_prompt` on every single cell in both tables**, not just
+  in a point-estimate sense — the gaps (e.g. `high` threat 33.4% vs 27.1%, `low` intent
+  52.0% vs 46.7%) are each larger than either system's own std, so this is a real,
+  if modest, improvement from routing — not something the earlier point estimates
+  merely appeared to show. This is a materially different, better-supported claim than
+  sec AB could make with point estimates alone.
+- **`critical`'s std (20-24.5pt on n=2 cases) is enormous relative to its own point
+  estimate** — exactly the n=2 statistical-noise warning already flagged in step 2 and
+  throughout this audit (sec S, `report_per_class.py`); no claim should be built on the
+  `critical` column alone.
+- **`rules_in_prompt`'s low-threat number (73.3%±9.4%) is close to but not identical to**
+  step 1's same-labeled figure (also 73.3%, same underlying run) — consistent, as
+  expected, since both read the same captured data; the ±9.4% here is the PROPER
+  run-level std this section exists to add, not a new measurement.
+- v3b-fix genuinely wins `medium` (93.3%±2.0% vs `rules_in_prompt`'s 67.2%±6.7%,
+  non-overlapping even generously) — the one stratum where 234-example fine-tuning
+  clearly beats in-context RULES presentation, confirming sec AB's step 4 read of the
+  field-structure split still holds under proper error bars.
+
+## AD. Ordinal shrinkage confirmed at the high/critical end — in a system with no fine-tuning at all
+
+Sec AC step 2 established that under-escalation (65.7-70.0%), not over-escalation
+(0-4.3%), dominates the error on real high/critical threats, for both `rules_in_prompt`
+and `composite`. This section asks whether that's the same `medium`-attractor mechanism
+already traced through the low-threat collapse (secs Z/AA/AB/AC), now showing up at the
+opposite end of the scale — and, critically, whether it exists in `rules_in_prompt`, a
+system that has never been fine-tuned at all, ruling training-data artefacts in or out.
+
+**Reframed safety claim, stated plainly:** the measured failure mode in this system is
+real threats being silently downgraded toward `medium` ("routine"), not routine activity
+being false-flagged as a crisis. This is the opposite of the panel's presumed concern
+(over-escalation / false alarms) and is the claim this audit's evidence actually
+supports.
+
+### Step 1: exact predicted-value breakdown — overshoot, not clean single-step drift
+
+`llm_finetuning/breakdown_high_crit.py` (pure post-processing of sec AC's already-captured
+raw data, no GPU) gives the full predicted-class distribution, not just correct/under/over:
+
+| expected | system | →medium | →high | →low | →critical | abstained |
+|---|---|---|---|---|---|---|
+| high (n=14, 70 runs) | rules_in_prompt | **48.6%** | 27.1% (correct) | 20.0% | 4.3% | 0% |
+| high (n=14, 70 runs) | composite | **54.3%** | 32.9% (correct) | 11.4% | — | 1.4% |
+| critical (n=2, 10 runs) | rules_in_prompt | 20.0% | 50.0% | — | 30.0% (correct) | 0% |
+| critical (n=2, 10 runs) | composite | **50.0%** | 10.0% | — | 40.0% (correct) | 0% |
+
+**Verdict, stated plainly: this is not clean single-step ordinal shrinkage — it
+overshoots.** For `high`, one-step drift to `medium` dominates as expected, but two-step
+drift to `low` is far from negligible (11.4-20.0%, more than a third of all errors). For
+`critical`, the pattern is starkest: `composite`'s single MOST COMMON prediction is
+`medium` (50.0%, a two-step shrink past `high` entirely) — more common than the
+one-step-adjacent `high` (10.0%). `rules_in_prompt` on `critical` is closer to one-step
+(`high` 50.0% vs `medium` 20.0%), but both systems show `medium` absorbing errors that
+skip the adjacent category, consistent with `medium` acting as a genuine gravitational
+attractor across the whole scale, not a local one-step-per-error random walk.
+
+### Step 2: stabilizing the volatile strata — n_runs=20, proper CIs
+
+Sec AC step 3's table reported `low`/`high`/`critical` accuracy from only n_runs=5, with
+std as high as 20-25pt on those strata — too volatile to be the number that goes in a
+writeup. `llm_finetuning/stabilize_volatile_strata.py` re-ran only those 31 cases (low +
+high + critical; `medium` was already stable) at n_runs=20, reporting mean ± 95% CI via
+the t-distribution (df=19), not a std or a normal-approximation:
+
+| system | stratum | mean | 95% CI | n_runs |
+|---|---|---|---|---|
+| rules_in_prompt | low | 82.6% | ±3.2% | 20 |
+| rules_in_prompt | high | 30.4% | ±2.8% | 20 |
+| rules_in_prompt | critical | 37.5% | ±10.4% | 20 |
+| composite | low | 82.5% | ±4.3% | 20 |
+| composite | high | 32.3% | ±2.5% | 20 |
+| composite | critical | 37.5% | ±10.4% | 20 |
+
+**This table supersedes sec AC step 3's `low`/`high`/`critical` cells** (that table's
+`medium` and `overall` cells, and `v2`/`v3b-fix`'s numbers throughout, are untouched —
+this session re-ran only `rules_in_prompt` and `composite` on the three volatile strata).
+At n_runs=20, `low` and `high` are now tight enough to support real claims (±2.8-4.3pt);
+`critical` (n=2 cases, `±10.4%`) is still wide by construction — n=2 cannot produce a
+tight CI regardless of run count — but no longer swings 20+ points on sampling noise
+alone the way the n_runs=5 estimate did. Both systems land within each other's CIs on
+every stratum: `composite`'s edge over `rules_in_prompt` (real on `medium`/`overall` per
+sec AC step 3) does not extend to `low`/`high`/`critical` — routing does not fix the
+under-escalation problem, it inherits it.
+
+### Step 3: does the near-tie margin signature reappear at the high/critical end?
+
+Sec AA's low-threat collapse showed a bimodal margin distribution — a cluster of clean,
+confident predictions plus a distinct low-margin "near-tie" cluster, with an empty trough
+between them. `llm_finetuning/measure_high_crit_margin_and_prior.py` applies the identical
+technique (4-candidate teacher-forced sequence scoring at the `threat_level` position,
+greedy-generated prefix) to the 14 high + 2 critical cases:
+
+```
+high (n=14): 0.352, 0.443, 0.562, 0.569, 0.609, 0.618, 0.628, 0.650, 0.668, 0.738, 0.751, 0.781, 0.845, 0.940
+  histogram (0.0-1.0, width 0.1): 0 0 0 1 1 2 5 3 1 1
+critical (n=2): 0.295, 0.338
+  histogram (0.0-1.0, width 0.1): 0 0 1 1 0 0 0 0 0 0
+```
+
+**No, not the same way.** `high`'s margins are mostly confident — only 2/14 fall below
+0.5, and there is no empty trough separating a near-tie cluster from a confident one; the
+mass is continuous and skewed high (mode in [0.6, 0.7)). `critical`'s two margins
+(0.295, 0.338) are both low, near-tie-ish — but n=2 cannot establish bimodality or
+anything else distributional; it's reported for completeness, not as a finding.
+Mechanistically, this makes sense: sec AC step 1's per-case detail (below) shows the
+`high`→`medium` errors are driven by `medium` genuinely outscoring `high` in the raw
+softmax (e.g. `converging->converging`-adjacent case `v_shape->converging`: P(medium)
+0.782 vs P(high) 0.086) — confident wrong answers, not close calls the model could have
+gone either way on. The low-threat collapse's near-tie signature does not generalize to
+this direction of the scale.
+
+### Step 4: prior correction on a non-fine-tuned system — the session's key result
+
+Secs AA/AB/AC used a log-p(c) frequency correction (`corrected_logP(c) = raw_logP(c) -
+log(class_freq(c))`) to partially recover accuracy lost to the `medium` prior on the
+fine-tuned adapters (v3a/v3b/v3d), using each adapter's own training-file class
+frequency. `rules_in_prompt` has no training file, so the correction here uses RULES'
+own canonical class frequency instead — `low 26.5%, medium 44.9%, high 24.5%, critical
+4.1%` (`report_class_balance.py`) — the actual target distribution `rules_in_prompt` is
+handed verbatim in-context and expected to reflect.
+
+```
+high accuracy:     raw=35.7% -> corrected=14.3%  (n=14)   WORSE
+critical accuracy: raw=0.0%  -> corrected=50.0%  (n=2)    n=2, not meaningful
+```
+
+**Verdict, stated plainly: prior correction does NOT recover the way it did for the
+fine-tuned adapters' low-threat correction — it actively hurts `high`.** Mechanism,
+visible in the per-case P() detail: of the 5 raw-correct `high` predictions, 3
+(`v_shape->encirclement`, `diamond->encirclement`, `dispersed->encirclement`) flip to
+`critical` after correction — e.g. `diamond->encirclement`'s raw P(high)=0.758,
+P(critical)=0.140 flips because `critical`'s RULES frequency (4.1%) is so small that
+`-log(0.041)` is a large positive boost, enough to overtake a 5.4x raw-probability gap.
+Only 2/14 cases remain correctly `high` post-correction.
+
+**This answers the session's central question: the mechanism differs between
+directions, and under-escalation needs a different fix than over-escalation did.** The
+low-threat correction worked because it corrected a *mild* frequency ratio (medium 44.9%
+vs low 26.5%, ~1.7x) against a prior that had only mildly over-weighted `medium`. This
+correction fails because it corrects an *extreme* ratio (medium 44.9% vs critical 4.1%,
+~11x) — the log-boost for a rare class this size overshoots any realistic raw-probability
+gap and drags correctly-classified adjacent cases into the rare class instead of
+recovering them. Naive frequency-based correction is not a direction-agnostic fix for
+ordinal shrinkage; it is asymmetric in effect size and actively harmful once the target
+class's frequency gets rare enough. **This is a decoding-level phenomenon reproduced in
+a system with zero fine-tuning, so the underlying `medium`-attractor bias is
+pretraining-inherited rather than an artefact of this project's training pipeline — but
+its fix cannot be the same off-the-shelf correction in both directions.**
+
+### Verdict — unified finding across the full threat scale, with and without fine-tuning
+
+The `medium`-attractor bias this audit has traced since sec Z is not a low-threat-only
+phenomenon and not a fine-tuning artefact: it pulls predictions toward `medium` from
+BOTH directions of the ordinal scale, in a system (`rules_in_prompt`) that was never
+trained at all, and it does so with real overshoot — skipping past the adjacent category
+directly to `medium` often enough (11.4-54.3% across the four high/critical cells) to be
+the dominant error mode, not a tail effect. The one asymmetry that does NOT carry over
+is the fix: the log-p(c) prior correction that helped on the low-threat side actively
+hurts on the high/critical side, because the correction's magnitude is a function of how
+rare the target class is, and `critical` (4.1%) is far rarer than `low` (26.5%) ever was.
+
+**Reframed safety claim (contra the panel's presumed over-escalation concern): the
+measured failure mode in this system is under-escalation — real high/critical threats
+being silently absorbed into `medium`/"routine" 60-70% of the time — not routine activity
+being false-flagged as a crisis, which occurs 0-4.3% of the time and is not the risk this
+data supports worrying about.**

@@ -1,0 +1,1787 @@
+{
+  "aggregate": {
+    "accuracy_when_answerable": 0.5925925925925926,
+    "abstention_rate_when_unanswerable": null,
+    "over_abstention_rate": 0.01818181818181818,
+    "mean_threat_accuracy": 0.5925925925925926,
+    "mean_action_accuracy": 0.7407407407407407,
+    "mean_hallucination_rate": 0.0,
+    "mean_abstention_rate": 0.01818181818181818,
+    "mean_intent_accuracy": 0.5925925925925926,
+    "mean_correct_abstention_rate": null,
+    "accuracy_when_answerable_mean_across_runs": 0.5925925925925926,
+    "accuracy_when_answerable_std_across_runs": 0.0,
+    "abstention_rate_when_unanswerable_mean_across_runs": null,
+    "abstention_rate_when_unanswerable_std_across_runs": null,
+    "over_abstention_rate_mean_across_runs": 0.01818181818181818,
+    "over_abstention_rate_std_across_runs": 0.0,
+    "n_cases": 55,
+    "n_cases_with_ground_truth": 55,
+    "n_cases_without_ground_truth": 0,
+    "n_runs": 1
+  },
+  "per_case": [
+    {
+      "name": "Converging Attack",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "approach",
+      "majority_threat": "medium",
+      "majority_action": "increase_surveillance",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 1.0,
+      "threat_accuracy": 0.0,
+      "action_accuracy": 0.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "Stable Patrol",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "patrol",
+      "majority_threat": "low",
+      "majority_action": "monitor",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 1.0,
+      "threat_accuracy": 1.0,
+      "action_accuracy": 1.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "Encirclement Behavior",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "encircle",
+      "majority_threat": "high",
+      "majority_action": "alert_operator",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 1.0,
+      "threat_accuracy": 1.0,
+      "action_accuracy": 1.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "Defensive Shield",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "approach",
+      "majority_threat": "medium",
+      "majority_action": "increase_surveillance",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 0.0,
+      "threat_accuracy": 1.0,
+      "action_accuracy": 0.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "Area Search",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "area_search",
+      "majority_threat": "low",
+      "majority_action": "monitor",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 1.0,
+      "threat_accuracy": 0.0,
+      "action_accuracy": 1.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "Breaking Contact",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "transit",
+      "majority_threat": "medium",
+      "majority_action": "monitor",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 0.0,
+      "threat_accuracy": 0.0,
+      "action_accuracy": 1.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "v_shape->v_shape",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "patrol",
+      "majority_threat": "low",
+      "majority_action": "monitor",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 0.0,
+      "threat_accuracy": 0.0,
+      "action_accuracy": 1.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "encirclement->encirclement",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "encircle",
+      "majority_threat": "medium",
+      "majority_action": "increase_surveillance",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 1.0,
+      "threat_accuracy": 0.0,
+      "action_accuracy": 0.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "column->column",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "patrol",
+      "majority_threat": "low",
+      "majority_action": "monitor",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 1.0,
+      "threat_accuracy": 1.0,
+      "action_accuracy": 1.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "diamond->diamond",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "patrol",
+      "majority_threat": "low",
+      "majority_action": "monitor",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 1.0,
+      "threat_accuracy": 1.0,
+      "action_accuracy": 1.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "dispersed->dispersed",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "patrol",
+      "majority_threat": "low",
+      "majority_action": "monitor",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 0.0,
+      "threat_accuracy": 1.0,
+      "action_accuracy": 1.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "converging->converging",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "patrol",
+      "majority_threat": "low",
+      "majority_action": "monitor",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 0.0,
+      "threat_accuracy": 0.0,
+      "action_accuracy": 0.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "shield->shield",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "patrol",
+      "majority_threat": "low",
+      "majority_action": "monitor",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 0.0,
+      "threat_accuracy": 0.0,
+      "action_accuracy": 1.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "v_shape->converging",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "approach",
+      "majority_threat": "medium",
+      "majority_action": "increase_surveillance",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 1.0,
+      "threat_accuracy": 0.0,
+      "action_accuracy": 0.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "encirclement->converging",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "approach",
+      "majority_threat": "medium",
+      "majority_action": "increase_surveillance",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 0.0,
+      "threat_accuracy": 0.0,
+      "action_accuracy": 0.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "column->converging",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "approach",
+      "majority_threat": "medium",
+      "majority_action": "increase_surveillance",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 1.0,
+      "threat_accuracy": 0.0,
+      "action_accuracy": 0.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "diamond->converging",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "approach",
+      "majority_threat": "medium",
+      "majority_action": "increase_surveillance",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 1.0,
+      "threat_accuracy": 0.0,
+      "action_accuracy": 0.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "dispersed->converging",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "approach",
+      "majority_threat": "medium",
+      "majority_action": "increase_surveillance",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 1.0,
+      "threat_accuracy": 0.0,
+      "action_accuracy": 0.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "shield->converging",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "approach",
+      "majority_threat": "medium",
+      "majority_action": "increase_surveillance",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 1.0,
+      "threat_accuracy": 1.0,
+      "action_accuracy": 1.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "v_shape->encirclement",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "encircle",
+      "majority_threat": "critical",
+      "majority_action": "deploy_countermeasure",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 1.0,
+      "threat_accuracy": 0.0,
+      "action_accuracy": 0.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "column->encirclement",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "encircle",
+      "majority_threat": "high",
+      "majority_action": "alert_operator",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 1.0,
+      "threat_accuracy": 1.0,
+      "action_accuracy": 1.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "diamond->encirclement",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "encircle",
+      "majority_threat": "high",
+      "majority_action": "alert_operator",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 1.0,
+      "threat_accuracy": 1.0,
+      "action_accuracy": 1.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "dispersed->encirclement",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "encircle",
+      "majority_threat": "high",
+      "majority_action": "deploy_countermeasure",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 1.0,
+      "threat_accuracy": 1.0,
+      "action_accuracy": 0.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "converging->encirclement",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "encircle",
+      "majority_threat": "critical",
+      "majority_action": "deploy_countermeasure",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 1.0,
+      "threat_accuracy": 1.0,
+      "action_accuracy": 1.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "shield->encirclement",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "encircle",
+      "majority_threat": "high",
+      "majority_action": "alert_operator",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 1.0,
+      "threat_accuracy": 0.0,
+      "action_accuracy": 0.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "encirclement->v_shape",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "reposition",
+      "majority_threat": "low",
+      "majority_action": "monitor",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 0.0,
+      "threat_accuracy": 0.0,
+      "action_accuracy": 1.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "encirclement->column",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 1,
+      "abstention_rate": 1.0,
+      "judge_overall_mean": null,
+      "majority_intent": "unknown",
+      "majority_threat": "unknown",
+      "majority_action": "monitor",
+      "correct_abstention_rate": null,
+      "intent_accuracy": null,
+      "threat_accuracy": null,
+      "action_accuracy": null,
+      "hallucination_rate": null
+    },
+    {
+      "name": "encirclement->diamond",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "patrol",
+      "majority_threat": "low",
+      "majority_action": "monitor",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 0.0,
+      "threat_accuracy": 0.0,
+      "action_accuracy": 1.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "encirclement->dispersed",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "area_search",
+      "majority_threat": "low",
+      "majority_action": "monitor",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 0.0,
+      "threat_accuracy": 1.0,
+      "action_accuracy": 1.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "encirclement->shield",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "defensive_transition",
+      "majority_threat": "medium",
+      "majority_action": "monitor",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 1.0,
+      "threat_accuracy": 1.0,
+      "action_accuracy": 1.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "converging->v_shape",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "regroup",
+      "majority_threat": "medium",
+      "majority_action": "increase_surveillance",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 1.0,
+      "threat_accuracy": 1.0,
+      "action_accuracy": 1.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "converging->column",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "patrol",
+      "majority_threat": "low",
+      "majority_action": "monitor",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 1.0,
+      "threat_accuracy": 1.0,
+      "action_accuracy": 1.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "converging->diamond",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "defensive_transition",
+      "majority_threat": "medium",
+      "majority_action": "monitor",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 0.0,
+      "threat_accuracy": 1.0,
+      "action_accuracy": 1.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "converging->dispersed",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "withdraw",
+      "majority_threat": "low",
+      "majority_action": "monitor",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 1.0,
+      "threat_accuracy": 1.0,
+      "action_accuracy": 1.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "converging->shield",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "defensive",
+      "majority_threat": "medium",
+      "majority_action": "monitor",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 1.0,
+      "threat_accuracy": 1.0,
+      "action_accuracy": 1.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "v_shape->column",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "patrol",
+      "majority_threat": "low",
+      "majority_action": "monitor",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 0.0,
+      "threat_accuracy": 1.0,
+      "action_accuracy": 1.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "v_shape->diamond",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "defensive_transition",
+      "majority_threat": "medium",
+      "majority_action": "monitor",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 1.0,
+      "threat_accuracy": 1.0,
+      "action_accuracy": 1.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "v_shape->dispersed",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "area_search",
+      "majority_threat": "low",
+      "majority_action": "monitor",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 1.0,
+      "threat_accuracy": 1.0,
+      "action_accuracy": 1.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "v_shape->shield",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "defensive",
+      "majority_threat": "medium",
+      "majority_action": "monitor",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 1.0,
+      "threat_accuracy": 1.0,
+      "action_accuracy": 1.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "column->v_shape",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "regroup",
+      "majority_threat": "medium",
+      "majority_action": "increase_surveillance",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 0.0,
+      "threat_accuracy": 0.0,
+      "action_accuracy": 0.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "column->diamond",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "defensive_transition",
+      "majority_threat": "medium",
+      "majority_action": "monitor",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 0.0,
+      "threat_accuracy": 1.0,
+      "action_accuracy": 1.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "column->dispersed",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "area_search",
+      "majority_threat": "low",
+      "majority_action": "monitor",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 1.0,
+      "threat_accuracy": 1.0,
+      "action_accuracy": 1.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "column->shield",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "defensive",
+      "majority_threat": "medium",
+      "majority_action": "monitor",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 1.0,
+      "threat_accuracy": 1.0,
+      "action_accuracy": 1.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "diamond->v_shape",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "regroup",
+      "majority_threat": "medium",
+      "majority_action": "increase_surveillance",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 0.0,
+      "threat_accuracy": 1.0,
+      "action_accuracy": 1.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "diamond->column",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "patrol",
+      "majority_threat": "low",
+      "majority_action": "monitor",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 0.0,
+      "threat_accuracy": 1.0,
+      "action_accuracy": 1.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "diamond->dispersed",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "area_search",
+      "majority_threat": "low",
+      "majority_action": "monitor",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 1.0,
+      "threat_accuracy": 0.0,
+      "action_accuracy": 1.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "diamond->shield",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "defensive_transition",
+      "majority_threat": "low",
+      "majority_action": "monitor",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 1.0,
+      "threat_accuracy": 0.0,
+      "action_accuracy": 1.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "dispersed->v_shape",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "defensive_transition",
+      "majority_threat": "low",
+      "majority_action": "monitor",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 0.0,
+      "threat_accuracy": 0.0,
+      "action_accuracy": 0.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "dispersed->column",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "patrol",
+      "majority_threat": "medium",
+      "majority_action": "monitor",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 0.0,
+      "threat_accuracy": 0.0,
+      "action_accuracy": 1.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "dispersed->diamond",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "defensive_transition",
+      "majority_threat": "medium",
+      "majority_action": "monitor",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 0.0,
+      "threat_accuracy": 1.0,
+      "action_accuracy": 1.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "dispersed->shield",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "defensive",
+      "majority_threat": "medium",
+      "majority_action": "monitor",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 1.0,
+      "threat_accuracy": 1.0,
+      "action_accuracy": 1.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "shield->v_shape",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "regroup",
+      "majority_threat": "medium",
+      "majority_action": "increase_surveillance",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 0.0,
+      "threat_accuracy": 1.0,
+      "action_accuracy": 1.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "shield->column",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "patrol",
+      "majority_threat": "low",
+      "majority_action": "monitor",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 0.0,
+      "threat_accuracy": 0.0,
+      "action_accuracy": 1.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "shield->diamond",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "defensive_transition",
+      "majority_threat": "medium",
+      "majority_action": "monitor",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 1.0,
+      "threat_accuracy": 1.0,
+      "action_accuracy": 1.0,
+      "hallucination_rate": 0.0
+    },
+    {
+      "name": "shield->dispersed",
+      "has_ground_truth": true,
+      "n_runs": 1,
+      "n_abstained": 0,
+      "abstention_rate": 0.0,
+      "judge_overall_mean": null,
+      "majority_intent": "area_search",
+      "majority_threat": "low",
+      "majority_action": "monitor",
+      "correct_abstention_rate": null,
+      "intent_accuracy": 0.0,
+      "threat_accuracy": 1.0,
+      "action_accuracy": 1.0,
+      "hallucination_rate": 0.0
+    }
+  ],
+  "raw": {
+    "Converging Attack": [
+      {
+        "situation_summary": "Drones are transitioning from a dispersed formation to a converging pattern, indicating an approach or potential encirclement.",
+        "threat_level": "medium",
+        "threat_reasoning": "The drones are closing in on each other, which suggests they may be approaching or preparing to encircle a target.",
+        "likely_intent": "approach",
+        "recommended_action": "increase_surveillance",
+        "confidence_in_assessment": "high",
+        "key_indicators": [
+          "converging formation",
+          "steady velocity trend",
+          "decreasing spread dynamics"
+        ],
+        "follow_up_watch": "Monitor the formation for any further changes or signs of encirclement."
+      }
+    ],
+    "Stable Patrol": [
+      {
+        "situation_summary": "UAVs are maintaining a column formation with steady velocity and stability.",
+        "threat_level": "low",
+        "threat_reasoning": "The UAVs are not showing any aggressive or evasive maneuvers, indicating low threat.",
+        "likely_intent": "patrol",
+        "recommended_action": "monitor",
+        "confidence_in_assessment": "high",
+        "key_indicators": [
+          "steady velocity",
+          "stable formation",
+          "no formation transitions"
+        ],
+        "follow_up_watch": "continue monitoring for any changes in formation or velocity."
+      }
+    ],
+    "Encirclement Behavior": [
+      {
+        "situation_summary": "The UAV swarm has transitioned from a v_shape formation to an encirclement, indicating a potential encircling intent.",
+        "threat_level": "high",
+        "threat_reasoning": "The transition from v_shape to encirclement suggests an encircling intent, which is a high-threat maneuver.",
+        "likely_intent": "encircle",
+        "recommended_action": "alert_operator",
+        "confidence_in_assessment": "high",
+        "key_indicators": [
+          "formation transition from v_shape to encirclement",
+          "improving stability",
+          "converging spread dynamics"
+        ],
+        "follow_up_watch": "monitor the encircling formation and any changes in velocity or approach rate."
+      }
+    ],
+    "Defensive Shield": [
+      {
+        "situation_summary": "A shield formation of drones is holding position with increasing velocity and converging approach rates.",
+        "threat_level": "medium",
+        "threat_reasoning": "The drones are accelerating and closing in on each other, indicating potential aggressive intent.",
+        "likely_intent": "approach",
+        "recommended_action": "increase_surveillance",
+        "confidence_in_assessment": "high",
+        "key_indicators": [
+          "accelerating velocity",
+          "converging approach rates",
+          "holding formation"
+        ],
+        "follow_up_watch": "Monitor for any formation changes or increased activity."
+      }
+    ],
+    "Area Search": [
+      {
+        "situation_summary": "The UAVs have transitioned from a diamond formation to a dispersed pattern, indicating a potential de-escalation or area search.",
+        "threat_level": "low",
+        "threat_reasoning": "The transition from a diamond to a dispersed formation suggests a lower threat level as it may indicate the UAVs are searching an area rather than engaging in a coordinated attack.",
+        "likely_intent": "area_search",
+        "recommended_action": "monitor",
+        "confidence_in_assessment": "medium",
+        "key_indicators": [
+          "formation transition from diamond to dispersed",
+          "steady velocity trend",
+          "stable spread dynamics"
+        ],
+        "follow_up_watch": "continue monitoring for any regrouping or consolidation of formations."
+      }
+    ],
+    "Breaking Contact": [
+      {
+        "situation_summary": "Drones have transitioned from a converging formation to a dispersed one, indicating a potential change in mission or intent.",
+        "threat_level": "medium",
+        "threat_reasoning": "The transition from a converging to a dispersed formation suggests a change in formation that could indicate a shift in mission or intent, which may pose a medium-level threat.",
+        "likely_intent": "transit",
+        "recommended_action": "monitor",
+        "confidence_in_assessment": "high",
+        "key_indicators": [
+          "formation transition from converging to dispersed",
+          "decreasing stability",
+          "steady velocity trend"
+        ],
+        "follow_up_watch": "continue monitoring for any further changes in formation or behavior."
+      }
+    ],
+    "v_shape->v_shape": [
+      {
+        "situation_summary": "UAVs are maintaining a v-shaped formation with steady velocity and improving stability.",
+        "threat_level": "low",
+        "threat_reasoning": "The formation is stable and there are no formation transitions or high velocity changes indicating no immediate threat.",
+        "likely_intent": "patrol",
+        "recommended_action": "monitor",
+        "confidence_in_assessment": "high",
+        "key_indicators": [
+          "steady velocity",
+          "improving stability",
+          "stable spread"
+        ],
+        "follow_up_watch": "continue monitoring for any formation changes or increased activity."
+      }
+    ],
+    "encirclement->encirclement": [
+      {
+        "situation_summary": "Drones are maintaining an encirclement formation with a slight convergence in their approach rates.",
+        "threat_level": "medium",
+        "threat_reasoning": "The drones are closing in on a target, indicating potential intent to encircle or attack.",
+        "likely_intent": "encircle",
+        "recommended_action": "increase_surveillance",
+        "confidence_in_assessment": "high",
+        "key_indicators": [
+          "converging approach rates",
+          "steady velocity",
+          "improving stability"
+        ],
+        "follow_up_watch": "Monitor for any formation changes or increased activity."
+      }
+    ],
+    "column->column": [
+      {
+        "situation_summary": "UAVs are in a column formation, decelerating slightly but maintaining a stable spread.",
+        "threat_level": "low",
+        "threat_reasoning": "The UAVs are not changing formations and are decelerating slowly, indicating they may be patrolling or withdrawing.",
+        "likely_intent": "patrol",
+        "recommended_action": "monitor",
+        "confidence_in_assessment": "high",
+        "key_indicators": [
+          "decelerating velocity",
+          "stable spread",
+          "holding formation"
+        ],
+        "follow_up_watch": "continue monitoring for any changes in formation or velocity."
+      }
+    ],
+    "diamond->diamond": [
+      {
+        "situation_summary": "Diamond formation with steady velocity and slightly degrading stability.",
+        "threat_level": "low",
+        "threat_reasoning": "Stable spread and no formation transitions suggest low threat.",
+        "likely_intent": "patrol",
+        "recommended_action": "monitor",
+        "confidence_in_assessment": "high",
+        "key_indicators": [
+          "steady velocity",
+          "degrading stability",
+          "stable spread"
+        ],
+        "follow_up_watch": "continue monitoring stability and formation integrity"
+      }
+    ],
+    "dispersed->dispersed": [
+      {
+        "situation_summary": "UAVs are maintaining a dispersed formation with steady velocity and stable spread.",
+        "threat_level": "low",
+        "threat_reasoning": "The formation and velocity are stable, indicating no immediate threat.",
+        "likely_intent": "patrol",
+        "recommended_action": "monitor",
+        "confidence_in_assessment": "high",
+        "key_indicators": [
+          "steady velocity",
+          "stable spread",
+          "degrading formation stability"
+        ],
+        "follow_up_watch": "continue monitoring for any formation changes or increased activity."
+      }
+    ],
+    "converging->converging": [
+      {
+        "situation_summary": "UAVs are converging towards a target at a steady velocity with minimal spread change.",
+        "threat_level": "low",
+        "threat_reasoning": "The formation is stable and not transitioning, indicating a low threat level.",
+        "likely_intent": "patrol",
+        "recommended_action": "monitor",
+        "confidence_in_assessment": "high",
+        "key_indicators": [
+          "steady formation",
+          "minimal spread change",
+          "stable velocity"
+        ],
+        "follow_up_watch": "continue monitoring for any formation changes or increased velocity."
+      }
+    ],
+    "shield->shield": [
+      {
+        "situation_summary": "The UAVs are maintaining a shield formation with decelerating velocities and slightly degrading stability.",
+        "threat_level": "low",
+        "threat_reasoning": "The deceleration and slight degradation in stability suggest a non-threatening, possibly patrolling or transit behavior.",
+        "likely_intent": "patrol",
+        "recommended_action": "monitor",
+        "confidence_in_assessment": "medium",
+        "key_indicators": [
+          "decelerating velocities",
+          "slightly degrading stability",
+          "stable spread"
+        ],
+        "follow_up_watch": "continue monitoring for any formation changes or acceleration."
+      }
+    ],
+    "v_shape->converging": [
+      {
+        "situation_summary": "The UAV swarm is transitioning from a v_shape formation to a converging pattern, indicating an approach intent.",
+        "threat_level": "medium",
+        "threat_reasoning": "The transition from a v_shape to a converging formation suggests a higher approach intent, which is considered medium threat.",
+        "likely_intent": "approach",
+        "recommended_action": "increase_surveillance",
+        "confidence_in_assessment": "high",
+        "key_indicators": [
+          "formation transition from v_shape to converging",
+          "steady velocity trend",
+          "degrading formation stability"
+        ],
+        "follow_up_watch": "continue monitoring for any further changes in formation or increased approach rate."
+      }
+    ],
+    "encirclement->converging": [
+      {
+        "situation_summary": "UAVs are transitioning from an encirclement formation to a converging pattern, indicating a potential approach or encirclement intent.",
+        "threat_level": "medium",
+        "threat_reasoning": "The transition from encirclement to converging suggests a higher threat as it could indicate an encircling maneuver or approach towards a target.",
+        "likely_intent": "approach",
+        "recommended_action": "increase_surveillance",
+        "confidence_in_assessment": "high",
+        "key_indicators": [
+          "formation transition from encirclement to converging",
+          "decreasing stability",
+          "steady velocity trend"
+        ],
+        "follow_up_watch": "monitor the UAVs' positions and movements for any signs of encirclement or approach."
+      }
+    ],
+    "column->converging": [
+      {
+        "situation_summary": "A UAV swarm is transitioning from a column formation to a converging pattern, indicating an approach or potential encirclement.",
+        "threat_level": "medium",
+        "threat_reasoning": "The transition from column to converging suggests a higher intent of approach or encirclement, which is a medium threat level.",
+        "likely_intent": "approach",
+        "recommended_action": "increase_surveillance",
+        "confidence_in_assessment": "high",
+        "key_indicators": [
+          "accelerating velocity",
+          "improving formation stability",
+          "stable spread dynamics"
+        ],
+        "follow_up_watch": "continue monitoring for any further changes in formation or velocity."
+      }
+    ],
+    "diamond->converging": [
+      {
+        "situation_summary": "The UAVs have transitioned from a diamond formation to a converging pattern, indicating an approach or potential encirclement.",
+        "threat_level": "medium",
+        "threat_reasoning": "The transition from a diamond to a converging formation suggests that the UAVs are likely approaching or preparing to encircle, which is a medium threat level.",
+        "likely_intent": "approach",
+        "recommended_action": "increase_surveillance",
+        "confidence_in_assessment": "high",
+        "key_indicators": [
+          "formation transition from diamond to converging",
+          "steady velocity trend",
+          "stable spread dynamics"
+        ],
+        "follow_up_watch": "monitor the approach rate and stability of the formation"
+      }
+    ],
+    "dispersed->converging": [
+      {
+        "situation_summary": "The UAV swarm has transitioned from a dispersed formation to a converging one over 20 seconds, indicating an approach intent.",
+        "threat_level": "medium",
+        "threat_reasoning": "The transition from a dispersed to a converging formation suggests a coordinated approach, which is a medium threat level.",
+        "likely_intent": "approach",
+        "recommended_action": "increase_surveillance",
+        "confidence_in_assessment": "high",
+        "key_indicators": [
+          "formation transition from dispersed to converging",
+          "steady velocity trend",
+          "degrading formation stability"
+        ],
+        "follow_up_watch": "Monitor the formation and velocity trends for any further changes."
+      }
+    ],
+    "shield->converging": [
+      {
+        "situation_summary": "The UAVs have transitioned from a shield formation to a converging pattern, indicating a potential change in their intent.",
+        "threat_level": "medium",
+        "threat_reasoning": "The transition from a defensive formation to one that suggests approach or encirclement indicates an increasing threat level.",
+        "likely_intent": "approach",
+        "recommended_action": "increase_surveillance",
+        "confidence_in_assessment": "high",
+        "key_indicators": [
+          "formation transition from shield to converging",
+          "decreasing stability",
+          "increasing approach rate"
+        ],
+        "follow_up_watch": "Monitor the UAVs' movements and any further changes in formation."
+      }
+    ],
+    "v_shape->encirclement": [
+      {
+        "situation_summary": "The UAV swarm has transitioned from a v_shape formation to an encirclement, indicating an encircling intent.",
+        "threat_level": "critical",
+        "threat_reasoning": "The transition from v_shape to encirclement suggests an aggressive encircling maneuver, which is a critical threat.",
+        "likely_intent": "encircle",
+        "recommended_action": "deploy_countermeasure",
+        "confidence_in_assessment": "high",
+        "key_indicators": [
+          "formation transition from v_shape to encirclement",
+          "accelerating velocity",
+          "high classifier confidence"
+        ],
+        "follow_up_watch": "monitor the encirclement formation and any further aggressive maneuvers."
+      }
+    ],
+    "column->encirclement": [
+      {
+        "situation_summary": "A UAV swarm has transitioned from a column formation to an encirclement, indicating a potential encircling intent.",
+        "threat_level": "high",
+        "threat_reasoning": "The transition from column to encirclement suggests an encircling intent, which is a high-threat maneuver.",
+        "likely_intent": "encircle",
+        "recommended_action": "alert_operator",
+        "confidence_in_assessment": "high",
+        "key_indicators": [
+          "formation transition from column to encirclement",
+          "decelerating velocity",
+          "degrading formation stability"
+        ],
+        "follow_up_watch": "monitor the encirclement formation and any further changes in formation or velocity."
+      }
+    ],
+    "diamond->encirclement": [
+      {
+        "situation_summary": "The UAV swarm has transitioned from a diamond formation to an encirclement, indicating a potential encircling intent.",
+        "threat_level": "high",
+        "threat_reasoning": "The transition from a diamond to an encirclement formation suggests an encircling intent, which is a high-threat maneuver.",
+        "likely_intent": "encircle",
+        "recommended_action": "alert_operator",
+        "confidence_in_assessment": "high",
+        "key_indicators": [
+          "formation transition from diamond to encirclement",
+          "decelerating velocity",
+          "degrading formation stability"
+        ],
+        "follow_up_watch": "monitor the encirclement formation and any further changes in formation or behavior."
+      }
+    ],
+    "dispersed->encirclement": [
+      {
+        "situation_summary": "The UAVs have transitioned from a dispersed formation to an encirclement, indicating a potential encircling intent.",
+        "threat_level": "high",
+        "threat_reasoning": "The transition from a dispersed to an encirclement formation suggests a high threat level as it implies an encircling maneuver which could be used for interception or surveillance.",
+        "likely_intent": "encircle",
+        "recommended_action": "deploy_countermeasure",
+        "confidence_in_assessment": "high",
+        "key_indicators": [
+          "formation transition from dispersed to encirclement",
+          "steady velocity trend",
+          "holding formation stability"
+        ],
+        "follow_up_watch": "monitor the encirclement formation and any changes in approach rate or stability."
+      }
+    ],
+    "converging->encirclement": [
+      {
+        "situation_summary": "The UAVs have transitioned from a converging formation to an encirclement, indicating a high likelihood of encircling intent.",
+        "threat_level": "critical",
+        "threat_reasoning": "The transition from converging to encirclement suggests a high threat level as it indicates an encircling maneuver which is often used for interception or capture.",
+        "likely_intent": "encircle",
+        "recommended_action": "deploy_countermeasure",
+        "confidence_in_assessment": "high",
+        "key_indicators": [
+          "formation transition from converging to encirclement",
+          "high classifier confidence",
+          "steady velocity trend"
+        ],
+        "follow_up_watch": "monitor the encirclement formation and any changes in formation stability or approach rate."
+      }
+    ],
+    "shield->encirclement": [
+      {
+        "situation_summary": "The UAVs have transitioned from a shield formation to an encirclement, indicating a potential encircling intent.",
+        "threat_level": "high",
+        "threat_reasoning": "The transition from a defensive formation to an encirclement suggests a high threat of encircling or attacking.",
+        "likely_intent": "encircle",
+        "recommended_action": "alert_operator",
+        "confidence_in_assessment": "high",
+        "key_indicators": [
+          "formation transition from shield to encirclement",
+          "improving stability",
+          "stable spread dynamics"
+        ],
+        "follow_up_watch": "monitor the formation and velocity trends for any further changes."
+      }
+    ],
+    "encirclement->v_shape": [
+      {
+        "situation_summary": "The UAV swarm has transitioned from an encirclement to a v-shaped formation, showing signs of regrouping or repositioning.",
+        "threat_level": "low",
+        "threat_reasoning": "The transition is from a defensive formation to a more open one, indicating a de-escalating situation.",
+        "likely_intent": "reposition",
+        "recommended_action": "monitor",
+        "confidence_in_assessment": "high",
+        "key_indicators": [
+          "formation transition from encirclement to v_shape",
+          "accelerating velocity",
+          "degrading stability"
+        ],
+        "follow_up_watch": "continue monitoring for any further changes in formation or velocity."
+      }
+    ],
+    "encirclement->column": [
+      {
+        "situation_summary": "The UAV swarm has transitioned from an encirclement formation to a column, indicating a potential change in their movement pattern.",
+        "threat_level": "unknown",
+        "threat_reasoning": "The transition from encirclement to column does not provide clear evidence of a high or critical threat, but the change in formation suggests potential intent to avoid detection or engage in a different mission.",
+        "likely_intent": "unknown",
+        "recommended_action": "monitor",
+        "confidence_in_assessment": "medium",
+        "key_indicators": [
+          "formation transition from encirclement to column",
+          "decreasing stability",
+          "stable spread dynamics"
+        ],
+        "follow_up_watch": "continue monitoring for any further changes in formation or velocity."
+      }
+    ],
+    "encirclement->diamond": [
+      {
+        "situation_summary": "The UAV swarm transitioned from an encirclement to a diamond formation, maintaining a steady velocity and stable spread.",
+        "threat_level": "low",
+        "threat_reasoning": "The transition was smooth and the formations indicate a non-aggressive intent, suggesting a low threat level.",
+        "likely_intent": "patrol",
+        "recommended_action": "monitor",
+        "confidence_in_assessment": "high",
+        "key_indicators": [
+          "steady velocity",
+          "stable spread",
+          "transition from encirclement to diamond"
+        ],
+        "follow_up_watch": "continue monitoring for any further changes in formation or velocity."
+      }
+    ],
+    "encirclement->dispersed": [
+      {
+        "situation_summary": "The UAV swarm has transitioned from an encirclement formation to a dispersed pattern, indicating a potential de-escalation.",
+        "threat_level": "low",
+        "threat_reasoning": "The transition from encirclement to dispersed suggests a reduction in threat intensity as the swarm is likely dispersing for surveillance or area search purposes.",
+        "likely_intent": "area_search",
+        "recommended_action": "monitor",
+        "confidence_in_assessment": "high",
+        "key_indicators": [
+          "formation transition from encirclement to dispersed",
+          "steady velocity trend",
+          "improving formation stability"
+        ],
+        "follow_up_watch": "continue monitoring for any regrouping or consolidation attempts."
+      }
+    ],
+    "encirclement->shield": [
+      {
+        "situation_summary": "The UAV swarm has transitioned from an encirclement to a shield formation, indicating a defensive shift.",
+        "threat_level": "medium",
+        "threat_reasoning": "The transition from encirclement to shield suggests the swarm is consolidating its defensive position, which could be in response to perceived threats or to prepare for an attack.",
+        "likely_intent": "defensive_transition",
+        "recommended_action": "monitor",
+        "confidence_in_assessment": "high",
+        "key_indicators": [
+          "formation transition from encirclement to shield",
+          "improving formation stability",
+          "converging spread dynamics"
+        ],
+        "follow_up_watch": "continue monitoring for any further changes in formation or increased activity."
+      }
+    ],
+    "converging->v_shape": [
+      {
+        "situation_summary": "The UAVs have transitioned from a converging formation to a v-shaped formation, indicating a change in their approach or intent.",
+        "threat_level": "medium",
+        "threat_reasoning": "The transition from a converging to a v-shaped formation suggests a change in the UAVs' approach, which could indicate a more complex mission or potential threat.",
+        "likely_intent": "regroup",
+        "recommended_action": "increase_surveillance",
+        "confidence_in_assessment": "high",
+        "key_indicators": [
+          "formation transition from converging to v_shape",
+          "improving formation stability",
+          "stable spread dynamics"
+        ],
+        "follow_up_watch": "monitor the new formation and any further changes in velocity or approach rate."
+      }
+    ],
+    "converging->column": [
+      {
+        "situation_summary": "Drones have transitioned from a converging formation to a column, with a steady velocity and increasing spread.",
+        "threat_level": "low",
+        "threat_reasoning": "The transition from converging to column indicates a change in formation but no immediate threat, with a low spread rate and stable formation.",
+        "likely_intent": "patrol",
+        "recommended_action": "monitor",
+        "confidence_in_assessment": "medium",
+        "key_indicators": [
+          "transition from converging to column",
+          "steady velocity",
+          "increasing spread rate"
+        ],
+        "follow_up_watch": "continue monitoring for any further changes in formation or velocity."
+      }
+    ],
+    "converging->diamond": [
+      {
+        "situation_summary": "Drones have transitioned from a converging formation to a diamond shape, indicating a potential defensive or consolidation intent.",
+        "threat_level": "medium",
+        "threat_reasoning": "The transition suggests a change in formation which could indicate defensive measures or preparation for a defensive transition, implying a medium threat level.",
+        "likely_intent": "defensive_transition",
+        "recommended_action": "monitor",
+        "confidence_in_assessment": "high",
+        "key_indicators": [
+          "formation transition from converging to diamond",
+          "steady velocity trend",
+          "high classifier confidence"
+        ],
+        "follow_up_watch": "continue monitoring for any further changes in formation or increased activity."
+      }
+    ],
+    "converging->dispersed": [
+      {
+        "situation_summary": "The UAVs have transitioned from a converging formation to a dispersed one, indicating a potential change in mission or intent.",
+        "threat_level": "low",
+        "threat_reasoning": "The transition from a converging to a dispersed formation suggests a de-escalation in activity, reducing immediate threat.",
+        "likely_intent": "withdraw",
+        "recommended_action": "monitor",
+        "confidence_in_assessment": "medium",
+        "key_indicators": [
+          "formation transition from converging to dispersed",
+          "decelerating velocity",
+          "stable spread dynamics"
+        ],
+        "follow_up_watch": "continue monitoring for any further changes in formation or activity."
+      }
+    ],
+    "converging->shield": [
+      {
+        "situation_summary": "Drones have transitioned from a converging formation to a shield formation, indicating a defensive posture.",
+        "threat_level": "medium",
+        "threat_reasoning": "The transition from converging to shield suggests the drones are preparing for defense or protection against an incoming threat.",
+        "likely_intent": "defensive",
+        "recommended_action": "monitor",
+        "confidence_in_assessment": "high",
+        "key_indicators": [
+          "formation transition from converging to shield",
+          "improving formation stability",
+          "steady velocity trend"
+        ],
+        "follow_up_watch": "continue monitoring for any further changes in formation or increased activity."
+      }
+    ],
+    "v_shape->column": [
+      {
+        "situation_summary": "The UAV swarm transitioned from a v_shape to a column formation, indicating a change in their movement pattern.",
+        "threat_level": "low",
+        "threat_reasoning": "The transition was smooth and the velocity increased slightly, suggesting a routine change rather than an aggressive maneuver.",
+        "likely_intent": "patrol",
+        "recommended_action": "monitor",
+        "confidence_in_assessment": "medium",
+        "key_indicators": [
+          "formation transition from v_shape to column",
+          "steady velocity trend",
+          "stable spread dynamics"
+        ],
+        "follow_up_watch": "continue monitoring for any further changes in formation or velocity."
+      }
+    ],
+    "v_shape->diamond": [
+      {
+        "situation_summary": "The UAV swarm transitioned from a v_shape to a diamond formation, indicating a potential defensive or consolidation intent.",
+        "threat_level": "medium",
+        "threat_reasoning": "The transition suggests a change in formation which could indicate defensive measures or preparation for an attack, but the current velocity and stability metrics are within normal ranges.",
+        "likely_intent": "defensive_transition",
+        "recommended_action": "monitor",
+        "confidence_in_assessment": "medium",
+        "key_indicators": [
+          "formation transition from v_shape to diamond",
+          "decreasing stability",
+          "stable spread dynamics"
+        ],
+        "follow_up_watch": "continue monitoring for any further changes in formation or velocity."
+      }
+    ],
+    "v_shape->dispersed": [
+      {
+        "situation_summary": "The UAV swarm transitioned from a v_shape formation to a dispersed pattern, indicating a potential de-escalation of activity.",
+        "threat_level": "low",
+        "threat_reasoning": "The transition from a coordinated formation to a dispersed one suggests a reduction in threat level as the swarm may be dispersing for surveillance or area search purposes.",
+        "likely_intent": "area_search",
+        "recommended_action": "monitor",
+        "confidence_in_assessment": "high",
+        "key_indicators": [
+          "formation transition from v_shape to dispersed",
+          "accelerating velocity",
+          "degrading formation stability"
+        ],
+        "follow_up_watch": "continue monitoring for any regrouping or consolidation attempts."
+      }
+    ],
+    "v_shape->shield": [
+      {
+        "situation_summary": "The UAV swarm transitioned from a v_shape to a shield formation, indicating a defensive shift.",
+        "threat_level": "medium",
+        "threat_reasoning": "The transition suggests a defensive intent, which could be in response to an approaching threat or to consolidate positions.",
+        "likely_intent": "defensive",
+        "recommended_action": "monitor",
+        "confidence_in_assessment": "high",
+        "key_indicators": [
+          "formation transition from v_shape to shield",
+          "decreasing stability",
+          "steady velocity"
+        ],
+        "follow_up_watch": "continue monitoring for any further defensive maneuvers or changes in formation."
+      }
+    ],
+    "column->v_shape": [
+      {
+        "situation_summary": "A UAV swarm has transitioned from a column formation to a v-shaped formation, indicating a change in their tactical configuration.",
+        "threat_level": "medium",
+        "threat_reasoning": "The transition from a column to a v-shape suggests the swarm may be regrouping or preparing for an attack, which increases the uncertainty and potential threat level.",
+        "likely_intent": "regroup",
+        "recommended_action": "increase_surveillance",
+        "confidence_in_assessment": "medium",
+        "key_indicators": [
+          "formation transition from column to v_shape",
+          "accelerating velocity",
+          "stable spread dynamics"
+        ],
+        "follow_up_watch": "monitor the swarm's next formation change and any changes in velocity or stability."
+      }
+    ],
+    "column->diamond": [
+      {
+        "situation_summary": "The UAVs have transitioned from a column formation to a diamond formation, indicating a defensive or consolidative intent.",
+        "threat_level": "medium",
+        "threat_reasoning": "The transition suggests a defensive or consolidative movement, which could be in response to a perceived threat or to improve defensive positioning.",
+        "likely_intent": "defensive_transition",
+        "recommended_action": "monitor",
+        "confidence_in_assessment": "high",
+        "key_indicators": [
+          "formation transition from column to diamond",
+          "decelerating velocity",
+          "improving formation stability"
+        ],
+        "follow_up_watch": "continue monitoring for any further changes in formation or velocity."
+      }
+    ],
+    "column->dispersed": [
+      {
+        "situation_summary": "A UAV swarm transitioned from a column formation to a dispersed formation, indicating a potential change in mission or intent.",
+        "threat_level": "low",
+        "threat_reasoning": "The transition was smooth and the velocity remained steady, suggesting no immediate threat.",
+        "likely_intent": "area_search",
+        "recommended_action": "monitor",
+        "confidence_in_assessment": "high",
+        "key_indicators": [
+          "steady velocity",
+          "improving formation stability",
+          "stable spread dynamics"
+        ],
+        "follow_up_watch": "continue monitoring for any further changes in formation or velocity."
+      }
+    ],
+    "column->shield": [
+      {
+        "situation_summary": "A UAV swarm has transitioned from a column formation to a shield formation, indicating a potential defensive or encircling intent.",
+        "threat_level": "medium",
+        "threat_reasoning": "The transition from column to shield suggests the swarm may be preparing for defense or encircling, which could indicate an increasing threat level.",
+        "likely_intent": "defensive",
+        "recommended_action": "monitor",
+        "confidence_in_assessment": "high",
+        "key_indicators": [
+          "formation transition from column to shield",
+          "decreasing stability",
+          "converging spread dynamics"
+        ],
+        "follow_up_watch": "continue monitoring for any further formation changes or increased activity."
+      }
+    ],
+    "diamond->v_shape": [
+      {
+        "situation_summary": "The UAV swarm transitioned from a diamond formation to a v-shaped pattern, indicating a potential change in mission or defensive posture.",
+        "threat_level": "medium",
+        "threat_reasoning": "The transition suggests a change in formation which could indicate an approach or defensive maneuver, and the velocity and stability metrics show increasing activity.",
+        "likely_intent": "regroup",
+        "recommended_action": "increase_surveillance",
+        "confidence_in_assessment": "high",
+        "key_indicators": [
+          "formation transition from diamond to v_shape",
+          "accelerating velocity",
+          "degrading stability"
+        ],
+        "follow_up_watch": "monitor the new v_shape formation for any further changes or signs of approach."
+      }
+    ],
+    "diamond->column": [
+      {
+        "situation_summary": "The UAVs have transitioned from a diamond formation to a column, indicating a potential change in their movement pattern.",
+        "threat_level": "low",
+        "threat_reasoning": "The transition was smooth and the stability improved, suggesting a non-threatening maneuver.",
+        "likely_intent": "patrol",
+        "recommended_action": "monitor",
+        "confidence_in_assessment": "medium",
+        "key_indicators": [
+          "formation transition from diamond to column",
+          "improving stability",
+          "steady velocity"
+        ],
+        "follow_up_watch": "continue monitoring for any further changes in formation or velocity."
+      }
+    ],
+    "diamond->dispersed": [
+      {
+        "situation_summary": "Drones have transitioned from a diamond formation to a dispersed pattern, indicating potential area search or withdrawal.",
+        "threat_level": "low",
+        "threat_reasoning": "The transition from a diamond to a dispersed formation suggests a low threat level as there is no indication of aggressive intent.",
+        "likely_intent": "area_search",
+        "recommended_action": "monitor",
+        "confidence_in_assessment": "high",
+        "key_indicators": [
+          "formation transition from diamond to dispersed",
+          "decreasing stability",
+          "converging spread dynamics"
+        ],
+        "follow_up_watch": "continue monitoring for any further changes in formation or velocity."
+      }
+    ],
+    "diamond->shield": [
+      {
+        "situation_summary": "The UAV swarm transitioned from a diamond formation to a shield formation, indicating a defensive transition.",
+        "threat_level": "low",
+        "threat_reasoning": "The transition suggests a defensive intent rather than an aggressive one, and the velocity and stability metrics indicate a stable and decelerating movement.",
+        "likely_intent": "defensive_transition",
+        "recommended_action": "monitor",
+        "confidence_in_assessment": "high",
+        "key_indicators": [
+          "formation transition from diamond to shield",
+          "decelerating velocity",
+          "improving stability"
+        ],
+        "follow_up_watch": "continue monitoring for any further changes in formation or velocity."
+      }
+    ],
+    "dispersed->v_shape": [
+      {
+        "situation_summary": "The UAVs have transitioned from a dispersed formation to a v-shaped formation, indicating a potential regrouping or defensive transition.",
+        "threat_level": "low",
+        "threat_reasoning": "The transition is from a dispersed to a v-shaped formation, which is a common defensive or regrouping maneuver and does not indicate an immediate threat.",
+        "likely_intent": "defensive_transition",
+        "recommended_action": "monitor",
+        "confidence_in_assessment": "high",
+        "key_indicators": [
+          "formation transition from dispersed to v_shape",
+          "steady velocity trend",
+          "stable spread dynamics"
+        ],
+        "follow_up_watch": "continue monitoring for any further formation changes or increased activity."
+      }
+    ],
+    "dispersed->column": [
+      {
+        "situation_summary": "Drones have transitioned from a dispersed formation to a column, indicating a potential change in mission or threat level.",
+        "threat_level": "medium",
+        "threat_reasoning": "The transition from a dispersed to a column formation suggests an intent to improve situational awareness or prepare for a more coordinated action, which could indicate a higher threat level.",
+        "likely_intent": "patrol",
+        "recommended_action": "monitor",
+        "confidence_in_assessment": "high",
+        "key_indicators": [
+          "formation transition from dispersed to column",
+          "steady velocity trend",
+          "converging spread dynamics"
+        ],
+        "follow_up_watch": "continue monitoring for any further formation changes or increased activity."
+      }
+    ],
+    "dispersed->diamond": [
+      {
+        "situation_summary": "Drones have transitioned from a dispersed formation to a diamond formation, indicating a potential defensive or consolidative intent.",
+        "threat_level": "medium",
+        "threat_reasoning": "The transition from a dispersed to a more compact formation suggests an intent to defend or consolidate position, which could be a response to perceived threat.",
+        "likely_intent": "defensive_transition",
+        "recommended_action": "monitor",
+        "confidence_in_assessment": "high",
+        "key_indicators": [
+          "formation transition from dispersed to diamond",
+          "decelerating velocity",
+          "converging spread dynamics"
+        ],
+        "follow_up_watch": "continue monitoring for any further formation changes or increased activity."
+      }
+    ],
+    "dispersed->shield": [
+      {
+        "situation_summary": "The UAVs have transitioned from a dispersed formation to a shield formation, indicating a potential defensive intent.",
+        "threat_level": "medium",
+        "threat_reasoning": "The transition from a dispersed to a shield formation suggests the UAVs are preparing for defense or protection against an incoming threat.",
+        "likely_intent": "defensive",
+        "recommended_action": "monitor",
+        "confidence_in_assessment": "high",
+        "key_indicators": [
+          "formation transition from dispersed to shield",
+          "decelerating velocity",
+          "degrading formation stability"
+        ],
+        "follow_up_watch": "continue monitoring for any further formation changes or increased activity."
+      }
+    ],
+    "shield->v_shape": [
+      {
+        "situation_summary": "The UAV swarm transitioned from a shield formation to a v-shaped formation, indicating a potential change in their tactical intent.",
+        "threat_level": "medium",
+        "threat_reasoning": "The transition suggests the swarm may be regrouping or changing their formation to improve situational awareness or prepare for an action, which could indicate a higher threat level.",
+        "likely_intent": "regroup",
+        "recommended_action": "increase_surveillance",
+        "confidence_in_assessment": "medium",
+        "key_indicators": [
+          "formation transition from shield to v_shape",
+          "improving stability",
+          "converging spread dynamics"
+        ],
+        "follow_up_watch": "monitor the formation and velocity trends for any further changes."
+      }
+    ],
+    "shield->column": [
+      {
+        "situation_summary": "The UAVs have transitioned from a shield formation to a column, indicating a potential change in their movement pattern.",
+        "threat_level": "low",
+        "threat_reasoning": "The transition from a defensive formation to a more linear one suggests a shift in intent rather than an immediate threat.",
+        "likely_intent": "patrol",
+        "recommended_action": "monitor",
+        "confidence_in_assessment": "medium",
+        "key_indicators": [
+          "formation transition from shield to column",
+          "decreasing stability",
+          "increasing spread dynamics"
+        ],
+        "follow_up_watch": "continue monitoring for any further changes in formation or velocity."
+      }
+    ],
+    "shield->diamond": [
+      {
+        "situation_summary": "A UAV swarm transitioned from a shield formation to a diamond formation, indicating a change in their tactical configuration.",
+        "threat_level": "medium",
+        "threat_reasoning": "The transition suggests a change in formation which could indicate an intent to improve situational awareness or defensive posture, but the current formation is still relatively stable.",
+        "likely_intent": "defensive_transition",
+        "recommended_action": "monitor",
+        "confidence_in_assessment": "high",
+        "key_indicators": [
+          "formation transition from shield to diamond",
+          "decreasing stability",
+          "stable spread dynamics"
+        ],
+        "follow_up_watch": "continue monitoring formation stability and any further changes in velocity or approach rate."
+      }
+    ],
+    "shield->dispersed": [
+      {
+        "situation_summary": "The UAV formation has transitioned from a shield to a dispersed pattern, indicating a potential de-escalation or area search.",
+        "threat_level": "low",
+        "threat_reasoning": "The transition from a defensive formation to a more spread-out one suggests a reduction in threat level.",
+        "likely_intent": "area_search",
+        "recommended_action": "monitor",
+        "confidence_in_assessment": "medium",
+        "key_indicators": [
+          "formation transition from shield to dispersed",
+          "steady velocity trend",
+          "converging spread dynamics"
+        ],
+        "follow_up_watch": "continue monitoring for any regrouping or consolidation."
+      }
+    ]
+  }
+}

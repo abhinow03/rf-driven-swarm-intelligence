@@ -1,0 +1,636 @@
+{
+  "base": {
+    "Stable Patrol": {
+      "threat_level": {
+        "entropy_bits": 0.6685144500994269,
+        "normalized_entropy": 0.33425722504971345,
+        "raw_p": {
+          "low": 0.8266605490606455,
+          "medium": 0.17329861771698782,
+          "high": 3.764503928732965e-05,
+          "critical": 3.1881830793457897e-06
+        },
+        "margin": 0.6533619313436576,
+        "restricted_argmax": "low",
+        "greedy_completion_starts_with": "low\",\n ",
+        "greedy_label": "low"
+      },
+      "likely_intent": {
+        "entropy_bits": 0.8960488730521297,
+        "normalized_entropy": 0.22935089967948422,
+        "greedy_completion_starts_with": "patrol\",\n  \"recommended"
+      }
+    },
+    "Breaking Contact": {
+      "threat_level": {
+        "entropy_bits": 0.356975445298087,
+        "normalized_entropy": 0.1784877226490435,
+        "raw_p": {
+          "low": 0.029505620007633588,
+          "medium": 0.9470010825830146,
+          "high": 0.023340866562045377,
+          "critical": 0.00015243084730631027
+        },
+        "margin": 0.9174954625753811,
+        "restricted_argmax": "medium",
+        "greedy_completion_starts_with": "medium\",\n ",
+        "greedy_label": "medium"
+      },
+      "likely_intent": {
+        "entropy_bits": 1.9442569886980172,
+        "normalized_entropy": 0.49764817854982424,
+        "greedy_completion_starts_with": "patrol\",\n  \"recommended"
+      }
+    },
+    "column->column": {
+      "threat_level": {
+        "entropy_bits": 0.3937824843051419,
+        "normalized_entropy": 0.19689124215257095,
+        "raw_p": {
+          "low": 0.9230188255120456,
+          "medium": 0.07697323282495835,
+          "high": 7.184429678910791e-06,
+          "critical": 7.572333170764413e-07
+        },
+        "margin": 0.8460455926870872,
+        "restricted_argmax": "low",
+        "greedy_completion_starts_with": "low\",\n ",
+        "greedy_label": "low"
+      },
+      "likely_intent": {
+        "entropy_bits": 0.03522204689670321,
+        "normalized_entropy": 0.009015365553438844,
+        "greedy_completion_starts_with": "surveillance\",\n  \"recommended"
+      }
+    },
+    "diamond->diamond": {
+      "threat_level": {
+        "entropy_bits": 0.9679018487214042,
+        "normalized_entropy": 0.4839509243607021,
+        "raw_p": {
+          "low": 0.6113241983086688,
+          "medium": 0.3885813026906967,
+          "high": 8.548857149046744e-05,
+          "critical": 9.01042914399677e-06
+        },
+        "margin": 0.22274289561797211,
+        "restricted_argmax": "low",
+        "greedy_completion_starts_with": "medium\",\n ",
+        "greedy_label": "medium"
+      },
+      "likely_intent": {
+        "entropy_bits": 0.41421127150522974,
+        "normalized_entropy": 0.1060206989084408,
+        "greedy_completion_starts_with": "surveillance\",\n  \"recommended"
+      }
+    },
+    "dispersed->dispersed": {
+      "threat_level": {
+        "entropy_bits": 0.0005186996750022308,
+        "normalized_entropy": 0.0002593498375011154,
+        "raw_p": {
+          "low": 0.9999955453368083,
+          "medium": 4.425613877714738e-06,
+          "high": 2.8012876437865997e-08,
+          "critical": 1.0364374225313491e-09
+        },
+        "margin": 0.9999911197229306,
+        "restricted_argmax": "low",
+        "greedy_completion_starts_with": "low\",\n ",
+        "greedy_label": "low"
+      },
+      "likely_intent": {
+        "entropy_bits": 0.07440657406928552,
+        "normalized_entropy": 0.019044959731639558,
+        "greedy_completion_starts_with": "surveillance\",\n  \"recommended"
+      }
+    },
+    "encirclement->column": {
+      "threat_level": {
+        "entropy_bits": 0.29885906791852673,
+        "normalized_entropy": 0.14942953395926337,
+        "raw_p": {
+          "low": 0.04660017120094765,
+          "medium": 0.9511354306284697,
+          "high": 0.002248704370362321,
+          "critical": 1.5693800220446158e-05
+        },
+        "margin": 0.9045352594275221,
+        "restricted_argmax": "medium",
+        "greedy_completion_starts_with": "medium\",\n ",
+        "greedy_label": "medium"
+      },
+      "likely_intent": {
+        "entropy_bits": 2.3429705595686974,
+        "normalized_entropy": 0.5997021166147519,
+        "greedy_completion_starts_with": "transit\",\n  \"recommended"
+      }
+    },
+    "encirclement->dispersed": {
+      "threat_level": {
+        "entropy_bits": 0.8608268261554264,
+        "normalized_entropy": 0.4304134130777132,
+        "raw_p": {
+          "low": 0.2748357343171786,
+          "medium": 0.7244493656875294,
+          "high": 0.0007021887945125357,
+          "critical": 1.2711200779558605e-05
+        },
+        "margin": 0.44961363137035076,
+        "restricted_argmax": "medium",
+        "greedy_completion_starts_with": "medium\",\n ",
+        "greedy_label": "medium"
+      },
+      "likely_intent": {
+        "entropy_bits": 2.6402446353768725,
+        "normalized_entropy": 0.6757918018857757,
+        "greedy_completion_starts_with": "transit\",\n  \"recommended"
+      }
+    },
+    "converging->column": {
+      "threat_level": {
+        "entropy_bits": 0.9721284943490086,
+        "normalized_entropy": 0.4860642471745043,
+        "raw_p": {
+          "low": 0.6075295348420225,
+          "medium": 0.39225054893217454,
+          "high": 0.00021327154785091861,
+          "critical": 6.6446779520566705e-06
+        },
+        "margin": 0.215278985909848,
+        "restricted_argmax": "low",
+        "greedy_completion_starts_with": "medium\",\n ",
+        "greedy_label": "medium"
+      },
+      "likely_intent": {
+        "entropy_bits": 0.49486975889868007,
+        "normalized_entropy": 0.12666588602581574,
+        "greedy_completion_starts_with": "patrol\",\n  \"recommended"
+      }
+    },
+    "converging->dispersed": {
+      "threat_level": {
+        "entropy_bits": 0.987626194983558,
+        "normalized_entropy": 0.493813097491779,
+        "raw_p": {
+          "low": 0.5774323745932257,
+          "medium": 0.4224585499121757,
+          "high": 0.00010557409413658495,
+          "critical": 3.501400462125825e-06
+        },
+        "margin": 0.15497382468105003,
+        "restricted_argmax": "low",
+        "greedy_completion_starts_with": "medium\",\n ",
+        "greedy_label": "medium"
+      },
+      "likely_intent": {
+        "entropy_bits": 1.2870135936055354,
+        "normalized_entropy": 0.3294214573226554,
+        "greedy_completion_starts_with": "approach\",\n  \"recommended"
+      }
+    },
+    "v_shape->column": {
+      "threat_level": {
+        "entropy_bits": 0.5674271755058887,
+        "normalized_entropy": 0.28371358775294436,
+        "raw_p": {
+          "low": 0.8669937874543087,
+          "medium": 0.13299026789384066,
+          "high": 1.5448074315406258e-05,
+          "critical": 4.965775351704013e-07
+        },
+        "margin": 0.7340035195604679,
+        "restricted_argmax": "low",
+        "greedy_completion_starts_with": "low\",\n ",
+        "greedy_label": "low"
+      },
+      "likely_intent": {
+        "entropy_bits": 0.822787015506987,
+        "normalized_entropy": 0.2105989393283314,
+        "greedy_completion_starts_with": "patrol\",\n  \"recommended"
+      }
+    },
+    "v_shape->dispersed": {
+      "threat_level": {
+        "entropy_bits": 0.4466155546501967,
+        "normalized_entropy": 0.22330777732509835,
+        "raw_p": {
+          "low": 0.06584133780025107,
+          "medium": 0.9223800568416046,
+          "high": 0.01159901000555114,
+          "critical": 0.0001795953525931866
+        },
+        "margin": 0.8565387190413536,
+        "restricted_argmax": "medium",
+        "greedy_completion_starts_with": "medium\",\n ",
+        "greedy_label": "medium"
+      },
+      "likely_intent": {
+        "entropy_bits": 0.9763551399766129,
+        "normalized_entropy": 0.24990593314132475,
+        "greedy_completion_starts_with": "approach\",\n  \"recommended"
+      }
+    },
+    "column->dispersed": {
+      "threat_level": {
+        "entropy_bits": 1.0122816278112503,
+        "normalized_entropy": 0.5061408139056252,
+        "raw_p": {
+          "low": 0.4881572210063537,
+          "medium": 0.5115843751841035,
+          "high": 0.0002494581697047516,
+          "critical": 8.94563983798923e-06
+        },
+        "margin": 0.023427154177749765,
+        "restricted_argmax": "medium",
+        "greedy_completion_starts_with": "medium\",\n ",
+        "greedy_label": "medium"
+      },
+      "likely_intent": {
+        "entropy_bits": 3.1220822369237724,
+        "normalized_entropy": 0.7991220026568191,
+        "greedy_completion_starts_with": "patrol\",\n  \"recommended"
+      }
+    },
+    "diamond->column": {
+      "threat_level": {
+        "entropy_bits": 0.9312709199488328,
+        "normalized_entropy": 0.4656354599744164,
+        "raw_p": {
+          "low": 0.6583367836365778,
+          "medium": 0.3416240181701702,
+          "high": 3.7644422376742625e-05,
+          "critical": 1.553770875369189e-06
+        },
+        "margin": 0.3167127654664076,
+        "restricted_argmax": "low",
+        "greedy_completion_starts_with": "medium\",\n ",
+        "greedy_label": "medium"
+      },
+      "likely_intent": {
+        "entropy_bits": 1.7315158254419298,
+        "normalized_entropy": 0.4431953706070536,
+        "greedy_completion_starts_with": "approach\",\n  \"recommended"
+      }
+    },
+    "dispersed->column": {
+      "threat_level": {
+        "entropy_bits": 0.16712861252485672,
+        "normalized_entropy": 0.08356430626242836,
+        "raw_p": {
+          "low": 0.004668121208121318,
+          "medium": 0.9787653771177494,
+          "high": 0.016549926816296842,
+          "critical": 1.6574857832649256e-05
+        },
+        "margin": 0.9622154503014525,
+        "restricted_argmax": "medium",
+        "greedy_completion_starts_with": "medium\",\n ",
+        "greedy_label": "medium"
+      },
+      "likely_intent": {
+        "entropy_bits": 0.20781007669054893,
+        "normalized_entropy": 0.05319065676528918,
+        "greedy_completion_starts_with": "approach\",\n  \"recommended"
+      }
+    },
+    "shield->dispersed": {
+      "threat_level": {
+        "entropy_bits": 0.3983613504017133,
+        "normalized_entropy": 0.19918067520085664,
+        "raw_p": {
+          "low": 0.02538585216092426,
+          "medium": 0.9382864616081966,
+          "high": 0.0357997896361105,
+          "critical": 0.0005278965947686248
+        },
+        "margin": 0.9024866719720861,
+        "restricted_argmax": "medium",
+        "greedy_completion_starts_with": "medium\",\n ",
+        "greedy_label": "medium"
+      },
+      "likely_intent": {
+        "entropy_bits": 2.390872543348214,
+        "normalized_entropy": 0.6119630137674288,
+        "greedy_completion_starts_with": "attack_preparation\",\n  \""
+      }
+    }
+  },
+  "rules_in_prompt": {
+    "Stable Patrol": {
+      "threat_level": {
+        "entropy_bits": 0.0005730461926748783,
+        "normalized_entropy": 0.0002865230963374392,
+        "raw_p": {
+          "low": 0.9999690044074947,
+          "medium": 3.0719216928001477e-05,
+          "high": 1.91429328036587e-07,
+          "critical": 8.494624938686412e-08
+        },
+        "margin": 0.9999382851905667,
+        "restricted_argmax": "low",
+        "greedy_completion_starts_with": "low\",\n ",
+        "greedy_label": "low"
+      },
+      "likely_intent": {
+        "entropy_bits": 0.0027118224388047664,
+        "normalized_entropy": 0.0006941127150714047,
+        "greedy_completion_starts_with": "patrol\",\n  \"recommended"
+      }
+    },
+    "Breaking Contact": {
+      "threat_level": {
+        "entropy_bits": 0.5244562782919108,
+        "normalized_entropy": 0.2622281391459554,
+        "raw_p": {
+          "low": 0.8823464843125103,
+          "medium": 0.11758999541538664,
+          "high": 4.75822236059338e-05,
+          "critical": 1.5938048497077355e-05
+        },
+        "margin": 0.7647564888971237,
+        "restricted_argmax": "low",
+        "greedy_completion_starts_with": "low\",\n ",
+        "greedy_label": "low"
+      },
+      "likely_intent": {
+        "entropy_bits": 1.514548016558238,
+        "normalized_entropy": 0.3876607187978703,
+        "greedy_completion_starts_with": "withdraw\",\n  \"recommended_action"
+      }
+    },
+    "column->column": {
+      "threat_level": {
+        "entropy_bits": 0.0009500321633661549,
+        "normalized_entropy": 0.00047501608168307744,
+        "raw_p": {
+          "low": 0.9999432199679971,
+          "medium": 5.6501291719002605e-05,
+          "high": 2.0377547585102563e-07,
+          "critical": 7.496480818052006e-08
+        },
+        "margin": 0.9998867186762781,
+        "restricted_argmax": "low",
+        "greedy_completion_starts_with": "low\",\n ",
+        "greedy_label": "low"
+      },
+      "likely_intent": {
+        "entropy_bits": 0.05525458606920316,
+        "normalized_entropy": 0.014142854711957187,
+        "greedy_completion_starts_with": "patrol\",\n  \"recommended"
+      }
+    },
+    "diamond->diamond": {
+      "threat_level": {
+        "entropy_bits": 0.006725209579339269,
+        "normalized_entropy": 0.0033626047896696343,
+        "raw_p": {
+          "low": 0.9994632399776276,
+          "medium": 0.0005360705725900041,
+          "high": 4.888330874093079e-07,
+          "critical": 2.0061669485492552e-07
+        },
+        "margin": 0.9989271694050377,
+        "restricted_argmax": "low",
+        "greedy_completion_starts_with": "low\",\n ",
+        "greedy_label": "low"
+      },
+      "likely_intent": {
+        "entropy_bits": 0.0690352119175383,
+        "normalized_entropy": 0.017670116484740137,
+        "greedy_completion_starts_with": "patrol\",\n  \"recommended"
+      }
+    },
+    "dispersed->dispersed": {
+      "threat_level": {
+        "entropy_bits": 0.0004516264411657355,
+        "normalized_entropy": 0.00022581322058286775,
+        "raw_p": {
+          "low": 0.9999762878861943,
+          "medium": 2.3553229678659e-05,
+          "high": 1.295275022768486e-07,
+          "critical": 2.9356624605539902e-08
+        },
+        "margin": 0.9999527346565157,
+        "restricted_argmax": "low",
+        "greedy_completion_starts_with": "low\",\n ",
+        "greedy_label": "low"
+      },
+      "likely_intent": {
+        "entropy_bits": 1.3320978136333155,
+        "normalized_entropy": 0.3409611252310571,
+        "greedy_completion_starts_with": "patrol\",\n  \"recommended"
+      }
+    },
+    "encirclement->column": {
+      "threat_level": {
+        "entropy_bits": 0.4730320898227241,
+        "normalized_entropy": 0.23651604491136205,
+        "raw_p": {
+          "low": 0.8990046385091318,
+          "medium": 0.10095791243542981,
+          "high": 2.930997056378702e-05,
+          "critical": 8.139084874514458e-06
+        },
+        "margin": 0.798046726073702,
+        "restricted_argmax": "low",
+        "greedy_completion_starts_with": "low\",\n ",
+        "greedy_label": "low"
+      },
+      "likely_intent": {
+        "entropy_bits": 0.910842132748745,
+        "normalized_entropy": 0.23313735321192852,
+        "greedy_completion_starts_with": "patrol\",\n  \"recommended"
+      }
+    },
+    "encirclement->dispersed": {
+      "threat_level": {
+        "entropy_bits": 0.002387119193975784,
+        "normalized_entropy": 0.001193559596987892,
+        "raw_p": {
+          "low": 0.9998410099258046,
+          "medium": 0.000156005543348982,
+          "high": 1.051157082648971e-06,
+          "critical": 1.933373763665835e-06
+        },
+        "margin": 0.9996850043824557,
+        "restricted_argmax": "low",
+        "greedy_completion_starts_with": "low\",\n ",
+        "greedy_label": "low"
+      },
+      "likely_intent": {
+        "entropy_bits": 0.1579708803317139,
+        "normalized_entropy": 0.040433914507173215,
+        "greedy_completion_starts_with": "area_search\",\n  \"recommended"
+      }
+    },
+    "converging->column": {
+      "threat_level": {
+        "entropy_bits": 0.1763743998352413,
+        "normalized_entropy": 0.08818719991762065,
+        "raw_p": {
+          "low": 0.9736404388912703,
+          "medium": 0.02633955978717547,
+          "high": 1.532688556029666e-05,
+          "critical": 4.674435993896832e-06
+        },
+        "margin": 0.9473008791040948,
+        "restricted_argmax": "low",
+        "greedy_completion_starts_with": "low\",\n ",
+        "greedy_label": "low"
+      },
+      "likely_intent": {
+        "entropy_bits": 1.4750993240339305,
+        "normalized_entropy": 0.3775635093780188,
+        "greedy_completion_starts_with": "area_search\",\n  \"recommended"
+      }
+    },
+    "converging->dispersed": {
+      "threat_level": {
+        "entropy_bits": 0.11526414846946126,
+        "normalized_entropy": 0.05763207423473063,
+        "raw_p": {
+          "low": 0.9845711594988068,
+          "medium": 0.015423543491506332,
+          "high": 3.668931294054544e-06,
+          "critical": 1.6280783926089996e-06
+        },
+        "margin": 0.9691476160073005,
+        "restricted_argmax": "low",
+        "greedy_completion_starts_with": "low\",\n ",
+        "greedy_label": "low"
+      },
+      "likely_intent": {
+        "entropy_bits": 1.0813168397287884,
+        "normalized_entropy": 0.2767717224905725,
+        "greedy_completion_starts_with": "withdraw\",\n  \"recommended_action"
+      }
+    },
+    "v_shape->column": {
+      "threat_level": {
+        "entropy_bits": 0.10821973909012061,
+        "normalized_entropy": 0.05410986954506031,
+        "raw_p": {
+          "low": 0.98573045646047,
+          "medium": 0.014264581033335529,
+          "high": 4.425617837304352e-06,
+          "critical": 5.368883571901594e-07
+        },
+        "margin": 0.9714658754271345,
+        "restricted_argmax": "low",
+        "greedy_completion_starts_with": "low\",\n ",
+        "greedy_label": "low"
+      },
+      "likely_intent": {
+        "entropy_bits": 0.9608574393420636,
+        "normalized_entropy": 0.24593917229781168,
+        "greedy_completion_starts_with": "patrol\",\n  \"recommended"
+      }
+    },
+    "v_shape->dispersed": {
+      "threat_level": {
+        "entropy_bits": 0.0014584128793166172,
+        "normalized_entropy": 0.0007292064396583086,
+        "raw_p": {
+          "low": 0.9999075559444234,
+          "medium": 9.171072331607295e-05,
+          "high": 3.866982180522362e-07,
+          "critical": 3.4663404237816064e-07
+        },
+        "margin": 0.9998158452211073,
+        "restricted_argmax": "low",
+        "greedy_completion_starts_with": "low\",\n ",
+        "greedy_label": "low"
+      },
+      "likely_intent": {
+        "entropy_bits": 0.024655432827692246,
+        "normalized_entropy": 0.006310755887407191,
+        "greedy_completion_starts_with": "area_search\",\n  \"recommended"
+      }
+    },
+    "column->dispersed": {
+      "threat_level": {
+        "entropy_bits": 0.02943242293805762,
+        "normalized_entropy": 0.01471621146902881,
+        "raw_p": {
+          "low": 0.997020216543616,
+          "medium": 0.002978314174353227,
+          "high": 1.0511596214197232e-06,
+          "critical": 4.1812240939695356e-07
+        },
+        "margin": 0.9940419023692627,
+        "restricted_argmax": "low",
+        "greedy_completion_starts_with": "low\",\n ",
+        "greedy_label": "low"
+      },
+      "likely_intent": {
+        "entropy_bits": 0.7939049370516903,
+        "normalized_entropy": 0.20320633957451154,
+        "greedy_completion_starts_with": "area_search\",\n  \"recommended"
+      }
+    },
+    "diamond->column": {
+      "threat_level": {
+        "entropy_bits": 0.2949846427598894,
+        "normalized_entropy": 0.1474923213799447,
+        "raw_p": {
+          "low": 0.9481206320163702,
+          "medium": 0.05187209928180411,
+          "high": 5.3801067366900695e-06,
+          "critical": 1.8885950890109287e-06
+        },
+        "margin": 0.8962485327345661,
+        "restricted_argmax": "low",
+        "greedy_completion_starts_with": "low\",\n ",
+        "greedy_label": "low"
+      },
+      "likely_intent": {
+        "entropy_bits": 1.5413167721997325,
+        "normalized_entropy": 0.39451239661848386,
+        "greedy_completion_starts_with": "patrol\",\n  \"recommended"
+      }
+    },
+    "dispersed->column": {
+      "threat_level": {
+        "entropy_bits": 0.7671361814101959,
+        "normalized_entropy": 0.38356809070509795,
+        "raw_p": {
+          "low": 0.7772356453216935,
+          "medium": 0.22268174067539057,
+          "high": 7.484744566290684e-05,
+          "critical": 7.766557252965152e-06
+        },
+        "margin": 0.5545539046463029,
+        "restricted_argmax": "low",
+        "greedy_completion_starts_with": "medium\",\n ",
+        "greedy_label": "medium"
+      },
+      "likely_intent": {
+        "entropy_bits": 2.3429705595686974,
+        "normalized_entropy": 0.5997021166147519,
+        "greedy_completion_starts_with": "consolidate\",\n  \""
+      }
+    },
+    "shield->dispersed": {
+      "threat_level": {
+        "entropy_bits": 0.002936087815529869,
+        "normalized_entropy": 0.0014680439077649344,
+        "raw_p": {
+          "low": 0.999794800810565,
+          "medium": 0.00020346939956855846,
+          "high": 8.446276690320308e-07,
+          "critical": 8.851621971998507e-07
+        },
+        "margin": 0.9995913314109964,
+        "restricted_argmax": "low",
+        "greedy_completion_starts_with": "low\",\n ",
+        "greedy_label": "low"
+      },
+      "likely_intent": {
+        "entropy_bits": 1.1771208072878212,
+        "normalized_entropy": 0.30129351679592614,
+        "greedy_completion_starts_with": "withdraw\",\n  \"recommended_action"
+      }
+    }
+  }
+}
