@@ -2536,3 +2536,103 @@ measured failure mode in this system is under-escalation — real high/critical 
 being silently absorbed into `medium`/"routine" 60-70% of the time — not routine activity
 being false-flagged as a crisis, which occurs 0-4.3% of the time and is not the risk this
 data supports worrying about.**
+
+## AE. Making the LLM structurally necessary, and closing the low/medium confusion door
+
+Two changes this session: (1) fix sec AD's correction so it can never again damage
+high/critical accuracy (safety fix, done first, see step 1), and (2) answer the panel's
+Q1 ("why not just ship the 49-entry dict?") with a real, measured number instead of an
+assertion — what fraction of REAL model output a plain `RULES[(a,b)]` lookup can actually
+answer on its own (step 2), then build a pipeline that routes on exactly that measurement
+(step 3) and prove the LLM layer is where the remaining, irreducible error lives (step 4).
+
+### Step 1: scoping the prior correction — safety fix, not a clean win
+
+See the standalone commit for full detail (`src/swarm_intent/llm/prior_correction.py`,
+`llm_finetuning/scope_prior_correction.py`, `tests/test_prior_correction.py`). Summary:
+`scoped_correct()` only fires when the raw argmax is `medium` and the runner-up is
+specifically `low` — never when the runner-up is `high`/`critical` — and even in scope is
+restricted to choosing between `{low, medium}` only. Re-measured on all 55 `TEST_CASES`,
+single deterministic greedy pass (`rules_in_prompt`, RULES.txt system prompt):
+
+| stratum | raw acc | scoped-corrected acc | corrections applied |
+|---|---|---|---|
+| low | 93.3% | 93.3% | 0 |
+| medium | 37.5% | 29.2% | 2 |
+| high | 35.7% | 35.7% | 0 |
+| critical | 0.0% | 0.0% | 0 |
+
+`high`/`critical` are provably untouched (asserted in the script and swept exhaustively
+in the unit tests). Honestly reported, not spun: the scoped correction is **not** a net
+win on this battery — `low`'s raw accuracy was already 93.3% (little room to help), and
+both corrections that fired flipped a genuinely-`medium` case to `low` (a net -2 on
+`medium`). The safety bug (sec AD's high-threat damage) is fixed; the correction itself
+remains a narrow, situational tool, not a general accuracy improver — pipeline_v2 (step 3)
+uses it only inside Layer 3, on the residual cases that reach the LLM at all.
+
+### Step 2: the coverage measurement — the actual Q1 defense
+
+`llm_finetuning/measure_coverage.py` generates 500 long, varied trajectories directly
+from `data_gen.generate_transition_sequence` (chain length ~Uniform{1,2,3,4} via an
+unconstrained random walk over `BASE_FORMATIONS`, forbidding only an immediate self-repeat;
+per-hop segment length ~Uniform{50..100} timesteps; spread ~U(0.6,1.8), noise_std
+~U(0.15,1.4); consecutive hop segments rigid-translated for spatial continuity — see the
+script docstring for the full, fixed-in-advance sampling regime), runs the REAL trained
+STGT (`swarm_data/best_model.pt`) via `sliding_window_inference`, bridges every
+prediction list through `stgt_bridge.bridge_predictions`, and classifies the result via
+the new `src/swarm_intent/coverage.py` into bucket A (resolvable), B (guardable), or C
+(unresolvable) — see that module's docstring for the exact decision tree. **Nothing in
+this sampling regime or the bucket boundary was adjusted after seeing the result below —
+sec AE step 2's own instruction was explicit not to, and the number is the same whether
+or not it flatters the "we still need an LLM" thesis.**
+
+**Bucket split, n=500, Wilson 95% CI:**
+
+| bucket | n | % | 95% CI |
+|---|---|---|---|
+| A (resolvable — what a dict alone can do) | 9 | 1.8% | [0.9%, 3.4%] |
+| B (guardable — dict-shaped but must hedge) | 191 | 38.2% | [34.0%, 42.5%] |
+| C (unresolvable — no 2-tuple key exists) | 300 | 60.0% | [55.6%, 64.2%] |
+
+**Bucket C sub-type breakdown (n=300):**
+
+| subtype | n | % of C | % of total (95% CI) |
+|---|---|---|---|
+| terminal_unknown | 183 | 61.0% | 36.6% [32.5%, 40.9%] |
+| all_unknown | 59 | 19.7% | 11.8% [9.3%, 14.9%] |
+| multi_hop | 52 | 17.3% | 10.4% [8.0%, 13.4%] |
+| oscillation | 6 | 2.0% | 1.2% [0.6%, 2.6%] |
+
+**Bucket B guard-reason breakdown (n=191, reasons may co-occur on the same case):**
+`dispersed_converging_ambiguity` 191/191 (100%), `oov_name` 128/191 (67.0%),
+`dominant_history_contradiction` 25/191 (13.1%), `low_confidence` 2/191 (1.0%).
+
+**Why bucket A is this small — two real, mechanistic, non-buggy reasons, not an
+artefact of a hostile sampling regime:**
+
+1. **`terminal_unknown` dominates C (36.6% of ALL 500 samples on its own) because
+   segment length (50-100 timesteps) is close to `window_size` (50).** A hop whose
+   segment length is near 50 forces the sliding window itself to straddle the blend
+   region almost by construction — the window genuinely contains a real transition
+   within it, and STGT correctly reads that as `"transitioning"`, not a dict-unfriendly
+   misclassification. Real deployment windows won't always get 25+ seconds of settled
+   time after the last formation change before a report is due; this is what that looks
+   like, measured on the real model, not asserted.
+2. **`dispersed_converging_ambiguity` alone accounts for every single bucket-B case**
+   because it fires whenever ANY window in a (potentially dozens-of-windows-long)
+   observation shows a near-tie — and `dispersed`/`converging` share IDENTICAL base
+   geometry in `data_gen.py` (`stgt_bridge.py`'s own documented reason this guard
+   exists), so across a long multi-window stream at least one near-tie window is close
+   to inevitable, not rare. This guard condition is reused verbatim from
+   `stgt_bridge.py`'s own existing, tested `n_ambiguous_dispersed_converging_windows`
+   field — not a threshold invented for this measurement.
+
+**Verdict — the Q1 defense, stated plainly: on real model output over realistic multi-
+window observations, a plain `RULES[(a,b)]` dict can confidently and correctly answer
+only ~1.8% of the time on its own.** The other ~98.2% is not "the dict is slightly
+incomplete" — 60.0% has no 2-tuple key that could ever exist for it (multi-hop chains,
+terminal ambiguity, oscillation), and the remaining 38.2% is dict-shaped but requires a
+hedge a static lookup table has no mechanism to express. This is the number pipeline_v2
+(step 3) is built around: bucket A routes to the dict with zero LLM involvement in the
+decision, bucket B routes to a machine-generated abstention, and bucket C — the 60%
+majority case — is where the LLM's actual judgment is load-bearing, not decorative.

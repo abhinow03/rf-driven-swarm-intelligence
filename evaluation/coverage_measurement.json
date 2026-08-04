@@ -1,0 +1,8901 @@
+{
+  "n": 500,
+  "seed": 0,
+  "records": [
+    {
+      "i": 0,
+      "true_chain": [
+        "dispersed",
+        "diamond",
+        "encirclement",
+        "column"
+      ],
+      "spread": 0.6198331626342349,
+      "noise_std": 1.1665877990003404,
+      "n_timesteps": 192,
+      "n_windows": 15,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 1,
+      "true_chain": [
+        "encirclement",
+        "v_shape",
+        "shield"
+      ],
+      "spread": 1.0296868323165944,
+      "noise_std": 1.3653547278840619,
+      "n_timesteps": 109,
+      "n_windows": 6,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 2,
+      "true_chain": [
+        "encirclement",
+        "dispersed",
+        "diamond"
+      ],
+      "spread": 1.6422909828925727,
+      "noise_std": 0.27931569201907136,
+      "n_timesteps": 165,
+      "n_windows": 12,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 3,
+      "true_chain": [
+        "shield",
+        "diamond",
+        "encirclement"
+      ],
+      "spread": 0.7136101063599781,
+      "noise_std": 1.1999203682566335,
+      "n_timesteps": 143,
+      "n_windows": 10,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 4,
+      "true_chain": [
+        "encirclement"
+      ],
+      "spread": 1.7003873683544222,
+      "noise_std": 1.1313017141680837,
+      "n_timesteps": 70,
+      "n_windows": 3,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "encirclement",
+        "encirclement"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 5,
+      "true_chain": [
+        "shield",
+        "diamond"
+      ],
+      "spread": 1.4115515213079106,
+      "noise_std": 0.9952887443001418,
+      "n_timesteps": 78,
+      "n_windows": 3,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 6,
+      "true_chain": [
+        "diamond"
+      ],
+      "spread": 0.883795749675616,
+      "noise_std": 0.7664977577678208,
+      "n_timesteps": 50,
+      "n_windows": 1,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "diamond",
+        "diamond"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 7,
+      "true_chain": [
+        "v_shape",
+        "column",
+        "shield"
+      ],
+      "spread": 1.0785134647528403,
+      "noise_std": 0.3402123695624788,
+      "n_timesteps": 163,
+      "n_windows": 12,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "v_shape",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 8,
+      "true_chain": [
+        "dispersed",
+        "converging"
+      ],
+      "spread": 1.0255638354782441,
+      "noise_std": 1.1232345030189737,
+      "n_timesteps": 73,
+      "n_windows": 3,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 9,
+      "true_chain": [
+        "dispersed",
+        "converging",
+        "encirclement",
+        "diamond"
+      ],
+      "spread": 0.7531951935436841,
+      "noise_std": 0.41567326633694013,
+      "n_timesteps": 209,
+      "n_windows": 16,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 10,
+      "true_chain": [
+        "column",
+        "shield",
+        "v_shape"
+      ],
+      "spread": 1.215764398017074,
+      "noise_std": 0.9574758464475416,
+      "n_timesteps": 171,
+      "n_windows": 13,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 11,
+      "true_chain": [
+        "v_shape",
+        "column",
+        "shield"
+      ],
+      "spread": 0.7531668721132878,
+      "noise_std": 1.2240682452889184,
+      "n_timesteps": 116,
+      "n_windows": 7,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 12,
+      "true_chain": [
+        "v_shape",
+        "encirclement",
+        "converging",
+        "dispersed"
+      ],
+      "spread": 1.2267091246207387,
+      "noise_std": 0.5780221051773038,
+      "n_timesteps": 199,
+      "n_windows": 15,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 13,
+      "true_chain": [
+        "shield"
+      ],
+      "spread": 1.0649974054506515,
+      "noise_std": 1.210997949182834,
+      "n_timesteps": 90,
+      "n_windows": 5,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "shield",
+        "converging"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 14,
+      "true_chain": [
+        "encirclement"
+      ],
+      "spread": 1.7743966199284644,
+      "noise_std": 0.2705423506274271,
+      "n_timesteps": 85,
+      "n_windows": 4,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 15,
+      "true_chain": [
+        "column"
+      ],
+      "spread": 0.8436910353811392,
+      "noise_std": 1.1395068340145607,
+      "n_timesteps": 64,
+      "n_windows": 2,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "column",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 16,
+      "true_chain": [
+        "diamond",
+        "shield",
+        "encirclement",
+        "shield"
+      ],
+      "spread": 1.3332250967948813,
+      "noise_std": 1.1592029966743096,
+      "n_timesteps": 208,
+      "n_windows": 16,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 17,
+      "true_chain": [
+        "dispersed",
+        "v_shape",
+        "diamond"
+      ],
+      "spread": 1.3546320001770873,
+      "noise_std": 0.673290804701269,
+      "n_timesteps": 164,
+      "n_windows": 12,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 18,
+      "true_chain": [
+        "dispersed",
+        "encirclement",
+        "dispersed"
+      ],
+      "spread": 1.5099598835232757,
+      "noise_std": 1.3761492154224193,
+      "n_timesteps": 130,
+      "n_windows": 9,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 19,
+      "true_chain": [
+        "column"
+      ],
+      "spread": 1.5360496744273306,
+      "noise_std": 1.2305721441564004,
+      "n_timesteps": 64,
+      "n_windows": 2,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 20,
+      "true_chain": [
+        "column",
+        "dispersed",
+        "column",
+        "v_shape"
+      ],
+      "spread": 1.1949397732323717,
+      "noise_std": 1.273898029040852,
+      "n_timesteps": 220,
+      "n_windows": 18,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 21,
+      "true_chain": [
+        "v_shape",
+        "diamond"
+      ],
+      "spread": 1.2972988402811636,
+      "noise_std": 0.23686836759252858,
+      "n_timesteps": 53,
+      "n_windows": 1,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 22,
+      "true_chain": [
+        "dispersed"
+      ],
+      "spread": 1.1332033536104582,
+      "noise_std": 0.332705084037081,
+      "n_timesteps": 94,
+      "n_windows": 5,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "dispersed",
+        "dispersed"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 23,
+      "true_chain": [
+        "v_shape"
+      ],
+      "spread": 1.1289744935492831,
+      "noise_std": 1.003944445209643,
+      "n_timesteps": 73,
+      "n_windows": 3,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 24,
+      "true_chain": [
+        "diamond"
+      ],
+      "spread": 0.8307238901618631,
+      "noise_std": 0.7674777353337795,
+      "n_timesteps": 71,
+      "n_windows": 3,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "diamond",
+        "diamond"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 25,
+      "true_chain": [
+        "v_shape",
+        "diamond",
+        "v_shape"
+      ],
+      "spread": 1.151506964913157,
+      "noise_std": 0.46032300295127837,
+      "n_timesteps": 168,
+      "n_windows": 12,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 26,
+      "true_chain": [
+        "converging"
+      ],
+      "spread": 0.8944452881308997,
+      "noise_std": 0.41429617824653464,
+      "n_timesteps": 99,
+      "n_windows": 5,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "dispersed",
+        "shield"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 27,
+      "true_chain": [
+        "dispersed",
+        "column",
+        "converging"
+      ],
+      "spread": 0.7860954421649805,
+      "noise_std": 0.8183566609785169,
+      "n_timesteps": 146,
+      "n_windows": 10,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 28,
+      "true_chain": [
+        "v_shape",
+        "shield",
+        "diamond"
+      ],
+      "spread": 1.116656101545984,
+      "noise_std": 1.2485516456707948,
+      "n_timesteps": 113,
+      "n_windows": 7,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 29,
+      "true_chain": [
+        "encirclement",
+        "shield"
+      ],
+      "spread": 1.339786894978248,
+      "noise_std": 1.16554192873204,
+      "n_timesteps": 89,
+      "n_windows": 4,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 30,
+      "true_chain": [
+        "shield",
+        "v_shape",
+        "dispersed"
+      ],
+      "spread": 0.9369286002990058,
+      "noise_std": 1.3529532154881552,
+      "n_timesteps": 150,
+      "n_windows": 11,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 31,
+      "true_chain": [
+        "encirclement",
+        "dispersed",
+        "diamond",
+        "column"
+      ],
+      "spread": 1.6830528795981303,
+      "noise_std": 0.9182535152503656,
+      "n_timesteps": 211,
+      "n_windows": 17,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 32,
+      "true_chain": [
+        "dispersed",
+        "column",
+        "dispersed"
+      ],
+      "spread": 1.5988329196014996,
+      "noise_std": 0.9452500489192317,
+      "n_timesteps": 172,
+      "n_windows": 13,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "dispersed",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 33,
+      "true_chain": [
+        "shield",
+        "encirclement",
+        "converging"
+      ],
+      "spread": 1.7291306269940612,
+      "noise_std": 0.7645863569200878,
+      "n_timesteps": 137,
+      "n_windows": 9,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 34,
+      "true_chain": [
+        "column"
+      ],
+      "spread": 0.8702658669708445,
+      "noise_std": 1.3258004325816608,
+      "n_timesteps": 72,
+      "n_windows": 3,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "column",
+        "column"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 35,
+      "true_chain": [
+        "converging",
+        "v_shape"
+      ],
+      "spread": 0.7977889860748029,
+      "noise_std": 1.060376519364737,
+      "n_timesteps": 69,
+      "n_windows": 2,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 36,
+      "true_chain": [
+        "shield"
+      ],
+      "spread": 0.862120171346445,
+      "noise_std": 0.7737749089986934,
+      "n_timesteps": 52,
+      "n_windows": 1,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "shield",
+        "shield"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 37,
+      "true_chain": [
+        "dispersed"
+      ],
+      "spread": 1.4386168148002914,
+      "noise_std": 0.25209163466266127,
+      "n_timesteps": 68,
+      "n_windows": 2,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "dispersed",
+        "dispersed"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 38,
+      "true_chain": [
+        "column",
+        "diamond"
+      ],
+      "spread": 1.7686863508097526,
+      "noise_std": 0.7431887249635247,
+      "n_timesteps": 53,
+      "n_windows": 1,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 39,
+      "true_chain": [
+        "column",
+        "diamond"
+      ],
+      "spread": 0.9481544213472513,
+      "noise_std": 0.6364093466132158,
+      "n_timesteps": 90,
+      "n_windows": 5,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 40,
+      "true_chain": [
+        "converging"
+      ],
+      "spread": 1.6772296246354776,
+      "noise_std": 0.4114199867695384,
+      "n_timesteps": 95,
+      "n_windows": 5,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 41,
+      "true_chain": [
+        "converging",
+        "column",
+        "encirclement"
+      ],
+      "spread": 1.7221158728387933,
+      "noise_std": 0.17980520176065537,
+      "n_timesteps": 136,
+      "n_windows": 9,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 42,
+      "true_chain": [
+        "column",
+        "v_shape",
+        "shield",
+        "converging"
+      ],
+      "spread": 1.2535962035017292,
+      "noise_std": 0.16312947006067155,
+      "n_timesteps": 267,
+      "n_windows": 22,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "column",
+        "column"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 43,
+      "true_chain": [
+        "v_shape",
+        "shield",
+        "converging",
+        "shield"
+      ],
+      "spread": 1.1763954071995277,
+      "noise_std": 0.9945000895072951,
+      "n_timesteps": 269,
+      "n_windows": 22,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "v_shape",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 44,
+      "true_chain": [
+        "v_shape"
+      ],
+      "spread": 1.6571313807505885,
+      "noise_std": 1.153498433567316,
+      "n_timesteps": 50,
+      "n_windows": 1,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "v_shape",
+        "v_shape"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 45,
+      "true_chain": [
+        "shield",
+        "converging",
+        "column"
+      ],
+      "spread": 1.0014412832194979,
+      "noise_std": 0.6758134426945348,
+      "n_timesteps": 147,
+      "n_windows": 10,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "shield",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 46,
+      "true_chain": [
+        "diamond",
+        "v_shape",
+        "dispersed",
+        "encirclement"
+      ],
+      "spread": 0.7753863577121799,
+      "noise_std": 0.5807945266072622,
+      "n_timesteps": 187,
+      "n_windows": 14,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 47,
+      "true_chain": [
+        "dispersed",
+        "encirclement",
+        "v_shape"
+      ],
+      "spread": 1.487152572266265,
+      "noise_std": 0.5061450866783144,
+      "n_timesteps": 153,
+      "n_windows": 11,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "dispersed",
+        "column"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 48,
+      "true_chain": [
+        "dispersed",
+        "v_shape",
+        "dispersed"
+      ],
+      "spread": 0.6616346649067048,
+      "noise_std": 0.4431413290083587,
+      "n_timesteps": 163,
+      "n_windows": 12,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 49,
+      "true_chain": [
+        "encirclement",
+        "v_shape",
+        "encirclement"
+      ],
+      "spread": 1.2167920530306109,
+      "noise_std": 0.3124420108786266,
+      "n_timesteps": 198,
+      "n_windows": 15,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "encirclement",
+        "converging"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 50,
+      "true_chain": [
+        "converging",
+        "diamond",
+        "dispersed",
+        "column"
+      ],
+      "spread": 0.7171301693460449,
+      "noise_std": 1.1231326471397907,
+      "n_timesteps": 246,
+      "n_windows": 20,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 51,
+      "true_chain": [
+        "shield",
+        "encirclement",
+        "dispersed",
+        "shield"
+      ],
+      "spread": 1.6173559807330782,
+      "noise_std": 1.064680640806459,
+      "n_timesteps": 250,
+      "n_windows": 21,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "shield",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 52,
+      "true_chain": [
+        "column",
+        "encirclement"
+      ],
+      "spread": 1.013695944804382,
+      "noise_std": 0.1596110790501165,
+      "n_timesteps": 68,
+      "n_windows": 2,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 53,
+      "true_chain": [
+        "column"
+      ],
+      "spread": 1.4440208778219237,
+      "noise_std": 0.3040695184029435,
+      "n_timesteps": 86,
+      "n_windows": 4,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 54,
+      "true_chain": [
+        "v_shape",
+        "column",
+        "shield",
+        "encirclement"
+      ],
+      "spread": 1.461214618140132,
+      "noise_std": 1.3231746349757758,
+      "n_timesteps": 227,
+      "n_windows": 18,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "column",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 55,
+      "true_chain": [
+        "encirclement",
+        "converging",
+        "dispersed"
+      ],
+      "spread": 1.6505436841735768,
+      "noise_std": 0.7364246925247088,
+      "n_timesteps": 167,
+      "n_windows": 12,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 56,
+      "true_chain": [
+        "column"
+      ],
+      "spread": 1.1172601364926882,
+      "noise_std": 0.8896546659068009,
+      "n_timesteps": 79,
+      "n_windows": 3,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "column",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 57,
+      "true_chain": [
+        "v_shape"
+      ],
+      "spread": 0.7070837991669556,
+      "noise_std": 0.8656622600582483,
+      "n_timesteps": 51,
+      "n_windows": 1,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "v_shape",
+        "v_shape"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 58,
+      "true_chain": [
+        "encirclement",
+        "dispersed"
+      ],
+      "spread": 1.0892679716734384,
+      "noise_std": 0.5005741623112347,
+      "n_timesteps": 92,
+      "n_windows": 5,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "encirclement",
+        "shield"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dominant_history_contradiction",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 59,
+      "true_chain": [
+        "shield"
+      ],
+      "spread": 1.4418018323159822,
+      "noise_std": 0.7640919891330858,
+      "n_timesteps": 56,
+      "n_windows": 1,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "shield",
+        "shield"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 60,
+      "true_chain": [
+        "shield",
+        "v_shape"
+      ],
+      "spread": 1.032010545846969,
+      "noise_std": 0.8504937804198479,
+      "n_timesteps": 88,
+      "n_windows": 4,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 61,
+      "true_chain": [
+        "shield",
+        "encirclement",
+        "column",
+        "converging"
+      ],
+      "spread": 0.6789970476535432,
+      "noise_std": 0.9459769446403086,
+      "n_timesteps": 217,
+      "n_windows": 17,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 62,
+      "true_chain": [
+        "shield",
+        "encirclement",
+        "converging"
+      ],
+      "spread": 1.7537121655780772,
+      "noise_std": 1.248003751147877,
+      "n_timesteps": 178,
+      "n_windows": 13,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "shield",
+        "dispersed"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dominant_history_contradiction",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 63,
+      "true_chain": [
+        "column",
+        "converging"
+      ],
+      "spread": 1.3325403560445843,
+      "noise_std": 0.2646383722213644,
+      "n_timesteps": 77,
+      "n_windows": 3,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 64,
+      "true_chain": [
+        "dispersed"
+      ],
+      "spread": 0.6799024797934887,
+      "noise_std": 0.9891439342392484,
+      "n_timesteps": 78,
+      "n_windows": 3,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 65,
+      "true_chain": [
+        "diamond"
+      ],
+      "spread": 0.9734378470699039,
+      "noise_std": 1.2610995566615955,
+      "n_timesteps": 89,
+      "n_windows": 4,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 66,
+      "true_chain": [
+        "encirclement"
+      ],
+      "spread": 0.9587525269083768,
+      "noise_std": 0.9997815972995862,
+      "n_timesteps": 85,
+      "n_windows": 4,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 67,
+      "true_chain": [
+        "shield",
+        "encirclement",
+        "column"
+      ],
+      "spread": 1.4368679225123593,
+      "noise_std": 0.8150328992933886,
+      "n_timesteps": 184,
+      "n_windows": 14,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 68,
+      "true_chain": [
+        "dispersed",
+        "shield",
+        "converging"
+      ],
+      "spread": 0.6612030544557849,
+      "noise_std": 0.8730950641744537,
+      "n_timesteps": 156,
+      "n_windows": 11,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 69,
+      "true_chain": [
+        "converging",
+        "shield",
+        "diamond",
+        "column"
+      ],
+      "spread": 1.6919735698935758,
+      "noise_std": 0.9501319399507241,
+      "n_timesteps": 179,
+      "n_windows": 13,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 70,
+      "true_chain": [
+        "shield",
+        "encirclement",
+        "column"
+      ],
+      "spread": 0.7050467437217434,
+      "noise_std": 1.237411188835957,
+      "n_timesteps": 159,
+      "n_windows": 11,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 71,
+      "true_chain": [
+        "dispersed",
+        "shield"
+      ],
+      "spread": 0.9477208455916322,
+      "noise_std": 0.28743566236510754,
+      "n_timesteps": 69,
+      "n_windows": 2,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 72,
+      "true_chain": [
+        "encirclement",
+        "dispersed",
+        "encirclement"
+      ],
+      "spread": 0.7982191665183673,
+      "noise_std": 0.15024070803854733,
+      "n_timesteps": 150,
+      "n_windows": 11,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "v_shape",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 73,
+      "true_chain": [
+        "v_shape",
+        "converging"
+      ],
+      "spread": 1.4419721876735032,
+      "noise_std": 1.0619627179040187,
+      "n_timesteps": 53,
+      "n_windows": 1,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 74,
+      "true_chain": [
+        "encirclement"
+      ],
+      "spread": 0.8989188902582459,
+      "noise_std": 0.6750554135637581,
+      "n_timesteps": 50,
+      "n_windows": 1,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "encirclement",
+        "encirclement"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity",
+        "low_confidence"
+      ]
+    },
+    {
+      "i": 75,
+      "true_chain": [
+        "encirclement",
+        "diamond",
+        "v_shape"
+      ],
+      "spread": 1.2666020118465429,
+      "noise_std": 1.2403525172616905,
+      "n_timesteps": 141,
+      "n_windows": 10,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "encirclement",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 76,
+      "true_chain": [
+        "v_shape"
+      ],
+      "spread": 1.2684837428100382,
+      "noise_std": 0.994270212953247,
+      "n_timesteps": 72,
+      "n_windows": 3,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "v_shape",
+        "v_shape"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 77,
+      "true_chain": [
+        "diamond",
+        "encirclement",
+        "shield"
+      ],
+      "spread": 0.8037939361242014,
+      "noise_std": 0.6809104912219858,
+      "n_timesteps": 141,
+      "n_windows": 10,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 78,
+      "true_chain": [
+        "column",
+        "diamond",
+        "column",
+        "diamond"
+      ],
+      "spread": 1.5787616929383457,
+      "noise_std": 0.25474579807812714,
+      "n_timesteps": 261,
+      "n_windows": 22,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 79,
+      "true_chain": [
+        "dispersed",
+        "v_shape",
+        "converging"
+      ],
+      "spread": 0.8344712267824453,
+      "noise_std": 1.1226597660221154,
+      "n_timesteps": 131,
+      "n_windows": 9,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "v_shape",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 80,
+      "true_chain": [
+        "shield",
+        "diamond"
+      ],
+      "spread": 1.6304499802511727,
+      "noise_std": 0.5027725568422907,
+      "n_timesteps": 88,
+      "n_windows": 4,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 81,
+      "true_chain": [
+        "dispersed"
+      ],
+      "spread": 1.3201705246421276,
+      "noise_std": 0.7301758899337544,
+      "n_timesteps": 63,
+      "n_windows": 2,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "dispersed",
+        "dispersed"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 82,
+      "true_chain": [
+        "converging",
+        "shield",
+        "v_shape"
+      ],
+      "spread": 1.3134415115906513,
+      "noise_std": 1.0080801257518766,
+      "n_timesteps": 159,
+      "n_windows": 11,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 83,
+      "true_chain": [
+        "shield",
+        "diamond",
+        "dispersed",
+        "encirclement"
+      ],
+      "spread": 1.703183155126541,
+      "noise_std": 0.6806896763732636,
+      "n_timesteps": 212,
+      "n_windows": 17,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "shield",
+        "dispersed"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 84,
+      "true_chain": [
+        "converging"
+      ],
+      "spread": 0.7008554185494693,
+      "noise_std": 0.446500403869879,
+      "n_timesteps": 87,
+      "n_windows": 4,
+      "bucket": "A",
+      "subtype": null,
+      "rules_key": [
+        "dispersed",
+        "dispersed"
+      ],
+      "guard_reasons": []
+    },
+    {
+      "i": 85,
+      "true_chain": [
+        "column"
+      ],
+      "spread": 1.3080820645459728,
+      "noise_std": 1.3718194789151794,
+      "n_timesteps": 73,
+      "n_windows": 3,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "column",
+        "column"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 86,
+      "true_chain": [
+        "diamond"
+      ],
+      "spread": 1.0840324051344834,
+      "noise_std": 0.22711426005677812,
+      "n_timesteps": 62,
+      "n_windows": 2,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "diamond",
+        "diamond"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 87,
+      "true_chain": [
+        "shield"
+      ],
+      "spread": 1.229579752834995,
+      "noise_std": 0.2773709908763845,
+      "n_timesteps": 82,
+      "n_windows": 4,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "shield",
+        "shield"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 88,
+      "true_chain": [
+        "converging",
+        "encirclement"
+      ],
+      "spread": 1.1512080018451207,
+      "noise_std": 0.3708820871463637,
+      "n_timesteps": 54,
+      "n_windows": 1,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 89,
+      "true_chain": [
+        "v_shape",
+        "shield"
+      ],
+      "spread": 1.0705156351667164,
+      "noise_std": 0.2280252088683163,
+      "n_timesteps": 52,
+      "n_windows": 1,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 90,
+      "true_chain": [
+        "converging",
+        "column",
+        "diamond"
+      ],
+      "spread": 1.4428573559525706,
+      "noise_std": 1.136841320056868,
+      "n_timesteps": 133,
+      "n_windows": 9,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "column",
+        "shield"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dominant_history_contradiction",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 91,
+      "true_chain": [
+        "column",
+        "dispersed",
+        "column",
+        "encirclement"
+      ],
+      "spread": 1.743858569973412,
+      "noise_std": 0.8825386414933946,
+      "n_timesteps": 180,
+      "n_windows": 14,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 92,
+      "true_chain": [
+        "converging",
+        "encirclement",
+        "converging",
+        "column"
+      ],
+      "spread": 0.9508717426747674,
+      "noise_std": 0.5441761651376177,
+      "n_timesteps": 252,
+      "n_windows": 21,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 93,
+      "true_chain": [
+        "diamond",
+        "encirclement",
+        "v_shape",
+        "column"
+      ],
+      "spread": 1.5701368913281222,
+      "noise_std": 0.34038334879034793,
+      "n_timesteps": 231,
+      "n_windows": 19,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 94,
+      "true_chain": [
+        "encirclement",
+        "shield"
+      ],
+      "spread": 1.188658753497535,
+      "noise_std": 0.6284489156719424,
+      "n_timesteps": 50,
+      "n_windows": 1,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 95,
+      "true_chain": [
+        "shield",
+        "encirclement",
+        "shield"
+      ],
+      "spread": 1.7423714635512062,
+      "noise_std": 1.226216981421579,
+      "n_timesteps": 148,
+      "n_windows": 10,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "encirclement",
+        "shield"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 96,
+      "true_chain": [
+        "diamond",
+        "dispersed"
+      ],
+      "spread": 1.1317496219691545,
+      "noise_std": 1.0800991032446443,
+      "n_timesteps": 82,
+      "n_windows": 4,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "diamond",
+        "dispersed"
+      ],
+      "guard_reasons": [
+        "dominant_history_contradiction",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 97,
+      "true_chain": [
+        "encirclement",
+        "diamond",
+        "dispersed"
+      ],
+      "spread": 0.8222803032089707,
+      "noise_std": 0.2912012047154987,
+      "n_timesteps": 123,
+      "n_windows": 8,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 98,
+      "true_chain": [
+        "dispersed",
+        "v_shape"
+      ],
+      "spread": 1.7095241514187012,
+      "noise_std": 1.1253479119206502,
+      "n_timesteps": 94,
+      "n_windows": 5,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 99,
+      "true_chain": [
+        "encirclement"
+      ],
+      "spread": 1.527797576778486,
+      "noise_std": 0.28483869222828057,
+      "n_timesteps": 98,
+      "n_windows": 5,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "encirclement",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 100,
+      "true_chain": [
+        "shield",
+        "column"
+      ],
+      "spread": 0.7179493515661186,
+      "noise_std": 0.9585654829090772,
+      "n_timesteps": 81,
+      "n_windows": 4,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 101,
+      "true_chain": [
+        "converging",
+        "diamond"
+      ],
+      "spread": 0.8464426164249994,
+      "noise_std": 0.29237862046683816,
+      "n_timesteps": 80,
+      "n_windows": 4,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 102,
+      "true_chain": [
+        "column",
+        "shield"
+      ],
+      "spread": 1.0712122566089741,
+      "noise_std": 0.8225901457000856,
+      "n_timesteps": 89,
+      "n_windows": 4,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "column",
+        "encirclement"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dominant_history_contradiction",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 103,
+      "true_chain": [
+        "shield",
+        "converging",
+        "shield",
+        "v_shape"
+      ],
+      "spread": 1.3984735063838853,
+      "noise_std": 0.9094085479670507,
+      "n_timesteps": 231,
+      "n_windows": 19,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "dispersed",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dominant_history_contradiction",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 104,
+      "true_chain": [
+        "encirclement",
+        "dispersed",
+        "column",
+        "converging"
+      ],
+      "spread": 1.471187603088502,
+      "noise_std": 1.2173598105900252,
+      "n_timesteps": 228,
+      "n_windows": 18,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "dispersed",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dominant_history_contradiction",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 105,
+      "true_chain": [
+        "dispersed"
+      ],
+      "spread": 0.8335345779589495,
+      "noise_std": 1.0276409254573775,
+      "n_timesteps": 61,
+      "n_windows": 2,
+      "bucket": "A",
+      "subtype": null,
+      "rules_key": [
+        "dispersed",
+        "dispersed"
+      ],
+      "guard_reasons": []
+    },
+    {
+      "i": 106,
+      "true_chain": [
+        "column"
+      ],
+      "spread": 1.0456000075333407,
+      "noise_std": 0.20841541811420006,
+      "n_timesteps": 86,
+      "n_windows": 4,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 107,
+      "true_chain": [
+        "v_shape",
+        "column",
+        "converging"
+      ],
+      "spread": 0.9802100700771212,
+      "noise_std": 1.2111306770702694,
+      "n_timesteps": 165,
+      "n_windows": 12,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 108,
+      "true_chain": [
+        "column"
+      ],
+      "spread": 0.7010864094056203,
+      "noise_std": 0.9719249684887333,
+      "n_timesteps": 85,
+      "n_windows": 4,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 109,
+      "true_chain": [
+        "converging",
+        "encirclement",
+        "converging"
+      ],
+      "spread": 0.8296310166264138,
+      "noise_std": 0.5548249718751901,
+      "n_timesteps": 178,
+      "n_windows": 13,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 110,
+      "true_chain": [
+        "encirclement",
+        "dispersed"
+      ],
+      "spread": 1.41040068897816,
+      "noise_std": 0.8355214263164134,
+      "n_timesteps": 72,
+      "n_windows": 3,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 111,
+      "true_chain": [
+        "converging"
+      ],
+      "spread": 0.7430950736950689,
+      "noise_std": 0.29013970586188015,
+      "n_timesteps": 94,
+      "n_windows": 5,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "shield",
+        "shield"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 112,
+      "true_chain": [
+        "converging",
+        "diamond",
+        "encirclement",
+        "column"
+      ],
+      "spread": 1.3617872038706276,
+      "noise_std": 0.8279892016344236,
+      "n_timesteps": 244,
+      "n_windows": 20,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 113,
+      "true_chain": [
+        "v_shape",
+        "converging",
+        "encirclement"
+      ],
+      "spread": 0.6303420783030458,
+      "noise_std": 1.1261815685744312,
+      "n_timesteps": 133,
+      "n_windows": 9,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 114,
+      "true_chain": [
+        "shield"
+      ],
+      "spread": 0.9562567772057601,
+      "noise_std": 1.17898256991289,
+      "n_timesteps": 79,
+      "n_windows": 3,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "shield",
+        "shield"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 115,
+      "true_chain": [
+        "column",
+        "diamond",
+        "shield"
+      ],
+      "spread": 0.7156698778343041,
+      "noise_std": 0.15070063563260627,
+      "n_timesteps": 150,
+      "n_windows": 11,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "column",
+        "column"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 116,
+      "true_chain": [
+        "converging",
+        "dispersed",
+        "column"
+      ],
+      "spread": 1.62870547747921,
+      "noise_std": 1.165704774726298,
+      "n_timesteps": 178,
+      "n_windows": 13,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 117,
+      "true_chain": [
+        "converging",
+        "dispersed"
+      ],
+      "spread": 1.6078562290471243,
+      "noise_std": 0.4826590884554619,
+      "n_timesteps": 90,
+      "n_windows": 5,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "dispersed",
+        "dispersed"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 118,
+      "true_chain": [
+        "dispersed",
+        "v_shape"
+      ],
+      "spread": 1.78588618014092,
+      "noise_std": 0.3828175821384422,
+      "n_timesteps": 87,
+      "n_windows": 4,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "dispersed",
+        "v_shape"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dominant_history_contradiction",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 119,
+      "true_chain": [
+        "dispersed",
+        "diamond",
+        "dispersed"
+      ],
+      "spread": 1.3934742153963835,
+      "noise_std": 0.19781159111691704,
+      "n_timesteps": 126,
+      "n_windows": 8,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "diamond",
+        "shield"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 120,
+      "true_chain": [
+        "shield",
+        "dispersed",
+        "diamond"
+      ],
+      "spread": 1.7421756047392076,
+      "noise_std": 1.3444155340481685,
+      "n_timesteps": 188,
+      "n_windows": 14,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 121,
+      "true_chain": [
+        "column"
+      ],
+      "spread": 1.5566152314287556,
+      "noise_std": 0.38536584654428374,
+      "n_timesteps": 74,
+      "n_windows": 3,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "column",
+        "column"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 122,
+      "true_chain": [
+        "encirclement",
+        "diamond",
+        "v_shape"
+      ],
+      "spread": 1.5050797328873173,
+      "noise_std": 0.8418917225544276,
+      "n_timesteps": 145,
+      "n_windows": 10,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 123,
+      "true_chain": [
+        "diamond"
+      ],
+      "spread": 0.7167010548191526,
+      "noise_std": 0.7804675668931548,
+      "n_timesteps": 51,
+      "n_windows": 1,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "diamond",
+        "diamond"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 124,
+      "true_chain": [
+        "encirclement"
+      ],
+      "spread": 0.6426232606646378,
+      "noise_std": 1.0097709121286982,
+      "n_timesteps": 65,
+      "n_windows": 2,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 125,
+      "true_chain": [
+        "diamond",
+        "dispersed",
+        "diamond",
+        "v_shape"
+      ],
+      "spread": 1.0643095425536295,
+      "noise_std": 0.5796290191761606,
+      "n_timesteps": 174,
+      "n_windows": 13,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 126,
+      "true_chain": [
+        "dispersed",
+        "converging",
+        "encirclement",
+        "dispersed"
+      ],
+      "spread": 0.6008573200369253,
+      "noise_std": 0.4309913332600712,
+      "n_timesteps": 234,
+      "n_windows": 19,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 127,
+      "true_chain": [
+        "diamond",
+        "shield",
+        "dispersed",
+        "v_shape"
+      ],
+      "spread": 1.6034639847048076,
+      "noise_std": 0.6699640930826952,
+      "n_timesteps": 263,
+      "n_windows": 22,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 128,
+      "true_chain": [
+        "diamond",
+        "converging"
+      ],
+      "spread": 1.1487462434388713,
+      "noise_std": 0.5579937531782188,
+      "n_timesteps": 91,
+      "n_windows": 5,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "diamond",
+        "dispersed"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 129,
+      "true_chain": [
+        "diamond"
+      ],
+      "spread": 1.5156418567564183,
+      "noise_std": 0.8872319567895286,
+      "n_timesteps": 99,
+      "n_windows": 5,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "diamond",
+        "diamond"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 130,
+      "true_chain": [
+        "dispersed",
+        "v_shape"
+      ],
+      "spread": 1.2263891144550727,
+      "noise_std": 1.3788971748931793,
+      "n_timesteps": 65,
+      "n_windows": 2,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 131,
+      "true_chain": [
+        "converging",
+        "diamond",
+        "v_shape",
+        "dispersed"
+      ],
+      "spread": 0.9871730024362322,
+      "noise_std": 0.616569616049589,
+      "n_timesteps": 177,
+      "n_windows": 13,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 132,
+      "true_chain": [
+        "shield",
+        "dispersed",
+        "column",
+        "shield"
+      ],
+      "spread": 1.533471173581822,
+      "noise_std": 0.729675401467134,
+      "n_timesteps": 217,
+      "n_windows": 17,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 133,
+      "true_chain": [
+        "v_shape"
+      ],
+      "spread": 1.6532439434662303,
+      "noise_std": 0.380548705835022,
+      "n_timesteps": 74,
+      "n_windows": 3,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "v_shape",
+        "v_shape"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 134,
+      "true_chain": [
+        "encirclement",
+        "converging",
+        "v_shape",
+        "shield"
+      ],
+      "spread": 0.8779155541616126,
+      "noise_std": 0.4643829520358892,
+      "n_timesteps": 248,
+      "n_windows": 20,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 135,
+      "true_chain": [
+        "diamond",
+        "dispersed",
+        "shield"
+      ],
+      "spread": 0.9114406388215959,
+      "noise_std": 0.8027401619133838,
+      "n_timesteps": 185,
+      "n_windows": 14,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 136,
+      "true_chain": [
+        "diamond",
+        "dispersed",
+        "converging"
+      ],
+      "spread": 0.6941765056083125,
+      "noise_std": 1.0415418074128657,
+      "n_timesteps": 165,
+      "n_windows": 12,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 137,
+      "true_chain": [
+        "encirclement",
+        "column",
+        "converging",
+        "dispersed"
+      ],
+      "spread": 1.313636701564817,
+      "noise_std": 0.17152031967298156,
+      "n_timesteps": 228,
+      "n_windows": 18,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 138,
+      "true_chain": [
+        "diamond",
+        "shield",
+        "column"
+      ],
+      "spread": 0.7402741871488505,
+      "noise_std": 1.12637091382264,
+      "n_timesteps": 178,
+      "n_windows": 13,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 139,
+      "true_chain": [
+        "encirclement",
+        "dispersed",
+        "encirclement",
+        "shield"
+      ],
+      "spread": 1.142543782854842,
+      "noise_std": 0.4789004138244447,
+      "n_timesteps": 207,
+      "n_windows": 16,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 140,
+      "true_chain": [
+        "column",
+        "encirclement",
+        "column",
+        "v_shape"
+      ],
+      "spread": 0.877478854897233,
+      "noise_std": 0.2597019503116226,
+      "n_timesteps": 264,
+      "n_windows": 22,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 141,
+      "true_chain": [
+        "dispersed",
+        "encirclement",
+        "v_shape",
+        "dispersed"
+      ],
+      "spread": 0.843602799477608,
+      "noise_std": 0.24149765344662677,
+      "n_timesteps": 207,
+      "n_windows": 16,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 142,
+      "true_chain": [
+        "v_shape",
+        "converging"
+      ],
+      "spread": 1.598035108956289,
+      "noise_std": 0.4180295360774383,
+      "n_timesteps": 62,
+      "n_windows": 2,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 143,
+      "true_chain": [
+        "converging",
+        "encirclement"
+      ],
+      "spread": 0.9190344856257593,
+      "noise_std": 0.7039287930896322,
+      "n_timesteps": 50,
+      "n_windows": 1,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "encirclement",
+        "encirclement"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 144,
+      "true_chain": [
+        "dispersed"
+      ],
+      "spread": 0.7132226319412643,
+      "noise_std": 1.2792826433846114,
+      "n_timesteps": 68,
+      "n_windows": 2,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "encirclement",
+        "encirclement"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 145,
+      "true_chain": [
+        "converging"
+      ],
+      "spread": 1.6893217517086048,
+      "noise_std": 1.2468125040864926,
+      "n_timesteps": 52,
+      "n_windows": 1,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 146,
+      "true_chain": [
+        "dispersed"
+      ],
+      "spread": 0.8990654742306593,
+      "noise_std": 0.213751547516199,
+      "n_timesteps": 68,
+      "n_windows": 2,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "dispersed",
+        "dispersed"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 147,
+      "true_chain": [
+        "v_shape",
+        "diamond",
+        "v_shape",
+        "shield"
+      ],
+      "spread": 1.7322451633423812,
+      "noise_std": 0.3862999011469298,
+      "n_timesteps": 209,
+      "n_windows": 16,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 148,
+      "true_chain": [
+        "encirclement"
+      ],
+      "spread": 1.3939544192995181,
+      "noise_std": 0.4014394124476771,
+      "n_timesteps": 61,
+      "n_windows": 2,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "encirclement",
+        "encirclement"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 149,
+      "true_chain": [
+        "column",
+        "v_shape",
+        "encirclement",
+        "diamond"
+      ],
+      "spread": 1.5371138879333923,
+      "noise_std": 1.2337897855207334,
+      "n_timesteps": 258,
+      "n_windows": 21,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 150,
+      "true_chain": [
+        "shield",
+        "dispersed",
+        "v_shape",
+        "converging"
+      ],
+      "spread": 1.5093696241882746,
+      "noise_std": 0.7899860154797683,
+      "n_timesteps": 212,
+      "n_windows": 17,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 151,
+      "true_chain": [
+        "dispersed",
+        "v_shape",
+        "encirclement"
+      ],
+      "spread": 1.230857500030948,
+      "noise_std": 1.0017463453619544,
+      "n_timesteps": 130,
+      "n_windows": 9,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 152,
+      "true_chain": [
+        "encirclement",
+        "diamond",
+        "encirclement"
+      ],
+      "spread": 0.8590952770460298,
+      "noise_std": 0.17179556810474075,
+      "n_timesteps": 149,
+      "n_windows": 10,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 153,
+      "true_chain": [
+        "diamond",
+        "encirclement",
+        "dispersed",
+        "column"
+      ],
+      "spread": 1.7792172414579461,
+      "noise_std": 0.5895882432094728,
+      "n_timesteps": 244,
+      "n_windows": 20,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 154,
+      "true_chain": [
+        "v_shape",
+        "column"
+      ],
+      "spread": 0.6033363895986159,
+      "noise_std": 1.1091415791448656,
+      "n_timesteps": 94,
+      "n_windows": 5,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 155,
+      "true_chain": [
+        "column",
+        "shield"
+      ],
+      "spread": 1.1441083423038698,
+      "noise_std": 1.1092928499763737,
+      "n_timesteps": 91,
+      "n_windows": 5,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 156,
+      "true_chain": [
+        "shield",
+        "column"
+      ],
+      "spread": 1.1510783486745064,
+      "noise_std": 0.6182852573598427,
+      "n_timesteps": 81,
+      "n_windows": 4,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 157,
+      "true_chain": [
+        "encirclement"
+      ],
+      "spread": 1.513562821326944,
+      "noise_std": 1.2947529203807415,
+      "n_timesteps": 50,
+      "n_windows": 1,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "encirclement",
+        "encirclement"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 158,
+      "true_chain": [
+        "diamond",
+        "converging",
+        "diamond",
+        "encirclement"
+      ],
+      "spread": 1.3039462262010715,
+      "noise_std": 0.7790362715866889,
+      "n_timesteps": 198,
+      "n_windows": 15,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 159,
+      "true_chain": [
+        "converging"
+      ],
+      "spread": 1.7946196490373092,
+      "noise_std": 0.19162700306306318,
+      "n_timesteps": 54,
+      "n_windows": 1,
+      "bucket": "A",
+      "subtype": null,
+      "rules_key": [
+        "dispersed",
+        "dispersed"
+      ],
+      "guard_reasons": []
+    },
+    {
+      "i": 160,
+      "true_chain": [
+        "shield",
+        "diamond",
+        "dispersed"
+      ],
+      "spread": 1.0379368793857142,
+      "noise_std": 0.21682693094574254,
+      "n_timesteps": 116,
+      "n_windows": 7,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 161,
+      "true_chain": [
+        "dispersed",
+        "converging",
+        "column",
+        "dispersed"
+      ],
+      "spread": 0.7415042616751661,
+      "noise_std": 0.19937687529374595,
+      "n_timesteps": 215,
+      "n_windows": 17,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "encirclement",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 162,
+      "true_chain": [
+        "v_shape",
+        "converging"
+      ],
+      "spread": 1.6617452101498635,
+      "noise_std": 1.142486973836535,
+      "n_timesteps": 97,
+      "n_windows": 5,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "v_shape",
+        "dispersed"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 163,
+      "true_chain": [
+        "dispersed",
+        "diamond",
+        "v_shape"
+      ],
+      "spread": 0.8919375315861904,
+      "noise_std": 0.7547229675153823,
+      "n_timesteps": 151,
+      "n_windows": 11,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 164,
+      "true_chain": [
+        "v_shape",
+        "column",
+        "encirclement",
+        "dispersed"
+      ],
+      "spread": 1.7191966436101005,
+      "noise_std": 1.1830008067372322,
+      "n_timesteps": 205,
+      "n_windows": 16,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "column",
+        "dispersed"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dominant_history_contradiction",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 165,
+      "true_chain": [
+        "encirclement",
+        "dispersed"
+      ],
+      "spread": 1.18045106636664,
+      "noise_std": 1.10743159458971,
+      "n_timesteps": 63,
+      "n_windows": 2,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 166,
+      "true_chain": [
+        "shield"
+      ],
+      "spread": 1.6177849802899291,
+      "noise_std": 0.5873257858100709,
+      "n_timesteps": 98,
+      "n_windows": 5,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "shield",
+        "dispersed"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 167,
+      "true_chain": [
+        "encirclement"
+      ],
+      "spread": 0.723830843250487,
+      "noise_std": 0.5359359510438869,
+      "n_timesteps": 70,
+      "n_windows": 3,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 168,
+      "true_chain": [
+        "column",
+        "encirclement",
+        "diamond"
+      ],
+      "spread": 0.8891935050124744,
+      "noise_std": 1.3247896304216342,
+      "n_timesteps": 119,
+      "n_windows": 7,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "column",
+        "v_shape"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 169,
+      "true_chain": [
+        "encirclement",
+        "converging",
+        "diamond",
+        "dispersed"
+      ],
+      "spread": 0.857328367788631,
+      "noise_std": 0.5315345778492396,
+      "n_timesteps": 216,
+      "n_windows": 17,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 170,
+      "true_chain": [
+        "converging"
+      ],
+      "spread": 0.834987227736113,
+      "noise_std": 1.0906100202661932,
+      "n_timesteps": 61,
+      "n_windows": 2,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 171,
+      "true_chain": [
+        "shield",
+        "dispersed"
+      ],
+      "spread": 1.4828135591774032,
+      "noise_std": 1.11367925785599,
+      "n_timesteps": 87,
+      "n_windows": 4,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "shield",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dominant_history_contradiction",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 172,
+      "true_chain": [
+        "shield",
+        "dispersed",
+        "converging",
+        "v_shape"
+      ],
+      "spread": 0.8364153239585743,
+      "noise_std": 0.8474520183224947,
+      "n_timesteps": 178,
+      "n_windows": 13,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 173,
+      "true_chain": [
+        "column"
+      ],
+      "spread": 1.5575425903006002,
+      "noise_std": 1.110609793367233,
+      "n_timesteps": 98,
+      "n_windows": 5,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "column",
+        "column"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 174,
+      "true_chain": [
+        "dispersed",
+        "v_shape",
+        "diamond"
+      ],
+      "spread": 1.1008108136185955,
+      "noise_std": 0.7113280452699736,
+      "n_timesteps": 174,
+      "n_windows": 13,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 175,
+      "true_chain": [
+        "shield"
+      ],
+      "spread": 1.3038436723715177,
+      "noise_std": 0.1881856151874342,
+      "n_timesteps": 54,
+      "n_windows": 1,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "shield",
+        "shield"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 176,
+      "true_chain": [
+        "diamond",
+        "column"
+      ],
+      "spread": 0.8196287182382049,
+      "noise_std": 0.9760526502596176,
+      "n_timesteps": 66,
+      "n_windows": 2,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 177,
+      "true_chain": [
+        "column",
+        "shield",
+        "encirclement"
+      ],
+      "spread": 1.6607095231160276,
+      "noise_std": 0.7352792941096419,
+      "n_timesteps": 145,
+      "n_windows": 10,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 178,
+      "true_chain": [
+        "shield",
+        "encirclement",
+        "converging",
+        "dispersed"
+      ],
+      "spread": 0.6063800082379687,
+      "noise_std": 0.7338440461673447,
+      "n_timesteps": 251,
+      "n_windows": 21,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 179,
+      "true_chain": [
+        "dispersed",
+        "column",
+        "dispersed"
+      ],
+      "spread": 0.8770111689196727,
+      "noise_std": 1.048431907535676,
+      "n_timesteps": 165,
+      "n_windows": 12,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 180,
+      "true_chain": [
+        "v_shape"
+      ],
+      "spread": 1.7080412319491054,
+      "noise_std": 0.9938294843956604,
+      "n_timesteps": 99,
+      "n_windows": 5,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 181,
+      "true_chain": [
+        "converging"
+      ],
+      "spread": 0.9423485673821022,
+      "noise_std": 1.1963705852241908,
+      "n_timesteps": 87,
+      "n_windows": 4,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "dispersed",
+        "dispersed"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 182,
+      "true_chain": [
+        "encirclement"
+      ],
+      "spread": 1.3506166512551396,
+      "noise_std": 0.9250320405093805,
+      "n_timesteps": 74,
+      "n_windows": 3,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 183,
+      "true_chain": [
+        "encirclement",
+        "shield",
+        "dispersed",
+        "v_shape"
+      ],
+      "spread": 1.5559925359177487,
+      "noise_std": 0.6839109358433285,
+      "n_timesteps": 286,
+      "n_windows": 24,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 184,
+      "true_chain": [
+        "encirclement",
+        "shield",
+        "dispersed"
+      ],
+      "spread": 1.781642298683951,
+      "noise_std": 0.56196670427401,
+      "n_timesteps": 156,
+      "n_windows": 11,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "encirclement",
+        "shield"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 185,
+      "true_chain": [
+        "dispersed",
+        "column",
+        "shield"
+      ],
+      "spread": 1.7711115356622185,
+      "noise_std": 0.645821571544517,
+      "n_timesteps": 169,
+      "n_windows": 12,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 186,
+      "true_chain": [
+        "v_shape"
+      ],
+      "spread": 1.040086263870577,
+      "noise_std": 1.133096118373177,
+      "n_timesteps": 66,
+      "n_windows": 2,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "v_shape",
+        "encirclement"
+      ],
+      "guard_reasons": [
+        "dominant_history_contradiction",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 187,
+      "true_chain": [
+        "v_shape",
+        "shield",
+        "v_shape",
+        "converging"
+      ],
+      "spread": 1.4333909789860528,
+      "noise_std": 0.3878065291378303,
+      "n_timesteps": 183,
+      "n_windows": 14,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 188,
+      "true_chain": [
+        "v_shape",
+        "diamond",
+        "v_shape"
+      ],
+      "spread": 1.329722119901138,
+      "noise_std": 0.7003784310618049,
+      "n_timesteps": 142,
+      "n_windows": 10,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 189,
+      "true_chain": [
+        "encirclement",
+        "dispersed"
+      ],
+      "spread": 0.6991709802153395,
+      "noise_std": 0.5989808862876789,
+      "n_timesteps": 62,
+      "n_windows": 2,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 190,
+      "true_chain": [
+        "dispersed"
+      ],
+      "spread": 0.9028409503027113,
+      "noise_std": 1.2556196424778339,
+      "n_timesteps": 61,
+      "n_windows": 2,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "encirclement",
+        "encirclement"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 191,
+      "true_chain": [
+        "v_shape",
+        "diamond"
+      ],
+      "spread": 1.7964899137756456,
+      "noise_std": 0.6056674303486137,
+      "n_timesteps": 68,
+      "n_windows": 2,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 192,
+      "true_chain": [
+        "diamond",
+        "encirclement",
+        "diamond"
+      ],
+      "spread": 0.9212762734916897,
+      "noise_std": 0.41445834149008043,
+      "n_timesteps": 174,
+      "n_windows": 13,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 193,
+      "true_chain": [
+        "diamond"
+      ],
+      "spread": 0.9182230915081153,
+      "noise_std": 0.3820592996230078,
+      "n_timesteps": 95,
+      "n_windows": 5,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 194,
+      "true_chain": [
+        "v_shape",
+        "encirclement",
+        "diamond",
+        "encirclement"
+      ],
+      "spread": 1.1562251216607193,
+      "noise_std": 1.3058488075096568,
+      "n_timesteps": 205,
+      "n_windows": 16,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "v_shape",
+        "column"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 195,
+      "true_chain": [
+        "v_shape",
+        "converging",
+        "encirclement"
+      ],
+      "spread": 0.8338547816045034,
+      "noise_std": 0.47547228220180016,
+      "n_timesteps": 150,
+      "n_windows": 11,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 196,
+      "true_chain": [
+        "shield",
+        "encirclement",
+        "column"
+      ],
+      "spread": 0.7215535455387341,
+      "noise_std": 0.5412368118631992,
+      "n_timesteps": 159,
+      "n_windows": 11,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 197,
+      "true_chain": [
+        "shield",
+        "v_shape",
+        "column",
+        "dispersed"
+      ],
+      "spread": 1.7005659307666674,
+      "noise_std": 1.336890759292075,
+      "n_timesteps": 190,
+      "n_windows": 15,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "v_shape",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 198,
+      "true_chain": [
+        "diamond",
+        "encirclement",
+        "diamond",
+        "converging"
+      ],
+      "spread": 1.1444971655850082,
+      "noise_std": 1.2886233917677608,
+      "n_timesteps": 183,
+      "n_windows": 14,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 199,
+      "true_chain": [
+        "diamond",
+        "v_shape"
+      ],
+      "spread": 1.6166795583579439,
+      "noise_std": 0.3838212400526526,
+      "n_timesteps": 99,
+      "n_windows": 5,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "diamond",
+        "v_shape"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 200,
+      "true_chain": [
+        "converging",
+        "encirclement",
+        "diamond"
+      ],
+      "spread": 1.1784390115246697,
+      "noise_std": 0.3391180092981269,
+      "n_timesteps": 169,
+      "n_windows": 12,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 201,
+      "true_chain": [
+        "converging",
+        "encirclement"
+      ],
+      "spread": 0.6713230009768817,
+      "noise_std": 0.9956431607404208,
+      "n_timesteps": 85,
+      "n_windows": 4,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 202,
+      "true_chain": [
+        "column",
+        "v_shape"
+      ],
+      "spread": 1.282850311106567,
+      "noise_std": 0.8636366178334197,
+      "n_timesteps": 100,
+      "n_windows": 6,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 203,
+      "true_chain": [
+        "column",
+        "dispersed",
+        "shield"
+      ],
+      "spread": 1.5498088439688624,
+      "noise_std": 1.324101929865987,
+      "n_timesteps": 178,
+      "n_windows": 13,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "column",
+        "column"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 204,
+      "true_chain": [
+        "encirclement",
+        "shield",
+        "diamond",
+        "encirclement"
+      ],
+      "spread": 0.8447873493983505,
+      "noise_std": 0.25467745404264674,
+      "n_timesteps": 293,
+      "n_windows": 25,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 205,
+      "true_chain": [
+        "column",
+        "shield",
+        "converging"
+      ],
+      "spread": 1.6617315284411123,
+      "noise_std": 0.2924569633214348,
+      "n_timesteps": 158,
+      "n_windows": 11,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "column",
+        "dispersed"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 206,
+      "true_chain": [
+        "shield"
+      ],
+      "spread": 1.5452899934513757,
+      "noise_std": 1.25548966028893,
+      "n_timesteps": 100,
+      "n_windows": 6,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "shield",
+        "dispersed"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 207,
+      "true_chain": [
+        "v_shape",
+        "shield",
+        "encirclement",
+        "dispersed"
+      ],
+      "spread": 1.0171156625283866,
+      "noise_std": 0.1589138965941378,
+      "n_timesteps": 225,
+      "n_windows": 18,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 208,
+      "true_chain": [
+        "v_shape",
+        "dispersed"
+      ],
+      "spread": 1.2253173961824626,
+      "noise_std": 0.42024704693434867,
+      "n_timesteps": 63,
+      "n_windows": 2,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "v_shape",
+        "v_shape"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 209,
+      "true_chain": [
+        "dispersed",
+        "column"
+      ],
+      "spread": 0.9293733013745333,
+      "noise_std": 0.7030747315128375,
+      "n_timesteps": 57,
+      "n_windows": 1,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 210,
+      "true_chain": [
+        "converging",
+        "dispersed"
+      ],
+      "spread": 1.349234600679234,
+      "noise_std": 0.451279749421699,
+      "n_timesteps": 62,
+      "n_windows": 2,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 211,
+      "true_chain": [
+        "encirclement"
+      ],
+      "spread": 1.201988737592531,
+      "noise_std": 0.4120872819486119,
+      "n_timesteps": 58,
+      "n_windows": 1,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "encirclement",
+        "encirclement"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity",
+        "low_confidence"
+      ]
+    },
+    {
+      "i": 212,
+      "true_chain": [
+        "converging",
+        "shield",
+        "converging"
+      ],
+      "spread": 1.730884689083311,
+      "noise_std": 0.30180082943875364,
+      "n_timesteps": 167,
+      "n_windows": 12,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 213,
+      "true_chain": [
+        "encirclement",
+        "diamond"
+      ],
+      "spread": 1.5779555193873591,
+      "noise_std": 0.33602000174846147,
+      "n_timesteps": 80,
+      "n_windows": 4,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 214,
+      "true_chain": [
+        "column",
+        "v_shape"
+      ],
+      "spread": 1.2320459111420239,
+      "noise_std": 0.47751402880624194,
+      "n_timesteps": 84,
+      "n_windows": 4,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "column",
+        "encirclement"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 215,
+      "true_chain": [
+        "encirclement",
+        "shield"
+      ],
+      "spread": 0.7420112831156669,
+      "noise_std": 0.7020414595295464,
+      "n_timesteps": 70,
+      "n_windows": 3,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "v_shape",
+        "v_shape"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 216,
+      "true_chain": [
+        "encirclement",
+        "v_shape"
+      ],
+      "spread": 0.7534133815952229,
+      "noise_std": 1.1318713745831817,
+      "n_timesteps": 93,
+      "n_windows": 5,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 217,
+      "true_chain": [
+        "v_shape",
+        "diamond",
+        "encirclement",
+        "dispersed"
+      ],
+      "spread": 1.2967811296978027,
+      "noise_std": 0.9071629052473829,
+      "n_timesteps": 225,
+      "n_windows": 18,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 218,
+      "true_chain": [
+        "column",
+        "diamond"
+      ],
+      "spread": 1.4828227038815425,
+      "noise_std": 0.3676033763329492,
+      "n_timesteps": 50,
+      "n_windows": 1,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 219,
+      "true_chain": [
+        "dispersed",
+        "diamond",
+        "shield",
+        "dispersed"
+      ],
+      "spread": 0.9368740400045654,
+      "noise_std": 0.7543719876435525,
+      "n_timesteps": 261,
+      "n_windows": 22,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 220,
+      "true_chain": [
+        "converging",
+        "shield",
+        "column"
+      ],
+      "spread": 0.8939808695661636,
+      "noise_std": 1.3588015319010815,
+      "n_timesteps": 197,
+      "n_windows": 15,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 221,
+      "true_chain": [
+        "dispersed",
+        "diamond"
+      ],
+      "spread": 1.5509465003442948,
+      "noise_std": 0.21184678673085655,
+      "n_timesteps": 95,
+      "n_windows": 5,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "dispersed",
+        "dispersed"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 222,
+      "true_chain": [
+        "dispersed"
+      ],
+      "spread": 0.9076162578953255,
+      "noise_std": 0.8445611261113343,
+      "n_timesteps": 62,
+      "n_windows": 2,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "encirclement",
+        "encirclement"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 223,
+      "true_chain": [
+        "shield",
+        "dispersed",
+        "encirclement",
+        "converging"
+      ],
+      "spread": 1.7757761710829914,
+      "noise_std": 1.3040588959617534,
+      "n_timesteps": 212,
+      "n_windows": 17,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 224,
+      "true_chain": [
+        "shield"
+      ],
+      "spread": 0.72778281276553,
+      "noise_std": 1.3528539935692323,
+      "n_timesteps": 75,
+      "n_windows": 3,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 225,
+      "true_chain": [
+        "column",
+        "shield",
+        "dispersed",
+        "encirclement"
+      ],
+      "spread": 1.1976334675957983,
+      "noise_std": 0.9338731531845413,
+      "n_timesteps": 284,
+      "n_windows": 24,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 226,
+      "true_chain": [
+        "dispersed",
+        "column",
+        "dispersed",
+        "converging"
+      ],
+      "spread": 1.2393706554000004,
+      "noise_std": 0.2885676228995603,
+      "n_timesteps": 261,
+      "n_windows": 22,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 227,
+      "true_chain": [
+        "shield",
+        "converging"
+      ],
+      "spread": 1.0034385202335252,
+      "noise_std": 1.2208209831344297,
+      "n_timesteps": 53,
+      "n_windows": 1,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 228,
+      "true_chain": [
+        "v_shape"
+      ],
+      "spread": 1.7799992054656437,
+      "noise_std": 0.6603781242643457,
+      "n_timesteps": 66,
+      "n_windows": 2,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "v_shape",
+        "dispersed"
+      ],
+      "guard_reasons": [
+        "dominant_history_contradiction",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 229,
+      "true_chain": [
+        "dispersed",
+        "column",
+        "dispersed",
+        "column"
+      ],
+      "spread": 1.6384987540058682,
+      "noise_std": 0.26231758709904796,
+      "n_timesteps": 181,
+      "n_windows": 14,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 230,
+      "true_chain": [
+        "dispersed",
+        "encirclement",
+        "dispersed",
+        "shield"
+      ],
+      "spread": 0.8177363478764246,
+      "noise_std": 1.2666616756718243,
+      "n_timesteps": 228,
+      "n_windows": 18,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "converging",
+        "shield"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 231,
+      "true_chain": [
+        "diamond"
+      ],
+      "spread": 1.7031225431351245,
+      "noise_std": 1.3337986197378446,
+      "n_timesteps": 57,
+      "n_windows": 1,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "diamond",
+        "diamond"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 232,
+      "true_chain": [
+        "v_shape",
+        "encirclement",
+        "diamond"
+      ],
+      "spread": 1.3567540874461828,
+      "noise_std": 0.41300425336252433,
+      "n_timesteps": 150,
+      "n_windows": 11,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 233,
+      "true_chain": [
+        "column",
+        "encirclement"
+      ],
+      "spread": 1.2662256630886943,
+      "noise_std": 0.1551428575990313,
+      "n_timesteps": 89,
+      "n_windows": 4,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 234,
+      "true_chain": [
+        "v_shape",
+        "column",
+        "v_shape"
+      ],
+      "spread": 1.2805315352237776,
+      "noise_std": 1.1688479838777472,
+      "n_timesteps": 155,
+      "n_windows": 11,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 235,
+      "true_chain": [
+        "diamond",
+        "converging",
+        "encirclement",
+        "shield"
+      ],
+      "spread": 1.01545136706315,
+      "noise_std": 1.0301027739429884,
+      "n_timesteps": 218,
+      "n_windows": 17,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 236,
+      "true_chain": [
+        "shield",
+        "v_shape"
+      ],
+      "spread": 0.9349332178604894,
+      "noise_std": 0.8767132208199747,
+      "n_timesteps": 77,
+      "n_windows": 3,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 237,
+      "true_chain": [
+        "encirclement",
+        "v_shape"
+      ],
+      "spread": 0.8690107669053477,
+      "noise_std": 0.2504515274682137,
+      "n_timesteps": 98,
+      "n_windows": 5,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "v_shape",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 238,
+      "true_chain": [
+        "diamond",
+        "converging"
+      ],
+      "spread": 1.0649827596949346,
+      "noise_std": 1.3243112256977874,
+      "n_timesteps": 55,
+      "n_windows": 1,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 239,
+      "true_chain": [
+        "column",
+        "diamond",
+        "encirclement",
+        "converging"
+      ],
+      "spread": 1.5222040526497613,
+      "noise_std": 0.9125728953083981,
+      "n_timesteps": 259,
+      "n_windows": 21,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 240,
+      "true_chain": [
+        "column",
+        "shield"
+      ],
+      "spread": 0.9811091411252619,
+      "noise_std": 0.5967548285478146,
+      "n_timesteps": 56,
+      "n_windows": 1,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 241,
+      "true_chain": [
+        "dispersed"
+      ],
+      "spread": 1.4385915532260642,
+      "noise_std": 1.2683945308051303,
+      "n_timesteps": 54,
+      "n_windows": 1,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 242,
+      "true_chain": [
+        "dispersed",
+        "converging",
+        "column",
+        "converging"
+      ],
+      "spread": 1.1690721019206083,
+      "noise_std": 1.0674010617788054,
+      "n_timesteps": 234,
+      "n_windows": 19,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "shield",
+        "dispersed"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 243,
+      "true_chain": [
+        "shield",
+        "converging",
+        "column",
+        "converging"
+      ],
+      "spread": 1.5349385415595185,
+      "noise_std": 0.9530521295293009,
+      "n_timesteps": 219,
+      "n_windows": 17,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 244,
+      "true_chain": [
+        "converging",
+        "dispersed",
+        "encirclement"
+      ],
+      "spread": 1.4056356203718994,
+      "noise_std": 0.41942631493964466,
+      "n_timesteps": 143,
+      "n_windows": 10,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "dispersed",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 245,
+      "true_chain": [
+        "converging"
+      ],
+      "spread": 0.8730838832025047,
+      "noise_std": 1.0536992016275286,
+      "n_timesteps": 71,
+      "n_windows": 3,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "v_shape",
+        "dispersed"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dominant_history_contradiction",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 246,
+      "true_chain": [
+        "shield",
+        "v_shape"
+      ],
+      "spread": 1.3184492378217727,
+      "noise_std": 0.4386092028847395,
+      "n_timesteps": 74,
+      "n_windows": 3,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 247,
+      "true_chain": [
+        "v_shape",
+        "column",
+        "dispersed"
+      ],
+      "spread": 0.6697798703798254,
+      "noise_std": 0.6190773833350969,
+      "n_timesteps": 158,
+      "n_windows": 11,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "column",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 248,
+      "true_chain": [
+        "dispersed",
+        "diamond",
+        "shield"
+      ],
+      "spread": 0.9928963983839867,
+      "noise_std": 1.0450003327608903,
+      "n_timesteps": 185,
+      "n_windows": 14,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 249,
+      "true_chain": [
+        "dispersed",
+        "encirclement",
+        "column",
+        "dispersed"
+      ],
+      "spread": 1.692337033753685,
+      "noise_std": 0.3111569200484096,
+      "n_timesteps": 202,
+      "n_windows": 16,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 250,
+      "true_chain": [
+        "diamond"
+      ],
+      "spread": 0.6337779752376992,
+      "noise_std": 0.97085426562867,
+      "n_timesteps": 94,
+      "n_windows": 5,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 251,
+      "true_chain": [
+        "diamond",
+        "v_shape",
+        "diamond",
+        "column"
+      ],
+      "spread": 1.2251424057968832,
+      "noise_std": 1.3964571966265382,
+      "n_timesteps": 222,
+      "n_windows": 18,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 252,
+      "true_chain": [
+        "diamond",
+        "encirclement",
+        "shield",
+        "column"
+      ],
+      "spread": 1.6247261785974856,
+      "noise_std": 1.0882988046398103,
+      "n_timesteps": 250,
+      "n_windows": 21,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 253,
+      "true_chain": [
+        "encirclement"
+      ],
+      "spread": 1.645639078925726,
+      "noise_std": 0.5530900342862592,
+      "n_timesteps": 63,
+      "n_windows": 2,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "encirclement",
+        "encirclement"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 254,
+      "true_chain": [
+        "column",
+        "v_shape"
+      ],
+      "spread": 1.5653697525901968,
+      "noise_std": 0.15353829596089552,
+      "n_timesteps": 90,
+      "n_windows": 5,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 255,
+      "true_chain": [
+        "diamond"
+      ],
+      "spread": 0.6631516520403613,
+      "noise_std": 0.6704167212906176,
+      "n_timesteps": 70,
+      "n_windows": 3,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "diamond",
+        "dispersed"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 256,
+      "true_chain": [
+        "diamond",
+        "column",
+        "diamond",
+        "column"
+      ],
+      "spread": 1.1536623665443217,
+      "noise_std": 1.0539138815799545,
+      "n_timesteps": 243,
+      "n_windows": 20,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "diamond",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 257,
+      "true_chain": [
+        "v_shape",
+        "diamond",
+        "v_shape",
+        "encirclement"
+      ],
+      "spread": 0.9922908306946792,
+      "noise_std": 1.3997602666587952,
+      "n_timesteps": 228,
+      "n_windows": 18,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 258,
+      "true_chain": [
+        "converging",
+        "v_shape",
+        "diamond"
+      ],
+      "spread": 0.7384263655450618,
+      "noise_std": 1.0210935088255855,
+      "n_timesteps": 131,
+      "n_windows": 9,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 259,
+      "true_chain": [
+        "column",
+        "encirclement",
+        "shield",
+        "v_shape"
+      ],
+      "spread": 1.1169512656645288,
+      "noise_std": 1.0043152427171373,
+      "n_timesteps": 242,
+      "n_windows": 20,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "column",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 260,
+      "true_chain": [
+        "shield",
+        "encirclement"
+      ],
+      "spread": 0.8593431702813952,
+      "noise_std": 0.475050186193006,
+      "n_timesteps": 72,
+      "n_windows": 3,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 261,
+      "true_chain": [
+        "shield",
+        "dispersed"
+      ],
+      "spread": 0.60644287485769,
+      "noise_std": 0.40723424357713855,
+      "n_timesteps": 55,
+      "n_windows": 1,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 262,
+      "true_chain": [
+        "column"
+      ],
+      "spread": 0.9546992646279984,
+      "noise_std": 0.4806198094044728,
+      "n_timesteps": 59,
+      "n_windows": 1,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 263,
+      "true_chain": [
+        "column"
+      ],
+      "spread": 1.207608939055401,
+      "noise_std": 1.0053665789045756,
+      "n_timesteps": 84,
+      "n_windows": 4,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 264,
+      "true_chain": [
+        "v_shape",
+        "encirclement"
+      ],
+      "spread": 1.7169533672501602,
+      "noise_std": 1.0479236154418943,
+      "n_timesteps": 61,
+      "n_windows": 2,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "v_shape",
+        "v_shape"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 265,
+      "true_chain": [
+        "v_shape",
+        "encirclement"
+      ],
+      "spread": 1.783163490513477,
+      "noise_std": 0.7076587338893531,
+      "n_timesteps": 89,
+      "n_windows": 4,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 266,
+      "true_chain": [
+        "encirclement",
+        "dispersed"
+      ],
+      "spread": 1.1215204987826946,
+      "noise_std": 0.9307559903361756,
+      "n_timesteps": 74,
+      "n_windows": 3,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "dispersed",
+        "dispersed"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 267,
+      "true_chain": [
+        "converging"
+      ],
+      "spread": 1.2229290442841512,
+      "noise_std": 1.3720335170474387,
+      "n_timesteps": 59,
+      "n_windows": 1,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 268,
+      "true_chain": [
+        "diamond",
+        "encirclement",
+        "converging",
+        "encirclement"
+      ],
+      "spread": 1.736687063172301,
+      "noise_std": 1.3624854618837043,
+      "n_timesteps": 219,
+      "n_windows": 17,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 269,
+      "true_chain": [
+        "shield"
+      ],
+      "spread": 1.4738375938770665,
+      "noise_std": 0.4614936673851834,
+      "n_timesteps": 62,
+      "n_windows": 2,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "shield",
+        "shield"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 270,
+      "true_chain": [
+        "encirclement",
+        "column"
+      ],
+      "spread": 1.3181037242533042,
+      "noise_std": 0.15282993137595444,
+      "n_timesteps": 90,
+      "n_windows": 5,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "encirclement",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dominant_history_contradiction",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 271,
+      "true_chain": [
+        "diamond"
+      ],
+      "spread": 1.280651502449467,
+      "noise_std": 0.8230113567217039,
+      "n_timesteps": 53,
+      "n_windows": 1,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "diamond",
+        "diamond"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 272,
+      "true_chain": [
+        "converging",
+        "column",
+        "v_shape",
+        "diamond"
+      ],
+      "spread": 1.3547466656936473,
+      "noise_std": 1.1795037521553904,
+      "n_timesteps": 244,
+      "n_windows": 20,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 273,
+      "true_chain": [
+        "diamond",
+        "v_shape",
+        "dispersed"
+      ],
+      "spread": 0.9430513255245561,
+      "noise_std": 1.3624515994794297,
+      "n_timesteps": 109,
+      "n_windows": 6,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 274,
+      "true_chain": [
+        "encirclement"
+      ],
+      "spread": 1.6913642061855572,
+      "noise_std": 0.7020683959566739,
+      "n_timesteps": 91,
+      "n_windows": 5,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "encirclement",
+        "encirclement"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 275,
+      "true_chain": [
+        "column"
+      ],
+      "spread": 1.1103660352744242,
+      "noise_std": 0.6307690599979635,
+      "n_timesteps": 94,
+      "n_windows": 5,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 276,
+      "true_chain": [
+        "shield",
+        "converging",
+        "dispersed",
+        "v_shape"
+      ],
+      "spread": 0.6190186326391484,
+      "noise_std": 0.2134351985075919,
+      "n_timesteps": 223,
+      "n_windows": 18,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 277,
+      "true_chain": [
+        "dispersed",
+        "shield",
+        "column",
+        "encirclement"
+      ],
+      "spread": 1.2320118486352756,
+      "noise_std": 0.21834504355855197,
+      "n_timesteps": 204,
+      "n_windows": 16,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "dispersed",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 278,
+      "true_chain": [
+        "column",
+        "diamond",
+        "converging"
+      ],
+      "spread": 1.0505527174628881,
+      "noise_std": 0.7161632326874883,
+      "n_timesteps": 149,
+      "n_windows": 10,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "column",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 279,
+      "true_chain": [
+        "column",
+        "shield"
+      ],
+      "spread": 1.683097533950618,
+      "noise_std": 0.7094875740363975,
+      "n_timesteps": 51,
+      "n_windows": 1,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 280,
+      "true_chain": [
+        "v_shape",
+        "shield",
+        "encirclement"
+      ],
+      "spread": 0.715519353246907,
+      "noise_std": 0.4764479871874684,
+      "n_timesteps": 163,
+      "n_windows": 12,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "v_shape",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 281,
+      "true_chain": [
+        "v_shape",
+        "shield"
+      ],
+      "spread": 0.8096124619774127,
+      "noise_std": 0.1860162046422073,
+      "n_timesteps": 57,
+      "n_windows": 1,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 282,
+      "true_chain": [
+        "v_shape",
+        "diamond"
+      ],
+      "spread": 0.6789965150411714,
+      "noise_std": 0.6802357604850795,
+      "n_timesteps": 87,
+      "n_windows": 4,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 283,
+      "true_chain": [
+        "v_shape",
+        "column",
+        "converging"
+      ],
+      "spread": 1.5818316877430578,
+      "noise_std": 0.42056899699517813,
+      "n_timesteps": 157,
+      "n_windows": 11,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 284,
+      "true_chain": [
+        "shield",
+        "v_shape"
+      ],
+      "spread": 1.3058658158833731,
+      "noise_std": 1.1390381384332822,
+      "n_timesteps": 53,
+      "n_windows": 1,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 285,
+      "true_chain": [
+        "dispersed",
+        "diamond"
+      ],
+      "spread": 0.6310868844458494,
+      "noise_std": 0.7834857434251933,
+      "n_timesteps": 63,
+      "n_windows": 2,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 286,
+      "true_chain": [
+        "encirclement",
+        "column"
+      ],
+      "spread": 1.5861214058445041,
+      "noise_std": 0.5105778666286497,
+      "n_timesteps": 99,
+      "n_windows": 5,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "encirclement",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 287,
+      "true_chain": [
+        "shield",
+        "diamond"
+      ],
+      "spread": 0.8950121811242852,
+      "noise_std": 0.2403515608839256,
+      "n_timesteps": 69,
+      "n_windows": 2,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 288,
+      "true_chain": [
+        "dispersed",
+        "shield",
+        "column"
+      ],
+      "spread": 1.1184429423281925,
+      "noise_std": 1.051206074794549,
+      "n_timesteps": 189,
+      "n_windows": 14,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 289,
+      "true_chain": [
+        "column",
+        "converging",
+        "encirclement",
+        "converging"
+      ],
+      "spread": 0.7405066247398988,
+      "noise_std": 0.6244384203073081,
+      "n_timesteps": 231,
+      "n_windows": 19,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 290,
+      "true_chain": [
+        "converging",
+        "diamond"
+      ],
+      "spread": 1.5889882694200759,
+      "noise_std": 1.0996353472011127,
+      "n_timesteps": 83,
+      "n_windows": 4,
+      "bucket": "A",
+      "subtype": null,
+      "rules_key": [
+        "dispersed",
+        "dispersed"
+      ],
+      "guard_reasons": []
+    },
+    {
+      "i": 291,
+      "true_chain": [
+        "dispersed",
+        "column",
+        "diamond",
+        "converging"
+      ],
+      "spread": 1.050348634944609,
+      "noise_std": 0.5855069828497526,
+      "n_timesteps": 208,
+      "n_windows": 16,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "converging",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 292,
+      "true_chain": [
+        "dispersed",
+        "v_shape",
+        "converging"
+      ],
+      "spread": 1.5021549161274086,
+      "noise_std": 0.2885231408884519,
+      "n_timesteps": 141,
+      "n_windows": 10,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 293,
+      "true_chain": [
+        "converging"
+      ],
+      "spread": 1.521803225502299,
+      "noise_std": 1.0432186586627517,
+      "n_timesteps": 62,
+      "n_windows": 2,
+      "bucket": "A",
+      "subtype": null,
+      "rules_key": [
+        "dispersed",
+        "dispersed"
+      ],
+      "guard_reasons": []
+    },
+    {
+      "i": 294,
+      "true_chain": [
+        "dispersed",
+        "converging",
+        "column"
+      ],
+      "spread": 1.732959836173893,
+      "noise_std": 0.5584398099974898,
+      "n_timesteps": 160,
+      "n_windows": 12,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "dispersed",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 295,
+      "true_chain": [
+        "encirclement",
+        "v_shape",
+        "converging",
+        "dispersed"
+      ],
+      "spread": 1.6471156995662333,
+      "noise_std": 0.927107410558791,
+      "n_timesteps": 204,
+      "n_windows": 16,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "v_shape",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 296,
+      "true_chain": [
+        "column",
+        "diamond",
+        "converging"
+      ],
+      "spread": 0.8464878726126978,
+      "noise_std": 0.22173139696749444,
+      "n_timesteps": 127,
+      "n_windows": 8,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 297,
+      "true_chain": [
+        "dispersed",
+        "diamond",
+        "column",
+        "v_shape"
+      ],
+      "spread": 1.208418741565187,
+      "noise_std": 1.0511374384561831,
+      "n_timesteps": 234,
+      "n_windows": 19,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "dispersed",
+        "shield"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 298,
+      "true_chain": [
+        "dispersed",
+        "shield",
+        "diamond",
+        "shield"
+      ],
+      "spread": 1.5603234492118863,
+      "noise_std": 1.1929517136430983,
+      "n_timesteps": 259,
+      "n_windows": 21,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "dispersed",
+        "shield"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 299,
+      "true_chain": [
+        "v_shape",
+        "dispersed"
+      ],
+      "spread": 1.4508183999140565,
+      "noise_std": 1.1565654433173091,
+      "n_timesteps": 53,
+      "n_windows": 1,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 300,
+      "true_chain": [
+        "diamond",
+        "dispersed",
+        "encirclement",
+        "diamond"
+      ],
+      "spread": 1.5077384786239416,
+      "noise_std": 1.2761099530215996,
+      "n_timesteps": 251,
+      "n_windows": 21,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 301,
+      "true_chain": [
+        "encirclement",
+        "dispersed"
+      ],
+      "spread": 1.58047240336999,
+      "noise_std": 0.6541087468474909,
+      "n_timesteps": 51,
+      "n_windows": 1,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 302,
+      "true_chain": [
+        "shield"
+      ],
+      "spread": 0.7741312130476414,
+      "noise_std": 1.1992098776629663,
+      "n_timesteps": 70,
+      "n_windows": 3,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "shield",
+        "shield"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 303,
+      "true_chain": [
+        "shield"
+      ],
+      "spread": 0.6386966703003111,
+      "noise_std": 1.1317872290894124,
+      "n_timesteps": 90,
+      "n_windows": 5,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 304,
+      "true_chain": [
+        "column",
+        "shield",
+        "converging",
+        "encirclement"
+      ],
+      "spread": 1.706275660648108,
+      "noise_std": 1.0883930281937924,
+      "n_timesteps": 266,
+      "n_windows": 22,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 305,
+      "true_chain": [
+        "column",
+        "dispersed",
+        "encirclement",
+        "v_shape"
+      ],
+      "spread": 1.6540814585663801,
+      "noise_std": 0.36997431752506205,
+      "n_timesteps": 244,
+      "n_windows": 20,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 306,
+      "true_chain": [
+        "dispersed",
+        "column"
+      ],
+      "spread": 1.546989761653478,
+      "noise_std": 0.21880284808530298,
+      "n_timesteps": 58,
+      "n_windows": 1,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 307,
+      "true_chain": [
+        "converging",
+        "encirclement",
+        "shield",
+        "dispersed"
+      ],
+      "spread": 1.0483831618381372,
+      "noise_std": 0.7907907983848054,
+      "n_timesteps": 201,
+      "n_windows": 16,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 308,
+      "true_chain": [
+        "v_shape",
+        "converging"
+      ],
+      "spread": 1.3958833691504982,
+      "noise_std": 0.7973616489165368,
+      "n_timesteps": 77,
+      "n_windows": 3,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 309,
+      "true_chain": [
+        "shield",
+        "column",
+        "shield",
+        "dispersed"
+      ],
+      "spread": 0.8359665291356212,
+      "noise_std": 0.8452776810214646,
+      "n_timesteps": 217,
+      "n_windows": 17,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 310,
+      "true_chain": [
+        "shield",
+        "column"
+      ],
+      "spread": 1.1196979039310626,
+      "noise_std": 1.2264447757552892,
+      "n_timesteps": 64,
+      "n_windows": 2,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 311,
+      "true_chain": [
+        "column",
+        "converging",
+        "dispersed"
+      ],
+      "spread": 0.6434588734428774,
+      "noise_std": 0.3126508939519339,
+      "n_timesteps": 158,
+      "n_windows": 11,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 312,
+      "true_chain": [
+        "v_shape",
+        "diamond",
+        "shield",
+        "converging"
+      ],
+      "spread": 1.321596035631298,
+      "noise_std": 1.2178803555481381,
+      "n_timesteps": 175,
+      "n_windows": 13,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "diamond",
+        "dispersed"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 313,
+      "true_chain": [
+        "diamond",
+        "column",
+        "dispersed",
+        "column"
+      ],
+      "spread": 1.6914722199225158,
+      "noise_std": 0.8275323597640891,
+      "n_timesteps": 243,
+      "n_windows": 20,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "diamond",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 314,
+      "true_chain": [
+        "converging",
+        "shield"
+      ],
+      "spread": 0.6063415898169714,
+      "noise_std": 0.4317935541379704,
+      "n_timesteps": 68,
+      "n_windows": 2,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "converging",
+        "converging"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 315,
+      "true_chain": [
+        "column",
+        "diamond",
+        "converging",
+        "diamond"
+      ],
+      "spread": 0.8654062102563413,
+      "noise_std": 0.5512761268142158,
+      "n_timesteps": 218,
+      "n_windows": 17,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 316,
+      "true_chain": [
+        "diamond"
+      ],
+      "spread": 1.3042670613877017,
+      "noise_std": 0.6529498868251161,
+      "n_timesteps": 89,
+      "n_windows": 4,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "diamond",
+        "diamond"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 317,
+      "true_chain": [
+        "shield"
+      ],
+      "spread": 0.8316763367818336,
+      "noise_std": 0.8563194619508956,
+      "n_timesteps": 64,
+      "n_windows": 2,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "shield",
+        "shield"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 318,
+      "true_chain": [
+        "v_shape",
+        "column",
+        "encirclement",
+        "v_shape"
+      ],
+      "spread": 1.1425229983973961,
+      "noise_std": 0.4370445773396868,
+      "n_timesteps": 225,
+      "n_windows": 18,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "shield",
+        "shield"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 319,
+      "true_chain": [
+        "v_shape",
+        "dispersed"
+      ],
+      "spread": 1.3307367668316434,
+      "noise_std": 0.4475717848076759,
+      "n_timesteps": 59,
+      "n_windows": 1,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 320,
+      "true_chain": [
+        "diamond",
+        "dispersed",
+        "diamond",
+        "v_shape"
+      ],
+      "spread": 1.796907569215764,
+      "noise_std": 0.40451880761738457,
+      "n_timesteps": 194,
+      "n_windows": 15,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "dispersed",
+        "shield"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 321,
+      "true_chain": [
+        "v_shape",
+        "shield",
+        "v_shape"
+      ],
+      "spread": 0.8432786473705077,
+      "noise_std": 0.4365062142137699,
+      "n_timesteps": 145,
+      "n_windows": 10,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 322,
+      "true_chain": [
+        "converging",
+        "dispersed",
+        "diamond"
+      ],
+      "spread": 0.6609295269440624,
+      "noise_std": 1.298837590082449,
+      "n_timesteps": 129,
+      "n_windows": 8,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "dispersed",
+        "dispersed"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 323,
+      "true_chain": [
+        "v_shape",
+        "diamond",
+        "shield",
+        "converging"
+      ],
+      "spread": 1.4661205865773907,
+      "noise_std": 0.42150498749507026,
+      "n_timesteps": 211,
+      "n_windows": 17,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 324,
+      "true_chain": [
+        "v_shape",
+        "encirclement"
+      ],
+      "spread": 0.865804990699037,
+      "noise_std": 0.6795991726241988,
+      "n_timesteps": 87,
+      "n_windows": 4,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "v_shape",
+        "column"
+      ],
+      "guard_reasons": [
+        "dominant_history_contradiction",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 325,
+      "true_chain": [
+        "column",
+        "shield",
+        "converging",
+        "column"
+      ],
+      "spread": 1.6110771887142086,
+      "noise_std": 1.2612610123570556,
+      "n_timesteps": 195,
+      "n_windows": 15,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 326,
+      "true_chain": [
+        "diamond",
+        "v_shape"
+      ],
+      "spread": 1.516623445928766,
+      "noise_std": 0.6443734663484103,
+      "n_timesteps": 95,
+      "n_windows": 5,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "diamond",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 327,
+      "true_chain": [
+        "diamond",
+        "v_shape",
+        "converging",
+        "shield"
+      ],
+      "spread": 1.6933965925442735,
+      "noise_std": 0.7480949917072589,
+      "n_timesteps": 240,
+      "n_windows": 20,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 328,
+      "true_chain": [
+        "dispersed",
+        "shield",
+        "diamond"
+      ],
+      "spread": 1.0200553472456964,
+      "noise_std": 0.49626107589150825,
+      "n_timesteps": 159,
+      "n_windows": 11,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 329,
+      "true_chain": [
+        "converging"
+      ],
+      "spread": 0.9138776724583639,
+      "noise_std": 0.3902720425080243,
+      "n_timesteps": 67,
+      "n_windows": 2,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "dispersed",
+        "dispersed"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 330,
+      "true_chain": [
+        "converging"
+      ],
+      "spread": 0.6776269092337598,
+      "noise_std": 0.48443077124859746,
+      "n_timesteps": 71,
+      "n_windows": 3,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "v_shape",
+        "v_shape"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 331,
+      "true_chain": [
+        "column",
+        "shield",
+        "v_shape"
+      ],
+      "spread": 1.03507401065966,
+      "noise_std": 0.2942760302514956,
+      "n_timesteps": 149,
+      "n_windows": 10,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "diamond",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dominant_history_contradiction",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 332,
+      "true_chain": [
+        "encirclement"
+      ],
+      "spread": 0.9366487535097585,
+      "noise_std": 1.2892138009277394,
+      "n_timesteps": 72,
+      "n_windows": 3,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 333,
+      "true_chain": [
+        "column",
+        "diamond",
+        "encirclement",
+        "diamond"
+      ],
+      "spread": 1.377092861746117,
+      "noise_std": 1.324478979724622,
+      "n_timesteps": 194,
+      "n_windows": 15,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 334,
+      "true_chain": [
+        "converging",
+        "encirclement",
+        "converging",
+        "diamond"
+      ],
+      "spread": 0.6076936606176776,
+      "noise_std": 1.0903472592735277,
+      "n_timesteps": 242,
+      "n_windows": 20,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 335,
+      "true_chain": [
+        "dispersed",
+        "diamond",
+        "encirclement"
+      ],
+      "spread": 0.9199232794812557,
+      "noise_std": 0.3632705257107535,
+      "n_timesteps": 150,
+      "n_windows": 11,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 336,
+      "true_chain": [
+        "converging",
+        "v_shape",
+        "encirclement",
+        "diamond"
+      ],
+      "spread": 1.2327178817259097,
+      "noise_std": 0.7070531674433364,
+      "n_timesteps": 194,
+      "n_windows": 15,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 337,
+      "true_chain": [
+        "diamond",
+        "column"
+      ],
+      "spread": 1.0459655815083098,
+      "noise_std": 0.8157231076554815,
+      "n_timesteps": 82,
+      "n_windows": 4,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "diamond",
+        "converging"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dominant_history_contradiction",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 338,
+      "true_chain": [
+        "column"
+      ],
+      "spread": 0.8128558512413849,
+      "noise_std": 1.0331253837161003,
+      "n_timesteps": 69,
+      "n_windows": 2,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "column",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 339,
+      "true_chain": [
+        "diamond"
+      ],
+      "spread": 0.8497758535312538,
+      "noise_std": 0.8362129802900075,
+      "n_timesteps": 92,
+      "n_windows": 5,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "diamond",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 340,
+      "true_chain": [
+        "v_shape",
+        "diamond"
+      ],
+      "spread": 1.5513039647379583,
+      "noise_std": 1.045240356878063,
+      "n_timesteps": 66,
+      "n_windows": 2,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 341,
+      "true_chain": [
+        "v_shape",
+        "encirclement"
+      ],
+      "spread": 0.935574784170033,
+      "noise_std": 0.35643678197275486,
+      "n_timesteps": 78,
+      "n_windows": 3,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 342,
+      "true_chain": [
+        "converging",
+        "shield",
+        "encirclement",
+        "dispersed"
+      ],
+      "spread": 1.0887538374756138,
+      "noise_std": 1.0238347057441244,
+      "n_timesteps": 192,
+      "n_windows": 15,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 343,
+      "true_chain": [
+        "encirclement",
+        "dispersed",
+        "diamond",
+        "dispersed"
+      ],
+      "spread": 1.709871030360477,
+      "noise_std": 0.19975862404002565,
+      "n_timesteps": 200,
+      "n_windows": 16,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "shield",
+        "dispersed"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 344,
+      "true_chain": [
+        "dispersed",
+        "v_shape"
+      ],
+      "spread": 0.9984592206925609,
+      "noise_std": 0.5310810622753523,
+      "n_timesteps": 61,
+      "n_windows": 2,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 345,
+      "true_chain": [
+        "diamond"
+      ],
+      "spread": 0.7029606843947352,
+      "noise_std": 0.25125020852980307,
+      "n_timesteps": 58,
+      "n_windows": 1,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "diamond",
+        "diamond"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 346,
+      "true_chain": [
+        "diamond",
+        "shield",
+        "v_shape"
+      ],
+      "spread": 1.1999682176419975,
+      "noise_std": 1.0806573211107833,
+      "n_timesteps": 153,
+      "n_windows": 11,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 347,
+      "true_chain": [
+        "encirclement",
+        "column",
+        "v_shape",
+        "shield"
+      ],
+      "spread": 1.0302526094622968,
+      "noise_std": 0.17646801912961127,
+      "n_timesteps": 256,
+      "n_windows": 21,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 348,
+      "true_chain": [
+        "column",
+        "diamond"
+      ],
+      "spread": 1.4574004932914313,
+      "noise_std": 1.2184769277610767,
+      "n_timesteps": 57,
+      "n_windows": 1,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 349,
+      "true_chain": [
+        "encirclement",
+        "dispersed",
+        "shield"
+      ],
+      "spread": 1.7780241592680741,
+      "noise_std": 1.1076933383788727,
+      "n_timesteps": 147,
+      "n_windows": 10,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "dispersed",
+        "dispersed"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 350,
+      "true_chain": [
+        "converging",
+        "column",
+        "encirclement"
+      ],
+      "spread": 1.4060190921026836,
+      "noise_std": 1.0662496445407317,
+      "n_timesteps": 146,
+      "n_windows": 10,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 351,
+      "true_chain": [
+        "v_shape",
+        "encirclement",
+        "column"
+      ],
+      "spread": 1.0490669440460267,
+      "noise_std": 0.9361410437348188,
+      "n_timesteps": 133,
+      "n_windows": 9,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 352,
+      "true_chain": [
+        "v_shape",
+        "converging",
+        "diamond"
+      ],
+      "spread": 1.554830551918926,
+      "noise_std": 0.33765115008530133,
+      "n_timesteps": 147,
+      "n_windows": 10,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 353,
+      "true_chain": [
+        "converging",
+        "v_shape"
+      ],
+      "spread": 1.1415429081890975,
+      "noise_std": 1.1760322382701471,
+      "n_timesteps": 74,
+      "n_windows": 3,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "dispersed",
+        "converging"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dominant_history_contradiction",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 354,
+      "true_chain": [
+        "diamond",
+        "encirclement"
+      ],
+      "spread": 1.4290031928827434,
+      "noise_std": 1.1772303108449644,
+      "n_timesteps": 56,
+      "n_windows": 1,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 355,
+      "true_chain": [
+        "converging",
+        "dispersed"
+      ],
+      "spread": 1.4584466969716186,
+      "noise_std": 0.9800551955665502,
+      "n_timesteps": 72,
+      "n_windows": 3,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "dispersed",
+        "dispersed"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 356,
+      "true_chain": [
+        "encirclement"
+      ],
+      "spread": 1.4237868035588623,
+      "noise_std": 0.8835665166367827,
+      "n_timesteps": 87,
+      "n_windows": 4,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 357,
+      "true_chain": [
+        "v_shape",
+        "column",
+        "v_shape",
+        "column"
+      ],
+      "spread": 1.3196135169162466,
+      "noise_std": 0.642454781560431,
+      "n_timesteps": 197,
+      "n_windows": 15,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "column",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 358,
+      "true_chain": [
+        "v_shape",
+        "converging",
+        "column",
+        "encirclement"
+      ],
+      "spread": 1.430756478457053,
+      "noise_std": 1.3990083419950157,
+      "n_timesteps": 230,
+      "n_windows": 19,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 359,
+      "true_chain": [
+        "v_shape"
+      ],
+      "spread": 1.6812213894224675,
+      "noise_std": 0.6891822712412737,
+      "n_timesteps": 87,
+      "n_windows": 4,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "v_shape",
+        "v_shape"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 360,
+      "true_chain": [
+        "encirclement",
+        "diamond"
+      ],
+      "spread": 0.6031313090267826,
+      "noise_std": 0.4919615533434045,
+      "n_timesteps": 96,
+      "n_windows": 5,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "v_shape",
+        "converging"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 361,
+      "true_chain": [
+        "column"
+      ],
+      "spread": 1.0845774937703987,
+      "noise_std": 0.511722227780985,
+      "n_timesteps": 92,
+      "n_windows": 5,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "column",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 362,
+      "true_chain": [
+        "encirclement",
+        "converging",
+        "column"
+      ],
+      "spread": 1.4410928952226891,
+      "noise_std": 0.45999020707440164,
+      "n_timesteps": 134,
+      "n_windows": 9,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "dispersed",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 363,
+      "true_chain": [
+        "shield",
+        "column"
+      ],
+      "spread": 0.8674716946100007,
+      "noise_std": 0.9534808327621168,
+      "n_timesteps": 69,
+      "n_windows": 2,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 364,
+      "true_chain": [
+        "shield",
+        "converging",
+        "shield"
+      ],
+      "spread": 1.3857467005818407,
+      "noise_std": 1.3105922197286013,
+      "n_timesteps": 156,
+      "n_windows": 11,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "dispersed",
+        "shield"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 365,
+      "true_chain": [
+        "encirclement"
+      ],
+      "spread": 0.8687967461888426,
+      "noise_std": 1.058892004570141,
+      "n_timesteps": 59,
+      "n_windows": 1,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "v_shape",
+        "v_shape"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 366,
+      "true_chain": [
+        "column",
+        "v_shape",
+        "encirclement"
+      ],
+      "spread": 1.4229324882886578,
+      "noise_std": 0.19370055877451428,
+      "n_timesteps": 142,
+      "n_windows": 10,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "v_shape",
+        "v_shape"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 367,
+      "true_chain": [
+        "dispersed"
+      ],
+      "spread": 1.4934649780707732,
+      "noise_std": 1.2903819987291811,
+      "n_timesteps": 58,
+      "n_windows": 1,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 368,
+      "true_chain": [
+        "diamond",
+        "encirclement",
+        "converging"
+      ],
+      "spread": 1.0082008072111872,
+      "noise_std": 1.263503250326067,
+      "n_timesteps": 108,
+      "n_windows": 6,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "converging",
+        "encirclement"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 369,
+      "true_chain": [
+        "column",
+        "encirclement"
+      ],
+      "spread": 0.8623497147263417,
+      "noise_std": 1.0777353489827413,
+      "n_timesteps": 76,
+      "n_windows": 3,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "column",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 370,
+      "true_chain": [
+        "encirclement",
+        "column"
+      ],
+      "spread": 1.1815948961764051,
+      "noise_std": 0.45455929320104826,
+      "n_timesteps": 54,
+      "n_windows": 1,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 371,
+      "true_chain": [
+        "dispersed"
+      ],
+      "spread": 0.9339468047138193,
+      "noise_std": 1.099928570701625,
+      "n_timesteps": 89,
+      "n_windows": 4,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "column",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 372,
+      "true_chain": [
+        "column",
+        "shield"
+      ],
+      "spread": 0.7699205826544487,
+      "noise_std": 0.7101822379187527,
+      "n_timesteps": 69,
+      "n_windows": 2,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 373,
+      "true_chain": [
+        "shield",
+        "converging"
+      ],
+      "spread": 1.0197734658741053,
+      "noise_std": 1.2675774089019731,
+      "n_timesteps": 76,
+      "n_windows": 3,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 374,
+      "true_chain": [
+        "encirclement",
+        "column",
+        "encirclement"
+      ],
+      "spread": 0.9757092397561405,
+      "noise_std": 0.15497937243389492,
+      "n_timesteps": 113,
+      "n_windows": 7,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 375,
+      "true_chain": [
+        "shield",
+        "encirclement"
+      ],
+      "spread": 1.6850639222133514,
+      "noise_std": 0.8461123262673805,
+      "n_timesteps": 84,
+      "n_windows": 4,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "shield",
+        "encirclement"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 376,
+      "true_chain": [
+        "encirclement"
+      ],
+      "spread": 1.312542885282653,
+      "noise_std": 0.8046460857523174,
+      "n_timesteps": 99,
+      "n_windows": 5,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 377,
+      "true_chain": [
+        "dispersed",
+        "column"
+      ],
+      "spread": 0.6940400397755039,
+      "noise_std": 0.3678408314340281,
+      "n_timesteps": 66,
+      "n_windows": 2,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 378,
+      "true_chain": [
+        "dispersed",
+        "v_shape",
+        "column"
+      ],
+      "spread": 1.5055463259490032,
+      "noise_std": 1.1206326356921845,
+      "n_timesteps": 114,
+      "n_windows": 7,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 379,
+      "true_chain": [
+        "v_shape",
+        "converging"
+      ],
+      "spread": 0.7867326461774031,
+      "noise_std": 0.8510803720876067,
+      "n_timesteps": 72,
+      "n_windows": 3,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "v_shape",
+        "shield"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dominant_history_contradiction",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 380,
+      "true_chain": [
+        "encirclement",
+        "diamond",
+        "v_shape"
+      ],
+      "spread": 1.7140069013250412,
+      "noise_std": 0.9729167613864709,
+      "n_timesteps": 123,
+      "n_windows": 8,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 381,
+      "true_chain": [
+        "v_shape",
+        "dispersed",
+        "v_shape",
+        "encirclement"
+      ],
+      "spread": 1.0033433790056692,
+      "noise_std": 1.0337802051160565,
+      "n_timesteps": 269,
+      "n_windows": 22,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 382,
+      "true_chain": [
+        "converging",
+        "column",
+        "v_shape",
+        "column"
+      ],
+      "spread": 1.7339254669208604,
+      "noise_std": 0.2983406944735442,
+      "n_timesteps": 213,
+      "n_windows": 17,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "column",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 383,
+      "true_chain": [
+        "encirclement",
+        "v_shape",
+        "dispersed",
+        "diamond"
+      ],
+      "spread": 0.9854512844537218,
+      "noise_std": 0.6313754257865645,
+      "n_timesteps": 278,
+      "n_windows": 23,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 384,
+      "true_chain": [
+        "dispersed",
+        "converging",
+        "v_shape"
+      ],
+      "spread": 0.9774791706442829,
+      "noise_std": 0.2436426613549844,
+      "n_timesteps": 135,
+      "n_windows": 9,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 385,
+      "true_chain": [
+        "column"
+      ],
+      "spread": 1.5675229672330928,
+      "noise_std": 0.4536657517038555,
+      "n_timesteps": 87,
+      "n_windows": 4,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "column",
+        "column"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 386,
+      "true_chain": [
+        "converging",
+        "diamond",
+        "shield"
+      ],
+      "spread": 1.0182293594962017,
+      "noise_std": 0.7294747649976083,
+      "n_timesteps": 149,
+      "n_windows": 10,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 387,
+      "true_chain": [
+        "encirclement",
+        "shield",
+        "dispersed",
+        "v_shape"
+      ],
+      "spread": 1.0691697211219535,
+      "noise_std": 1.183005081635359,
+      "n_timesteps": 238,
+      "n_windows": 19,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "encirclement",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 388,
+      "true_chain": [
+        "shield",
+        "diamond"
+      ],
+      "spread": 1.1407752299944613,
+      "noise_std": 1.2030645556483999,
+      "n_timesteps": 92,
+      "n_windows": 5,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 389,
+      "true_chain": [
+        "encirclement"
+      ],
+      "spread": 1.052019989392253,
+      "noise_std": 0.7085309112824382,
+      "n_timesteps": 53,
+      "n_windows": 1,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "encirclement",
+        "encirclement"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 390,
+      "true_chain": [
+        "converging"
+      ],
+      "spread": 0.8074816808875346,
+      "noise_std": 0.9468137349174965,
+      "n_timesteps": 77,
+      "n_windows": 3,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "dispersed",
+        "dispersed"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 391,
+      "true_chain": [
+        "converging",
+        "dispersed",
+        "converging"
+      ],
+      "spread": 1.30790398929699,
+      "noise_std": 0.526129403783135,
+      "n_timesteps": 140,
+      "n_windows": 10,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "shield",
+        "shield"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 392,
+      "true_chain": [
+        "converging",
+        "diamond",
+        "column",
+        "shield"
+      ],
+      "spread": 1.4442493364465763,
+      "noise_std": 0.33890471679295986,
+      "n_timesteps": 248,
+      "n_windows": 20,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "dispersed",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 393,
+      "true_chain": [
+        "v_shape",
+        "column",
+        "encirclement"
+      ],
+      "spread": 1.3350552437219307,
+      "noise_std": 1.184118158283571,
+      "n_timesteps": 181,
+      "n_windows": 14,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 394,
+      "true_chain": [
+        "converging",
+        "dispersed",
+        "converging",
+        "column"
+      ],
+      "spread": 0.7678387403378549,
+      "noise_std": 0.27202550586129276,
+      "n_timesteps": 260,
+      "n_windows": 22,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 395,
+      "true_chain": [
+        "dispersed"
+      ],
+      "spread": 0.8639712955843932,
+      "noise_std": 0.31395576814912757,
+      "n_timesteps": 71,
+      "n_windows": 3,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "v_shape",
+        "converging"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dominant_history_contradiction",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 396,
+      "true_chain": [
+        "diamond",
+        "shield",
+        "column",
+        "diamond"
+      ],
+      "spread": 0.6326092697528193,
+      "noise_std": 0.7300381647126194,
+      "n_timesteps": 263,
+      "n_windows": 22,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "diamond",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 397,
+      "true_chain": [
+        "dispersed",
+        "shield",
+        "diamond",
+        "v_shape"
+      ],
+      "spread": 0.6718964028073566,
+      "noise_std": 0.208240354257532,
+      "n_timesteps": 255,
+      "n_windows": 21,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 398,
+      "true_chain": [
+        "converging",
+        "encirclement",
+        "v_shape",
+        "dispersed"
+      ],
+      "spread": 0.6812705646328657,
+      "noise_std": 0.5492599685548217,
+      "n_timesteps": 211,
+      "n_windows": 17,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 399,
+      "true_chain": [
+        "v_shape",
+        "dispersed"
+      ],
+      "spread": 0.6280624279024666,
+      "noise_std": 0.45013499826771164,
+      "n_timesteps": 96,
+      "n_windows": 5,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 400,
+      "true_chain": [
+        "shield",
+        "diamond",
+        "encirclement",
+        "dispersed"
+      ],
+      "spread": 1.5780992270659402,
+      "noise_std": 0.6305158346401001,
+      "n_timesteps": 237,
+      "n_windows": 19,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 401,
+      "true_chain": [
+        "diamond"
+      ],
+      "spread": 0.6814388704517693,
+      "noise_std": 1.2649737096045428,
+      "n_timesteps": 56,
+      "n_windows": 1,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "diamond",
+        "diamond"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 402,
+      "true_chain": [
+        "diamond"
+      ],
+      "spread": 0.9008923981285719,
+      "noise_std": 1.1240096426805106,
+      "n_timesteps": 93,
+      "n_windows": 5,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "diamond",
+        "shield"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 403,
+      "true_chain": [
+        "converging",
+        "dispersed",
+        "column"
+      ],
+      "spread": 1.0820167370568858,
+      "noise_std": 0.2668584039762285,
+      "n_timesteps": 160,
+      "n_windows": 12,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 404,
+      "true_chain": [
+        "v_shape",
+        "diamond"
+      ],
+      "spread": 1.6373345868650317,
+      "noise_std": 0.6533624259255807,
+      "n_timesteps": 57,
+      "n_windows": 1,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 405,
+      "true_chain": [
+        "v_shape",
+        "column"
+      ],
+      "spread": 1.4360201943225666,
+      "noise_std": 0.6918742126052878,
+      "n_timesteps": 62,
+      "n_windows": 2,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 406,
+      "true_chain": [
+        "converging"
+      ],
+      "spread": 1.6147479924012158,
+      "noise_std": 0.2810216611120313,
+      "n_timesteps": 55,
+      "n_windows": 1,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 407,
+      "true_chain": [
+        "column",
+        "converging",
+        "encirclement"
+      ],
+      "spread": 0.6115610826665994,
+      "noise_std": 1.2156860622600032,
+      "n_timesteps": 133,
+      "n_windows": 9,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 408,
+      "true_chain": [
+        "converging",
+        "column"
+      ],
+      "spread": 1.5998593778314607,
+      "noise_std": 0.8166842017802156,
+      "n_timesteps": 62,
+      "n_windows": 2,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 409,
+      "true_chain": [
+        "diamond",
+        "column",
+        "encirclement"
+      ],
+      "spread": 1.5518875400345569,
+      "noise_std": 0.2476529649113085,
+      "n_timesteps": 126,
+      "n_windows": 8,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "diamond",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 410,
+      "true_chain": [
+        "diamond"
+      ],
+      "spread": 1.440374215783939,
+      "noise_std": 0.590448548838901,
+      "n_timesteps": 99,
+      "n_windows": 5,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "diamond",
+        "shield"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 411,
+      "true_chain": [
+        "column",
+        "shield",
+        "diamond"
+      ],
+      "spread": 1.4695572627684679,
+      "noise_std": 1.0399620681843484,
+      "n_timesteps": 187,
+      "n_windows": 14,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 412,
+      "true_chain": [
+        "encirclement",
+        "column",
+        "encirclement"
+      ],
+      "spread": 1.356021633942135,
+      "noise_std": 0.6061111021795186,
+      "n_timesteps": 173,
+      "n_windows": 13,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "encirclement",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 413,
+      "true_chain": [
+        "v_shape",
+        "column",
+        "converging",
+        "diamond"
+      ],
+      "spread": 0.9530756447205992,
+      "noise_std": 0.21261996717905796,
+      "n_timesteps": 167,
+      "n_windows": 12,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "column",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 414,
+      "true_chain": [
+        "shield",
+        "dispersed",
+        "encirclement"
+      ],
+      "spread": 0.8349055993451504,
+      "noise_std": 0.7401261500160375,
+      "n_timesteps": 139,
+      "n_windows": 9,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 415,
+      "true_chain": [
+        "v_shape",
+        "column",
+        "shield"
+      ],
+      "spread": 1.1460320706018519,
+      "noise_std": 0.4059732864088986,
+      "n_timesteps": 160,
+      "n_windows": 12,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "v_shape",
+        "shield"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 416,
+      "true_chain": [
+        "dispersed",
+        "column",
+        "dispersed"
+      ],
+      "spread": 1.0337893154568023,
+      "noise_std": 0.7048681563962815,
+      "n_timesteps": 142,
+      "n_windows": 10,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "column",
+        "shield"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dominant_history_contradiction",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 417,
+      "true_chain": [
+        "v_shape"
+      ],
+      "spread": 1.412011222288608,
+      "noise_std": 1.0580108830191193,
+      "n_timesteps": 71,
+      "n_windows": 3,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 418,
+      "true_chain": [
+        "shield",
+        "dispersed"
+      ],
+      "spread": 1.3580002849727308,
+      "noise_std": 0.6489958987292215,
+      "n_timesteps": 67,
+      "n_windows": 2,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 419,
+      "true_chain": [
+        "column",
+        "v_shape",
+        "encirclement",
+        "column"
+      ],
+      "spread": 1.3794470752565298,
+      "noise_std": 0.8614399428876844,
+      "n_timesteps": 239,
+      "n_windows": 19,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 420,
+      "true_chain": [
+        "converging"
+      ],
+      "spread": 1.4858488897048963,
+      "noise_std": 1.3384783916668104,
+      "n_timesteps": 50,
+      "n_windows": 1,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 421,
+      "true_chain": [
+        "dispersed",
+        "converging",
+        "dispersed",
+        "converging"
+      ],
+      "spread": 1.0836392788185405,
+      "noise_std": 0.3299448915346148,
+      "n_timesteps": 252,
+      "n_windows": 21,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 422,
+      "true_chain": [
+        "diamond",
+        "shield",
+        "column",
+        "diamond"
+      ],
+      "spread": 0.7264478376359891,
+      "noise_std": 0.5472470601161209,
+      "n_timesteps": 202,
+      "n_windows": 16,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 423,
+      "true_chain": [
+        "column"
+      ],
+      "spread": 0.7052661064421859,
+      "noise_std": 0.7445286487198364,
+      "n_timesteps": 71,
+      "n_windows": 3,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "column",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 424,
+      "true_chain": [
+        "converging",
+        "shield",
+        "converging",
+        "v_shape"
+      ],
+      "spread": 0.9596097411261475,
+      "noise_std": 0.4606856826154915,
+      "n_timesteps": 214,
+      "n_windows": 17,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 425,
+      "true_chain": [
+        "diamond",
+        "encirclement"
+      ],
+      "spread": 0.8546996387760812,
+      "noise_std": 0.15701708479130633,
+      "n_timesteps": 74,
+      "n_windows": 3,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 426,
+      "true_chain": [
+        "dispersed",
+        "v_shape",
+        "encirclement"
+      ],
+      "spread": 1.5833629343213715,
+      "noise_std": 0.7009660594813213,
+      "n_timesteps": 170,
+      "n_windows": 13,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 427,
+      "true_chain": [
+        "v_shape",
+        "column"
+      ],
+      "spread": 1.421175129120792,
+      "noise_std": 0.8033394509719887,
+      "n_timesteps": 100,
+      "n_windows": 6,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "v_shape",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 428,
+      "true_chain": [
+        "converging",
+        "column"
+      ],
+      "spread": 1.7953176220233864,
+      "noise_std": 0.3966653496539299,
+      "n_timesteps": 89,
+      "n_windows": 4,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 429,
+      "true_chain": [
+        "diamond",
+        "column",
+        "shield"
+      ],
+      "spread": 1.0070551218408348,
+      "noise_std": 1.0718027323492585,
+      "n_timesteps": 149,
+      "n_windows": 10,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "column",
+        "converging"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 430,
+      "true_chain": [
+        "column",
+        "shield",
+        "diamond",
+        "encirclement"
+      ],
+      "spread": 1.0642170495363137,
+      "noise_std": 0.21101274217210017,
+      "n_timesteps": 188,
+      "n_windows": 14,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "shield",
+        "dispersed"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 431,
+      "true_chain": [
+        "diamond",
+        "v_shape"
+      ],
+      "spread": 1.2412448620578362,
+      "noise_std": 1.2589145888773388,
+      "n_timesteps": 100,
+      "n_windows": 6,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "diamond",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 432,
+      "true_chain": [
+        "shield",
+        "v_shape",
+        "diamond",
+        "dispersed"
+      ],
+      "spread": 1.512392940804252,
+      "noise_std": 1.1045138500514344,
+      "n_timesteps": 194,
+      "n_windows": 15,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 433,
+      "true_chain": [
+        "shield",
+        "encirclement"
+      ],
+      "spread": 0.7425864125808208,
+      "noise_std": 0.7127336334706466,
+      "n_timesteps": 81,
+      "n_windows": 4,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 434,
+      "true_chain": [
+        "v_shape",
+        "diamond"
+      ],
+      "spread": 1.7478658484088445,
+      "noise_std": 0.6321860857954188,
+      "n_timesteps": 89,
+      "n_windows": 4,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "v_shape",
+        "shield"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 435,
+      "true_chain": [
+        "converging"
+      ],
+      "spread": 1.3149249838650605,
+      "noise_std": 0.4912236996019703,
+      "n_timesteps": 73,
+      "n_windows": 3,
+      "bucket": "A",
+      "subtype": null,
+      "rules_key": [
+        "shield",
+        "dispersed"
+      ],
+      "guard_reasons": []
+    },
+    {
+      "i": 436,
+      "true_chain": [
+        "shield"
+      ],
+      "spread": 0.6653438351187356,
+      "noise_std": 0.26265977621411724,
+      "n_timesteps": 64,
+      "n_windows": 2,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "shield",
+        "shield"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 437,
+      "true_chain": [
+        "diamond",
+        "v_shape"
+      ],
+      "spread": 1.014633660776422,
+      "noise_std": 0.18077911043389114,
+      "n_timesteps": 81,
+      "n_windows": 4,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "diamond",
+        "v_shape"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dominant_history_contradiction",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 438,
+      "true_chain": [
+        "encirclement"
+      ],
+      "spread": 1.1202059968459421,
+      "noise_std": 0.7980713592244558,
+      "n_timesteps": 74,
+      "n_windows": 3,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "encirclement",
+        "dispersed"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 439,
+      "true_chain": [
+        "dispersed",
+        "converging"
+      ],
+      "spread": 1.7608283022428775,
+      "noise_std": 0.8062442008870169,
+      "n_timesteps": 58,
+      "n_windows": 1,
+      "bucket": "A",
+      "subtype": null,
+      "rules_key": [
+        "dispersed",
+        "dispersed"
+      ],
+      "guard_reasons": []
+    },
+    {
+      "i": 440,
+      "true_chain": [
+        "dispersed"
+      ],
+      "spread": 1.279605702181553,
+      "noise_std": 0.8201501679882278,
+      "n_timesteps": 50,
+      "n_windows": 1,
+      "bucket": "A",
+      "subtype": null,
+      "rules_key": [
+        "dispersed",
+        "dispersed"
+      ],
+      "guard_reasons": []
+    },
+    {
+      "i": 441,
+      "true_chain": [
+        "dispersed",
+        "converging",
+        "column",
+        "shield"
+      ],
+      "spread": 1.7652358086948552,
+      "noise_std": 0.5505962788811104,
+      "n_timesteps": 264,
+      "n_windows": 22,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "dispersed",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 442,
+      "true_chain": [
+        "shield"
+      ],
+      "spread": 0.8749460653530056,
+      "noise_std": 0.863793262225142,
+      "n_timesteps": 61,
+      "n_windows": 2,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "shield",
+        "shield"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 443,
+      "true_chain": [
+        "v_shape",
+        "column"
+      ],
+      "spread": 1.5498211018869896,
+      "noise_std": 1.3596034321040458,
+      "n_timesteps": 95,
+      "n_windows": 5,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 444,
+      "true_chain": [
+        "dispersed",
+        "converging"
+      ],
+      "spread": 1.1002354800331458,
+      "noise_std": 1.0176312499606688,
+      "n_timesteps": 56,
+      "n_windows": 1,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 445,
+      "true_chain": [
+        "dispersed"
+      ],
+      "spread": 0.799510047200636,
+      "noise_std": 0.17248355540853244,
+      "n_timesteps": 53,
+      "n_windows": 1,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 446,
+      "true_chain": [
+        "encirclement"
+      ],
+      "spread": 1.6188435023463228,
+      "noise_std": 0.191663271644492,
+      "n_timesteps": 93,
+      "n_windows": 5,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 447,
+      "true_chain": [
+        "column"
+      ],
+      "spread": 1.2157310251550808,
+      "noise_std": 0.15345764814974197,
+      "n_timesteps": 93,
+      "n_windows": 5,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 448,
+      "true_chain": [
+        "converging",
+        "diamond",
+        "converging",
+        "diamond"
+      ],
+      "spread": 1.0759545313010401,
+      "noise_std": 0.5070104657931134,
+      "n_timesteps": 204,
+      "n_windows": 16,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 449,
+      "true_chain": [
+        "column",
+        "converging",
+        "column"
+      ],
+      "spread": 0.9646941199303867,
+      "noise_std": 0.4379124447525654,
+      "n_timesteps": 143,
+      "n_windows": 10,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "column",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 450,
+      "true_chain": [
+        "dispersed",
+        "v_shape",
+        "converging",
+        "diamond"
+      ],
+      "spread": 1.033148781978064,
+      "noise_std": 1.1196668959905351,
+      "n_timesteps": 285,
+      "n_windows": 24,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 451,
+      "true_chain": [
+        "converging",
+        "shield"
+      ],
+      "spread": 1.2521429540222502,
+      "noise_std": 0.8845969404539792,
+      "n_timesteps": 89,
+      "n_windows": 4,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "dispersed",
+        "shield"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 452,
+      "true_chain": [
+        "diamond",
+        "column",
+        "v_shape"
+      ],
+      "spread": 1.3884285273115307,
+      "noise_std": 0.7806111495014738,
+      "n_timesteps": 154,
+      "n_windows": 11,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 453,
+      "true_chain": [
+        "diamond",
+        "converging",
+        "dispersed"
+      ],
+      "spread": 1.0887791623033722,
+      "noise_std": 1.010571879457119,
+      "n_timesteps": 109,
+      "n_windows": 6,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 454,
+      "true_chain": [
+        "dispersed",
+        "encirclement"
+      ],
+      "spread": 0.6115052383318325,
+      "noise_std": 0.790254285681619,
+      "n_timesteps": 51,
+      "n_windows": 1,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 455,
+      "true_chain": [
+        "diamond",
+        "encirclement",
+        "column",
+        "shield"
+      ],
+      "spread": 1.5277517657075967,
+      "noise_std": 0.44462762903044284,
+      "n_timesteps": 193,
+      "n_windows": 15,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 456,
+      "true_chain": [
+        "converging",
+        "encirclement",
+        "dispersed"
+      ],
+      "spread": 1.1011459881145895,
+      "noise_std": 0.24092007295793166,
+      "n_timesteps": 122,
+      "n_windows": 8,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "converging",
+        "shield"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 457,
+      "true_chain": [
+        "dispersed",
+        "encirclement",
+        "diamond",
+        "v_shape"
+      ],
+      "spread": 1.232662009799661,
+      "noise_std": 1.3269470666916439,
+      "n_timesteps": 245,
+      "n_windows": 20,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 458,
+      "true_chain": [
+        "shield",
+        "v_shape"
+      ],
+      "spread": 0.6618296510203221,
+      "noise_std": 0.7236366875448719,
+      "n_timesteps": 97,
+      "n_windows": 5,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 459,
+      "true_chain": [
+        "converging",
+        "encirclement",
+        "column",
+        "diamond"
+      ],
+      "spread": 0.755642776324337,
+      "noise_std": 0.9584412749515681,
+      "n_timesteps": 251,
+      "n_windows": 21,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 460,
+      "true_chain": [
+        "column"
+      ],
+      "spread": 1.5719993037095326,
+      "noise_std": 0.9667293846297912,
+      "n_timesteps": 91,
+      "n_windows": 5,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "column",
+        "column"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 461,
+      "true_chain": [
+        "dispersed"
+      ],
+      "spread": 1.4083425251443364,
+      "noise_std": 0.8321772044156626,
+      "n_timesteps": 97,
+      "n_windows": 5,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "dispersed",
+        "dispersed"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 462,
+      "true_chain": [
+        "encirclement"
+      ],
+      "spread": 1.0153269901369186,
+      "noise_std": 0.6362089792744556,
+      "n_timesteps": 89,
+      "n_windows": 4,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 463,
+      "true_chain": [
+        "shield",
+        "encirclement"
+      ],
+      "spread": 1.2040608580603587,
+      "noise_std": 0.574875105091017,
+      "n_timesteps": 100,
+      "n_windows": 6,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 464,
+      "true_chain": [
+        "column",
+        "encirclement"
+      ],
+      "spread": 0.9821300468776819,
+      "noise_std": 1.3078485358640968,
+      "n_timesteps": 90,
+      "n_windows": 5,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 465,
+      "true_chain": [
+        "v_shape",
+        "shield",
+        "converging"
+      ],
+      "spread": 1.26185497652587,
+      "noise_std": 0.5495518936783423,
+      "n_timesteps": 131,
+      "n_windows": 9,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 466,
+      "true_chain": [
+        "encirclement"
+      ],
+      "spread": 1.7315014483304356,
+      "noise_std": 0.5953382177769961,
+      "n_timesteps": 89,
+      "n_windows": 4,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 467,
+      "true_chain": [
+        "converging",
+        "encirclement",
+        "shield",
+        "column"
+      ],
+      "spread": 1.497630577692766,
+      "noise_std": 0.24502510592740806,
+      "n_timesteps": 236,
+      "n_windows": 19,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 468,
+      "true_chain": [
+        "converging",
+        "dispersed",
+        "converging",
+        "v_shape"
+      ],
+      "spread": 0.8912135984328604,
+      "noise_std": 0.8469248648432176,
+      "n_timesteps": 208,
+      "n_windows": 16,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 469,
+      "true_chain": [
+        "diamond",
+        "encirclement",
+        "converging"
+      ],
+      "spread": 1.26599258624167,
+      "noise_std": 1.117903158242719,
+      "n_timesteps": 166,
+      "n_windows": 12,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "diamond",
+        "shield"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 470,
+      "true_chain": [
+        "v_shape"
+      ],
+      "spread": 1.3163016903105118,
+      "noise_std": 1.2587278057384779,
+      "n_timesteps": 52,
+      "n_windows": 1,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "v_shape",
+        "v_shape"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 471,
+      "true_chain": [
+        "encirclement"
+      ],
+      "spread": 1.0818387247420371,
+      "noise_std": 0.9665959940064205,
+      "n_timesteps": 80,
+      "n_windows": 4,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 472,
+      "true_chain": [
+        "v_shape",
+        "converging"
+      ],
+      "spread": 1.1490090271389972,
+      "noise_std": 1.0678967514601754,
+      "n_timesteps": 87,
+      "n_windows": 4,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 473,
+      "true_chain": [
+        "v_shape",
+        "dispersed",
+        "shield",
+        "column"
+      ],
+      "spread": 0.6281686627021061,
+      "noise_std": 1.1910093555826502,
+      "n_timesteps": 260,
+      "n_windows": 22,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 474,
+      "true_chain": [
+        "dispersed",
+        "column"
+      ],
+      "spread": 0.8399747080395529,
+      "noise_std": 0.681662535672398,
+      "n_timesteps": 79,
+      "n_windows": 3,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 475,
+      "true_chain": [
+        "diamond",
+        "shield"
+      ],
+      "spread": 1.5815103284531506,
+      "noise_std": 0.42442084588937057,
+      "n_timesteps": 82,
+      "n_windows": 4,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "diamond",
+        "shield"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dominant_history_contradiction",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 476,
+      "true_chain": [
+        "dispersed",
+        "diamond",
+        "shield"
+      ],
+      "spread": 1.5378761414173945,
+      "noise_std": 1.0350819408272245,
+      "n_timesteps": 165,
+      "n_windows": 12,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "dispersed",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 477,
+      "true_chain": [
+        "v_shape",
+        "dispersed",
+        "column"
+      ],
+      "spread": 0.6402258142402716,
+      "noise_std": 1.0590256024179465,
+      "n_timesteps": 108,
+      "n_windows": 6,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 478,
+      "true_chain": [
+        "dispersed",
+        "encirclement",
+        "shield",
+        "diamond"
+      ],
+      "spread": 1.6243024299647182,
+      "noise_std": 0.6138042031730345,
+      "n_timesteps": 236,
+      "n_windows": 19,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 479,
+      "true_chain": [
+        "column",
+        "shield",
+        "encirclement",
+        "column"
+      ],
+      "spread": 1.3419070964915822,
+      "noise_std": 0.8785816122772547,
+      "n_timesteps": 207,
+      "n_windows": 16,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 480,
+      "true_chain": [
+        "encirclement",
+        "converging",
+        "v_shape",
+        "shield"
+      ],
+      "spread": 1.5981600022673133,
+      "noise_std": 0.5777458783653581,
+      "n_timesteps": 225,
+      "n_windows": 18,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 481,
+      "true_chain": [
+        "shield",
+        "v_shape",
+        "diamond",
+        "encirclement"
+      ],
+      "spread": 1.056723713127211,
+      "noise_std": 1.2575554599662675,
+      "n_timesteps": 258,
+      "n_windows": 21,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "shield",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 482,
+      "true_chain": [
+        "diamond",
+        "v_shape",
+        "column"
+      ],
+      "spread": 1.5572762979744605,
+      "noise_std": 1.0803185238343571,
+      "n_timesteps": 126,
+      "n_windows": 8,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "diamond",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 483,
+      "true_chain": [
+        "converging",
+        "diamond"
+      ],
+      "spread": 1.27492712402084,
+      "noise_std": 0.26624043171580847,
+      "n_timesteps": 57,
+      "n_windows": 1,
+      "bucket": "A",
+      "subtype": null,
+      "rules_key": [
+        "dispersed",
+        "dispersed"
+      ],
+      "guard_reasons": []
+    },
+    {
+      "i": 484,
+      "true_chain": [
+        "column"
+      ],
+      "spread": 1.0560179159897536,
+      "noise_std": 0.8903475809855411,
+      "n_timesteps": 52,
+      "n_windows": 1,
+      "bucket": "C",
+      "subtype": "all_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 485,
+      "true_chain": [
+        "v_shape",
+        "dispersed",
+        "column",
+        "dispersed"
+      ],
+      "spread": 0.8248616879965566,
+      "noise_std": 0.4631651401383112,
+      "n_timesteps": 185,
+      "n_windows": 14,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "dispersed",
+        "shield"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 486,
+      "true_chain": [
+        "column"
+      ],
+      "spread": 1.0466562700767192,
+      "noise_std": 0.7410281021178559,
+      "n_timesteps": 98,
+      "n_windows": 5,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "column",
+        "column"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 487,
+      "true_chain": [
+        "diamond",
+        "dispersed"
+      ],
+      "spread": 1.6831361840284602,
+      "noise_std": 1.3625269345054447,
+      "n_timesteps": 81,
+      "n_windows": 4,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "diamond",
+        "dispersed"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dominant_history_contradiction",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 488,
+      "true_chain": [
+        "column",
+        "dispersed",
+        "encirclement"
+      ],
+      "spread": 1.2606951895878702,
+      "noise_std": 1.0655366843229228,
+      "n_timesteps": 120,
+      "n_windows": 8,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 489,
+      "true_chain": [
+        "diamond",
+        "encirclement"
+      ],
+      "spread": 0.9892795517895987,
+      "noise_std": 0.42975271351416977,
+      "n_timesteps": 70,
+      "n_windows": 3,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "converging",
+        "converging"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 490,
+      "true_chain": [
+        "encirclement"
+      ],
+      "spread": 1.6913496026144403,
+      "noise_std": 0.7710816159452014,
+      "n_timesteps": 94,
+      "n_windows": 5,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "encirclement",
+        "encirclement"
+      ],
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 491,
+      "true_chain": [
+        "v_shape",
+        "shield",
+        "v_shape",
+        "encirclement"
+      ],
+      "spread": 1.3637500606178559,
+      "noise_std": 0.5650542467771819,
+      "n_timesteps": 288,
+      "n_windows": 24,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 492,
+      "true_chain": [
+        "v_shape",
+        "converging",
+        "diamond",
+        "dispersed"
+      ],
+      "spread": 1.5591146560547937,
+      "noise_std": 0.7619310664394031,
+      "n_timesteps": 250,
+      "n_windows": 21,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 493,
+      "true_chain": [
+        "column",
+        "dispersed"
+      ],
+      "spread": 1.0807293036723176,
+      "noise_std": 0.44877283650183575,
+      "n_timesteps": 98,
+      "n_windows": 5,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "column",
+        "dispersed"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 494,
+      "true_chain": [
+        "converging",
+        "column",
+        "diamond"
+      ],
+      "spread": 1.6228227516154439,
+      "noise_std": 0.8594425369697173,
+      "n_timesteps": 173,
+      "n_windows": 13,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 495,
+      "true_chain": [
+        "converging"
+      ],
+      "spread": 1.7056910359311201,
+      "noise_std": 1.3965925892256983,
+      "n_timesteps": 77,
+      "n_windows": 3,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "dispersed",
+        "shield"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dominant_history_contradiction",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 496,
+      "true_chain": [
+        "column",
+        "converging",
+        "dispersed"
+      ],
+      "spread": 1.4874018296781562,
+      "noise_std": 1.2391754676147086,
+      "n_timesteps": 134,
+      "n_windows": 9,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 497,
+      "true_chain": [
+        "converging",
+        "shield",
+        "diamond"
+      ],
+      "spread": 0.6132654144472268,
+      "noise_std": 1.0280999290346031,
+      "n_timesteps": 177,
+      "n_windows": 13,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "rules_key": null,
+      "guard_reasons": []
+    },
+    {
+      "i": 498,
+      "true_chain": [
+        "converging",
+        "encirclement",
+        "column",
+        "converging"
+      ],
+      "spread": 0.8013415911471287,
+      "noise_std": 1.3529517291168047,
+      "n_timesteps": 209,
+      "n_windows": 16,
+      "bucket": "B",
+      "subtype": null,
+      "rules_key": [
+        "converging",
+        "shield"
+      ],
+      "guard_reasons": [
+        "oov_name",
+        "dispersed_converging_ambiguity"
+      ]
+    },
+    {
+      "i": 499,
+      "true_chain": [
+        "shield"
+      ],
+      "spread": 0.6789812944090114,
+      "noise_std": 0.7221185970626413,
+      "n_timesteps": 99,
+      "n_windows": 5,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "rules_key": null,
+      "guard_reasons": []
+    }
+  ]
+}
