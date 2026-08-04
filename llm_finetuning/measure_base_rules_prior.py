@@ -48,7 +48,7 @@ REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO / "src"))
 sys.path.insert(0, str(REPO / "llm_finetuning"))
 
-from swarm_intent.llm.prompts import TEST_CASES, INTENT_FAMILIES, THREAT_FAMILIES  # noqa: E402
+from swarm_intent.llm.prompts import TEST_CASES, INTENT_FAMILIES  # noqa: E402
 from swarm_intent.progress import Reporter  # noqa: E402
 
 from logit_inspection import build_case_prompt, CANDIDATES, softmax_over_candidates  # noqa: E402
@@ -57,7 +57,10 @@ from baselines import RULES_TXT_PATH  # noqa: E402
 THREAT_KEY_MARKER = '"threat_level": "'
 INTENT_KEY_MARKER = '"likely_intent": "'
 
-N_THREAT_CLASSES = len(THREAT_FAMILIES)   # 4: low/medium/high/critical
+N_THREAT_CLASSES = len(CANDIDATES)        # 4: low/medium/high/critical -- the
+# restricted set this script sequence-scores, NOT len(THREAT_FAMILIES) (5 as of
+# AUDIT.md sec AA step 3, which added an "unknown" abstention family that these
+# has_ground_truth=True battery cases never legally take -- see logit_inspection.py).
 N_INTENT_CLASSES = len(INTENT_FAMILIES)   # 15
 LOG2_THREAT = float(np.log2(N_THREAT_CLASSES))
 LOG2_INTENT = float(np.log2(N_INTENT_CLASSES))

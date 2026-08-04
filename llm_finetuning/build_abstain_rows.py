@@ -95,7 +95,10 @@ def gold_abstain_assessment(case: dict) -> dict:
             f"Formation history for this window ('{history}') does not resolve to a "
             f"single confirmed transition, so no tactical assessment can be made."
         ),
-        "threat_level": "medium",  # schema has no "unknown" threat_level (see prompts.py)
+        "threat_level": "unknown",  # AUDIT.md sec AA step 3: was hardcoded "medium" because
+        # the schema had no "unknown" threat_level at the time (prompts.py THREAT_FAMILIES now
+        # has one, matching likely_intent's existing "unknown" family) -- a row that declines to
+        # assess should not assert a specific threat level either.
         "threat_reasoning": reason,
         "likely_intent": "unknown",
         "recommended_action": "increase_surveillance",

@@ -69,14 +69,14 @@ class TestEvaluateLLMAbstentionScoring(unittest.TestCase):
     """(b) assert evaluate_llm counts an abstained response as abstention -- NOT
     as a hallucination and NOT as a wrong answer."""
 
-    def test_abstain_response_alone_is_flagged_by_is_hallucination(self):
-        # Documents the underlying reason evaluate_llm cannot just call
-        # is_hallucination() unconditionally on every response: threat_level
-        # "unknown" isn't in any THREAT_FAMILIES token set (no schema-legal
-        # "unknown" exists for threat_level, only for likely_intent), so in
-        # isolation this DOES read as a hallucination. evaluate_llm must route
-        # around this for abstained responses, not by changing is_hallucination.
-        self.assertTrue(is_hallucination("unknown", "unknown"))
+    def test_abstain_response_is_not_flagged_by_is_hallucination(self):
+        # threat_level="unknown" is schema-legal (prompts.py THREAT_FAMILIES,
+        # AUDIT.md sec AA step 3 -- added so abstention rows don't have to assert
+        # a fake threat level the way build_abstain_rows.py used to). Before that
+        # fix this read as a hallucination in isolation and evaluate_llm had to
+        # route around it via is_abstention(); that routing still exists (see
+        # below) and is exercised regardless of this specific case's outcome.
+        self.assertFalse(is_hallucination("unknown", "unknown"))
 
     def test_always_abstaining_run_case_scores_as_abstention_not_miss_or_hallucination(self):
         case = dict(TEST_CASES[0])

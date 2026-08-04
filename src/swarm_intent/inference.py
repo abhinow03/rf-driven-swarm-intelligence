@@ -169,7 +169,7 @@ def build_tactical_context(predictions, calibrator: "Calibrator | None" = None):
 # Output schema the LLM must return. Single source of truth for prompts + eval.
 OUTPUT_SCHEMA = {
     "situation_summary": "<2-3 sentence plain-English description>",
-    "threat_level": "<low / medium / high / critical>",
+    "threat_level": "<low / medium / high / critical / unknown>",
     "threat_reasoning": "<why this threat level>",
     "likely_intent": "<surveillance / approach / encircle / patrol / defensive / withdraw / "
                      "regroup / consolidate / transit / defensive_transition / area_search / "

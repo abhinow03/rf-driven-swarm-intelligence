@@ -35,6 +35,13 @@ THREAT_FAMILIES = {
     "medium":   {"medium", "moderate", "elevated"},
     "high":     {"high", "severe", "serious"},
     "critical": {"critical", "extreme", "imminent"},
+    # Added so threat_level has the same schema-legal abstention value
+    # likely_intent already has (see "unknown" above) -- previously abstention
+    # rows had to assert a fake threat_level (build_abstain_rows.py hardcoded
+    # "medium"; baselines.py's _abstain() already emitted "unknown" here despite
+    # it not being schema-legal, see its own comment). Same token set as
+    # ABSTENTION_TOKENS/INTENT_FAMILIES["unknown"].
+    "unknown":  {"unknown", "unclear", "indeterminate", "insufficient data"},
 }
 # Covers every RULES-emitted action plus "intercept", which is schema-legal
 # (OUTPUT_SCHEMA in inference.py) but never appears in RULES.

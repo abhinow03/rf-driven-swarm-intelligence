@@ -76,15 +76,14 @@ def _canned_assessment(threat: str, intent: str, action: str, from_f: str, to_f:
 
 
 def _abstain(reason: str) -> dict:
-    # threat_level has no schema-legal "unknown" the way likely_intent does (this
-    # asymmetry is documented in AUDIT.md sec D) — this response is still
-    # schema-imperfect on that field. It used to also break evaluate_llm's scoring
-    # (is_hallucination flagged the threat side, so an abstention scored as BOTH
-    # 100% wrong AND 100% hallucinated, on top of abstention_rate=1.0 sitting right
-    # next to those numbers uncommented). That's now fixed at the evaluate_llm layer
-    # instead — abstained responses are excluded from accuracy/hallucination scoring
-    # entirely (see evaluate.py), so this function doesn't need a fake schema-legal
-    # threat value to avoid mis-scoring.
+    # threat_level="unknown" is schema-legal (prompts.py THREAT_FAMILIES/
+    # inference.py OUTPUT_SCHEMA, added in AUDIT.md sec AA step 3 -- this
+    # function predates that fix and used to emit "unknown" here despite it not
+    # being schema-legal at the time; that asymmetry with likely_intent, which
+    # always had an "unknown" family, is documented in AUDIT.md sec D). Also
+    # note abstained responses are excluded from accuracy/hallucination scoring
+    # entirely regardless (see evaluate.py) — this field being schema-valid now
+    # is a correctness fix, not something the scoring logic depended on.
     return {
         "situation_summary": f"Unable to determine formation transition from context ({reason}).",
         "threat_level": "unknown",
