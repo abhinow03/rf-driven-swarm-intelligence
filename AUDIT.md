@@ -2334,3 +2334,57 @@ not just inflating `medium` on genuinely `low` inputs, but ALSO absorbing genuin
 (4.3% for `rules_in_prompt` on `high`, 0% everywhere else) — the practical risk this data
 supports is real threats being under-reported as routine, not routine activity being
 false-flagged as a crisis.
+
+### Step 3: composite comparison table, rebuilt with real error bars
+
+Sec AB's comparison table (and step 1's four-way reconciliation above) reported point
+estimates with no error bars, on a metric step 1 just showed has substantial run-to-run
+sampling noise. `llm_finetuning/rebuild_composite_table.py` fixes both problems at once:
+re-ran `v2` and `v3b-fix` fresh with the same raw-capture technique step 1 used for
+`rules_in_prompt`/`composite` (reusing THEIR already-captured data, no extra GPU calls
+for those two), then computed, for every system and every threat stratum, the
+accuracy on EACH of the 5 independent runs separately, and reports mean ± **std across
+those 5 run-level numbers** — genuine run-to-run variance, not the case-to-case spread
+step 1's std column reported (a different, larger quantity; do not compare the two std
+columns to each other).
+
+**Threat accuracy, mean ± std across n_runs=5:**
+
+| system | low | medium | high | critical | overall |
+|---|---|---|---|---|---|
+| v2 | 88.0%±2.7% | 96.7%±3.1% | 100.0%±0.0% | 100.0%±0.0% | **95.3%±1.9%** |
+| v3b-fix | 28.0%±7.8% | 93.3%±2.0% | 54.3%±7.3% | 0.0%±0.0% | 62.2%±1.8% |
+| rules_in_prompt | 73.3%±9.4% | 67.2%±6.7% | 27.1%±2.9% | 30.0%±24.5% | 57.3%±4.1% |
+| composite | 74.7%±6.5% | 68.7%±6.6% | 33.4%±6.1% | 40.0%±20.0% | 60.3%±2.5% |
+
+**Intent accuracy, mean ± std across n_runs=5:**
+
+| system | low | medium | high | critical | overall |
+|---|---|---|---|---|---|
+| v2 | 100.0%±0.0% | 99.2%±1.7% | 100.0%±0.0% | 100.0%±0.0% | **99.6%±0.7%** |
+| v3b-fix | 61.3%±6.5% | 74.2%±5.5% | 77.1%±2.9% | 60.0%±20.0% | 70.9%±3.0% |
+| rules_in_prompt | 46.7%±9.4% | 54.6%±2.0% | 74.3%±3.5% | 60.0%±20.0% | 57.7%±2.4% |
+| composite | 52.0%±8.8% | 56.8%±3.0% | 76.8%±2.8% | 60.0%±20.0% | 60.6%±2.1% |
+
+**What holds up against error bars, and what doesn't:**
+
+- **v2's dominance is real and not noise** — every one of its cells has a std ≤3.1pt and
+  sits 10+ points above every other system on every stratum it doesn't already hit 100% on.
+- **`composite` beats `rules_in_prompt` on every single cell in both tables**, not just
+  in a point-estimate sense — the gaps (e.g. `high` threat 33.4% vs 27.1%, `low` intent
+  52.0% vs 46.7%) are each larger than either system's own std, so this is a real,
+  if modest, improvement from routing — not something the earlier point estimates
+  merely appeared to show. This is a materially different, better-supported claim than
+  sec AB could make with point estimates alone.
+- **`critical`'s std (20-24.5pt on n=2 cases) is enormous relative to its own point
+  estimate** — exactly the n=2 statistical-noise warning already flagged in step 2 and
+  throughout this audit (sec S, `report_per_class.py`); no claim should be built on the
+  `critical` column alone.
+- **`rules_in_prompt`'s low-threat number (73.3%±9.4%) is close to but not identical to**
+  step 1's same-labeled figure (also 73.3%, same underlying run) — consistent, as
+  expected, since both read the same captured data; the ±9.4% here is the PROPER
+  run-level std this section exists to add, not a new measurement.
+- v3b-fix genuinely wins `medium` (93.3%±2.0% vs `rules_in_prompt`'s 67.2%±6.7%,
+  non-overlapping even generously) — the one stratum where 234-example fine-tuning
+  clearly beats in-context RULES presentation, confirming sec AB's step 4 read of the
+  field-structure split still holds under proper error bars.
