@@ -59,10 +59,10 @@ def _parse_llm_response(text: str) -> dict:
 class LLMClient:
     """Base interface. Implement ``generate(prompt) -> str``."""
 
-    def complete(self, prompt: str) -> dict:
+    def complete(self, prompt: str, system_prompt: Optional[str] = None) -> dict:
         for attempt in range(3):
             try:
-                return _extract_json(self.generate(prompt))
+                return _extract_json(self.generate(prompt, system_prompt=system_prompt))
             except json.JSONDecodeError:
                 if attempt == 2:
                     return {"error": "JSON parse failed"}
@@ -72,19 +72,21 @@ class LLMClient:
                 time.sleep(2 ** attempt)
         return {"error": "unreachable"}
 
-    def complete_batch(self, prompts: list[str], batch_size: int = 8) -> list[dict]:
+    def complete_batch(self, prompts: list[str], batch_size: int = 8,
+                       system_prompt: Optional[str] = None) -> list[dict]:
         """Default: no batching support, falls back to sequential complete().
         Clients that can batch (LocalHFClient) override generate_batch()."""
         try:
-            raw = self.generate_batch(prompts, batch_size=batch_size)
+            raw = self.generate_batch(prompts, batch_size=batch_size, system_prompt=system_prompt)
             return [_parse_llm_response(r) for r in raw]
         except NotImplementedError:
-            return [self.complete(p) for p in prompts]
+            return [self.complete(p, system_prompt=system_prompt) for p in prompts]
 
-    def generate(self, prompt: str) -> str:  # pragma: no cover - interface
+    def generate(self, prompt: str, system_prompt: Optional[str] = None) -> str:  # pragma: no cover - interface
         raise NotImplementedError
 
-    def generate_batch(self, prompts: list[str]) -> list[str]:  # pragma: no cover - interface
+    def generate_batch(self, prompts: list[str],
+                       system_prompt: Optional[str] = None) -> list[str]:  # pragma: no cover - interface
         raise NotImplementedError
 
 
@@ -99,14 +101,14 @@ class GroqClient(LLMClient):
         self.temperature = temperature
         self.max_tokens = max_tokens
 
-    def generate(self, prompt: str) -> str:
+    def generate(self, prompt: str, system_prompt: Optional[str] = None) -> str:
+        messages = ([{"role": "system", "content": system_prompt}] if system_prompt else [])
+        messages.append({"role": "user", "content": f"Return ONLY valid JSON.\n\n{prompt}"})
         resp = requests.post(
             GROQ_URL,
             headers={"Authorization": f"Bearer {self.api_key}",
                      "Content-Type": "application/json"},
-            json={"model": self.model,
-                  "messages": [{"role": "user",
-                                "content": f"Return ONLY valid JSON.\n\n{prompt}"}],
+            json={"model": self.model, "messages": messages,
                   "temperature": self.temperature, "max_tokens": self.max_tokens},
             timeout=60,
         )
@@ -142,9 +144,11 @@ class LocalHFClient(LLMClient):
             self.model = PeftModel.from_pretrained(self.model, adapter_path)
         self.model.eval()
 
-    def generate(self, prompt: str) -> str:
+    def generate(self, prompt: str, system_prompt: Optional[str] = None) -> str:
         import torch
-        messages = ([{"role": "system", "content": self.system_prompt}] if self.system_prompt else [])
+        effective_system_prompt = system_prompt if system_prompt is not None else self.system_prompt
+        messages = ([{"role": "system", "content": effective_system_prompt}]
+                   if effective_system_prompt else [])
         messages.append({"role": "user", "content": f"Return ONLY valid JSON.\n\n{prompt}"})
         enc = self.tok.apply_chat_template(messages, add_generation_prompt=True,
                                            return_dict=True, return_tensors="pt").to(self.model.device)
@@ -155,23 +159,30 @@ class LocalHFClient(LLMClient):
                                       pad_token_id=self.tok.eos_token_id, **sample_kwargs)
         return self.tok.decode(out[0][enc["input_ids"].shape[1]:], skip_special_tokens=True)
 
-    def generate_batch(self, prompts: list[str], batch_size: int = 1) -> list[str]:
+    def generate_batch(self, prompts: list[str], batch_size: int = 1,
+                       system_prompt: Optional[str] = None) -> list[str]:
         """Batched generation: LEFT-padding (required for correct batched causal-LM
         generation -- all sequences must end at the same position so the new-token
         start offset is identical across the batch), prompts sorted by tokenized
         length before chunking into `batch_size` groups to cut padding waste, then
         restored to the caller's original order. Same message-building and
         sampling settings as generate(), so a batch_size=1 call reproduces
-        generate()'s output distribution exactly (same seed/temperature aside)."""
+        generate()'s output distribution exactly (same seed/temperature aside).
+
+        system_prompt: overrides self.system_prompt for this call only, same
+        per-call-override convention as generate() (used by pipeline_v2.py's
+        Layer 1, which reuses one base-model client for both rules_in_prompt's
+        RULES.txt system prompt and its own narrative-only system prompt)."""
         import torch
 
+        effective_system_prompt = system_prompt if system_prompt is not None else self.system_prompt
         old_padding_side = self.tok.padding_side
         self.tok.padding_side = "left"
         try:
             all_messages = []
             for prompt in prompts:
-                messages = ([{"role": "system", "content": self.system_prompt}]
-                           if self.system_prompt else [])
+                messages = ([{"role": "system", "content": effective_system_prompt}]
+                           if effective_system_prompt else [])
                 messages.append({"role": "user", "content": f"Return ONLY valid JSON.\n\n{prompt}"})
                 all_messages.append(messages)
 
