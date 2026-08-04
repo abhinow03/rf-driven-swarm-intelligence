@@ -1771,3 +1771,169 @@ real, secondary data artefact that should still be fixed.**
   it exists only in v3b's training file (not v3a's, which still collapses), and the adapter
   that carries it (v3b) calibrates *better*, not worse, than the one that doesn't (v3a) —
   the opposite of what "the artefact causes the collapse" would predict.
+
+## AA. The entropy confound, corrected — and the decisive inherited-vs-induced test
+
+Sec Z's part (c) compared raw full-vocabulary Shannon entropy at the `threat_level`
+position (4 legal values: `prompts.py` `THREAT_FAMILIES`) against `likely_intent`
+(15 legal values: `THREAT_FAMILIES`/`INTENT_FAMILIES`/`OUTPUT_SCHEMA`) and concluded
+`threat_level` was "more confident" because its raw entropy was lower (v3a: 0.840 vs
+1.149 bits). **That comparison is confounded by candidate-set size.** A field with
+only 4 legal outputs has a lower entropy ceiling (log2(4)=2.0 bits) than a field with
+15 (log2(15)=3.907 bits) — a uniform, maximally-uncertain distribution over 4 options
+already reads as "more confident" than a uniform distribution over 15, with nothing
+to do with the model's actual certainty. Normalizing by each field's own ceiling
+(`H / log2(n_legal_values)`) flips the sign: v3a normalizes to 0.420 (threat) vs 0.294
+(intent) — `threat_level` is *less* confident once corrected, not more, the opposite
+of sec Z's part (c) conclusion. **Sec Z's part (c) claim is retracted; parts (a) and
+(b) (training-target proportion, pair-sampling uniformity, and the hardcoded-medium
+abstention bug) stand un-superseded.**
+
+This section redoes the confidence measurement properly (`llm_finetuning/
+measure_base_rules_prior.py`), adds the two systems sec Z never ran (`base` —
+Qwen2.5-7B-Instruct, no adapter, no system prompt — and `rules_in_prompt` — same
+weights + `RULES.txt` as system prompt, `baselines.py`'s
+`make_rules_in_prompt_run_case` protocol — both loaded once, since they share the
+same underlying weights), and answers the decisive inherited-vs-induced question
+sec Z left open.
+
+### 1a. Normalized entropy at threat_level vs likely_intent, all 5 systems
+
+n=15 (the low-threat cases), same shared-rng protocol as sec Y/CC/Z (`build_case_prompt`,
+`Random(0)` advanced across all 55 `TEST_CASES` in order) so every system's case draws
+are positionally identical.
+
+| system | n | norm H(threat_level) | norm H(likely_intent) | delta |
+|---|---|---|---|---|
+| base | 15 | 0.301 | 0.331 | -0.030 |
+| rules_in_prompt | 15 | 0.083 | 0.229 | -0.146 |
+| v3a | 15 | 0.420 | 0.294 | +0.126 |
+| v3b | 15 | 0.422 | 0.231 | +0.191 |
+| v3d | 15 | 0.398 | 0.255 | +0.143 |
+
+All three fine-tuned adapters now show *positive* deltas (threat_level LESS confident
+than likely_intent, normalized) — the reverse sign from sec Z's raw-entropy table.
+`rules_in_prompt`, which is nearly always right on this stratum (see 2 below), is also
+the most confident system on threat_level by a wide margin (0.083) — confidence and
+correctness track together there, as expected. `base` sits in between.
+
+### 1b/1c. Margin P(top)-P(second) at threat_level — full distribution, histogram, bimodality
+
+Restricted 4-candidate softmax (`logit_inspection.py`'s `CANDIDATES`/
+`softmax_over_candidates`, sequence-scored, not a full-vocab proxy), so margin is
+inherently bounded to [0, 1] and not subject to the candidate-count confound at all.
+
+```
+base:            0.023, 0.155, 0.215, 0.223, 0.317, 0.450, 0.653, 0.734, 0.846, 0.857, 0.902, 0.905, 0.917, 0.962, 1.000
+rules_in_prompt: 0.555, 0.765, 0.798, 0.896, 0.947, 0.969, 0.971, 0.994, 0.999, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000
+v3a:             0.062, 0.140, 0.154, 0.185, 0.221, 0.230, 0.299, 0.538, 0.557, 0.582, 0.623, 0.623, 0.725, 0.806, 0.855
+v3b:             0.085, 0.093, 0.117, 0.124, 0.155, 0.280, 0.296, 0.392, 0.398, 0.430, 0.498, 0.521, 0.692, 0.809, 0.855
+v3d:             0.039, 0.047, 0.055, 0.086, 0.178, 0.272, 0.296, 0.350, 0.456, 0.572, 0.662, 0.727, 0.761, 0.855, 0.855
+```
+
+Histogram (width-0.1 bins, 0.0–1.0), counts per bin left-to-right:
+
+```
+base:            1 1 2 1 1 0 1 1 2 5
+rules_in_prompt: 0 0 0 0 0 1 0 2 1 11
+v3a:             1 3 3 0 0 3 2 1 2 0
+v3b:             2 3 2 2 2 1 1 0 2 0
+v3d:             4 1 2 1 1 1 1 2 2 0
+```
+
+**Bimodality is real for v3a specifically** — a clean, empty two-bin trough at
+[0.3, 0.5) (0, 0 cases) splits it into a near-tie mode (margin < 0.3, 7/15) and a
+crushed mode (margin ≥ 0.5, 8/15), matching the "P(low) 43–51% near-ties vs P(low)
+7–15% crushed" description exactly (see the per-case table in 1d). **v3b and v3d are
+NOT cleanly bimodal** — their histograms have no empty trough, just a denser left
+shoulder and a thinning tail (largest single gap in sorted margins: v3b 0.171 between
+0.521→0.692, v3d 0.116 between 0.456→0.572, both far softer than v3a's clean gap).
+Using the same fixed margin<0.3 cutoff for all three anyway (for comparability, not
+because it's an equally natural break for v3b/v3d): **all three land at exactly
+7/15 near-tie cases.** `base` splits roughly 6 near-tie / 9 crushed at its own largest
+gap (0.450→0.653); `rules_in_prompt` is almost entirely crushed (1 near-tie, the
+model is simply right and confident throughout that stratum).
+
+### 1d. Does near-tie-mode size predict how much prior correction recovers?
+
+**No — refuted as literally stated.** v3a, v3b, and v3d all have *exactly* the same
+near-tie-mode size (7/15) under the margin<0.3 cutoff, yet their prior-correction
+recovery differs by 26.7 points (v3a 0→53.3%, +53.3; v3b 20→86.7%, +66.7; v3d
+33.3→73.3%, +40.0). Mode size alone cannot be the mechanism — it's constant while the
+outcome varies.
+
+**What actually differs, per-case (`evaluation/logit_inspection.json`'s
+`corrected_argmax`, cross-referenced against the margin bucket):**
+
+| system | near-tie correct after correction | crushed correct after correction | total |
+|---|---|---|---|
+| v3a | 7/7 (100%) | 1/8 (12.5%) | 8/15 = 53.3% |
+| v3b | 7/7 (100%) | 6/8 (75.0%) | 13/15 = 86.7% |
+| v3d | 5/7 (71.4%) | 6/8 (75.0%) | 11/15 = 73.3% |
+
+The real mechanism: prior correction (`corrected_logP(c) = raw_logP(c) -
+log(train_class_freq(c))`, using each adapter's OWN training file's class
+frequencies) reliably flips *almost all* near-tie cases to `low` (v3a/v3b 7/7; v3d
+5/7 — the 2 misses, `diamond->diamond` and `diamond->column`, are genuinely
+`medium`-favoring even after correction, not just close calls) — that part of sec
+Y/CC/DD's original story holds. **But it is not restricted to the near-tie bucket at
+all: how far it reaches into the *crushed* bucket varies a lot by system** (v3a
+barely reaches, 1/8; v3b and v3d reach much further, 6/8 each) — because the
+correction's strength is set by each adapter's own `train_class_freq`, i.e. how
+skewed that specific training file's `medium` share is, not by anything about the
+individual case's margin. v3a's file (`sft_train_final.jsonl`, no abstention rows) has
+the mildest medium-skew of the three (see sec Z part a: 47.0% medium), so its
+correction is the weakest and barely reaches past the near-tie boundary; v3b's file
+(`sft_train_final_abstain.jsonl`, with the hardcoded-medium abstention rows) has the
+strongest skew (54.1%) and its correction reaches furthest. **Recovery magnitude
+tracks each adapter's own training-medium-skew (correction strength), not near-tie
+population size.**
+
+### 2. Decisive test: is the medium prior inherited or induced?
+
+`base` (Qwen2.5-7B-Instruct, zero exposure to any row this project ever trained on)
+and `rules_in_prompt` (same weights, `RULES.txt` pasted as system prompt) were run
+greedy on the same 15 low-threat cases:
+
+| system | low | medium | high | critical |
+|---|---|---|---|---|
+| base | 4/15 (26.7%) | 11/15 (73.3%) | 0/15 | 0/15 |
+| rules_in_prompt | 14/15 (93.3%) | 1/15 (6.7%) | 0/15 | 0/15 |
+
+**Verdict: the medium prior is PRETRAINING-INHERITED, not induced by this project's
+fine-tuning pipeline.** `base` — which has never seen a single row of `sft_train_*.jsonl`
+— already predicts `medium` on 73.3% of genuinely low-threat cases, essentially the
+same failure mode as the fine-tuned adapters. This settles step 2's either/or question
+plainly: if fine-tuning had induced the skew, `base` would not show it. It does.
+
+Two things this also reveals that weren't the original question but are worth
+recording plainly:
+
+- **Fine-tuning does not consistently improve on `base`'s own raw low-threat
+  accuracy, and for v3a it appears to make it worse.** `base`'s raw greedy accuracy
+  on this stratum (26.7%, 4/15) is *higher* than v3a's (0.0%) and comparable to
+  v3b's (20.0%) — training on a few hundred rule-derived examples did not reliably
+  move the needle toward the pretrained model's own baseline, let alone past it.
+- **Giving the base model the rules directly in-context (`rules_in_prompt`, zero
+  training) resolves the skew almost completely (93.3%)** — far better than any
+  fine-tuned adapter's raw accuracy. The model evidently *can* apply the rule table
+  correctly when it's given explicitly and unambiguously in-context; a few hundred
+  fine-tuning examples teach the rule table far less reliably than seeing it
+  verbatim does. This is a real, practical signal for anyone deciding between
+  fine-tuning and in-context rule injection for this task, not just a diagnostic
+  footnote.
+
+### Verdict, superseding sec Z's part (c)
+
+The entropy-based "confidently wrong, not flattened" argument in sec Z part (c) does
+not survive the candidate-count-normalization correction and is retracted as stated.
+What replaces it, from real per-case data rather than an aggregate entropy number: the
+model's threat_level distribution is genuinely structured, not flattened — a
+recoverable near-tie population (margin<0.3, ~7/15 across the fine-tuned adapters)
+that a class-frequency correction resolves almost perfectly, plus a variable-size
+crushed population whose recoverability tracks each adapter's own training-medium-skew.
+Combined with step 2's result — `base` already shows the same skew before any
+fine-tuning — the overall sec Z verdict (genuine model behaviour, not a pipeline bug)
+still holds, but its origin is now pinned down precisely: **pretraining-inherited**,
+not induced by this project's data or pipeline, and fine-tuning on the current
+datasets neither reliably fixes nor is required to explain it.
