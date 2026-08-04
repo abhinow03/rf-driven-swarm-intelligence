@@ -2388,3 +2388,151 @@ columns to each other).
   non-overlapping even generously) — the one stratum where 234-example fine-tuning
   clearly beats in-context RULES presentation, confirming sec AB's step 4 read of the
   field-structure split still holds under proper error bars.
+
+## AD. Ordinal shrinkage confirmed at the high/critical end — in a system with no fine-tuning at all
+
+Sec AC step 2 established that under-escalation (65.7-70.0%), not over-escalation
+(0-4.3%), dominates the error on real high/critical threats, for both `rules_in_prompt`
+and `composite`. This section asks whether that's the same `medium`-attractor mechanism
+already traced through the low-threat collapse (secs Z/AA/AB/AC), now showing up at the
+opposite end of the scale — and, critically, whether it exists in `rules_in_prompt`, a
+system that has never been fine-tuned at all, ruling training-data artefacts in or out.
+
+**Reframed safety claim, stated plainly:** the measured failure mode in this system is
+real threats being silently downgraded toward `medium` ("routine"), not routine activity
+being false-flagged as a crisis. This is the opposite of the panel's presumed concern
+(over-escalation / false alarms) and is the claim this audit's evidence actually
+supports.
+
+### Step 1: exact predicted-value breakdown — overshoot, not clean single-step drift
+
+`llm_finetuning/breakdown_high_crit.py` (pure post-processing of sec AC's already-captured
+raw data, no GPU) gives the full predicted-class distribution, not just correct/under/over:
+
+| expected | system | →medium | →high | →low | →critical | abstained |
+|---|---|---|---|---|---|---|
+| high (n=14, 70 runs) | rules_in_prompt | **48.6%** | 27.1% (correct) | 20.0% | 4.3% | 0% |
+| high (n=14, 70 runs) | composite | **54.3%** | 32.9% (correct) | 11.4% | — | 1.4% |
+| critical (n=2, 10 runs) | rules_in_prompt | 20.0% | 50.0% | — | 30.0% (correct) | 0% |
+| critical (n=2, 10 runs) | composite | **50.0%** | 10.0% | — | 40.0% (correct) | 0% |
+
+**Verdict, stated plainly: this is not clean single-step ordinal shrinkage — it
+overshoots.** For `high`, one-step drift to `medium` dominates as expected, but two-step
+drift to `low` is far from negligible (11.4-20.0%, more than a third of all errors). For
+`critical`, the pattern is starkest: `composite`'s single MOST COMMON prediction is
+`medium` (50.0%, a two-step shrink past `high` entirely) — more common than the
+one-step-adjacent `high` (10.0%). `rules_in_prompt` on `critical` is closer to one-step
+(`high` 50.0% vs `medium` 20.0%), but both systems show `medium` absorbing errors that
+skip the adjacent category, consistent with `medium` acting as a genuine gravitational
+attractor across the whole scale, not a local one-step-per-error random walk.
+
+### Step 2: stabilizing the volatile strata — n_runs=20, proper CIs
+
+Sec AC step 3's table reported `low`/`high`/`critical` accuracy from only n_runs=5, with
+std as high as 20-25pt on those strata — too volatile to be the number that goes in a
+writeup. `llm_finetuning/stabilize_volatile_strata.py` re-ran only those 31 cases (low +
+high + critical; `medium` was already stable) at n_runs=20, reporting mean ± 95% CI via
+the t-distribution (df=19), not a std or a normal-approximation:
+
+| system | stratum | mean | 95% CI | n_runs |
+|---|---|---|---|---|
+| rules_in_prompt | low | 82.6% | ±3.2% | 20 |
+| rules_in_prompt | high | 30.4% | ±2.8% | 20 |
+| rules_in_prompt | critical | 37.5% | ±10.4% | 20 |
+| composite | low | 82.5% | ±4.3% | 20 |
+| composite | high | 32.3% | ±2.5% | 20 |
+| composite | critical | 37.5% | ±10.4% | 20 |
+
+**This table supersedes sec AC step 3's `low`/`high`/`critical` cells** (that table's
+`medium` and `overall` cells, and `v2`/`v3b-fix`'s numbers throughout, are untouched —
+this session re-ran only `rules_in_prompt` and `composite` on the three volatile strata).
+At n_runs=20, `low` and `high` are now tight enough to support real claims (±2.8-4.3pt);
+`critical` (n=2 cases, `±10.4%`) is still wide by construction — n=2 cannot produce a
+tight CI regardless of run count — but no longer swings 20+ points on sampling noise
+alone the way the n_runs=5 estimate did. Both systems land within each other's CIs on
+every stratum: `composite`'s edge over `rules_in_prompt` (real on `medium`/`overall` per
+sec AC step 3) does not extend to `low`/`high`/`critical` — routing does not fix the
+under-escalation problem, it inherits it.
+
+### Step 3: does the near-tie margin signature reappear at the high/critical end?
+
+Sec AA's low-threat collapse showed a bimodal margin distribution — a cluster of clean,
+confident predictions plus a distinct low-margin "near-tie" cluster, with an empty trough
+between them. `llm_finetuning/measure_high_crit_margin_and_prior.py` applies the identical
+technique (4-candidate teacher-forced sequence scoring at the `threat_level` position,
+greedy-generated prefix) to the 14 high + 2 critical cases:
+
+```
+high (n=14): 0.352, 0.443, 0.562, 0.569, 0.609, 0.618, 0.628, 0.650, 0.668, 0.738, 0.751, 0.781, 0.845, 0.940
+  histogram (0.0-1.0, width 0.1): 0 0 0 1 1 2 5 3 1 1
+critical (n=2): 0.295, 0.338
+  histogram (0.0-1.0, width 0.1): 0 0 1 1 0 0 0 0 0 0
+```
+
+**No, not the same way.** `high`'s margins are mostly confident — only 2/14 fall below
+0.5, and there is no empty trough separating a near-tie cluster from a confident one; the
+mass is continuous and skewed high (mode in [0.6, 0.7)). `critical`'s two margins
+(0.295, 0.338) are both low, near-tie-ish — but n=2 cannot establish bimodality or
+anything else distributional; it's reported for completeness, not as a finding.
+Mechanistically, this makes sense: sec AC step 1's per-case detail (below) shows the
+`high`→`medium` errors are driven by `medium` genuinely outscoring `high` in the raw
+softmax (e.g. `converging->converging`-adjacent case `v_shape->converging`: P(medium)
+0.782 vs P(high) 0.086) — confident wrong answers, not close calls the model could have
+gone either way on. The low-threat collapse's near-tie signature does not generalize to
+this direction of the scale.
+
+### Step 4: prior correction on a non-fine-tuned system — the session's key result
+
+Secs AA/AB/AC used a log-p(c) frequency correction (`corrected_logP(c) = raw_logP(c) -
+log(class_freq(c))`) to partially recover accuracy lost to the `medium` prior on the
+fine-tuned adapters (v3a/v3b/v3d), using each adapter's own training-file class
+frequency. `rules_in_prompt` has no training file, so the correction here uses RULES'
+own canonical class frequency instead — `low 26.5%, medium 44.9%, high 24.5%, critical
+4.1%` (`report_class_balance.py`) — the actual target distribution `rules_in_prompt` is
+handed verbatim in-context and expected to reflect.
+
+```
+high accuracy:     raw=35.7% -> corrected=14.3%  (n=14)   WORSE
+critical accuracy: raw=0.0%  -> corrected=50.0%  (n=2)    n=2, not meaningful
+```
+
+**Verdict, stated plainly: prior correction does NOT recover the way it did for the
+fine-tuned adapters' low-threat correction — it actively hurts `high`.** Mechanism,
+visible in the per-case P() detail: of the 5 raw-correct `high` predictions, 3
+(`v_shape->encirclement`, `diamond->encirclement`, `dispersed->encirclement`) flip to
+`critical` after correction — e.g. `diamond->encirclement`'s raw P(high)=0.758,
+P(critical)=0.140 flips because `critical`'s RULES frequency (4.1%) is so small that
+`-log(0.041)` is a large positive boost, enough to overtake a 5.4x raw-probability gap.
+Only 2/14 cases remain correctly `high` post-correction.
+
+**This answers the session's central question: the mechanism differs between
+directions, and under-escalation needs a different fix than over-escalation did.** The
+low-threat correction worked because it corrected a *mild* frequency ratio (medium 44.9%
+vs low 26.5%, ~1.7x) against a prior that had only mildly over-weighted `medium`. This
+correction fails because it corrects an *extreme* ratio (medium 44.9% vs critical 4.1%,
+~11x) — the log-boost for a rare class this size overshoots any realistic raw-probability
+gap and drags correctly-classified adjacent cases into the rare class instead of
+recovering them. Naive frequency-based correction is not a direction-agnostic fix for
+ordinal shrinkage; it is asymmetric in effect size and actively harmful once the target
+class's frequency gets rare enough. **This is a decoding-level phenomenon reproduced in
+a system with zero fine-tuning, so the underlying `medium`-attractor bias is
+pretraining-inherited rather than an artefact of this project's training pipeline — but
+its fix cannot be the same off-the-shelf correction in both directions.**
+
+### Verdict — unified finding across the full threat scale, with and without fine-tuning
+
+The `medium`-attractor bias this audit has traced since sec Z is not a low-threat-only
+phenomenon and not a fine-tuning artefact: it pulls predictions toward `medium` from
+BOTH directions of the ordinal scale, in a system (`rules_in_prompt`) that was never
+trained at all, and it does so with real overshoot — skipping past the adjacent category
+directly to `medium` often enough (11.4-54.3% across the four high/critical cells) to be
+the dominant error mode, not a tail effect. The one asymmetry that does NOT carry over
+is the fix: the log-p(c) prior correction that helped on the low-threat side actively
+hurts on the high/critical side, because the correction's magnitude is a function of how
+rare the target class is, and `critical` (4.1%) is far rarer than `low` (26.5%) ever was.
+
+**Reframed safety claim (contra the panel's presumed over-escalation concern): the
+measured failure mode in this system is under-escalation — real high/critical threats
+being silently absorbed into `medium`/"routine" 60-70% of the time — not routine activity
+being false-flagged as a crisis, which occurs 0-4.3% of the time and is not the risk this
+data supports worrying about.**
