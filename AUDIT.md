@@ -3047,3 +3047,72 @@ logic brittleness diagnosed in step 1 is fixed; it was never the dominant bottle
 real-world Layer-1 usage. `dispersed_converging_ambiguity` is, and step 2d correctly refused
 to touch it. Step 3 evaluates whether this small, low-precision Layer-1 gain is worth
 anything system-wide, or whether it should be reverted.
+
+### Step 3: the full re-evaluation — robust reduction should NOT ship as pipeline_v2's default
+
+`llm_finetuning/eval_real_stgt_output_robust.py`: same 500 sequences, same independent
+ground-truth derivation as sec AF (true formation chain, never `bridge_predictions`' own
+output), same `has_ground_truth`/abstention-scoring convention. `low`/`high`/`critical` at
+n_runs=20, `medium` and non-GT sequences at n_runs=5, all 5 systems (`v2`, `rules_in_prompt`,
+`v3b-fix`, `pipeline_v2`, `pipeline_v2-robust`). 24,650 case-run units, 7h05m, batched
+throughout, same 3-client-sharing setup as sec AE step 4/sec AF.
+
+**Per-class threat accuracy, mean ± 95% CI:**
+
+| system | low | medium | high | critical |
+|---|---|---|---|---|
+| v2 | 69.9%±1.2% | 57.7%±1.9% | 23.2%±0.8% | 0.0%±0.0% |
+| rules_in_prompt | 70.7%±1.1% | 23.7%±2.0% | 1.0%±0.5% | 0.0%±0.0% |
+| v3b-fix | 47.1%±1.4% | 61.1%±6.9% | 11.4%±1.3% | 0.0%±0.0% |
+| pipeline_v2 | 37.2%±2.9% | 55.3%±7.5% | 5.2%±1.1% | 0.0%±0.0% |
+| **pipeline_v2-robust** | 44.0%±3.8% | 51.4%±9.7% | 10.6%±1.2% | 0.0%±0.0% |
+
+**Abstention / escalation, run-level averaged over all 249 ground-truth-determinable
+sequences (weighted by each stratum's n_runs):**
+
+| system | over-abstention | correct | under-esc | over-esc | escalation error |
+|---|---|---|---|---|---|
+| v2 | 0.0% | 48.7% | 35.7% | 15.2% | 50.9% |
+| rules_in_prompt | 28.9% | 25.4% | 34.7% | 8.3% | 43.0% |
+| v3b-fix | 22.9% | 25.8% | 32.4% | 18.9% | 51.2% |
+| pipeline_v2 | 69.8% | 6.7% | 17.3% | 6.1% | 23.5% |
+| **pipeline_v2-robust** | **90.9%** | **2.2%** | 5.3% | 1.6% | **6.9%** |
+
+**Layer-firing rates (run-level, n=4930 per system):**
+
+| layer | pipeline_v2 | pipeline_v2-robust |
+|---|---|---|
+| Layer 1 (dict) | 3.0% | 4.0% |
+| Layer 2 (guard) | 42.8% | **67.7%** |
+| Layer 3 (LLM) | 54.2% | **28.3%** |
+
+**Success criteria check, stated in advance:**
+
+| criterion | target | measured | result |
+|---|---|---|---|
+| Layer-1 firing | > 40% | 4.0% | **FAIL** |
+| over-abstention | < 25% | 90.9% | **FAIL** |
+| escalation error | ≤ 20.5% | 6.9% | PASS |
+
+**Verdict, stated as plainly as the session's instructions require: robust reduction trades
+accuracy for wrong (non-)answers, not for recovering real ones, and should NOT replace
+`pipeline_v2`'s default.** Two of three stated gates fail outright, and the one that
+"passes" is a mechanical artefact, not a genuine improvement — pipeline_v2-robust's 6.9%
+escalation error looks better than pipeline_v2's 23.5% only because it answers 90.9% of
+ground-truth-determinable cases with silence instead of 69.8%; there is very little
+remaining opportunity to escalate wrong when almost nothing is answered at all. The
+mechanism is exactly what sec AG step 2 predicted and now confirmed at full scale: robust
+reduction moves cases OUT of Layer 3 (where `v3b-fix` at least attempts an answer, with a
+real if imperfect chance of being right — `v3b-fix`'s own `high` accuracy is 11.4%, not
+zero) and INTO Layer 2 (hard guard-abstention), because recovering a structural (a,b) pair
+only to have the SAME pair immediately caught by the unconditional dispersed/converging
+ambiguity guard converts a chance at a correct LLM answer into a guaranteed silence. Layer
+3 traffic drops from 54.2% to 28.3%; Layer 2 traffic rises from 42.8% to 67.7% — almost
+exactly the swap size, confirming the mechanism directly rather than merely correlating
+with it. `pipeline_v2` (original, unanimity reduction) itself already under-performs
+`v2`/`v3b-fix` on raw correctness (6.7% vs 48.7%/25.8%) for the same reason at a smaller
+scale (sec AF); `pipeline_v2-robust` makes this materially worse, not better. **Recommendation:
+keep `robust=False` as `stgt_bridge.py`'s default (already true), keep the robust-reduction
+code available and tested (it is a real, working fix for the DIAGNOSED brittleness, and may
+be useful again if the dispersed/converging defect is ever independently fixed), but do not
+route pipeline_v2 through it in its current form.**
