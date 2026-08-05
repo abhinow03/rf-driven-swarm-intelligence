@@ -2996,3 +2996,54 @@ ALSO exhibit the ambiguity guard once given a valid 2-tuple pair (ambiguity is a
 property, not exclusive to already-failed-for-other-reasons cases) — so the true post-fix
 ceiling is somewhere between 9 (no improvement) and 129 (9 + 120, the naive best case), and
 is measured, not assumed, in step 2.
+
+### Step 2: implementing robust reduction — the fix works, the firing rate barely moves
+
+`src/swarm_intent/stgt_bridge.py` gets `_robust_reduce`/`_robust_all_unknown_fallback` and a
+`bridge_predictions(..., robust=False, robust_threshold=0.7)` flag (default `False`,
+byte-identical output to before — all 33 pre-existing tests pass unmodified). `robust=True`
+strips leading/trailing transitioning runs (2a), reduces by majority vote per half with
+UNKNOWN excluded from candidacy (2b — a half dominated by noise must fail the threshold,
+not report `"unknown"` as a formation), falls back to aggregated `class_probabilities` when
+nothing survives stripping (2c), and on failure falls through to the ORIGINAL unanimity
+logic unchanged, never landing worse-informed than `robust=False`. `coverage.classify_observation`
+gets the same flag, threaded to `bridge_predictions`, and suppresses `oov_name`/
+`dominant_history_contradiction` specifically when robust recovery succeeded (those guards'
+job is superseded by the recovery's own threshold check) — `dispersed_converging_ambiguity`
+and `low_confidence` stay UNCONDITIONAL, exactly per step 2d's instruction. 10 new tests
+(`tests/test_robust_reduction.py`); full 127-test suite passes.
+
+**Threshold tuning (dev split, seed=1, 300 sequences — NEVER the seed=0 eval set):** swept
+{0.45..1.00}. Result, stated plainly: **precision never exceeds 49.0%, at ANY threshold
+including 1.00 (full unanimity within each half)** — this is not a noise-tolerance problem
+threshold strictness can fix. Of the wrong recoveries at the chosen threshold (0.7), 63.3%
+involve the dispersed/converging defect (expected, left alone per 2d) and 36.7% are genuine
+model misclassification unrelated to it (matches step 1's `formation_name_mismatch`, just at
+dev-set scale) — reduction logic cannot fix either. **Worse: checking what happens once the
+UNCONDITIONAL ambiguity guard (2d) is applied on top of robust recovery, 92/96 (95.8%) of
+robustly-recovered dev cases have at least one ambiguous window somewhere in their
+(often 15-30-window) stream and route to bucket B regardless — only 4/96 would actually
+reach bucket A, at 25.0% precision (1/4).** Chosen threshold: 0.7 (the lowest threshold at
+the sweep's precision ceiling; no threshold reached the stated 90% floor).
+
+**Layer-1 firing rate, before vs after, on the SAME 500 held-out real sequences sec AE/AF
+measured (seed=0):**
+
+| bucket | before (unanimity) | after (robust) |
+|---|---|---|
+| A (Layer 1) | 9/500 (1.8%) | **12/500 (2.4%)** |
+| B (Layer 2, guard) | 191/500 (38.2%) | 293/500 (58.6%) |
+| C (Layer 3, LLM) | 300/500 (60.0%) | 195/500 (39.0%) |
+
+**Stated plainly, exactly as the dev-set tuning predicted: Layer-1 firing barely moves (1.8%
+→ 2.4%, +0.6 points absolute, only 3 cases actually cross from B/C into A) and precision on
+the 12 cases that DO reach bucket A is 16.7% (2/12) against ground truth — worse cases than
+correct ones.** The robust reduction genuinely fixes what it was built to fix — bucket C
+shrinks by a full 21 points (60.0%→39.0%) as `terminal_unknown`/`all_unknown` cases get
+structurally resolved — but almost every one of those newly-resolved cases has an ambiguous
+window somewhere in its long window stream and gets correctly caught by the (deliberately
+untouched, per 2d) ambiguity guard, landing in bucket B instead of bucket A. The reduction-
+logic brittleness diagnosed in step 1 is fixed; it was never the dominant bottleneck for
+real-world Layer-1 usage. `dispersed_converging_ambiguity` is, and step 2d correctly refused
+to touch it. Step 3 evaluates whether this small, low-precision Layer-1 gain is worth
+anything system-wide, or whether it should be reverted.

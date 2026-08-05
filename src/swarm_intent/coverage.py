@@ -34,7 +34,7 @@ import re
 from itertools import groupby
 
 from .config import BASE_FORMATIONS
-from .stgt_bridge import bridge_predictions, UNKNOWN_FORMATION
+from .stgt_bridge import bridge_predictions, UNKNOWN_FORMATION, DEFAULT_ROBUST_THRESHOLD
 
 BUCKET_A = "A"  # resolvable
 BUCKET_B = "B"  # guardable
@@ -46,18 +46,34 @@ def _collapse_consecutive(seq):
 
 
 def classify_observation(predictions: list[dict], calibrator=None,
-                         max_key_windows: int = 10) -> dict:
+                         max_key_windows: int = 10, robust: bool = False,
+                         robust_threshold: float = DEFAULT_ROBUST_THRESHOLD) -> dict:
     """predictions: swarm_intent.stgt.inference.sliding_window_inference() output
     (or hand-built dicts of the same shape). Returns a dict with keys: bucket
     (A/B/C), subtype (C only, else None), rules_key ((from,to) tuple or None),
     guard_reasons (list[str], B only), context_text, summary, key_windows --
     the last three are bridge_predictions()'s own return values, passed through
-    so a caller doesn't have to call it twice."""
-    context_text, summary, key_windows = bridge_predictions(predictions, calibrator, max_key_windows)
+    so a caller doesn't have to call it twice.
+
+    robust: False (default) reproduces the original behaviour exactly.
+    True (AUDIT.md sec AG) attempts majority-based robust reduction in
+    bridge_predictions first; when it recovers a pair, the oov_name and
+    dominant_history_contradiction guards below are suppressed for THAT case
+    (the robust recovery's own threshold check already is the "is this
+    trustworthy" test; re-applying the raw-unknown-count/tie guards on top
+    would just re-throw away exactly what robust reduction was built to
+    recover). dispersed_converging_ambiguity and low_confidence remain
+    UNCONDITIONAL either way -- per this module's design and stgt_bridge.py's
+    docstring point 4/step 2d, that guard is a real upstream defect, not
+    reduction-logic brittleness, and is deliberately not touched by this flag."""
+    context_text, summary, key_windows = bridge_predictions(
+        predictions, calibrator, max_key_windows, robust=robust, robust_threshold=robust_threshold)
+    robust_recovered = bool((summary.get("robust_reduction") or {}).get("recovered"))
 
     def _c(subtype):
         return {"bucket": BUCKET_C, "subtype": subtype, "rules_key": None, "guard_reasons": [],
-                "context_text": context_text, "summary": summary, "key_windows": key_windows}
+                "context_text": context_text, "summary": summary, "key_windows": key_windows,
+                "robust_recovery": None}
 
     if summary.get("abstain"):
         return _c("all_unknown")
@@ -82,9 +98,9 @@ def classify_observation(predictions: list[dict], calibrator=None,
         return _c("no_rules_key")
 
     guard_reasons = []
-    if summary["n_unknown_windows"] > 0:
+    if summary["n_unknown_windows"] > 0 and not robust_recovered:
         guard_reasons.append("oov_name")
-    if len(known_history) == 2:
+    if len(known_history) == 2 and not robust_recovered:
         # bridge_predictions' own `dominant` is max(..., key=count) -- ties are
         # broken silently/arbitrarily by set iteration order, which is exactly
         # the case a caller should NOT trust as "the" dominant formation. Count
@@ -99,7 +115,8 @@ def classify_observation(predictions: list[dict], calibrator=None,
 
     bucket = BUCKET_B if guard_reasons else BUCKET_A
     return {"bucket": bucket, "subtype": None, "rules_key": key, "guard_reasons": guard_reasons,
-            "context_text": context_text, "summary": summary, "key_windows": key_windows}
+            "context_text": context_text, "summary": summary, "key_windows": key_windows,
+            "robust_recovery": summary.get("robust_reduction")}
 
 
 # --- ctx-text representation (TEST_CASES / degradation / holdout batteries) ---

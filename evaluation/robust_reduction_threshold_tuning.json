@@ -1,0 +1,107 @@
+{
+  "dev_seed": 1,
+  "n_dev_sequences": 300,
+  "n_dev_gt_cases": 153,
+  "sweep": [
+    {
+      "threshold": 0.45,
+      "recovered": 121,
+      "n": 153,
+      "recovery_rate": 0.7908496732026143,
+      "correct": 51,
+      "precision": 0.4214876033057851
+    },
+    {
+      "threshold": 0.5,
+      "recovered": 121,
+      "n": 153,
+      "recovery_rate": 0.7908496732026143,
+      "correct": 51,
+      "precision": 0.4214876033057851
+    },
+    {
+      "threshold": 0.55,
+      "recovered": 101,
+      "n": 153,
+      "recovery_rate": 0.6601307189542484,
+      "correct": 48,
+      "precision": 0.4752475247524752
+    },
+    {
+      "threshold": 0.6,
+      "recovered": 101,
+      "n": 153,
+      "recovery_rate": 0.6601307189542484,
+      "correct": 48,
+      "precision": 0.4752475247524752
+    },
+    {
+      "threshold": 0.65,
+      "recovered": 101,
+      "n": 153,
+      "recovery_rate": 0.6601307189542484,
+      "correct": 48,
+      "precision": 0.4752475247524752
+    },
+    {
+      "threshold": 0.7,
+      "recovered": 96,
+      "n": 153,
+      "recovery_rate": 0.6274509803921569,
+      "correct": 47,
+      "precision": 0.4895833333333333
+    },
+    {
+      "threshold": 0.75,
+      "recovered": 96,
+      "n": 153,
+      "recovery_rate": 0.6274509803921569,
+      "correct": 47,
+      "precision": 0.4895833333333333
+    },
+    {
+      "threshold": 0.8,
+      "recovered": 96,
+      "n": 153,
+      "recovery_rate": 0.6274509803921569,
+      "correct": 47,
+      "precision": 0.4895833333333333
+    },
+    {
+      "threshold": 0.85,
+      "recovered": 96,
+      "n": 153,
+      "recovery_rate": 0.6274509803921569,
+      "correct": 47,
+      "precision": 0.4895833333333333
+    },
+    {
+      "threshold": 0.9,
+      "recovered": 96,
+      "n": 153,
+      "recovery_rate": 0.6274509803921569,
+      "correct": 47,
+      "precision": 0.4895833333333333
+    },
+    {
+      "threshold": 0.95,
+      "recovered": 96,
+      "n": 153,
+      "recovery_rate": 0.6274509803921569,
+      "correct": 47,
+      "precision": 0.4895833333333333
+    },
+    {
+      "threshold": 1.0,
+      "recovered": 96,
+      "n": 153,
+      "recovery_rate": 0.6274509803921569,
+      "correct": 47,
+      "precision": 0.4895833333333333
+    }
+  ],
+  "chosen_threshold": 0.7,
+  "precision_floor": 0.9,
+  "chosen_dev_recovery_rate": 0.6274509803921569,
+  "chosen_dev_precision": 0.4895833333333333
+}
