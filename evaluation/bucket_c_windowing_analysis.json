@@ -1,0 +1,9334 @@
+[
+  {
+    "i": 0,
+    "true_chain": [
+      "dispersed",
+      "diamond",
+      "encirclement",
+      "column"
+    ],
+    "n_timesteps": 192,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 53,
+      "blend_start": 16,
+      "blend_end": 32,
+      "steady": false
+    }
+  },
+  {
+    "i": 1,
+    "true_chain": [
+      "encirclement",
+      "v_shape",
+      "shield"
+    ],
+    "n_timesteps": 109,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 56,
+      "blend_start": 19,
+      "blend_end": 34,
+      "steady": false
+    },
+    "settled_tail": 22,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 2,
+    "true_chain": [
+      "encirclement",
+      "dispersed",
+      "diamond"
+    ],
+    "n_timesteps": 165,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 89,
+      "blend_start": 28,
+      "blend_end": 65,
+      "steady": false
+    }
+  },
+  {
+    "i": 3,
+    "true_chain": [
+      "shield",
+      "diamond",
+      "encirclement"
+    ],
+    "n_timesteps": 143,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 62,
+      "blend_start": 28,
+      "blend_end": 43,
+      "steady": false
+    },
+    "settled_tail": 19,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 4,
+    "true_chain": [
+      "encirclement"
+    ],
+    "n_timesteps": 70,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 70,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 5,
+    "true_chain": [
+      "shield",
+      "diamond"
+    ],
+    "n_timesteps": 78,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 78,
+      "blend_start": 31,
+      "blend_end": 58,
+      "steady": false
+    },
+    "settled_tail": 20,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 6,
+    "true_chain": [
+      "diamond"
+    ],
+    "n_timesteps": 50,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 50,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 7,
+    "true_chain": [
+      "v_shape",
+      "column",
+      "shield"
+    ],
+    "n_timesteps": 163,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 71,
+      "blend_start": 30,
+      "blend_end": 49,
+      "steady": false
+    }
+  },
+  {
+    "i": 8,
+    "true_chain": [
+      "dispersed",
+      "converging"
+    ],
+    "n_timesteps": 73,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 73,
+      "blend_start": 35,
+      "blend_end": 48,
+      "steady": false
+    },
+    "settled_tail": 25,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 9,
+    "true_chain": [
+      "dispersed",
+      "converging",
+      "encirclement",
+      "diamond"
+    ],
+    "n_timesteps": 209,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 56,
+      "blend_start": 26,
+      "blend_end": 31,
+      "steady": false
+    },
+    "settled_tail": 25,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 10,
+    "true_chain": [
+      "column",
+      "shield",
+      "v_shape"
+    ],
+    "n_timesteps": 171,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 79,
+      "blend_start": 33,
+      "blend_end": 49,
+      "steady": false
+    },
+    "settled_tail": 30,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 11,
+    "true_chain": [
+      "v_shape",
+      "column",
+      "shield"
+    ],
+    "n_timesteps": 116,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 65,
+      "blend_start": 30,
+      "blend_end": 45,
+      "steady": false
+    },
+    "settled_tail": 20,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 12,
+    "true_chain": [
+      "v_shape",
+      "encirclement",
+      "converging",
+      "dispersed"
+    ],
+    "n_timesteps": 199,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 67,
+      "blend_start": 20,
+      "blend_end": 37,
+      "steady": false
+    },
+    "settled_tail": 30,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 13,
+    "true_chain": [
+      "shield"
+    ],
+    "n_timesteps": 90,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 90,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 14,
+    "true_chain": [
+      "encirclement"
+    ],
+    "n_timesteps": 85,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 85,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    },
+    "mechanism": "model_uncertainty",
+    "alt_stride5": {
+      "bucket": "B",
+      "subtype": null
+    }
+  },
+  {
+    "i": 15,
+    "true_chain": [
+      "column"
+    ],
+    "n_timesteps": 64,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 64,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 16,
+    "true_chain": [
+      "diamond",
+      "shield",
+      "encirclement",
+      "shield"
+    ],
+    "n_timesteps": 208,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 76,
+      "blend_start": 23,
+      "blend_end": 52,
+      "steady": false
+    },
+    "settled_tail": 24,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 17,
+    "true_chain": [
+      "dispersed",
+      "v_shape",
+      "diamond"
+    ],
+    "n_timesteps": 164,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 75,
+      "blend_start": 24,
+      "blend_end": 56,
+      "steady": false
+    },
+    "settled_tail": 19,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 18,
+    "true_chain": [
+      "dispersed",
+      "encirclement",
+      "dispersed"
+    ],
+    "n_timesteps": 130,
+    "bucket_orig": "C",
+    "subtype_orig": "oscillation",
+    "last_hop": {
+      "seg_len": 58,
+      "blend_start": 18,
+      "blend_end": 39,
+      "steady": false
+    }
+  },
+  {
+    "i": 19,
+    "true_chain": [
+      "column"
+    ],
+    "n_timesteps": 64,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 64,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    },
+    "mechanism": "model_uncertainty",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 20,
+    "true_chain": [
+      "column",
+      "dispersed",
+      "column",
+      "v_shape"
+    ],
+    "n_timesteps": 220,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 94,
+      "blend_start": 36,
+      "blend_end": 55,
+      "steady": false
+    },
+    "settled_tail": 39,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 21,
+    "true_chain": [
+      "v_shape",
+      "diamond"
+    ],
+    "n_timesteps": 53,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 53,
+      "blend_start": 18,
+      "blend_end": 29,
+      "steady": false
+    }
+  },
+  {
+    "i": 22,
+    "true_chain": [
+      "dispersed"
+    ],
+    "n_timesteps": 94,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 94,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 23,
+    "true_chain": [
+      "v_shape"
+    ],
+    "n_timesteps": 73,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 73,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    },
+    "mechanism": "model_uncertainty",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 24,
+    "true_chain": [
+      "diamond"
+    ],
+    "n_timesteps": 71,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 71,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 25,
+    "true_chain": [
+      "v_shape",
+      "diamond",
+      "v_shape"
+    ],
+    "n_timesteps": 168,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 97,
+      "blend_start": 35,
+      "blend_end": 64,
+      "steady": false
+    }
+  },
+  {
+    "i": 26,
+    "true_chain": [
+      "converging"
+    ],
+    "n_timesteps": 99,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 99,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 27,
+    "true_chain": [
+      "dispersed",
+      "column",
+      "converging"
+    ],
+    "n_timesteps": 146,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 70,
+      "blend_start": 21,
+      "blend_end": 44,
+      "steady": false
+    }
+  },
+  {
+    "i": 28,
+    "true_chain": [
+      "v_shape",
+      "shield",
+      "diamond"
+    ],
+    "n_timesteps": 113,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 63,
+      "blend_start": 28,
+      "blend_end": 42,
+      "steady": false
+    },
+    "settled_tail": 21,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 29,
+    "true_chain": [
+      "encirclement",
+      "shield"
+    ],
+    "n_timesteps": 89,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 89,
+      "blend_start": 27,
+      "blend_end": 56,
+      "steady": false
+    },
+    "settled_tail": 33,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 30,
+    "true_chain": [
+      "shield",
+      "v_shape",
+      "dispersed"
+    ],
+    "n_timesteps": 150,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 92,
+      "blend_start": 36,
+      "blend_end": 52,
+      "steady": false
+    },
+    "settled_tail": 40,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 31,
+    "true_chain": [
+      "encirclement",
+      "dispersed",
+      "diamond",
+      "column"
+    ],
+    "n_timesteps": 211,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 85,
+      "blend_start": 32,
+      "blend_end": 54,
+      "steady": false
+    },
+    "settled_tail": 31,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 32,
+    "true_chain": [
+      "dispersed",
+      "column",
+      "dispersed"
+    ],
+    "n_timesteps": 172,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 97,
+      "blend_start": 32,
+      "blend_end": 59,
+      "steady": false
+    }
+  },
+  {
+    "i": 33,
+    "true_chain": [
+      "shield",
+      "encirclement",
+      "converging"
+    ],
+    "n_timesteps": 137,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 77,
+      "blend_start": 36,
+      "blend_end": 44,
+      "steady": false
+    },
+    "settled_tail": 33,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 34,
+    "true_chain": [
+      "column"
+    ],
+    "n_timesteps": 72,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 72,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 35,
+    "true_chain": [
+      "converging",
+      "v_shape"
+    ],
+    "n_timesteps": 69,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 69,
+      "blend_start": 23,
+      "blend_end": 49,
+      "steady": false
+    }
+  },
+  {
+    "i": 36,
+    "true_chain": [
+      "shield"
+    ],
+    "n_timesteps": 52,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 52,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 37,
+    "true_chain": [
+      "dispersed"
+    ],
+    "n_timesteps": 68,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 68,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 38,
+    "true_chain": [
+      "column",
+      "diamond"
+    ],
+    "n_timesteps": 53,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 53,
+      "blend_start": 19,
+      "blend_end": 32,
+      "steady": false
+    }
+  },
+  {
+    "i": 39,
+    "true_chain": [
+      "column",
+      "diamond"
+    ],
+    "n_timesteps": 90,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 90,
+      "blend_start": 34,
+      "blend_end": 51,
+      "steady": false
+    }
+  },
+  {
+    "i": 40,
+    "true_chain": [
+      "converging"
+    ],
+    "n_timesteps": 95,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 95,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    },
+    "mechanism": "model_uncertainty",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 41,
+    "true_chain": [
+      "converging",
+      "column",
+      "encirclement"
+    ],
+    "n_timesteps": 136,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 61,
+      "blend_start": 25,
+      "blend_end": 35,
+      "steady": false
+    },
+    "settled_tail": 26,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 42,
+    "true_chain": [
+      "column",
+      "v_shape",
+      "shield",
+      "converging"
+    ],
+    "n_timesteps": 267,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 91,
+      "blend_start": 28,
+      "blend_end": 55,
+      "steady": false
+    }
+  },
+  {
+    "i": 43,
+    "true_chain": [
+      "v_shape",
+      "shield",
+      "converging",
+      "shield"
+    ],
+    "n_timesteps": 269,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 90,
+      "blend_start": 31,
+      "blend_end": 59,
+      "steady": false
+    }
+  },
+  {
+    "i": 44,
+    "true_chain": [
+      "v_shape"
+    ],
+    "n_timesteps": 50,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 50,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 45,
+    "true_chain": [
+      "shield",
+      "converging",
+      "column"
+    ],
+    "n_timesteps": 147,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 73,
+      "blend_start": 34,
+      "blend_end": 45,
+      "steady": false
+    }
+  },
+  {
+    "i": 46,
+    "true_chain": [
+      "diamond",
+      "v_shape",
+      "dispersed",
+      "encirclement"
+    ],
+    "n_timesteps": 187,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 71,
+      "blend_start": 23,
+      "blend_end": 41,
+      "steady": false
+    }
+  },
+  {
+    "i": 47,
+    "true_chain": [
+      "dispersed",
+      "encirclement",
+      "v_shape"
+    ],
+    "n_timesteps": 153,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 73,
+      "blend_start": 22,
+      "blend_end": 43,
+      "steady": false
+    }
+  },
+  {
+    "i": 48,
+    "true_chain": [
+      "dispersed",
+      "v_shape",
+      "dispersed"
+    ],
+    "n_timesteps": 163,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 92,
+      "blend_start": 39,
+      "blend_end": 61,
+      "steady": false
+    }
+  },
+  {
+    "i": 49,
+    "true_chain": [
+      "encirclement",
+      "v_shape",
+      "encirclement"
+    ],
+    "n_timesteps": 198,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 98,
+      "blend_start": 35,
+      "blend_end": 66,
+      "steady": false
+    }
+  },
+  {
+    "i": 50,
+    "true_chain": [
+      "converging",
+      "diamond",
+      "dispersed",
+      "column"
+    ],
+    "n_timesteps": 246,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 93,
+      "blend_start": 34,
+      "blend_end": 51,
+      "steady": false
+    }
+  },
+  {
+    "i": 51,
+    "true_chain": [
+      "shield",
+      "encirclement",
+      "dispersed",
+      "shield"
+    ],
+    "n_timesteps": 250,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 70,
+      "blend_start": 24,
+      "blend_end": 49,
+      "steady": false
+    }
+  },
+  {
+    "i": 52,
+    "true_chain": [
+      "column",
+      "encirclement"
+    ],
+    "n_timesteps": 68,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 68,
+      "blend_start": 21,
+      "blend_end": 42,
+      "steady": false
+    }
+  },
+  {
+    "i": 53,
+    "true_chain": [
+      "column"
+    ],
+    "n_timesteps": 86,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 86,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    },
+    "mechanism": "model_uncertainty",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 54,
+    "true_chain": [
+      "v_shape",
+      "column",
+      "shield",
+      "encirclement"
+    ],
+    "n_timesteps": 227,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 86,
+      "blend_start": 41,
+      "blend_end": 50,
+      "steady": false
+    }
+  },
+  {
+    "i": 55,
+    "true_chain": [
+      "encirclement",
+      "converging",
+      "dispersed"
+    ],
+    "n_timesteps": 167,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 80,
+      "blend_start": 29,
+      "blend_end": 54,
+      "steady": false
+    },
+    "settled_tail": 26,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "B",
+      "subtype": null
+    }
+  },
+  {
+    "i": 56,
+    "true_chain": [
+      "column"
+    ],
+    "n_timesteps": 79,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 79,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 57,
+    "true_chain": [
+      "v_shape"
+    ],
+    "n_timesteps": 51,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 51,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 58,
+    "true_chain": [
+      "encirclement",
+      "dispersed"
+    ],
+    "n_timesteps": 92,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 92,
+      "blend_start": 36,
+      "blend_end": 52,
+      "steady": false
+    }
+  },
+  {
+    "i": 59,
+    "true_chain": [
+      "shield"
+    ],
+    "n_timesteps": 56,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 56,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 60,
+    "true_chain": [
+      "shield",
+      "v_shape"
+    ],
+    "n_timesteps": 88,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 88,
+      "blend_start": 42,
+      "blend_end": 62,
+      "steady": false
+    },
+    "settled_tail": 26,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 61,
+    "true_chain": [
+      "shield",
+      "encirclement",
+      "column",
+      "converging"
+    ],
+    "n_timesteps": 217,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 50,
+      "blend_start": 18,
+      "blend_end": 33,
+      "steady": false
+    },
+    "settled_tail": 17,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 62,
+    "true_chain": [
+      "shield",
+      "encirclement",
+      "converging"
+    ],
+    "n_timesteps": 178,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 95,
+      "blend_start": 32,
+      "blend_end": 63,
+      "steady": false
+    }
+  },
+  {
+    "i": 63,
+    "true_chain": [
+      "column",
+      "converging"
+    ],
+    "n_timesteps": 77,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 77,
+      "blend_start": 27,
+      "blend_end": 49,
+      "steady": false
+    },
+    "settled_tail": 28,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "B",
+      "subtype": null
+    }
+  },
+  {
+    "i": 64,
+    "true_chain": [
+      "dispersed"
+    ],
+    "n_timesteps": 78,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 78,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    },
+    "mechanism": "model_uncertainty",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 65,
+    "true_chain": [
+      "diamond"
+    ],
+    "n_timesteps": 89,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 89,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    },
+    "mechanism": "model_uncertainty",
+    "alt_stride5": {
+      "bucket": "B",
+      "subtype": null
+    }
+  },
+  {
+    "i": 66,
+    "true_chain": [
+      "encirclement"
+    ],
+    "n_timesteps": 85,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 85,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    },
+    "mechanism": "model_uncertainty",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 67,
+    "true_chain": [
+      "shield",
+      "encirclement",
+      "column"
+    ],
+    "n_timesteps": 184,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 86,
+      "blend_start": 31,
+      "blend_end": 49,
+      "steady": false
+    },
+    "settled_tail": 37,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 68,
+    "true_chain": [
+      "dispersed",
+      "shield",
+      "converging"
+    ],
+    "n_timesteps": 156,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 76,
+      "blend_start": 25,
+      "blend_end": 55,
+      "steady": false
+    },
+    "settled_tail": 21,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 69,
+    "true_chain": [
+      "converging",
+      "shield",
+      "diamond",
+      "column"
+    ],
+    "n_timesteps": 179,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 56,
+      "blend_start": 17,
+      "blend_end": 38,
+      "steady": false
+    },
+    "settled_tail": 18,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 70,
+    "true_chain": [
+      "shield",
+      "encirclement",
+      "column"
+    ],
+    "n_timesteps": 159,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 89,
+      "blend_start": 40,
+      "blend_end": 59,
+      "steady": false
+    },
+    "settled_tail": 30,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "B",
+      "subtype": null
+    }
+  },
+  {
+    "i": 71,
+    "true_chain": [
+      "dispersed",
+      "shield"
+    ],
+    "n_timesteps": 69,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 69,
+      "blend_start": 27,
+      "blend_end": 41,
+      "steady": false
+    },
+    "settled_tail": 28,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 72,
+    "true_chain": [
+      "encirclement",
+      "dispersed",
+      "encirclement"
+    ],
+    "n_timesteps": 150,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 81,
+      "blend_start": 34,
+      "blend_end": 57,
+      "steady": false
+    }
+  },
+  {
+    "i": 73,
+    "true_chain": [
+      "v_shape",
+      "converging"
+    ],
+    "n_timesteps": 53,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 53,
+      "blend_start": 16,
+      "blend_end": 36,
+      "steady": false
+    }
+  },
+  {
+    "i": 74,
+    "true_chain": [
+      "encirclement"
+    ],
+    "n_timesteps": 50,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 50,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 75,
+    "true_chain": [
+      "encirclement",
+      "diamond",
+      "v_shape"
+    ],
+    "n_timesteps": 141,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 58,
+      "blend_start": 26,
+      "blend_end": 39,
+      "steady": false
+    }
+  },
+  {
+    "i": 76,
+    "true_chain": [
+      "v_shape"
+    ],
+    "n_timesteps": 72,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 72,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 77,
+    "true_chain": [
+      "diamond",
+      "encirclement",
+      "shield"
+    ],
+    "n_timesteps": 141,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 68,
+      "blend_start": 26,
+      "blend_end": 40,
+      "steady": false
+    }
+  },
+  {
+    "i": 78,
+    "true_chain": [
+      "column",
+      "diamond",
+      "column",
+      "diamond"
+    ],
+    "n_timesteps": 261,
+    "bucket_orig": "C",
+    "subtype_orig": "oscillation",
+    "last_hop": {
+      "seg_len": 95,
+      "blend_start": 29,
+      "blend_end": 65,
+      "steady": false
+    }
+  },
+  {
+    "i": 79,
+    "true_chain": [
+      "dispersed",
+      "v_shape",
+      "converging"
+    ],
+    "n_timesteps": 131,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 77,
+      "blend_start": 27,
+      "blend_end": 49,
+      "steady": false
+    }
+  },
+  {
+    "i": 80,
+    "true_chain": [
+      "shield",
+      "diamond"
+    ],
+    "n_timesteps": 88,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 88,
+      "blend_start": 31,
+      "blend_end": 61,
+      "steady": false
+    },
+    "settled_tail": 27,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 81,
+    "true_chain": [
+      "dispersed"
+    ],
+    "n_timesteps": 63,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 63,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 82,
+    "true_chain": [
+      "converging",
+      "shield",
+      "v_shape"
+    ],
+    "n_timesteps": 159,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 76,
+      "blend_start": 36,
+      "blend_end": 48,
+      "steady": false
+    },
+    "settled_tail": 28,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 83,
+    "true_chain": [
+      "shield",
+      "diamond",
+      "dispersed",
+      "encirclement"
+    ],
+    "n_timesteps": 212,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 50,
+      "blend_start": 16,
+      "blend_end": 31,
+      "steady": false
+    }
+  },
+  {
+    "i": 84,
+    "true_chain": [
+      "converging"
+    ],
+    "n_timesteps": 87,
+    "bucket_orig": "A",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 87,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 85,
+    "true_chain": [
+      "column"
+    ],
+    "n_timesteps": 73,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 73,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 86,
+    "true_chain": [
+      "diamond"
+    ],
+    "n_timesteps": 62,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 62,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 87,
+    "true_chain": [
+      "shield"
+    ],
+    "n_timesteps": 82,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 82,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 88,
+    "true_chain": [
+      "converging",
+      "encirclement"
+    ],
+    "n_timesteps": 54,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 54,
+      "blend_start": 17,
+      "blend_end": 36,
+      "steady": false
+    }
+  },
+  {
+    "i": 89,
+    "true_chain": [
+      "v_shape",
+      "shield"
+    ],
+    "n_timesteps": 52,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 52,
+      "blend_start": 21,
+      "blend_end": 30,
+      "steady": false
+    }
+  },
+  {
+    "i": 90,
+    "true_chain": [
+      "converging",
+      "column",
+      "diamond"
+    ],
+    "n_timesteps": 133,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 77,
+      "blend_start": 24,
+      "blend_end": 46,
+      "steady": false
+    }
+  },
+  {
+    "i": 91,
+    "true_chain": [
+      "column",
+      "dispersed",
+      "column",
+      "encirclement"
+    ],
+    "n_timesteps": 180,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 65,
+      "blend_start": 28,
+      "blend_end": 47,
+      "steady": false
+    },
+    "settled_tail": 18,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 92,
+    "true_chain": [
+      "converging",
+      "encirclement",
+      "converging",
+      "column"
+    ],
+    "n_timesteps": 252,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 84,
+      "blend_start": 28,
+      "blend_end": 60,
+      "steady": false
+    }
+  },
+  {
+    "i": 93,
+    "true_chain": [
+      "diamond",
+      "encirclement",
+      "v_shape",
+      "column"
+    ],
+    "n_timesteps": 231,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 75,
+      "blend_start": 37,
+      "blend_end": 52,
+      "steady": false
+    }
+  },
+  {
+    "i": 94,
+    "true_chain": [
+      "encirclement",
+      "shield"
+    ],
+    "n_timesteps": 50,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 50,
+      "blend_start": 23,
+      "blend_end": 35,
+      "steady": false
+    }
+  },
+  {
+    "i": 95,
+    "true_chain": [
+      "shield",
+      "encirclement",
+      "shield"
+    ],
+    "n_timesteps": 148,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 89,
+      "blend_start": 38,
+      "blend_end": 53,
+      "steady": false
+    }
+  },
+  {
+    "i": 96,
+    "true_chain": [
+      "diamond",
+      "dispersed"
+    ],
+    "n_timesteps": 82,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 82,
+      "blend_start": 34,
+      "blend_end": 47,
+      "steady": false
+    }
+  },
+  {
+    "i": 97,
+    "true_chain": [
+      "encirclement",
+      "diamond",
+      "dispersed"
+    ],
+    "n_timesteps": 123,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 66,
+      "blend_start": 24,
+      "blend_end": 43,
+      "steady": false
+    },
+    "settled_tail": 23,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 98,
+    "true_chain": [
+      "dispersed",
+      "v_shape"
+    ],
+    "n_timesteps": 94,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 94,
+      "blend_start": 31,
+      "blend_end": 52,
+      "steady": false
+    },
+    "settled_tail": 42,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 99,
+    "true_chain": [
+      "encirclement"
+    ],
+    "n_timesteps": 98,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 98,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 100,
+    "true_chain": [
+      "shield",
+      "column"
+    ],
+    "n_timesteps": 81,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 81,
+      "blend_start": 37,
+      "blend_end": 59,
+      "steady": false
+    },
+    "settled_tail": 22,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 101,
+    "true_chain": [
+      "converging",
+      "diamond"
+    ],
+    "n_timesteps": 80,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 80,
+      "blend_start": 25,
+      "blend_end": 58,
+      "steady": false
+    },
+    "settled_tail": 22,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 102,
+    "true_chain": [
+      "column",
+      "shield"
+    ],
+    "n_timesteps": 89,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 89,
+      "blend_start": 29,
+      "blend_end": 59,
+      "steady": false
+    }
+  },
+  {
+    "i": 103,
+    "true_chain": [
+      "shield",
+      "converging",
+      "shield",
+      "v_shape"
+    ],
+    "n_timesteps": 231,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 88,
+      "blend_start": 39,
+      "blend_end": 58,
+      "steady": false
+    }
+  },
+  {
+    "i": 104,
+    "true_chain": [
+      "encirclement",
+      "dispersed",
+      "column",
+      "converging"
+    ],
+    "n_timesteps": 228,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 85,
+      "blend_start": 29,
+      "blend_end": 60,
+      "steady": false
+    }
+  },
+  {
+    "i": 105,
+    "true_chain": [
+      "dispersed"
+    ],
+    "n_timesteps": 61,
+    "bucket_orig": "A",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 61,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 106,
+    "true_chain": [
+      "column"
+    ],
+    "n_timesteps": 86,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 86,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 107,
+    "true_chain": [
+      "v_shape",
+      "column",
+      "converging"
+    ],
+    "n_timesteps": 165,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 88,
+      "blend_start": 31,
+      "blend_end": 61,
+      "steady": false
+    },
+    "settled_tail": 27,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "multi_hop"
+    }
+  },
+  {
+    "i": 108,
+    "true_chain": [
+      "column"
+    ],
+    "n_timesteps": 85,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 85,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 109,
+    "true_chain": [
+      "converging",
+      "encirclement",
+      "converging"
+    ],
+    "n_timesteps": 178,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 86,
+      "blend_start": 31,
+      "blend_end": 50,
+      "steady": false
+    },
+    "settled_tail": 36,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 110,
+    "true_chain": [
+      "encirclement",
+      "dispersed"
+    ],
+    "n_timesteps": 72,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 72,
+      "blend_start": 24,
+      "blend_end": 53,
+      "steady": false
+    },
+    "settled_tail": 19,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 111,
+    "true_chain": [
+      "converging"
+    ],
+    "n_timesteps": 94,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 94,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 112,
+    "true_chain": [
+      "converging",
+      "diamond",
+      "encirclement",
+      "column"
+    ],
+    "n_timesteps": 244,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 79,
+      "blend_start": 27,
+      "blend_end": 55,
+      "steady": false
+    }
+  },
+  {
+    "i": 113,
+    "true_chain": [
+      "v_shape",
+      "converging",
+      "encirclement"
+    ],
+    "n_timesteps": 133,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 51,
+      "blend_start": 18,
+      "blend_end": 30,
+      "steady": false
+    },
+    "settled_tail": 21,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 114,
+    "true_chain": [
+      "shield"
+    ],
+    "n_timesteps": 79,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 79,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 115,
+    "true_chain": [
+      "column",
+      "diamond",
+      "shield"
+    ],
+    "n_timesteps": 150,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 55,
+      "blend_start": 26,
+      "blend_end": 39,
+      "steady": false
+    }
+  },
+  {
+    "i": 116,
+    "true_chain": [
+      "converging",
+      "dispersed",
+      "column"
+    ],
+    "n_timesteps": 178,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 78,
+      "blend_start": 31,
+      "blend_end": 50,
+      "steady": false
+    },
+    "settled_tail": 28,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 117,
+    "true_chain": [
+      "converging",
+      "dispersed"
+    ],
+    "n_timesteps": 90,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 90,
+      "blend_start": 27,
+      "blend_end": 53,
+      "steady": false
+    }
+  },
+  {
+    "i": 118,
+    "true_chain": [
+      "dispersed",
+      "v_shape"
+    ],
+    "n_timesteps": 87,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 87,
+      "blend_start": 27,
+      "blend_end": 47,
+      "steady": false
+    }
+  },
+  {
+    "i": 119,
+    "true_chain": [
+      "dispersed",
+      "diamond",
+      "dispersed"
+    ],
+    "n_timesteps": 126,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 73,
+      "blend_start": 27,
+      "blend_end": 41,
+      "steady": false
+    }
+  },
+  {
+    "i": 120,
+    "true_chain": [
+      "shield",
+      "dispersed",
+      "diamond"
+    ],
+    "n_timesteps": 188,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 95,
+      "blend_start": 37,
+      "blend_end": 59,
+      "steady": false
+    },
+    "settled_tail": 36,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 121,
+    "true_chain": [
+      "column"
+    ],
+    "n_timesteps": 74,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 74,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 122,
+    "true_chain": [
+      "encirclement",
+      "diamond",
+      "v_shape"
+    ],
+    "n_timesteps": 145,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 62,
+      "blend_start": 28,
+      "blend_end": 36,
+      "steady": false
+    },
+    "settled_tail": 26,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 123,
+    "true_chain": [
+      "diamond"
+    ],
+    "n_timesteps": 51,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 51,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 124,
+    "true_chain": [
+      "encirclement"
+    ],
+    "n_timesteps": 65,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 65,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    },
+    "mechanism": "model_uncertainty",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 125,
+    "true_chain": [
+      "diamond",
+      "dispersed",
+      "diamond",
+      "v_shape"
+    ],
+    "n_timesteps": 174,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 58,
+      "blend_start": 20,
+      "blend_end": 31,
+      "steady": false
+    },
+    "settled_tail": 27,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 126,
+    "true_chain": [
+      "dispersed",
+      "converging",
+      "encirclement",
+      "dispersed"
+    ],
+    "n_timesteps": 234,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 96,
+      "blend_start": 36,
+      "blend_end": 64,
+      "steady": false
+    }
+  },
+  {
+    "i": 127,
+    "true_chain": [
+      "diamond",
+      "shield",
+      "dispersed",
+      "v_shape"
+    ],
+    "n_timesteps": 263,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 97,
+      "blend_start": 39,
+      "blend_end": 55,
+      "steady": false
+    }
+  },
+  {
+    "i": 128,
+    "true_chain": [
+      "diamond",
+      "converging"
+    ],
+    "n_timesteps": 91,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 91,
+      "blend_start": 37,
+      "blend_end": 61,
+      "steady": false
+    }
+  },
+  {
+    "i": 129,
+    "true_chain": [
+      "diamond"
+    ],
+    "n_timesteps": 99,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 99,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 130,
+    "true_chain": [
+      "dispersed",
+      "v_shape"
+    ],
+    "n_timesteps": 65,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 65,
+      "blend_start": 23,
+      "blend_end": 48,
+      "steady": false
+    }
+  },
+  {
+    "i": 131,
+    "true_chain": [
+      "converging",
+      "diamond",
+      "v_shape",
+      "dispersed"
+    ],
+    "n_timesteps": 177,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 62,
+      "blend_start": 24,
+      "blend_end": 42,
+      "steady": false
+    },
+    "settled_tail": 20,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 132,
+    "true_chain": [
+      "shield",
+      "dispersed",
+      "column",
+      "shield"
+    ],
+    "n_timesteps": 217,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 56,
+      "blend_start": 22,
+      "blend_end": 37,
+      "steady": false
+    },
+    "settled_tail": 19,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 133,
+    "true_chain": [
+      "v_shape"
+    ],
+    "n_timesteps": 74,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 74,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 134,
+    "true_chain": [
+      "encirclement",
+      "converging",
+      "v_shape",
+      "shield"
+    ],
+    "n_timesteps": 248,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 97,
+      "blend_start": 42,
+      "blend_end": 57,
+      "steady": false
+    },
+    "settled_tail": 40,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 135,
+    "true_chain": [
+      "diamond",
+      "dispersed",
+      "shield"
+    ],
+    "n_timesteps": 185,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 88,
+      "blend_start": 41,
+      "blend_end": 65,
+      "steady": false
+    },
+    "settled_tail": 23,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 136,
+    "true_chain": [
+      "diamond",
+      "dispersed",
+      "converging"
+    ],
+    "n_timesteps": 165,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 99,
+      "blend_start": 34,
+      "blend_end": 65,
+      "steady": false
+    }
+  },
+  {
+    "i": 137,
+    "true_chain": [
+      "encirclement",
+      "column",
+      "converging",
+      "dispersed"
+    ],
+    "n_timesteps": 228,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 71,
+      "blend_start": 25,
+      "blend_end": 50,
+      "steady": false
+    },
+    "settled_tail": 21,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 138,
+    "true_chain": [
+      "diamond",
+      "shield",
+      "column"
+    ],
+    "n_timesteps": 178,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 90,
+      "blend_start": 32,
+      "blend_end": 62,
+      "steady": false
+    }
+  },
+  {
+    "i": 139,
+    "true_chain": [
+      "encirclement",
+      "dispersed",
+      "encirclement",
+      "shield"
+    ],
+    "n_timesteps": 207,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 64,
+      "blend_start": 21,
+      "blend_end": 44,
+      "steady": false
+    },
+    "settled_tail": 20,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 140,
+    "true_chain": [
+      "column",
+      "encirclement",
+      "column",
+      "v_shape"
+    ],
+    "n_timesteps": 264,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 89,
+      "blend_start": 32,
+      "blend_end": 66,
+      "steady": false
+    },
+    "settled_tail": 23,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 141,
+    "true_chain": [
+      "dispersed",
+      "encirclement",
+      "v_shape",
+      "dispersed"
+    ],
+    "n_timesteps": 207,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 100,
+      "blend_start": 43,
+      "blend_end": 56,
+      "steady": false
+    }
+  },
+  {
+    "i": 142,
+    "true_chain": [
+      "v_shape",
+      "converging"
+    ],
+    "n_timesteps": 62,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 62,
+      "blend_start": 27,
+      "blend_end": 41,
+      "steady": false
+    }
+  },
+  {
+    "i": 143,
+    "true_chain": [
+      "converging",
+      "encirclement"
+    ],
+    "n_timesteps": 50,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 50,
+      "blend_start": 23,
+      "blend_end": 33,
+      "steady": false
+    }
+  },
+  {
+    "i": 144,
+    "true_chain": [
+      "dispersed"
+    ],
+    "n_timesteps": 68,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 68,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 145,
+    "true_chain": [
+      "converging"
+    ],
+    "n_timesteps": 52,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 52,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 146,
+    "true_chain": [
+      "dispersed"
+    ],
+    "n_timesteps": 68,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 68,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 147,
+    "true_chain": [
+      "v_shape",
+      "diamond",
+      "v_shape",
+      "shield"
+    ],
+    "n_timesteps": 209,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 84,
+      "blend_start": 26,
+      "blend_end": 60,
+      "steady": false
+    },
+    "settled_tail": 24,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 148,
+    "true_chain": [
+      "encirclement"
+    ],
+    "n_timesteps": 61,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 61,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 149,
+    "true_chain": [
+      "column",
+      "v_shape",
+      "encirclement",
+      "diamond"
+    ],
+    "n_timesteps": 258,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 95,
+      "blend_start": 34,
+      "blend_end": 59,
+      "steady": false
+    }
+  },
+  {
+    "i": 150,
+    "true_chain": [
+      "shield",
+      "dispersed",
+      "v_shape",
+      "converging"
+    ],
+    "n_timesteps": 212,
+    "bucket_orig": "C",
+    "subtype_orig": "oscillation",
+    "last_hop": {
+      "seg_len": 80,
+      "blend_start": 29,
+      "blend_end": 48,
+      "steady": false
+    }
+  },
+  {
+    "i": 151,
+    "true_chain": [
+      "dispersed",
+      "v_shape",
+      "encirclement"
+    ],
+    "n_timesteps": 130,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 62,
+      "blend_start": 22,
+      "blend_end": 38,
+      "steady": false
+    },
+    "settled_tail": 24,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 152,
+    "true_chain": [
+      "encirclement",
+      "diamond",
+      "encirclement"
+    ],
+    "n_timesteps": 149,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 75,
+      "blend_start": 36,
+      "blend_end": 55,
+      "steady": false
+    },
+    "settled_tail": 20,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 153,
+    "true_chain": [
+      "diamond",
+      "encirclement",
+      "dispersed",
+      "column"
+    ],
+    "n_timesteps": 244,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 85,
+      "blend_start": 40,
+      "blend_end": 50,
+      "steady": false
+    }
+  },
+  {
+    "i": 154,
+    "true_chain": [
+      "v_shape",
+      "column"
+    ],
+    "n_timesteps": 94,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 94,
+      "blend_start": 29,
+      "blend_end": 69,
+      "steady": false
+    },
+    "settled_tail": 25,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 155,
+    "true_chain": [
+      "column",
+      "shield"
+    ],
+    "n_timesteps": 91,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 91,
+      "blend_start": 41,
+      "blend_end": 63,
+      "steady": false
+    },
+    "settled_tail": 28,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 156,
+    "true_chain": [
+      "shield",
+      "column"
+    ],
+    "n_timesteps": 81,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 81,
+      "blend_start": 25,
+      "blend_end": 51,
+      "steady": false
+    }
+  },
+  {
+    "i": 157,
+    "true_chain": [
+      "encirclement"
+    ],
+    "n_timesteps": 50,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 50,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 158,
+    "true_chain": [
+      "diamond",
+      "converging",
+      "diamond",
+      "encirclement"
+    ],
+    "n_timesteps": 198,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 53,
+      "blend_start": 17,
+      "blend_end": 34,
+      "steady": false
+    },
+    "settled_tail": 19,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 159,
+    "true_chain": [
+      "converging"
+    ],
+    "n_timesteps": 54,
+    "bucket_orig": "A",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 54,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 160,
+    "true_chain": [
+      "shield",
+      "diamond",
+      "dispersed"
+    ],
+    "n_timesteps": 116,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 55,
+      "blend_start": 24,
+      "blend_end": 31,
+      "steady": false
+    },
+    "settled_tail": 24,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 161,
+    "true_chain": [
+      "dispersed",
+      "converging",
+      "column",
+      "dispersed"
+    ],
+    "n_timesteps": 215,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 88,
+      "blend_start": 31,
+      "blend_end": 54,
+      "steady": false
+    }
+  },
+  {
+    "i": 162,
+    "true_chain": [
+      "v_shape",
+      "converging"
+    ],
+    "n_timesteps": 97,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 97,
+      "blend_start": 42,
+      "blend_end": 58,
+      "steady": false
+    }
+  },
+  {
+    "i": 163,
+    "true_chain": [
+      "dispersed",
+      "diamond",
+      "v_shape"
+    ],
+    "n_timesteps": 151,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 61,
+      "blend_start": 18,
+      "blend_end": 35,
+      "steady": false
+    },
+    "settled_tail": 26,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 164,
+    "true_chain": [
+      "v_shape",
+      "column",
+      "encirclement",
+      "dispersed"
+    ],
+    "n_timesteps": 205,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 64,
+      "blend_start": 21,
+      "blend_end": 44,
+      "steady": false
+    }
+  },
+  {
+    "i": 165,
+    "true_chain": [
+      "encirclement",
+      "dispersed"
+    ],
+    "n_timesteps": 63,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 63,
+      "blend_start": 23,
+      "blend_end": 36,
+      "steady": false
+    }
+  },
+  {
+    "i": 166,
+    "true_chain": [
+      "shield"
+    ],
+    "n_timesteps": 98,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 98,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 167,
+    "true_chain": [
+      "encirclement"
+    ],
+    "n_timesteps": 70,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 70,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 168,
+    "true_chain": [
+      "column",
+      "encirclement",
+      "diamond"
+    ],
+    "n_timesteps": 119,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 51,
+      "blend_start": 22,
+      "blend_end": 37,
+      "steady": false
+    }
+  },
+  {
+    "i": 169,
+    "true_chain": [
+      "encirclement",
+      "converging",
+      "diamond",
+      "dispersed"
+    ],
+    "n_timesteps": 216,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 57,
+      "blend_start": 24,
+      "blend_end": 39,
+      "steady": false
+    }
+  },
+  {
+    "i": 170,
+    "true_chain": [
+      "converging"
+    ],
+    "n_timesteps": 61,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 61,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 171,
+    "true_chain": [
+      "shield",
+      "dispersed"
+    ],
+    "n_timesteps": 87,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 87,
+      "blend_start": 33,
+      "blend_end": 52,
+      "steady": false
+    }
+  },
+  {
+    "i": 172,
+    "true_chain": [
+      "shield",
+      "dispersed",
+      "converging",
+      "v_shape"
+    ],
+    "n_timesteps": 178,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 50,
+      "blend_start": 17,
+      "blend_end": 30,
+      "steady": false
+    },
+    "settled_tail": 20,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 173,
+    "true_chain": [
+      "column"
+    ],
+    "n_timesteps": 98,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 98,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 174,
+    "true_chain": [
+      "dispersed",
+      "v_shape",
+      "diamond"
+    ],
+    "n_timesteps": 174,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 94,
+      "blend_start": 36,
+      "blend_end": 68,
+      "steady": false
+    }
+  },
+  {
+    "i": 175,
+    "true_chain": [
+      "shield"
+    ],
+    "n_timesteps": 54,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 54,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 176,
+    "true_chain": [
+      "diamond",
+      "column"
+    ],
+    "n_timesteps": 66,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 66,
+      "blend_start": 23,
+      "blend_end": 37,
+      "steady": false
+    }
+  },
+  {
+    "i": 177,
+    "true_chain": [
+      "column",
+      "shield",
+      "encirclement"
+    ],
+    "n_timesteps": 145,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 92,
+      "blend_start": 28,
+      "blend_end": 67,
+      "steady": false
+    },
+    "settled_tail": 25,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 178,
+    "true_chain": [
+      "shield",
+      "encirclement",
+      "converging",
+      "dispersed"
+    ],
+    "n_timesteps": 251,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 74,
+      "blend_start": 29,
+      "blend_end": 46,
+      "steady": false
+    },
+    "settled_tail": 28,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 179,
+    "true_chain": [
+      "dispersed",
+      "column",
+      "dispersed"
+    ],
+    "n_timesteps": 165,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 78,
+      "blend_start": 33,
+      "blend_end": 46,
+      "steady": false
+    }
+  },
+  {
+    "i": 180,
+    "true_chain": [
+      "v_shape"
+    ],
+    "n_timesteps": 99,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 99,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    },
+    "mechanism": "model_uncertainty",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 181,
+    "true_chain": [
+      "converging"
+    ],
+    "n_timesteps": 87,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 87,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 182,
+    "true_chain": [
+      "encirclement"
+    ],
+    "n_timesteps": 74,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 74,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    },
+    "mechanism": "model_uncertainty",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 183,
+    "true_chain": [
+      "encirclement",
+      "shield",
+      "dispersed",
+      "v_shape"
+    ],
+    "n_timesteps": 286,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 97,
+      "blend_start": 46,
+      "blend_end": 66,
+      "steady": false
+    },
+    "settled_tail": 31,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 184,
+    "true_chain": [
+      "encirclement",
+      "shield",
+      "dispersed"
+    ],
+    "n_timesteps": 156,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 71,
+      "blend_start": 34,
+      "blend_end": 50,
+      "steady": false
+    }
+  },
+  {
+    "i": 185,
+    "true_chain": [
+      "dispersed",
+      "column",
+      "shield"
+    ],
+    "n_timesteps": 169,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 75,
+      "blend_start": 32,
+      "blend_end": 41,
+      "steady": false
+    }
+  },
+  {
+    "i": 186,
+    "true_chain": [
+      "v_shape"
+    ],
+    "n_timesteps": 66,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 66,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 187,
+    "true_chain": [
+      "v_shape",
+      "shield",
+      "v_shape",
+      "converging"
+    ],
+    "n_timesteps": 183,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 60,
+      "blend_start": 26,
+      "blend_end": 42,
+      "steady": false
+    },
+    "settled_tail": 18,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 188,
+    "true_chain": [
+      "v_shape",
+      "diamond",
+      "v_shape"
+    ],
+    "n_timesteps": 142,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 54,
+      "blend_start": 22,
+      "blend_end": 40,
+      "steady": false
+    },
+    "settled_tail": 14,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 189,
+    "true_chain": [
+      "encirclement",
+      "dispersed"
+    ],
+    "n_timesteps": 62,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 62,
+      "blend_start": 29,
+      "blend_end": 34,
+      "steady": false
+    }
+  },
+  {
+    "i": 190,
+    "true_chain": [
+      "dispersed"
+    ],
+    "n_timesteps": 61,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 61,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 191,
+    "true_chain": [
+      "v_shape",
+      "diamond"
+    ],
+    "n_timesteps": 68,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 68,
+      "blend_start": 28,
+      "blend_end": 47,
+      "steady": false
+    },
+    "settled_tail": 21,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 192,
+    "true_chain": [
+      "diamond",
+      "encirclement",
+      "diamond"
+    ],
+    "n_timesteps": 174,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 81,
+      "blend_start": 38,
+      "blend_end": 45,
+      "steady": false
+    },
+    "settled_tail": 36,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 193,
+    "true_chain": [
+      "diamond"
+    ],
+    "n_timesteps": 95,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 95,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    },
+    "mechanism": "model_uncertainty",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 194,
+    "true_chain": [
+      "v_shape",
+      "encirclement",
+      "diamond",
+      "encirclement"
+    ],
+    "n_timesteps": 205,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 55,
+      "blend_start": 26,
+      "blend_end": 33,
+      "steady": false
+    }
+  },
+  {
+    "i": 195,
+    "true_chain": [
+      "v_shape",
+      "converging",
+      "encirclement"
+    ],
+    "n_timesteps": 150,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 57,
+      "blend_start": 26,
+      "blend_end": 36,
+      "steady": false
+    },
+    "settled_tail": 21,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 196,
+    "true_chain": [
+      "shield",
+      "encirclement",
+      "column"
+    ],
+    "n_timesteps": 159,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 89,
+      "blend_start": 27,
+      "blend_end": 55,
+      "steady": false
+    }
+  },
+  {
+    "i": 197,
+    "true_chain": [
+      "shield",
+      "v_shape",
+      "column",
+      "dispersed"
+    ],
+    "n_timesteps": 190,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 60,
+      "blend_start": 19,
+      "blend_end": 44,
+      "steady": false
+    }
+  },
+  {
+    "i": 198,
+    "true_chain": [
+      "diamond",
+      "encirclement",
+      "diamond",
+      "converging"
+    ],
+    "n_timesteps": 183,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 56,
+      "blend_start": 19,
+      "blend_end": 41,
+      "steady": false
+    },
+    "settled_tail": 15,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 199,
+    "true_chain": [
+      "diamond",
+      "v_shape"
+    ],
+    "n_timesteps": 99,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 99,
+      "blend_start": 35,
+      "blend_end": 67,
+      "steady": false
+    }
+  },
+  {
+    "i": 200,
+    "true_chain": [
+      "converging",
+      "encirclement",
+      "diamond"
+    ],
+    "n_timesteps": 169,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 87,
+      "blend_start": 38,
+      "blend_end": 63,
+      "steady": false
+    },
+    "settled_tail": 24,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 201,
+    "true_chain": [
+      "converging",
+      "encirclement"
+    ],
+    "n_timesteps": 85,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 85,
+      "blend_start": 29,
+      "blend_end": 47,
+      "steady": false
+    },
+    "settled_tail": 38,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "B",
+      "subtype": null
+    }
+  },
+  {
+    "i": 202,
+    "true_chain": [
+      "column",
+      "v_shape"
+    ],
+    "n_timesteps": 100,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 100,
+      "blend_start": 30,
+      "blend_end": 64,
+      "steady": false
+    },
+    "settled_tail": 36,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 203,
+    "true_chain": [
+      "column",
+      "dispersed",
+      "shield"
+    ],
+    "n_timesteps": 178,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 79,
+      "blend_start": 23,
+      "blend_end": 52,
+      "steady": false
+    }
+  },
+  {
+    "i": 204,
+    "true_chain": [
+      "encirclement",
+      "shield",
+      "diamond",
+      "encirclement"
+    ],
+    "n_timesteps": 293,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 99,
+      "blend_start": 34,
+      "blend_end": 57,
+      "steady": false
+    },
+    "settled_tail": 42,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 205,
+    "true_chain": [
+      "column",
+      "shield",
+      "converging"
+    ],
+    "n_timesteps": 158,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 87,
+      "blend_start": 36,
+      "blend_end": 64,
+      "steady": false
+    }
+  },
+  {
+    "i": 206,
+    "true_chain": [
+      "shield"
+    ],
+    "n_timesteps": 100,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 100,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 207,
+    "true_chain": [
+      "v_shape",
+      "shield",
+      "encirclement",
+      "dispersed"
+    ],
+    "n_timesteps": 225,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 64,
+      "blend_start": 31,
+      "blend_end": 39,
+      "steady": false
+    },
+    "settled_tail": 25,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 208,
+    "true_chain": [
+      "v_shape",
+      "dispersed"
+    ],
+    "n_timesteps": 63,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 63,
+      "blend_start": 29,
+      "blend_end": 45,
+      "steady": false
+    }
+  },
+  {
+    "i": 209,
+    "true_chain": [
+      "dispersed",
+      "column"
+    ],
+    "n_timesteps": 57,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 57,
+      "blend_start": 20,
+      "blend_end": 32,
+      "steady": false
+    }
+  },
+  {
+    "i": 210,
+    "true_chain": [
+      "converging",
+      "dispersed"
+    ],
+    "n_timesteps": 62,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 62,
+      "blend_start": 24,
+      "blend_end": 37,
+      "steady": false
+    }
+  },
+  {
+    "i": 211,
+    "true_chain": [
+      "encirclement"
+    ],
+    "n_timesteps": 58,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 58,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 212,
+    "true_chain": [
+      "converging",
+      "shield",
+      "converging"
+    ],
+    "n_timesteps": 167,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 77,
+      "blend_start": 32,
+      "blend_end": 48,
+      "steady": false
+    },
+    "settled_tail": 29,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "oscillation"
+    }
+  },
+  {
+    "i": 213,
+    "true_chain": [
+      "encirclement",
+      "diamond"
+    ],
+    "n_timesteps": 80,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 80,
+      "blend_start": 38,
+      "blend_end": 58,
+      "steady": false
+    },
+    "settled_tail": 22,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 214,
+    "true_chain": [
+      "column",
+      "v_shape"
+    ],
+    "n_timesteps": 84,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 84,
+      "blend_start": 25,
+      "blend_end": 53,
+      "steady": false
+    }
+  },
+  {
+    "i": 215,
+    "true_chain": [
+      "encirclement",
+      "shield"
+    ],
+    "n_timesteps": 70,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 70,
+      "blend_start": 23,
+      "blend_end": 48,
+      "steady": false
+    }
+  },
+  {
+    "i": 216,
+    "true_chain": [
+      "encirclement",
+      "v_shape"
+    ],
+    "n_timesteps": 93,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 93,
+      "blend_start": 43,
+      "blend_end": 61,
+      "steady": false
+    },
+    "settled_tail": 32,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 217,
+    "true_chain": [
+      "v_shape",
+      "diamond",
+      "encirclement",
+      "dispersed"
+    ],
+    "n_timesteps": 225,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 76,
+      "blend_start": 23,
+      "blend_end": 47,
+      "steady": false
+    },
+    "settled_tail": 29,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 218,
+    "true_chain": [
+      "column",
+      "diamond"
+    ],
+    "n_timesteps": 50,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 50,
+      "blend_start": 17,
+      "blend_end": 29,
+      "steady": false
+    }
+  },
+  {
+    "i": 219,
+    "true_chain": [
+      "dispersed",
+      "diamond",
+      "shield",
+      "dispersed"
+    ],
+    "n_timesteps": 261,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 100,
+      "blend_start": 34,
+      "blend_end": 67,
+      "steady": false
+    },
+    "settled_tail": 33,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 220,
+    "true_chain": [
+      "converging",
+      "shield",
+      "column"
+    ],
+    "n_timesteps": 197,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 100,
+      "blend_start": 43,
+      "blend_end": 58,
+      "steady": false
+    }
+  },
+  {
+    "i": 221,
+    "true_chain": [
+      "dispersed",
+      "diamond"
+    ],
+    "n_timesteps": 95,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 95,
+      "blend_start": 34,
+      "blend_end": 60,
+      "steady": false
+    }
+  },
+  {
+    "i": 222,
+    "true_chain": [
+      "dispersed"
+    ],
+    "n_timesteps": 62,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 62,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 223,
+    "true_chain": [
+      "shield",
+      "dispersed",
+      "encirclement",
+      "converging"
+    ],
+    "n_timesteps": 212,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 63,
+      "blend_start": 31,
+      "blend_end": 46,
+      "steady": false
+    }
+  },
+  {
+    "i": 224,
+    "true_chain": [
+      "shield"
+    ],
+    "n_timesteps": 75,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 75,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 225,
+    "true_chain": [
+      "column",
+      "shield",
+      "dispersed",
+      "encirclement"
+    ],
+    "n_timesteps": 284,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 98,
+      "blend_start": 31,
+      "blend_end": 65,
+      "steady": false
+    },
+    "settled_tail": 33,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 226,
+    "true_chain": [
+      "dispersed",
+      "column",
+      "dispersed",
+      "converging"
+    ],
+    "n_timesteps": 261,
+    "bucket_orig": "C",
+    "subtype_orig": "oscillation",
+    "last_hop": {
+      "seg_len": 94,
+      "blend_start": 30,
+      "blend_end": 63,
+      "steady": false
+    }
+  },
+  {
+    "i": 227,
+    "true_chain": [
+      "shield",
+      "converging"
+    ],
+    "n_timesteps": 53,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 53,
+      "blend_start": 26,
+      "blend_end": 36,
+      "steady": false
+    }
+  },
+  {
+    "i": 228,
+    "true_chain": [
+      "v_shape"
+    ],
+    "n_timesteps": 66,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 66,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 229,
+    "true_chain": [
+      "dispersed",
+      "column",
+      "dispersed",
+      "column"
+    ],
+    "n_timesteps": 181,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 64,
+      "blend_start": 26,
+      "blend_end": 47,
+      "steady": false
+    },
+    "settled_tail": 17,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 230,
+    "true_chain": [
+      "dispersed",
+      "encirclement",
+      "dispersed",
+      "shield"
+    ],
+    "n_timesteps": 228,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 70,
+      "blend_start": 29,
+      "blend_end": 44,
+      "steady": false
+    }
+  },
+  {
+    "i": 231,
+    "true_chain": [
+      "diamond"
+    ],
+    "n_timesteps": 57,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 57,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 232,
+    "true_chain": [
+      "v_shape",
+      "encirclement",
+      "diamond"
+    ],
+    "n_timesteps": 150,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 93,
+      "blend_start": 39,
+      "blend_end": 64,
+      "steady": false
+    }
+  },
+  {
+    "i": 233,
+    "true_chain": [
+      "column",
+      "encirclement"
+    ],
+    "n_timesteps": 89,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 89,
+      "blend_start": 38,
+      "blend_end": 64,
+      "steady": false
+    },
+    "settled_tail": 25,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "B",
+      "subtype": null
+    }
+  },
+  {
+    "i": 234,
+    "true_chain": [
+      "v_shape",
+      "column",
+      "v_shape"
+    ],
+    "n_timesteps": 155,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 75,
+      "blend_start": 28,
+      "blend_end": 42,
+      "steady": false
+    },
+    "settled_tail": 33,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 235,
+    "true_chain": [
+      "diamond",
+      "converging",
+      "encirclement",
+      "shield"
+    ],
+    "n_timesteps": 218,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 71,
+      "blend_start": 25,
+      "blend_end": 42,
+      "steady": false
+    },
+    "settled_tail": 29,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 236,
+    "true_chain": [
+      "shield",
+      "v_shape"
+    ],
+    "n_timesteps": 77,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 77,
+      "blend_start": 29,
+      "blend_end": 49,
+      "steady": false
+    },
+    "settled_tail": 28,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 237,
+    "true_chain": [
+      "encirclement",
+      "v_shape"
+    ],
+    "n_timesteps": 98,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 98,
+      "blend_start": 43,
+      "blend_end": 55,
+      "steady": false
+    }
+  },
+  {
+    "i": 238,
+    "true_chain": [
+      "diamond",
+      "converging"
+    ],
+    "n_timesteps": 55,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 55,
+      "blend_start": 21,
+      "blend_end": 37,
+      "steady": false
+    }
+  },
+  {
+    "i": 239,
+    "true_chain": [
+      "column",
+      "diamond",
+      "encirclement",
+      "converging"
+    ],
+    "n_timesteps": 259,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 80,
+      "blend_start": 35,
+      "blend_end": 53,
+      "steady": false
+    },
+    "settled_tail": 27,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 240,
+    "true_chain": [
+      "column",
+      "shield"
+    ],
+    "n_timesteps": 56,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 56,
+      "blend_start": 21,
+      "blend_end": 40,
+      "steady": false
+    }
+  },
+  {
+    "i": 241,
+    "true_chain": [
+      "dispersed"
+    ],
+    "n_timesteps": 54,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 54,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 242,
+    "true_chain": [
+      "dispersed",
+      "converging",
+      "column",
+      "converging"
+    ],
+    "n_timesteps": 234,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 74,
+      "blend_start": 29,
+      "blend_end": 40,
+      "steady": false
+    }
+  },
+  {
+    "i": 243,
+    "true_chain": [
+      "shield",
+      "converging",
+      "column",
+      "converging"
+    ],
+    "n_timesteps": 219,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 61,
+      "blend_start": 22,
+      "blend_end": 38,
+      "steady": false
+    },
+    "settled_tail": 23,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 244,
+    "true_chain": [
+      "converging",
+      "dispersed",
+      "encirclement"
+    ],
+    "n_timesteps": 143,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 52,
+      "blend_start": 16,
+      "blend_end": 34,
+      "steady": false
+    }
+  },
+  {
+    "i": 245,
+    "true_chain": [
+      "converging"
+    ],
+    "n_timesteps": 71,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 71,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 246,
+    "true_chain": [
+      "shield",
+      "v_shape"
+    ],
+    "n_timesteps": 74,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 74,
+      "blend_start": 28,
+      "blend_end": 49,
+      "steady": false
+    },
+    "settled_tail": 25,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 247,
+    "true_chain": [
+      "v_shape",
+      "column",
+      "dispersed"
+    ],
+    "n_timesteps": 158,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 65,
+      "blend_start": 31,
+      "blend_end": 46,
+      "steady": false
+    }
+  },
+  {
+    "i": 248,
+    "true_chain": [
+      "dispersed",
+      "diamond",
+      "shield"
+    ],
+    "n_timesteps": 185,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 88,
+      "blend_start": 39,
+      "blend_end": 54,
+      "steady": false
+    }
+  },
+  {
+    "i": 249,
+    "true_chain": [
+      "dispersed",
+      "encirclement",
+      "column",
+      "dispersed"
+    ],
+    "n_timesteps": 202,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 73,
+      "blend_start": 22,
+      "blend_end": 45,
+      "steady": false
+    }
+  },
+  {
+    "i": 250,
+    "true_chain": [
+      "diamond"
+    ],
+    "n_timesteps": 94,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 94,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 251,
+    "true_chain": [
+      "diamond",
+      "v_shape",
+      "diamond",
+      "column"
+    ],
+    "n_timesteps": 222,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 60,
+      "blend_start": 24,
+      "blend_end": 41,
+      "steady": false
+    }
+  },
+  {
+    "i": 252,
+    "true_chain": [
+      "diamond",
+      "encirclement",
+      "shield",
+      "column"
+    ],
+    "n_timesteps": 250,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 89,
+      "blend_start": 28,
+      "blend_end": 51,
+      "steady": false
+    }
+  },
+  {
+    "i": 253,
+    "true_chain": [
+      "encirclement"
+    ],
+    "n_timesteps": 63,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 63,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 254,
+    "true_chain": [
+      "column",
+      "v_shape"
+    ],
+    "n_timesteps": 90,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 90,
+      "blend_start": 41,
+      "blend_end": 53,
+      "steady": false
+    },
+    "settled_tail": 37,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 255,
+    "true_chain": [
+      "diamond"
+    ],
+    "n_timesteps": 70,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 70,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 256,
+    "true_chain": [
+      "diamond",
+      "column",
+      "diamond",
+      "column"
+    ],
+    "n_timesteps": 243,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 88,
+      "blend_start": 32,
+      "blend_end": 63,
+      "steady": false
+    }
+  },
+  {
+    "i": 257,
+    "true_chain": [
+      "v_shape",
+      "diamond",
+      "v_shape",
+      "encirclement"
+    ],
+    "n_timesteps": 228,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 78,
+      "blend_start": 32,
+      "blend_end": 50,
+      "steady": false
+    }
+  },
+  {
+    "i": 258,
+    "true_chain": [
+      "converging",
+      "v_shape",
+      "diamond"
+    ],
+    "n_timesteps": 131,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 52,
+      "blend_start": 25,
+      "blend_end": 34,
+      "steady": false
+    }
+  },
+  {
+    "i": 259,
+    "true_chain": [
+      "column",
+      "encirclement",
+      "shield",
+      "v_shape"
+    ],
+    "n_timesteps": 242,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 91,
+      "blend_start": 35,
+      "blend_end": 57,
+      "steady": false
+    }
+  },
+  {
+    "i": 260,
+    "true_chain": [
+      "shield",
+      "encirclement"
+    ],
+    "n_timesteps": 72,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 72,
+      "blend_start": 33,
+      "blend_end": 43,
+      "steady": false
+    },
+    "settled_tail": 29,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 261,
+    "true_chain": [
+      "shield",
+      "dispersed"
+    ],
+    "n_timesteps": 55,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 55,
+      "blend_start": 21,
+      "blend_end": 31,
+      "steady": false
+    }
+  },
+  {
+    "i": 262,
+    "true_chain": [
+      "column"
+    ],
+    "n_timesteps": 59,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 59,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 263,
+    "true_chain": [
+      "column"
+    ],
+    "n_timesteps": 84,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 84,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    },
+    "mechanism": "model_uncertainty",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 264,
+    "true_chain": [
+      "v_shape",
+      "encirclement"
+    ],
+    "n_timesteps": 61,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 61,
+      "blend_start": 29,
+      "blend_end": 42,
+      "steady": false
+    }
+  },
+  {
+    "i": 265,
+    "true_chain": [
+      "v_shape",
+      "encirclement"
+    ],
+    "n_timesteps": 89,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 89,
+      "blend_start": 28,
+      "blend_end": 62,
+      "steady": false
+    },
+    "settled_tail": 27,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "B",
+      "subtype": null
+    }
+  },
+  {
+    "i": 266,
+    "true_chain": [
+      "encirclement",
+      "dispersed"
+    ],
+    "n_timesteps": 74,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 74,
+      "blend_start": 27,
+      "blend_end": 45,
+      "steady": false
+    }
+  },
+  {
+    "i": 267,
+    "true_chain": [
+      "converging"
+    ],
+    "n_timesteps": 59,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 59,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 268,
+    "true_chain": [
+      "diamond",
+      "encirclement",
+      "converging",
+      "encirclement"
+    ],
+    "n_timesteps": 219,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 52,
+      "blend_start": 16,
+      "blend_end": 31,
+      "steady": false
+    },
+    "settled_tail": 21,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 269,
+    "true_chain": [
+      "shield"
+    ],
+    "n_timesteps": 62,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 62,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 270,
+    "true_chain": [
+      "encirclement",
+      "column"
+    ],
+    "n_timesteps": 90,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 90,
+      "blend_start": 35,
+      "blend_end": 53,
+      "steady": false
+    }
+  },
+  {
+    "i": 271,
+    "true_chain": [
+      "diamond"
+    ],
+    "n_timesteps": 53,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 53,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 272,
+    "true_chain": [
+      "converging",
+      "column",
+      "v_shape",
+      "diamond"
+    ],
+    "n_timesteps": 244,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 98,
+      "blend_start": 37,
+      "blend_end": 73,
+      "steady": false
+    },
+    "settled_tail": 25,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 273,
+    "true_chain": [
+      "diamond",
+      "v_shape",
+      "dispersed"
+    ],
+    "n_timesteps": 109,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 56,
+      "blend_start": 18,
+      "blend_end": 36,
+      "steady": false
+    },
+    "settled_tail": 20,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 274,
+    "true_chain": [
+      "encirclement"
+    ],
+    "n_timesteps": 91,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 91,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 275,
+    "true_chain": [
+      "column"
+    ],
+    "n_timesteps": 94,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 94,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    },
+    "mechanism": "model_uncertainty",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 276,
+    "true_chain": [
+      "shield",
+      "converging",
+      "dispersed",
+      "v_shape"
+    ],
+    "n_timesteps": 223,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 73,
+      "blend_start": 25,
+      "blend_end": 40,
+      "steady": false
+    }
+  },
+  {
+    "i": 277,
+    "true_chain": [
+      "dispersed",
+      "shield",
+      "column",
+      "encirclement"
+    ],
+    "n_timesteps": 204,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 67,
+      "blend_start": 27,
+      "blend_end": 45,
+      "steady": false
+    }
+  },
+  {
+    "i": 278,
+    "true_chain": [
+      "column",
+      "diamond",
+      "converging"
+    ],
+    "n_timesteps": 149,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 53,
+      "blend_start": 21,
+      "blend_end": 35,
+      "steady": false
+    }
+  },
+  {
+    "i": 279,
+    "true_chain": [
+      "column",
+      "shield"
+    ],
+    "n_timesteps": 51,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 51,
+      "blend_start": 22,
+      "blend_end": 31,
+      "steady": false
+    }
+  },
+  {
+    "i": 280,
+    "true_chain": [
+      "v_shape",
+      "shield",
+      "encirclement"
+    ],
+    "n_timesteps": 163,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 77,
+      "blend_start": 34,
+      "blend_end": 47,
+      "steady": false
+    }
+  },
+  {
+    "i": 281,
+    "true_chain": [
+      "v_shape",
+      "shield"
+    ],
+    "n_timesteps": 57,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 57,
+      "blend_start": 24,
+      "blend_end": 35,
+      "steady": false
+    }
+  },
+  {
+    "i": 282,
+    "true_chain": [
+      "v_shape",
+      "diamond"
+    ],
+    "n_timesteps": 87,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 87,
+      "blend_start": 29,
+      "blend_end": 64,
+      "steady": false
+    },
+    "settled_tail": 23,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "B",
+      "subtype": null
+    }
+  },
+  {
+    "i": 283,
+    "true_chain": [
+      "v_shape",
+      "column",
+      "converging"
+    ],
+    "n_timesteps": 157,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 70,
+      "blend_start": 24,
+      "blend_end": 40,
+      "steady": false
+    },
+    "settled_tail": 30,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 284,
+    "true_chain": [
+      "shield",
+      "v_shape"
+    ],
+    "n_timesteps": 53,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 53,
+      "blend_start": 23,
+      "blend_end": 37,
+      "steady": false
+    }
+  },
+  {
+    "i": 285,
+    "true_chain": [
+      "dispersed",
+      "diamond"
+    ],
+    "n_timesteps": 63,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 63,
+      "blend_start": 24,
+      "blend_end": 35,
+      "steady": false
+    }
+  },
+  {
+    "i": 286,
+    "true_chain": [
+      "encirclement",
+      "column"
+    ],
+    "n_timesteps": 99,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 99,
+      "blend_start": 49,
+      "blend_end": 64,
+      "steady": false
+    }
+  },
+  {
+    "i": 287,
+    "true_chain": [
+      "shield",
+      "diamond"
+    ],
+    "n_timesteps": 69,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 69,
+      "blend_start": 28,
+      "blend_end": 48,
+      "steady": false
+    },
+    "settled_tail": 21,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 288,
+    "true_chain": [
+      "dispersed",
+      "shield",
+      "column"
+    ],
+    "n_timesteps": 189,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 89,
+      "blend_start": 33,
+      "blend_end": 55,
+      "steady": false
+    },
+    "settled_tail": 34,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 289,
+    "true_chain": [
+      "column",
+      "converging",
+      "encirclement",
+      "converging"
+    ],
+    "n_timesteps": 231,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 93,
+      "blend_start": 30,
+      "blend_end": 62,
+      "steady": false
+    }
+  },
+  {
+    "i": 290,
+    "true_chain": [
+      "converging",
+      "diamond"
+    ],
+    "n_timesteps": 83,
+    "bucket_orig": "A",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 83,
+      "blend_start": 29,
+      "blend_end": 59,
+      "steady": false
+    }
+  },
+  {
+    "i": 291,
+    "true_chain": [
+      "dispersed",
+      "column",
+      "diamond",
+      "converging"
+    ],
+    "n_timesteps": 208,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 78,
+      "blend_start": 34,
+      "blend_end": 48,
+      "steady": false
+    }
+  },
+  {
+    "i": 292,
+    "true_chain": [
+      "dispersed",
+      "v_shape",
+      "converging"
+    ],
+    "n_timesteps": 141,
+    "bucket_orig": "C",
+    "subtype_orig": "oscillation",
+    "last_hop": {
+      "seg_len": 79,
+      "blend_start": 24,
+      "blend_end": 46,
+      "steady": false
+    }
+  },
+  {
+    "i": 293,
+    "true_chain": [
+      "converging"
+    ],
+    "n_timesteps": 62,
+    "bucket_orig": "A",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 62,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 294,
+    "true_chain": [
+      "dispersed",
+      "converging",
+      "column"
+    ],
+    "n_timesteps": 160,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 84,
+      "blend_start": 35,
+      "blend_end": 48,
+      "steady": false
+    }
+  },
+  {
+    "i": 295,
+    "true_chain": [
+      "encirclement",
+      "v_shape",
+      "converging",
+      "dispersed"
+    ],
+    "n_timesteps": 204,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 67,
+      "blend_start": 32,
+      "blend_end": 44,
+      "steady": false
+    }
+  },
+  {
+    "i": 296,
+    "true_chain": [
+      "column",
+      "diamond",
+      "converging"
+    ],
+    "n_timesteps": 127,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 51,
+      "blend_start": 16,
+      "blend_end": 29,
+      "steady": false
+    },
+    "settled_tail": 22,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 297,
+    "true_chain": [
+      "dispersed",
+      "diamond",
+      "column",
+      "v_shape"
+    ],
+    "n_timesteps": 234,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 89,
+      "blend_start": 39,
+      "blend_end": 60,
+      "steady": false
+    }
+  },
+  {
+    "i": 298,
+    "true_chain": [
+      "dispersed",
+      "shield",
+      "diamond",
+      "shield"
+    ],
+    "n_timesteps": 259,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 100,
+      "blend_start": 47,
+      "blend_end": 62,
+      "steady": false
+    }
+  },
+  {
+    "i": 299,
+    "true_chain": [
+      "v_shape",
+      "dispersed"
+    ],
+    "n_timesteps": 53,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 53,
+      "blend_start": 20,
+      "blend_end": 36,
+      "steady": false
+    }
+  },
+  {
+    "i": 300,
+    "true_chain": [
+      "diamond",
+      "dispersed",
+      "encirclement",
+      "diamond"
+    ],
+    "n_timesteps": 251,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 86,
+      "blend_start": 37,
+      "blend_end": 56,
+      "steady": false
+    }
+  },
+  {
+    "i": 301,
+    "true_chain": [
+      "encirclement",
+      "dispersed"
+    ],
+    "n_timesteps": 51,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 51,
+      "blend_start": 25,
+      "blend_end": 37,
+      "steady": false
+    }
+  },
+  {
+    "i": 302,
+    "true_chain": [
+      "shield"
+    ],
+    "n_timesteps": 70,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 70,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 303,
+    "true_chain": [
+      "shield"
+    ],
+    "n_timesteps": 90,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 90,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    },
+    "mechanism": "model_uncertainty",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 304,
+    "true_chain": [
+      "column",
+      "shield",
+      "converging",
+      "encirclement"
+    ],
+    "n_timesteps": 266,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 96,
+      "blend_start": 40,
+      "blend_end": 54,
+      "steady": false
+    },
+    "settled_tail": 42,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 305,
+    "true_chain": [
+      "column",
+      "dispersed",
+      "encirclement",
+      "v_shape"
+    ],
+    "n_timesteps": 244,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 66,
+      "blend_start": 20,
+      "blend_end": 38,
+      "steady": false
+    }
+  },
+  {
+    "i": 306,
+    "true_chain": [
+      "dispersed",
+      "column"
+    ],
+    "n_timesteps": 58,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 58,
+      "blend_start": 23,
+      "blend_end": 32,
+      "steady": false
+    }
+  },
+  {
+    "i": 307,
+    "true_chain": [
+      "converging",
+      "encirclement",
+      "shield",
+      "dispersed"
+    ],
+    "n_timesteps": 201,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 63,
+      "blend_start": 26,
+      "blend_end": 35,
+      "steady": false
+    }
+  },
+  {
+    "i": 308,
+    "true_chain": [
+      "v_shape",
+      "converging"
+    ],
+    "n_timesteps": 77,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 77,
+      "blend_start": 27,
+      "blend_end": 55,
+      "steady": false
+    },
+    "settled_tail": 22,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "B",
+      "subtype": null
+    }
+  },
+  {
+    "i": 309,
+    "true_chain": [
+      "shield",
+      "column",
+      "shield",
+      "dispersed"
+    ],
+    "n_timesteps": 217,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 58,
+      "blend_start": 25,
+      "blend_end": 32,
+      "steady": false
+    },
+    "settled_tail": 26,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 310,
+    "true_chain": [
+      "shield",
+      "column"
+    ],
+    "n_timesteps": 64,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 64,
+      "blend_start": 27,
+      "blend_end": 43,
+      "steady": false
+    }
+  },
+  {
+    "i": 311,
+    "true_chain": [
+      "column",
+      "converging",
+      "dispersed"
+    ],
+    "n_timesteps": 158,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 82,
+      "blend_start": 30,
+      "blend_end": 56,
+      "steady": false
+    },
+    "settled_tail": 26,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 312,
+    "true_chain": [
+      "v_shape",
+      "diamond",
+      "shield",
+      "converging"
+    ],
+    "n_timesteps": 175,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 65,
+      "blend_start": 23,
+      "blend_end": 43,
+      "steady": false
+    }
+  },
+  {
+    "i": 313,
+    "true_chain": [
+      "diamond",
+      "column",
+      "dispersed",
+      "column"
+    ],
+    "n_timesteps": 243,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 98,
+      "blend_start": 32,
+      "blend_end": 72,
+      "steady": false
+    }
+  },
+  {
+    "i": 314,
+    "true_chain": [
+      "converging",
+      "shield"
+    ],
+    "n_timesteps": 68,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 68,
+      "blend_start": 32,
+      "blend_end": 45,
+      "steady": false
+    }
+  },
+  {
+    "i": 315,
+    "true_chain": [
+      "column",
+      "diamond",
+      "converging",
+      "diamond"
+    ],
+    "n_timesteps": 218,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 79,
+      "blend_start": 37,
+      "blend_end": 45,
+      "steady": false
+    },
+    "settled_tail": 34,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 316,
+    "true_chain": [
+      "diamond"
+    ],
+    "n_timesteps": 89,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 89,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 317,
+    "true_chain": [
+      "shield"
+    ],
+    "n_timesteps": 64,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 64,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 318,
+    "true_chain": [
+      "v_shape",
+      "column",
+      "encirclement",
+      "v_shape"
+    ],
+    "n_timesteps": 225,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 76,
+      "blend_start": 29,
+      "blend_end": 43,
+      "steady": false
+    }
+  },
+  {
+    "i": 319,
+    "true_chain": [
+      "v_shape",
+      "dispersed"
+    ],
+    "n_timesteps": 59,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 59,
+      "blend_start": 29,
+      "blend_end": 40,
+      "steady": false
+    }
+  },
+  {
+    "i": 320,
+    "true_chain": [
+      "diamond",
+      "dispersed",
+      "diamond",
+      "v_shape"
+    ],
+    "n_timesteps": 194,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 81,
+      "blend_start": 36,
+      "blend_end": 46,
+      "steady": false
+    }
+  },
+  {
+    "i": 321,
+    "true_chain": [
+      "v_shape",
+      "shield",
+      "v_shape"
+    ],
+    "n_timesteps": 145,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 90,
+      "blend_start": 38,
+      "blend_end": 65,
+      "steady": false
+    },
+    "settled_tail": 25,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 322,
+    "true_chain": [
+      "converging",
+      "dispersed",
+      "diamond"
+    ],
+    "n_timesteps": 129,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 73,
+      "blend_start": 23,
+      "blend_end": 51,
+      "steady": false
+    }
+  },
+  {
+    "i": 323,
+    "true_chain": [
+      "v_shape",
+      "diamond",
+      "shield",
+      "converging"
+    ],
+    "n_timesteps": 211,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 62,
+      "blend_start": 20,
+      "blend_end": 42,
+      "steady": false
+    },
+    "settled_tail": 20,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 324,
+    "true_chain": [
+      "v_shape",
+      "encirclement"
+    ],
+    "n_timesteps": 87,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 87,
+      "blend_start": 35,
+      "blend_end": 50,
+      "steady": false
+    }
+  },
+  {
+    "i": 325,
+    "true_chain": [
+      "column",
+      "shield",
+      "converging",
+      "column"
+    ],
+    "n_timesteps": 195,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 83,
+      "blend_start": 39,
+      "blend_end": 45,
+      "steady": false
+    },
+    "settled_tail": 38,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 326,
+    "true_chain": [
+      "diamond",
+      "v_shape"
+    ],
+    "n_timesteps": 95,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 95,
+      "blend_start": 35,
+      "blend_end": 68,
+      "steady": false
+    }
+  },
+  {
+    "i": 327,
+    "true_chain": [
+      "diamond",
+      "v_shape",
+      "converging",
+      "shield"
+    ],
+    "n_timesteps": 240,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 91,
+      "blend_start": 42,
+      "blend_end": 52,
+      "steady": false
+    },
+    "settled_tail": 39,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 328,
+    "true_chain": [
+      "dispersed",
+      "shield",
+      "diamond"
+    ],
+    "n_timesteps": 159,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 86,
+      "blend_start": 27,
+      "blend_end": 60,
+      "steady": false
+    },
+    "settled_tail": 26,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 329,
+    "true_chain": [
+      "converging"
+    ],
+    "n_timesteps": 67,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 67,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 330,
+    "true_chain": [
+      "converging"
+    ],
+    "n_timesteps": 71,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 71,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 331,
+    "true_chain": [
+      "column",
+      "shield",
+      "v_shape"
+    ],
+    "n_timesteps": 149,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 98,
+      "blend_start": 47,
+      "blend_end": 72,
+      "steady": false
+    }
+  },
+  {
+    "i": 332,
+    "true_chain": [
+      "encirclement"
+    ],
+    "n_timesteps": 72,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 72,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    },
+    "mechanism": "model_uncertainty",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 333,
+    "true_chain": [
+      "column",
+      "diamond",
+      "encirclement",
+      "diamond"
+    ],
+    "n_timesteps": 194,
+    "bucket_orig": "C",
+    "subtype_orig": "oscillation",
+    "last_hop": {
+      "seg_len": 51,
+      "blend_start": 15,
+      "blend_end": 29,
+      "steady": false
+    }
+  },
+  {
+    "i": 334,
+    "true_chain": [
+      "converging",
+      "encirclement",
+      "converging",
+      "diamond"
+    ],
+    "n_timesteps": 242,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 66,
+      "blend_start": 22,
+      "blend_end": 48,
+      "steady": false
+    },
+    "settled_tail": 18,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 335,
+    "true_chain": [
+      "dispersed",
+      "diamond",
+      "encirclement"
+    ],
+    "n_timesteps": 150,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 100,
+      "blend_start": 43,
+      "blend_end": 58,
+      "steady": false
+    },
+    "settled_tail": 42,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 336,
+    "true_chain": [
+      "converging",
+      "v_shape",
+      "encirclement",
+      "diamond"
+    ],
+    "n_timesteps": 194,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 57,
+      "blend_start": 19,
+      "blend_end": 38,
+      "steady": false
+    },
+    "settled_tail": 19,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 337,
+    "true_chain": [
+      "diamond",
+      "column"
+    ],
+    "n_timesteps": 82,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 82,
+      "blend_start": 31,
+      "blend_end": 52,
+      "steady": false
+    }
+  },
+  {
+    "i": 338,
+    "true_chain": [
+      "column"
+    ],
+    "n_timesteps": 69,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 69,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 339,
+    "true_chain": [
+      "diamond"
+    ],
+    "n_timesteps": 92,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 92,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 340,
+    "true_chain": [
+      "v_shape",
+      "diamond"
+    ],
+    "n_timesteps": 66,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 66,
+      "blend_start": 21,
+      "blend_end": 37,
+      "steady": false
+    }
+  },
+  {
+    "i": 341,
+    "true_chain": [
+      "v_shape",
+      "encirclement"
+    ],
+    "n_timesteps": 78,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 78,
+      "blend_start": 35,
+      "blend_end": 58,
+      "steady": false
+    },
+    "settled_tail": 20,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 342,
+    "true_chain": [
+      "converging",
+      "shield",
+      "encirclement",
+      "dispersed"
+    ],
+    "n_timesteps": 192,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 64,
+      "blend_start": 28,
+      "blend_end": 45,
+      "steady": false
+    },
+    "settled_tail": 19,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 343,
+    "true_chain": [
+      "encirclement",
+      "dispersed",
+      "diamond",
+      "dispersed"
+    ],
+    "n_timesteps": 200,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 66,
+      "blend_start": 32,
+      "blend_end": 48,
+      "steady": false
+    }
+  },
+  {
+    "i": 344,
+    "true_chain": [
+      "dispersed",
+      "v_shape"
+    ],
+    "n_timesteps": 61,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 61,
+      "blend_start": 26,
+      "blend_end": 39,
+      "steady": false
+    }
+  },
+  {
+    "i": 345,
+    "true_chain": [
+      "diamond"
+    ],
+    "n_timesteps": 58,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 58,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 346,
+    "true_chain": [
+      "diamond",
+      "shield",
+      "v_shape"
+    ],
+    "n_timesteps": 153,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 63,
+      "blend_start": 30,
+      "blend_end": 39,
+      "steady": false
+    },
+    "settled_tail": 24,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 347,
+    "true_chain": [
+      "encirclement",
+      "column",
+      "v_shape",
+      "shield"
+    ],
+    "n_timesteps": 256,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 89,
+      "blend_start": 27,
+      "blend_end": 52,
+      "steady": false
+    },
+    "settled_tail": 37,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 348,
+    "true_chain": [
+      "column",
+      "diamond"
+    ],
+    "n_timesteps": 57,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 57,
+      "blend_start": 19,
+      "blend_end": 38,
+      "steady": false
+    }
+  },
+  {
+    "i": 349,
+    "true_chain": [
+      "encirclement",
+      "dispersed",
+      "shield"
+    ],
+    "n_timesteps": 147,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 85,
+      "blend_start": 30,
+      "blend_end": 62,
+      "steady": false
+    }
+  },
+  {
+    "i": 350,
+    "true_chain": [
+      "converging",
+      "column",
+      "encirclement"
+    ],
+    "n_timesteps": 146,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 63,
+      "blend_start": 31,
+      "blend_end": 34,
+      "steady": false
+    },
+    "settled_tail": 29,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 351,
+    "true_chain": [
+      "v_shape",
+      "encirclement",
+      "column"
+    ],
+    "n_timesteps": 133,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 54,
+      "blend_start": 17,
+      "blend_end": 31,
+      "steady": false
+    },
+    "settled_tail": 23,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 352,
+    "true_chain": [
+      "v_shape",
+      "converging",
+      "diamond"
+    ],
+    "n_timesteps": 147,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 87,
+      "blend_start": 31,
+      "blend_end": 56,
+      "steady": false
+    },
+    "settled_tail": 31,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 353,
+    "true_chain": [
+      "converging",
+      "v_shape"
+    ],
+    "n_timesteps": 74,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 74,
+      "blend_start": 25,
+      "blend_end": 50,
+      "steady": false
+    }
+  },
+  {
+    "i": 354,
+    "true_chain": [
+      "diamond",
+      "encirclement"
+    ],
+    "n_timesteps": 56,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 56,
+      "blend_start": 21,
+      "blend_end": 39,
+      "steady": false
+    }
+  },
+  {
+    "i": 355,
+    "true_chain": [
+      "converging",
+      "dispersed"
+    ],
+    "n_timesteps": 72,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 72,
+      "blend_start": 23,
+      "blend_end": 43,
+      "steady": false
+    }
+  },
+  {
+    "i": 356,
+    "true_chain": [
+      "encirclement"
+    ],
+    "n_timesteps": 87,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 87,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    },
+    "mechanism": "model_uncertainty",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "multi_hop"
+    }
+  },
+  {
+    "i": 357,
+    "true_chain": [
+      "v_shape",
+      "column",
+      "v_shape",
+      "column"
+    ],
+    "n_timesteps": 197,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 59,
+      "blend_start": 23,
+      "blend_end": 35,
+      "steady": false
+    }
+  },
+  {
+    "i": 358,
+    "true_chain": [
+      "v_shape",
+      "converging",
+      "column",
+      "encirclement"
+    ],
+    "n_timesteps": 230,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 80,
+      "blend_start": 34,
+      "blend_end": 45,
+      "steady": false
+    },
+    "settled_tail": 35,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 359,
+    "true_chain": [
+      "v_shape"
+    ],
+    "n_timesteps": 87,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 87,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 360,
+    "true_chain": [
+      "encirclement",
+      "diamond"
+    ],
+    "n_timesteps": 96,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 96,
+      "blend_start": 31,
+      "blend_end": 70,
+      "steady": false
+    }
+  },
+  {
+    "i": 361,
+    "true_chain": [
+      "column"
+    ],
+    "n_timesteps": 92,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 92,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 362,
+    "true_chain": [
+      "encirclement",
+      "converging",
+      "column"
+    ],
+    "n_timesteps": 134,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 76,
+      "blend_start": 30,
+      "blend_end": 53,
+      "steady": false
+    }
+  },
+  {
+    "i": 363,
+    "true_chain": [
+      "shield",
+      "column"
+    ],
+    "n_timesteps": 69,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 69,
+      "blend_start": 31,
+      "blend_end": 47,
+      "steady": false
+    },
+    "settled_tail": 22,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 364,
+    "true_chain": [
+      "shield",
+      "converging",
+      "shield"
+    ],
+    "n_timesteps": 156,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 99,
+      "blend_start": 45,
+      "blend_end": 72,
+      "steady": false
+    }
+  },
+  {
+    "i": 365,
+    "true_chain": [
+      "encirclement"
+    ],
+    "n_timesteps": 59,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 59,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 366,
+    "true_chain": [
+      "column",
+      "v_shape",
+      "encirclement"
+    ],
+    "n_timesteps": 142,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 77,
+      "blend_start": 37,
+      "blend_end": 53,
+      "steady": false
+    }
+  },
+  {
+    "i": 367,
+    "true_chain": [
+      "dispersed"
+    ],
+    "n_timesteps": 58,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 58,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 368,
+    "true_chain": [
+      "diamond",
+      "encirclement",
+      "converging"
+    ],
+    "n_timesteps": 108,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 55,
+      "blend_start": 17,
+      "blend_end": 34,
+      "steady": false
+    }
+  },
+  {
+    "i": 369,
+    "true_chain": [
+      "column",
+      "encirclement"
+    ],
+    "n_timesteps": 76,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 76,
+      "blend_start": 30,
+      "blend_end": 55,
+      "steady": false
+    }
+  },
+  {
+    "i": 370,
+    "true_chain": [
+      "encirclement",
+      "column"
+    ],
+    "n_timesteps": 54,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 54,
+      "blend_start": 21,
+      "blend_end": 31,
+      "steady": false
+    }
+  },
+  {
+    "i": 371,
+    "true_chain": [
+      "dispersed"
+    ],
+    "n_timesteps": 89,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 89,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 372,
+    "true_chain": [
+      "column",
+      "shield"
+    ],
+    "n_timesteps": 69,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 69,
+      "blend_start": 20,
+      "blend_end": 44,
+      "steady": false
+    }
+  },
+  {
+    "i": 373,
+    "true_chain": [
+      "shield",
+      "converging"
+    ],
+    "n_timesteps": 76,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 76,
+      "blend_start": 36,
+      "blend_end": 55,
+      "steady": false
+    },
+    "settled_tail": 21,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 374,
+    "true_chain": [
+      "encirclement",
+      "column",
+      "encirclement"
+    ],
+    "n_timesteps": 113,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 55,
+      "blend_start": 19,
+      "blend_end": 36,
+      "steady": false
+    }
+  },
+  {
+    "i": 375,
+    "true_chain": [
+      "shield",
+      "encirclement"
+    ],
+    "n_timesteps": 84,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 84,
+      "blend_start": 40,
+      "blend_end": 50,
+      "steady": false
+    }
+  },
+  {
+    "i": 376,
+    "true_chain": [
+      "encirclement"
+    ],
+    "n_timesteps": 99,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 99,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    },
+    "mechanism": "model_uncertainty",
+    "alt_stride5": {
+      "bucket": "B",
+      "subtype": null
+    }
+  },
+  {
+    "i": 377,
+    "true_chain": [
+      "dispersed",
+      "column"
+    ],
+    "n_timesteps": 66,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 66,
+      "blend_start": 27,
+      "blend_end": 45,
+      "steady": false
+    }
+  },
+  {
+    "i": 378,
+    "true_chain": [
+      "dispersed",
+      "v_shape",
+      "column"
+    ],
+    "n_timesteps": 114,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 51,
+      "blend_start": 16,
+      "blend_end": 36,
+      "steady": false
+    },
+    "settled_tail": 15,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 379,
+    "true_chain": [
+      "v_shape",
+      "converging"
+    ],
+    "n_timesteps": 72,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 72,
+      "blend_start": 23,
+      "blend_end": 52,
+      "steady": false
+    }
+  },
+  {
+    "i": 380,
+    "true_chain": [
+      "encirclement",
+      "diamond",
+      "v_shape"
+    ],
+    "n_timesteps": 123,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 51,
+      "blend_start": 15,
+      "blend_end": 36,
+      "steady": false
+    },
+    "settled_tail": 15,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 381,
+    "true_chain": [
+      "v_shape",
+      "dispersed",
+      "v_shape",
+      "encirclement"
+    ],
+    "n_timesteps": 269,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 89,
+      "blend_start": 28,
+      "blend_end": 53,
+      "steady": false
+    }
+  },
+  {
+    "i": 382,
+    "true_chain": [
+      "converging",
+      "column",
+      "v_shape",
+      "column"
+    ],
+    "n_timesteps": 213,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 93,
+      "blend_start": 32,
+      "blend_end": 55,
+      "steady": false
+    }
+  },
+  {
+    "i": 383,
+    "true_chain": [
+      "encirclement",
+      "v_shape",
+      "dispersed",
+      "diamond"
+    ],
+    "n_timesteps": 278,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 92,
+      "blend_start": 36,
+      "blend_end": 64,
+      "steady": false
+    }
+  },
+  {
+    "i": 384,
+    "true_chain": [
+      "dispersed",
+      "converging",
+      "v_shape"
+    ],
+    "n_timesteps": 135,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 81,
+      "blend_start": 28,
+      "blend_end": 56,
+      "steady": false
+    },
+    "settled_tail": 25,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 385,
+    "true_chain": [
+      "column"
+    ],
+    "n_timesteps": 87,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 87,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 386,
+    "true_chain": [
+      "converging",
+      "diamond",
+      "shield"
+    ],
+    "n_timesteps": 149,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 63,
+      "blend_start": 23,
+      "blend_end": 39,
+      "steady": false
+    },
+    "settled_tail": 24,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 387,
+    "true_chain": [
+      "encirclement",
+      "shield",
+      "dispersed",
+      "v_shape"
+    ],
+    "n_timesteps": 238,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 82,
+      "blend_start": 29,
+      "blend_end": 56,
+      "steady": false
+    }
+  },
+  {
+    "i": 388,
+    "true_chain": [
+      "shield",
+      "diamond"
+    ],
+    "n_timesteps": 92,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 92,
+      "blend_start": 35,
+      "blend_end": 60,
+      "steady": false
+    },
+    "settled_tail": 32,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 389,
+    "true_chain": [
+      "encirclement"
+    ],
+    "n_timesteps": 53,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 53,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 390,
+    "true_chain": [
+      "converging"
+    ],
+    "n_timesteps": 77,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 77,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 391,
+    "true_chain": [
+      "converging",
+      "dispersed",
+      "converging"
+    ],
+    "n_timesteps": 140,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 70,
+      "blend_start": 27,
+      "blend_end": 52,
+      "steady": false
+    }
+  },
+  {
+    "i": 392,
+    "true_chain": [
+      "converging",
+      "diamond",
+      "column",
+      "shield"
+    ],
+    "n_timesteps": 248,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 94,
+      "blend_start": 32,
+      "blend_end": 69,
+      "steady": false
+    }
+  },
+  {
+    "i": 393,
+    "true_chain": [
+      "v_shape",
+      "column",
+      "encirclement"
+    ],
+    "n_timesteps": 181,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 100,
+      "blend_start": 35,
+      "blend_end": 59,
+      "steady": false
+    }
+  },
+  {
+    "i": 394,
+    "true_chain": [
+      "converging",
+      "dispersed",
+      "converging",
+      "column"
+    ],
+    "n_timesteps": 260,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 94,
+      "blend_start": 45,
+      "blend_end": 68,
+      "steady": false
+    },
+    "settled_tail": 26,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 395,
+    "true_chain": [
+      "dispersed"
+    ],
+    "n_timesteps": 71,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 71,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 396,
+    "true_chain": [
+      "diamond",
+      "shield",
+      "column",
+      "diamond"
+    ],
+    "n_timesteps": 263,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 76,
+      "blend_start": 37,
+      "blend_end": 47,
+      "steady": false
+    }
+  },
+  {
+    "i": 397,
+    "true_chain": [
+      "dispersed",
+      "shield",
+      "diamond",
+      "v_shape"
+    ],
+    "n_timesteps": 255,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 100,
+      "blend_start": 48,
+      "blend_end": 57,
+      "steady": false
+    },
+    "settled_tail": 43,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "multi_hop"
+    }
+  },
+  {
+    "i": 398,
+    "true_chain": [
+      "converging",
+      "encirclement",
+      "v_shape",
+      "dispersed"
+    ],
+    "n_timesteps": 211,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 71,
+      "blend_start": 35,
+      "blend_end": 49,
+      "steady": false
+    },
+    "settled_tail": 22,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 399,
+    "true_chain": [
+      "v_shape",
+      "dispersed"
+    ],
+    "n_timesteps": 96,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 96,
+      "blend_start": 47,
+      "blend_end": 56,
+      "steady": false
+    },
+    "settled_tail": 40,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 400,
+    "true_chain": [
+      "shield",
+      "diamond",
+      "encirclement",
+      "dispersed"
+    ],
+    "n_timesteps": 237,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 95,
+      "blend_start": 45,
+      "blend_end": 65,
+      "steady": false
+    },
+    "settled_tail": 30,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 401,
+    "true_chain": [
+      "diamond"
+    ],
+    "n_timesteps": 56,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 56,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 402,
+    "true_chain": [
+      "diamond"
+    ],
+    "n_timesteps": 93,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 93,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 403,
+    "true_chain": [
+      "converging",
+      "dispersed",
+      "column"
+    ],
+    "n_timesteps": 160,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 95,
+      "blend_start": 45,
+      "blend_end": 70,
+      "steady": false
+    }
+  },
+  {
+    "i": 404,
+    "true_chain": [
+      "v_shape",
+      "diamond"
+    ],
+    "n_timesteps": 57,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 57,
+      "blend_start": 21,
+      "blend_end": 33,
+      "steady": false
+    }
+  },
+  {
+    "i": 405,
+    "true_chain": [
+      "v_shape",
+      "column"
+    ],
+    "n_timesteps": 62,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 62,
+      "blend_start": 26,
+      "blend_end": 37,
+      "steady": false
+    }
+  },
+  {
+    "i": 406,
+    "true_chain": [
+      "converging"
+    ],
+    "n_timesteps": 55,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 55,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 407,
+    "true_chain": [
+      "column",
+      "converging",
+      "encirclement"
+    ],
+    "n_timesteps": 133,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 51,
+      "blend_start": 21,
+      "blend_end": 32,
+      "steady": false
+    },
+    "settled_tail": 19,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 408,
+    "true_chain": [
+      "converging",
+      "column"
+    ],
+    "n_timesteps": 62,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 62,
+      "blend_start": 30,
+      "blend_end": 39,
+      "steady": false
+    },
+    "settled_tail": 23,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 409,
+    "true_chain": [
+      "diamond",
+      "column",
+      "encirclement"
+    ],
+    "n_timesteps": 126,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 64,
+      "blend_start": 28,
+      "blend_end": 47,
+      "steady": false
+    }
+  },
+  {
+    "i": 410,
+    "true_chain": [
+      "diamond"
+    ],
+    "n_timesteps": 99,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 99,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 411,
+    "true_chain": [
+      "column",
+      "shield",
+      "diamond"
+    ],
+    "n_timesteps": 187,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 93,
+      "blend_start": 38,
+      "blend_end": 54,
+      "steady": false
+    }
+  },
+  {
+    "i": 412,
+    "true_chain": [
+      "encirclement",
+      "column",
+      "encirclement"
+    ],
+    "n_timesteps": 173,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 82,
+      "blend_start": 29,
+      "blend_end": 57,
+      "steady": false
+    }
+  },
+  {
+    "i": 413,
+    "true_chain": [
+      "v_shape",
+      "column",
+      "converging",
+      "diamond"
+    ],
+    "n_timesteps": 167,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 57,
+      "blend_start": 22,
+      "blend_end": 36,
+      "steady": false
+    }
+  },
+  {
+    "i": 414,
+    "true_chain": [
+      "shield",
+      "dispersed",
+      "encirclement"
+    ],
+    "n_timesteps": 139,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 66,
+      "blend_start": 28,
+      "blend_end": 40,
+      "steady": false
+    },
+    "settled_tail": 26,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "multi_hop"
+    }
+  },
+  {
+    "i": 415,
+    "true_chain": [
+      "v_shape",
+      "column",
+      "shield"
+    ],
+    "n_timesteps": 160,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 88,
+      "blend_start": 42,
+      "blend_end": 48,
+      "steady": false
+    }
+  },
+  {
+    "i": 416,
+    "true_chain": [
+      "dispersed",
+      "column",
+      "dispersed"
+    ],
+    "n_timesteps": 142,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 78,
+      "blend_start": 26,
+      "blend_end": 49,
+      "steady": false
+    }
+  },
+  {
+    "i": 417,
+    "true_chain": [
+      "v_shape"
+    ],
+    "n_timesteps": 71,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 71,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    },
+    "mechanism": "model_uncertainty",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 418,
+    "true_chain": [
+      "shield",
+      "dispersed"
+    ],
+    "n_timesteps": 67,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 67,
+      "blend_start": 23,
+      "blend_end": 48,
+      "steady": false
+    }
+  },
+  {
+    "i": 419,
+    "true_chain": [
+      "column",
+      "v_shape",
+      "encirclement",
+      "column"
+    ],
+    "n_timesteps": 239,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 95,
+      "blend_start": 47,
+      "blend_end": 63,
+      "steady": false
+    },
+    "settled_tail": 32,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "oscillation"
+    }
+  },
+  {
+    "i": 420,
+    "true_chain": [
+      "converging"
+    ],
+    "n_timesteps": 50,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 50,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 421,
+    "true_chain": [
+      "dispersed",
+      "converging",
+      "dispersed",
+      "converging"
+    ],
+    "n_timesteps": 252,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 57,
+      "blend_start": 20,
+      "blend_end": 41,
+      "steady": false
+    },
+    "settled_tail": 16,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 422,
+    "true_chain": [
+      "diamond",
+      "shield",
+      "column",
+      "diamond"
+    ],
+    "n_timesteps": 202,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 78,
+      "blend_start": 34,
+      "blend_end": 52,
+      "steady": false
+    },
+    "settled_tail": 26,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 423,
+    "true_chain": [
+      "column"
+    ],
+    "n_timesteps": 71,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 71,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 424,
+    "true_chain": [
+      "converging",
+      "shield",
+      "converging",
+      "v_shape"
+    ],
+    "n_timesteps": 214,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 74,
+      "blend_start": 23,
+      "blend_end": 44,
+      "steady": false
+    },
+    "settled_tail": 30,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 425,
+    "true_chain": [
+      "diamond",
+      "encirclement"
+    ],
+    "n_timesteps": 74,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 74,
+      "blend_start": 29,
+      "blend_end": 41,
+      "steady": false
+    },
+    "settled_tail": 33,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 426,
+    "true_chain": [
+      "dispersed",
+      "v_shape",
+      "encirclement"
+    ],
+    "n_timesteps": 170,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 76,
+      "blend_start": 32,
+      "blend_end": 55,
+      "steady": false
+    }
+  },
+  {
+    "i": 427,
+    "true_chain": [
+      "v_shape",
+      "column"
+    ],
+    "n_timesteps": 100,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 100,
+      "blend_start": 42,
+      "blend_end": 68,
+      "steady": false
+    }
+  },
+  {
+    "i": 428,
+    "true_chain": [
+      "converging",
+      "column"
+    ],
+    "n_timesteps": 89,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 89,
+      "blend_start": 33,
+      "blend_end": 57,
+      "steady": false
+    }
+  },
+  {
+    "i": 429,
+    "true_chain": [
+      "diamond",
+      "column",
+      "shield"
+    ],
+    "n_timesteps": 149,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 92,
+      "blend_start": 28,
+      "blend_end": 56,
+      "steady": false
+    }
+  },
+  {
+    "i": 430,
+    "true_chain": [
+      "column",
+      "shield",
+      "diamond",
+      "encirclement"
+    ],
+    "n_timesteps": 188,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 62,
+      "blend_start": 24,
+      "blend_end": 44,
+      "steady": false
+    }
+  },
+  {
+    "i": 431,
+    "true_chain": [
+      "diamond",
+      "v_shape"
+    ],
+    "n_timesteps": 100,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 100,
+      "blend_start": 41,
+      "blend_end": 73,
+      "steady": false
+    }
+  },
+  {
+    "i": 432,
+    "true_chain": [
+      "shield",
+      "v_shape",
+      "diamond",
+      "dispersed"
+    ],
+    "n_timesteps": 194,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 68,
+      "blend_start": 26,
+      "blend_end": 44,
+      "steady": false
+    },
+    "settled_tail": 24,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 433,
+    "true_chain": [
+      "shield",
+      "encirclement"
+    ],
+    "n_timesteps": 81,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 81,
+      "blend_start": 36,
+      "blend_end": 56,
+      "steady": false
+    },
+    "settled_tail": 25,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 434,
+    "true_chain": [
+      "v_shape",
+      "diamond"
+    ],
+    "n_timesteps": 89,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 89,
+      "blend_start": 36,
+      "blend_end": 53,
+      "steady": false
+    }
+  },
+  {
+    "i": 435,
+    "true_chain": [
+      "converging"
+    ],
+    "n_timesteps": 73,
+    "bucket_orig": "A",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 73,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 436,
+    "true_chain": [
+      "shield"
+    ],
+    "n_timesteps": 64,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 64,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 437,
+    "true_chain": [
+      "diamond",
+      "v_shape"
+    ],
+    "n_timesteps": 81,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 81,
+      "blend_start": 29,
+      "blend_end": 54,
+      "steady": false
+    }
+  },
+  {
+    "i": 438,
+    "true_chain": [
+      "encirclement"
+    ],
+    "n_timesteps": 74,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 74,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 439,
+    "true_chain": [
+      "dispersed",
+      "converging"
+    ],
+    "n_timesteps": 58,
+    "bucket_orig": "A",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 58,
+      "blend_start": 23,
+      "blend_end": 32,
+      "steady": false
+    }
+  },
+  {
+    "i": 440,
+    "true_chain": [
+      "dispersed"
+    ],
+    "n_timesteps": 50,
+    "bucket_orig": "A",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 50,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 441,
+    "true_chain": [
+      "dispersed",
+      "converging",
+      "column",
+      "shield"
+    ],
+    "n_timesteps": 264,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 92,
+      "blend_start": 40,
+      "blend_end": 53,
+      "steady": false
+    }
+  },
+  {
+    "i": 442,
+    "true_chain": [
+      "shield"
+    ],
+    "n_timesteps": 61,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 61,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 443,
+    "true_chain": [
+      "v_shape",
+      "column"
+    ],
+    "n_timesteps": 95,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 95,
+      "blend_start": 40,
+      "blend_end": 62,
+      "steady": false
+    },
+    "settled_tail": 33,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "multi_hop"
+    }
+  },
+  {
+    "i": 444,
+    "true_chain": [
+      "dispersed",
+      "converging"
+    ],
+    "n_timesteps": 56,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 56,
+      "blend_start": 26,
+      "blend_end": 33,
+      "steady": false
+    }
+  },
+  {
+    "i": 445,
+    "true_chain": [
+      "dispersed"
+    ],
+    "n_timesteps": 53,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 53,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 446,
+    "true_chain": [
+      "encirclement"
+    ],
+    "n_timesteps": 93,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 93,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    },
+    "mechanism": "model_uncertainty",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 447,
+    "true_chain": [
+      "column"
+    ],
+    "n_timesteps": 93,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 93,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    },
+    "mechanism": "model_uncertainty",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 448,
+    "true_chain": [
+      "converging",
+      "diamond",
+      "converging",
+      "diamond"
+    ],
+    "n_timesteps": 204,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 74,
+      "blend_start": 33,
+      "blend_end": 40,
+      "steady": false
+    },
+    "settled_tail": 34,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 449,
+    "true_chain": [
+      "column",
+      "converging",
+      "column"
+    ],
+    "n_timesteps": 143,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 58,
+      "blend_start": 22,
+      "blend_end": 38,
+      "steady": false
+    }
+  },
+  {
+    "i": 450,
+    "true_chain": [
+      "dispersed",
+      "v_shape",
+      "converging",
+      "diamond"
+    ],
+    "n_timesteps": 285,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 98,
+      "blend_start": 39,
+      "blend_end": 73,
+      "steady": false
+    },
+    "settled_tail": 25,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 451,
+    "true_chain": [
+      "converging",
+      "shield"
+    ],
+    "n_timesteps": 89,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 89,
+      "blend_start": 35,
+      "blend_end": 50,
+      "steady": false
+    }
+  },
+  {
+    "i": 452,
+    "true_chain": [
+      "diamond",
+      "column",
+      "v_shape"
+    ],
+    "n_timesteps": 154,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 75,
+      "blend_start": 27,
+      "blend_end": 44,
+      "steady": false
+    },
+    "settled_tail": 31,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 453,
+    "true_chain": [
+      "diamond",
+      "converging",
+      "dispersed"
+    ],
+    "n_timesteps": 109,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 59,
+      "blend_start": 24,
+      "blend_end": 39,
+      "steady": false
+    },
+    "settled_tail": 20,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 454,
+    "true_chain": [
+      "dispersed",
+      "encirclement"
+    ],
+    "n_timesteps": 51,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 51,
+      "blend_start": 18,
+      "blend_end": 38,
+      "steady": false
+    }
+  },
+  {
+    "i": 455,
+    "true_chain": [
+      "diamond",
+      "encirclement",
+      "column",
+      "shield"
+    ],
+    "n_timesteps": 193,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 74,
+      "blend_start": 35,
+      "blend_end": 44,
+      "steady": false
+    },
+    "settled_tail": 30,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 456,
+    "true_chain": [
+      "converging",
+      "encirclement",
+      "dispersed"
+    ],
+    "n_timesteps": 122,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 65,
+      "blend_start": 21,
+      "blend_end": 41,
+      "steady": false
+    }
+  },
+  {
+    "i": 457,
+    "true_chain": [
+      "dispersed",
+      "encirclement",
+      "diamond",
+      "v_shape"
+    ],
+    "n_timesteps": 245,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 70,
+      "blend_start": 32,
+      "blend_end": 45,
+      "steady": false
+    }
+  },
+  {
+    "i": 458,
+    "true_chain": [
+      "shield",
+      "v_shape"
+    ],
+    "n_timesteps": 97,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 97,
+      "blend_start": 31,
+      "blend_end": 65,
+      "steady": false
+    }
+  },
+  {
+    "i": 459,
+    "true_chain": [
+      "converging",
+      "encirclement",
+      "column",
+      "diamond"
+    ],
+    "n_timesteps": 251,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 66,
+      "blend_start": 27,
+      "blend_end": 44,
+      "steady": false
+    },
+    "settled_tail": 22,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 460,
+    "true_chain": [
+      "column"
+    ],
+    "n_timesteps": 91,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 91,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 461,
+    "true_chain": [
+      "dispersed"
+    ],
+    "n_timesteps": 97,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 97,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 462,
+    "true_chain": [
+      "encirclement"
+    ],
+    "n_timesteps": 89,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 89,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    },
+    "mechanism": "model_uncertainty",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 463,
+    "true_chain": [
+      "shield",
+      "encirclement"
+    ],
+    "n_timesteps": 100,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 100,
+      "blend_start": 41,
+      "blend_end": 59,
+      "steady": false
+    },
+    "settled_tail": 41,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 464,
+    "true_chain": [
+      "column",
+      "encirclement"
+    ],
+    "n_timesteps": 90,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 90,
+      "blend_start": 32,
+      "blend_end": 66,
+      "steady": false
+    },
+    "settled_tail": 24,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 465,
+    "true_chain": [
+      "v_shape",
+      "shield",
+      "converging"
+    ],
+    "n_timesteps": 131,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 59,
+      "blend_start": 27,
+      "blend_end": 33,
+      "steady": false
+    },
+    "settled_tail": 26,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 466,
+    "true_chain": [
+      "encirclement"
+    ],
+    "n_timesteps": 89,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 89,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    },
+    "mechanism": "model_uncertainty",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 467,
+    "true_chain": [
+      "converging",
+      "encirclement",
+      "shield",
+      "column"
+    ],
+    "n_timesteps": 236,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 91,
+      "blend_start": 35,
+      "blend_end": 54,
+      "steady": false
+    }
+  },
+  {
+    "i": 468,
+    "true_chain": [
+      "converging",
+      "dispersed",
+      "converging",
+      "v_shape"
+    ],
+    "n_timesteps": 208,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 88,
+      "blend_start": 37,
+      "blend_end": 62,
+      "steady": false
+    },
+    "settled_tail": 26,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 469,
+    "true_chain": [
+      "diamond",
+      "encirclement",
+      "converging"
+    ],
+    "n_timesteps": 166,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 89,
+      "blend_start": 37,
+      "blend_end": 52,
+      "steady": false
+    }
+  },
+  {
+    "i": 470,
+    "true_chain": [
+      "v_shape"
+    ],
+    "n_timesteps": 52,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 52,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 471,
+    "true_chain": [
+      "encirclement"
+    ],
+    "n_timesteps": 80,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 80,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 472,
+    "true_chain": [
+      "v_shape",
+      "converging"
+    ],
+    "n_timesteps": 87,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 87,
+      "blend_start": 31,
+      "blend_end": 51,
+      "steady": false
+    },
+    "settled_tail": 36,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 473,
+    "true_chain": [
+      "v_shape",
+      "dispersed",
+      "shield",
+      "column"
+    ],
+    "n_timesteps": 260,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 91,
+      "blend_start": 40,
+      "blend_end": 50,
+      "steady": false
+    },
+    "settled_tail": 41,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 474,
+    "true_chain": [
+      "dispersed",
+      "column"
+    ],
+    "n_timesteps": 79,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 79,
+      "blend_start": 29,
+      "blend_end": 58,
+      "steady": false
+    },
+    "settled_tail": 21,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 475,
+    "true_chain": [
+      "diamond",
+      "shield"
+    ],
+    "n_timesteps": 82,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 82,
+      "blend_start": 34,
+      "blend_end": 47,
+      "steady": false
+    }
+  },
+  {
+    "i": 476,
+    "true_chain": [
+      "dispersed",
+      "diamond",
+      "shield"
+    ],
+    "n_timesteps": 165,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 75,
+      "blend_start": 30,
+      "blend_end": 43,
+      "steady": false
+    }
+  },
+  {
+    "i": 477,
+    "true_chain": [
+      "v_shape",
+      "dispersed",
+      "column"
+    ],
+    "n_timesteps": 108,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 54,
+      "blend_start": 17,
+      "blend_end": 32,
+      "steady": false
+    },
+    "settled_tail": 22,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 478,
+    "true_chain": [
+      "dispersed",
+      "encirclement",
+      "shield",
+      "diamond"
+    ],
+    "n_timesteps": 236,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 76,
+      "blend_start": 36,
+      "blend_end": 52,
+      "steady": false
+    }
+  },
+  {
+    "i": 479,
+    "true_chain": [
+      "column",
+      "shield",
+      "encirclement",
+      "column"
+    ],
+    "n_timesteps": 207,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 61,
+      "blend_start": 28,
+      "blend_end": 34,
+      "steady": false
+    },
+    "settled_tail": 27,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 480,
+    "true_chain": [
+      "encirclement",
+      "converging",
+      "v_shape",
+      "shield"
+    ],
+    "n_timesteps": 225,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 62,
+      "blend_start": 25,
+      "blend_end": 41,
+      "steady": false
+    },
+    "settled_tail": 21,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 481,
+    "true_chain": [
+      "shield",
+      "v_shape",
+      "diamond",
+      "encirclement"
+    ],
+    "n_timesteps": 258,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 98,
+      "blend_start": 44,
+      "blend_end": 58,
+      "steady": false
+    }
+  },
+  {
+    "i": 482,
+    "true_chain": [
+      "diamond",
+      "v_shape",
+      "column"
+    ],
+    "n_timesteps": 126,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 57,
+      "blend_start": 25,
+      "blend_end": 41,
+      "steady": false
+    }
+  },
+  {
+    "i": 483,
+    "true_chain": [
+      "converging",
+      "diamond"
+    ],
+    "n_timesteps": 57,
+    "bucket_orig": "A",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 57,
+      "blend_start": 23,
+      "blend_end": 41,
+      "steady": false
+    }
+  },
+  {
+    "i": 484,
+    "true_chain": [
+      "column"
+    ],
+    "n_timesteps": 52,
+    "bucket_orig": "C",
+    "subtype_orig": "all_unknown",
+    "last_hop": {
+      "seg_len": 52,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 485,
+    "true_chain": [
+      "v_shape",
+      "dispersed",
+      "column",
+      "dispersed"
+    ],
+    "n_timesteps": 185,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 58,
+      "blend_start": 27,
+      "blend_end": 41,
+      "steady": false
+    }
+  },
+  {
+    "i": 486,
+    "true_chain": [
+      "column"
+    ],
+    "n_timesteps": 98,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 98,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 487,
+    "true_chain": [
+      "diamond",
+      "dispersed"
+    ],
+    "n_timesteps": 81,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 81,
+      "blend_start": 33,
+      "blend_end": 44,
+      "steady": false
+    }
+  },
+  {
+    "i": 488,
+    "true_chain": [
+      "column",
+      "dispersed",
+      "encirclement"
+    ],
+    "n_timesteps": 120,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 68,
+      "blend_start": 28,
+      "blend_end": 45,
+      "steady": false
+    }
+  },
+  {
+    "i": 489,
+    "true_chain": [
+      "diamond",
+      "encirclement"
+    ],
+    "n_timesteps": 70,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 70,
+      "blend_start": 21,
+      "blend_end": 52,
+      "steady": false
+    }
+  },
+  {
+    "i": 490,
+    "true_chain": [
+      "encirclement"
+    ],
+    "n_timesteps": 94,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 94,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 491,
+    "true_chain": [
+      "v_shape",
+      "shield",
+      "v_shape",
+      "encirclement"
+    ],
+    "n_timesteps": 288,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 100,
+      "blend_start": 33,
+      "blend_end": 64,
+      "steady": false
+    }
+  },
+  {
+    "i": 492,
+    "true_chain": [
+      "v_shape",
+      "converging",
+      "diamond",
+      "dispersed"
+    ],
+    "n_timesteps": 250,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 59,
+      "blend_start": 20,
+      "blend_end": 40,
+      "steady": false
+    },
+    "settled_tail": 19,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 493,
+    "true_chain": [
+      "column",
+      "dispersed"
+    ],
+    "n_timesteps": 98,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 98,
+      "blend_start": 38,
+      "blend_end": 67,
+      "steady": false
+    }
+  },
+  {
+    "i": 494,
+    "true_chain": [
+      "converging",
+      "column",
+      "diamond"
+    ],
+    "n_timesteps": 173,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 78,
+      "blend_start": 31,
+      "blend_end": 43,
+      "steady": false
+    },
+    "settled_tail": 35,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 495,
+    "true_chain": [
+      "converging"
+    ],
+    "n_timesteps": 77,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 77,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    }
+  },
+  {
+    "i": 496,
+    "true_chain": [
+      "column",
+      "converging",
+      "dispersed"
+    ],
+    "n_timesteps": 134,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 66,
+      "blend_start": 24,
+      "blend_end": 40,
+      "steady": false
+    },
+    "settled_tail": 26,
+    "mechanism": "windowing_artifact",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  },
+  {
+    "i": 497,
+    "true_chain": [
+      "converging",
+      "shield",
+      "diamond"
+    ],
+    "n_timesteps": 177,
+    "bucket_orig": "C",
+    "subtype_orig": "multi_hop",
+    "last_hop": {
+      "seg_len": 80,
+      "blend_start": 36,
+      "blend_end": 55,
+      "steady": false
+    }
+  },
+  {
+    "i": 498,
+    "true_chain": [
+      "converging",
+      "encirclement",
+      "column",
+      "converging"
+    ],
+    "n_timesteps": 209,
+    "bucket_orig": "B",
+    "subtype_orig": null,
+    "last_hop": {
+      "seg_len": 52,
+      "blend_start": 24,
+      "blend_end": 29,
+      "steady": false
+    }
+  },
+  {
+    "i": 499,
+    "true_chain": [
+      "shield"
+    ],
+    "n_timesteps": 99,
+    "bucket_orig": "C",
+    "subtype_orig": "terminal_unknown",
+    "last_hop": {
+      "seg_len": 99,
+      "blend_start": null,
+      "blend_end": null,
+      "steady": true
+    },
+    "mechanism": "model_uncertainty",
+    "alt_stride5": {
+      "bucket": "C",
+      "subtype": "terminal_unknown"
+    }
+  }
+]

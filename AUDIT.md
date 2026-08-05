@@ -2892,3 +2892,52 @@ the large majority of its answer volume for near-zero over-escalation. Whether t
 is worth it depends entirely on the deployment's cost function for a missed report versus a
 false alarm, a judgment call this data informs but does not make.
 
+### Step 4: sanity-checking the 60% unresolvable bucket — sub-types, and whether windowing is a cheap fix
+
+`llm_finetuning/analyze_bucket_c_windowing.py` regenerates the identical 500 sequences a
+third time (bit-for-bit verified against the original `build_long_sequence` before this
+ran) with an instrumented copy that additionally records each hop's `(seg_len, blend_start,
+blend_end)` without changing anything about what is generated.
+
+**Bucket C sub-type breakdown, n=300 (exact reproduction of sec AE step 2 — 183/59/52/6):**
+
+| subtype | n | % of C | % of total |
+|---|---|---|---|
+| terminal_unknown | 183 | 61.0% | 36.6% |
+| all_unknown | 59 | 19.7% | 11.8% |
+| multi_hop | 52 | 17.3% | 10.4% |
+| oscillation | 6 | 2.0% | 1.2% |
+
+**"Window ends mid-transition" DOES dominate, and it's now mechanistically confirmed, not
+just inferred:** for each `terminal_unknown` case, `settled_tail = seg_len − blend_end` (how
+many timesteps of fully-settled target-formation geometry existed after the blend
+completed, before the sequence ended) is compared against `window_size` (50). **159/183
+(86.9%) have `settled_tail < 50`** — the final 50-step window is structurally guaranteed to
+contain real transition geometry, not a classifier failure. Only 24/183 (13.1%) are genuine
+model uncertainty with no windowing excuse available.
+
+**Neither cheap fix tested actually resolves it:**
+- **A longer window is NOT cheap.** `window_size=100` was attempted and crashes:
+  `STGTModel`'s `PositionalEncoding` buffer is registered at construction with
+  `max_len=cfg["max_seq_len"]` (50, baked into `swarm_data/best_model.pt` at training
+  time) — `x + self.pe[:, :x.size(1), :]` is a shape mismatch the instant a window exceeds
+  50 timesteps. This is an architectural constant, not a runtime parameter. Making the
+  observation window longer requires retraining STGT with a larger `max_seq_len` — a
+  materially bigger undertaking than a stride change, and itself a finding worth reporting
+  rather than working around.
+- **A finer stride barely helps.** `stride=5` (half the original 10) resolves only
+  **18/183 (9.8%)** of `terminal_unknown` cases. This is the expected consequence of the
+  mechanism just confirmed: finer stride adds more OVERLAPPING windows earlier in the
+  sequence, it does not change the content of the LAST window, which is what determines
+  whether the observation ends mid-transition.
+
+**Verdict: "window ends mid-transition" is a real, dominant, now-quantified failure mode
+(31.8% of ALL 500 samples: 36.6% terminal_unknown × 86.9% windowing-artifact-mechanism),
+but it is NOT a cheap fix under either lever this session tested.** The implication this
+data actually supports is a scheduling fix, not a model or inference-config change: an
+observation window that is allowed to end anywhere in the stream will periodically end
+mid-transition by construction; a downstream consumer that waits for (or resamples toward)
+a window boundary a fixed delay after the last detected transition, rather than reading
+whatever the fixed-cadence stride happens to hand it, would side-step this without touching
+STGT at all — untested here, a design recommendation this session's data motivates but does
+not itself validate.
