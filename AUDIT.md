@@ -2941,3 +2941,58 @@ a window boundary a fixed delay after the last detected transition, rather than 
 whatever the fixed-cadence stride happens to hand it, would side-step this without touching
 STGT at all — untested here, a design recommendation this session's data motivates but does
 not itself validate.
+
+## AG. Fixing the reduction brittleness that sec AF's real-output eval exposed
+
+Sec AF found pipeline_v2's bucket classification recognizes only 9/249 (3.6%) of REAL
+sequences whose generator ground truth IS a clean (a,b) pair as Layer-1 resolvable — even
+though most of those 249 genuinely have a simple, determinable answer. This section
+diagnoses exactly why the CURRENT unanimity-based reduction throws those cases away, then
+fixes it with a robust, majority-based reduction, kept behind an explicit flag so the old
+(tested, unanimity) behaviour stays available and testable.
+
+### Step 1: diagnosing the reduction failure — five categories, none of them "the dict is wrong"
+
+`llm_finetuning/diagnose_reduction_failures.py` regenerates the identical 500 sequences
+(seed=0, bit-for-bit reproducible) and categorizes, for all 249 GT-clean sequences, exactly
+why `stgt_bridge.bridge_predictions`/`coverage.classify_observation` (unmodified, `robust=False`)
+did or didn't reach bucket A:
+
+| category | n | % of 249 |
+|---|---|---|
+| dispersed_converging_ambiguity | 115 | 46.2% |
+| trailing_transitioning_run | 64 | 25.7% |
+| all_windows_transitioning | 56 | 22.5% |
+| already_resolved (bucket A) | 9 | 3.6% |
+| formation_name_mismatch | 5 | 2.0% |
+| interior_noisy_window / other | 0 | 0.0% |
+
+**Zero cases of "interior noisy window breaking unanimity" or unexplained "other" — every
+single failure is one of four clean, mechanistically-understood causes.** In priority order
+of impact:
+
+1. **`dispersed_converging_ambiguity` (46.2%, the largest category)** — sec AF step 3's
+   already-diagnosed upstream defect (`dispersed`/`converging` share identical base
+   geometry in `data_gen.py`), now shown to be the single biggest blocker even restricted to
+   sequences that structurally DID reduce to a clean 2-tuple. Per the session's own
+   instruction (step 2d below), this is real, not brittleness — kept as-is, not "fixed" by
+   the reduction-logic change.
+2. **`trailing_transitioning_run` (25.7%)** — sec AF step 4's windowing-artefact mechanism:
+   the sequence ends before the final hop's blend fully settles, so the last window(s) read
+   `"transitioning"`, breaking unanimity even though every EARLIER window was clean. This is
+   exactly what dropping leading/trailing transitioning runs before reducing (step 2a) fixes.
+3. **`all_windows_transitioning` (22.5%)** — every single window reads outside
+   `BASE_FORMATIONS`. Current logic hard-abstains here (`bridge_predictions`'s early
+   `n==0`-style return); step 2c's `class_probabilities` aggregation targets this.
+4. **`formation_name_mismatch` (2.0%, small)** — genuine STGT misclassification (a real but
+   WRONG formation, not a transitioning read). No reduction-logic change can fix this — it
+   is a model-accuracy problem, not a brittleness problem, and is called out here so it
+   isn't silently absorbed into the "fixed by step 2" claim.
+
+**What this bounds, honestly, before the fix is even built:** steps 2a+2c together target at
+most 64+56 = 120/249 (48.2%) of the 249 cases. `dispersed_converging_ambiguity`'s 46.2% is
+explicitly NOT addressed (2d). Some fraction of the 120 structurally-recoverable cases will
+ALSO exhibit the ambiguity guard once given a valid 2-tuple pair (ambiguity is a per-window
+property, not exclusive to already-failed-for-other-reasons cases) — so the true post-fix
+ceiling is somewhere between 9 (no improvement) and 129 (9 + 120, the naive best case), and
+is measured, not assumed, in step 2.
