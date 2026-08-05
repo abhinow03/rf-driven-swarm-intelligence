@@ -2827,3 +2827,68 @@ that are already otherwise clean. It cannot rule out (and this data cannot measu
 second-order effect where the SAME geometry collision is also confusing the classifier
 into some of the 134 co-occurring `oov_name`/`dominant_history_contradiction` triggers —
 if so, the true ceiling is higher than 13.2%.
+
+### Step 2: evaluation on real STGT output — the headline number
+
+**Ground-truth derivation, stated explicitly as required:** for each of the 500 sequences
+(regenerated identically from sec AE step 2 — same seed=0, same `sample_chain`/
+`build_long_sequence` — bit-for-bit verified before this ran), ground truth is looked up
+from `RULES` using ONLY the sequence's TRUE, KNOWN formation chain — the exact list of
+formations `measure_coverage.py`'s generator was told to build, captured before any model
+sees the data. It is NEVER derived from `stgt_bridge.bridge_predictions`'s own output
+(`dominant_formation`, `formation_history`, a bucket's `rules_key`) — that comes from the
+SAME noisy STGT classification every system under test also consumes, so using it as an
+answer key would launder classifier error into the grade. `RULES` itself is a static
+domain-policy table, not part of the code path under test, and is consulted here the same
+way it already is for every existing battery in this project (`TEST_CASES`'
+`expected_threat` is likewise `RULES` on the case's TRUE `formation_a`/`formation_b`, never
+on a system's read of it) — this section extends that same convention to real STGT output.
+Ground truth exists only for `len(true_chain) <= 2` (249/500 = 49.8%): 1 formation → steady
+state `RULES[(f,f)]`, 2 formations → `RULES[(chain[0],chain[1])]`. `len(true_chain) >= 3`
+(250/500) has no RULES key even in principle — correct behaviour is abstention, scored via
+the same `has_ground_truth=False` convention `evaluate_llm`/the degradation battery use.
+
+**Per-class threat accuracy on real STGT output, Wilson 95% CI:**
+
+| system | low | medium | high | critical |
+|---|---|---|---|---|
+| v2 | 68.6% [58.2,77.4] n=86 | 59.8% [49.3,69.4] n=87 | 24.7% [16.2,35.6] n=73 | 0.0% n=3 |
+| rules_in_prompt | 72.9% [60.4,82.6] n=59 | 21.5% [13.3,33.0] n=65 | 1.8% [0.3,9.6] n=55 | 0.0% n=1 |
+| v3b-fix | 49.2% [37.5,61.1] n=65 | 53.0% [41.2,64.6] n=66 | 17.2% [9.6,28.9] n=58 | 0.0% n=2 |
+| **pipeline_v2** | **33.3% [16.3,56.3] n=18** | **58.6% [40.7,74.5] n=29** | **10.3% [3.6,26.4] n=29** | **0.0% n=1** |
+
+**Abstention, over-abstention, escalation direction (n=249 ground-truth-determinable):**
+
+| system | abstention (all n=500) | over-abstention (n=249) | correct | under-esc | over-esc |
+|---|---|---|---|---|---|
+| v2 | 0.0% | 0.0% | 51.8% | 34.9% | 13.3% |
+| rules_in_prompt | 16.0% | 27.7% | 23.3% | 40.2% | 5.6% |
+| v3b-fix | 14.6% | 23.3% | 30.9% | 32.1% | 13.7% |
+| **pipeline_v2** | **52.0%** | **69.1%** | **10.4%** | **15.7%** | **4.8%** |
+
+**Verdict — stated plainly: on real STGT output, pipeline_v2 does NOT dominate. It has the
+LOWEST raw "correct" rate of all four systems (10.4%, vs v2's 51.8%), driven by a 69.1%
+over-abstention rate on cases that DO have determinable ground truth.** This directly
+contradicts the sec AE clean-battery impression and confirms step 1's tautology finding was
+the right call. Mechanism, cross-tabbed from the same run's layer log: of the 249
+ground-truth-determinable sequences (TRUE chain length ≤2), pipeline_v2's own bucket
+classification recognizes only **9 (3.6%)** as Layer 1 — the model's noisy per-window read
+of even a genuinely-simple true scenario routes 46.2% to Layer 2 (guard) and 50.2% to
+Layer 3 (LLM) anyway, because real STGT classification frequently produces a
+dispersed/converging near-tie, an OOV blip, or (per step 4) a terminal `"transitioning"`
+read at the window boundary even when the TRUE underlying transition is simple. **Real
+model noise, not bucket-boundary design, is what collapses Layer 1's usage rate from
+sec AE's 1.8%-of-observations design point down to matching only 3.6% of the cases that
+actually had a clean answer available.**
+
+**What DOES hold up, and is the honest, narrower claim this session supports**:
+pipeline_v2's escalation-direction numbers, among the cases it actually answers, remain the
+best of the four (under-escalation 15.7% + over-escalation 4.8% = 20.5% total escalation
+error, vs v2's 48.2%, rules_in_prompt's 45.8%, v3b-fix's 45.8%) — and its raw accuracy when
+it DOES answer (26/(26+39+12) = 33.8%) is comparable to `rules_in_prompt` (33.7%), just
+below `v3b-fix` (40.3%), and below `v2` (51.8%, but `v2` never hedges at all). Pipeline_v2 is
+not a strictly-better system on real output — it is a MUCH MORE CONSERVATIVE one, trading
+the large majority of its answer volume for near-zero over-escalation. Whether that trade
+is worth it depends entirely on the deployment's cost function for a missed report versus a
+false alarm, a judgment call this data informs but does not make.
+
