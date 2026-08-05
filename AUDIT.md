@@ -2755,3 +2755,42 @@ under-escalation on every system that still lets an LLM freely choose the threat
 Closing the low/medium confusion door didn't require a better prior correction or more
 fine-tuning data — it required not asking the LLM a question the dict could already
 answer.
+
+> **⚠ CORRECTION, see sec AF below: the 100.0% pipeline_v2 figures in the clean-battery
+> table above are a CONSTRUCTION ARTEFACT, not a generalization result.** Layer 1 fires
+> on 100.0% of the 55-case clean battery (`llm_finetuning/report_layer_firing_rates.py`)
+> — that battery is entirely rule-table-resolvable by construction, so pipeline_v2's
+> "100% accuracy" there is a dictionary scored against dictionary-derived ground truth.
+> It confirms Layer 1's decision-field overwrite logic has no bugs; it is not evidence
+> pipeline_v2 generalizes. The degradation-battery numbers (66/108 = 61.1% Layer 1) and
+> sec AF step 2's real-STGT-output evaluation are the numbers that actually bear on
+> generalization. Left un-edited above for the historical record — do not cite the
+> clean-battery 100% figures as a generalization claim; cite sec AF instead.
+
+## AF. Resolving the tautology — layer-firing rates, and evaluation on real STGT output
+
+Sec AE's clean-battery 100.0% pipeline_v2 figure and the 1.8% bucket-A coverage figure
+from the SAME session are inconsistent unless the clean battery is almost entirely
+Layer-1-resolvable — which would make the 100% a tautology. This section resolves it.
+
+### Step 1: layer-firing rates — confirmed, it is a tautology
+
+`llm_finetuning/report_layer_firing_rates.py` computes `coverage.classify_ctx` directly
+on every case in both batteries — a pure function of ctx text, independent of any LLM's
+sampled output, so this is exact, not resampled:
+
+| battery | Layer 1 (A) | Layer 2 (B) | Layer 3 (C) |
+|---|---|---|---|
+| clean (n=55) | 55/55 (**100.0%**) | 0 | 0 |
+| degradation (n=108) | 66/108 (61.1%) | 6/108 (5.6%) | 36/108 (33.3%) |
+
+**Stated plainly, as instructed: the clean battery's pipeline_v2 100.0% accuracy figure
+in sec AE is a construction artefact.** Every one of the 55 `TEST_CASES` scenarios is a
+clean, single, valid-formation transition with confidence ≥0.7 by `synth_context()`'s own
+sampling range — none of `classify_ctx`'s guard/unresolvable conditions can structurally
+fire on it. Scoring pipeline_v2 on this battery measures "does Layer 1 correctly echo
+`RULES[(a,b)]`," which sec AE's own unit tests already established with fake clients —
+it is not a measurement of whether pipeline_v2 handles real, noisy input better than the
+other four systems. The degradation battery is less circular (39% of it misses Layer 1)
+but was built to stress five specific perturbation axes, not to represent real STGT
+output — step 2 below is the number that actually answers that question.
