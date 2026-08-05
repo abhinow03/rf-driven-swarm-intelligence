@@ -3116,3 +3116,23 @@ keep `robust=False` as `stgt_bridge.py`'s default (already true), keep the robus
 code available and tested (it is a real, working fix for the DIAGNOSED brittleness, and may
 be useful again if the dispersed/converging defect is ever independently fixed), but do not
 route pipeline_v2 through it in its current form.**
+
+### Step 4: is the threshold overfit to the dev split? — no, it's just honestly bad on both
+
+`llm_finetuning/check_robust_reduction_threshold_overfitting.py` confirms `dev_seed=1` (never
+the eval seed) and compares dev vs the held-out 500 directly:
+
+| metric | dev (seed=1, n=153) | held-out (seed=0, n=249) | delta |
+|---|---|---|---|
+| recovery rate (pre-guard) | 62.7% | 65.1% | 2.3% |
+| precision reaching bucket A (post-guard) | 25.0% (n=4) | 16.7% (n=12) | — (both n too small to distinguish) |
+
+**Recovery rate matches closely (2.3pt delta) — not overfit on that metric.** Post-guard
+precision is low on BOTH splits, and critically that is NOT the overfitting signature (dev
+looking artificially good, held-out disappointing) — it's the opposite failure mode: the
+threshold was never good anywhere, dev included, and the dev-split discipline correctly
+surfaced that BEFORE committing to a number, rather than a held-out set catching an
+inflated dev score after the fact. **The threshold is not overfit. The underlying
+recovery-then-guard mechanism is genuinely, consistently low-precision, on data it has
+never seen, on both sides of the split.** No adjustment to the threshold is called for by
+this check; sec AG step 3's verdict (do not ship `robust=True` as the default) stands.
