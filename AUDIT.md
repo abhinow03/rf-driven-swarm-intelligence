@@ -2794,3 +2794,36 @@ it is not a measurement of whether pipeline_v2 handles real, noisy input better 
 other four systems. The degradation battery is less circular (39% of it misses Layer 1)
 but was built to stress five specific perturbation axes, not to represent real STGT
 output — step 2 below is the number that actually answers that question.
+
+### Step 3: quantifying the dispersed/converging geometry defect's cost
+
+Sec AE step 2 found `dispersed_converging_ambiguity` in 100% of bucket-B cases (191/191)
+because `dispersed` and `converging` share identical base geometry in `data_gen.py`. The
+number a teammate needs to justify the fix: how many of those 191 cases would actually
+move to bucket A if the geometry were made distinct, versus how many are guarded by
+something else regardless. `llm_finetuning/quantify_dispersed_converging_defect.py`
+(pure post-processing of sec AE's already-saved per-case `guard_reasons`, no GPU):
+
+| combination | n | % of B |
+|---|---|---|
+| ambiguity + oov_name | 107 | 56.0% |
+| **ambiguity ONLY** | **57** | **29.8%** |
+| ambiguity + dominant_history_contradiction + oov_name | 21 | 11.0% |
+| ambiguity + dominant_history_contradiction | 4 | 2.1% |
+| ambiguity + low_confidence | 2 | 1.0% |
+
+**57/191 (29.8% of B, 11.4% of all 500 samples) have `dispersed_converging_ambiguity` as
+their SOLE guard reason** — these are already structurally clean (passed every bucket-C
+check, no other guard condition) and would move straight to bucket A if the geometry
+collision were fixed. The other 134 (70.2% of B) are guarded by something else
+regardless (mostly `oov_name`, i.e. the model reading `"transitioning"` somewhere in the
+window set) and would stay in B either way.
+
+**Estimated effect: bucket A grows from 1.8% (9/500) to 13.2% (66/500) — a >7x increase
+— bucket B shrinks from 38.2% to 26.8%, bucket C is unaffected** (this guard is
+bucket-B-only, never a structural bucket-C condition). Explicitly flagged as a
+**lower bound**: it assumes the fix removes nothing but the ambiguity flag on windows
+that are already otherwise clean. It cannot rule out (and this data cannot measure) a
+second-order effect where the SAME geometry collision is also confusing the classifier
+into some of the 134 co-occurring `oov_name`/`dominant_history_contradiction` triggers —
+if so, the true ceiling is higher than 13.2%.
