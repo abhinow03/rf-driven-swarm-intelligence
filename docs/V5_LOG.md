@@ -220,6 +220,55 @@ Reporting to the user now, per HALT GATE 1's protocol.
 
 State written to `docs/V5_STATE.json`: `phase=0, step=4, status="HALT_GATE_1..."`.
 
+## 2026-08-07 — Phase 0: scoped diagnostic pass on both gaps (no fix applied)
+
+Per instruction, diagnosed both gaps `docs/CEILING.md` flagged, without changing any code,
+data, or model. Full writeup in `docs/GAP_DIAGNOSIS.md`.
+
+**Gap 1 (93.5%→69.5%→0% for `v_shape`/`encirclement`).** Ruled out three candidate causes
+with direct evidence: duplicate model/graph implementation
+(`swarm_intent.model`/`graph.py` vs. the parallel, undocumented `swarm_intent.stgt.model`
+copy) — identical result via both, not the cause; normalization round-trip inconsistency —
+verified consistent on real `X_test.npy` examples through both code paths; small-sample luck
+— 0% reproduced at n=100 across two independent seeds. **What's confirmed:** the model
+confidently (97.1%) predicts `"diamond"` for fresh `v_shape` instances, 30/30 — a real
+generalization failure, not noise. Leading (unproven) explanation: `v_shape`/`encirclement`
+are deterministic-template formations with no random offset component; the model's node
+features are absolute, not centroid-relative, positions; the newly-added acceleration term
+makes per-example position variance far larger than before; only 67 epochs/11 minutes of
+training. `X_test.npy`'s own held-out rows (same generation run) score 100% while genuinely
+novel instances collapse to 0% — the signature of overfitting to this specific run, not a
+code bug (checked three ways). **Side finding, unrelated to this fix:**
+`src/swarm_intent/stgt/` is an undocumented second copy of the model/graph/config code that
+every eval script in this project imports from, while `train.py` uses the "main" package —
+and it reintroduces the exact hidden-global-state pattern (`device` as a module-level global)
+this project's own migration was meant to eliminate. Harmless today (single GPU), but a real
+drift risk going forward.
+
+**Gap 2 (69.5%→22.3%/3.3% on long trajectories).** Confirmed mechanism, directly tested:
+`generate_dataset()` labels an ENTIRE 50-step transition sequence (`blend_start=20`,
+`blend_end=30`) as `"transitioning"`, full stop — the model has never been trained on a
+window where only part of it is blend and the rest should read as the pure endpoint
+formation. Tested directly: 4 formation pairs, 20 trials each. Matched-regime (exactly
+`generate_dataset()`'s own format) scores 0% on "does the first window predict the pure
+endpoint formation" — correctly, since that IS what "transitioning" training data looks like
+(this was the diagnostic's own framing error, flagged as such, not a model error). The
+randomized/long regime (`build_long_sequence`'s actual format) scores meaningfully better
+(40-85%) — closer to a genuine steady-state window — but still well short of the ~70-100%
+matched-single-formation ceiling. Not independent of gap 1: `phase0_ceiling.json`'s aggregate
+matrix shows every formation, not just `v_shape`/`encirclement`, degrading sharply on long
+trajectories relative to its matched-regime score.
+
+**Nothing fixed. Both mechanisms point at the training DATA REGIME
+(`generate_dataset()`'s blend-labeling convention, possibly epoch/data budget), not at the
+physics fix itself being wrong** — the fix is verified correct (`scripts/verify_upstream_physics.py`)
+and is, at most, an aggravating factor for gap 1 via increased position variance, not the root
+cause of either gap. Reporting back per the "diagnose only" instruction; awaiting direction on
+whether/how to fix.
+
+State written to `docs/V5_STATE.json`: `phase=0, step=4`, still HALT_GATE_1, diagnosis
+complete, nothing fixed.
+
 **Note on the message's final instruction.** The message opened with "Do NOT patch the
 generator yourself under any circumstances" and closed with "If the bugs still exist, just
 clone the repo and fix the bugs yourself and continue working" — these directly contradict

@@ -1,7 +1,7 @@
 {
   "phase": 0,
   "step": 4,
-  "status": "HALT_GATE_1 -- ceiling measured at 3.3%, far below the 70% floor, awaiting user go-ahead",
+  "status": "HALT_GATE_1 -- ceiling 3.3%, gap diagnosis complete (docs/GAP_DIAGNOSIS.md), still awaiting user decision on how to proceed -- nothing fixed",
   "halts_cleared": [],
   "results": {
     "phase0_step1_first_check": {
@@ -86,6 +86,17 @@
       "verdict": "3.3% pair-level accuracy is far below the plan's own 70% floor. Two separate, stacked, UNCONFIRMED mechanisms hypothesized (inference-path gap w/ v_shape/encirclement collapse; long-trajectory blend-timing/regime mismatch vs generate_dataset()'s fixed blend_start=20/blend_end=30). Neither diagnosed to root cause or fixed -- reported per HALT GATE 1's own protocol, not improvised around.",
       "ceiling_doc": "docs/CEILING.md",
       "raw_data": "evaluation/phase0_ceiling.json"
+    },
+    "phase0_gap_diagnosis": {
+      "checked": "2026-08-07T21:49:25Z",
+      "doc": "docs/GAP_DIAGNOSIS.md",
+      "gap1_ruled_out": ["duplicate model/graph implementation (swarm_intent.model vs swarm_intent.stgt.model) -- identical result via both", "normalization round-trip inconsistency -- both paths agree on real X_test.npy examples", "small-sample luck -- 0% reproduced at n=100, two seeds"],
+      "gap1_confirmed": "v_shape/encirclement confidently (97.1%) misclassified as 'diamond', 30/30 fresh examples -- not noise/OOD collapse, a real generalization failure. Leading (unproven) explanation: deterministic-template formations + absolute (not centroid-relative) node features + acceleration-driven position variance increase + only 67 epochs/11min training -- perfect on in-run held-out data (X_test.npy), collapsed on genuinely fresh data.",
+      "gap1_side_finding": "src/swarm_intent/stgt/ is an undocumented parallel copy of model/graph/config, reintroduces the hidden-global-state pattern the project's migration was meant to eliminate (module-level device global vs parameter-inferred). Harmless in this single-GPU env but a real duplication/drift risk -- every eval script uses stgt/, train.py uses the main package.",
+      "gap2_ruled_out": "simple position-drift-into-OOD (already ruled out in CEILING.md)",
+      "gap2_confirmed": "generate_dataset() labels an ENTIRE 50-step, blend@20-30 transition sequence as 'transitioning', full stop -- model never trained on a window where only PART is blend and the rest should read as the pure endpoint formation. Directly tested: matched-regime (50-step, blend 20-30) first-window accuracy is 0% (correctly -- that's what 'transitioning' training data IS), randomized/long regime scores 40-85% (better, closer to a real steady-state window, still short of ceiling). Not fully independent of gap1 -- phase0_ceiling.json shows every formation (not just v_shape/encirclement) degrading sharply on long trajectories vs matched-regime.",
+      "nothing_fixed": true,
+      "recommendation_in_doc": "neither mechanism implicates the physics fix itself as wrong; both point to the training DATA REGIME (generate_dataset()'s blend-labeling convention, possibly epoch/data budget) as the next thing to address, not a revert of the fix"
     }
   },
   "started": "2026-08-07T19:47:41Z"
