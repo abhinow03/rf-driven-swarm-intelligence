@@ -1,7 +1,7 @@
 {
   "phase": 0,
-  "step": 1,
-  "status": "fix_pulled_locally_now_retraining",
+  "step": 2,
+  "status": "retrained_now_measuring_ceiling",
   "halts_cleared": [],
   "results": {
     "phase0_step1_first_check": {
@@ -51,6 +51,14 @@
       "not_ported": "upstream's generate_transition_sequence also applies a converging-specific offset shrink DURING an active blend -- this predates commit 9158b081 (not part of the verified diff) and was never in our original migration either. Left as a disclosed, separate discrepancy, not folded into this fix silently.",
       "verification": "scripts/verify_upstream_physics.py now passes both checks (was failing before this commit). Full suite 134/134 pass.",
       "commit": "27adc23"
+    },
+    "phase0_step2_regen_and_retrain": {
+      "checked": "2026-08-07T20:23:31Z",
+      "dataset_regen": "python scripts/generate_data.py --per-formation 1000 --transitions 2000, PYTHONPATH=src, seed=42 (Config default, unchanged). 9000 sequences, 8 classes. 2.23s wall time. Old dataset backed up to swarm_data_prefix_backup_20260807/ before overwrite.",
+      "training": "python scripts/train_model.py --classes 8 --epochs 80, PYTHONPATH=src. Early stopped at epoch 67 (patience=12), best checkpoint from epoch 55. test_loss=0.2017, test_acc=0.9348. Wall time 11m13s.",
+      "checkpoint_mtime": "2026-08-08T01:50:56+05:30 (fresh, post-fix)",
+      "verify_upstream_physics_against_new_checkpoint_source": "PASS (both checks)",
+      "full_test_suite": "134/134 pass"
     }
   },
   "started": "2026-08-07T19:47:41Z"

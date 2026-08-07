@@ -152,6 +152,33 @@ values. Committed as `27adc23`.
 Next: regenerate the dataset and retrain STGT on the fixed physics (Phase 0 still hasn't run
 any of its own steps 2-4 yet — this was all precondition work).
 
+## 2026-08-07 — Phase 0, Step 1: dataset regenerated, STGT retrained
+
+Backed up the pre-fix `swarm_data/` (checkpoint + splits) to
+`swarm_data_prefix_backup_20260807/` before overwriting — referenced throughout AUDIT.md
+secs AE-AH, kept rather than discarded.
+
+Ran in tmux session `v5` (`tail -f /tmp/v5_generate_data.log` then
+`tail -f /tmp/v5_train_model.log`):
+
+- `PYTHONPATH=src python scripts/generate_data.py --per-formation 1000 --transitions 2000`
+  — 9000 sequences across 8 classes, 2.23s. (Note: neither `scripts/generate_data.py` nor
+  `scripts/train_model.py` work without `PYTHONPATH=src` or `pip install -e .` — the package
+  isn't installed in this venv; used `PYTHONPATH=src` rather than installing, to avoid an
+  unrequested environment change.)
+- `PYTHONPATH=src python scripts/train_model.py --classes 8 --epochs 80` — early stopped at
+  epoch 67 (patience=12), best checkpoint saved from epoch 55, `test_loss=0.2017,
+  test_acc=0.9348`. Wall time 11m13s on the RTX 4090.
+
+`scripts/verify_upstream_physics.py` re-run against the retrained checkpoint's source (the
+guard checks the CURRENT repo source, which is what the checkpoint was trained against since
+retraining happened after the port) — both checks pass. Full suite 134/134.
+
+Moving to Phase 0 steps 2-4: generate 1,000 fresh held-out trajectories (seed=999, disjoint
+from seed=0 used in every real-output eval this session, seed=1 used for sec AG's dev split,
+and seed=42 used for the train/val/test split itself), measure per-class accuracy, the 8x8
+confusion matrix, and pair-level accuracy (the ceiling).
+
 **Note on the message's final instruction.** The message opened with "Do NOT patch the
 generator yourself under any circumstances" and closed with "If the bugs still exist, just
 clone the repo and fix the bugs yourself and continue working" — these directly contradict
