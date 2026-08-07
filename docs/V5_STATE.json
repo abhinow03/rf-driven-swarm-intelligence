@@ -1,27 +1,49 @@
 {
   "phase": 0,
   "step": 1,
-  "status": "halted_precondition_failure",
+  "status": "halted_awaiting_retrained_checkpoint",
   "halts_cleared": [],
   "results": {
-    "phase0_step1": {
+    "phase0_step1_first_check": {
       "checked": "2026-08-07T19:47:41Z",
-      "precondition_a_distinct_dispersed_converging_geometry": {
-        "status": "FAIL",
-        "evidence": "src/swarm_intent/formations.py:68-73 -- 'dispersed' and 'converging' both hit the SAME rng.uniform(low=[-20,-20,-10], high=[20,20,10], size=(6,3)) branch. Identical distribution, identical call. No distinct geometry exists in source."
+      "verdict": "both preconditions FAIL against LOCAL src/swarm_intent/ as it stood at that time"
+    },
+    "phase0_step1_upstream_verification": {
+      "checked": "2026-08-07T19:57:56Z",
+      "upstream_repo": "https://github.com/pizz-beep/capstone",
+      "upstream_branches": ["main (only branch, no tags)"],
+      "upstream_main_commit_count": 11,
+      "upstream_main_head": {
+        "hash": "9158b081e812a4f4a757840c677ea43d3cfb476c",
+        "date": "2026-08-03T18:25:07+05:30",
+        "message": "added acceleration and split dispersed and converging logic"
       },
-      "precondition_b_velocity_varies_within_sequence": {
-        "status": "FAIL",
-        "evidence": "src/swarm_intent/data.py generate_swarm_sequence(): velocity is drawn ONCE before the timestep loop (speed = rng.uniform(3.0, 8.0); velocity = np.array(...)) and reused unchanged every step (centroid = centroid + velocity * dt). No acceleration term anywhere in the file. Velocity is constant per sequence, not varying."
+      "geometry_fix_upstream": {
+        "status": "PRESENT",
+        "evidence": "data_gen.py get_formation_offsets(): 'dispersed' now uses rng.uniform(low=[-30,-30,-15], high=[30,30,15], size=(6,3)); 'converging' now uses a SEPARATE branch -- a fixed ring geometry (radius=25, 6 angles via np.linspace, small per-drone z jitter). No longer a shared branch."
       },
-      "checkpoint_freshness": {
-        "swarm_data/best_model.pt mtime": "2026-08-03T13:08 +0530",
-        "src/swarm_intent/formations.py mtime": "2026-07-11T20:33 +0530",
-        "src/swarm_intent/data.py mtime": "2026-07-11T20:33 +0530",
-        "git_log_formations_data": "only touched by the initial handoff commit 2653c96, never modified since",
-        "conclusion": "best_model.pt postdates formations.py/data.py in mtime, but formations.py/data.py have never been edited since the initial commit -- the checkpoint was trained on the current, unfixed generator. There is no 'post-fix' STGT checkpoint anywhere in this repo."
+      "acceleration_fix_upstream": {
+        "status": "PRESENT",
+        "evidence": "data_gen.py generate_transition_sequence(): accel_mag = rng.uniform(-1.0, 1.0); acceleration vector now added to velocity INSIDE the per-timestep loop (velocity = velocity + acceleration * dt, executed every t). Velocity varies across the trajectory."
       },
-      "reference": "This session's own docs/UPSTREAM_ISSUES.md (written earlier today, uncommitted-to-teammate, no action taken) requests fix (a) as an ASK, not yet actioned by anyone. Fix (b) (acceleration/varying velocity) was never requested at all -- it is new scope this plan introduces without prior discussion."
+      "diff_confirmed_via": "git diff 9158b081^ 9158b081 -- data_gen.py, read in full, matches commit message exactly",
+      "checkpoint_in_upstream_repo": "NONE -- swarm_data/ and *.pt/*.pth are gitignored upstream too; 'pushed model' commit (6069c760) does not actually carry a checkpoint in git history",
+      "local_generator_provenance": {
+        "src/swarm_intent/formations.py and data.py introduced entirely in": "commit 2653c96 'Initial commit: UAV swarm intent pipeline (handoff snapshot)', 2026-07-30",
+        "no prior local git history": "these files have no earlier commits in THIS repo -- migrated wholesale from notebooks per MIGRATION_GUIDE.md, capturing a snapshot of the SAME logical functions (get_formation_offsets, generate_swarm_sequence) as upstream's data_gen.py, but restructured into modules",
+        "relationship_to_upstream": "local formations.py's pre-fix numbers (low=[-20,-20,-10], high=[20,20,10], shared dispersed/converging branch) match upstream's PARENT commit (9158b081^) numbers exactly -- confirms common lineage, captured before upstream's Aug 3 18:25 fix landed"
+      },
+      "local_checkpoint_provenance": {
+        "file": "swarm_data/best_model.pt",
+        "mtime": "2026-08-03T13:08+05:30 (5h17m BEFORE upstream's fix commit)",
+        "keys_in_checkpoint": ["epoch", "model_state_dict", "optimizer_state_dict", "val_loss", "val_acc", "cfg", "reg_mean", "reg_std", "train_mean", "train_std"],
+        "provenance_metadata_present": false,
+        "finding": "the checkpoint carries NO git hash, dataset hash, or source-file identifier of any kind -- only hyperparameters (cfg dict) and normalization stats. There is no way to verify which generator version ANY checkpoint was trained against just by inspecting it. This is itself a finding, addressed by scripts/verify_upstream_physics.py + the deferred rebuild_derived.py hash extension (Phase 3)."
+      },
+      "verdict": "A -- both fixes present upstream, commit 9158b081e812a4f4a757840c677ea43d3cfb476c, on main (the only branch). No retrained checkpoint exists anywhere (not locally, not upstream) that reflects this fix.",
+      "action_taken": "Did NOT patch the generator locally (explicitly instructed not to). Did NOT pull/merge upstream's fix into local formations.py/data.py -- user's step 5 verdict-A protocol says 'tell me and STOP, I will pull and have her retrain, then you resume Phase 0.'",
+      "guard_shipped": "scripts/verify_upstream_physics.py -- programmatically asserts both fixes present (static regex + behavioural check) against whatever local src/swarm_intent/ currently contains. Currently correctly FAILS (proving the gate works) since local repo has not yet pulled the fix. 7 unit tests in tests/test_verify_upstream_physics.py, all passing.",
+      "deferred": "rebuild_derived.py (Phase 3 s3 deliverable) does not exist yet -- Phase 3 has not been reached. Cannot 'extend' a file that doesn't exist. Noted as a carry-forward requirement: when Phase 3 builds rebuild_derived.py, its hash MUST cover src/swarm_intent/formations.py and src/swarm_intent/data.py."
     }
   },
   "started": "2026-08-07T19:47:41Z"
