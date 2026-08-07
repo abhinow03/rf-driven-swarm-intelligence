@@ -3172,3 +3172,27 @@ that's sec AG's separately-measured, and much weaker, 16.7% figure. Both are tru
 architecture is sound, and the input to it (the recovered key) is frequently wrong, for the
 already-diagnosed geometry reason.
 
+### Step 2: conditional accuracy — what sec AG's 2.2% was hiding
+
+`llm_finetuning/report_conditional_accuracy.py` re-reads `evaluation/eval_real_stgt_output_robust.json`
+(sec AG step 3's run, no new generations) and reports accuracy given the system answered
+(abstentions excluded from the denominator) alongside the unconditional number sec AG already
+published and the abstention rate:
+
+| system | accuracy given answered | unconditional accuracy | abstention rate |
+|---|---|---|---|
+| v2 | 48.7% | 48.7% | 0.0% |
+| rules_in_prompt | 35.7% | 25.4% | 28.9% |
+| v3b-fix | 33.5% | 25.8% | 22.9% |
+| pipeline_v2 | 22.3% | 6.7% | 69.8% |
+| pipeline_v2-robust | 24.2% | 2.2% | 90.9% |
+
+**pipeline_v2-robust's 2.2% is not "answers wrong 98% of the time" — it is "abstains 90.9% of
+the time, and when it does answer, is right about as often as pipeline_v2 (24.2% vs 22.3%),
+which is itself worse than every non-pipeline system."** The conditional numbers rule out one
+possible defense of pipeline_v2/pipeline_v2-robust — that heavy abstention was masking otherwise-
+competitive answers. It wasn't: even excluding abstentions, both pipeline systems trail
+`v2` (48.7%) and `v3b-fix`/`rules_in_prompt` (33.5%/35.7%) by 10-25 points. The over-abstention
+problem and the accuracy-when-answering problem are separate, and sec AG's verdict (do not ship
+`robust=True`) does not rest on abstention alone — it holds on the conditional number too.
+
