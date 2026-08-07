@@ -3196,3 +3196,56 @@ competitive answers. It wasn't: even excluding abstentions, both pipeline system
 problem and the accuracy-when-answering problem are separate, and sec AG's verdict (do not ship
 `robust=True`) does not rest on abstention alone — it holds on the conditional number too.
 
+### Step 3: projected payoff of the upstream geometry fix
+
+`llm_finetuning/project_upstream_fix_payoff.py` — pure post-processing of two files already on
+disk (`evaluation/reduction_failure_diagnosis.json`, `evaluation/robust_reduction_firing_rate.json`).
+No new sequences, no model load, no new experiment.
+
+Of the 115/249 sequences sec AG step 1 categorized as `dispersed_converging_ambiguity`, only
+51 are blocked by ambiguity ALONE; the other 64 also carry `oov_name` and/or
+`dominant_history_contradiction`, which the geometry fix would not touch:
+
+| co-occurring guards | n |
+|---|---|
+| ambiguity only | 51 |
+| ambiguity + oov_name | 44 |
+| ambiguity + dominant_history_contradiction + oov_name | 14 |
+| ambiguity + dominant_history_contradiction | 4 |
+| ambiguity + low_confidence | 2 |
+
+**Primary projection (single stated assumption: STGT retrained on corrected geometry no longer
+produces near-tied dispersed/converging window predictions on true instances, so the ambiguity
+guard stops firing where it is currently the SOLE trigger; no other code change, `robust=False`
+default reduction unchanged):**
+
+| bucket | before (measured) | projected (geometry fix only) |
+|---|---|---|
+| A (Layer 1) | 9/500 (1.8%) | **60/500 (12.0%)** |
+| B (Layer 2, guard) | 191/500 (38.2%) | 140/500 (28.0%) |
+| C (Layer 3, LLM) | 300/500 (60.0%) | 300/500 (60.0%) — unchanged |
+
+Projected over-abstention (approximate — back-derives bucket C's own internal abstention rate
+from sec AG step 3's measured 69.8%, holds it constant, and re-mixes with the new bucket
+populations): **≈49.3%, down from the measured 69.8%.**
+
+**Explicit assumptions and scope limits, stated for the teammate request:**
+1. Only the 51 sequences blocked by ambiguity alone move; the 64 with an additional independent
+   guard stay guarded — this is not a full fix of bucket B, only of the part this specific defect
+   causes.
+2. Scope is the 249 GT-clean sequences; the other 251/500 (true 3+-hop chains) are not modeled —
+   not assumed zero effect, simply outside what this protocol can check for correctness.
+3. Precision on the 51 recovered pairs is assumed high because they already pass the CURRENT,
+   conservative unanimity reduction — unlike sec AG's `robust=True` recoveries (16.7-25%
+   precision), these are not new recoveries from a lower-precision mechanism.
+4. Deliberately excludes the compounding effect of also shipping `robust=True` (which would
+   additionally target the 120/249 `trailing_transitioning_run`/`all_windows_transitioning`
+   cases) — that mechanism's own recovery precision is separately capped at ~49% by the SAME
+   geometry defect, so a combined number would stack two unmeasured assumptions. Real, plausibly
+   larger, deliberately not quantified here.
+5. `low_confidence` (unconditional, orthogonal to this defect) could still block a small,
+   unmeasured fraction of the 51 projected recoveries.
+
+**Headline for the teammate ask: fixing dispersed/converging geometry alone, with no other
+pipeline change, is projected to raise Layer-1 firing from 1.8% to ~12.0% and cut over-abstention
+from 69.8% to ~49%, on the most conservative accounting available.**
