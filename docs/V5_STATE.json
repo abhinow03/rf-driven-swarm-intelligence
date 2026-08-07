@@ -1,0 +1,28 @@
+{
+  "phase": 0,
+  "step": 1,
+  "status": "halted_precondition_failure",
+  "halts_cleared": [],
+  "results": {
+    "phase0_step1": {
+      "checked": "2026-08-07T19:47:41Z",
+      "precondition_a_distinct_dispersed_converging_geometry": {
+        "status": "FAIL",
+        "evidence": "src/swarm_intent/formations.py:68-73 -- 'dispersed' and 'converging' both hit the SAME rng.uniform(low=[-20,-20,-10], high=[20,20,10], size=(6,3)) branch. Identical distribution, identical call. No distinct geometry exists in source."
+      },
+      "precondition_b_velocity_varies_within_sequence": {
+        "status": "FAIL",
+        "evidence": "src/swarm_intent/data.py generate_swarm_sequence(): velocity is drawn ONCE before the timestep loop (speed = rng.uniform(3.0, 8.0); velocity = np.array(...)) and reused unchanged every step (centroid = centroid + velocity * dt). No acceleration term anywhere in the file. Velocity is constant per sequence, not varying."
+      },
+      "checkpoint_freshness": {
+        "swarm_data/best_model.pt mtime": "2026-08-03T13:08 +0530",
+        "src/swarm_intent/formations.py mtime": "2026-07-11T20:33 +0530",
+        "src/swarm_intent/data.py mtime": "2026-07-11T20:33 +0530",
+        "git_log_formations_data": "only touched by the initial handoff commit 2653c96, never modified since",
+        "conclusion": "best_model.pt postdates formations.py/data.py in mtime, but formations.py/data.py have never been edited since the initial commit -- the checkpoint was trained on the current, unfixed generator. There is no 'post-fix' STGT checkpoint anywhere in this repo."
+      },
+      "reference": "This session's own docs/UPSTREAM_ISSUES.md (written earlier today, uncommitted-to-teammate, no action taken) requests fix (a) as an ASK, not yet actioned by anyone. Fix (b) (acceleration/varying velocity) was never requested at all -- it is new scope this plan introduces without prior discussion."
+    }
+  },
+  "started": "2026-08-07T19:47:41Z"
+}
