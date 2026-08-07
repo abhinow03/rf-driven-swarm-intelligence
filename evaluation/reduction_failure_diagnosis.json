@@ -1,0 +1,3922 @@
+[
+  {
+    "i": 4,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 5,
+    "true_chain": [
+      "shield",
+      "diamond"
+    ],
+    "gt_pair": [
+      "shield",
+      "diamond"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 6,
+    "true_chain": [
+      "diamond"
+    ],
+    "gt_pair": [
+      "diamond",
+      "diamond"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 8,
+    "true_chain": [
+      "dispersed",
+      "converging"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "converging"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 13,
+    "true_chain": [
+      "shield"
+    ],
+    "gt_pair": [
+      "shield",
+      "shield"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 14,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 15,
+    "true_chain": [
+      "column"
+    ],
+    "gt_pair": [
+      "column",
+      "column"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 19,
+    "true_chain": [
+      "column"
+    ],
+    "gt_pair": [
+      "column",
+      "column"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 21,
+    "true_chain": [
+      "v_shape",
+      "diamond"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "diamond"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 22,
+    "true_chain": [
+      "dispersed"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "dispersed"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 23,
+    "true_chain": [
+      "v_shape"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "v_shape"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 24,
+    "true_chain": [
+      "diamond"
+    ],
+    "gt_pair": [
+      "diamond",
+      "diamond"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 26,
+    "true_chain": [
+      "converging"
+    ],
+    "gt_pair": [
+      "converging",
+      "converging"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 29,
+    "true_chain": [
+      "encirclement",
+      "shield"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "shield"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 34,
+    "true_chain": [
+      "column"
+    ],
+    "gt_pair": [
+      "column",
+      "column"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 35,
+    "true_chain": [
+      "converging",
+      "v_shape"
+    ],
+    "gt_pair": [
+      "converging",
+      "v_shape"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 36,
+    "true_chain": [
+      "shield"
+    ],
+    "gt_pair": [
+      "shield",
+      "shield"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 37,
+    "true_chain": [
+      "dispersed"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "dispersed"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 38,
+    "true_chain": [
+      "column",
+      "diamond"
+    ],
+    "gt_pair": [
+      "column",
+      "diamond"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 39,
+    "true_chain": [
+      "column",
+      "diamond"
+    ],
+    "gt_pair": [
+      "column",
+      "diamond"
+    ],
+    "bucket": "C",
+    "subtype": "multi_hop",
+    "guard_reasons": [],
+    "category": "formation_name_mismatch"
+  },
+  {
+    "i": 40,
+    "true_chain": [
+      "converging"
+    ],
+    "gt_pair": [
+      "converging",
+      "converging"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 44,
+    "true_chain": [
+      "v_shape"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "v_shape"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 52,
+    "true_chain": [
+      "column",
+      "encirclement"
+    ],
+    "gt_pair": [
+      "column",
+      "encirclement"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 53,
+    "true_chain": [
+      "column"
+    ],
+    "gt_pair": [
+      "column",
+      "column"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 56,
+    "true_chain": [
+      "column"
+    ],
+    "gt_pair": [
+      "column",
+      "column"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 57,
+    "true_chain": [
+      "v_shape"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "v_shape"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 58,
+    "true_chain": [
+      "encirclement",
+      "dispersed"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "dispersed"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dominant_history_contradiction",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 59,
+    "true_chain": [
+      "shield"
+    ],
+    "gt_pair": [
+      "shield",
+      "shield"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 60,
+    "true_chain": [
+      "shield",
+      "v_shape"
+    ],
+    "gt_pair": [
+      "shield",
+      "v_shape"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 63,
+    "true_chain": [
+      "column",
+      "converging"
+    ],
+    "gt_pair": [
+      "column",
+      "converging"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 64,
+    "true_chain": [
+      "dispersed"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "dispersed"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 65,
+    "true_chain": [
+      "diamond"
+    ],
+    "gt_pair": [
+      "diamond",
+      "diamond"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 66,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 71,
+    "true_chain": [
+      "dispersed",
+      "shield"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "shield"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 73,
+    "true_chain": [
+      "v_shape",
+      "converging"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "converging"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 74,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity",
+      "low_confidence"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 76,
+    "true_chain": [
+      "v_shape"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "v_shape"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 80,
+    "true_chain": [
+      "shield",
+      "diamond"
+    ],
+    "gt_pair": [
+      "shield",
+      "diamond"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 81,
+    "true_chain": [
+      "dispersed"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "dispersed"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 84,
+    "true_chain": [
+      "converging"
+    ],
+    "gt_pair": [
+      "converging",
+      "converging"
+    ],
+    "bucket": "A",
+    "subtype": null,
+    "guard_reasons": [],
+    "category": "already_resolved"
+  },
+  {
+    "i": 85,
+    "true_chain": [
+      "column"
+    ],
+    "gt_pair": [
+      "column",
+      "column"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 86,
+    "true_chain": [
+      "diamond"
+    ],
+    "gt_pair": [
+      "diamond",
+      "diamond"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 87,
+    "true_chain": [
+      "shield"
+    ],
+    "gt_pair": [
+      "shield",
+      "shield"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 88,
+    "true_chain": [
+      "converging",
+      "encirclement"
+    ],
+    "gt_pair": [
+      "converging",
+      "encirclement"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 89,
+    "true_chain": [
+      "v_shape",
+      "shield"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "shield"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 94,
+    "true_chain": [
+      "encirclement",
+      "shield"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "shield"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 96,
+    "true_chain": [
+      "diamond",
+      "dispersed"
+    ],
+    "gt_pair": [
+      "diamond",
+      "dispersed"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dominant_history_contradiction",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 98,
+    "true_chain": [
+      "dispersed",
+      "v_shape"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "v_shape"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 99,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 100,
+    "true_chain": [
+      "shield",
+      "column"
+    ],
+    "gt_pair": [
+      "shield",
+      "column"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 101,
+    "true_chain": [
+      "converging",
+      "diamond"
+    ],
+    "gt_pair": [
+      "converging",
+      "diamond"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 102,
+    "true_chain": [
+      "column",
+      "shield"
+    ],
+    "gt_pair": [
+      "column",
+      "shield"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dominant_history_contradiction",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 105,
+    "true_chain": [
+      "dispersed"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "dispersed"
+    ],
+    "bucket": "A",
+    "subtype": null,
+    "guard_reasons": [],
+    "category": "already_resolved"
+  },
+  {
+    "i": 106,
+    "true_chain": [
+      "column"
+    ],
+    "gt_pair": [
+      "column",
+      "column"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 108,
+    "true_chain": [
+      "column"
+    ],
+    "gt_pair": [
+      "column",
+      "column"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 110,
+    "true_chain": [
+      "encirclement",
+      "dispersed"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "dispersed"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 111,
+    "true_chain": [
+      "converging"
+    ],
+    "gt_pair": [
+      "converging",
+      "converging"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 114,
+    "true_chain": [
+      "shield"
+    ],
+    "gt_pair": [
+      "shield",
+      "shield"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 117,
+    "true_chain": [
+      "converging",
+      "dispersed"
+    ],
+    "gt_pair": [
+      "converging",
+      "dispersed"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 118,
+    "true_chain": [
+      "dispersed",
+      "v_shape"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "v_shape"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dominant_history_contradiction",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 121,
+    "true_chain": [
+      "column"
+    ],
+    "gt_pair": [
+      "column",
+      "column"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 123,
+    "true_chain": [
+      "diamond"
+    ],
+    "gt_pair": [
+      "diamond",
+      "diamond"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 124,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 128,
+    "true_chain": [
+      "diamond",
+      "converging"
+    ],
+    "gt_pair": [
+      "diamond",
+      "converging"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 129,
+    "true_chain": [
+      "diamond"
+    ],
+    "gt_pair": [
+      "diamond",
+      "diamond"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 130,
+    "true_chain": [
+      "dispersed",
+      "v_shape"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "v_shape"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 133,
+    "true_chain": [
+      "v_shape"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "v_shape"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 142,
+    "true_chain": [
+      "v_shape",
+      "converging"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "converging"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 143,
+    "true_chain": [
+      "converging",
+      "encirclement"
+    ],
+    "gt_pair": [
+      "converging",
+      "encirclement"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 144,
+    "true_chain": [
+      "dispersed"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "dispersed"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 145,
+    "true_chain": [
+      "converging"
+    ],
+    "gt_pair": [
+      "converging",
+      "converging"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 146,
+    "true_chain": [
+      "dispersed"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "dispersed"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 148,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 154,
+    "true_chain": [
+      "v_shape",
+      "column"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "column"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 155,
+    "true_chain": [
+      "column",
+      "shield"
+    ],
+    "gt_pair": [
+      "column",
+      "shield"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 156,
+    "true_chain": [
+      "shield",
+      "column"
+    ],
+    "gt_pair": [
+      "shield",
+      "column"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 157,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 159,
+    "true_chain": [
+      "converging"
+    ],
+    "gt_pair": [
+      "converging",
+      "converging"
+    ],
+    "bucket": "A",
+    "subtype": null,
+    "guard_reasons": [],
+    "category": "already_resolved"
+  },
+  {
+    "i": 162,
+    "true_chain": [
+      "v_shape",
+      "converging"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "converging"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 165,
+    "true_chain": [
+      "encirclement",
+      "dispersed"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "dispersed"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 166,
+    "true_chain": [
+      "shield"
+    ],
+    "gt_pair": [
+      "shield",
+      "shield"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 167,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 170,
+    "true_chain": [
+      "converging"
+    ],
+    "gt_pair": [
+      "converging",
+      "converging"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 171,
+    "true_chain": [
+      "shield",
+      "dispersed"
+    ],
+    "gt_pair": [
+      "shield",
+      "dispersed"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dominant_history_contradiction",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 173,
+    "true_chain": [
+      "column"
+    ],
+    "gt_pair": [
+      "column",
+      "column"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 175,
+    "true_chain": [
+      "shield"
+    ],
+    "gt_pair": [
+      "shield",
+      "shield"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 176,
+    "true_chain": [
+      "diamond",
+      "column"
+    ],
+    "gt_pair": [
+      "diamond",
+      "column"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 180,
+    "true_chain": [
+      "v_shape"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "v_shape"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 181,
+    "true_chain": [
+      "converging"
+    ],
+    "gt_pair": [
+      "converging",
+      "converging"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 182,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 186,
+    "true_chain": [
+      "v_shape"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "v_shape"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dominant_history_contradiction",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 189,
+    "true_chain": [
+      "encirclement",
+      "dispersed"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "dispersed"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 190,
+    "true_chain": [
+      "dispersed"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "dispersed"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 191,
+    "true_chain": [
+      "v_shape",
+      "diamond"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "diamond"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 193,
+    "true_chain": [
+      "diamond"
+    ],
+    "gt_pair": [
+      "diamond",
+      "diamond"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 199,
+    "true_chain": [
+      "diamond",
+      "v_shape"
+    ],
+    "gt_pair": [
+      "diamond",
+      "v_shape"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 201,
+    "true_chain": [
+      "converging",
+      "encirclement"
+    ],
+    "gt_pair": [
+      "converging",
+      "encirclement"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 202,
+    "true_chain": [
+      "column",
+      "v_shape"
+    ],
+    "gt_pair": [
+      "column",
+      "v_shape"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 206,
+    "true_chain": [
+      "shield"
+    ],
+    "gt_pair": [
+      "shield",
+      "shield"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 208,
+    "true_chain": [
+      "v_shape",
+      "dispersed"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "dispersed"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 209,
+    "true_chain": [
+      "dispersed",
+      "column"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "column"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 210,
+    "true_chain": [
+      "converging",
+      "dispersed"
+    ],
+    "gt_pair": [
+      "converging",
+      "dispersed"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 211,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity",
+      "low_confidence"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 213,
+    "true_chain": [
+      "encirclement",
+      "diamond"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "diamond"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 214,
+    "true_chain": [
+      "column",
+      "v_shape"
+    ],
+    "gt_pair": [
+      "column",
+      "v_shape"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 215,
+    "true_chain": [
+      "encirclement",
+      "shield"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "shield"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 216,
+    "true_chain": [
+      "encirclement",
+      "v_shape"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "v_shape"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 218,
+    "true_chain": [
+      "column",
+      "diamond"
+    ],
+    "gt_pair": [
+      "column",
+      "diamond"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 221,
+    "true_chain": [
+      "dispersed",
+      "diamond"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "diamond"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 222,
+    "true_chain": [
+      "dispersed"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "dispersed"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 224,
+    "true_chain": [
+      "shield"
+    ],
+    "gt_pair": [
+      "shield",
+      "shield"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 227,
+    "true_chain": [
+      "shield",
+      "converging"
+    ],
+    "gt_pair": [
+      "shield",
+      "converging"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 228,
+    "true_chain": [
+      "v_shape"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "v_shape"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dominant_history_contradiction",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 231,
+    "true_chain": [
+      "diamond"
+    ],
+    "gt_pair": [
+      "diamond",
+      "diamond"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 233,
+    "true_chain": [
+      "column",
+      "encirclement"
+    ],
+    "gt_pair": [
+      "column",
+      "encirclement"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 236,
+    "true_chain": [
+      "shield",
+      "v_shape"
+    ],
+    "gt_pair": [
+      "shield",
+      "v_shape"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 237,
+    "true_chain": [
+      "encirclement",
+      "v_shape"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "v_shape"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 238,
+    "true_chain": [
+      "diamond",
+      "converging"
+    ],
+    "gt_pair": [
+      "diamond",
+      "converging"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 240,
+    "true_chain": [
+      "column",
+      "shield"
+    ],
+    "gt_pair": [
+      "column",
+      "shield"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 241,
+    "true_chain": [
+      "dispersed"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "dispersed"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 245,
+    "true_chain": [
+      "converging"
+    ],
+    "gt_pair": [
+      "converging",
+      "converging"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dominant_history_contradiction",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 246,
+    "true_chain": [
+      "shield",
+      "v_shape"
+    ],
+    "gt_pair": [
+      "shield",
+      "v_shape"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 250,
+    "true_chain": [
+      "diamond"
+    ],
+    "gt_pair": [
+      "diamond",
+      "diamond"
+    ],
+    "bucket": "C",
+    "subtype": "multi_hop",
+    "guard_reasons": [],
+    "category": "formation_name_mismatch"
+  },
+  {
+    "i": 253,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 254,
+    "true_chain": [
+      "column",
+      "v_shape"
+    ],
+    "gt_pair": [
+      "column",
+      "v_shape"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 255,
+    "true_chain": [
+      "diamond"
+    ],
+    "gt_pair": [
+      "diamond",
+      "diamond"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 260,
+    "true_chain": [
+      "shield",
+      "encirclement"
+    ],
+    "gt_pair": [
+      "shield",
+      "encirclement"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 261,
+    "true_chain": [
+      "shield",
+      "dispersed"
+    ],
+    "gt_pair": [
+      "shield",
+      "dispersed"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 262,
+    "true_chain": [
+      "column"
+    ],
+    "gt_pair": [
+      "column",
+      "column"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 263,
+    "true_chain": [
+      "column"
+    ],
+    "gt_pair": [
+      "column",
+      "column"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 264,
+    "true_chain": [
+      "v_shape",
+      "encirclement"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "encirclement"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 265,
+    "true_chain": [
+      "v_shape",
+      "encirclement"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "encirclement"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 266,
+    "true_chain": [
+      "encirclement",
+      "dispersed"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "dispersed"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 267,
+    "true_chain": [
+      "converging"
+    ],
+    "gt_pair": [
+      "converging",
+      "converging"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 269,
+    "true_chain": [
+      "shield"
+    ],
+    "gt_pair": [
+      "shield",
+      "shield"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 270,
+    "true_chain": [
+      "encirclement",
+      "column"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "column"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dominant_history_contradiction",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 271,
+    "true_chain": [
+      "diamond"
+    ],
+    "gt_pair": [
+      "diamond",
+      "diamond"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 274,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 275,
+    "true_chain": [
+      "column"
+    ],
+    "gt_pair": [
+      "column",
+      "column"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 279,
+    "true_chain": [
+      "column",
+      "shield"
+    ],
+    "gt_pair": [
+      "column",
+      "shield"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 281,
+    "true_chain": [
+      "v_shape",
+      "shield"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "shield"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 282,
+    "true_chain": [
+      "v_shape",
+      "diamond"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "diamond"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 284,
+    "true_chain": [
+      "shield",
+      "v_shape"
+    ],
+    "gt_pair": [
+      "shield",
+      "v_shape"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 285,
+    "true_chain": [
+      "dispersed",
+      "diamond"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "diamond"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 286,
+    "true_chain": [
+      "encirclement",
+      "column"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "column"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 287,
+    "true_chain": [
+      "shield",
+      "diamond"
+    ],
+    "gt_pair": [
+      "shield",
+      "diamond"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 290,
+    "true_chain": [
+      "converging",
+      "diamond"
+    ],
+    "gt_pair": [
+      "converging",
+      "diamond"
+    ],
+    "bucket": "A",
+    "subtype": null,
+    "guard_reasons": [],
+    "category": "already_resolved"
+  },
+  {
+    "i": 293,
+    "true_chain": [
+      "converging"
+    ],
+    "gt_pair": [
+      "converging",
+      "converging"
+    ],
+    "bucket": "A",
+    "subtype": null,
+    "guard_reasons": [],
+    "category": "already_resolved"
+  },
+  {
+    "i": 299,
+    "true_chain": [
+      "v_shape",
+      "dispersed"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "dispersed"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 301,
+    "true_chain": [
+      "encirclement",
+      "dispersed"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "dispersed"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 302,
+    "true_chain": [
+      "shield"
+    ],
+    "gt_pair": [
+      "shield",
+      "shield"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 303,
+    "true_chain": [
+      "shield"
+    ],
+    "gt_pair": [
+      "shield",
+      "shield"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 306,
+    "true_chain": [
+      "dispersed",
+      "column"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "column"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 308,
+    "true_chain": [
+      "v_shape",
+      "converging"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "converging"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 310,
+    "true_chain": [
+      "shield",
+      "column"
+    ],
+    "gt_pair": [
+      "shield",
+      "column"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 314,
+    "true_chain": [
+      "converging",
+      "shield"
+    ],
+    "gt_pair": [
+      "converging",
+      "shield"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 316,
+    "true_chain": [
+      "diamond"
+    ],
+    "gt_pair": [
+      "diamond",
+      "diamond"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 317,
+    "true_chain": [
+      "shield"
+    ],
+    "gt_pair": [
+      "shield",
+      "shield"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 319,
+    "true_chain": [
+      "v_shape",
+      "dispersed"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "dispersed"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 324,
+    "true_chain": [
+      "v_shape",
+      "encirclement"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "encirclement"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dominant_history_contradiction",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 326,
+    "true_chain": [
+      "diamond",
+      "v_shape"
+    ],
+    "gt_pair": [
+      "diamond",
+      "v_shape"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 329,
+    "true_chain": [
+      "converging"
+    ],
+    "gt_pair": [
+      "converging",
+      "converging"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 330,
+    "true_chain": [
+      "converging"
+    ],
+    "gt_pair": [
+      "converging",
+      "converging"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 332,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 337,
+    "true_chain": [
+      "diamond",
+      "column"
+    ],
+    "gt_pair": [
+      "diamond",
+      "column"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dominant_history_contradiction",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 338,
+    "true_chain": [
+      "column"
+    ],
+    "gt_pair": [
+      "column",
+      "column"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 339,
+    "true_chain": [
+      "diamond"
+    ],
+    "gt_pair": [
+      "diamond",
+      "diamond"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 340,
+    "true_chain": [
+      "v_shape",
+      "diamond"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "diamond"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 341,
+    "true_chain": [
+      "v_shape",
+      "encirclement"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "encirclement"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 344,
+    "true_chain": [
+      "dispersed",
+      "v_shape"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "v_shape"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 345,
+    "true_chain": [
+      "diamond"
+    ],
+    "gt_pair": [
+      "diamond",
+      "diamond"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 348,
+    "true_chain": [
+      "column",
+      "diamond"
+    ],
+    "gt_pair": [
+      "column",
+      "diamond"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 353,
+    "true_chain": [
+      "converging",
+      "v_shape"
+    ],
+    "gt_pair": [
+      "converging",
+      "v_shape"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dominant_history_contradiction",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 354,
+    "true_chain": [
+      "diamond",
+      "encirclement"
+    ],
+    "gt_pair": [
+      "diamond",
+      "encirclement"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 355,
+    "true_chain": [
+      "converging",
+      "dispersed"
+    ],
+    "gt_pair": [
+      "converging",
+      "dispersed"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 356,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 359,
+    "true_chain": [
+      "v_shape"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "v_shape"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 360,
+    "true_chain": [
+      "encirclement",
+      "diamond"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "diamond"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 361,
+    "true_chain": [
+      "column"
+    ],
+    "gt_pair": [
+      "column",
+      "column"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 363,
+    "true_chain": [
+      "shield",
+      "column"
+    ],
+    "gt_pair": [
+      "shield",
+      "column"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 365,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 367,
+    "true_chain": [
+      "dispersed"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "dispersed"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 369,
+    "true_chain": [
+      "column",
+      "encirclement"
+    ],
+    "gt_pair": [
+      "column",
+      "encirclement"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 370,
+    "true_chain": [
+      "encirclement",
+      "column"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "column"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 371,
+    "true_chain": [
+      "dispersed"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "dispersed"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 372,
+    "true_chain": [
+      "column",
+      "shield"
+    ],
+    "gt_pair": [
+      "column",
+      "shield"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 373,
+    "true_chain": [
+      "shield",
+      "converging"
+    ],
+    "gt_pair": [
+      "shield",
+      "converging"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 375,
+    "true_chain": [
+      "shield",
+      "encirclement"
+    ],
+    "gt_pair": [
+      "shield",
+      "encirclement"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 376,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 377,
+    "true_chain": [
+      "dispersed",
+      "column"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "column"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 379,
+    "true_chain": [
+      "v_shape",
+      "converging"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "converging"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dominant_history_contradiction",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 385,
+    "true_chain": [
+      "column"
+    ],
+    "gt_pair": [
+      "column",
+      "column"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 388,
+    "true_chain": [
+      "shield",
+      "diamond"
+    ],
+    "gt_pair": [
+      "shield",
+      "diamond"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 389,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 390,
+    "true_chain": [
+      "converging"
+    ],
+    "gt_pair": [
+      "converging",
+      "converging"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 395,
+    "true_chain": [
+      "dispersed"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "dispersed"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dominant_history_contradiction",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 399,
+    "true_chain": [
+      "v_shape",
+      "dispersed"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "dispersed"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 401,
+    "true_chain": [
+      "diamond"
+    ],
+    "gt_pair": [
+      "diamond",
+      "diamond"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 402,
+    "true_chain": [
+      "diamond"
+    ],
+    "gt_pair": [
+      "diamond",
+      "diamond"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 404,
+    "true_chain": [
+      "v_shape",
+      "diamond"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "diamond"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 405,
+    "true_chain": [
+      "v_shape",
+      "column"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "column"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 406,
+    "true_chain": [
+      "converging"
+    ],
+    "gt_pair": [
+      "converging",
+      "converging"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 408,
+    "true_chain": [
+      "converging",
+      "column"
+    ],
+    "gt_pair": [
+      "converging",
+      "column"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 410,
+    "true_chain": [
+      "diamond"
+    ],
+    "gt_pair": [
+      "diamond",
+      "diamond"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 417,
+    "true_chain": [
+      "v_shape"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "v_shape"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 418,
+    "true_chain": [
+      "shield",
+      "dispersed"
+    ],
+    "gt_pair": [
+      "shield",
+      "dispersed"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 420,
+    "true_chain": [
+      "converging"
+    ],
+    "gt_pair": [
+      "converging",
+      "converging"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 423,
+    "true_chain": [
+      "column"
+    ],
+    "gt_pair": [
+      "column",
+      "column"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 425,
+    "true_chain": [
+      "diamond",
+      "encirclement"
+    ],
+    "gt_pair": [
+      "diamond",
+      "encirclement"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 427,
+    "true_chain": [
+      "v_shape",
+      "column"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "column"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 428,
+    "true_chain": [
+      "converging",
+      "column"
+    ],
+    "gt_pair": [
+      "converging",
+      "column"
+    ],
+    "bucket": "C",
+    "subtype": "multi_hop",
+    "guard_reasons": [],
+    "category": "formation_name_mismatch"
+  },
+  {
+    "i": 431,
+    "true_chain": [
+      "diamond",
+      "v_shape"
+    ],
+    "gt_pair": [
+      "diamond",
+      "v_shape"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 433,
+    "true_chain": [
+      "shield",
+      "encirclement"
+    ],
+    "gt_pair": [
+      "shield",
+      "encirclement"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 434,
+    "true_chain": [
+      "v_shape",
+      "diamond"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "diamond"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 435,
+    "true_chain": [
+      "converging"
+    ],
+    "gt_pair": [
+      "converging",
+      "converging"
+    ],
+    "bucket": "A",
+    "subtype": null,
+    "guard_reasons": [],
+    "category": "already_resolved"
+  },
+  {
+    "i": 436,
+    "true_chain": [
+      "shield"
+    ],
+    "gt_pair": [
+      "shield",
+      "shield"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 437,
+    "true_chain": [
+      "diamond",
+      "v_shape"
+    ],
+    "gt_pair": [
+      "diamond",
+      "v_shape"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dominant_history_contradiction",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 438,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 439,
+    "true_chain": [
+      "dispersed",
+      "converging"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "converging"
+    ],
+    "bucket": "A",
+    "subtype": null,
+    "guard_reasons": [],
+    "category": "already_resolved"
+  },
+  {
+    "i": 440,
+    "true_chain": [
+      "dispersed"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "dispersed"
+    ],
+    "bucket": "A",
+    "subtype": null,
+    "guard_reasons": [],
+    "category": "already_resolved"
+  },
+  {
+    "i": 442,
+    "true_chain": [
+      "shield"
+    ],
+    "gt_pair": [
+      "shield",
+      "shield"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 443,
+    "true_chain": [
+      "v_shape",
+      "column"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "column"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 444,
+    "true_chain": [
+      "dispersed",
+      "converging"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "converging"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 445,
+    "true_chain": [
+      "dispersed"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "dispersed"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 446,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 447,
+    "true_chain": [
+      "column"
+    ],
+    "gt_pair": [
+      "column",
+      "column"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 451,
+    "true_chain": [
+      "converging",
+      "shield"
+    ],
+    "gt_pair": [
+      "converging",
+      "shield"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 454,
+    "true_chain": [
+      "dispersed",
+      "encirclement"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "encirclement"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 458,
+    "true_chain": [
+      "shield",
+      "v_shape"
+    ],
+    "gt_pair": [
+      "shield",
+      "v_shape"
+    ],
+    "bucket": "C",
+    "subtype": "multi_hop",
+    "guard_reasons": [],
+    "category": "formation_name_mismatch"
+  },
+  {
+    "i": 460,
+    "true_chain": [
+      "column"
+    ],
+    "gt_pair": [
+      "column",
+      "column"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 461,
+    "true_chain": [
+      "dispersed"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "dispersed"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 462,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 463,
+    "true_chain": [
+      "shield",
+      "encirclement"
+    ],
+    "gt_pair": [
+      "shield",
+      "encirclement"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 464,
+    "true_chain": [
+      "column",
+      "encirclement"
+    ],
+    "gt_pair": [
+      "column",
+      "encirclement"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 466,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 470,
+    "true_chain": [
+      "v_shape"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "v_shape"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 471,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket": "C",
+    "subtype": "multi_hop",
+    "guard_reasons": [],
+    "category": "formation_name_mismatch"
+  },
+  {
+    "i": 472,
+    "true_chain": [
+      "v_shape",
+      "converging"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "converging"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 474,
+    "true_chain": [
+      "dispersed",
+      "column"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "column"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  },
+  {
+    "i": 475,
+    "true_chain": [
+      "diamond",
+      "shield"
+    ],
+    "gt_pair": [
+      "diamond",
+      "shield"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dominant_history_contradiction",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 483,
+    "true_chain": [
+      "converging",
+      "diamond"
+    ],
+    "gt_pair": [
+      "converging",
+      "diamond"
+    ],
+    "bucket": "A",
+    "subtype": null,
+    "guard_reasons": [],
+    "category": "already_resolved"
+  },
+  {
+    "i": 484,
+    "true_chain": [
+      "column"
+    ],
+    "gt_pair": [
+      "column",
+      "column"
+    ],
+    "bucket": "C",
+    "subtype": "all_unknown",
+    "guard_reasons": [],
+    "category": "all_windows_transitioning"
+  },
+  {
+    "i": 486,
+    "true_chain": [
+      "column"
+    ],
+    "gt_pair": [
+      "column",
+      "column"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 487,
+    "true_chain": [
+      "diamond",
+      "dispersed"
+    ],
+    "gt_pair": [
+      "diamond",
+      "dispersed"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dominant_history_contradiction",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 489,
+    "true_chain": [
+      "diamond",
+      "encirclement"
+    ],
+    "gt_pair": [
+      "diamond",
+      "encirclement"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 490,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 493,
+    "true_chain": [
+      "column",
+      "dispersed"
+    ],
+    "gt_pair": [
+      "column",
+      "dispersed"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 495,
+    "true_chain": [
+      "converging"
+    ],
+    "gt_pair": [
+      "converging",
+      "converging"
+    ],
+    "bucket": "B",
+    "subtype": null,
+    "guard_reasons": [
+      "oov_name",
+      "dominant_history_contradiction",
+      "dispersed_converging_ambiguity"
+    ],
+    "category": "dispersed_converging_ambiguity"
+  },
+  {
+    "i": 499,
+    "true_chain": [
+      "shield"
+    ],
+    "gt_pair": [
+      "shield",
+      "shield"
+    ],
+    "bucket": "C",
+    "subtype": "terminal_unknown",
+    "guard_reasons": [],
+    "category": "trailing_transitioning_run"
+  }
+]

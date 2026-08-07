@@ -2755,3 +2755,497 @@ under-escalation on every system that still lets an LLM freely choose the threat
 Closing the low/medium confusion door didn't require a better prior correction or more
 fine-tuning data — it required not asking the LLM a question the dict could already
 answer.
+
+> **⚠ CORRECTION, see sec AF below: the 100.0% pipeline_v2 figures in the clean-battery
+> table above are a CONSTRUCTION ARTEFACT, not a generalization result.** Layer 1 fires
+> on 100.0% of the 55-case clean battery (`llm_finetuning/report_layer_firing_rates.py`)
+> — that battery is entirely rule-table-resolvable by construction, so pipeline_v2's
+> "100% accuracy" there is a dictionary scored against dictionary-derived ground truth.
+> It confirms Layer 1's decision-field overwrite logic has no bugs; it is not evidence
+> pipeline_v2 generalizes. The degradation-battery numbers (66/108 = 61.1% Layer 1) and
+> sec AF step 2's real-STGT-output evaluation are the numbers that actually bear on
+> generalization. Left un-edited above for the historical record — do not cite the
+> clean-battery 100% figures as a generalization claim; cite sec AF instead.
+
+## AF. Resolving the tautology — layer-firing rates, and evaluation on real STGT output
+
+Sec AE's clean-battery 100.0% pipeline_v2 figure and the 1.8% bucket-A coverage figure
+from the SAME session are inconsistent unless the clean battery is almost entirely
+Layer-1-resolvable — which would make the 100% a tautology. This section resolves it.
+
+### Step 1: layer-firing rates — confirmed, it is a tautology
+
+`llm_finetuning/report_layer_firing_rates.py` computes `coverage.classify_ctx` directly
+on every case in both batteries — a pure function of ctx text, independent of any LLM's
+sampled output, so this is exact, not resampled:
+
+| battery | Layer 1 (A) | Layer 2 (B) | Layer 3 (C) |
+|---|---|---|---|
+| clean (n=55) | 55/55 (**100.0%**) | 0 | 0 |
+| degradation (n=108) | 66/108 (61.1%) | 6/108 (5.6%) | 36/108 (33.3%) |
+
+**Stated plainly, as instructed: the clean battery's pipeline_v2 100.0% accuracy figure
+in sec AE is a construction artefact.** Every one of the 55 `TEST_CASES` scenarios is a
+clean, single, valid-formation transition with confidence ≥0.7 by `synth_context()`'s own
+sampling range — none of `classify_ctx`'s guard/unresolvable conditions can structurally
+fire on it. Scoring pipeline_v2 on this battery measures "does Layer 1 correctly echo
+`RULES[(a,b)]`," which sec AE's own unit tests already established with fake clients —
+it is not a measurement of whether pipeline_v2 handles real, noisy input better than the
+other four systems. The degradation battery is less circular (39% of it misses Layer 1)
+but was built to stress five specific perturbation axes, not to represent real STGT
+output — step 2 below is the number that actually answers that question.
+
+### Step 3: quantifying the dispersed/converging geometry defect's cost
+
+Sec AE step 2 found `dispersed_converging_ambiguity` in 100% of bucket-B cases (191/191)
+because `dispersed` and `converging` share identical base geometry in `data_gen.py`. The
+number a teammate needs to justify the fix: how many of those 191 cases would actually
+move to bucket A if the geometry were made distinct, versus how many are guarded by
+something else regardless. `llm_finetuning/quantify_dispersed_converging_defect.py`
+(pure post-processing of sec AE's already-saved per-case `guard_reasons`, no GPU):
+
+| combination | n | % of B |
+|---|---|---|
+| ambiguity + oov_name | 107 | 56.0% |
+| **ambiguity ONLY** | **57** | **29.8%** |
+| ambiguity + dominant_history_contradiction + oov_name | 21 | 11.0% |
+| ambiguity + dominant_history_contradiction | 4 | 2.1% |
+| ambiguity + low_confidence | 2 | 1.0% |
+
+**57/191 (29.8% of B, 11.4% of all 500 samples) have `dispersed_converging_ambiguity` as
+their SOLE guard reason** — these are already structurally clean (passed every bucket-C
+check, no other guard condition) and would move straight to bucket A if the geometry
+collision were fixed. The other 134 (70.2% of B) are guarded by something else
+regardless (mostly `oov_name`, i.e. the model reading `"transitioning"` somewhere in the
+window set) and would stay in B either way.
+
+**Estimated effect: bucket A grows from 1.8% (9/500) to 13.2% (66/500) — a >7x increase
+— bucket B shrinks from 38.2% to 26.8%, bucket C is unaffected** (this guard is
+bucket-B-only, never a structural bucket-C condition). Explicitly flagged as a
+**lower bound**: it assumes the fix removes nothing but the ambiguity flag on windows
+that are already otherwise clean. It cannot rule out (and this data cannot measure) a
+second-order effect where the SAME geometry collision is also confusing the classifier
+into some of the 134 co-occurring `oov_name`/`dominant_history_contradiction` triggers —
+if so, the true ceiling is higher than 13.2%.
+
+### Step 2: evaluation on real STGT output — the headline number
+
+**Ground-truth derivation, stated explicitly as required:** for each of the 500 sequences
+(regenerated identically from sec AE step 2 — same seed=0, same `sample_chain`/
+`build_long_sequence` — bit-for-bit verified before this ran), ground truth is looked up
+from `RULES` using ONLY the sequence's TRUE, KNOWN formation chain — the exact list of
+formations `measure_coverage.py`'s generator was told to build, captured before any model
+sees the data. It is NEVER derived from `stgt_bridge.bridge_predictions`'s own output
+(`dominant_formation`, `formation_history`, a bucket's `rules_key`) — that comes from the
+SAME noisy STGT classification every system under test also consumes, so using it as an
+answer key would launder classifier error into the grade. `RULES` itself is a static
+domain-policy table, not part of the code path under test, and is consulted here the same
+way it already is for every existing battery in this project (`TEST_CASES`'
+`expected_threat` is likewise `RULES` on the case's TRUE `formation_a`/`formation_b`, never
+on a system's read of it) — this section extends that same convention to real STGT output.
+Ground truth exists only for `len(true_chain) <= 2` (249/500 = 49.8%): 1 formation → steady
+state `RULES[(f,f)]`, 2 formations → `RULES[(chain[0],chain[1])]`. `len(true_chain) >= 3`
+(250/500) has no RULES key even in principle — correct behaviour is abstention, scored via
+the same `has_ground_truth=False` convention `evaluate_llm`/the degradation battery use.
+
+**Per-class threat accuracy on real STGT output, Wilson 95% CI:**
+
+| system | low | medium | high | critical |
+|---|---|---|---|---|
+| v2 | 68.6% [58.2,77.4] n=86 | 59.8% [49.3,69.4] n=87 | 24.7% [16.2,35.6] n=73 | 0.0% n=3 |
+| rules_in_prompt | 72.9% [60.4,82.6] n=59 | 21.5% [13.3,33.0] n=65 | 1.8% [0.3,9.6] n=55 | 0.0% n=1 |
+| v3b-fix | 49.2% [37.5,61.1] n=65 | 53.0% [41.2,64.6] n=66 | 17.2% [9.6,28.9] n=58 | 0.0% n=2 |
+| **pipeline_v2** | **33.3% [16.3,56.3] n=18** | **58.6% [40.7,74.5] n=29** | **10.3% [3.6,26.4] n=29** | **0.0% n=1** |
+
+**Abstention, over-abstention, escalation direction (n=249 ground-truth-determinable):**
+
+| system | abstention (all n=500) | over-abstention (n=249) | correct | under-esc | over-esc |
+|---|---|---|---|---|---|
+| v2 | 0.0% | 0.0% | 51.8% | 34.9% | 13.3% |
+| rules_in_prompt | 16.0% | 27.7% | 23.3% | 40.2% | 5.6% |
+| v3b-fix | 14.6% | 23.3% | 30.9% | 32.1% | 13.7% |
+| **pipeline_v2** | **52.0%** | **69.1%** | **10.4%** | **15.7%** | **4.8%** |
+
+**Verdict — stated plainly: on real STGT output, pipeline_v2 does NOT dominate. It has the
+LOWEST raw "correct" rate of all four systems (10.4%, vs v2's 51.8%), driven by a 69.1%
+over-abstention rate on cases that DO have determinable ground truth.** This directly
+contradicts the sec AE clean-battery impression and confirms step 1's tautology finding was
+the right call. Mechanism, cross-tabbed from the same run's layer log: of the 249
+ground-truth-determinable sequences (TRUE chain length ≤2), pipeline_v2's own bucket
+classification recognizes only **9 (3.6%)** as Layer 1 — the model's noisy per-window read
+of even a genuinely-simple true scenario routes 46.2% to Layer 2 (guard) and 50.2% to
+Layer 3 (LLM) anyway, because real STGT classification frequently produces a
+dispersed/converging near-tie, an OOV blip, or (per step 4) a terminal `"transitioning"`
+read at the window boundary even when the TRUE underlying transition is simple. **Real
+model noise, not bucket-boundary design, is what collapses Layer 1's usage rate from
+sec AE's 1.8%-of-observations design point down to matching only 3.6% of the cases that
+actually had a clean answer available.**
+
+**What DOES hold up, and is the honest, narrower claim this session supports**:
+pipeline_v2's escalation-direction numbers, among the cases it actually answers, remain the
+best of the four (under-escalation 15.7% + over-escalation 4.8% = 20.5% total escalation
+error, vs v2's 48.2%, rules_in_prompt's 45.8%, v3b-fix's 45.8%) — and its raw accuracy when
+it DOES answer (26/(26+39+12) = 33.8%) is comparable to `rules_in_prompt` (33.7%), just
+below `v3b-fix` (40.3%), and below `v2` (51.8%, but `v2` never hedges at all). Pipeline_v2 is
+not a strictly-better system on real output — it is a MUCH MORE CONSERVATIVE one, trading
+the large majority of its answer volume for near-zero over-escalation. Whether that trade
+is worth it depends entirely on the deployment's cost function for a missed report versus a
+false alarm, a judgment call this data informs but does not make.
+
+### Step 4: sanity-checking the 60% unresolvable bucket — sub-types, and whether windowing is a cheap fix
+
+`llm_finetuning/analyze_bucket_c_windowing.py` regenerates the identical 500 sequences a
+third time (bit-for-bit verified against the original `build_long_sequence` before this
+ran) with an instrumented copy that additionally records each hop's `(seg_len, blend_start,
+blend_end)` without changing anything about what is generated.
+
+**Bucket C sub-type breakdown, n=300 (exact reproduction of sec AE step 2 — 183/59/52/6):**
+
+| subtype | n | % of C | % of total |
+|---|---|---|---|
+| terminal_unknown | 183 | 61.0% | 36.6% |
+| all_unknown | 59 | 19.7% | 11.8% |
+| multi_hop | 52 | 17.3% | 10.4% |
+| oscillation | 6 | 2.0% | 1.2% |
+
+**"Window ends mid-transition" DOES dominate, and it's now mechanistically confirmed, not
+just inferred:** for each `terminal_unknown` case, `settled_tail = seg_len − blend_end` (how
+many timesteps of fully-settled target-formation geometry existed after the blend
+completed, before the sequence ended) is compared against `window_size` (50). **159/183
+(86.9%) have `settled_tail < 50`** — the final 50-step window is structurally guaranteed to
+contain real transition geometry, not a classifier failure. Only 24/183 (13.1%) are genuine
+model uncertainty with no windowing excuse available.
+
+**Neither cheap fix tested actually resolves it:**
+- **A longer window is NOT cheap.** `window_size=100` was attempted and crashes:
+  `STGTModel`'s `PositionalEncoding` buffer is registered at construction with
+  `max_len=cfg["max_seq_len"]` (50, baked into `swarm_data/best_model.pt` at training
+  time) — `x + self.pe[:, :x.size(1), :]` is a shape mismatch the instant a window exceeds
+  50 timesteps. This is an architectural constant, not a runtime parameter. Making the
+  observation window longer requires retraining STGT with a larger `max_seq_len` — a
+  materially bigger undertaking than a stride change, and itself a finding worth reporting
+  rather than working around.
+- **A finer stride barely helps.** `stride=5` (half the original 10) resolves only
+  **18/183 (9.8%)** of `terminal_unknown` cases. This is the expected consequence of the
+  mechanism just confirmed: finer stride adds more OVERLAPPING windows earlier in the
+  sequence, it does not change the content of the LAST window, which is what determines
+  whether the observation ends mid-transition.
+
+**Verdict: "window ends mid-transition" is a real, dominant, now-quantified failure mode
+(31.8% of ALL 500 samples: 36.6% terminal_unknown × 86.9% windowing-artifact-mechanism),
+but it is NOT a cheap fix under either lever this session tested.** The implication this
+data actually supports is a scheduling fix, not a model or inference-config change: an
+observation window that is allowed to end anywhere in the stream will periodically end
+mid-transition by construction; a downstream consumer that waits for (or resamples toward)
+a window boundary a fixed delay after the last detected transition, rather than reading
+whatever the fixed-cadence stride happens to hand it, would side-step this without touching
+STGT at all — untested here, a design recommendation this session's data motivates but does
+not itself validate.
+
+## AG. Fixing the reduction brittleness that sec AF's real-output eval exposed
+
+Sec AF found pipeline_v2's bucket classification recognizes only 9/249 (3.6%) of REAL
+sequences whose generator ground truth IS a clean (a,b) pair as Layer-1 resolvable — even
+though most of those 249 genuinely have a simple, determinable answer. This section
+diagnoses exactly why the CURRENT unanimity-based reduction throws those cases away, then
+fixes it with a robust, majority-based reduction, kept behind an explicit flag so the old
+(tested, unanimity) behaviour stays available and testable.
+
+### Step 1: diagnosing the reduction failure — five categories, none of them "the dict is wrong"
+
+`llm_finetuning/diagnose_reduction_failures.py` regenerates the identical 500 sequences
+(seed=0, bit-for-bit reproducible) and categorizes, for all 249 GT-clean sequences, exactly
+why `stgt_bridge.bridge_predictions`/`coverage.classify_observation` (unmodified, `robust=False`)
+did or didn't reach bucket A:
+
+| category | n | % of 249 |
+|---|---|---|
+| dispersed_converging_ambiguity | 115 | 46.2% |
+| trailing_transitioning_run | 64 | 25.7% |
+| all_windows_transitioning | 56 | 22.5% |
+| already_resolved (bucket A) | 9 | 3.6% |
+| formation_name_mismatch | 5 | 2.0% |
+| interior_noisy_window / other | 0 | 0.0% |
+
+**Zero cases of "interior noisy window breaking unanimity" or unexplained "other" — every
+single failure is one of four clean, mechanistically-understood causes.** In priority order
+of impact:
+
+1. **`dispersed_converging_ambiguity` (46.2%, the largest category)** — sec AF step 3's
+   already-diagnosed upstream defect (`dispersed`/`converging` share identical base
+   geometry in `data_gen.py`), now shown to be the single biggest blocker even restricted to
+   sequences that structurally DID reduce to a clean 2-tuple. Per the session's own
+   instruction (step 2d below), this is real, not brittleness — kept as-is, not "fixed" by
+   the reduction-logic change.
+2. **`trailing_transitioning_run` (25.7%)** — sec AF step 4's windowing-artefact mechanism:
+   the sequence ends before the final hop's blend fully settles, so the last window(s) read
+   `"transitioning"`, breaking unanimity even though every EARLIER window was clean. This is
+   exactly what dropping leading/trailing transitioning runs before reducing (step 2a) fixes.
+3. **`all_windows_transitioning` (22.5%)** — every single window reads outside
+   `BASE_FORMATIONS`. Current logic hard-abstains here (`bridge_predictions`'s early
+   `n==0`-style return); step 2c's `class_probabilities` aggregation targets this.
+4. **`formation_name_mismatch` (2.0%, small)** — genuine STGT misclassification (a real but
+   WRONG formation, not a transitioning read). No reduction-logic change can fix this — it
+   is a model-accuracy problem, not a brittleness problem, and is called out here so it
+   isn't silently absorbed into the "fixed by step 2" claim.
+
+**What this bounds, honestly, before the fix is even built:** steps 2a+2c together target at
+most 64+56 = 120/249 (48.2%) of the 249 cases. `dispersed_converging_ambiguity`'s 46.2% is
+explicitly NOT addressed (2d). Some fraction of the 120 structurally-recoverable cases will
+ALSO exhibit the ambiguity guard once given a valid 2-tuple pair (ambiguity is a per-window
+property, not exclusive to already-failed-for-other-reasons cases) — so the true post-fix
+ceiling is somewhere between 9 (no improvement) and 129 (9 + 120, the naive best case), and
+is measured, not assumed, in step 2.
+
+### Step 2: implementing robust reduction — the fix works, the firing rate barely moves
+
+`src/swarm_intent/stgt_bridge.py` gets `_robust_reduce`/`_robust_all_unknown_fallback` and a
+`bridge_predictions(..., robust=False, robust_threshold=0.7)` flag (default `False`,
+byte-identical output to before — all 33 pre-existing tests pass unmodified). `robust=True`
+strips leading/trailing transitioning runs (2a), reduces by majority vote per half with
+UNKNOWN excluded from candidacy (2b — a half dominated by noise must fail the threshold,
+not report `"unknown"` as a formation), falls back to aggregated `class_probabilities` when
+nothing survives stripping (2c), and on failure falls through to the ORIGINAL unanimity
+logic unchanged, never landing worse-informed than `robust=False`. `coverage.classify_observation`
+gets the same flag, threaded to `bridge_predictions`, and suppresses `oov_name`/
+`dominant_history_contradiction` specifically when robust recovery succeeded (those guards'
+job is superseded by the recovery's own threshold check) — `dispersed_converging_ambiguity`
+and `low_confidence` stay UNCONDITIONAL, exactly per step 2d's instruction. 10 new tests
+(`tests/test_robust_reduction.py`); full 127-test suite passes.
+
+**Threshold tuning (dev split, seed=1, 300 sequences — NEVER the seed=0 eval set):** swept
+{0.45..1.00}. Result, stated plainly: **precision never exceeds 49.0%, at ANY threshold
+including 1.00 (full unanimity within each half)** — this is not a noise-tolerance problem
+threshold strictness can fix. Of the wrong recoveries at the chosen threshold (0.7), 63.3%
+involve the dispersed/converging defect (expected, left alone per 2d) and 36.7% are genuine
+model misclassification unrelated to it (matches step 1's `formation_name_mismatch`, just at
+dev-set scale) — reduction logic cannot fix either. **Worse: checking what happens once the
+UNCONDITIONAL ambiguity guard (2d) is applied on top of robust recovery, 92/96 (95.8%) of
+robustly-recovered dev cases have at least one ambiguous window somewhere in their
+(often 15-30-window) stream and route to bucket B regardless — only 4/96 would actually
+reach bucket A, at 25.0% precision (1/4).** Chosen threshold: 0.7 (the lowest threshold at
+the sweep's precision ceiling; no threshold reached the stated 90% floor).
+
+**Layer-1 firing rate, before vs after, on the SAME 500 held-out real sequences sec AE/AF
+measured (seed=0):**
+
+| bucket | before (unanimity) | after (robust) |
+|---|---|---|
+| A (Layer 1) | 9/500 (1.8%) | **12/500 (2.4%)** |
+| B (Layer 2, guard) | 191/500 (38.2%) | 293/500 (58.6%) |
+| C (Layer 3, LLM) | 300/500 (60.0%) | 195/500 (39.0%) |
+
+**Stated plainly, exactly as the dev-set tuning predicted: Layer-1 firing barely moves (1.8%
+→ 2.4%, +0.6 points absolute, only 3 cases actually cross from B/C into A) and precision on
+the 12 cases that DO reach bucket A is 16.7% (2/12) against ground truth — worse cases than
+correct ones.** The robust reduction genuinely fixes what it was built to fix — bucket C
+shrinks by a full 21 points (60.0%→39.0%) as `terminal_unknown`/`all_unknown` cases get
+structurally resolved — but almost every one of those newly-resolved cases has an ambiguous
+window somewhere in its long window stream and gets correctly caught by the (deliberately
+untouched, per 2d) ambiguity guard, landing in bucket B instead of bucket A. The reduction-
+logic brittleness diagnosed in step 1 is fixed; it was never the dominant bottleneck for
+real-world Layer-1 usage. `dispersed_converging_ambiguity` is, and step 2d correctly refused
+to touch it. Step 3 evaluates whether this small, low-precision Layer-1 gain is worth
+anything system-wide, or whether it should be reverted.
+
+### Step 3: the full re-evaluation — robust reduction should NOT ship as pipeline_v2's default
+
+`llm_finetuning/eval_real_stgt_output_robust.py`: same 500 sequences, same independent
+ground-truth derivation as sec AF (true formation chain, never `bridge_predictions`' own
+output), same `has_ground_truth`/abstention-scoring convention. `low`/`high`/`critical` at
+n_runs=20, `medium` and non-GT sequences at n_runs=5, all 5 systems (`v2`, `rules_in_prompt`,
+`v3b-fix`, `pipeline_v2`, `pipeline_v2-robust`). 24,650 case-run units, 7h05m, batched
+throughout, same 3-client-sharing setup as sec AE step 4/sec AF.
+
+**Per-class threat accuracy, mean ± 95% CI:**
+
+| system | low | medium | high | critical |
+|---|---|---|---|---|
+| v2 | 69.9%±1.2% | 57.7%±1.9% | 23.2%±0.8% | 0.0%±0.0% |
+| rules_in_prompt | 70.7%±1.1% | 23.7%±2.0% | 1.0%±0.5% | 0.0%±0.0% |
+| v3b-fix | 47.1%±1.4% | 61.1%±6.9% | 11.4%±1.3% | 0.0%±0.0% |
+| pipeline_v2 | 37.2%±2.9% | 55.3%±7.5% | 5.2%±1.1% | 0.0%±0.0% |
+| **pipeline_v2-robust** | 44.0%±3.8% | 51.4%±9.7% | 10.6%±1.2% | 0.0%±0.0% |
+
+**Abstention / escalation, run-level averaged over all 249 ground-truth-determinable
+sequences (weighted by each stratum's n_runs):**
+
+| system | over-abstention | correct | under-esc | over-esc | escalation error |
+|---|---|---|---|---|---|
+| v2 | 0.0% | 48.7% | 35.7% | 15.2% | 50.9% |
+| rules_in_prompt | 28.9% | 25.4% | 34.7% | 8.3% | 43.0% |
+| v3b-fix | 22.9% | 25.8% | 32.4% | 18.9% | 51.2% |
+| pipeline_v2 | 69.8% | 6.7% | 17.3% | 6.1% | 23.5% |
+| **pipeline_v2-robust** | **90.9%** | **2.2%** | 5.3% | 1.6% | **6.9%** |
+
+**Layer-firing rates (run-level, n=4930 per system):**
+
+| layer | pipeline_v2 | pipeline_v2-robust |
+|---|---|---|
+| Layer 1 (dict) | 3.0% | 4.0% |
+| Layer 2 (guard) | 42.8% | **67.7%** |
+| Layer 3 (LLM) | 54.2% | **28.3%** |
+
+**Success criteria check, stated in advance:**
+
+| criterion | target | measured | result |
+|---|---|---|---|
+| Layer-1 firing | > 40% | 4.0% | **FAIL** |
+| over-abstention | < 25% | 90.9% | **FAIL** |
+| escalation error | ≤ 20.5% | 6.9% | PASS |
+
+**Verdict, stated as plainly as the session's instructions require: robust reduction trades
+accuracy for wrong (non-)answers, not for recovering real ones, and should NOT replace
+`pipeline_v2`'s default.** Two of three stated gates fail outright, and the one that
+"passes" is a mechanical artefact, not a genuine improvement — pipeline_v2-robust's 6.9%
+escalation error looks better than pipeline_v2's 23.5% only because it answers 90.9% of
+ground-truth-determinable cases with silence instead of 69.8%; there is very little
+remaining opportunity to escalate wrong when almost nothing is answered at all. The
+mechanism is exactly what sec AG step 2 predicted and now confirmed at full scale: robust
+reduction moves cases OUT of Layer 3 (where `v3b-fix` at least attempts an answer, with a
+real if imperfect chance of being right — `v3b-fix`'s own `high` accuracy is 11.4%, not
+zero) and INTO Layer 2 (hard guard-abstention), because recovering a structural (a,b) pair
+only to have the SAME pair immediately caught by the unconditional dispersed/converging
+ambiguity guard converts a chance at a correct LLM answer into a guaranteed silence. Layer
+3 traffic drops from 54.2% to 28.3%; Layer 2 traffic rises from 42.8% to 67.7% — almost
+exactly the swap size, confirming the mechanism directly rather than merely correlating
+with it. `pipeline_v2` (original, unanimity reduction) itself already under-performs
+`v2`/`v3b-fix` on raw correctness (6.7% vs 48.7%/25.8%) for the same reason at a smaller
+scale (sec AF); `pipeline_v2-robust` makes this materially worse, not better. **Recommendation:
+keep `robust=False` as `stgt_bridge.py`'s default (already true), keep the robust-reduction
+code available and tested (it is a real, working fix for the DIAGNOSED brittleness, and may
+be useful again if the dispersed/converging defect is ever independently fixed), but do not
+route pipeline_v2 through it in its current form.**
+
+### Step 4: is the threshold overfit to the dev split? — no, it's just honestly bad on both
+
+`llm_finetuning/check_robust_reduction_threshold_overfitting.py` confirms `dev_seed=1` (never
+the eval seed) and compares dev vs the held-out 500 directly:
+
+| metric | dev (seed=1, n=153) | held-out (seed=0, n=249) | delta |
+|---|---|---|---|
+| recovery rate (pre-guard) | 62.7% | 65.1% | 2.3% |
+| precision reaching bucket A (post-guard) | 25.0% (n=4) | 16.7% (n=12) | — (both n too small to distinguish) |
+
+**Recovery rate matches closely (2.3pt delta) — not overfit on that metric.** Post-guard
+precision is low on BOTH splits, and critically that is NOT the overfitting signature (dev
+looking artificially good, held-out disappointing) — it's the opposite failure mode: the
+threshold was never good anywhere, dev included, and the dev-split discipline correctly
+surfaced that BEFORE committing to a number, rather than a held-out set catching an
+inflated dev score after the fact. **The threshold is not overfit. The underlying
+recovery-then-guard mechanism is genuinely, consistently low-precision, on data it has
+never seen, on both sides of the split.** No adjustment to the threshold is called for by
+this check; sec AG step 3's verdict (do not ship `robust=True` as the default) stands.
+
+## AH. Consolidation for the defense — verifying the guarantee, the honest number, and the ask
+
+Sec AG closed the diagnostic phase: the reduction brittleness is fixed and tested, but blocked
+from mattering by the dispersed/converging geometry defect, which caps recovered-pair precision
+at ~49% and accounts for 46.2% of the reduction failures that remain. This section runs no more
+experiments — it verifies the one architectural claim the whole pipeline_v2 design rests on,
+reframes the headline number honestly, quantifies what the upstream fix is actually worth, and
+writes the two documents needed to close this line of work: the request to the teammate who owns
+`data_gen.py`, and the panel document.
+
+### Step 1: verifying the Layer-1 guarantee
+
+`llm_finetuning/verify_layer1_guarantee.py` re-derives STGT predictions (bit-for-bit, seed=0) for
+exactly the 12 sequences `evaluation/robust_reduction_firing_rate.json` (sec AG step 2) already
+identified as reaching bucket A under `robust=True`, then calls `pipeline_v2.assess_observation`
+5 times per sequence (temperature 0.3, matching every other eval in this project) through the
+real Layer-1 narrator client — not a re-implementation, the actual code path.
+
+**Result: 0/60 (sequence, run) units had `threat_level`/`likely_intent`/`recommended_action`
+differ from `RULES[rules_key]`, and 0/60 had a non-empty `llm_deviation` log entry.** The narrator
+LLM never once proposed a different decision across 60 stochastic samples — `_finalize_layer1`'s
+forced overwrite (`pipeline_v2.py:138-161`) was never actually exercised as a correction in this
+sample, only as a guarantee that would have fired had the LLM tried. **The "correct by
+construction" claim is architecturally true and empirically unviolated: for any sequence that
+reaches bucket A, the returned decision fields ARE `RULES[rules_key]`, full stop, regardless of
+what the LLM says.** This also independently reproduces sec AG step 2's headline number from a
+different code path: of the 12 sequences, the recovered `rules_key` matches the independent
+ground-truth pair for exactly 2/12 (16.7%) — same figure, confirmed twice.
+
+**What this does and does not say:** the guarantee is about the pipeline never letting the LLM
+corrupt a decision once a key is chosen. It says nothing about whether the key itself is right —
+that's sec AG's separately-measured, and much weaker, 16.7% figure. Both are true at once: the
+architecture is sound, and the input to it (the recovered key) is frequently wrong, for the
+already-diagnosed geometry reason.
+
+### Step 2: conditional accuracy — what sec AG's 2.2% was hiding
+
+`llm_finetuning/report_conditional_accuracy.py` re-reads `evaluation/eval_real_stgt_output_robust.json`
+(sec AG step 3's run, no new generations) and reports accuracy given the system answered
+(abstentions excluded from the denominator) alongside the unconditional number sec AG already
+published and the abstention rate:
+
+| system | accuracy given answered | unconditional accuracy | abstention rate |
+|---|---|---|---|
+| v2 | 48.7% | 48.7% | 0.0% |
+| rules_in_prompt | 35.7% | 25.4% | 28.9% |
+| v3b-fix | 33.5% | 25.8% | 22.9% |
+| pipeline_v2 | 22.3% | 6.7% | 69.8% |
+| pipeline_v2-robust | 24.2% | 2.2% | 90.9% |
+
+**pipeline_v2-robust's 2.2% is not "answers wrong 98% of the time" — it is "abstains 90.9% of
+the time, and when it does answer, is right about as often as pipeline_v2 (24.2% vs 22.3%),
+which is itself worse than every non-pipeline system."** The conditional numbers rule out one
+possible defense of pipeline_v2/pipeline_v2-robust — that heavy abstention was masking otherwise-
+competitive answers. It wasn't: even excluding abstentions, both pipeline systems trail
+`v2` (48.7%) and `v3b-fix`/`rules_in_prompt` (33.5%/35.7%) by 10-25 points. The over-abstention
+problem and the accuracy-when-answering problem are separate, and sec AG's verdict (do not ship
+`robust=True`) does not rest on abstention alone — it holds on the conditional number too.
+
+### Step 3: projected payoff of the upstream geometry fix
+
+`llm_finetuning/project_upstream_fix_payoff.py` — pure post-processing of two files already on
+disk (`evaluation/reduction_failure_diagnosis.json`, `evaluation/robust_reduction_firing_rate.json`).
+No new sequences, no model load, no new experiment.
+
+Of the 115/249 sequences sec AG step 1 categorized as `dispersed_converging_ambiguity`, only
+51 are blocked by ambiguity ALONE; the other 64 also carry `oov_name` and/or
+`dominant_history_contradiction`, which the geometry fix would not touch:
+
+| co-occurring guards | n |
+|---|---|
+| ambiguity only | 51 |
+| ambiguity + oov_name | 44 |
+| ambiguity + dominant_history_contradiction + oov_name | 14 |
+| ambiguity + dominant_history_contradiction | 4 |
+| ambiguity + low_confidence | 2 |
+
+**Primary projection (single stated assumption: STGT retrained on corrected geometry no longer
+produces near-tied dispersed/converging window predictions on true instances, so the ambiguity
+guard stops firing where it is currently the SOLE trigger; no other code change, `robust=False`
+default reduction unchanged):**
+
+| bucket | before (measured) | projected (geometry fix only) |
+|---|---|---|
+| A (Layer 1) | 9/500 (1.8%) | **60/500 (12.0%)** |
+| B (Layer 2, guard) | 191/500 (38.2%) | 140/500 (28.0%) |
+| C (Layer 3, LLM) | 300/500 (60.0%) | 300/500 (60.0%) — unchanged |
+
+Projected over-abstention (approximate — back-derives bucket C's own internal abstention rate
+from sec AG step 3's measured 69.8%, holds it constant, and re-mixes with the new bucket
+populations): **≈49.3%, down from the measured 69.8%.**
+
+**Explicit assumptions and scope limits, stated for the teammate request:**
+1. Only the 51 sequences blocked by ambiguity alone move; the 64 with an additional independent
+   guard stay guarded — this is not a full fix of bucket B, only of the part this specific defect
+   causes.
+2. Scope is the 249 GT-clean sequences; the other 251/500 (true 3+-hop chains) are not modeled —
+   not assumed zero effect, simply outside what this protocol can check for correctness.
+3. Precision on the 51 recovered pairs is assumed high because they already pass the CURRENT,
+   conservative unanimity reduction — unlike sec AG's `robust=True` recoveries (16.7-25%
+   precision), these are not new recoveries from a lower-precision mechanism.
+4. Deliberately excludes the compounding effect of also shipping `robust=True` (which would
+   additionally target the 120/249 `trailing_transitioning_run`/`all_windows_transitioning`
+   cases) — that mechanism's own recovery precision is separately capped at ~49% by the SAME
+   geometry defect, so a combined number would stack two unmeasured assumptions. Real, plausibly
+   larger, deliberately not quantified here.
+5. `low_confidence` (unconditional, orthogonal to this defect) could still block a small,
+   unmeasured fraction of the 51 projected recoveries.
+
+**Headline for the teammate ask: fixing dispersed/converging geometry alone, with no other
+pipeline change, is projected to raise Layer-1 firing from 1.8% to ~12.0% and cut over-abstention
+from 69.8% to ~49%, on the most conservative accounting available.**

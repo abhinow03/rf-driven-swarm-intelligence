@@ -1,0 +1,9576 @@
+[
+  {
+    "i": 0,
+    "true_chain": [
+      "dispersed",
+      "diamond",
+      "encirclement",
+      "column"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 1,
+    "true_chain": [
+      "encirclement",
+      "v_shape",
+      "shield"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 2,
+    "true_chain": [
+      "encirclement",
+      "dispersed",
+      "diamond"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 3,
+    "true_chain": [
+      "shield",
+      "diamond",
+      "encirclement"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 4,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "encirclement",
+      "encirclement"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 5,
+    "true_chain": [
+      "shield",
+      "diamond"
+    ],
+    "gt_pair": [
+      "shield",
+      "diamond"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "shield",
+      "shield"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 2,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 6,
+    "true_chain": [
+      "diamond"
+    ],
+    "gt_pair": [
+      "diamond",
+      "diamond"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "diamond",
+      "diamond"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 7,
+    "true_chain": [
+      "v_shape",
+      "column",
+      "shield"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "column"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 8,
+    "true_chain": [
+      "dispersed",
+      "converging"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "converging"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "diamond",
+      "diamond"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 2,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 9,
+    "true_chain": [
+      "dispersed",
+      "converging",
+      "encirclement",
+      "diamond"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 10,
+    "true_chain": [
+      "column",
+      "shield",
+      "v_shape"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 11,
+    "true_chain": [
+      "v_shape",
+      "column",
+      "shield"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 1,
+      "stripped_trailing": 5,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 12,
+    "true_chain": [
+      "v_shape",
+      "encirclement",
+      "converging",
+      "dispersed"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 13,
+    "true_chain": [
+      "shield"
+    ],
+    "gt_pair": [
+      "shield",
+      "shield"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "shield",
+      "converging"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 14,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "encirclement",
+      "encirclement"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 2,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 15,
+    "true_chain": [
+      "column"
+    ],
+    "gt_pair": [
+      "column",
+      "column"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 1,
+      "stripped_trailing": 0,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 16,
+    "true_chain": [
+      "diamond",
+      "shield",
+      "encirclement",
+      "shield"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 17,
+    "true_chain": [
+      "dispersed",
+      "v_shape",
+      "diamond"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 18,
+    "true_chain": [
+      "dispersed",
+      "encirclement",
+      "dispersed"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 19,
+    "true_chain": [
+      "column"
+    ],
+    "gt_pair": [
+      "column",
+      "column"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 1,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 20,
+    "true_chain": [
+      "column",
+      "dispersed",
+      "column",
+      "v_shape"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "dispersed"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 2,
+      "stripped_trailing": 14,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 21,
+    "true_chain": [
+      "v_shape",
+      "diamond"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "diamond"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 22,
+    "true_chain": [
+      "dispersed"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "dispersed"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "dispersed"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 2,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 23,
+    "true_chain": [
+      "v_shape"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "v_shape"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "v_shape"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 1,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 24,
+    "true_chain": [
+      "diamond"
+    ],
+    "gt_pair": [
+      "diamond",
+      "diamond"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "diamond",
+      "diamond"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 25,
+    "true_chain": [
+      "v_shape",
+      "diamond",
+      "v_shape"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 26,
+    "true_chain": [
+      "converging"
+    ],
+    "gt_pair": [
+      "converging",
+      "converging"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "shield"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 27,
+    "true_chain": [
+      "dispersed",
+      "column",
+      "converging"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 28,
+    "true_chain": [
+      "v_shape",
+      "shield",
+      "diamond"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "shield",
+      "shield"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 1,
+      "stripped_trailing": 4,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 29,
+    "true_chain": [
+      "encirclement",
+      "shield"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "shield"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "encirclement",
+      "encirclement"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 3,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 30,
+    "true_chain": [
+      "shield",
+      "v_shape",
+      "dispersed"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 31,
+    "true_chain": [
+      "encirclement",
+      "dispersed",
+      "diamond",
+      "column"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 32,
+    "true_chain": [
+      "dispersed",
+      "column",
+      "dispersed"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "column"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 33,
+    "true_chain": [
+      "shield",
+      "encirclement",
+      "converging"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 34,
+    "true_chain": [
+      "column"
+    ],
+    "gt_pair": [
+      "column",
+      "column"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 35,
+    "true_chain": [
+      "converging",
+      "v_shape"
+    ],
+    "gt_pair": [
+      "converging",
+      "v_shape"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "converging",
+      "converging"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 2,
+      "stripped_trailing": 0,
+      "mode": "all_unknown_probability_fallback",
+      "top1": "converging",
+      "top1_p": 0.1963,
+      "top2": "dispersed",
+      "top2_p": 0.0053,
+      "margin": 0.191,
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 36,
+    "true_chain": [
+      "shield"
+    ],
+    "gt_pair": [
+      "shield",
+      "shield"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "shield",
+      "shield"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 37,
+    "true_chain": [
+      "dispersed"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "dispersed"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "dispersed"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 1,
+      "stripped_trailing": 0,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 38,
+    "true_chain": [
+      "column",
+      "diamond"
+    ],
+    "gt_pair": [
+      "column",
+      "diamond"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 39,
+    "true_chain": [
+      "column",
+      "diamond"
+    ],
+    "gt_pair": [
+      "column",
+      "diamond"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 40,
+    "true_chain": [
+      "converging"
+    ],
+    "gt_pair": [
+      "converging",
+      "converging"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "dispersed"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 1,
+      "stripped_trailing": 2,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 41,
+    "true_chain": [
+      "converging",
+      "column",
+      "encirclement"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "dispersed"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 8,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 42,
+    "true_chain": [
+      "column",
+      "v_shape",
+      "shield",
+      "converging"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 43,
+    "true_chain": [
+      "v_shape",
+      "shield",
+      "converging",
+      "shield"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "column"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 44,
+    "true_chain": [
+      "v_shape"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "v_shape"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "v_shape"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 45,
+    "true_chain": [
+      "shield",
+      "converging",
+      "column"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "shield",
+      "column"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 46,
+    "true_chain": [
+      "diamond",
+      "v_shape",
+      "dispersed",
+      "encirclement"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 47,
+    "true_chain": [
+      "dispersed",
+      "encirclement",
+      "v_shape"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "column"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 48,
+    "true_chain": [
+      "dispersed",
+      "v_shape",
+      "dispersed"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 49,
+    "true_chain": [
+      "encirclement",
+      "v_shape",
+      "encirclement"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "encirclement",
+      "converging"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 50,
+    "true_chain": [
+      "converging",
+      "diamond",
+      "dispersed",
+      "column"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 51,
+    "true_chain": [
+      "shield",
+      "encirclement",
+      "dispersed",
+      "shield"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "shield",
+      "column"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 52,
+    "true_chain": [
+      "column",
+      "encirclement"
+    ],
+    "gt_pair": [
+      "column",
+      "encirclement"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 2,
+      "stripped_trailing": 0,
+      "mode": "all_unknown_probability_fallback",
+      "top1": "column",
+      "top1_p": 0.0626,
+      "top2": "v_shape",
+      "top2_p": 0.0019,
+      "margin": 0.0607,
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 53,
+    "true_chain": [
+      "column"
+    ],
+    "gt_pair": [
+      "column",
+      "column"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 1,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 54,
+    "true_chain": [
+      "v_shape",
+      "column",
+      "shield",
+      "encirclement"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 2,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 0.875,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 55,
+    "true_chain": [
+      "encirclement",
+      "converging",
+      "dispersed"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "encirclement",
+      "dispersed"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 3,
+      "mode": "majority_halves",
+      "frac_first_half": 0.75,
+      "frac_second_half": 0.8,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 56,
+    "true_chain": [
+      "column"
+    ],
+    "gt_pair": [
+      "column",
+      "column"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 2,
+      "stripped_trailing": 0,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 57,
+    "true_chain": [
+      "v_shape"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "v_shape"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "v_shape"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 58,
+    "true_chain": [
+      "encirclement",
+      "dispersed"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "dispersed"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "encirclement",
+      "shield"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 59,
+    "true_chain": [
+      "shield"
+    ],
+    "gt_pair": [
+      "shield",
+      "shield"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "shield",
+      "shield"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 60,
+    "true_chain": [
+      "shield",
+      "v_shape"
+    ],
+    "gt_pair": [
+      "shield",
+      "v_shape"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "shield",
+      "shield"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 2,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 61,
+    "true_chain": [
+      "shield",
+      "encirclement",
+      "column",
+      "converging"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 62,
+    "true_chain": [
+      "shield",
+      "encirclement",
+      "converging"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "shield",
+      "dispersed"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 63,
+    "true_chain": [
+      "column",
+      "converging"
+    ],
+    "gt_pair": [
+      "column",
+      "converging"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 2,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 64,
+    "true_chain": [
+      "dispersed"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "dispersed"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "encirclement",
+      "encirclement"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 1,
+      "stripped_trailing": 1,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 65,
+    "true_chain": [
+      "diamond"
+    ],
+    "gt_pair": [
+      "diamond",
+      "diamond"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "diamond",
+      "diamond"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 1,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 66,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "encirclement",
+      "encirclement"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 2,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 67,
+    "true_chain": [
+      "shield",
+      "encirclement",
+      "column"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 68,
+    "true_chain": [
+      "dispersed",
+      "shield",
+      "converging"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "converging",
+      "converging"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 3,
+      "mode": "majority_halves",
+      "frac_first_half": 0.75,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 69,
+    "true_chain": [
+      "converging",
+      "shield",
+      "diamond",
+      "column"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 70,
+    "true_chain": [
+      "shield",
+      "encirclement",
+      "column"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 2,
+      "stripped_trailing": 3,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 71,
+    "true_chain": [
+      "dispersed",
+      "shield"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "shield"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "A",
+    "rules_key_after": [
+      "dispersed",
+      "dispersed"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 1,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    },
+    "after_correct": false
+  },
+  {
+    "i": 72,
+    "true_chain": [
+      "encirclement",
+      "dispersed",
+      "encirclement"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 3,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 0.75,
+      "frac_second_half": 0.75,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 73,
+    "true_chain": [
+      "v_shape",
+      "converging"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "converging"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 74,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "encirclement",
+      "encirclement"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 75,
+    "true_chain": [
+      "encirclement",
+      "diamond",
+      "v_shape"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "encirclement",
+      "column"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 76,
+    "true_chain": [
+      "v_shape"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "v_shape"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "v_shape"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 77,
+    "true_chain": [
+      "diamond",
+      "encirclement",
+      "shield"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 10,
+      "stripped_trailing": 0,
+      "mode": "all_unknown_probability_fallback",
+      "top1": "column",
+      "top1_p": 0.132,
+      "top2": "shield",
+      "top2_p": 0.0628,
+      "margin": 0.0692,
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 78,
+    "true_chain": [
+      "column",
+      "diamond",
+      "column",
+      "diamond"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 79,
+    "true_chain": [
+      "dispersed",
+      "v_shape",
+      "converging"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "column"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 80,
+    "true_chain": [
+      "shield",
+      "diamond"
+    ],
+    "gt_pair": [
+      "shield",
+      "diamond"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "shield",
+      "shield"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 3,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 81,
+    "true_chain": [
+      "dispersed"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "dispersed"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "dispersed"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 1,
+      "stripped_trailing": 0,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 82,
+    "true_chain": [
+      "converging",
+      "shield",
+      "v_shape"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 83,
+    "true_chain": [
+      "shield",
+      "diamond",
+      "dispersed",
+      "encirclement"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "shield",
+      "dispersed"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 84,
+    "true_chain": [
+      "converging"
+    ],
+    "gt_pair": [
+      "converging",
+      "converging"
+    ],
+    "bucket_before": "A",
+    "bucket_after": "A",
+    "rules_key_after": [
+      "dispersed",
+      "dispersed"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    },
+    "after_correct": false
+  },
+  {
+    "i": 85,
+    "true_chain": [
+      "column"
+    ],
+    "gt_pair": [
+      "column",
+      "column"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 86,
+    "true_chain": [
+      "diamond"
+    ],
+    "gt_pair": [
+      "diamond",
+      "diamond"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "diamond",
+      "diamond"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 87,
+    "true_chain": [
+      "shield"
+    ],
+    "gt_pair": [
+      "shield",
+      "shield"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "shield",
+      "shield"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 88,
+    "true_chain": [
+      "converging",
+      "encirclement"
+    ],
+    "gt_pair": [
+      "converging",
+      "encirclement"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 89,
+    "true_chain": [
+      "v_shape",
+      "shield"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "shield"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 90,
+    "true_chain": [
+      "converging",
+      "column",
+      "diamond"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "shield"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 91,
+    "true_chain": [
+      "column",
+      "dispersed",
+      "column",
+      "encirclement"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 92,
+    "true_chain": [
+      "converging",
+      "encirclement",
+      "converging",
+      "column"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 93,
+    "true_chain": [
+      "diamond",
+      "encirclement",
+      "v_shape",
+      "column"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 94,
+    "true_chain": [
+      "encirclement",
+      "shield"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "shield"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 95,
+    "true_chain": [
+      "shield",
+      "encirclement",
+      "shield"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "encirclement",
+      "shield"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 96,
+    "true_chain": [
+      "diamond",
+      "dispersed"
+    ],
+    "gt_pair": [
+      "diamond",
+      "dispersed"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "diamond",
+      "dispersed"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 97,
+    "true_chain": [
+      "encirclement",
+      "diamond",
+      "dispersed"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 98,
+    "true_chain": [
+      "dispersed",
+      "v_shape"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "v_shape"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "dispersed"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 4,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 99,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "encirclement",
+      "column"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 100,
+    "true_chain": [
+      "shield",
+      "column"
+    ],
+    "gt_pair": [
+      "shield",
+      "column"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "shield",
+      "shield"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 2,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 101,
+    "true_chain": [
+      "converging",
+      "diamond"
+    ],
+    "gt_pair": [
+      "converging",
+      "diamond"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "converging",
+      "converging"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 2,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 102,
+    "true_chain": [
+      "column",
+      "shield"
+    ],
+    "gt_pair": [
+      "column",
+      "shield"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "encirclement"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 103,
+    "true_chain": [
+      "shield",
+      "converging",
+      "shield",
+      "v_shape"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 2,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 0.875,
+      "frac_second_half": 0.7778,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 104,
+    "true_chain": [
+      "encirclement",
+      "dispersed",
+      "column",
+      "converging"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "column"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 105,
+    "true_chain": [
+      "dispersed"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "dispersed"
+    ],
+    "bucket_before": "A",
+    "bucket_after": "A",
+    "rules_key_after": [
+      "dispersed",
+      "dispersed"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    },
+    "after_correct": true
+  },
+  {
+    "i": 106,
+    "true_chain": [
+      "column"
+    ],
+    "gt_pair": [
+      "column",
+      "column"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 4,
+      "stripped_trailing": 0,
+      "mode": "all_unknown_probability_fallback",
+      "top1": "column",
+      "top1_p": 0.0868,
+      "top2": "converging",
+      "top2_p": 0.0034,
+      "margin": 0.0833,
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 107,
+    "true_chain": [
+      "v_shape",
+      "column",
+      "converging"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 108,
+    "true_chain": [
+      "column"
+    ],
+    "gt_pair": [
+      "column",
+      "column"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 109,
+    "true_chain": [
+      "converging",
+      "encirclement",
+      "converging"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 110,
+    "true_chain": [
+      "encirclement",
+      "dispersed"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "dispersed"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "encirclement",
+      "encirclement"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 2,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 111,
+    "true_chain": [
+      "converging"
+    ],
+    "gt_pair": [
+      "converging",
+      "converging"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "shield",
+      "shield"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 112,
+    "true_chain": [
+      "converging",
+      "diamond",
+      "encirclement",
+      "column"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 113,
+    "true_chain": [
+      "v_shape",
+      "converging",
+      "encirclement"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 114,
+    "true_chain": [
+      "shield"
+    ],
+    "gt_pair": [
+      "shield",
+      "shield"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "shield",
+      "shield"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 115,
+    "true_chain": [
+      "column",
+      "diamond",
+      "shield"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 116,
+    "true_chain": [
+      "converging",
+      "dispersed",
+      "column"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 117,
+    "true_chain": [
+      "converging",
+      "dispersed"
+    ],
+    "gt_pair": [
+      "converging",
+      "dispersed"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "dispersed"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 118,
+    "true_chain": [
+      "dispersed",
+      "v_shape"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "v_shape"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "v_shape"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 119,
+    "true_chain": [
+      "dispersed",
+      "diamond",
+      "dispersed"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "diamond",
+      "shield"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 120,
+    "true_chain": [
+      "shield",
+      "dispersed",
+      "diamond"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 121,
+    "true_chain": [
+      "column"
+    ],
+    "gt_pair": [
+      "column",
+      "column"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 122,
+    "true_chain": [
+      "encirclement",
+      "diamond",
+      "v_shape"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 123,
+    "true_chain": [
+      "diamond"
+    ],
+    "gt_pair": [
+      "diamond",
+      "diamond"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "diamond",
+      "diamond"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 124,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "encirclement",
+      "encirclement"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 1,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 125,
+    "true_chain": [
+      "diamond",
+      "dispersed",
+      "diamond",
+      "v_shape"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "shield",
+      "shield"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 2,
+      "stripped_trailing": 7,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 126,
+    "true_chain": [
+      "dispersed",
+      "converging",
+      "encirclement",
+      "dispersed"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 127,
+    "true_chain": [
+      "diamond",
+      "shield",
+      "dispersed",
+      "v_shape"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 128,
+    "true_chain": [
+      "diamond",
+      "converging"
+    ],
+    "gt_pair": [
+      "diamond",
+      "converging"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "diamond",
+      "dispersed"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 129,
+    "true_chain": [
+      "diamond"
+    ],
+    "gt_pair": [
+      "diamond",
+      "diamond"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "diamond",
+      "diamond"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 130,
+    "true_chain": [
+      "dispersed",
+      "v_shape"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "v_shape"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "converging",
+      "converging"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 2,
+      "stripped_trailing": 0,
+      "mode": "all_unknown_probability_fallback",
+      "top1": "converging",
+      "top1_p": 0.0804,
+      "top2": "encirclement",
+      "top2_p": 0.0018,
+      "margin": 0.0787,
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 131,
+    "true_chain": [
+      "converging",
+      "diamond",
+      "v_shape",
+      "dispersed"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 132,
+    "true_chain": [
+      "shield",
+      "dispersed",
+      "column",
+      "shield"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 133,
+    "true_chain": [
+      "v_shape"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "v_shape"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "v_shape"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 134,
+    "true_chain": [
+      "encirclement",
+      "converging",
+      "v_shape",
+      "shield"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "converging"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 2,
+      "stripped_trailing": 14,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 135,
+    "true_chain": [
+      "diamond",
+      "dispersed",
+      "shield"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 136,
+    "true_chain": [
+      "diamond",
+      "dispersed",
+      "converging"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 137,
+    "true_chain": [
+      "encirclement",
+      "column",
+      "converging",
+      "dispersed"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 138,
+    "true_chain": [
+      "diamond",
+      "shield",
+      "column"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 139,
+    "true_chain": [
+      "encirclement",
+      "dispersed",
+      "encirclement",
+      "shield"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 140,
+    "true_chain": [
+      "column",
+      "encirclement",
+      "column",
+      "v_shape"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 141,
+    "true_chain": [
+      "dispersed",
+      "encirclement",
+      "v_shape",
+      "dispersed"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 142,
+    "true_chain": [
+      "v_shape",
+      "converging"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "converging"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "v_shape"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 2,
+      "stripped_trailing": 0,
+      "mode": "all_unknown_probability_fallback",
+      "top1": "v_shape",
+      "top1_p": 0.1442,
+      "top2": "encirclement",
+      "top2_p": 0.0131,
+      "margin": 0.131,
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 143,
+    "true_chain": [
+      "converging",
+      "encirclement"
+    ],
+    "gt_pair": [
+      "converging",
+      "encirclement"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "encirclement",
+      "encirclement"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 144,
+    "true_chain": [
+      "dispersed"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "dispersed"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "encirclement",
+      "encirclement"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 1,
+      "stripped_trailing": 0,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 145,
+    "true_chain": [
+      "converging"
+    ],
+    "gt_pair": [
+      "converging",
+      "converging"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 146,
+    "true_chain": [
+      "dispersed"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "dispersed"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "dispersed"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 1,
+      "stripped_trailing": 0,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 147,
+    "true_chain": [
+      "v_shape",
+      "diamond",
+      "v_shape",
+      "shield"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 148,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "encirclement",
+      "encirclement"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 149,
+    "true_chain": [
+      "column",
+      "v_shape",
+      "encirclement",
+      "diamond"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 150,
+    "true_chain": [
+      "shield",
+      "dispersed",
+      "v_shape",
+      "converging"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 151,
+    "true_chain": [
+      "dispersed",
+      "v_shape",
+      "encirclement"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "encirclement"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 2,
+      "stripped_trailing": 5,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 152,
+    "true_chain": [
+      "encirclement",
+      "diamond",
+      "encirclement"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 153,
+    "true_chain": [
+      "diamond",
+      "encirclement",
+      "dispersed",
+      "column"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 154,
+    "true_chain": [
+      "v_shape",
+      "column"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "column"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "encirclement"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 2,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 155,
+    "true_chain": [
+      "column",
+      "shield"
+    ],
+    "gt_pair": [
+      "column",
+      "shield"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 3,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 156,
+    "true_chain": [
+      "shield",
+      "column"
+    ],
+    "gt_pair": [
+      "shield",
+      "column"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 157,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "encirclement",
+      "encirclement"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 158,
+    "true_chain": [
+      "diamond",
+      "converging",
+      "diamond",
+      "encirclement"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 159,
+    "true_chain": [
+      "converging"
+    ],
+    "gt_pair": [
+      "converging",
+      "converging"
+    ],
+    "bucket_before": "A",
+    "bucket_after": "A",
+    "rules_key_after": [
+      "dispersed",
+      "dispersed"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    },
+    "after_correct": false
+  },
+  {
+    "i": 160,
+    "true_chain": [
+      "shield",
+      "diamond",
+      "dispersed"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 2,
+      "stripped_trailing": 3,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 161,
+    "true_chain": [
+      "dispersed",
+      "converging",
+      "column",
+      "dispersed"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "encirclement",
+      "column"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 162,
+    "true_chain": [
+      "v_shape",
+      "converging"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "converging"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "dispersed"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 163,
+    "true_chain": [
+      "dispersed",
+      "diamond",
+      "v_shape"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "dispersed"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 3,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 164,
+    "true_chain": [
+      "v_shape",
+      "column",
+      "encirclement",
+      "dispersed"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "dispersed"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 1,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 0.8571,
+      "frac_second_half": 0.75,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 165,
+    "true_chain": [
+      "encirclement",
+      "dispersed"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "dispersed"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 166,
+    "true_chain": [
+      "shield"
+    ],
+    "gt_pair": [
+      "shield",
+      "shield"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "shield",
+      "dispersed"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 167,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 168,
+    "true_chain": [
+      "column",
+      "encirclement",
+      "diamond"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "v_shape"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 169,
+    "true_chain": [
+      "encirclement",
+      "converging",
+      "diamond",
+      "dispersed"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 170,
+    "true_chain": [
+      "converging"
+    ],
+    "gt_pair": [
+      "converging",
+      "converging"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "diamond",
+      "diamond"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 2,
+      "stripped_trailing": 0,
+      "mode": "all_unknown_probability_fallback",
+      "top1": "diamond",
+      "top1_p": 0.1598,
+      "top2": "dispersed",
+      "top2_p": 0.0823,
+      "margin": 0.0775,
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 171,
+    "true_chain": [
+      "shield",
+      "dispersed"
+    ],
+    "gt_pair": [
+      "shield",
+      "dispersed"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "shield",
+      "column"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 172,
+    "true_chain": [
+      "shield",
+      "dispersed",
+      "converging",
+      "v_shape"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 173,
+    "true_chain": [
+      "column"
+    ],
+    "gt_pair": [
+      "column",
+      "column"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 174,
+    "true_chain": [
+      "dispersed",
+      "v_shape",
+      "diamond"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 175,
+    "true_chain": [
+      "shield"
+    ],
+    "gt_pair": [
+      "shield",
+      "shield"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "shield",
+      "shield"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 176,
+    "true_chain": [
+      "diamond",
+      "column"
+    ],
+    "gt_pair": [
+      "diamond",
+      "column"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 177,
+    "true_chain": [
+      "column",
+      "shield",
+      "encirclement"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "shield",
+      "shield"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 1,
+      "stripped_trailing": 6,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 178,
+    "true_chain": [
+      "shield",
+      "encirclement",
+      "converging",
+      "dispersed"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 179,
+    "true_chain": [
+      "dispersed",
+      "column",
+      "dispersed"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 180,
+    "true_chain": [
+      "v_shape"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "v_shape"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "v_shape"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 1,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 181,
+    "true_chain": [
+      "converging"
+    ],
+    "gt_pair": [
+      "converging",
+      "converging"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "dispersed"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 1,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 182,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "encirclement",
+      "encirclement"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 1,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 183,
+    "true_chain": [
+      "encirclement",
+      "shield",
+      "dispersed",
+      "v_shape"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 184,
+    "true_chain": [
+      "encirclement",
+      "shield",
+      "dispersed"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "encirclement",
+      "shield"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 185,
+    "true_chain": [
+      "dispersed",
+      "column",
+      "shield"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 186,
+    "true_chain": [
+      "v_shape"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "v_shape"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "encirclement"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 187,
+    "true_chain": [
+      "v_shape",
+      "shield",
+      "v_shape",
+      "converging"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 188,
+    "true_chain": [
+      "v_shape",
+      "diamond",
+      "v_shape"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 189,
+    "true_chain": [
+      "encirclement",
+      "dispersed"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "dispersed"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "v_shape"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 2,
+      "stripped_trailing": 0,
+      "mode": "all_unknown_probability_fallback",
+      "top1": "v_shape",
+      "top1_p": 0.1743,
+      "top2": "encirclement",
+      "top2_p": 0.0245,
+      "margin": 0.1498,
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 190,
+    "true_chain": [
+      "dispersed"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "dispersed"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "encirclement",
+      "encirclement"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 1,
+      "stripped_trailing": 0,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 191,
+    "true_chain": [
+      "v_shape",
+      "diamond"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "diamond"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "v_shape"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 1,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 192,
+    "true_chain": [
+      "diamond",
+      "encirclement",
+      "diamond"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 193,
+    "true_chain": [
+      "diamond"
+    ],
+    "gt_pair": [
+      "diamond",
+      "diamond"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 194,
+    "true_chain": [
+      "v_shape",
+      "encirclement",
+      "diamond",
+      "encirclement"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 0.75,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 195,
+    "true_chain": [
+      "v_shape",
+      "converging",
+      "encirclement"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 196,
+    "true_chain": [
+      "shield",
+      "encirclement",
+      "column"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 197,
+    "true_chain": [
+      "shield",
+      "v_shape",
+      "column",
+      "dispersed"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 2,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 0.8333,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 198,
+    "true_chain": [
+      "diamond",
+      "encirclement",
+      "diamond",
+      "converging"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 199,
+    "true_chain": [
+      "diamond",
+      "v_shape"
+    ],
+    "gt_pair": [
+      "diamond",
+      "v_shape"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "diamond",
+      "v_shape"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 200,
+    "true_chain": [
+      "converging",
+      "encirclement",
+      "diamond"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "dispersed"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 11,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 201,
+    "true_chain": [
+      "converging",
+      "encirclement"
+    ],
+    "gt_pair": [
+      "converging",
+      "encirclement"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "A",
+    "rules_key_after": [
+      "converging",
+      "converging"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 2,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    },
+    "after_correct": false
+  },
+  {
+    "i": 202,
+    "true_chain": [
+      "column",
+      "v_shape"
+    ],
+    "gt_pair": [
+      "column",
+      "v_shape"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 3,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 203,
+    "true_chain": [
+      "column",
+      "dispersed",
+      "shield"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 204,
+    "true_chain": [
+      "encirclement",
+      "shield",
+      "diamond",
+      "encirclement"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 205,
+    "true_chain": [
+      "column",
+      "shield",
+      "converging"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "dispersed"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 206,
+    "true_chain": [
+      "shield"
+    ],
+    "gt_pair": [
+      "shield",
+      "shield"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "shield",
+      "dispersed"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 207,
+    "true_chain": [
+      "v_shape",
+      "shield",
+      "encirclement",
+      "dispersed"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 208,
+    "true_chain": [
+      "v_shape",
+      "dispersed"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "dispersed"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "v_shape"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 209,
+    "true_chain": [
+      "dispersed",
+      "column"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "column"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 210,
+    "true_chain": [
+      "converging",
+      "dispersed"
+    ],
+    "gt_pair": [
+      "converging",
+      "dispersed"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 211,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "encirclement",
+      "encirclement"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 212,
+    "true_chain": [
+      "converging",
+      "shield",
+      "converging"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 213,
+    "true_chain": [
+      "encirclement",
+      "diamond"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "diamond"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "encirclement"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 2,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 214,
+    "true_chain": [
+      "column",
+      "v_shape"
+    ],
+    "gt_pair": [
+      "column",
+      "v_shape"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "encirclement"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 215,
+    "true_chain": [
+      "encirclement",
+      "shield"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "shield"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "v_shape"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 216,
+    "true_chain": [
+      "encirclement",
+      "v_shape"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "v_shape"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "encirclement",
+      "encirclement"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 1,
+      "stripped_trailing": 3,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 217,
+    "true_chain": [
+      "v_shape",
+      "diamond",
+      "encirclement",
+      "dispersed"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "shield",
+      "shield"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 1,
+      "stripped_trailing": 15,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 218,
+    "true_chain": [
+      "column",
+      "diamond"
+    ],
+    "gt_pair": [
+      "column",
+      "diamond"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 219,
+    "true_chain": [
+      "dispersed",
+      "diamond",
+      "shield",
+      "dispersed"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 220,
+    "true_chain": [
+      "converging",
+      "shield",
+      "column"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 221,
+    "true_chain": [
+      "dispersed",
+      "diamond"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "diamond"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "dispersed"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 222,
+    "true_chain": [
+      "dispersed"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "dispersed"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "encirclement",
+      "encirclement"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 223,
+    "true_chain": [
+      "shield",
+      "dispersed",
+      "encirclement",
+      "converging"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 224,
+    "true_chain": [
+      "shield"
+    ],
+    "gt_pair": [
+      "shield",
+      "shield"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 225,
+    "true_chain": [
+      "column",
+      "shield",
+      "dispersed",
+      "encirclement"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 22,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 226,
+    "true_chain": [
+      "dispersed",
+      "column",
+      "dispersed",
+      "converging"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 227,
+    "true_chain": [
+      "shield",
+      "converging"
+    ],
+    "gt_pair": [
+      "shield",
+      "converging"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 228,
+    "true_chain": [
+      "v_shape"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "v_shape"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "dispersed"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 229,
+    "true_chain": [
+      "dispersed",
+      "column",
+      "dispersed",
+      "column"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 230,
+    "true_chain": [
+      "dispersed",
+      "encirclement",
+      "dispersed",
+      "shield"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "converging",
+      "shield"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 231,
+    "true_chain": [
+      "diamond"
+    ],
+    "gt_pair": [
+      "diamond",
+      "diamond"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "diamond",
+      "diamond"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 232,
+    "true_chain": [
+      "v_shape",
+      "encirclement",
+      "diamond"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 233,
+    "true_chain": [
+      "column",
+      "encirclement"
+    ],
+    "gt_pair": [
+      "column",
+      "encirclement"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 2,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 234,
+    "true_chain": [
+      "v_shape",
+      "column",
+      "v_shape"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 235,
+    "true_chain": [
+      "diamond",
+      "converging",
+      "encirclement",
+      "shield"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 236,
+    "true_chain": [
+      "shield",
+      "v_shape"
+    ],
+    "gt_pair": [
+      "shield",
+      "v_shape"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "shield",
+      "shield"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 2,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 237,
+    "true_chain": [
+      "encirclement",
+      "v_shape"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "v_shape"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "column"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 238,
+    "true_chain": [
+      "diamond",
+      "converging"
+    ],
+    "gt_pair": [
+      "diamond",
+      "converging"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "diamond",
+      "diamond"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 1,
+      "stripped_trailing": 0,
+      "mode": "all_unknown_probability_fallback",
+      "top1": "diamond",
+      "top1_p": 0.0825,
+      "top2": "dispersed",
+      "top2_p": 0.0132,
+      "margin": 0.0693,
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 239,
+    "true_chain": [
+      "column",
+      "diamond",
+      "encirclement",
+      "converging"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 240,
+    "true_chain": [
+      "column",
+      "shield"
+    ],
+    "gt_pair": [
+      "column",
+      "shield"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 241,
+    "true_chain": [
+      "dispersed"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "dispersed"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "dispersed"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 1,
+      "stripped_trailing": 0,
+      "mode": "all_unknown_probability_fallback",
+      "top1": "dispersed",
+      "top1_p": 0.0726,
+      "top2": "converging",
+      "top2_p": 0.0055,
+      "margin": 0.0671,
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 242,
+    "true_chain": [
+      "dispersed",
+      "converging",
+      "column",
+      "converging"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "shield",
+      "dispersed"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 243,
+    "true_chain": [
+      "shield",
+      "converging",
+      "column",
+      "converging"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 244,
+    "true_chain": [
+      "converging",
+      "dispersed",
+      "encirclement"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "column"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 245,
+    "true_chain": [
+      "converging"
+    ],
+    "gt_pair": [
+      "converging",
+      "converging"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "dispersed"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 1,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 246,
+    "true_chain": [
+      "shield",
+      "v_shape"
+    ],
+    "gt_pair": [
+      "shield",
+      "v_shape"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "shield",
+      "shield"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 2,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 247,
+    "true_chain": [
+      "v_shape",
+      "column",
+      "dispersed"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 248,
+    "true_chain": [
+      "dispersed",
+      "diamond",
+      "shield"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 249,
+    "true_chain": [
+      "dispersed",
+      "encirclement",
+      "column",
+      "dispersed"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 250,
+    "true_chain": [
+      "diamond"
+    ],
+    "gt_pair": [
+      "diamond",
+      "diamond"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 251,
+    "true_chain": [
+      "diamond",
+      "v_shape",
+      "diamond",
+      "column"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 252,
+    "true_chain": [
+      "diamond",
+      "encirclement",
+      "shield",
+      "column"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 253,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "encirclement",
+      "encirclement"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 254,
+    "true_chain": [
+      "column",
+      "v_shape"
+    ],
+    "gt_pair": [
+      "column",
+      "v_shape"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 2,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 255,
+    "true_chain": [
+      "diamond"
+    ],
+    "gt_pair": [
+      "diamond",
+      "diamond"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "diamond",
+      "dispersed"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 256,
+    "true_chain": [
+      "diamond",
+      "column",
+      "diamond",
+      "column"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "diamond",
+      "column"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 257,
+    "true_chain": [
+      "v_shape",
+      "diamond",
+      "v_shape",
+      "encirclement"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 258,
+    "true_chain": [
+      "converging",
+      "v_shape",
+      "diamond"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 259,
+    "true_chain": [
+      "column",
+      "encirclement",
+      "shield",
+      "v_shape"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 2,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 260,
+    "true_chain": [
+      "shield",
+      "encirclement"
+    ],
+    "gt_pair": [
+      "shield",
+      "encirclement"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "shield",
+      "shield"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 2,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 261,
+    "true_chain": [
+      "shield",
+      "dispersed"
+    ],
+    "gt_pair": [
+      "shield",
+      "dispersed"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 262,
+    "true_chain": [
+      "column"
+    ],
+    "gt_pair": [
+      "column",
+      "column"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 1,
+      "stripped_trailing": 0,
+      "mode": "all_unknown_probability_fallback",
+      "top1": "column",
+      "top1_p": 0.3395,
+      "top2": "converging",
+      "top2_p": 0.0034,
+      "margin": 0.3361,
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 263,
+    "true_chain": [
+      "column"
+    ],
+    "gt_pair": [
+      "column",
+      "column"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 1,
+      "stripped_trailing": 1,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 264,
+    "true_chain": [
+      "v_shape",
+      "encirclement"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "encirclement"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "v_shape"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 265,
+    "true_chain": [
+      "v_shape",
+      "encirclement"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "encirclement"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "v_shape"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 2,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 266,
+    "true_chain": [
+      "encirclement",
+      "dispersed"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "dispersed"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "dispersed"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 2,
+      "stripped_trailing": 0,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 267,
+    "true_chain": [
+      "converging"
+    ],
+    "gt_pair": [
+      "converging",
+      "converging"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "dispersed"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 1,
+      "stripped_trailing": 0,
+      "mode": "all_unknown_probability_fallback",
+      "top1": "dispersed",
+      "top1_p": 0.0933,
+      "top2": "converging",
+      "top2_p": 0.0131,
+      "margin": 0.0802,
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 268,
+    "true_chain": [
+      "diamond",
+      "encirclement",
+      "converging",
+      "encirclement"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 269,
+    "true_chain": [
+      "shield"
+    ],
+    "gt_pair": [
+      "shield",
+      "shield"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "shield",
+      "shield"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 270,
+    "true_chain": [
+      "encirclement",
+      "column"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "column"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "encirclement",
+      "column"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 271,
+    "true_chain": [
+      "diamond"
+    ],
+    "gt_pair": [
+      "diamond",
+      "diamond"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "diamond",
+      "diamond"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 272,
+    "true_chain": [
+      "converging",
+      "column",
+      "v_shape",
+      "diamond"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 273,
+    "true_chain": [
+      "diamond",
+      "v_shape",
+      "dispersed"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "shield",
+      "shield"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 2,
+      "stripped_trailing": 3,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 274,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "encirclement",
+      "encirclement"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 275,
+    "true_chain": [
+      "column"
+    ],
+    "gt_pair": [
+      "column",
+      "column"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 2,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 276,
+    "true_chain": [
+      "shield",
+      "converging",
+      "dispersed",
+      "v_shape"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 277,
+    "true_chain": [
+      "dispersed",
+      "shield",
+      "column",
+      "encirclement"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "column"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 278,
+    "true_chain": [
+      "column",
+      "diamond",
+      "converging"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 0.8,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 279,
+    "true_chain": [
+      "column",
+      "shield"
+    ],
+    "gt_pair": [
+      "column",
+      "shield"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 280,
+    "true_chain": [
+      "v_shape",
+      "shield",
+      "encirclement"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "column"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 281,
+    "true_chain": [
+      "v_shape",
+      "shield"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "shield"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 282,
+    "true_chain": [
+      "v_shape",
+      "diamond"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "diamond"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "v_shape"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 2,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 283,
+    "true_chain": [
+      "v_shape",
+      "column",
+      "converging"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 284,
+    "true_chain": [
+      "shield",
+      "v_shape"
+    ],
+    "gt_pair": [
+      "shield",
+      "v_shape"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 285,
+    "true_chain": [
+      "dispersed",
+      "diamond"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "diamond"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "encirclement",
+      "encirclement"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 2,
+      "stripped_trailing": 0,
+      "mode": "all_unknown_probability_fallback",
+      "top1": "encirclement",
+      "top1_p": 0.1975,
+      "top2": "v_shape",
+      "top2_p": 0.0476,
+      "margin": 0.1499,
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 286,
+    "true_chain": [
+      "encirclement",
+      "column"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "column"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "encirclement",
+      "column"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 287,
+    "true_chain": [
+      "shield",
+      "diamond"
+    ],
+    "gt_pair": [
+      "shield",
+      "diamond"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "shield",
+      "shield"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 1,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 288,
+    "true_chain": [
+      "dispersed",
+      "shield",
+      "column"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 289,
+    "true_chain": [
+      "column",
+      "converging",
+      "encirclement",
+      "converging"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 290,
+    "true_chain": [
+      "converging",
+      "diamond"
+    ],
+    "gt_pair": [
+      "converging",
+      "diamond"
+    ],
+    "bucket_before": "A",
+    "bucket_after": "A",
+    "rules_key_after": [
+      "dispersed",
+      "dispersed"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    },
+    "after_correct": false
+  },
+  {
+    "i": 291,
+    "true_chain": [
+      "dispersed",
+      "column",
+      "diamond",
+      "converging"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 0.75,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 292,
+    "true_chain": [
+      "dispersed",
+      "v_shape",
+      "converging"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 293,
+    "true_chain": [
+      "converging"
+    ],
+    "gt_pair": [
+      "converging",
+      "converging"
+    ],
+    "bucket_before": "A",
+    "bucket_after": "A",
+    "rules_key_after": [
+      "dispersed",
+      "dispersed"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    },
+    "after_correct": false
+  },
+  {
+    "i": 294,
+    "true_chain": [
+      "dispersed",
+      "converging",
+      "column"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "column"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 295,
+    "true_chain": [
+      "encirclement",
+      "v_shape",
+      "converging",
+      "dispersed"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 1,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 0.7143,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 296,
+    "true_chain": [
+      "column",
+      "diamond",
+      "converging"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "v_shape"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 4,
+      "stripped_trailing": 1,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 297,
+    "true_chain": [
+      "dispersed",
+      "diamond",
+      "column",
+      "v_shape"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "shield",
+      "shield"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 0.7778,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 298,
+    "true_chain": [
+      "dispersed",
+      "shield",
+      "diamond",
+      "shield"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "shield"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 299,
+    "true_chain": [
+      "v_shape",
+      "dispersed"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "dispersed"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 300,
+    "true_chain": [
+      "diamond",
+      "dispersed",
+      "encirclement",
+      "diamond"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 301,
+    "true_chain": [
+      "encirclement",
+      "dispersed"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "dispersed"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 302,
+    "true_chain": [
+      "shield"
+    ],
+    "gt_pair": [
+      "shield",
+      "shield"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "shield",
+      "shield"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 303,
+    "true_chain": [
+      "shield"
+    ],
+    "gt_pair": [
+      "shield",
+      "shield"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 304,
+    "true_chain": [
+      "column",
+      "shield",
+      "converging",
+      "encirclement"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 305,
+    "true_chain": [
+      "column",
+      "dispersed",
+      "encirclement",
+      "v_shape"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "shield"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 0.7,
+      "frac_second_half": 0.7,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 306,
+    "true_chain": [
+      "dispersed",
+      "column"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "column"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 307,
+    "true_chain": [
+      "converging",
+      "encirclement",
+      "shield",
+      "dispersed"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 308,
+    "true_chain": [
+      "v_shape",
+      "converging"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "converging"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "v_shape"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 2,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 309,
+    "true_chain": [
+      "shield",
+      "column",
+      "shield",
+      "dispersed"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 2,
+      "stripped_trailing": 6,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 310,
+    "true_chain": [
+      "shield",
+      "column"
+    ],
+    "gt_pair": [
+      "shield",
+      "column"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 311,
+    "true_chain": [
+      "column",
+      "converging",
+      "dispersed"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 312,
+    "true_chain": [
+      "v_shape",
+      "diamond",
+      "shield",
+      "converging"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "diamond",
+      "dispersed"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 313,
+    "true_chain": [
+      "diamond",
+      "column",
+      "dispersed",
+      "column"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 0.8,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 314,
+    "true_chain": [
+      "converging",
+      "shield"
+    ],
+    "gt_pair": [
+      "converging",
+      "shield"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "converging",
+      "converging"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 1,
+      "stripped_trailing": 0,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 315,
+    "true_chain": [
+      "column",
+      "diamond",
+      "converging",
+      "diamond"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 2,
+      "stripped_trailing": 7,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 316,
+    "true_chain": [
+      "diamond"
+    ],
+    "gt_pair": [
+      "diamond",
+      "diamond"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "diamond",
+      "diamond"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 317,
+    "true_chain": [
+      "shield"
+    ],
+    "gt_pair": [
+      "shield",
+      "shield"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "shield",
+      "shield"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 318,
+    "true_chain": [
+      "v_shape",
+      "column",
+      "encirclement",
+      "v_shape"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "shield",
+      "shield"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 8,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 319,
+    "true_chain": [
+      "v_shape",
+      "dispersed"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "dispersed"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "v_shape"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 1,
+      "stripped_trailing": 0,
+      "mode": "all_unknown_probability_fallback",
+      "top1": "v_shape",
+      "top1_p": 0.2883,
+      "top2": "encirclement",
+      "top2_p": 0.028,
+      "margin": 0.2603,
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 320,
+    "true_chain": [
+      "diamond",
+      "dispersed",
+      "diamond",
+      "v_shape"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "shield"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 321,
+    "true_chain": [
+      "v_shape",
+      "shield",
+      "v_shape"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 322,
+    "true_chain": [
+      "converging",
+      "dispersed",
+      "diamond"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "dispersed"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 323,
+    "true_chain": [
+      "v_shape",
+      "diamond",
+      "shield",
+      "converging"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 324,
+    "true_chain": [
+      "v_shape",
+      "encirclement"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "encirclement"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 325,
+    "true_chain": [
+      "column",
+      "shield",
+      "converging",
+      "column"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 326,
+    "true_chain": [
+      "diamond",
+      "v_shape"
+    ],
+    "gt_pair": [
+      "diamond",
+      "v_shape"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "diamond",
+      "column"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 327,
+    "true_chain": [
+      "diamond",
+      "v_shape",
+      "converging",
+      "shield"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 328,
+    "true_chain": [
+      "dispersed",
+      "shield",
+      "diamond"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 329,
+    "true_chain": [
+      "converging"
+    ],
+    "gt_pair": [
+      "converging",
+      "converging"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "dispersed"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 1,
+      "stripped_trailing": 0,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 330,
+    "true_chain": [
+      "converging"
+    ],
+    "gt_pair": [
+      "converging",
+      "converging"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "v_shape"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 1,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 331,
+    "true_chain": [
+      "column",
+      "shield",
+      "v_shape"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "diamond",
+      "column"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 332,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "v_shape"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 1,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 333,
+    "true_chain": [
+      "column",
+      "diamond",
+      "encirclement",
+      "diamond"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 334,
+    "true_chain": [
+      "converging",
+      "encirclement",
+      "converging",
+      "diamond"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 335,
+    "true_chain": [
+      "dispersed",
+      "diamond",
+      "encirclement"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 336,
+    "true_chain": [
+      "converging",
+      "v_shape",
+      "encirclement",
+      "diamond"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 337,
+    "true_chain": [
+      "diamond",
+      "column"
+    ],
+    "gt_pair": [
+      "diamond",
+      "column"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "diamond",
+      "converging"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 338,
+    "true_chain": [
+      "column"
+    ],
+    "gt_pair": [
+      "column",
+      "column"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 1,
+      "stripped_trailing": 0,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 339,
+    "true_chain": [
+      "diamond"
+    ],
+    "gt_pair": [
+      "diamond",
+      "diamond"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "diamond",
+      "column"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 340,
+    "true_chain": [
+      "v_shape",
+      "diamond"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "diamond"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 341,
+    "true_chain": [
+      "v_shape",
+      "encirclement"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "encirclement"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "v_shape"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 2,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 342,
+    "true_chain": [
+      "converging",
+      "shield",
+      "encirclement",
+      "dispersed"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 343,
+    "true_chain": [
+      "encirclement",
+      "dispersed",
+      "diamond",
+      "dispersed"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "shield",
+      "dispersed"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 344,
+    "true_chain": [
+      "dispersed",
+      "v_shape"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "v_shape"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 345,
+    "true_chain": [
+      "diamond"
+    ],
+    "gt_pair": [
+      "diamond",
+      "diamond"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "diamond",
+      "diamond"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 346,
+    "true_chain": [
+      "diamond",
+      "shield",
+      "v_shape"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 347,
+    "true_chain": [
+      "encirclement",
+      "column",
+      "v_shape",
+      "shield"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 348,
+    "true_chain": [
+      "column",
+      "diamond"
+    ],
+    "gt_pair": [
+      "column",
+      "diamond"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 349,
+    "true_chain": [
+      "encirclement",
+      "dispersed",
+      "shield"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "dispersed"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 2,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 350,
+    "true_chain": [
+      "converging",
+      "column",
+      "encirclement"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 351,
+    "true_chain": [
+      "v_shape",
+      "encirclement",
+      "column"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 352,
+    "true_chain": [
+      "v_shape",
+      "converging",
+      "diamond"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 353,
+    "true_chain": [
+      "converging",
+      "v_shape"
+    ],
+    "gt_pair": [
+      "converging",
+      "v_shape"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "converging"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 354,
+    "true_chain": [
+      "diamond",
+      "encirclement"
+    ],
+    "gt_pair": [
+      "diamond",
+      "encirclement"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 355,
+    "true_chain": [
+      "converging",
+      "dispersed"
+    ],
+    "gt_pair": [
+      "converging",
+      "dispersed"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "dispersed"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 2,
+      "stripped_trailing": 0,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 356,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 357,
+    "true_chain": [
+      "v_shape",
+      "column",
+      "v_shape",
+      "column"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 2,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 358,
+    "true_chain": [
+      "v_shape",
+      "converging",
+      "column",
+      "encirclement"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 359,
+    "true_chain": [
+      "v_shape"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "v_shape"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "v_shape"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 360,
+    "true_chain": [
+      "encirclement",
+      "diamond"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "diamond"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "converging"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 361,
+    "true_chain": [
+      "column"
+    ],
+    "gt_pair": [
+      "column",
+      "column"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 1,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 362,
+    "true_chain": [
+      "encirclement",
+      "converging",
+      "column"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "column"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 363,
+    "true_chain": [
+      "shield",
+      "column"
+    ],
+    "gt_pair": [
+      "shield",
+      "column"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "shield",
+      "shield"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 1,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 364,
+    "true_chain": [
+      "shield",
+      "converging",
+      "shield"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "shield"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 365,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "v_shape"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 366,
+    "true_chain": [
+      "column",
+      "v_shape",
+      "encirclement"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "v_shape"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 3,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 367,
+    "true_chain": [
+      "dispersed"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "dispersed"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 368,
+    "true_chain": [
+      "diamond",
+      "encirclement",
+      "converging"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "converging",
+      "encirclement"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 369,
+    "true_chain": [
+      "column",
+      "encirclement"
+    ],
+    "gt_pair": [
+      "column",
+      "encirclement"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 370,
+    "true_chain": [
+      "encirclement",
+      "column"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "column"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 371,
+    "true_chain": [
+      "dispersed"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "dispersed"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 2,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 372,
+    "true_chain": [
+      "column",
+      "shield"
+    ],
+    "gt_pair": [
+      "column",
+      "shield"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 373,
+    "true_chain": [
+      "shield",
+      "converging"
+    ],
+    "gt_pair": [
+      "shield",
+      "converging"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "shield",
+      "shield"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 2,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 374,
+    "true_chain": [
+      "encirclement",
+      "column",
+      "encirclement"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 375,
+    "true_chain": [
+      "shield",
+      "encirclement"
+    ],
+    "gt_pair": [
+      "shield",
+      "encirclement"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "shield",
+      "encirclement"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 376,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "encirclement",
+      "encirclement"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 1,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 377,
+    "true_chain": [
+      "dispersed",
+      "column"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "column"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "diamond",
+      "diamond"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 2,
+      "stripped_trailing": 0,
+      "mode": "all_unknown_probability_fallback",
+      "top1": "diamond",
+      "top1_p": 0.1109,
+      "top2": "shield",
+      "top2_p": 0.042,
+      "margin": 0.0688,
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 378,
+    "true_chain": [
+      "dispersed",
+      "v_shape",
+      "column"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 379,
+    "true_chain": [
+      "v_shape",
+      "converging"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "converging"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "shield"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 380,
+    "true_chain": [
+      "encirclement",
+      "diamond",
+      "v_shape"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 381,
+    "true_chain": [
+      "v_shape",
+      "dispersed",
+      "v_shape",
+      "encirclement"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 382,
+    "true_chain": [
+      "converging",
+      "column",
+      "v_shape",
+      "column"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 2,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 383,
+    "true_chain": [
+      "encirclement",
+      "v_shape",
+      "dispersed",
+      "diamond"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 0.8182,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 384,
+    "true_chain": [
+      "dispersed",
+      "converging",
+      "v_shape"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 385,
+    "true_chain": [
+      "column"
+    ],
+    "gt_pair": [
+      "column",
+      "column"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 386,
+    "true_chain": [
+      "converging",
+      "diamond",
+      "shield"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 387,
+    "true_chain": [
+      "encirclement",
+      "shield",
+      "dispersed",
+      "v_shape"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "encirclement",
+      "column"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 388,
+    "true_chain": [
+      "shield",
+      "diamond"
+    ],
+    "gt_pair": [
+      "shield",
+      "diamond"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "shield",
+      "shield"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 4,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 389,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "encirclement",
+      "encirclement"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 390,
+    "true_chain": [
+      "converging"
+    ],
+    "gt_pair": [
+      "converging",
+      "converging"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "dispersed"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 2,
+      "stripped_trailing": 0,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 391,
+    "true_chain": [
+      "converging",
+      "dispersed",
+      "converging"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "shield",
+      "shield"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 2,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 392,
+    "true_chain": [
+      "converging",
+      "diamond",
+      "column",
+      "shield"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "column"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 393,
+    "true_chain": [
+      "v_shape",
+      "column",
+      "encirclement"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 394,
+    "true_chain": [
+      "converging",
+      "dispersed",
+      "converging",
+      "column"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "encirclement",
+      "encirclement"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 20,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 395,
+    "true_chain": [
+      "dispersed"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "dispersed"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "converging"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 1,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 396,
+    "true_chain": [
+      "diamond",
+      "shield",
+      "column",
+      "diamond"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "diamond",
+      "column"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 397,
+    "true_chain": [
+      "dispersed",
+      "shield",
+      "diamond",
+      "v_shape"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 398,
+    "true_chain": [
+      "converging",
+      "encirclement",
+      "v_shape",
+      "dispersed"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 399,
+    "true_chain": [
+      "v_shape",
+      "dispersed"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "dispersed"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "v_shape"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 3,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 400,
+    "true_chain": [
+      "shield",
+      "diamond",
+      "encirclement",
+      "dispersed"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 401,
+    "true_chain": [
+      "diamond"
+    ],
+    "gt_pair": [
+      "diamond",
+      "diamond"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "diamond",
+      "diamond"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 402,
+    "true_chain": [
+      "diamond"
+    ],
+    "gt_pair": [
+      "diamond",
+      "diamond"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "diamond",
+      "shield"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 403,
+    "true_chain": [
+      "converging",
+      "dispersed",
+      "column"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 404,
+    "true_chain": [
+      "v_shape",
+      "diamond"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "diamond"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 405,
+    "true_chain": [
+      "v_shape",
+      "column"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "column"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "v_shape"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 2,
+      "stripped_trailing": 0,
+      "mode": "all_unknown_probability_fallback",
+      "top1": "v_shape",
+      "top1_p": 0.0861,
+      "top2": "encirclement",
+      "top2_p": 0.0307,
+      "margin": 0.0553,
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 406,
+    "true_chain": [
+      "converging"
+    ],
+    "gt_pair": [
+      "converging",
+      "converging"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "A",
+    "rules_key_after": [
+      "dispersed",
+      "dispersed"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 1,
+      "stripped_trailing": 0,
+      "mode": "all_unknown_probability_fallback",
+      "top1": "dispersed",
+      "top1_p": 0.2008,
+      "top2": "diamond",
+      "top2_p": 0.0047,
+      "margin": 0.1961,
+      "recovered": true,
+      "low_confidence": true
+    },
+    "after_correct": false
+  },
+  {
+    "i": 407,
+    "true_chain": [
+      "column",
+      "converging",
+      "encirclement"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 7,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 408,
+    "true_chain": [
+      "converging",
+      "column"
+    ],
+    "gt_pair": [
+      "converging",
+      "column"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "dispersed"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 1,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 409,
+    "true_chain": [
+      "diamond",
+      "column",
+      "encirclement"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "diamond",
+      "column"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 410,
+    "true_chain": [
+      "diamond"
+    ],
+    "gt_pair": [
+      "diamond",
+      "diamond"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "diamond",
+      "shield"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 411,
+    "true_chain": [
+      "column",
+      "shield",
+      "diamond"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 412,
+    "true_chain": [
+      "encirclement",
+      "column",
+      "encirclement"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "encirclement",
+      "column"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 413,
+    "true_chain": [
+      "v_shape",
+      "column",
+      "converging",
+      "diamond"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 1,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 414,
+    "true_chain": [
+      "shield",
+      "dispersed",
+      "encirclement"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 415,
+    "true_chain": [
+      "v_shape",
+      "column",
+      "shield"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "shield"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 416,
+    "true_chain": [
+      "dispersed",
+      "column",
+      "dispersed"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "shield"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 417,
+    "true_chain": [
+      "v_shape"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "v_shape"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "v_shape"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 1,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 418,
+    "true_chain": [
+      "shield",
+      "dispersed"
+    ],
+    "gt_pair": [
+      "shield",
+      "dispersed"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 419,
+    "true_chain": [
+      "column",
+      "v_shape",
+      "encirclement",
+      "column"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 420,
+    "true_chain": [
+      "converging"
+    ],
+    "gt_pair": [
+      "converging",
+      "converging"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 421,
+    "true_chain": [
+      "dispersed",
+      "converging",
+      "dispersed",
+      "converging"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 422,
+    "true_chain": [
+      "diamond",
+      "shield",
+      "column",
+      "diamond"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 423,
+    "true_chain": [
+      "column"
+    ],
+    "gt_pair": [
+      "column",
+      "column"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 1,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 424,
+    "true_chain": [
+      "converging",
+      "shield",
+      "converging",
+      "v_shape"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 425,
+    "true_chain": [
+      "diamond",
+      "encirclement"
+    ],
+    "gt_pair": [
+      "diamond",
+      "encirclement"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "diamond",
+      "diamond"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 2,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 426,
+    "true_chain": [
+      "dispersed",
+      "v_shape",
+      "encirclement"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 427,
+    "true_chain": [
+      "v_shape",
+      "column"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "column"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "column"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 428,
+    "true_chain": [
+      "converging",
+      "column"
+    ],
+    "gt_pair": [
+      "converging",
+      "column"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 429,
+    "true_chain": [
+      "diamond",
+      "column",
+      "shield"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "converging"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 430,
+    "true_chain": [
+      "column",
+      "shield",
+      "diamond",
+      "encirclement"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "shield",
+      "dispersed"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 431,
+    "true_chain": [
+      "diamond",
+      "v_shape"
+    ],
+    "gt_pair": [
+      "diamond",
+      "v_shape"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "diamond",
+      "column"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 432,
+    "true_chain": [
+      "shield",
+      "v_shape",
+      "diamond",
+      "dispersed"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 433,
+    "true_chain": [
+      "shield",
+      "encirclement"
+    ],
+    "gt_pair": [
+      "shield",
+      "encirclement"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "shield",
+      "shield"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 2,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 434,
+    "true_chain": [
+      "v_shape",
+      "diamond"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "diamond"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "shield"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 435,
+    "true_chain": [
+      "converging"
+    ],
+    "gt_pair": [
+      "converging",
+      "converging"
+    ],
+    "bucket_before": "A",
+    "bucket_after": "A",
+    "rules_key_after": [
+      "shield",
+      "dispersed"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    },
+    "after_correct": false
+  },
+  {
+    "i": 436,
+    "true_chain": [
+      "shield"
+    ],
+    "gt_pair": [
+      "shield",
+      "shield"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "shield",
+      "shield"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 437,
+    "true_chain": [
+      "diamond",
+      "v_shape"
+    ],
+    "gt_pair": [
+      "diamond",
+      "v_shape"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "diamond",
+      "v_shape"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 438,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "encirclement",
+      "dispersed"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 439,
+    "true_chain": [
+      "dispersed",
+      "converging"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "converging"
+    ],
+    "bucket_before": "A",
+    "bucket_after": "A",
+    "rules_key_after": [
+      "dispersed",
+      "dispersed"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    },
+    "after_correct": false
+  },
+  {
+    "i": 440,
+    "true_chain": [
+      "dispersed"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "dispersed"
+    ],
+    "bucket_before": "A",
+    "bucket_after": "A",
+    "rules_key_after": [
+      "dispersed",
+      "dispersed"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    },
+    "after_correct": true
+  },
+  {
+    "i": 441,
+    "true_chain": [
+      "dispersed",
+      "converging",
+      "column",
+      "shield"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "column"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 442,
+    "true_chain": [
+      "shield"
+    ],
+    "gt_pair": [
+      "shield",
+      "shield"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "shield",
+      "shield"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 443,
+    "true_chain": [
+      "v_shape",
+      "column"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "column"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "encirclement"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 3,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 444,
+    "true_chain": [
+      "dispersed",
+      "converging"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "converging"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 445,
+    "true_chain": [
+      "dispersed"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "dispersed"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 446,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "encirclement",
+      "encirclement"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 3,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 447,
+    "true_chain": [
+      "column"
+    ],
+    "gt_pair": [
+      "column",
+      "column"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 2,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 448,
+    "true_chain": [
+      "converging",
+      "diamond",
+      "converging",
+      "diamond"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 449,
+    "true_chain": [
+      "column",
+      "converging",
+      "column"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 450,
+    "true_chain": [
+      "dispersed",
+      "v_shape",
+      "converging",
+      "diamond"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 451,
+    "true_chain": [
+      "converging",
+      "shield"
+    ],
+    "gt_pair": [
+      "converging",
+      "shield"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "shield"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 452,
+    "true_chain": [
+      "diamond",
+      "column",
+      "v_shape"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 453,
+    "true_chain": [
+      "diamond",
+      "converging",
+      "dispersed"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "diamond",
+      "dispersed"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 4,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 454,
+    "true_chain": [
+      "dispersed",
+      "encirclement"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "encirclement"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 455,
+    "true_chain": [
+      "diamond",
+      "encirclement",
+      "column",
+      "shield"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 456,
+    "true_chain": [
+      "converging",
+      "encirclement",
+      "dispersed"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "converging",
+      "shield"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 457,
+    "true_chain": [
+      "dispersed",
+      "encirclement",
+      "diamond",
+      "v_shape"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 458,
+    "true_chain": [
+      "shield",
+      "v_shape"
+    ],
+    "gt_pair": [
+      "shield",
+      "v_shape"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 459,
+    "true_chain": [
+      "converging",
+      "encirclement",
+      "column",
+      "diamond"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 460,
+    "true_chain": [
+      "column"
+    ],
+    "gt_pair": [
+      "column",
+      "column"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 461,
+    "true_chain": [
+      "dispersed"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "dispersed"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "dispersed"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 1,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 462,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "encirclement",
+      "encirclement"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 2,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 463,
+    "true_chain": [
+      "shield",
+      "encirclement"
+    ],
+    "gt_pair": [
+      "shield",
+      "encirclement"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "shield",
+      "shield"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 4,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 464,
+    "true_chain": [
+      "column",
+      "encirclement"
+    ],
+    "gt_pair": [
+      "column",
+      "encirclement"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 465,
+    "true_chain": [
+      "v_shape",
+      "shield",
+      "converging"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 466,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "encirclement",
+      "encirclement"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 1,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 467,
+    "true_chain": [
+      "converging",
+      "encirclement",
+      "shield",
+      "column"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 468,
+    "true_chain": [
+      "converging",
+      "dispersed",
+      "converging",
+      "v_shape"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "dispersed"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 1,
+      "stripped_trailing": 5,
+      "mode": "majority_halves",
+      "frac_first_half": 0.8,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 469,
+    "true_chain": [
+      "diamond",
+      "encirclement",
+      "converging"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "diamond",
+      "shield"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 470,
+    "true_chain": [
+      "v_shape"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "v_shape"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "v_shape"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 471,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 472,
+    "true_chain": [
+      "v_shape",
+      "converging"
+    ],
+    "gt_pair": [
+      "v_shape",
+      "converging"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "v_shape"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 3,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 473,
+    "true_chain": [
+      "v_shape",
+      "dispersed",
+      "shield",
+      "column"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 474,
+    "true_chain": [
+      "dispersed",
+      "column"
+    ],
+    "gt_pair": [
+      "dispersed",
+      "column"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "converging"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 1,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 475,
+    "true_chain": [
+      "diamond",
+      "shield"
+    ],
+    "gt_pair": [
+      "diamond",
+      "shield"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "diamond",
+      "shield"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 476,
+    "true_chain": [
+      "dispersed",
+      "diamond",
+      "shield"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "column"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 477,
+    "true_chain": [
+      "v_shape",
+      "dispersed",
+      "column"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "v_shape",
+      "v_shape"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 2,
+      "stripped_trailing": 3,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 478,
+    "true_chain": [
+      "dispersed",
+      "encirclement",
+      "shield",
+      "diamond"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 479,
+    "true_chain": [
+      "column",
+      "shield",
+      "encirclement",
+      "column"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 480,
+    "true_chain": [
+      "encirclement",
+      "converging",
+      "v_shape",
+      "shield"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 2,
+      "stripped_trailing": 1,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 0.875,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 481,
+    "true_chain": [
+      "shield",
+      "v_shape",
+      "diamond",
+      "encirclement"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 0.7,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 482,
+    "true_chain": [
+      "diamond",
+      "v_shape",
+      "column"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "diamond",
+      "column"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 483,
+    "true_chain": [
+      "converging",
+      "diamond"
+    ],
+    "gt_pair": [
+      "converging",
+      "diamond"
+    ],
+    "bucket_before": "A",
+    "bucket_after": "A",
+    "rules_key_after": [
+      "dispersed",
+      "dispersed"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    },
+    "after_correct": false
+  },
+  {
+    "i": 484,
+    "true_chain": [
+      "column"
+    ],
+    "gt_pair": [
+      "column",
+      "column"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 1,
+      "stripped_trailing": 0,
+      "mode": "all_unknown_probability_fallback",
+      "top1": "column",
+      "top1_p": 0.1858,
+      "top2": "converging",
+      "top2_p": 0.0032,
+      "margin": 0.1826,
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 485,
+    "true_chain": [
+      "v_shape",
+      "dispersed",
+      "column",
+      "dispersed"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "shield"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 486,
+    "true_chain": [
+      "column"
+    ],
+    "gt_pair": [
+      "column",
+      "column"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "column"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 2,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 487,
+    "true_chain": [
+      "diamond",
+      "dispersed"
+    ],
+    "gt_pair": [
+      "diamond",
+      "dispersed"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "diamond",
+      "dispersed"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 488,
+    "true_chain": [
+      "column",
+      "dispersed",
+      "encirclement"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 489,
+    "true_chain": [
+      "diamond",
+      "encirclement"
+    ],
+    "gt_pair": [
+      "diamond",
+      "encirclement"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "converging",
+      "converging"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 2,
+      "stripped_trailing": 0,
+      "mode": "single_window",
+      "recovered": true,
+      "low_confidence": true
+    }
+  },
+  {
+    "i": 490,
+    "true_chain": [
+      "encirclement"
+    ],
+    "gt_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "encirclement",
+      "encirclement"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 0,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 491,
+    "true_chain": [
+      "v_shape",
+      "shield",
+      "v_shape",
+      "encirclement"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 492,
+    "true_chain": [
+      "v_shape",
+      "converging",
+      "diamond",
+      "dispersed"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 493,
+    "true_chain": [
+      "column",
+      "dispersed"
+    ],
+    "gt_pair": [
+      "column",
+      "dispersed"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "column",
+      "dispersed"
+    ],
+    "robust_recovery": null
+  },
+  {
+    "i": 494,
+    "true_chain": [
+      "converging",
+      "column",
+      "diamond"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 495,
+    "true_chain": [
+      "converging"
+    ],
+    "gt_pair": [
+      "converging",
+      "converging"
+    ],
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "dispersed",
+      "shield"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 1,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 1.0,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 496,
+    "true_chain": [
+      "column",
+      "converging",
+      "dispersed"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 497,
+    "true_chain": [
+      "converging",
+      "shield",
+      "diamond"
+    ],
+    "gt_pair": null,
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  },
+  {
+    "i": 498,
+    "true_chain": [
+      "converging",
+      "encirclement",
+      "column",
+      "converging"
+    ],
+    "gt_pair": null,
+    "bucket_before": "B",
+    "bucket_after": "B",
+    "rules_key_after": [
+      "shield",
+      "shield"
+    ],
+    "robust_recovery": {
+      "stripped_leading": 7,
+      "stripped_trailing": 0,
+      "mode": "majority_halves",
+      "frac_first_half": 0.75,
+      "frac_second_half": 1.0,
+      "recovered": true,
+      "low_confidence": false
+    }
+  },
+  {
+    "i": 499,
+    "true_chain": [
+      "shield"
+    ],
+    "gt_pair": [
+      "shield",
+      "shield"
+    ],
+    "bucket_before": "C",
+    "bucket_after": "C",
+    "rules_key_after": null,
+    "robust_recovery": null
+  }
+]

@@ -1,0 +1,37 @@
+{
+  "v2": {
+    "conditional": 0.4873469387755102,
+    "unconditional": 0.4873469387755102,
+    "abstention": 0.0,
+    "n_total": 3675,
+    "n_scored": 3675
+  },
+  "rules_in_prompt": {
+    "conditional": 0.35719754977029095,
+    "unconditional": 0.25387755102040815,
+    "abstention": 0.2892517006802721,
+    "n_total": 3675,
+    "n_scored": 2612
+  },
+  "v3b-fix": {
+    "conditional": 0.3350988700564972,
+    "unconditional": 0.2582312925170068,
+    "abstention": 0.22938775510204082,
+    "n_total": 3675,
+    "n_scored": 2832
+  },
+  "pipeline_v2": {
+    "conditional": 0.22252252252252253,
+    "unconditional": 0.06721088435374149,
+    "abstention": 0.6979591836734694,
+    "n_total": 3675,
+    "n_scored": 1110
+  },
+  "pipeline_v2-robust": {
+    "conditional": 0.2417910447761194,
+    "unconditional": 0.022040816326530613,
+    "abstention": 0.908843537414966,
+    "n_total": 3675,
+    "n_scored": 335
+  }
+}

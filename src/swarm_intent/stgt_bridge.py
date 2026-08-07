@@ -49,9 +49,42 @@ Also caps ``key_windows`` at a fixed maximum (long streams over many strides
 would otherwise grow the prompt unboundedly) and never emits a character
 absent from every training prompt (e.g. upstream's own ``build_tactical_context``
 emits a literal "warning" glyph the fine-tuned models have never seen).
+
+ROBUST REDUCTION (AUDIT.md sec AG, ``robust=True``, default ``False``): sec AF's
+real-STGT-output eval found the UNANIMITY reduction above throws away 240/249
+(96.4%) of real sequences whose generator ground truth IS a clean (a,b) pair --
+sec AG step 1 diagnosed why: 25.7% end in a trailing "transitioning" run that
+breaks unanimity even though every earlier window was clean (a windowing
+artefact, sec AF step 4), 22.5% are all-transitioning with no unanimous window
+at all, and 46.2% (the largest single cause) are guarded by the dispersed/
+converging ambiguity check above -- a real upstream defect, not brittleness,
+deliberately NOT touched here. ``robust=True`` fixes the first two causes only:
+  a. strip leading/trailing "transitioning" runs before reducing -- a window
+     ending mid-transition still has a determinable start formation.
+  b. reduce by MAJORITY, not unanimity: the modal NON-transitioning formation
+     in the first half and the second half of what's left after (a); if they
+     differ and each holds a plurality >= ``robust_threshold`` (of that half's
+     FULL length, so a half dominated by noise still fails), that is the
+     (a,b) pair.
+  c. if every window is transitioning even after (a) (nothing left to split),
+     aggregate ``class_probabilities`` across all windows and take the top-2
+     non-transitioning classes; if well separated (margin >=
+     ``ALL_UNKNOWN_FALLBACK_MARGIN``), treat as a resolvable steady state,
+     flagged low-confidence.
+  d. the dispersed/converging ambiguity guard is UNCONDITIONAL -- it still
+     applies to a robustly-recovered pair exactly as it does to a unanimous
+     one, per this module's docstring point 4. Sec AG step 2's own dev-set
+     tuning found this guard alone still blocks 92/96 (95.8%) of otherwise-
+     robustly-recovered cases -- reported honestly, not hidden, in AUDIT.md.
+``robust_threshold`` defaults to 0.7, chosen by sweeping {0.45..1.00} on a
+SEPARATE dev split (seed=1, never the seed=0 eval set) and picking the lowest
+threshold at the sweep's precision ceiling (49.0% -- no threshold reached the
+stated 90% floor; see ``llm_finetuning/tune_robust_reduction_threshold.py``
+and AUDIT.md sec AG for the full, unflattering result).
 """
 from __future__ import annotations
 
+from collections import Counter
 from itertools import groupby
 
 import numpy as np
@@ -64,6 +97,11 @@ UNKNOWN_FORMATION = "unknown"
 DEFAULT_MAX_KEY_WINDOWS = 10
 DISPERSED_CONVERGING_AMBIGUITY_MARGIN = 0.15
 DISALLOWED_CHARACTERS = ("⚠",)  # "⚠" -- never in any training prompt
+
+# sec AG step 2: tuned on a dev split (seed=1), never the seed=0 eval set --
+# see llm_finetuning/tune_robust_reduction_threshold.py.
+DEFAULT_ROBUST_THRESHOLD = 0.7
+ALL_UNKNOWN_FALLBACK_MARGIN = 0.05
 
 
 def _validate_formation(name) -> str:
@@ -80,6 +118,96 @@ def _is_ambiguous_dispersed_converging(class_probabilities: dict) -> bool:
     if d is None or c is None:
         return False
     return abs(d - c) < DISPERSED_CONVERGING_AMBIGUITY_MARGIN
+
+
+def _robust_all_unknown_fallback(predictions, n_stripped_leading, n_stripped_trailing):
+    """Step 2c: every window is transitioning/OOV -- aggregate class_probabilities
+    across ALL windows and take the top-2 non-transitioning (BASE_FORMATIONS)
+    classes by mean probability. Resolvable only if well separated; always
+    flagged low_confidence when it does resolve. Returns the same
+    (dominant, formation_history, transitions, info) shape as _robust_reduce,
+    or None."""
+    sums = {f: 0.0 for f in BASE_FORMATIONS}
+    counts = 0
+    for p in predictions:
+        cp = p.get("class_probabilities", {})
+        if not cp:
+            continue
+        counts += 1
+        for f in BASE_FORMATIONS:
+            sums[f] += cp.get(f, 0.0)
+    if counts == 0:
+        return None
+    means = {f: sums[f] / counts for f in BASE_FORMATIONS}
+    ranked = sorted(means.items(), key=lambda kv: kv[1], reverse=True)
+    top1, top1_p = ranked[0]
+    top2, top2_p = ranked[1]
+    margin = top1_p - top2_p
+    if margin < ALL_UNKNOWN_FALLBACK_MARGIN:
+        return None
+    info = {"stripped_leading": n_stripped_leading, "stripped_trailing": n_stripped_trailing,
+           "mode": "all_unknown_probability_fallback", "top1": top1, "top1_p": round(top1_p, 4),
+           "top2": top2, "top2_p": round(top2_p, 4), "margin": round(margin, 4),
+           "recovered": True, "low_confidence": True}
+    return (top1, [top1], [], info)
+
+
+def _robust_reduce(formation_seq, predictions, threshold):
+    """Steps 2a+2b (AUDIT.md sec AG): strip leading/trailing UNKNOWN_FORMATION
+    runs, then reduce what's left by MAJORITY vote (modal non-unknown formation
+    in each half, weighted against that half's FULL length so a noisy half
+    correctly fails the threshold) instead of requiring unanimity everywhere.
+    Falls back to _robust_all_unknown_fallback (2c) if nothing survives
+    stripping. Returns (dominant, formation_history, transitions, info) or
+    None if not robustly resolvable -- callers must fall back to the original
+    unanimity-based reduction on None, not treat it as "abstain"."""
+    n = len(formation_seq)
+    start = 0
+    while start < n and formation_seq[start] == UNKNOWN_FORMATION:
+        start += 1
+    end = n
+    while end > start and formation_seq[end - 1] == UNKNOWN_FORMATION:
+        end -= 1
+    stripped = formation_seq[start:end]
+    n_lead, n_trail = start, n - end
+
+    if not stripped:
+        return _robust_all_unknown_fallback(predictions, n_lead, n_trail)
+
+    if len(stripped) == 1:
+        f = stripped[0]
+        return (f, [f], [], {"stripped_leading": n_lead, "stripped_trailing": n_trail,
+                             "mode": "single_window", "recovered": True, "low_confidence": True})
+
+    mid = len(stripped) // 2
+    first_half, second_half = stripped[:mid], stripped[mid:]
+
+    def modal(seq):
+        # UNKNOWN_FORMATION must never itself win the vote -- a half dominated
+        # by transitioning/OOV windows should fail the threshold, not be
+        # reported as if "unknown" were a real formation. Denominator is the
+        # full half length (unknowns count against the plurality), not just
+        # the non-unknown subset, or the threshold couldn't reject noise at all.
+        counts = Counter(f for f in seq if f != UNKNOWN_FORMATION)
+        if not counts:
+            return None, 0.0
+        f, count = counts.most_common(1)[0]
+        return f, count / len(seq)
+
+    f1, frac1 = modal(first_half)
+    f2, frac2 = modal(second_half)
+    if f1 is None or f2 is None or frac1 < threshold or frac2 < threshold:
+        return None
+
+    info = {"stripped_leading": n_lead, "stripped_trailing": n_trail, "mode": "majority_halves",
+           "frac_first_half": round(frac1, 4), "frac_second_half": round(frac2, 4),
+           "recovered": True, "low_confidence": False}
+    if f1 == f2:
+        return (f1, [f1], [], info)
+    dominant = f1 if frac1 >= frac2 else f2
+    orig_mid_idx = min(start + mid, n - 1)
+    transitions = [{"at_time_s": predictions[orig_mid_idx]["time_start_s"], "from": f1, "to": f2}]
+    return (dominant, [f1, f2], transitions, info)
 
 
 def _select_key_window_indices(predictions, formation_seq, ambiguous_flags, max_key_windows):
@@ -110,12 +238,20 @@ def _select_key_window_indices(predictions, formation_seq, ambiguous_flags, max_
 
 
 def bridge_predictions(predictions: list[dict], calibrator: "Calibrator | None" = None,
-                       max_key_windows: int = DEFAULT_MAX_KEY_WINDOWS):
+                       max_key_windows: int = DEFAULT_MAX_KEY_WINDOWS,
+                       robust: bool = False, robust_threshold: float = DEFAULT_ROBUST_THRESHOLD):
     """predictions: output of ``swarm_intent.stgt.inference.sliding_window_inference``
     (or a hand-assembled list of ``predict_v2`` dicts). Returns
     ``(tactical_context: str, summary: dict, key_windows: list[dict])`` in the same
     shape as ``inference.py``'s ``build_tactical_context``/``build_llm_prompt``, with
     the four fixes in this module's docstring applied.
+
+    robust: False (default) reproduces the original unanimity-based reduction
+    byte-for-byte -- every existing caller/test is unaffected. True attempts
+    the majority-based robust reduction (module docstring, AUDIT.md sec AG)
+    FIRST; if it fails to resolve anything, falls back to the SAME unanimity
+    logic below unchanged, so a robust=True case is never worse-informed than
+    a robust=False one, only possibly better.
     """
     calibrator = calibrator or AbsoluteCalibrator()
     n = len(predictions)
@@ -126,20 +262,25 @@ def bridge_predictions(predictions: list[dict], calibrator: "Calibrator | None" 
     formation_seq = [_validate_formation(p["formation_type"]) for p in predictions]
     n_unknown = sum(1 for f in formation_seq if f == UNKNOWN_FORMATION)
 
-    # (1) transitions: consecutive-pair, temporal, NEVER predict_v2's transition_from/to.
-    transitions = []
-    for i in range(1, n):
-        a, b = formation_seq[i - 1], formation_seq[i]
-        if UNKNOWN_FORMATION in (a, b):
-            continue
-        if a != b:
-            transitions.append({"at_time_s": predictions[i]["time_start_s"], "from": a, "to": b})
+    robust_info = None
+    robust_result = _robust_reduce(formation_seq, predictions, robust_threshold) if robust else None
+    if robust_result is not None:
+        dominant, formation_history, transitions, robust_info = robust_result
+    else:
+        # (1) transitions: consecutive-pair, temporal, NEVER predict_v2's transition_from/to.
+        transitions = []
+        for i in range(1, n):
+            a, b = formation_seq[i - 1], formation_seq[i]
+            if UNKNOWN_FORMATION in (a, b):
+                continue
+            if a != b:
+                transitions.append({"at_time_s": predictions[i]["time_start_s"], "from": a, "to": b})
 
-    # (2) formation_history: collapse only CONSECUTIVE repeats -- preserves oscillation.
-    formation_history = [k for k, _ in groupby(formation_seq)]
+        # (2) formation_history: collapse only CONSECUTIVE repeats -- preserves oscillation.
+        formation_history = [k for k, _ in groupby(formation_seq)]
 
     valid_formations = [f for f in formation_seq if f != UNKNOWN_FORMATION]
-    if not valid_formations:
+    if not valid_formations and robust_result is None:
         summary = {
             "abstain": True,
             "abstain_reason": f"all {n} window(s) classified outside BASE_FORMATIONS "
@@ -151,7 +292,8 @@ def bridge_predictions(predictions: list[dict], calibrator: "Calibrator | None" 
                   "vocabulary).")
         return context, summary, []
 
-    dominant = max(set(valid_formations), key=valid_formations.count)
+    if robust_result is None:
+        dominant = max(set(valid_formations), key=valid_formations.count)
 
     velocities = [p["centroid_velocity"] for p in predictions]
     mid = n // 2
@@ -213,6 +355,7 @@ def bridge_predictions(predictions: list[dict], calibrator: "Calibrator | None" 
         "mean_approach_rate": round(mean_approach, 3), "role_differentiation": role_flag,
         "mean_confidence": round(mean_conf, 3), "low_conf_windows": low_conf, "n_windows": n,
         "n_unknown_windows": n_unknown, "n_ambiguous_dispersed_converging_windows": n_ambiguous,
+        "robust_reduction": robust_info,  # None unless robust=True AND it actually recovered a pair
     }
 
     # (3) key_windows, capped.

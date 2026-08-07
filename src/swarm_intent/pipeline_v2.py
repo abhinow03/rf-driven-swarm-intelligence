@@ -251,10 +251,16 @@ def assess_ctx(rules_narrator_client, finetuned_client, ctx: str, key_windows: l
 
 
 def assess_observation(rules_narrator_client, finetuned_client, predictions: list, class_freq: dict,
-                       calibrator=None):
+                       calibrator=None, robust: bool = False, robust_threshold: float = None):
     """predictions: REAL swarm_intent.stgt.inference.sliding_window_inference() output.
-    Returns (assessment, layer, detail)."""
-    bucket_info = classify_observation(predictions, calibrator)
+    robust (AUDIT.md sec AG): use stgt_bridge's majority-based robust reduction
+    instead of the original unanimity reduction when bucketing -- False (default)
+    is the sec AE/AF-measured behaviour; True is sec AG's fix. Returns
+    (assessment, layer, detail)."""
+    kwargs = {"robust": robust}
+    if robust_threshold is not None:
+        kwargs["robust_threshold"] = robust_threshold
+    bucket_info = classify_observation(predictions, calibrator, **kwargs)
     return _dispatch(bucket_info, bucket_info["context_text"], bucket_info["key_windows"],
                      rules_narrator_client, finetuned_client, class_freq)
 

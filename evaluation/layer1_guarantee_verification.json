@@ -1,0 +1,811 @@
+[
+  {
+    "i": 71,
+    "true_chain": [
+      "dispersed",
+      "shield"
+    ],
+    "rules_key": [
+      "dispersed",
+      "dispersed"
+    ],
+    "rules_lookup_result": {
+      "threat_level": "low",
+      "likely_intent": "surveillance",
+      "recommended_action": "monitor"
+    },
+    "gt_pair": [
+      "dispersed",
+      "shield"
+    ],
+    "gt_would_give": {
+      "threat_level": "medium",
+      "likely_intent": "defensive_transition",
+      "recommended_action": "monitor"
+    },
+    "key_matches_gt": false,
+    "runs": [
+      {
+        "run": 0,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 1,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 2,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 3,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 4,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      }
+    ]
+  },
+  {
+    "i": 84,
+    "true_chain": [
+      "converging"
+    ],
+    "rules_key": [
+      "dispersed",
+      "dispersed"
+    ],
+    "rules_lookup_result": {
+      "threat_level": "low",
+      "likely_intent": "surveillance",
+      "recommended_action": "monitor"
+    },
+    "gt_pair": [
+      "converging",
+      "converging"
+    ],
+    "gt_would_give": {
+      "threat_level": "high",
+      "likely_intent": "approach",
+      "recommended_action": "alert_operator"
+    },
+    "key_matches_gt": false,
+    "runs": [
+      {
+        "run": 0,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 1,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 2,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 3,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 4,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      }
+    ]
+  },
+  {
+    "i": 105,
+    "true_chain": [
+      "dispersed"
+    ],
+    "rules_key": [
+      "dispersed",
+      "dispersed"
+    ],
+    "rules_lookup_result": {
+      "threat_level": "low",
+      "likely_intent": "surveillance",
+      "recommended_action": "monitor"
+    },
+    "gt_pair": [
+      "dispersed",
+      "dispersed"
+    ],
+    "gt_would_give": {
+      "threat_level": "low",
+      "likely_intent": "surveillance",
+      "recommended_action": "monitor"
+    },
+    "key_matches_gt": true,
+    "runs": [
+      {
+        "run": 0,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 1,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 2,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 3,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 4,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      }
+    ]
+  },
+  {
+    "i": 159,
+    "true_chain": [
+      "converging"
+    ],
+    "rules_key": [
+      "dispersed",
+      "dispersed"
+    ],
+    "rules_lookup_result": {
+      "threat_level": "low",
+      "likely_intent": "surveillance",
+      "recommended_action": "monitor"
+    },
+    "gt_pair": [
+      "converging",
+      "converging"
+    ],
+    "gt_would_give": {
+      "threat_level": "high",
+      "likely_intent": "approach",
+      "recommended_action": "alert_operator"
+    },
+    "key_matches_gt": false,
+    "runs": [
+      {
+        "run": 0,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 1,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 2,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 3,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 4,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      }
+    ]
+  },
+  {
+    "i": 201,
+    "true_chain": [
+      "converging",
+      "encirclement"
+    ],
+    "rules_key": [
+      "converging",
+      "converging"
+    ],
+    "rules_lookup_result": {
+      "threat_level": "high",
+      "likely_intent": "approach",
+      "recommended_action": "alert_operator"
+    },
+    "gt_pair": [
+      "converging",
+      "encirclement"
+    ],
+    "gt_would_give": {
+      "threat_level": "critical",
+      "likely_intent": "encircle",
+      "recommended_action": "deploy_countermeasure"
+    },
+    "key_matches_gt": false,
+    "runs": [
+      {
+        "run": 0,
+        "assessment_threat": "high",
+        "assessment_intent": "approach",
+        "assessment_action": "alert_operator",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 1,
+        "assessment_threat": "high",
+        "assessment_intent": "approach",
+        "assessment_action": "alert_operator",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 2,
+        "assessment_threat": "high",
+        "assessment_intent": "approach",
+        "assessment_action": "alert_operator",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 3,
+        "assessment_threat": "high",
+        "assessment_intent": "approach",
+        "assessment_action": "alert_operator",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 4,
+        "assessment_threat": "high",
+        "assessment_intent": "approach",
+        "assessment_action": "alert_operator",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      }
+    ]
+  },
+  {
+    "i": 290,
+    "true_chain": [
+      "converging",
+      "diamond"
+    ],
+    "rules_key": [
+      "dispersed",
+      "dispersed"
+    ],
+    "rules_lookup_result": {
+      "threat_level": "low",
+      "likely_intent": "surveillance",
+      "recommended_action": "monitor"
+    },
+    "gt_pair": [
+      "converging",
+      "diamond"
+    ],
+    "gt_would_give": {
+      "threat_level": "medium",
+      "likely_intent": "consolidate",
+      "recommended_action": "monitor"
+    },
+    "key_matches_gt": false,
+    "runs": [
+      {
+        "run": 0,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 1,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 2,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 3,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 4,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      }
+    ]
+  },
+  {
+    "i": 293,
+    "true_chain": [
+      "converging"
+    ],
+    "rules_key": [
+      "dispersed",
+      "dispersed"
+    ],
+    "rules_lookup_result": {
+      "threat_level": "low",
+      "likely_intent": "surveillance",
+      "recommended_action": "monitor"
+    },
+    "gt_pair": [
+      "converging",
+      "converging"
+    ],
+    "gt_would_give": {
+      "threat_level": "high",
+      "likely_intent": "approach",
+      "recommended_action": "alert_operator"
+    },
+    "key_matches_gt": false,
+    "runs": [
+      {
+        "run": 0,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 1,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 2,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 3,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 4,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      }
+    ]
+  },
+  {
+    "i": 406,
+    "true_chain": [
+      "converging"
+    ],
+    "rules_key": [
+      "dispersed",
+      "dispersed"
+    ],
+    "rules_lookup_result": {
+      "threat_level": "low",
+      "likely_intent": "surveillance",
+      "recommended_action": "monitor"
+    },
+    "gt_pair": [
+      "converging",
+      "converging"
+    ],
+    "gt_would_give": {
+      "threat_level": "high",
+      "likely_intent": "approach",
+      "recommended_action": "alert_operator"
+    },
+    "key_matches_gt": false,
+    "runs": [
+      {
+        "run": 0,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 1,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 2,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 3,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 4,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      }
+    ]
+  },
+  {
+    "i": 435,
+    "true_chain": [
+      "converging"
+    ],
+    "rules_key": [
+      "shield",
+      "dispersed"
+    ],
+    "rules_lookup_result": {
+      "threat_level": "low",
+      "likely_intent": "surveillance",
+      "recommended_action": "monitor"
+    },
+    "gt_pair": [
+      "converging",
+      "converging"
+    ],
+    "gt_would_give": {
+      "threat_level": "high",
+      "likely_intent": "approach",
+      "recommended_action": "alert_operator"
+    },
+    "key_matches_gt": false,
+    "runs": [
+      {
+        "run": 0,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 1,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 2,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 3,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 4,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      }
+    ]
+  },
+  {
+    "i": 439,
+    "true_chain": [
+      "dispersed",
+      "converging"
+    ],
+    "rules_key": [
+      "dispersed",
+      "dispersed"
+    ],
+    "rules_lookup_result": {
+      "threat_level": "low",
+      "likely_intent": "surveillance",
+      "recommended_action": "monitor"
+    },
+    "gt_pair": [
+      "dispersed",
+      "converging"
+    ],
+    "gt_would_give": {
+      "threat_level": "high",
+      "likely_intent": "approach",
+      "recommended_action": "alert_operator"
+    },
+    "key_matches_gt": false,
+    "runs": [
+      {
+        "run": 0,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 1,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 2,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 3,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 4,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      }
+    ]
+  },
+  {
+    "i": 440,
+    "true_chain": [
+      "dispersed"
+    ],
+    "rules_key": [
+      "dispersed",
+      "dispersed"
+    ],
+    "rules_lookup_result": {
+      "threat_level": "low",
+      "likely_intent": "surveillance",
+      "recommended_action": "monitor"
+    },
+    "gt_pair": [
+      "dispersed",
+      "dispersed"
+    ],
+    "gt_would_give": {
+      "threat_level": "low",
+      "likely_intent": "surveillance",
+      "recommended_action": "monitor"
+    },
+    "key_matches_gt": true,
+    "runs": [
+      {
+        "run": 0,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 1,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 2,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 3,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 4,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      }
+    ]
+  },
+  {
+    "i": 483,
+    "true_chain": [
+      "converging",
+      "diamond"
+    ],
+    "rules_key": [
+      "dispersed",
+      "dispersed"
+    ],
+    "rules_lookup_result": {
+      "threat_level": "low",
+      "likely_intent": "surveillance",
+      "recommended_action": "monitor"
+    },
+    "gt_pair": [
+      "converging",
+      "diamond"
+    ],
+    "gt_would_give": {
+      "threat_level": "medium",
+      "likely_intent": "consolidate",
+      "recommended_action": "monitor"
+    },
+    "key_matches_gt": false,
+    "runs": [
+      {
+        "run": 0,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 1,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 2,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 3,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      },
+      {
+        "run": 4,
+        "assessment_threat": "low",
+        "assessment_intent": "surveillance",
+        "assessment_action": "monitor",
+        "matches_rules_lookup": true,
+        "llm_deviation": {}
+      }
+    ]
+  }
+]

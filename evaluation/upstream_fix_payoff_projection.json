@@ -1,0 +1,25 @@
+{
+  "n_gt_clean": 249,
+  "already_resolved": 9,
+  "pure_ambiguity_n": 51,
+  "mixed_ambiguity_n": 64,
+  "mixed_ambiguity_breakdown": {
+    "('dispersed_converging_ambiguity', 'oov_name')": 44,
+    "('dispersed_converging_ambiguity', 'dominant_history_contradiction', 'oov_name')": 14,
+    "('dispersed_converging_ambiguity', 'low_confidence')": 2,
+    "('dispersed_converging_ambiguity', 'dominant_history_contradiction')": 4
+  },
+  "before_500": {
+    "A": 9,
+    "B": 191,
+    "C": 300
+  },
+  "projected_500_geometry_fix_only": {
+    "A": 60,
+    "B": 140,
+    "C": 300
+  },
+  "measured_over_abstention": 0.698,
+  "implied_bucket_c_abstention_rate": 0.47041599999999983,
+  "projected_over_abstention_geometry_fix_only": 0.49318072289156617
+}
