@@ -115,6 +115,43 @@ carried-forward requirement for whenever Phase 3 actually builds it.
 
 State written to `docs/V5_STATE.json`: `phase=0, step=1, status="halted_awaiting_retrained_checkpoint"`.
 
+## 2026-08-07 — Phase 0, Step 1: fix pulled locally
+
+User authorized: "Pull the fix and retrain, then resume Phase 0." Ported upstream commit
+`9158b081` into `src/swarm_intent/formations.py` and `data.py` (hand-migrated logic, not a
+git merge — file layouts differ from upstream's `data_gen.py`):
+
+- `formations.py`: `dispersed`/`converging` split into separate branches. `dispersed` keeps
+  a (widened, `low=[-30,-30,-15]`/`high=[30,30,15]`) uniform scatter; `converging` is now a
+  fixed-radius ring (`radius=25`, 6 angles via `np.linspace`, small per-drone z-jitter via
+  `rng.uniform(-5,5)`).
+- `data.py`: both `generate_swarm_sequence` and `generate_transition_sequence` (upstream
+  unifies these into one function; kept split here, so the acceleration term went into both)
+  now sample `accel_mag = rng.uniform(-1.0, 1.0)`, build an acceleration vector colinear
+  with the initial heading, and apply `velocity = velocity + acceleration * dt` inside the
+  per-timestep loop.
+- Kept this repo's threaded-seeded-`rng` discipline throughout — did NOT port upstream's
+  unseeded `np.random.default_rng(seed=None)` calls inside the geometry branches.
+- **Explicitly not ported:** upstream's `generate_transition_sequence` also applies a
+  converging-specific offset shrink DURING an active blend (when `formation_a`/`b ==
+  "converging"` inside the alpha-blend loop). This predates commit `9158b081` — it was
+  already in upstream before this fix and was never captured in our original migration
+  either. It's a separate, pre-existing gap, not part of the verified diff being pulled here.
+  Flagging for awareness: real coverage-measurement trajectories (`measure_coverage.py`'s
+  `build_long_sequence`) are built entirely from `generate_transition_sequence`, so
+  `converging`'s temporal shrink cue currently applies to steady-state sequences
+  (`generate_swarm_sequence`) but not to transitions — the static ring-vs-scatter geometry
+  difference is the only discriminating signal during an actual A→B hop right now. Worth a
+  deliberate decision later, not silently fixed here.
+
+`scripts/verify_upstream_physics.py` now passes both checks (previously correctly failed).
+`tests/test_verify_upstream_physics.py`'s integration tests flipped from expect-failure to
+expect-success. Full suite: 134/134 pass, no other test depended on the old shared-branch
+values. Committed as `27adc23`.
+
+Next: regenerate the dataset and retrain STGT on the fixed physics (Phase 0 still hasn't run
+any of its own steps 2-4 yet — this was all precondition work).
+
 **Note on the message's final instruction.** The message opened with "Do NOT patch the
 generator yourself under any circumstances" and closed with "If the bugs still exist, just
 clone the repo and fix the bugs yourself and continue working" — these directly contradict

@@ -1,7 +1,7 @@
 {
   "phase": 0,
   "step": 1,
-  "status": "halted_awaiting_retrained_checkpoint",
+  "status": "fix_pulled_locally_now_retraining",
   "halts_cleared": [],
   "results": {
     "phase0_step1_first_check": {
@@ -44,6 +44,13 @@
       "action_taken": "Did NOT patch the generator locally (explicitly instructed not to). Did NOT pull/merge upstream's fix into local formations.py/data.py -- user's step 5 verdict-A protocol says 'tell me and STOP, I will pull and have her retrain, then you resume Phase 0.'",
       "guard_shipped": "scripts/verify_upstream_physics.py -- programmatically asserts both fixes present (static regex + behavioural check) against whatever local src/swarm_intent/ currently contains. Currently correctly FAILS (proving the gate works) since local repo has not yet pulled the fix. 7 unit tests in tests/test_verify_upstream_physics.py, all passing.",
       "deferred": "rebuild_derived.py (Phase 3 s3 deliverable) does not exist yet -- Phase 3 has not been reached. Cannot 'extend' a file that doesn't exist. Noted as a carry-forward requirement: when Phase 3 builds rebuild_derived.py, its hash MUST cover src/swarm_intent/formations.py and src/swarm_intent/data.py."
+    },
+    "phase0_step1_fix_pulled": {
+      "checked": "2026-08-07T20:07:46Z",
+      "action": "User explicitly authorized pulling upstream commit 9158b081 into local src/swarm_intent/formations.py and data.py. Ported (not a git merge -- file layouts differ, migrated logic by hand): geometry split (dispersed=widened uniform scatter, converging=fixed-radius ring) and acceleration (colinear with initial heading, applied inside the per-timestep loop in BOTH generate_swarm_sequence and generate_transition_sequence). Preserved this repo's threaded-seeded-rng discipline throughout -- did NOT port upstream's unseeded np.random.default_rng(seed=None) calls.",
+      "not_ported": "upstream's generate_transition_sequence also applies a converging-specific offset shrink DURING an active blend -- this predates commit 9158b081 (not part of the verified diff) and was never in our original migration either. Left as a disclosed, separate discrepancy, not folded into this fix silently.",
+      "verification": "scripts/verify_upstream_physics.py now passes both checks (was failing before this commit). Full suite 134/134 pass.",
+      "commit": "27adc23"
     }
   },
   "started": "2026-08-07T19:47:41Z"
