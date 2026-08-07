@@ -44,12 +44,19 @@ def generate_swarm_sequence(
     speed = rng.uniform(3.0, 8.0)
     velocity = np.array([speed * np.cos(angle), speed * np.sin(angle),
                          rng.uniform(-0.5, 0.5)])
+    # Acceleration ported from upstream commit 9158b081 -- colinear with the
+    # initial heading, magnitude/sign randomized, so velocity is no longer
+    # constant for the whole trajectory.
+    accel_mag = rng.uniform(-1.0, 1.0)
+    acceleration = np.array([accel_mag * np.cos(angle), accel_mag * np.sin(angle),
+                             rng.uniform(-0.1, 0.1)])
 
     base_offsets = get_formation_offsets(formation_type, spread, rng=rng)
     sequence = np.zeros((n_timesteps, 6, 3))
     labels = []
 
     for t in range(n_timesteps):
+        velocity = velocity + acceleration * dt
         centroid = centroid + velocity * dt
         if formation_type == "converging":
             shrink = 1.0 - (0.9 * t / (n_timesteps - 1))
@@ -91,12 +98,18 @@ def generate_transition_sequence(
     speed = rng.uniform(3.0, 8.0)
     velocity = np.array([speed * np.cos(angle), speed * np.sin(angle),
                          rng.uniform(-0.5, 0.5)])
+    # Acceleration ported from upstream commit 9158b081 -- see
+    # generate_swarm_sequence's comment for the rationale.
+    accel_mag = rng.uniform(-1.0, 1.0)
+    acceleration = np.array([accel_mag * np.cos(angle), accel_mag * np.sin(angle),
+                             rng.uniform(-0.1, 0.1)])
 
     off_a = get_formation_offsets(formation_a, spread, rng=rng)
     off_b = get_formation_offsets(formation_b, spread, rng=rng)
     sequence = np.zeros((n_timesteps, 6, 3))
 
     for t in range(n_timesteps):
+        velocity = velocity + acceleration * dt
         centroid = centroid + velocity * dt
         if t <= blend_start:
             alpha = 0.0

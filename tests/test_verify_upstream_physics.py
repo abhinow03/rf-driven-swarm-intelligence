@@ -1,7 +1,7 @@
 """Unit tests for scripts/verify_upstream_physics.py's pattern-matching logic (isolated from
-the real repo's current fix/unfixed state) plus one integration check against the ACTUAL
-current source, which is expected to fail until both upstream fixes are pulled locally --
-see docs/V5_STATE.json / docs/V5_LOG.md for why."""
+the real repo's current fix/unfixed state) plus an integration check against the ACTUAL
+current source -- see docs/V5_STATE.json / docs/V5_LOG.md for the fix's provenance
+(upstream commit 9158b081, ported locally)."""
 import sys
 import unittest
 from pathlib import Path
@@ -42,19 +42,16 @@ class TestSharedBranchPattern(unittest.TestCase):
         self.assertIsNone(_SHARED_BRANCH_RE.search(snippet))
 
 
-class TestCurrentRepoStateIsUnfixed(unittest.TestCase):
-    """Integration check against the real, current src/swarm_intent/ source. Both of these
-    are EXPECTED TO FAIL right now (that is the whole point of the guard) -- once the
-    teammate's upstream fixes (commit 9158b081, see V5_LOG.md) are pulled into this repo,
-    both assertions below should be updated to assertIsNone (no exception)."""
+class TestCurrentRepoStateIsFixed(unittest.TestCase):
+    """Integration check against the real, current src/swarm_intent/ source. Upstream's fix
+    (commit 9158b081, see V5_LOG.md) was ported into formations.py/data.py -- both checks
+    should now pass (raise nothing) rather than fail."""
 
-    def test_geometry_fix_not_yet_present(self):
-        with self.assertRaises(AssertionError):
-            check_geometry_fix()
+    def test_geometry_fix_present(self):
+        check_geometry_fix()  # must not raise
 
-    def test_acceleration_fix_not_yet_present(self):
-        with self.assertRaises(AssertionError):
-            check_acceleration_fix()
+    def test_acceleration_fix_present(self):
+        check_acceleration_fix()  # must not raise
 
 
 if __name__ == "__main__":
