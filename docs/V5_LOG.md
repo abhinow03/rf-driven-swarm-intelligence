@@ -179,6 +179,47 @@ from seed=0 used in every real-output eval this session, seed=1 used for sec AG'
 and seed=42 used for the train/val/test split itself), measure per-class accuracy, the 8x8
 confusion matrix, and pair-level accuracy (the ceiling).
 
+## 2026-08-07 — Phase 0, Steps 2-4: HALT GATE 1 — ceiling measured at 3.3%
+
+`scripts/phase0_ceiling.py --n 1000` (seed=999, tmux `v5`, `tail -f /tmp/v5_phase0_ceiling.log`,
+95s wall time). Full breakdown in `docs/CEILING.md`. Headline:
+
+- Window-level overall accuracy: **22.3%** (n=8599 windows). Per-class collapse is severe and
+  uneven: `v_shape` 1.3%, `encirclement` 0.2%, `converging` 0.1%, vs. `transitioning` 80.4% —
+  the model is overwhelmingly defaulting to "transitioning" on real formations.
+- **Pair-level accuracy (the ceiling): 3.3% (17/509).**
+
+Before trusting a brand-new, never-before-run script's catastrophic output, checked for a bug
+in the script itself first:
+- Window/label alignment verified against `sliding_window_inference`'s own indexing
+  (`stgt/inference.py:79-80`) — correct, not a bug.
+- Early-vs-late window position within a trajectory (60 fresh sequences): 36.3% early vs.
+  32.7% late — essentially flat. **This rules out simple position-drift-into-OOD-normalization**
+  as the primary mechanism (a monotonic drift story would predict much better early-window
+  accuracy).
+- Training-distribution-matched check (exact `generate_dataset()` regime — n_timesteps=50,
+  single steady formation, same `sliding_window_inference`/`predict_v2` path): **69.5%**
+  overall (n=105) — better than the long-trajectory number, but well below `train_model.py`'s
+  own reported `test_acc=0.9348`, and with `v_shape`/`encirclement` specifically collapsing to
+  **0/15 each**. This gap (93.5% → 69.5%) is unrelated to anything this session's physics fix
+  touched and is itself an open finding, not diagnosed further here.
+- Leading unconfirmed hypothesis for the further 69.5% → 22.3%/3.3% drop:
+  `build_long_sequence()`'s hop regime (randomized `blend_start`/`blend_end` as fractions of a
+  variable 50-100 step segment) is shaped nothing like `generate_dataset()`'s training
+  regime, which calls `generate_transition_sequence` at its hardcoded defaults
+  (`blend_start=20, blend_end=30`, fixed `n_timesteps=50`) for every transitioning training
+  example. STGT has never seen a blend timed/shaped any other way. Not confirmed with a
+  targeted ablation — flagged as the most likely next thing to check, not fixed here.
+
+**Per the plan's own pre-stated rule ("If < 70%: the bottleneck is upstream, not the LLM, and
+the plan changes"), this is an unambiguous HALT GATE 1 trigger** — not a borderline call, and
+not something to improvise a fix for. Two separate, stacked, unconfirmed mechanisms are on the
+table (an inference-path gap with a `v_shape`/`encirclement`-specific collapse, and a
+long-trajectory blend-timing/regime mismatch); neither has a root cause established yet.
+Reporting to the user now, per HALT GATE 1's protocol.
+
+State written to `docs/V5_STATE.json`: `phase=0, step=4, status="HALT_GATE_1..."`.
+
 **Note on the message's final instruction.** The message opened with "Do NOT patch the
 generator yourself under any circumstances" and closed with "If the bugs still exist, just
 clone the repo and fix the bugs yourself and continue working" — these directly contradict

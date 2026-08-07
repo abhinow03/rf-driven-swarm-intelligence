@@ -1,7 +1,7 @@
 {
   "phase": 0,
-  "step": 2,
-  "status": "retrained_now_measuring_ceiling",
+  "step": 4,
+  "status": "HALT_GATE_1 -- ceiling measured at 3.3%, far below the 70% floor, awaiting user go-ahead",
   "halts_cleared": [],
   "results": {
     "phase0_step1_first_check": {
@@ -59,6 +59,33 @@
       "checkpoint_mtime": "2026-08-08T01:50:56+05:30 (fresh, post-fix)",
       "verify_upstream_physics_against_new_checkpoint_source": "PASS (both checks)",
       "full_test_suite": "134/134 pass"
+    },
+    "phase0_steps2to4_ceiling": {
+      "checked": "2026-08-07T20:30:41Z",
+      "script": "scripts/phase0_ceiling.py --n 1000, seed=999 (disjoint from 0/1/42)",
+      "window_level_overall_accuracy": 0.223,
+      "pair_level_accuracy": 0.033,
+      "pair_level_fraction": "17/509",
+      "pair_eligible_bucket_distribution": {"A": 100, "B": 174, "C": 235},
+      "per_class_window_accuracy": {
+        "v_shape": 0.013, "encirclement": 0.002, "column": 0.158, "diamond": 0.206,
+        "dispersed": 0.256, "converging": 0.001, "shield": 0.240, "transitioning": 0.804
+      },
+      "diagnostics_run_before_trusting_this_number": {
+        "window_label_alignment_checked_against_sliding_window_inference_source": "correct, not a bug",
+        "early_vs_late_window_accuracy_60_fresh_trajectories": {"early_w_idx_lt_2": 0.363, "late_last_2": 0.327,
+          "conclusion": "essentially flat -- rules out simple position-drift-into-OOD-normalization as the sole/primary mechanism"},
+        "training_distribution_matched_check": {
+          "regime": "generate_swarm_sequence, n_timesteps=50, single steady formation -- EXACT generate_dataset() regime, same sliding_window_inference/predict_v2 inference path",
+          "overall_accuracy": 0.695, "n": 105,
+          "per_class": {"v_shape": "0/15 (0%)", "encirclement": "0/15 (0%)", "column": "14/15", "diamond": "14/15",
+            "dispersed": "15/15", "converging": "15/15", "shield": "15/15"},
+          "finding": "93.5% (train.py's own reported test_acc) -> 69.5% (same matched regime, but via sliding_window_inference/predict_v2 -- the path every real eval in this project uses) is itself an unexplained gap, with v_shape/encirclement specifically collapsing to 0% -- unrelated to this session's physics fix. NOT diagnosed further; flagged."
+        }
+      },
+      "verdict": "3.3% pair-level accuracy is far below the plan's own 70% floor. Two separate, stacked, UNCONFIRMED mechanisms hypothesized (inference-path gap w/ v_shape/encirclement collapse; long-trajectory blend-timing/regime mismatch vs generate_dataset()'s fixed blend_start=20/blend_end=30). Neither diagnosed to root cause or fixed -- reported per HALT GATE 1's own protocol, not improvised around.",
+      "ceiling_doc": "docs/CEILING.md",
+      "raw_data": "evaluation/phase0_ceiling.json"
     }
   },
   "started": "2026-08-07T19:47:41Z"
