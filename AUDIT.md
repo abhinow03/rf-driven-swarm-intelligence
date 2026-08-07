@@ -3136,3 +3136,39 @@ inflated dev score after the fact. **The threshold is not overfit. The underlyin
 recovery-then-guard mechanism is genuinely, consistently low-precision, on data it has
 never seen, on both sides of the split.** No adjustment to the threshold is called for by
 this check; sec AG step 3's verdict (do not ship `robust=True` as the default) stands.
+
+## AH. Consolidation for the defense — verifying the guarantee, the honest number, and the ask
+
+Sec AG closed the diagnostic phase: the reduction brittleness is fixed and tested, but blocked
+from mattering by the dispersed/converging geometry defect, which caps recovered-pair precision
+at ~49% and accounts for 46.2% of the reduction failures that remain. This section runs no more
+experiments — it verifies the one architectural claim the whole pipeline_v2 design rests on,
+reframes the headline number honestly, quantifies what the upstream fix is actually worth, and
+writes the two documents needed to close this line of work: the request to the teammate who owns
+`data_gen.py`, and the panel document.
+
+### Step 1: verifying the Layer-1 guarantee
+
+`llm_finetuning/verify_layer1_guarantee.py` re-derives STGT predictions (bit-for-bit, seed=0) for
+exactly the 12 sequences `evaluation/robust_reduction_firing_rate.json` (sec AG step 2) already
+identified as reaching bucket A under `robust=True`, then calls `pipeline_v2.assess_observation`
+5 times per sequence (temperature 0.3, matching every other eval in this project) through the
+real Layer-1 narrator client — not a re-implementation, the actual code path.
+
+**Result: 0/60 (sequence, run) units had `threat_level`/`likely_intent`/`recommended_action`
+differ from `RULES[rules_key]`, and 0/60 had a non-empty `llm_deviation` log entry.** The narrator
+LLM never once proposed a different decision across 60 stochastic samples — `_finalize_layer1`'s
+forced overwrite (`pipeline_v2.py:138-161`) was never actually exercised as a correction in this
+sample, only as a guarantee that would have fired had the LLM tried. **The "correct by
+construction" claim is architecturally true and empirically unviolated: for any sequence that
+reaches bucket A, the returned decision fields ARE `RULES[rules_key]`, full stop, regardless of
+what the LLM says.** This also independently reproduces sec AG step 2's headline number from a
+different code path: of the 12 sequences, the recovered `rules_key` matches the independent
+ground-truth pair for exactly 2/12 (16.7%) — same figure, confirmed twice.
+
+**What this does and does not say:** the guarantee is about the pipeline never letting the LLM
+corrupt a decision once a key is chosen. It says nothing about whether the key itself is right —
+that's sec AG's separately-measured, and much weaker, 16.7% figure. Both are true at once: the
+architecture is sound, and the input to it (the recovered key) is frequently wrong, for the
+already-diagnosed geometry reason.
+
