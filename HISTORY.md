@@ -22,7 +22,7 @@ keyed wrong and no LLM can fix it. Plan's stated floor: **70%.** Nowhere close y
 | 3 | scale data 3.3x (9k→30k seqs) + epochs 1.9x (80→150) | 4.7% → **6.7%** (34/509) | real, monotonic improvement but insufficient rate of return; `v_shape` regressed again (53.2%→31.7%) while others recovered — capacity trading, not convergence |
 | 4 | centroid-relative node features (not absolute position) in `build_graph`, retrain | 6.7% → **6.1%** (31/509); robust=True gives 6.5% | window-level accuracy transformed (36.9%→72.7%, the session's biggest single jump, per-class now even 52-85%) but pair-level ceiling stayed flat. Root cause found: uniform 20-28% false-positive `"transitioning"` rate across all 7 steady formations — no longer a classification problem, a `"transitioning"`-specific calibration/bias problem |
 | 5 | target the transitioning false-positive rate, diagnosis-driven regime retightening | 6.1% → **12.2%** (62/509); robust=True 6.5%→12.8% | diagnosed first (1.8% FP on unambiguous windows, 53.2% near a real blend boundary — not a broad calibration bug, a regime-boundary grey zone); tightened `generate_dataset()`'s regime bounds accordingly; roughly DOUBLED the ceiling, the largest single jump so far; `encirclement` regressed (capacity trading again); still far below 70% |
-| 6 | **(current)** — none yet, awaiting direction | — | see below |
+| 6 | steadier LR schedule (warmup+cosine-floor, lower peak lr, higher patience), retrain | 12.2% → **4.9%** (25/509); robust=True 12.8%→5.3% | fixed in-distribution under-convergence (test_acc 86.3%→99.6%) but REGRESSED the ceiling — overfit the narrower training distribution at the cost of generalization; diamond/shield/converging regressed hard even though encirclement/transitioning improved |
 
 ## Strategy 5: target the transitioning false-positive rate — done, ceiling doubled
 
@@ -104,10 +104,30 @@ lowered (3e-4→1e-4) and patience raised (12→35).
 now ≥98.6% precision/recall, including `encirclement` (recall 0.986, fully recovered from
 strategy 5's regression). Confirms the under-convergence hypothesis was correct.
 
-**This is in-distribution test accuracy, not the ceiling** — step 2 found the dominant
-pair-recovery blocker is a `stgt_bridge.py` guard (`dispersed_converging_ambiguity`, 60.9% of
-failures) that fires independent of whether classification is correct, so this gain is not
-guaranteed to transfer. Also found (not fixed, flagged): `evaluate_ml_model` double-normalizes
+**Step 4 re-measurement: the gain did NOT transfer — it made the ceiling WORSE.**
+
+| metric | strategy 5 | strategy 6 |
+|---|---|---|
+| pair-level accuracy (robust=False) | 12.2% (62/509) | **4.9% (25/509)** |
+| threat ceiling (robust=False) | 13.0% | **6.3%** |
+| conditional accuracy within bucket A | 79.5% (62/78) | **32.5% (25/77)** |
+
+Strategy 6 converged much more tightly to `generate_dataset()`'s training distribution
+(near-100% in-distribution accuracy) than strategy 5 did — but that distribution's spread/
+noise ranges are narrower than the ceiling test's realistic long-trajectory sampling. The
+sharper fit generalized BETTER for `encirclement`/`transitioning` and WORSE for `diamond`
+(94.0%→70.0%), `shield` (90.3%→66.5%), and `converging` (66.7%→37.4%) — a genuine overfitting/
+generalization tradeoff from fixing the under-convergence, not a new bug. Even when the
+pipeline DOES reach a resolvable pair (bucket A), it is now right less than half as often as
+before (79.5%→32.5%).
+
+**Strategy 6 met its own literal objective (fix the training curve) while making the actual
+ceiling significantly worse.** `swarm_data/best_model.pt` is currently the WORSE strategy-6
+checkpoint; `swarm_data/best_model_strategy5_backup.pt` holds the better strategy-5 checkpoint
+if reverting is wanted. Also found (not fixed, flagged): `evaluate_ml_model` double-normalizes
 already-normalized test data, a pre-existing bug. Full detail: `docs/CEILING.md`'s 2026-08-08
-"strategy 6" update. Proceeding to step 4: re-measure pair-level AND threat-level ceilings on
-this checkpoint. *(Table row added once step 4's ceiling numbers land.)*
+"strategy 6" and "step 4" updates.
+
+**HALT GATE 1 remains unambiguously triggered — further below the 70% floor than strategy 5
+left it.** Stopping here per instruction. Not proceeding to any further strategy without
+explicit direction.

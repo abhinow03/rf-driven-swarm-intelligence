@@ -1,7 +1,7 @@
 {
   "phase": 0,
-  "step": 7,
-  "status": "HALT_GATE_1 -- strategy 6 (steadier LR schedule: warmup+cosine-to-floor, lr 3e-4->1e-4, patience 12->35) fixed the under-convergence: best epoch 10->51, early-stop 22->86/150, test_acc 0.8631->0.9958, encirclement fully recovered (recall 0.986). In-distribution only -- proceeding to step 4 (re-measure pair-level and threat-level ceilings on this checkpoint) before drawing conclusions about HALT GATE 1.",
+  "step": 8,
+  "status": "HALT_GATE_1 -- strategy 6 REGRESSED the ceiling despite fixing in-distribution under-convergence (test_acc 0.8631->0.9958): pair-level ceiling 12.2%->4.9% (robust 12.8%->5.3%), threat ceiling 13.0%->6.3% (robust 13.6%->6.9%). Overfitting/generalization tradeoff -- converged tightly to generate_dataset()'s narrower distribution at the cost of generalizing to the ceiling test's wider spread/noise ranges (diamond/shield/converging regressed hard even though encirclement/transitioning improved). swarm_data/best_model.pt is now the WORSE strategy-6 checkpoint; best_model_strategy5_backup.pt holds the better strategy-5 checkpoint. Stopping per instruction after step 4. Awaiting user decision -- not proceeding further.",
   "halts_cleared": [],
   "results": {
     "phase0_step1_first_check": {
@@ -234,6 +234,24 @@
       "ceiling_doc": "docs/CEILING.md (update section)",
       "history_doc": "HISTORY.md",
       "raw_data": "evaluation/phase0_strategy6_train_log.txt, evaluation/phase0_strategy6_classification_report.json"
+    },
+    "phase0_step8_remeasure_strategy6": {
+      "checked": "2026-08-08T22:20:00Z",
+      "method": "phase0_ceiling.py --n 1000 and phase0_threat_ceiling.py re-run on the strategy-6 checkpoint, identical seed=999 protocol.",
+      "pair_level_accuracy": {"strategy5": {"robust_false": 0.1218, "robust_true": 0.1277}, "strategy6": {"robust_false": 0.0491, "robust_true": 0.0530}},
+      "threat_ceiling": {"strategy5": {"robust_false": 0.130, "robust_true": 0.136}, "strategy6": {"robust_false": 0.063, "robust_true": 0.069}},
+      "window_level_accuracy": {"strategy5": 0.7043, "strategy6": 0.6911},
+      "conditional_accuracy_within_bucket_A": {"strategy5": "62/78 = 79.5%", "strategy6": "25/77 = 32.5%"},
+      "per_class_window_accuracy_delta": {
+        "v_shape": [0.780, 0.774], "encirclement": [0.413, 0.618], "column": [0.688, 0.762],
+        "diamond": [0.940, 0.700], "dispersed": [0.713, 0.714], "converging": [0.667, 0.374],
+        "shield": [0.903, 0.665], "transitioning": [0.573, 0.875]
+      },
+      "diagnosis": "strategy 6 converged much more tightly to generate_dataset()'s narrower training distribution (spread/noise ranges) than the ceiling test's wider realistic long-trajectory sampling -- genuine overfitting/generalization tradeoff, not a bug. encirclement and transitioning generalized better; diamond, shield, converging generalized markedly worse. Net effect: pair-level and threat-level ceilings both roughly HALVED.",
+      "verdict": "strategy 6 achieved its own literal objective (fix under-convergence, raise test_acc) while making the metric that actually matters significantly WORSE. HALT GATE 1 remains unambiguously triggered, further below the 70% floor than strategy 5 left it. swarm_data/best_model.pt is currently the worse strategy-6 checkpoint; swarm_data/best_model_strategy5_backup.pt holds the better strategy-5 checkpoint, available to revert to if wanted. STOPPING per instruction after step 4 -- not proceeding to any further strategy without explicit user direction.",
+      "ceiling_doc": "docs/CEILING.md (update section)",
+      "history_doc": "HISTORY.md",
+      "raw_data": "evaluation/phase0_ceiling_v6.json, evaluation/phase0_threat_ceiling_v6.json"
     }
   },
   "started": "2026-08-07T19:47:41Z"

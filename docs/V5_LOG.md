@@ -527,3 +527,40 @@ Full curve: `evaluation/phase0_strategy6_train_log.txt`. Per-class report:
 the dominant pair-recovery blocker is a `stgt_bridge.py` guard independent of classification
 correctness. Proceeding to step 4: re-measure both the pair-level and threat-level ceilings
 on this checkpoint to see what, if anything, transfers.
+
+## 2026-08-08: step 4 — re-measured ceilings on the strategy-6 checkpoint: a REGRESSION
+
+Ran `phase0_ceiling.py --n 1000` (`evaluation/phase0_ceiling_v6.json`) and
+`phase0_threat_ceiling.py` (`evaluation/phase0_threat_ceiling_v6.json`) on the strategy-6
+checkpoint, same seed=999 protocol as every prior measurement.
+
+**Result, reported plainly: strategy 6 made the ceiling WORSE, not better.**
+
+| metric | strategy 5 | strategy 6 |
+|---|---|---|
+| pair-level accuracy (robust=False) | 12.2% (62/509) | **4.9% (25/509)** |
+| pair-level accuracy (robust=True) | 12.8% (65/509) | **5.3% (27/509)** |
+| threat ceiling (robust=False) | 13.0% | **6.3%** |
+| threat ceiling (robust=True) | 13.6% | **6.9%** |
+
+Window-level accuracy stayed roughly flat (70.4%→69.1%) but the per-class breakdown shows a
+sharp capacity trade: `encirclement` recovered (41.3%→61.8%) and `transitioning` improved a
+lot (57.3%→87.5%), but `diamond` (94.0%→70.0%), `shield` (90.3%→66.5%), and especially
+`converging` (66.7%→37.4%) all regressed. The clearest signal: conditional accuracy WITHIN
+bucket A (trajectories that DID reach a resolvable pair) collapsed from 79.5% (62/78) to
+32.5% (25/77) — strategy 6 is now wrong more often than right even when it commits to an
+answer.
+
+**Diagnosis:** strategy 6 converged much more tightly to `generate_dataset()`'s training
+distribution (near-100% in-distribution test_acc) than strategy 5 did, but that distribution's
+spread/noise ranges are narrower than the ceiling test's realistic long-trajectory sampling.
+The sharper fit generalized better for 2 classes and markedly worse for 3 others — a genuine
+overfitting/generalization tradeoff caused by fixing the under-convergence, not a new bug.
+
+`swarm_data/best_model.pt` is now the strategy-6 (worse-ceiling) checkpoint;
+`swarm_data/best_model_strategy5_backup.pt` holds strategy 5's better-performing checkpoint if
+reverting is wanted. Full tables: `docs/CEILING.md`'s 2026-08-08 "step 4" update.
+
+**HALT GATE 1 remains unambiguously triggered — further below the 70% floor than strategy 5
+left it.** Per instruction, stopping here. `docs/V5_STATE.json` updated (`phase=0, step=8`).
+Not proceeding to any further strategy without explicit direction.

@@ -442,3 +442,53 @@ independent of classification correctness — a better-converged classifier can 
 probability margins and help at the margin, but is not expected to resolve that guard by
 itself. Phase 0 step 4 (next) re-measures the actual pair-level and threat-level ceilings on
 this checkpoint to see how much, if any, of this in-distribution gain transfers.
+
+## Update 2026-08-08: step 4 — strategy 6 REGRESSES the ceiling despite fixing convergence
+
+`scripts/phase0_ceiling.py --n 1000` and `scripts/phase0_threat_ceiling.py` re-run on the
+strategy-6 checkpoint (`evaluation/phase0_ceiling_v6.json`,
+`evaluation/phase0_threat_ceiling_v6.json`), same seed=999 protocol.
+
+**The headline result is a regression, not an improvement — reported plainly, not softened:**
+
+| metric | strategy 5 | strategy 6 | change |
+|---|---|---|---|
+| in-distribution test_acc | 86.3% | **99.6%** | fixed, as intended |
+| window-level accuracy (ceiling test) | 70.4% | 69.1% | ~flat |
+| **pair-level accuracy, robust=False** | **12.2% (62/509)** | **4.9% (25/509)** | **roughly HALVED** |
+| pair-level accuracy, robust=True | 12.8% (65/509) | 5.3% (27/509) | roughly halved |
+| **threat ceiling, robust=False** | **13.0%** | **6.3%** | **roughly HALVED** |
+| threat ceiling, robust=True | 13.6% | 6.9% | roughly halved |
+| bucket A size (n reaching a resolvable pair) | 78 | 77 | ~flat |
+| **conditional accuracy WITHIN bucket A** | **62/78 = 79.5%** | **25/77 = 32.5%** | **collapsed** |
+
+Per-class window accuracy shows the mechanism — the same capacity-trading pattern seen all
+program, but now net-negative:
+
+| class | strategy 5 | strategy 6 |
+|---|---|---|
+| v_shape | 78.0% | 77.4% |
+| **encirclement** | 41.3% | **61.8%** (recovered) |
+| column | 68.8% | 76.2% |
+| **diamond** | 94.0% | **70.0%** (regressed) |
+| dispersed | 71.3% | 71.4% |
+| **converging** | 66.7% | **37.4%** (regressed hard) |
+| **shield** | 90.3% | **66.5%** (regressed) |
+| **transitioning** | 57.3% | **87.5%** (big gain) |
+
+**Diagnosis:** strategy 6 converged much more sharply to the training distribution
+(`generate_dataset()`'s spread/noise ranges are narrower — U(0.7,1.5)/U(0.3,0.8) — than the
+ceiling test's realistic long-trajectory sampling — U(0.6,1.8)/U(0.15,1.4)). Fixing the
+under-convergence let the model fit that narrower distribution far more tightly (near-100%
+in-distribution accuracy), which helped `encirclement`/`transitioning` generalize better but
+made `diamond`/`shield`/`converging` generalize WORSE to the wider real-world variation — a
+classic overfitting/generalization tradeoff, not a bug. The net effect on bucket A's own
+conditional accuracy (79.5%→32.5%) shows this isn't just "more guard-blocking" — even when
+the pipeline DOES commit to an answer, it is now right less than half as often.
+
+**Strategy 6 achieved its own literal objective (fix the training curve, raise test_acc) while
+making the metric that actually matters significantly worse.** `swarm_data/best_model.pt` is
+currently the strategy-6 checkpoint; `swarm_data/best_model_strategy5_backup.pt` holds the
+better-performing strategy-5 checkpoint if reverting is wanted. **HALT GATE 1 is unchanged —
+still far below the 70% floor — and this turn's exploration ends with the ceiling lower than
+where strategy 5 left it.** Per instruction, stopping here to report both trajectories.
