@@ -276,3 +276,46 @@ run (lower LR, more patience) would do better on the same fixed data.
 **Still far below the 70% floor. This remains an unambiguous HALT GATE 1 trigger** — 12.2% is
 real, meaningful progress, not a plateau, but not remotely close to "proceed" or even
 "revise target" territory yet.
+
+## Update 2026-08-08: the REAL ceiling — RULES-aware threat/intent/action accuracy, not just exact-pair
+
+Exact-pair accuracy is a pessimistic lower bound: `RULES` (`llm_finetuning/build_sft_dataset.py`)
+maps 49 `(from, to)` pairs onto only 4 threat levels, so a wrong recovered pair can still land
+on the correct `threat_level`. Re-scored the SAME 509 pair-eligible records from
+`evaluation/phase0_ceiling_v5.json` (strategy 5, no retraining/resampling) against `RULES` for
+`threat_level`/`likely_intent`/`recommended_action` (`scripts/phase0_threat_ceiling.py`,
+`evaluation/phase0_threat_ceiling_v5.json`):
+
+| metric | robust=False | robust=True |
+|---|---|---|
+| (a) exact pair accuracy | 12.2% (62/509) | 12.8% (65/509) |
+| **(b) THREAT ceiling** | **13.0%** | **13.6%** |
+| (c) intent ceiling | 12.2% | 12.8% |
+| action ceiling | 13.0% | 13.6% |
+| n with no recovered pair at all (bucket B/C) | 431/509 (84.7%) | 428/509 (84.1%) |
+
+4x4 threat confusion matrix (robust=False; robust=True nearly identical, `low` row 37→40):
+
+| true \\ pred | low | medium | high | critical | no_recovery |
+|---|---|---|---|---|---|
+| low | 37 | 0 | 1 | 0 | 135 |
+| medium | 0 | 0 | 1 | 0 | 182 |
+| high | 10 | 0 | 29 | 0 | 104 |
+| critical | 0 | 0 | 0 | 0 | 10 |
+
+**Answering the question plainly: the 70% floor is NOT met on the threat ceiling either.**
+13.0%/13.6% barely moves off exact-pair accuracy (12.2%/12.8%). The reason it barely moves is
+itself the important finding: **`RULES`-mapping tolerance was never the bottleneck.** Of the
+78 (robust=False) / 81 (robust=True) trajectories that DO reach a resolvable bucket-A pair,
+conditional threat accuracy is 84.6%/85.2% — genuinely good. The bottleneck is that **84.7% of
+trajectories never reach a resolvable pair in the first place** (bucket B, guard-blocked —
+mostly the dispersed/converging ambiguity guard and oov-name/dominant-history-contradiction
+guards per `stgt_bridge.py` — or bucket C, multi-hop/unresolvable). No `RULES` value is even
+looked up for those. `critical` (10 true cases) has zero recoveries under either variant — the
+rarest, highest-stakes class is also the one with the least evidence to judge.
+
+This reframes the ceiling question: the classifier itself, when it commits to a clean pair, is
+mostly right. The gate is `stgt_bridge`'s bucket-A resolution rate (15.3%/15.9% of eligible
+trajectories), not the granularity of `RULES` or exact-pair matching. Step 2 (decomposing
+pair-recovery failures) investigates whether that resolution-rate bottleneck sits in the
+classifier's per-window accuracy or in the reduction/guard logic on top of it.

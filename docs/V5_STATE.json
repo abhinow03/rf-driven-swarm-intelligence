@@ -1,7 +1,7 @@
 {
   "phase": 0,
-  "step": 4,
-  "status": "HALT_GATE_1 -- strategy 5 (targeted transitioning FP fix) roughly doubled pair-level ceiling to 12.2%/12.8%, still far below the 70% floor. Awaiting user decision.",
+  "step": 5,
+  "status": "HALT_GATE_1 -- threat-level ceiling recomputed on strategy-5 data (RULES-aware, not just exact-pair): 13.0%/13.6%, barely above exact-pair (12.2%/12.8%). Root cause: 84.7% of trajectories never reach a resolvable bucket-A pair at all (bucket B/C), not RULES-mapping tolerance. Proceeding to decompose pair-recovery failures (step 2) and strategy 6 (fix under-convergence) per user instruction.",
   "halts_cleared": [],
   "results": {
     "phase0_step1_first_check": {
@@ -169,6 +169,25 @@
       "ceiling_doc": "docs/CEILING.md (update section)",
       "history_doc": "HISTORY.md",
       "raw_data": "evaluation/phase0_ceiling_v5.json"
+    },
+    "phase0_step5_threat_ceiling": {
+      "checked": "2026-08-08T13:00:00Z",
+      "method": "no retraining/resampling -- re-scored the SAME 509 pair-eligible records from evaluation/phase0_ceiling_v5.json against RULES (llm_finetuning/build_sft_dataset.py) for threat_level/likely_intent/recommended_action instead of exact-pair match. Script: scripts/phase0_threat_ceiling.py.",
+      "rationale": "RULES maps 49 (from,to) pairs onto only 4 threat levels, so a wrong recovered pair can still yield the correct threat -- exact-pair accuracy is a pessimistic lower bound on the number that actually gates end-to-end tactical accuracy.",
+      "robust_false": {
+        "n_eligible": 509, "n_no_recovery": 431,
+        "pair_accuracy": 0.122, "threat_accuracy": 0.130,
+        "intent_accuracy": 0.122, "action_accuracy": 0.130
+      },
+      "robust_true": {
+        "n_eligible": 509, "n_no_recovery": 428,
+        "pair_accuracy": 0.128, "threat_accuracy": 0.136,
+        "intent_accuracy": 0.128, "action_accuracy": 0.136
+      },
+      "conditional_on_recovery": "of the 78 (robust=False) / 81 (robust=True) trajectories that DID reach bucket A, threat accuracy is 66/78=84.6% / 69/81=85.2% -- decent. RULES-mapping tolerance is NOT the bottleneck.",
+      "verdict": "70% floor NOT met on the threat ceiling either (13.0%/13.6%) -- barely moved off exact-pair accuracy (12.2%/12.8%). Root cause is upstream of RULES entirely: 84.7%/84.1% of trajectories never reach a resolvable bucket-A pair (bucket B guard-blocked or bucket C multi-hop/unresolvable), so there is no pair to look up in the first place. HALT GATE 1 verdict is unchanged by this more generous metric.",
+      "ceiling_doc": "docs/CEILING.md (update section)",
+      "raw_data": "evaluation/phase0_threat_ceiling_v5.json"
     }
   },
   "started": "2026-08-07T19:47:41Z"

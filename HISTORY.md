@@ -55,12 +55,28 @@ strategy 3. **Still far below the 70% floor — remains HALT GATE 1 — but this
 diagnosis-driven progress, not a plateau.** Full detail: `docs/CEILING.md`'s 2026-08-08
 "targeted fix" section, `docs/V5_LOG.md`'s matching entry.
 
+## Pre-strategy-6 measurement: is exact-pair accuracy even the right ceiling?
+
+Before choosing strategy 6, re-scored strategy 5's existing 509 pair-eligible trajectories
+(no retraining) against `RULES` for `threat_level`/`likely_intent`/`recommended_action`
+instead of exact-pair match, since `RULES` maps 49 pairs onto only 4 threat levels — a wrong
+pair can still land on the right threat. Result: **13.0%/13.6%, barely above exact-pair
+(12.2%/12.8%)**. Full 4x4 confusion matrix and reasoning: `docs/CEILING.md`'s 2026-08-08
+"the REAL ceiling" update.
+
+**The 70% floor is not met on the threat ceiling either — same HALT GATE 1 verdict.** But the
+finding is still load-bearing: conditional on the classifier actually reaching a resolvable
+`(a,b)` pair (bucket A), threat accuracy is ~85% — good. The real bottleneck is that 84.7% of
+trajectories **never reach a resolvable pair at all** (bucket B guard-blocked or bucket C
+unresolvable). `RULES`-mapping tolerance was never the constraint; bucket-A resolution rate
+(15.3%) is. This reframes what strategy 6 and step 2's decomposition should target.
+
 ## Strategy 6 (current)
 
-Not yet started — awaiting direction after reporting strategy 5's result. Candidates on the
-table, not yet chosen: (a) a steadier/longer training run on the SAME now-improved data regime
-(strategy 5's checkpoint looked under-converged, volatile val curve, early stop at 22/150);
-(b) further regime-boundary tightening in the same direction that worked this round; (c)
-address the `encirclement` regression specifically before it compounds further; (d) something
-else. *(Update this section — and add a new table row — once a strategy 6 is actually chosen
-and attempted.)*
+Investigating under strict instruction: (1) decompose which windows/positions cause
+pair-recovery failures and whether the reduction logic vs. the classifier is the bottleneck,
+(2) retrain the strategy-5 data with a steadier schedule (raised patience, lower peak LR,
+warmup, cosine decay to a nonzero floor) to address the under-convergence flagged in strategy
+5 (early stop at 22/150, volatile val curve), (3) re-measure pair-level AND threat-level
+ceilings on the new checkpoint. *(Update this section — and add a new table row — once
+strategy 6's retrain is complete.)*

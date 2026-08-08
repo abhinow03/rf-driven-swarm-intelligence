@@ -420,3 +420,38 @@ each other. Moot here since the verdict is A, not C (the bugs do NOT still exist
 neither branch of that contradiction was triggered. Flagged to the user for awareness in case
 it was a drafting slip, since a future turn could land on verdict C and the contradiction
 would then be load-bearing.
+
+## 2026-08-08: pre-strategy-6 step 1 — is exact-pair accuracy even the right ceiling?
+
+User instruction, before choosing strategy 6: compute the RULES-aware threat/intent/action
+ceiling on the EXISTING strategy-5 measurement (no retraining, no new sampling). Built
+`scripts/phase0_threat_ceiling.py`, which re-scores `evaluation/phase0_ceiling_v5.json`'s
+509 pair-eligible `pair_records` (already computed) against `RULES`
+(`llm_finetuning/build_sft_dataset.py`) instead of requiring an exact pair match — since
+`RULES` maps 49 `(from, to)` pairs onto only 4 threat levels, a wrong recovered pair can still
+land on the correct `threat_level`.
+
+Result (`evaluation/phase0_threat_ceiling_v5.json`):
+
+| metric | robust=False | robust=True |
+|---|---|---|
+| exact pair accuracy | 12.2% (62/509) | 12.8% (65/509) |
+| **threat ceiling** | **13.0%** | **13.6%** |
+| intent ceiling | 12.2% | 12.8% |
+| action ceiling | 13.0% | 13.6% |
+| no recovered pair at all (bucket B/C) | 431/509 (84.7%) | 428/509 (84.1%) |
+
+**Plain answer: the 70% floor is not met on the threat ceiling either.** It barely moved off
+exact-pair accuracy. Why it barely moved is the actual finding: of the 78/81 trajectories that
+DO reach a resolvable bucket-A pair, conditional threat accuracy is ~85% — genuinely good.
+`RULES`-mapping tolerance was never the bottleneck. The bottleneck is that 84.7% of
+trajectories never reach a resolvable pair in the first place (bucket B guard-blocked, or
+bucket C multi-hop/unresolvable) — no `RULES` lookup even happens for those. The `critical`
+threat class (10 true cases) has zero recoveries under either variant.
+
+This reframes the target for step 2/strategy 6: the classifier, when it commits to a clean
+pair, is mostly right. The gate is `stgt_bridge`'s bucket-A resolution rate (15.3%/15.9%),
+not `RULES` granularity or exact-pair strictness. Full detail and 4x4 confusion matrix:
+`docs/CEILING.md`'s 2026-08-08 "the REAL ceiling" update. `docs/V5_STATE.json` updated
+(`phase=0, step=5`). `HISTORY.md` updated with a pre-strategy-6 measurement section. Proceeding
+to step 2 (decompose pair-recovery failures) per instruction — no retraining yet.
