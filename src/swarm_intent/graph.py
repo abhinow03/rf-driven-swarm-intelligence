@@ -16,7 +16,17 @@ def build_graph(positions, edge_threshold: float) -> Data:
     """Build a PyG ``Data`` object from (6, 3) normalised positions.
 
     Returns a graph with:
-        data.x          node features  (6, 3)
+        data.x          node features  (6, 3) -- CENTROID-RELATIVE offsets,
+                         not absolute positions (see V5_LOG.md, 2026-08-08:
+                         absolute-position node features forced the model to
+                         implicitly discount swarm centroid drift, which
+                         grew far larger and more variable once
+                         formations.py/data.py's acceleration fix landed --
+                         diagnosed as the leading factor behind a confident,
+                         systematic v_shape/encirclement misclassification
+                         that scaling data/epochs alone did not resolve.
+                         Edge connectivity/edge_attr are already
+                         translation-invariant and unaffected by this.)
         data.edge_index COO edge list  (2, E)
         data.edge_attr  edge features  (E, 4) = (dx, dy, dz, dist)
 
@@ -49,7 +59,9 @@ def build_graph(positions, edge_threshold: float) -> Data:
 
     edge_index = torch.tensor([src_list, dst_list], dtype=torch.long)
     edge_attr = torch.stack(attr_list, dim=0)
-    return Data(x=positions, edge_index=edge_index, edge_attr=edge_attr)
+    centroid = positions.mean(dim=0, keepdim=True)
+    node_features = positions - centroid
+    return Data(x=node_features, edge_index=edge_index, edge_attr=edge_attr)
 
 
 def sequence_to_graphs(seq, edge_threshold: float):
