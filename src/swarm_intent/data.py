@@ -161,12 +161,45 @@ def generate_dataset(
         trans_label = label_map.setdefault(TRANSITION_CLASS, len(label_map))
         pairs = [(a, b) for a in BASE_FORMATIONS for b in BASE_FORMATIONS if a != b]
         for _ in range(n_transition):
-            a, b = pairs[rng.integers(len(pairs))]
+            f_a, f_b = pairs[rng.integers(len(pairs))]
             spread = rng.uniform(0.7, 1.5)
             noise = rng.uniform(0.3, 0.8)
-            seq = generate_transition_sequence(a, b, n_timesteps, dt, spread, noise, rng=rng)
+
+            # Three blend-timing regimes (ported from upstream's own
+            # generate_transition_dataset regime logic -- see V5_LOG.md's gap 2
+            # diagnosis, 2026-08-07). A single fixed, centered blend_start=20/
+            # blend_end=30 taught the model ONLY "a full window straddling a
+            # centered blend = transitioning", with zero exposure to a window
+            # that is mostly-before or mostly-after a blend and should read as
+            # the pure endpoint formation -- exactly what every long,
+            # sliding-window-evaluated real trajectory constantly produces.
+            # Regimes 0/2 label the DOMINANT pure formation; only regime 1
+            # (blend genuinely centered) is labeled "transitioning".
+            margin = max(1, int(0.10 * n_timesteps))
+            regime = rng.integers(0, 3)
+            if regime == 0:  # blend late -> mostly formation_a
+                blend_start = int(n_timesteps * rng.uniform(0.66, 0.86))
+                blend_end = int(np.clip(blend_start + n_timesteps * rng.uniform(0.10, 0.18),
+                                        blend_start + margin, n_timesteps - 1))
+                seq_label = label_map[f_a]
+            elif regime == 1:  # blend centered -> genuinely transitioning
+                blend_start = int(n_timesteps * rng.uniform(0.20, 0.50))
+                blend_end = int(np.clip(blend_start + n_timesteps * rng.uniform(0.28, 0.44),
+                                        blend_start + margin, n_timesteps - margin))
+                seq_label = trans_label
+            else:  # blend early -> mostly formation_b
+                blend_end = int(n_timesteps * rng.uniform(0.16, 0.36))
+                blend_start = int(np.clip(blend_end - n_timesteps * rng.uniform(0.10, 0.18),
+                                          1, blend_end - margin))
+                seq_label = label_map[f_b]
+
+            blend_start = max(1, min(blend_start, n_timesteps - 2))
+            blend_end = max(blend_start + 1, min(blend_end, n_timesteps - 1))
+
+            seq = generate_transition_sequence(f_a, f_b, n_timesteps, dt, spread, noise,
+                                               blend_start=blend_start, blend_end=blend_end, rng=rng)
             seqs.append(seq)
-            labels.append(trans_label)
+            labels.append(seq_label)
 
     return np.array(seqs), np.array(labels), names
 
