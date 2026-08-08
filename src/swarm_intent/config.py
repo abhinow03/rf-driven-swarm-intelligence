@@ -68,6 +68,13 @@ class Config:
     weight_decay: float = 1e-4
     patience: int = 12
     grad_clip: float = 1.0
+    # Linear warmup for warmup_pct of total steps, then cosine decay down to
+    # lr_min_frac * lr (a nonzero floor, not to ~0 like the previous OneCycleLR
+    # default) -- see V5_LOG.md's strategy-6 entry: strategy 5's OneCycleLR run
+    # (high peak lr, decay-to-near-zero) early-stopped at 22/150 with a visibly
+    # volatile val curve, suggesting the schedule itself was destabilizing.
+    warmup_pct: float = 0.1
+    lr_min_frac: float = 0.05
 
     # --- Loss weights ---
     cls_weight: float = 1.0

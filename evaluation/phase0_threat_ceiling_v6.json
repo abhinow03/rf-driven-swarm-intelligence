@@ -1,0 +1,39 @@
+{
+  "robust=False (shipped default)": {
+    "n_eligible": 509,
+    "n_no_recovery": 432,
+    "pair_accuracy": 0.04911591355599214,
+    "threat_accuracy": 0.06286836935166994,
+    "intent_accuracy": 0.04911591355599214,
+    "action_accuracy": 0.06679764243614932,
+    "threat_confusion": {
+      "high|low": 43,
+      "medium|no_recovery": 181,
+      "low|no_recovery": 142,
+      "low|low": 31,
+      "critical|no_recovery": 10,
+      "high|no_recovery": 99,
+      "medium|low": 2,
+      "high|high": 1
+    }
+  },
+  "robust=True (majority-vote reduction)": {
+    "n_eligible": 509,
+    "n_no_recovery": 429,
+    "pair_accuracy": 0.05304518664047151,
+    "threat_accuracy": 0.068762278978389,
+    "intent_accuracy": 0.05304518664047151,
+    "action_accuracy": 0.07269155206286837,
+    "threat_confusion": {
+      "high|low": 43,
+      "medium|no_recovery": 181,
+      "low|no_recovery": 139,
+      "low|low": 34,
+      "critical|no_recovery": 10,
+      "high|no_recovery": 99,
+      "medium|low": 2,
+      "high|high": 1
+    }
+  },
+  "source": "evaluation/phase0_ceiling_v6.json"
+}

@@ -1,0 +1,271 @@
+{
+  "phase": 0,
+  "step": 9,
+  "status": "HALT_GATE_1 -- reverted swarm_data/best_model.pt to the strategy-5 checkpoint (verified by SHA-256, epoch=10/val_loss=0.610). User's next diagnosis: dispersed_converging_ambiguity guard (60.9% of pair-recovery failures per step 2) is a bug in OUR bridge code (stgt_bridge.py), not an STGT limitation. Investigating and fixing the guard, then diagnosing chain-length-2's literal 0/251. No training this round.",
+  "halts_cleared": [],
+  "results": {
+    "phase0_step1_first_check": {
+      "checked": "2026-08-07T19:47:41Z",
+      "verdict": "both preconditions FAIL against LOCAL src/swarm_intent/ as it stood at that time"
+    },
+    "phase0_step1_upstream_verification": {
+      "checked": "2026-08-07T19:57:56Z",
+      "upstream_repo": "https://github.com/pizz-beep/capstone",
+      "upstream_branches": ["main (only branch, no tags)"],
+      "upstream_main_commit_count": 11,
+      "upstream_main_head": {
+        "hash": "9158b081e812a4f4a757840c677ea43d3cfb476c",
+        "date": "2026-08-03T18:25:07+05:30",
+        "message": "added acceleration and split dispersed and converging logic"
+      },
+      "geometry_fix_upstream": {
+        "status": "PRESENT",
+        "evidence": "data_gen.py get_formation_offsets(): 'dispersed' now uses rng.uniform(low=[-30,-30,-15], high=[30,30,15], size=(6,3)); 'converging' now uses a SEPARATE branch -- a fixed ring geometry (radius=25, 6 angles via np.linspace, small per-drone z jitter). No longer a shared branch."
+      },
+      "acceleration_fix_upstream": {
+        "status": "PRESENT",
+        "evidence": "data_gen.py generate_transition_sequence(): accel_mag = rng.uniform(-1.0, 1.0); acceleration vector now added to velocity INSIDE the per-timestep loop (velocity = velocity + acceleration * dt, executed every t). Velocity varies across the trajectory."
+      },
+      "diff_confirmed_via": "git diff 9158b081^ 9158b081 -- data_gen.py, read in full, matches commit message exactly",
+      "checkpoint_in_upstream_repo": "NONE -- swarm_data/ and *.pt/*.pth are gitignored upstream too; 'pushed model' commit (6069c760) does not actually carry a checkpoint in git history",
+      "local_generator_provenance": {
+        "src/swarm_intent/formations.py and data.py introduced entirely in": "commit 2653c96 'Initial commit: UAV swarm intent pipeline (handoff snapshot)', 2026-07-30",
+        "no prior local git history": "these files have no earlier commits in THIS repo -- migrated wholesale from notebooks per MIGRATION_GUIDE.md, capturing a snapshot of the SAME logical functions (get_formation_offsets, generate_swarm_sequence) as upstream's data_gen.py, but restructured into modules",
+        "relationship_to_upstream": "local formations.py's pre-fix numbers (low=[-20,-20,-10], high=[20,20,10], shared dispersed/converging branch) match upstream's PARENT commit (9158b081^) numbers exactly -- confirms common lineage, captured before upstream's Aug 3 18:25 fix landed"
+      },
+      "local_checkpoint_provenance": {
+        "file": "swarm_data/best_model.pt",
+        "mtime": "2026-08-03T13:08+05:30 (5h17m BEFORE upstream's fix commit)",
+        "keys_in_checkpoint": ["epoch", "model_state_dict", "optimizer_state_dict", "val_loss", "val_acc", "cfg", "reg_mean", "reg_std", "train_mean", "train_std"],
+        "provenance_metadata_present": false,
+        "finding": "the checkpoint carries NO git hash, dataset hash, or source-file identifier of any kind -- only hyperparameters (cfg dict) and normalization stats. There is no way to verify which generator version ANY checkpoint was trained against just by inspecting it. This is itself a finding, addressed by scripts/verify_upstream_physics.py + the deferred rebuild_derived.py hash extension (Phase 3)."
+      },
+      "verdict": "A -- both fixes present upstream, commit 9158b081e812a4f4a757840c677ea43d3cfb476c, on main (the only branch). No retrained checkpoint exists anywhere (not locally, not upstream) that reflects this fix.",
+      "action_taken": "Did NOT patch the generator locally (explicitly instructed not to). Did NOT pull/merge upstream's fix into local formations.py/data.py -- user's step 5 verdict-A protocol says 'tell me and STOP, I will pull and have her retrain, then you resume Phase 0.'",
+      "guard_shipped": "scripts/verify_upstream_physics.py -- programmatically asserts both fixes present (static regex + behavioural check) against whatever local src/swarm_intent/ currently contains. Currently correctly FAILS (proving the gate works) since local repo has not yet pulled the fix. 7 unit tests in tests/test_verify_upstream_physics.py, all passing.",
+      "deferred": "rebuild_derived.py (Phase 3 s3 deliverable) does not exist yet -- Phase 3 has not been reached. Cannot 'extend' a file that doesn't exist. Noted as a carry-forward requirement: when Phase 3 builds rebuild_derived.py, its hash MUST cover src/swarm_intent/formations.py and src/swarm_intent/data.py."
+    },
+    "phase0_step1_fix_pulled": {
+      "checked": "2026-08-07T20:07:46Z",
+      "action": "User explicitly authorized pulling upstream commit 9158b081 into local src/swarm_intent/formations.py and data.py. Ported (not a git merge -- file layouts differ, migrated logic by hand): geometry split (dispersed=widened uniform scatter, converging=fixed-radius ring) and acceleration (colinear with initial heading, applied inside the per-timestep loop in BOTH generate_swarm_sequence and generate_transition_sequence). Preserved this repo's threaded-seeded-rng discipline throughout -- did NOT port upstream's unseeded np.random.default_rng(seed=None) calls.",
+      "not_ported": "upstream's generate_transition_sequence also applies a converging-specific offset shrink DURING an active blend -- this predates commit 9158b081 (not part of the verified diff) and was never in our original migration either. Left as a disclosed, separate discrepancy, not folded into this fix silently.",
+      "verification": "scripts/verify_upstream_physics.py now passes both checks (was failing before this commit). Full suite 134/134 pass.",
+      "commit": "27adc23"
+    },
+    "phase0_step2_regen_and_retrain": {
+      "checked": "2026-08-07T20:23:31Z",
+      "dataset_regen": "python scripts/generate_data.py --per-formation 1000 --transitions 2000, PYTHONPATH=src, seed=42 (Config default, unchanged). 9000 sequences, 8 classes. 2.23s wall time. Old dataset backed up to swarm_data_prefix_backup_20260807/ before overwrite.",
+      "training": "python scripts/train_model.py --classes 8 --epochs 80, PYTHONPATH=src. Early stopped at epoch 67 (patience=12), best checkpoint from epoch 55. test_loss=0.2017, test_acc=0.9348. Wall time 11m13s.",
+      "checkpoint_mtime": "2026-08-08T01:50:56+05:30 (fresh, post-fix)",
+      "verify_upstream_physics_against_new_checkpoint_source": "PASS (both checks)",
+      "full_test_suite": "134/134 pass"
+    },
+    "phase0_steps2to4_ceiling": {
+      "checked": "2026-08-07T20:30:41Z",
+      "script": "scripts/phase0_ceiling.py --n 1000, seed=999 (disjoint from 0/1/42)",
+      "window_level_overall_accuracy": 0.223,
+      "pair_level_accuracy": 0.033,
+      "pair_level_fraction": "17/509",
+      "pair_eligible_bucket_distribution": {"A": 100, "B": 174, "C": 235},
+      "per_class_window_accuracy": {
+        "v_shape": 0.013, "encirclement": 0.002, "column": 0.158, "diamond": 0.206,
+        "dispersed": 0.256, "converging": 0.001, "shield": 0.240, "transitioning": 0.804
+      },
+      "diagnostics_run_before_trusting_this_number": {
+        "window_label_alignment_checked_against_sliding_window_inference_source": "correct, not a bug",
+        "early_vs_late_window_accuracy_60_fresh_trajectories": {"early_w_idx_lt_2": 0.363, "late_last_2": 0.327,
+          "conclusion": "essentially flat -- rules out simple position-drift-into-OOD-normalization as the sole/primary mechanism"},
+        "training_distribution_matched_check": {
+          "regime": "generate_swarm_sequence, n_timesteps=50, single steady formation -- EXACT generate_dataset() regime, same sliding_window_inference/predict_v2 inference path",
+          "overall_accuracy": 0.695, "n": 105,
+          "per_class": {"v_shape": "0/15 (0%)", "encirclement": "0/15 (0%)", "column": "14/15", "diamond": "14/15",
+            "dispersed": "15/15", "converging": "15/15", "shield": "15/15"},
+          "finding": "93.5% (train.py's own reported test_acc) -> 69.5% (same matched regime, but via sliding_window_inference/predict_v2 -- the path every real eval in this project uses) is itself an unexplained gap, with v_shape/encirclement specifically collapsing to 0% -- unrelated to this session's physics fix. NOT diagnosed further; flagged."
+        }
+      },
+      "verdict": "3.3% pair-level accuracy is far below the plan's own 70% floor. Two separate, stacked, UNCONFIRMED mechanisms hypothesized (inference-path gap w/ v_shape/encirclement collapse; long-trajectory blend-timing/regime mismatch vs generate_dataset()'s fixed blend_start=20/blend_end=30). Neither diagnosed to root cause or fixed -- reported per HALT GATE 1's own protocol, not improvised around.",
+      "ceiling_doc": "docs/CEILING.md",
+      "raw_data": "evaluation/phase0_ceiling.json"
+    },
+    "phase0_gap_diagnosis": {
+      "checked": "2026-08-07T21:49:25Z",
+      "doc": "docs/GAP_DIAGNOSIS.md",
+      "gap1_ruled_out": ["duplicate model/graph implementation (swarm_intent.model vs swarm_intent.stgt.model) -- identical result via both", "normalization round-trip inconsistency -- both paths agree on real X_test.npy examples", "small-sample luck -- 0% reproduced at n=100, two seeds"],
+      "gap1_confirmed": "v_shape/encirclement confidently (97.1%) misclassified as 'diamond', 30/30 fresh examples -- not noise/OOD collapse, a real generalization failure. Leading (unproven) explanation: deterministic-template formations + absolute (not centroid-relative) node features + acceleration-driven position variance increase + only 67 epochs/11min training -- perfect on in-run held-out data (X_test.npy), collapsed on genuinely fresh data.",
+      "gap1_side_finding": "src/swarm_intent/stgt/ is an undocumented parallel copy of model/graph/config, reintroduces the hidden-global-state pattern the project's migration was meant to eliminate (module-level device global vs parameter-inferred). Harmless in this single-GPU env but a real duplication/drift risk -- every eval script uses stgt/, train.py uses the main package.",
+      "gap2_ruled_out": "simple position-drift-into-OOD (already ruled out in CEILING.md)",
+      "gap2_confirmed": "generate_dataset() labels an ENTIRE 50-step, blend@20-30 transition sequence as 'transitioning', full stop -- model never trained on a window where only PART is blend and the rest should read as the pure endpoint formation. Directly tested: matched-regime (50-step, blend 20-30) first-window accuracy is 0% (correctly -- that's what 'transitioning' training data IS), randomized/long regime scores 40-85% (better, closer to a real steady-state window, still short of ceiling). Not fully independent of gap1 -- phase0_ceiling.json shows every formation (not just v_shape/encirclement) degrading sharply on long trajectories vs matched-regime.",
+      "nothing_fixed": true,
+      "recommendation_in_doc": "neither mechanism implicates the physics fix itself as wrong; both point to the training DATA REGIME (generate_dataset()'s blend-labeling convention, possibly epoch/data budget) as the next thing to address, not a revert of the fix"
+    },
+    "phase0_gap2_fix_and_retrain": {
+      "checked": "2026-08-08T05:47:14Z",
+      "action": "User authorized: fix generate_dataset()'s transition labeling (3-regime dominant-formation labeling, ported from upstream's own generate_transition_dataset design) and retrain. Implemented, tested (134/134), committed 8e08e02.",
+      "retrain": "80 full epochs (no early stop this time), best epoch 75, test_acc=0.9333, 13m07s. verify_upstream_physics.py still passes.",
+      "phase0_ceiling_rerun": {
+        "script": "scripts/phase0_ceiling.py --n 1000 --out evaluation/phase0_ceiling_v2.json, same seed=999",
+        "window_level_accuracy": {"before": 0.223, "after": 0.277},
+        "pair_level_accuracy": {"before": 0.0334, "after": 0.0472, "before_fraction": "17/509", "after_fraction": "24/509"},
+        "per_class_notable": {
+          "v_shape": {"before": 0.013, "after": 0.532, "note": "large improvement"},
+          "encirclement": {"before": 0.002, "after": 0.143, "note": "still very poor"},
+          "diamond": {"before": 0.206, "after": 0.102, "note": "got worse"},
+          "converging": {"before": 0.001, "after": 0.077, "note": "still very poor"},
+          "shield": {"before": 0.240, "after": 0.154, "note": "got worse"},
+          "transitioning": {"before": 0.804, "after": 0.355, "note": "recall dropped sharply, not just population share"}
+        }
+      },
+      "verdict": "gap-2 fix correctly diagnosed and implemented, measurably helped v_shape specifically (1.3%->53.2%), but pair-level ceiling only moved 3.3%->4.7% -- still nowhere near the 70% floor, and 3 classes (diamond, shield, transitioning's own recall) got WORSE, not just unchanged. Nothing further attempted -- reporting per HALT GATE 1 protocol.",
+      "ceiling_doc": "docs/CEILING.md (update section)",
+      "raw_data": "evaluation/phase0_ceiling_v2.json"
+    },
+    "phase0_scale_data_and_epochs": {
+      "checked": "2026-08-08T06:19:30Z",
+      "action": "User authorized: increase training epochs and data size, retrain, try another strategy if results still don't improve. Scaled n_per_formation 1000->3000, n_transition 2000->9000 (30000 total sequences vs 9000), epochs 80->150 (early-stopped at 42, best epoch 30, test_acc=0.9771).",
+      "phase0_ceiling_rerun": {
+        "script": "scripts/phase0_ceiling.py --n 1000 --out evaluation/phase0_ceiling_v3.json, same seed=999",
+        "window_level_accuracy": {"9k_80ep": 0.277, "30k_150ep": 0.369},
+        "pair_level_accuracy": {"9k_80ep": 0.0472, "30k_150ep": 0.0672, "9k_80ep_fraction": "24/509", "30k_150ep_fraction": "34/509"}
+      },
+      "verdict": "real, monotonic improvement (3.3%->4.7%->6.7% across both fixes) but at a rate of return (~+1.5-2pts per ~3x compute) that does not support reaching anywhere near the 70% floor without many further doublings of an already-substantial budget. v_shape regressed (53.2%->31.7%) while diamond/shield/converging recovered -- capacity trading within a fixed architecture, not convergence toward a usable ceiling. Judged as 'results still don't improve [enough to matter]' per the user's own conditional -- moving to the pre-authorized next strategy.",
+      "ceiling_doc": "docs/CEILING.md (update section)",
+      "raw_data": "evaluation/phase0_ceiling_v3.json"
+    },
+    "phase0_strategy2_centroid_relative": {
+      "checked": "2026-08-08T06:48:45Z",
+      "action": "Implemented centroid-relative node features (positions - positions.mean(dim=0)) in build_graph, both graph.py and stgt/model.py copies. Retrained from scratch on the same 30k dataset, 150 epochs (early-stopped at 29, best epoch 17, test_acc=0.9873, 18m42s). verify_upstream_physics.py + full suite (134/134) pass.",
+      "phase0_ceiling_rerun": {
+        "script": "scripts/phase0_ceiling.py --n 1000 --out evaluation/phase0_ceiling_v4.json, same seed=999",
+        "window_level_accuracy": {"30k_150ep_absolute": 0.369, "30k_150ep_centroid_relative": 0.727},
+        "per_class_range": {"before": "14.9%-72.0%", "after": "52.3%-85.4%, much more even"},
+        "pair_level_accuracy_robust_false": {"before": 0.0672, "after": 0.0611, "after_fraction": "31/509"},
+        "pair_level_accuracy_robust_true": {"after": 0.0648, "after_fraction": "33/509", "bucket_C_before": 188, "bucket_C_after": 100, "bucket_A_before": 50, "bucket_A_after": 53}
+      },
+      "root_cause_identified": "model over-predicts 'transitioning' at a strikingly uniform 20-28% false-positive rate across all 7 steady formations (v_shape 24.3%, encirclement 27.5%, column 20.5%, diamond 21.3%, dispersed 25.4%, converging 25.1%, shield 27.1%). With 15-30 windows per long trajectory this makes at least one spurious ambiguous window near-certain, tripping guards regardless of how accurate classification is elsewhere. No longer a classification-quality problem (window accuracy is now good, 72.7%) -- a residual, class-uniform calibration/bias problem specific to the transitioning class.",
+      "verdict": "both pre-authorized strategies (data/epochs scaling, centroid-relative features) executed. Window-level accuracy transformed (36.9%->72.7%) but pair-level ceiling stayed flat (6.7%->6.1%/6.5%) for a now-diagnosed, specific reason. Remains an unambiguous HALT GATE 1 trigger. Not attempting a third strategy without checking in.",
+      "ceiling_doc": "docs/CEILING.md (update section)",
+      "raw_data": "evaluation/phase0_ceiling_v4.json, evaluation/phase0_ceiling_v4_robust.json"
+    },
+    "phase0_strategy5_targeted_transitioning_fp": {
+      "checked": "2026-08-08T07:16:12Z",
+      "diagnostic_before_fixing": {
+        "method": "40 chain-length-1 (fully unambiguous) + 40 chain-length-2 trajectories, seed=4242",
+        "fp_rate_unambiguous_windows": 0.018,
+        "fp_rate_within_15_steps_of_blend_boundary": 0.532,
+        "fp_rate_far_from_blend_boundary": 0.0,
+        "conclusion": "not a broad calibration bug -- false positives concentrate almost entirely near real blend boundaries, where the gap-2 regime fix still left a wide grey zone"
+      },
+      "action": "Tightened generate_dataset()'s regime bounds (commit 5baaceb): regime 1 (transitioning) blend region now 45-62% of n_timesteps (was 28-44%), regimes 0/2 (pure) now 74-90% pure content (was 66-86%). Verified composition numerically before regenerating.",
+      "retrain": "regenerated 30k dataset, 150 epochs, early-stopped at 22 (best epoch 10), test_acc=0.8631 -- notably lower and more volatile val curve than strategy 4, possibly not fully converged. verify_upstream_physics.py + full suite (134/134) pass.",
+      "phase0_ceiling_rerun": {
+        "script": "scripts/phase0_ceiling.py --n 1000 --out evaluation/phase0_ceiling_v5.json, same seed=999",
+        "window_level_accuracy": {"before": 0.727, "after": 0.704},
+        "pair_level_accuracy_robust_false": {"before": 0.0611, "after": 0.1218, "after_fraction": "62/509"},
+        "pair_level_accuracy_robust_true": {"before": 0.0648, "after": 0.1277, "after_fraction": "65/509"},
+        "transitioning_fp_rate_per_class_after": {"v_shape": 0.162, "encirclement": 0.230, "column": 0.186, "diamond": 0.040, "dispersed": 0.217, "converging": 0.197, "shield": 0.085},
+        "side_effect": "encirclement window-level accuracy regressed sharply (62.2%->41.3%), same capacity-trading pattern as strategy 3"
+      },
+      "verdict": "pair-level ceiling roughly DOUBLED (6.1%->12.2%, robust 6.5%->12.8%) -- the largest single relative jump of the program so far, and a well-targeted, diagnosis-driven fix, not a blind retrain. Still far below the 70% floor. Remains an unambiguous HALT GATE 1 trigger. Training curve volatility (early stop at 22/150, lower aggregate test_acc) suggests this checkpoint may not be fully converged -- untested whether steadier training does better on the same fixed data.",
+      "ceiling_doc": "docs/CEILING.md (update section)",
+      "history_doc": "HISTORY.md",
+      "raw_data": "evaluation/phase0_ceiling_v5.json"
+    },
+    "phase0_step5_threat_ceiling": {
+      "checked": "2026-08-08T13:00:00Z",
+      "method": "no retraining/resampling -- re-scored the SAME 509 pair-eligible records from evaluation/phase0_ceiling_v5.json against RULES (llm_finetuning/build_sft_dataset.py) for threat_level/likely_intent/recommended_action instead of exact-pair match. Script: scripts/phase0_threat_ceiling.py.",
+      "rationale": "RULES maps 49 (from,to) pairs onto only 4 threat levels, so a wrong recovered pair can still yield the correct threat -- exact-pair accuracy is a pessimistic lower bound on the number that actually gates end-to-end tactical accuracy.",
+      "robust_false": {
+        "n_eligible": 509, "n_no_recovery": 431,
+        "pair_accuracy": 0.122, "threat_accuracy": 0.130,
+        "intent_accuracy": 0.122, "action_accuracy": 0.130
+      },
+      "robust_true": {
+        "n_eligible": 509, "n_no_recovery": 428,
+        "pair_accuracy": 0.128, "threat_accuracy": 0.136,
+        "intent_accuracy": 0.128, "action_accuracy": 0.136
+      },
+      "conditional_on_recovery": "of the 78 (robust=False) / 81 (robust=True) trajectories that DID reach bucket A, threat accuracy is 66/78=84.6% / 69/81=85.2% -- decent. RULES-mapping tolerance is NOT the bottleneck.",
+      "verdict": "70% floor NOT met on the threat ceiling either (13.0%/13.6%) -- barely moved off exact-pair accuracy (12.2%/12.8%). Root cause is upstream of RULES entirely: 84.7%/84.1% of trajectories never reach a resolvable bucket-A pair (bucket B guard-blocked or bucket C multi-hop/unresolvable), so there is no pair to look up in the first place. HALT GATE 1 verdict is unchanged by this more generous metric.",
+      "ceiling_doc": "docs/CEILING.md (update section)",
+      "raw_data": "evaluation/phase0_threat_ceiling_v5.json"
+    },
+    "phase0_step6_decompose_failures": {
+      "checked": "2026-08-08T13:30:00Z",
+      "method": "re-ran inference (no retraining) with identical seed=999 regime, reproduced all 509 pair-eligible trajectories index-for-index (62 correct/447 failed, exact match to phase0_ceiling_v5.json). For each failure: per-window correctness + position, whether the pair was recoverable from correct-only windows re-reduced, and the exact stgt_bridge guard_reasons that blocked bucket A. Script: scripts/phase0_decompose_failures.py.",
+      "chain_length_breakdown": {
+        "chain_1_steady_state": {"n": 258, "n_correct": 62, "accuracy": 0.240},
+        "chain_2_single_transition": {"n": 251, "n_correct": 0, "accuracy": 0.0}
+      },
+      "bad_window_distribution_among_failures": {"0": 211, "1": 121, "2": 79, "3": 26, "4": 6, "5": 4},
+      "fraction_failures_with_1_2_bad_windows": 0.447,
+      "fraction_recoverable_from_correct_only_windows": 0.009,
+      "guard_reason_breakdown_all_447_failures": {
+        "dispersed_converging_ambiguity": 272,
+        "bucket_C_no_guard_multi_hop_or_oscillation": 154,
+        "oov_name": 42,
+        "dominant_history_contradiction": 18,
+        "bucket_A_wrong_pair_edge_case": 16,
+        "low_confidence": 11
+      },
+      "verdict": "reduction/guard logic, not classifier accuracy, is the dominant bottleneck: 47.2% of failures had zero misclassified windows yet still failed, and filtering to correct-only windows recovers the pair in only 0.9% of failures. dispersed_converging_ambiguity (stgt_bridge.py, unconditional, fires across all formation classes, previously documented unfixed in AUDIT.md sec AG) is the single largest cause at 60.9%. Chain-length-2 (real transitions) has NEVER succeeded once (0/251) -- every one of strategy 5's 62 successes is a steady state. Retraining (strategy 6) is unlikely to move the pair ceiling much on its own since the dominant blocker is bridge/reduction-code logic, not training data -- flagged, not acted on (out of scope this turn); proceeding to strategy 6 exactly as instructed.",
+      "ceiling_doc": "docs/CEILING.md (update section)",
+      "raw_data": "evaluation/phase0_decompose_failures.json"
+    },
+    "phase0_step7_strategy6_retrain": {
+      "checked": "2026-08-08T22:00:00Z",
+      "action": "checked strategy-5 dataset class distribution first (balanced, ruled out encirclement data-starvation). Replaced OneCycleLR (decays to ~0) with linear warmup (10% of steps) + cosine decay to a nonzero floor (5% of peak lr) in src/swarm_intent/config.py + train.py. Retrained on the SAME strategy-5 data: lr 3e-4->1e-4, patience 12->35. 134/134 tests pass. Backed up best_model.pt -> best_model_strategy5_backup.pt first.",
+      "dataset_class_distribution": {"v_shape": 3910, "encirclement": 3877, "column": 3865, "diamond": 3862, "dispersed": 3821, "converging": 3867, "shield": 3832, "transitioning": 2966},
+      "training_result": {
+        "strategy5": {"best_epoch": 10, "early_stopped_at": 22, "test_acc": 0.8631},
+        "strategy6": {"best_epoch": 51, "early_stopped_at": 86, "best_val_loss": 0.0505, "test_acc": 0.9958}
+      },
+      "per_class_test_metrics": {
+        "v_shape": {"precision": 0.987, "recall": 1.000, "f1": 0.993},
+        "encirclement": {"precision": 1.000, "recall": 0.986, "f1": 0.993},
+        "column": {"precision": 1.000, "recall": 1.000, "f1": 1.000},
+        "diamond": {"precision": 0.990, "recall": 1.000, "f1": 0.995},
+        "dispersed": {"precision": 0.995, "recall": 0.988, "f1": 0.991},
+        "converging": {"precision": 0.997, "recall": 1.000, "f1": 0.998},
+        "shield": {"precision": 1.000, "recall": 1.000, "f1": 1.000},
+        "transitioning": {"precision": 1.000, "recall": 0.991, "f1": 0.995}
+      },
+      "bug_found_not_fixed": "evaluate_ml_model (src/swarm_intent/llm/evaluate.py) double-normalizes X_test.npy, which is already normalized before being saved to disk -- collapses predictions to a single class. Worked around for this report by evaluating without the extra normalization step. Out of scope this turn, flagged for a future turn.",
+      "verdict": "under-convergence hypothesis confirmed and fixed: strategy 5's aggressive schedule + low patience stopped training well before it found a better optimum. In-distribution test performance now essentially saturated (all classes >=98.6% precision/recall), encirclement fully recovered. This is NOT yet the ceiling metric -- step 2's finding (dispersed_converging_ambiguity guard causes 60.9% of pair-recovery failures, independent of classification correctness) means this gain may not transfer to pair-level/threat-level ceilings. Proceeding to step 4 to measure.",
+      "ceiling_doc": "docs/CEILING.md (update section)",
+      "history_doc": "HISTORY.md",
+      "raw_data": "evaluation/phase0_strategy6_train_log.txt, evaluation/phase0_strategy6_classification_report.json"
+    },
+    "phase0_step8_remeasure_strategy6": {
+      "checked": "2026-08-08T22:20:00Z",
+      "method": "phase0_ceiling.py --n 1000 and phase0_threat_ceiling.py re-run on the strategy-6 checkpoint, identical seed=999 protocol.",
+      "pair_level_accuracy": {"strategy5": {"robust_false": 0.1218, "robust_true": 0.1277}, "strategy6": {"robust_false": 0.0491, "robust_true": 0.0530}},
+      "threat_ceiling": {"strategy5": {"robust_false": 0.130, "robust_true": 0.136}, "strategy6": {"robust_false": 0.063, "robust_true": 0.069}},
+      "window_level_accuracy": {"strategy5": 0.7043, "strategy6": 0.6911},
+      "conditional_accuracy_within_bucket_A": {"strategy5": "62/78 = 79.5%", "strategy6": "25/77 = 32.5%"},
+      "per_class_window_accuracy_delta": {
+        "v_shape": [0.780, 0.774], "encirclement": [0.413, 0.618], "column": [0.688, 0.762],
+        "diamond": [0.940, 0.700], "dispersed": [0.713, 0.714], "converging": [0.667, 0.374],
+        "shield": [0.903, 0.665], "transitioning": [0.573, 0.875]
+      },
+      "diagnosis": "strategy 6 converged much more tightly to generate_dataset()'s narrower training distribution (spread/noise ranges) than the ceiling test's wider realistic long-trajectory sampling -- genuine overfitting/generalization tradeoff, not a bug. encirclement and transitioning generalized better; diamond, shield, converging generalized markedly worse. Net effect: pair-level and threat-level ceilings both roughly HALVED.",
+      "verdict": "strategy 6 achieved its own literal objective (fix under-convergence, raise test_acc) while making the metric that actually matters significantly WORSE. HALT GATE 1 remains unambiguously triggered, further below the 70% floor than strategy 5 left it. swarm_data/best_model.pt is currently the worse strategy-6 checkpoint; swarm_data/best_model_strategy5_backup.pt holds the better strategy-5 checkpoint, available to revert to if wanted. STOPPING per instruction after step 4 -- not proceeding to any further strategy without explicit user direction.",
+      "ceiling_doc": "docs/CEILING.md (update section)",
+      "history_doc": "HISTORY.md",
+      "raw_data": "evaluation/phase0_ceiling_v6.json, evaluation/phase0_threat_ceiling_v6.json"
+    },
+    "phase0_step9_revert_checkpoint": {
+      "checked": "2026-08-09T00:05:00Z",
+      "action": "swarm_data/best_model.pt (strategy 6) backed up to best_model_strategy6_backup.pt; best_model_strategy5_backup.pt restored as best_model.pt",
+      "verification": {
+        "pre_revert_hash_sha256": "9090093c599acb910fb9604a1554fc9023c5a6dd4d91fda567d617a83652b07f",
+        "post_revert_hash_sha256": "18fc201d5a419ff2fb0cfb66a60810af77a9ed52969f2996f57c952d1306a01b",
+        "matches_strategy5_backup": true,
+        "loaded_checkpoint_epoch": 10,
+        "loaded_checkpoint_val_loss": 0.610021668840462
+      },
+      "standing_rule_recorded": "STGT checkpoint selection must be judged on pair-level/threat-level ceiling, never test accuracy alone -- strategy 6 hit 99.6% test accuracy while roughly halving the ceiling. Recorded in HISTORY.md.",
+      "history_doc": "HISTORY.md"
+    }
+  },
+  "started": "2026-08-07T19:47:41Z"
+}

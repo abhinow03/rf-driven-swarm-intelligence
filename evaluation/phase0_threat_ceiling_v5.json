@@ -1,0 +1,41 @@
+{
+  "robust=False (shipped default)": {
+    "n_eligible": 509,
+    "n_no_recovery": 431,
+    "pair_accuracy": 0.12180746561886051,
+    "threat_accuracy": 0.12966601178781925,
+    "intent_accuracy": 0.12180746561886051,
+    "action_accuracy": 0.12966601178781925,
+    "threat_confusion": {
+      "high|no_recovery": 104,
+      "high|high": 29,
+      "medium|no_recovery": 182,
+      "low|no_recovery": 135,
+      "low|low": 37,
+      "critical|no_recovery": 10,
+      "low|high": 1,
+      "high|low": 10,
+      "medium|high": 1
+    }
+  },
+  "robust=True (majority-vote reduction)": {
+    "n_eligible": 509,
+    "n_no_recovery": 428,
+    "pair_accuracy": 0.12770137524557956,
+    "threat_accuracy": 0.13555992141453832,
+    "intent_accuracy": 0.12770137524557956,
+    "action_accuracy": 0.13555992141453832,
+    "threat_confusion": {
+      "high|no_recovery": 104,
+      "high|high": 29,
+      "medium|no_recovery": 182,
+      "low|no_recovery": 132,
+      "low|low": 40,
+      "critical|no_recovery": 10,
+      "low|high": 1,
+      "high|low": 10,
+      "medium|high": 1
+    }
+  },
+  "source": "/home/pw26_akp_01/aadhya/uav-llm/evaluation/phase0_ceiling_v5.json"
+}

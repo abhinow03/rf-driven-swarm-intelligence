@@ -44,7 +44,12 @@ def build_graph(positions, threshold=None):
     edge_index = torch.tensor([src_list, dst_list], dtype=torch.long)
     edge_attr = torch.stack(attr_list, dim=0)
 
-    return Data(x=positions, edge_index=edge_index, edge_attr=edge_attr)
+    # Centroid-relative node features, not absolute positions -- kept in sync
+    # with src/swarm_intent/graph.py's build_graph. See that function's
+    # docstring and V5_LOG.md (2026-08-08) for why.
+    centroid = positions.mean(dim=0, keepdim=True)
+    node_features = positions - centroid
+    return Data(x=node_features, edge_index=edge_index, edge_attr=edge_attr)
 
 
 def sequence_to_graphs(seq, threshold=None):

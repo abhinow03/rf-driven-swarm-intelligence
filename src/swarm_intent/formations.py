@@ -65,12 +65,23 @@ def get_formation_offsets(formation_type: str, spread: float = 1.0,
             [10, 0, 0], [0, -10, 0], [0, 0, -10],
         ], dtype=float)
 
-    elif formation_type in ("dispersed", "converging"):
-        # converging returns the (spread-out) STARTING offsets; the shrink
-        # over time is handled in generate_swarm_sequence.
+    elif formation_type == "dispersed":
         offsets = rng.uniform(
-            low=[-20, -20, -10], high=[20, 20, 10], size=(6, 3)
+            low=[-30, -30, -15], high=[30, 30, 15], size=(6, 3)
         ).astype(float)
+
+    elif formation_type == "converging":
+        # Distinct ring geometry from `dispersed`'s scatter -- ported from
+        # upstream commit 9158b081 ("added acceleration and split dispersed
+        # and converging logic", https://github.com/pizz-beep/capstone).
+        # Returns the (spread-out) STARTING offsets; the shrink over time is
+        # handled in generate_swarm_sequence / generate_transition_sequence.
+        angles = np.linspace(0, 2 * np.pi, 6, endpoint=False)
+        radius = 25.0
+        offsets = np.array([
+            [radius * np.cos(a), radius * np.sin(a), rng.uniform(-5, 5)]
+            for a in angles
+        ], dtype=float)
 
     elif formation_type == "shield":
         offsets = np.array([
