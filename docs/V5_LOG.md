@@ -371,6 +371,48 @@ pivot ("try another strategy"), not open-ended iteration.
 
 State written to `docs/V5_STATE.json`: `phase=0, step=4`, still HALT_GATE_1.
 
+## 2026-08-08 — strategy 5: targeted fix for the transitioning false-positive rate, ceiling roughly doubles
+
+User authorized: "Target the transitioning false-positive rate specifically, then retrain,"
+and asked for `HISTORY.md` first (strategy-level running summary, created and committed
+`0f7f404` before touching anything else).
+
+Before writing any code, diagnosed where the false positives actually concentrate (40
+chain-length-1 + 40 chain-length-2 fresh trajectories, seed=4242): **1.8% false-positive
+`"transitioning"` rate on fully unambiguous windows (zero blend anywhere in the whole
+trajectory), 53.2% within 15 timesteps of a real blend boundary, 0.0% far from one.** This
+refuted the "model has learned an overly broad transitioning detector" story from strategy
+4's writeup — the model is well-calibrated on clean data. The false positives trace to
+strategy 2's (gap-2 fix) regime boundaries still leaving a wide grey zone: `"transitioning"`-
+labeled training examples could have as little as 28% genuine blend content (up to 64%
+residual pure formation), and "pure"-labeled examples could carry real blend content near
+their edges.
+
+Tightened `generate_dataset()`'s regime bounds accordingly (commit `5baaceb`): regime 1 now
+requires the blend region to dominate the window (45-62% of `n_timesteps`, verified
+numerically before regenerating — mean 52%, was 28-44%); regimes 0/2 push blend to the very
+edge with a short duration (74-90% pure content, was 66-86%). Regenerated (30k sequences,
+5.84s) and retrained (150 epochs, early-stopped at 22, best epoch 10, `test_acc=0.8631` —
+notably lower and the val curve visibly more volatile, oscillating 0.6-4.1, than strategy 4's
+run). `verify_upstream_physics.py` and the full suite (134/134) still pass.
+
+`scripts/phase0_ceiling.py --n 1000` (`evaluation/phase0_ceiling_v5.json`): window-level
+accuracy roughly flat (72.7%→70.4%), but **pair-level accuracy (the ceiling) roughly
+DOUBLED: 6.1%→12.2% (robust=True: 6.5%→12.8%)** — the largest single relative jump from any
+one fix in this program so far. Transitioning false-positive rate dropped meaningfully for
+some classes (`diamond` 21.3%→4.0%, `shield` 27.1%→8.5%) and modestly for others. Not a clean
+win throughout, though: `encirclement`'s raw window accuracy regressed sharply (62.2%→41.3%),
+the same capacity-trading pattern seen in strategy 3.
+
+**Still far below the 70% floor — remains an unambiguous HALT GATE 1 trigger — but this is
+real, meaningful, diagnosis-driven progress, not a plateau.** The volatile training curve
+(early stop at epoch 22 of 150, lower aggregate `test_acc` than strategy 4) is untested as a
+further lever — a steadier training run on the same, now-improved data might do better,
+but that's a new question, not explored here.
+
+`HISTORY.md` updated with this strategy's entry. State written to `docs/V5_STATE.json`:
+`phase=0, step=4`, still HALT_GATE_1.
+
 **Note on the message's final instruction.** The message opened with "Do NOT patch the
 generator yourself under any circumstances" and closed with "If the bugs still exist, just
 clone the repo and fix the bugs yourself and continue working" — these directly contradict

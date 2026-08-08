@@ -229,3 +229,50 @@ transformed window-level accuracy but left pair-level accuracy flat (6.7%→6.1%
 specific, now-diagnosed reason (pervasive transitioning false-positives, not confusion
 between real formations). **This remains an unambiguous HALT GATE 1 trigger.** Not
 attempting a third strategy without checking in first.
+
+## Update 2026-08-08: targeted fix for the transitioning false-positive rate — pair-level ceiling roughly doubles
+
+Per instruction, targeted the false-positive rate specifically rather than guessing. Before
+touching anything, diagnosed WHERE it concentrates (40 fresh chain-length-1 trajectories vs.
+40 chain-length-2 trajectories, seed=4242, disjoint from everything else):
+
+| window population | false-positive "transitioning" rate |
+|---|---|
+| fully unambiguous (chain length 1, zero blend anywhere) | **1.8%** |
+| within 15 timesteps of a real blend boundary | **53.2%** |
+| more than 15 timesteps from any blend boundary | **0.0%** |
+
+**Not a broad calibration bug — the model is well-behaved on genuinely unambiguous input.**
+The false positives concentrate almost entirely near real blend boundaries, where strategy
+5's own gap-2 regime fix still let a wide grey zone into training: regime 1 ("transitioning")
+examples could have as little as 28% genuine blend content with up to 64% residual pure
+formation; regimes 0/2's "pure" examples could carry real blend content near their window
+edges. Tightened the regime bounds (`src/swarm_intent/data.py`, commit `5baaceb`): regime 1
+now requires the blend region to dominate the window (45-62% of `n_timesteps`, verified
+numerically at generation time — mean 52%, was 28-44%); regimes 0/2 push blend to the very
+edge with a short duration (74-90% pure content, was 66-86%).
+
+Regenerated (30k sequences) and retrained (150 epochs, early-stopped at 22, best epoch 10,
+`test_acc=0.8631` — notably lower and the validation curve was visibly more volatile than
+prior runs, val_loss oscillating between 0.6 and 4.1). `verify_upstream_physics.py` and the
+full suite (134/134) still pass.
+
+`scripts/phase0_ceiling.py --n 1000` (`evaluation/phase0_ceiling_v5.json`):
+
+| metric | before (strategy 4) | after (strategy 5) |
+|---|---|---|
+| window-level accuracy | 72.7% | 70.4% (roughly flat) |
+| **pair-level accuracy, robust=False** | **6.1% (31/509)** | **12.2% (62/509)** |
+| pair-level accuracy, robust=True | 6.5% (33/509) | 12.8% (65/509) |
+| transitioning FP rate (mean across 7 classes) | ~24% | ~16% (diamond 21.3%→4.0%, shield 27.1%→8.5% improved most; others improved modestly) |
+
+**Pair-level accuracy roughly doubled — the largest single relative jump from any one fix in
+this program so far.** Not uniform, though: `encirclement`'s raw window accuracy regressed
+sharply (62.2%→41.3%), the same capacity-trading pattern seen in strategy 3. The volatile
+training curve (early stop at epoch 22 of 150, lower aggregate test accuracy than strategy 4)
+suggests this checkpoint may not be fully converged — untested whether a steadier training
+run (lower LR, more patience) would do better on the same fixed data.
+
+**Still far below the 70% floor. This remains an unambiguous HALT GATE 1 trigger** — 12.2% is
+real, meaningful progress, not a plateau, but not remotely close to "proceed" or even
+"revise target" territory yet.

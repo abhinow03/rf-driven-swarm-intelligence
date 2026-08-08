@@ -21,26 +21,46 @@ keyed wrong and no LLM can fix it. Plan's stated floor: **70%.** Nowhere close y
 | 2 | fix `generate_dataset()`'s transition labeling (dominant-formation, 3-regime) | 3.3% → **4.7%** (24/509) | correctly diagnosed and implemented; helped `v_shape` a lot (1.3%→53.2%) but 3 other classes regressed; still HALT GATE 1 |
 | 3 | scale data 3.3x (9k→30k seqs) + epochs 1.9x (80→150) | 4.7% → **6.7%** (34/509) | real, monotonic improvement but insufficient rate of return; `v_shape` regressed again (53.2%→31.7%) while others recovered — capacity trading, not convergence |
 | 4 | centroid-relative node features (not absolute position) in `build_graph`, retrain | 6.7% → **6.1%** (31/509); robust=True gives 6.5% | window-level accuracy transformed (36.9%→72.7%, the session's biggest single jump, per-class now even 52-85%) but pair-level ceiling stayed flat. Root cause found: uniform 20-28% false-positive `"transitioning"` rate across all 7 steady formations — no longer a classification problem, a `"transitioning"`-specific calibration/bias problem |
-| 5 | **(current)** target the transitioning false-positive rate specifically | in progress | see below |
+| 5 | target the transitioning false-positive rate, diagnosis-driven regime retightening | 6.1% → **12.2%** (62/509); robust=True 6.5%→12.8% | diagnosed first (1.8% FP on unambiguous windows, 53.2% near a real blend boundary — not a broad calibration bug, a regime-boundary grey zone); tightened `generate_dataset()`'s regime bounds accordingly; roughly DOUBLED the ceiling, the largest single jump so far; `encirclement` regressed (capacity trading again); still far below 70% |
+| 6 | **(current)** — none yet, awaiting direction | — | see below |
 
-## Strategy 5 (current): target the transitioning false-positive rate
+## Strategy 5: target the transitioning false-positive rate — done, ceiling doubled
 
 **Starting point:** strategy 4 left window-level classification good (72.7% overall) but with
-every steady formation getting misread as `"transitioning"` 20-28% of the time — uniformly
-across classes, not concentrated in one or two. With 15-30 windows per realistic long
-trajectory, this makes at least one spurious ambiguous window per trajectory near-certain,
-which trips the guard logic in `stgt_bridge`/`coverage.py` regardless of how accurate
-classification is otherwise.
+every steady formation getting misread as `"transitioning"` 20-28% of the time.
 
-**Before touching anything, diagnosing WHERE the false positives concentrate** (per this
-project's standing discipline: diagnose before fixing) — specifically, whether they land on
-windows that are genuinely, fully unambiguous (drawn from a chain of length 1, no blend
-anywhere in the whole trajectory) or whether they cluster near real blend boundaries (where a
-sliding 50-step window can legitimately contain a meaningful fraction of blend content even
-if the window's majority-vote label reads as the pure formation). These have different fixes:
-a true calibration bug on fully-unambiguous windows points at training data/loss changes; a
-concentration near blend boundaries would instead point at evaluation-window selection or the
-reduction algorithm's tolerance, not a training bug at all.
+**Diagnosed before touching anything** (40 chain-length-1 + 40 chain-length-2 fresh
+trajectories, seed=4242): false-positive rate is **1.8%** on fully unambiguous windows (zero
+blend anywhere in the whole trajectory) but **53.2%** within 15 timesteps of a real blend
+boundary, **0.0%** far from one. This ruled out a broad model-calibration bug — the false
+positives trace specifically to strategy 2's (gap-2) regime boundaries still admitting a wide
+grey zone: `"transitioning"`-labeled examples could carry as little as 28% genuine blend
+content (up to 64% residual pure formation), and "pure"-labeled examples could carry real
+blend content near their edges.
 
-*(This section is updated as strategy 5 progresses — see `docs/V5_LOG.md` for the live
-detail and `docs/CEILING.md` for the resulting numbers once retrained.)*
+**Fix:** tightened `generate_dataset()`'s three regime bounds (`src/swarm_intent/data.py`,
+commit `5baaceb`) so regime 1 ("transitioning") requires the blend region to dominate the
+window (45-62% of `n_timesteps`, verified numerically before regenerating), and regimes 0/2
+("pure") push blend to the very window edge with a short duration (74-90% pure content).
+Regenerated (30k sequences) and retrained (150 epochs, early-stopped at 22, best epoch 10,
+`test_acc=0.8631` — notably lower and the validation curve visibly more volatile than strategy
+4's run, an open, unexplored question rather than a resolved one).
+
+**Result:** pair-level accuracy (the ceiling) **roughly doubled: 6.1%→12.2%** (`robust=True`:
+6.5%→12.8%) — the largest single relative jump from any fix in this program so far.
+Transitioning false-positive rate dropped meaningfully for some classes (`diamond`
+21.3%→4.0%, `shield` 27.1%→8.5%) and modestly for others. Not uniform: `encirclement`'s raw
+window accuracy regressed sharply (62.2%→41.3%), the same capacity-trading pattern seen in
+strategy 3. **Still far below the 70% floor — remains HALT GATE 1 — but this is real,
+diagnosis-driven progress, not a plateau.** Full detail: `docs/CEILING.md`'s 2026-08-08
+"targeted fix" section, `docs/V5_LOG.md`'s matching entry.
+
+## Strategy 6 (current)
+
+Not yet started — awaiting direction after reporting strategy 5's result. Candidates on the
+table, not yet chosen: (a) a steadier/longer training run on the SAME now-improved data regime
+(strategy 5's checkpoint looked under-converged, volatile val curve, early stop at 22/150);
+(b) further regime-boundary tightening in the same direction that worked this round; (c)
+address the `encirclement` regression specifically before it compounds further; (d) something
+else. *(Update this section — and add a new table row — once a strategy 6 is actually chosen
+and attempted.)*

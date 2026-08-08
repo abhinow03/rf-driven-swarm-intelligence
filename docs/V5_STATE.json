@@ -1,7 +1,7 @@
 {
   "phase": 0,
   "step": 4,
-  "status": "HALT_GATE_1 -- both pre-authorized strategies executed (data/epochs scaling, centroid-relative features). Window accuracy 36.9%->72.7%, pair-level ceiling still only 6.1-6.7%. Root cause identified (20-28% uniform transitioning false-positive rate). Awaiting user decision -- not attempting a third strategy unprompted.",
+  "status": "HALT_GATE_1 -- strategy 5 (targeted transitioning FP fix) roughly doubled pair-level ceiling to 12.2%/12.8%, still far below the 70% floor. Awaiting user decision.",
   "halts_cleared": [],
   "results": {
     "phase0_step1_first_check": {
@@ -145,6 +145,30 @@
       "verdict": "both pre-authorized strategies (data/epochs scaling, centroid-relative features) executed. Window-level accuracy transformed (36.9%->72.7%) but pair-level ceiling stayed flat (6.7%->6.1%/6.5%) for a now-diagnosed, specific reason. Remains an unambiguous HALT GATE 1 trigger. Not attempting a third strategy without checking in.",
       "ceiling_doc": "docs/CEILING.md (update section)",
       "raw_data": "evaluation/phase0_ceiling_v4.json, evaluation/phase0_ceiling_v4_robust.json"
+    },
+    "phase0_strategy5_targeted_transitioning_fp": {
+      "checked": "2026-08-08T07:16:12Z",
+      "diagnostic_before_fixing": {
+        "method": "40 chain-length-1 (fully unambiguous) + 40 chain-length-2 trajectories, seed=4242",
+        "fp_rate_unambiguous_windows": 0.018,
+        "fp_rate_within_15_steps_of_blend_boundary": 0.532,
+        "fp_rate_far_from_blend_boundary": 0.0,
+        "conclusion": "not a broad calibration bug -- false positives concentrate almost entirely near real blend boundaries, where the gap-2 regime fix still left a wide grey zone"
+      },
+      "action": "Tightened generate_dataset()'s regime bounds (commit 5baaceb): regime 1 (transitioning) blend region now 45-62% of n_timesteps (was 28-44%), regimes 0/2 (pure) now 74-90% pure content (was 66-86%). Verified composition numerically before regenerating.",
+      "retrain": "regenerated 30k dataset, 150 epochs, early-stopped at 22 (best epoch 10), test_acc=0.8631 -- notably lower and more volatile val curve than strategy 4, possibly not fully converged. verify_upstream_physics.py + full suite (134/134) pass.",
+      "phase0_ceiling_rerun": {
+        "script": "scripts/phase0_ceiling.py --n 1000 --out evaluation/phase0_ceiling_v5.json, same seed=999",
+        "window_level_accuracy": {"before": 0.727, "after": 0.704},
+        "pair_level_accuracy_robust_false": {"before": 0.0611, "after": 0.1218, "after_fraction": "62/509"},
+        "pair_level_accuracy_robust_true": {"before": 0.0648, "after": 0.1277, "after_fraction": "65/509"},
+        "transitioning_fp_rate_per_class_after": {"v_shape": 0.162, "encirclement": 0.230, "column": 0.186, "diamond": 0.040, "dispersed": 0.217, "converging": 0.197, "shield": 0.085},
+        "side_effect": "encirclement window-level accuracy regressed sharply (62.2%->41.3%), same capacity-trading pattern as strategy 3"
+      },
+      "verdict": "pair-level ceiling roughly DOUBLED (6.1%->12.2%, robust 6.5%->12.8%) -- the largest single relative jump of the program so far, and a well-targeted, diagnosis-driven fix, not a blind retrain. Still far below the 70% floor. Remains an unambiguous HALT GATE 1 trigger. Training curve volatility (early stop at 22/150, lower aggregate test_acc) suggests this checkpoint may not be fully converged -- untested whether steadier training does better on the same fixed data.",
+      "ceiling_doc": "docs/CEILING.md (update section)",
+      "history_doc": "HISTORY.md",
+      "raw_data": "evaluation/phase0_ceiling_v5.json"
     }
   },
   "started": "2026-08-07T19:47:41Z"
