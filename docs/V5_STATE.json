@@ -1,7 +1,7 @@
 {
   "phase": 0,
-  "step": 5,
-  "status": "HALT_GATE_1 -- threat-level ceiling recomputed on strategy-5 data (RULES-aware, not just exact-pair): 13.0%/13.6%, barely above exact-pair (12.2%/12.8%). Root cause: 84.7% of trajectories never reach a resolvable bucket-A pair at all (bucket B/C), not RULES-mapping tolerance. Proceeding to decompose pair-recovery failures (step 2) and strategy 6 (fix under-convergence) per user instruction.",
+  "step": 6,
+  "status": "HALT_GATE_1 -- decomposed pair-recovery failures on strategy-5 data: chain-length-2 (real transitions) is at literal 0.0% (0/251); dispersed_converging_ambiguity guard alone accounts for 60.9% of all 447 failures, unconditional and firing across all formation classes -- reduction logic filtering to correct-only windows recovers the pair in only 0.9% of failures, ruling out 'a few bad windows' as the cause. Proceeding to strategy 6 (steadier training schedule) per instruction; flagged that this guard, not training, is the dominant blocker and is out of scope this turn.",
   "halts_cleared": [],
   "results": {
     "phase0_step1_first_check": {
@@ -188,6 +188,28 @@
       "verdict": "70% floor NOT met on the threat ceiling either (13.0%/13.6%) -- barely moved off exact-pair accuracy (12.2%/12.8%). Root cause is upstream of RULES entirely: 84.7%/84.1% of trajectories never reach a resolvable bucket-A pair (bucket B guard-blocked or bucket C multi-hop/unresolvable), so there is no pair to look up in the first place. HALT GATE 1 verdict is unchanged by this more generous metric.",
       "ceiling_doc": "docs/CEILING.md (update section)",
       "raw_data": "evaluation/phase0_threat_ceiling_v5.json"
+    },
+    "phase0_step6_decompose_failures": {
+      "checked": "2026-08-08T13:30:00Z",
+      "method": "re-ran inference (no retraining) with identical seed=999 regime, reproduced all 509 pair-eligible trajectories index-for-index (62 correct/447 failed, exact match to phase0_ceiling_v5.json). For each failure: per-window correctness + position, whether the pair was recoverable from correct-only windows re-reduced, and the exact stgt_bridge guard_reasons that blocked bucket A. Script: scripts/phase0_decompose_failures.py.",
+      "chain_length_breakdown": {
+        "chain_1_steady_state": {"n": 258, "n_correct": 62, "accuracy": 0.240},
+        "chain_2_single_transition": {"n": 251, "n_correct": 0, "accuracy": 0.0}
+      },
+      "bad_window_distribution_among_failures": {"0": 211, "1": 121, "2": 79, "3": 26, "4": 6, "5": 4},
+      "fraction_failures_with_1_2_bad_windows": 0.447,
+      "fraction_recoverable_from_correct_only_windows": 0.009,
+      "guard_reason_breakdown_all_447_failures": {
+        "dispersed_converging_ambiguity": 272,
+        "bucket_C_no_guard_multi_hop_or_oscillation": 154,
+        "oov_name": 42,
+        "dominant_history_contradiction": 18,
+        "bucket_A_wrong_pair_edge_case": 16,
+        "low_confidence": 11
+      },
+      "verdict": "reduction/guard logic, not classifier accuracy, is the dominant bottleneck: 47.2% of failures had zero misclassified windows yet still failed, and filtering to correct-only windows recovers the pair in only 0.9% of failures. dispersed_converging_ambiguity (stgt_bridge.py, unconditional, fires across all formation classes, previously documented unfixed in AUDIT.md sec AG) is the single largest cause at 60.9%. Chain-length-2 (real transitions) has NEVER succeeded once (0/251) -- every one of strategy 5's 62 successes is a steady state. Retraining (strategy 6) is unlikely to move the pair ceiling much on its own since the dominant blocker is bridge/reduction-code logic, not training data -- flagged, not acted on (out of scope this turn); proceeding to strategy 6 exactly as instructed.",
+      "ceiling_doc": "docs/CEILING.md (update section)",
+      "raw_data": "evaluation/phase0_decompose_failures.json"
     }
   },
   "started": "2026-08-07T19:47:41Z"

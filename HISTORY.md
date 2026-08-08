@@ -71,12 +71,32 @@ trajectories **never reach a resolvable pair at all** (bucket B guard-blocked or
 unresolvable). `RULES`-mapping tolerance was never the constraint; bucket-A resolution rate
 (15.3%) is. This reframes what strategy 6 and step 2's decomposition should target.
 
+## Pre-strategy-6 measurement 2: decomposing pair-recovery failures
+
+Re-ran inference (no retraining) reproducing all 509 pair-eligible trajectories from
+strategy 5's exact measurement, and traced WHY each of the 447 failures happened. Two
+findings sharper than anything in the program so far:
+
+1. **Chain-length-2 (a real formation transition) has 0.0% accuracy (0/251) — never once
+   succeeded.** Every one of the 62 successes is a steady-state (chain-length-1) trajectory.
+2. **The reduction/guard logic, not classifier accuracy, is the dominant bottleneck.** 47.2%
+   of failures had zero misclassified windows and still failed. Filtering to only
+   correctly-classified windows and re-reducing recovered the pair in just 0.9% of failures.
+   Tracing the actual guard: `stgt_bridge.py`'s **`dispersed_converging_ambiguity` guard
+   accounts for 60.9% of all failures**, unconditional, firing across every formation class
+   (not just dispersed/converging) — a known, previously-documented (AUDIT.md sec AG) but
+   never-before-quantified-against-this-checkpoint defect.
+
+Full detail: `docs/CEILING.md`'s 2026-08-08 "step 2" update. Flagged, not acted on: since the
+dominant blocker is bridge/reduction-code logic (fixed 0.15 threshold, fires regardless of
+correctness), strategy 6's retrain is unlikely to move the pair ceiling much by itself.
+Revisiting that guard is out of scope for this instruction; proceeding to strategy 6 as
+given and reporting the result honestly against this expectation.
+
 ## Strategy 6 (current)
 
-Investigating under strict instruction: (1) decompose which windows/positions cause
-pair-recovery failures and whether the reduction logic vs. the classifier is the bottleneck,
-(2) retrain the strategy-5 data with a steadier schedule (raised patience, lower peak LR,
+Retraining the strategy-5 data with a steadier schedule (raised patience, lower peak LR,
 warmup, cosine decay to a nonzero floor) to address the under-convergence flagged in strategy
-5 (early stop at 22/150, volatile val curve), (3) re-measure pair-level AND threat-level
-ceilings on the new checkpoint. *(Update this section — and add a new table row — once
-strategy 6's retrain is complete.)*
+5 (early stop at 22/150, volatile val curve). Full train/val curve and per-class accuracy to
+be reported, then pair-level AND threat-level ceilings re-measured on the new checkpoint.
+*(Update this section — and add a new table row — once strategy 6's retrain is complete.)*

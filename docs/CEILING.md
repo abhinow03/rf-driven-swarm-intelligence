@@ -319,3 +319,68 @@ mostly right. The gate is `stgt_bridge`'s bucket-A resolution rate (15.3%/15.9% 
 trajectories), not the granularity of `RULES` or exact-pair matching. Step 2 (decomposing
 pair-recovery failures) investigates whether that resolution-rate bottleneck sits in the
 classifier's per-window accuracy or in the reduction/guard logic on top of it.
+
+## Update 2026-08-08: pre-strategy-6 step 2 — decomposing pair-recovery failures
+
+Re-ran inference (no retraining) with the identical seed=999 sampling regime as
+`phase0_ceiling.py`, reproducing the same 509 pair-eligible trajectories index-for-index
+(confirmed: 62 successes, 447 failures, exactly matching `phase0_ceiling_v5.json`). For each
+failure, recorded per-window correctness, WHERE bad windows fall, whether the correct pair
+was recoverable from a filtered prediction list containing only the classifier's correct
+windows, and the exact `stgt_bridge` guard reason(s) that blocked bucket A.
+(`scripts/phase0_decompose_failures.py`, `evaluation/phase0_decompose_failures.json`.)
+
+**Finding 1 — chain-length-2 (an actual formation transition) NEVER succeeds:**
+
+| chain length | n | n correct | accuracy |
+|---|---|---|---|
+| 1 (steady state) | 258 | 62 | 24.0% |
+| 2 (single transition) | 251 | 0 | **0.0%** |
+
+Every one of the 62 successes in strategy 5's whole ceiling measurement is a steady-state
+trajectory. Not one of the 251 genuine single-hop transitions — arguably the most tactically
+interesting case this whole system exists to detect — was ever correctly recovered.
+
+**Finding 2 — the reduction logic is NOT the bottleneck; a specific unconditional guard is.**
+47.2% of failures (211/447) had **zero misclassified windows** — the classifier's per-window
+top-1 prediction was perfect for the entire trajectory, and it *still* failed to recover the
+pair. Filtering each failure down to only its correctly-classified windows and re-running the
+exact same reduction logic recovered the correct pair in just **4/447 (0.9%)** of cases — so
+this is not "a few noisy windows tripping unanimity," the signal is clean and the pipeline
+still rejects it. Tracing WHY, across all 447 failures:
+
+| guard / bucket reason | count | fraction of failures |
+|---|---|---|
+| **`dispersed_converging_ambiguity`** | **272** | **60.9%** |
+| bucket C (oscillation/multi-hop/terminal-unknown from classifier noise) | 154 | 34.5% |
+| `oov_name` (a window read as "transitioning") | 42 | 9.4% |
+| `dominant_history_contradiction` (tie) | 18 | 4.0% |
+| bucket A but wrong pair (edge case, see below) | 16 | 3.6% |
+| `low_confidence` | 11 | 2.5% |
+| (a trajectory can trip more than one guard, so this does not sum to 447) |
+
+`dispersed_converging_ambiguity` — `stgt_bridge.py`'s guard that fires when a window's
+classifier probability for `dispersed` vs. `converging` is within 0.15 of each other — is by
+far the single largest cause, present in **61% of all failures**. It is explicitly
+**unconditional** per `stgt_bridge.py`'s own docstring (fires even after a correct robust
+recovery) and it fires on windows of EVERY formation, not just dispersed/converging ones (this
+run: diamond 81, v_shape 80, shield 62, column 50, encirclement 50, converging 22, dispersed
+19 — roughly population-proportional, i.e. it is a generic classifier-calibration artifact,
+not something specific to those two formations' trajectories). This exact defect was already
+flagged, unfixed, in `AUDIT.md` sec AG ("this guard alone still blocks 92/96 of otherwise-
+robustly-recovered cases") — this run is the first time it's been isolated and quantified as
+THE dominant cause against the current (strategy 5) checkpoint specifically.
+
+Bad windows, when present, concentrate in the interior of the trajectory (58.4%) over
+leading/trailing edges (20.7%/20.9% each) — consistent with mid-trajectory blend-adjacent
+confusion, not edge-of-window artifacts.
+
+**Implication for strategy 6:** a steadier training run (the user's next-authorized step) can
+plausibly raise per-window accuracy further and narrow some classifier probability margins,
+but the dominant blocker — an unconditional, fixed-threshold (0.15) guard that fires
+independent of whether the top-1 prediction was even correct — is bridge/reduction-code
+logic, not a training-data or convergence problem. Retraining alone is unlikely to move the
+pair-level ceiling by much unless this guard's threshold or unconditional behavior is also
+revisited; that revisit is not authorized in this instruction and is not attempted here.
+Proceeding to strategy 6 (retrain) exactly as instructed, reporting the result honestly
+against this expectation.

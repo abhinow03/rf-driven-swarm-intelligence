@@ -455,3 +455,40 @@ not `RULES` granularity or exact-pair strictness. Full detail and 4x4 confusion 
 `docs/CEILING.md`'s 2026-08-08 "the REAL ceiling" update. `docs/V5_STATE.json` updated
 (`phase=0, step=5`). `HISTORY.md` updated with a pre-strategy-6 measurement section. Proceeding
 to step 2 (decompose pair-recovery failures) per instruction — no retraining yet.
+
+## 2026-08-08: pre-strategy-6 step 2 — decomposing pair-recovery failures
+
+Re-ran inference (still no retraining) with the identical seed=999 regime, reproducing all
+509 pair-eligible trajectories index-for-index (62 correct / 447 failed, exact match to
+`phase0_ceiling_v5.json` — good determinism sanity check). For each failure, recorded
+per-window correctness/position and the exact `stgt_bridge` guard reason that blocked bucket
+A (`scripts/phase0_decompose_failures.py`, `evaluation/phase0_decompose_failures.json`).
+
+**Two findings, both sharper than anything surfaced so far this program:**
+
+1. **Chain-length-2 (an actual formation transition) has NEVER once succeeded**: 62/258
+   (24.0%) of steady-state trajectories recover correctly, but **0/251 (0.0%)** of genuine
+   single-hop transitions do. Every success in the whole ceiling measurement is a steady
+   state. The system currently cannot detect a real transition at all.
+
+2. **The reduction/guard logic, not classifier accuracy, is the dominant bottleneck.** 211/447
+   failures (47.2%) had ZERO misclassified windows — perfect per-window classification, still
+   failed to recover the pair. Filtering to correct-only windows and re-reducing recovered the
+   pair in only 4/447 (0.9%) of cases, ruling out "a few bad windows tripping unanimity."
+   Tracing the actual `stgt_bridge` guard: **`dispersed_converging_ambiguity` accounts for
+   272/447 (60.9%) of ALL failures** — by far the largest single cause — and it fires on
+   windows of every formation (not just dispersed/converging), confirming it's a generic,
+   unconditional classifier-calibration guard, not something specific to those two classes'
+   trajectories. This exact defect was already documented, unfixed, in `AUDIT.md` sec AG; this
+   is the first time it's been isolated as the dominant cause against the strategy-5
+   checkpoint specifically. bucket C (oscillation/multi-hop noise) is the next largest at
+   34.5%.
+
+Full tables and guard-reason breakdown: `docs/CEILING.md`'s 2026-08-08 "step 2" update.
+
+**Implication flagged, not acted on:** since the dominant blocker is a fixed-threshold guard
+in `stgt_bridge.py` that fires independent of whether classification was even correct,
+strategy 6's retrain (steadier schedule) is unlikely to move the pair-level ceiling by much on
+its own. Not revisiting the guard itself — not authorized this turn. Proceeding to strategy 6
+exactly as instructed and reporting the result honestly against this expectation.
+`docs/V5_STATE.json` updated (`phase=0, step=6`).
