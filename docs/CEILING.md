@@ -104,3 +104,47 @@ the `v_shape`/`encirclement` 0% collapse specifically) a bug, and (2) is the fur
 something else. Neither should be fixed unilaterally — both call for a scoped diagnostic
 pass with an explicit plan, the same discipline this project applied to every prior
 brittleness investigation (AUDIT.md secs AF/AG).
+
+## Update 2026-08-07: gap 2 fix applied and retrained — ceiling barely moves, still HALT GATE 1
+
+Per `docs/GAP_DIAGNOSIS.md`'s confirmed mechanism, `generate_dataset()` was fixed (3-regime
+blend-timing labeling — dominant endpoint formation instead of always `"transitioning"`),
+dataset regenerated, STGT retrained (80 full epochs this time, no early stop, best epoch 75,
+`test_acc=0.9333`, 13m07s). `scripts/verify_upstream_physics.py` still passes; full suite
+still 134/134.
+
+Re-ran `scripts/phase0_ceiling.py --n 1000` (same seed=999, same protocol) against the new
+checkpoint (`evaluation/phase0_ceiling_v2.json`):
+
+| metric | before (broken transition labeling) | after (gap-2 fix) |
+|---|---|---|
+| window-level accuracy | 22.3% | 27.7% |
+| **pair-level accuracy (the ceiling)** | **3.3% (17/509)** | **4.7% (24/509)** |
+
+Per-class, the picture is mixed, not a clean win:
+
+| true class | before | after |
+|---|---|---|
+| v_shape | 1.3% | **53.2%** (large improvement — consistent with gap 1's hypothesis that more varied/plentiful training exposure helps) |
+| encirclement | 0.2% | 14.3% (still very poor) |
+| column | 15.8% | 35.1% (improved) |
+| diamond | 20.6% | **10.2%** (got worse) |
+| dispersed | 25.6% | 45.3% (improved) |
+| converging | 0.1% | 7.7% (still very poor) |
+| shield | 24.0% | **15.4%** (got worse) |
+| transitioning | 80.4% | **35.5%** (dropped sharply — expected, since far fewer training examples are now labeled `"transitioning"`, but its own recall also fell, not just its share) |
+
+**Verdict: the gap-2 fix was correctly diagnosed and correctly implemented (verified via a
+direct before/after regime test in `GAP_DIAGNOSIS.md` before ever touching training data), and
+it measurably helped — `v_shape` in particular went from a confident, systematic 0% failure to
+53.2%. But pair-level accuracy moved only 3.3%→4.7%, nowhere near the plan's 70% floor.**
+Three formations (`diamond`, `shield`, and `transitioning`'s own recall) got WORSE, not just
+unchanged — plausibly because boosting endpoint-formation representation via transition
+examples came at some cost to how well-represented/well-separated other classes are in the
+same fixed training budget (still only 9000 sequences, 80 epochs). Gap 1's core failure mode
+(confident misclassification, not just the `v_shape`/`encirclement` instance of it) is still
+clearly present for `converging` (7.7%) and `encirclement` (14.3%).
+
+**This remains an unambiguous HALT GATE 1 trigger — 4.7% is not a borderline call any more
+than 3.3% was.** Nothing further has been attempted; reporting per the halt protocol rather
+than iterating on fixes without checking back in first.

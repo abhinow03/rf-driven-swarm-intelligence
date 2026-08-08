@@ -269,6 +269,40 @@ whether/how to fix.
 State written to `docs/V5_STATE.json`: `phase=0, step=4`, still HALT_GATE_1, diagnosis
 complete, nothing fixed.
 
+## 2026-08-08 — gap-2 fix implemented, retrained, ceiling barely moves (3.3%→4.7%)
+
+User authorized: "Fix option 1 and retrain." Implemented the 3-regime dominant-formation
+labeling in `generate_dataset()` (commit `8e08e02`) exactly as diagnosed in
+`docs/GAP_DIAGNOSIS.md`, ported from upstream's own `generate_transition_dataset` regime
+design, adapted to threaded seeded rng and proportional (not hardcoded-50) bounds. Sanity
+checked label distribution before trusting it (34% transitioning, matches regime 1's ~1/3
+probability; no NaNs). Full suite 134/134.
+
+Backed up `swarm_data/` again (`swarm_data_prefix_backup2_20260807_gap2/`), regenerated
+(9000 sequences, 2.18s), retrained (`PYTHONPATH=src python scripts/train_model.py --classes 8
+--epochs 80`, tmux `v5`) — this run went the FULL 80 epochs with no early stop (best epoch
+75, `test_acc=0.9333`, 13m07s). `verify_upstream_physics.py` still passes against the new
+checkpoint's source.
+
+Re-ran `scripts/phase0_ceiling.py --n 1000` (identical seed=999 protocol,
+`evaluation/phase0_ceiling_v2.json`): window-level accuracy 22.3%→27.7%, **pair-level
+accuracy (the ceiling) 3.3%→4.7% (17/509→24/509)**. Mixed per-class picture: `v_shape` jumped
+from a confident 0% failure to 53.2% (large win, consistent with the diagnosis), but
+`diamond` (20.6%→10.2%) and `shield` (24.0%→15.4%) got WORSE, and `transitioning`'s own
+recall dropped sharply (80.4%→35.5%, more than its shrunken population share alone would
+predict). `encirclement` (14.3%) and `converging` (7.7%) remain very poor — gap 1's
+generalization-failure signature is still clearly present for those two.
+
+**Full writeup appended to `docs/CEILING.md`. This remains an unambiguous HALT GATE 1
+trigger** — 4.7% is not meaningfully closer to a "proceed" or even "revise target" decision
+than 3.3% was. The fix was correctly diagnosed and correctly implemented (verified with a
+direct before/after regime test before ever touching training data), and it did measurably
+help where it targeted — but it did not come close to resolving the ceiling problem on its
+own, and introduced new regressions in classes it wasn't targeting. Nothing further attempted
+without checking back in, per the halt protocol.
+
+State written to `docs/V5_STATE.json`: `phase=0, step=4`, still HALT_GATE_1.
+
 **Note on the message's final instruction.** The message opened with "Do NOT patch the
 generator yourself under any circumstances" and closed with "If the bugs still exist, just
 clone the repo and fix the bugs yourself and continue working" — these directly contradict

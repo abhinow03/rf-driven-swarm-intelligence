@@ -1,7 +1,7 @@
 {
   "phase": 0,
   "step": 4,
-  "status": "HALT_GATE_1 -- ceiling 3.3%, gap diagnosis complete (docs/GAP_DIAGNOSIS.md), still awaiting user decision on how to proceed -- nothing fixed",
+  "status": "HALT_GATE_1 -- gap-2 fix applied + retrained, ceiling moved 3.3%->4.7%, still far below the 70% floor, awaiting user decision",
   "halts_cleared": [],
   "results": {
     "phase0_step1_first_check": {
@@ -97,6 +97,27 @@
       "gap2_confirmed": "generate_dataset() labels an ENTIRE 50-step, blend@20-30 transition sequence as 'transitioning', full stop -- model never trained on a window where only PART is blend and the rest should read as the pure endpoint formation. Directly tested: matched-regime (50-step, blend 20-30) first-window accuracy is 0% (correctly -- that's what 'transitioning' training data IS), randomized/long regime scores 40-85% (better, closer to a real steady-state window, still short of ceiling). Not fully independent of gap1 -- phase0_ceiling.json shows every formation (not just v_shape/encirclement) degrading sharply on long trajectories vs matched-regime.",
       "nothing_fixed": true,
       "recommendation_in_doc": "neither mechanism implicates the physics fix itself as wrong; both point to the training DATA REGIME (generate_dataset()'s blend-labeling convention, possibly epoch/data budget) as the next thing to address, not a revert of the fix"
+    },
+    "phase0_gap2_fix_and_retrain": {
+      "checked": "2026-08-08T05:47:14Z",
+      "action": "User authorized: fix generate_dataset()'s transition labeling (3-regime dominant-formation labeling, ported from upstream's own generate_transition_dataset design) and retrain. Implemented, tested (134/134), committed 8e08e02.",
+      "retrain": "80 full epochs (no early stop this time), best epoch 75, test_acc=0.9333, 13m07s. verify_upstream_physics.py still passes.",
+      "phase0_ceiling_rerun": {
+        "script": "scripts/phase0_ceiling.py --n 1000 --out evaluation/phase0_ceiling_v2.json, same seed=999",
+        "window_level_accuracy": {"before": 0.223, "after": 0.277},
+        "pair_level_accuracy": {"before": 0.0334, "after": 0.0472, "before_fraction": "17/509", "after_fraction": "24/509"},
+        "per_class_notable": {
+          "v_shape": {"before": 0.013, "after": 0.532, "note": "large improvement"},
+          "encirclement": {"before": 0.002, "after": 0.143, "note": "still very poor"},
+          "diamond": {"before": 0.206, "after": 0.102, "note": "got worse"},
+          "converging": {"before": 0.001, "after": 0.077, "note": "still very poor"},
+          "shield": {"before": 0.240, "after": 0.154, "note": "got worse"},
+          "transitioning": {"before": 0.804, "after": 0.355, "note": "recall dropped sharply, not just population share"}
+        }
+      },
+      "verdict": "gap-2 fix correctly diagnosed and implemented, measurably helped v_shape specifically (1.3%->53.2%), but pair-level ceiling only moved 3.3%->4.7% -- still nowhere near the 70% floor, and 3 classes (diamond, shield, transitioning's own recall) got WORSE, not just unchanged. Nothing further attempted -- reporting per HALT GATE 1 protocol.",
+      "ceiling_doc": "docs/CEILING.md (update section)",
+      "raw_data": "evaluation/phase0_ceiling_v2.json"
     }
   },
   "started": "2026-08-07T19:47:41Z"
