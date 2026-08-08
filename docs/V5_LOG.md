@@ -303,6 +303,31 @@ without checking back in, per the halt protocol.
 
 State written to `docs/V5_STATE.json`: `phase=0, step=4`, still HALT_GATE_1.
 
+## 2026-08-08 — data+epochs scaled (3.3x/1.9x): real improvement, still nowhere near the floor
+
+User authorized: "Increase training epochs and data size, then retrain, IF RESULTS STILL
+DONT IMPROVE TRY ANOTHER STRATERGY." Scaled `--per-formation 1000->3000`,
+`--transitions 2000->9000` (30000 total sequences vs. 9000), `--epochs 80->150`
+(early-stopped at 42, best epoch 30, `test_acc=0.9771`, 24m45s, tmux `v5`). Backed up the
+prior (9k/80-epoch) `swarm_data/` to `swarm_data_backup3_gap2fix_9k/` first — skipped a full
+backup of the LARGER dataset given disk was at 100%/3.7GB free at the time (checked before
+proceeding; the 30k dataset only added ~140MB, headroom remained adequate throughout).
+`verify_upstream_physics.py` and the full suite (134/134) still pass.
+
+Re-ran `scripts/phase0_ceiling.py --n 1000` (`evaluation/phase0_ceiling_v3.json`):
+window-level 27.7%→36.9%, **pair-level (the ceiling) 4.7%→6.7% (24/509→34/509)**.
+
+Real, monotonic improvement across both fixes so far (3.3%→4.7%→6.7%), but the rate of return
+(~+1.5-2 points per ~3x compute increase) does not support closing the gap to the 70% floor
+without many further doublings of an already-substantial budget. Per-class movement isn't
+even monotonic — `v_shape` fell back from 53.2% to 31.7% this round while
+`diamond`/`shield`/`converging` recovered past their original baselines — reads as capacity
+trading within a fixed architecture, not convergence toward a usable ceiling.
+
+**Judged this as "results still don't improve [enough to matter]" per the user's own stated
+conditional, and moved to the pre-authorized next strategy: centroid-relative node
+features.** Full comparison appended to `docs/CEILING.md`.
+
 **Note on the message's final instruction.** The message opened with "Do NOT patch the
 generator yourself under any circumstances" and closed with "If the bugs still exist, just
 clone the repo and fix the bugs yourself and continue working" — these directly contradict

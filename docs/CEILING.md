@@ -148,3 +148,31 @@ clearly present for `converging` (7.7%) and `encirclement` (14.3%).
 **This remains an unambiguous HALT GATE 1 trigger — 4.7% is not a borderline call any more
 than 3.3% was.** Nothing further has been attempted; reporting per the halt protocol rather
 than iterating on fixes without checking back in first.
+
+## Update 2026-08-08: data size (3.3x) + epochs (80→150) — real but insufficient improvement
+
+Per instruction, scaled both data (`--per-formation 3000 --transitions 9000`, 30000 total
+sequences vs. 9000 before) and epochs (`--epochs 150`, early-stopped at 42, best epoch 30,
+`test_acc=0.9771` — up from 0.9333). `verify_upstream_physics.py` and the full suite (134/134)
+still pass.
+
+`scripts/phase0_ceiling.py --n 1000` (`evaluation/phase0_ceiling_v3.json`):
+
+| metric | 9k data / 80 epochs | 30k data / 150 epochs |
+|---|---|---|
+| window-level accuracy | 27.7% | 36.9% |
+| **pair-level accuracy (the ceiling)** | **4.7% (24/509)** | **6.7% (34/509)** |
+
+Real, monotonic improvement — 3.3%→4.7%→6.7% across the two fixes so far — but at this rate
+of return (roughly +1.5-2 points per ~3x compute increase), reaching even a 30-40% ceiling
+would require multiple further doublings of an already-substantial (30k sequences, 150
+epochs) budget, let alone the plan's 70% floor. Per-class movement is not uniform or
+monotonic either — `v_shape` actually fell back from 53.2% to 31.7% this round while
+`diamond`/`shield`/`converging` recovered and improved past their original baselines —
+consistent with a model still trading capacity between classes within a fixed architecture,
+not converging toward a ceiling anywhere near usable.
+
+**Conclusion: "increase data and epochs" is producing real gains but not remotely enough,
+and the trend does not support it closing the gap on its own.** Per instruction, moving to
+the next strategy (centroid-relative node features) rather than continuing to scale the same
+lever further.

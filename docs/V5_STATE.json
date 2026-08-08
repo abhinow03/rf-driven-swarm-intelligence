@@ -1,7 +1,7 @@
 {
   "phase": 0,
   "step": 4,
-  "status": "HALT_GATE_1 -- gap-2 fix applied + retrained, ceiling moved 3.3%->4.7%, still far below the 70% floor, awaiting user decision",
+  "status": "HALT_GATE_1 -- data+epochs scaled (3.3x/1.9x), ceiling moved 4.7%->6.7%, trend insufficient, now trying centroid-relative node features per pre-authorized 'another strategy'",
   "halts_cleared": [],
   "results": {
     "phase0_step1_first_check": {
@@ -118,6 +118,18 @@
       "verdict": "gap-2 fix correctly diagnosed and implemented, measurably helped v_shape specifically (1.3%->53.2%), but pair-level ceiling only moved 3.3%->4.7% -- still nowhere near the 70% floor, and 3 classes (diamond, shield, transitioning's own recall) got WORSE, not just unchanged. Nothing further attempted -- reporting per HALT GATE 1 protocol.",
       "ceiling_doc": "docs/CEILING.md (update section)",
       "raw_data": "evaluation/phase0_ceiling_v2.json"
+    },
+    "phase0_scale_data_and_epochs": {
+      "checked": "2026-08-08T06:19:30Z",
+      "action": "User authorized: increase training epochs and data size, retrain, try another strategy if results still don't improve. Scaled n_per_formation 1000->3000, n_transition 2000->9000 (30000 total sequences vs 9000), epochs 80->150 (early-stopped at 42, best epoch 30, test_acc=0.9771).",
+      "phase0_ceiling_rerun": {
+        "script": "scripts/phase0_ceiling.py --n 1000 --out evaluation/phase0_ceiling_v3.json, same seed=999",
+        "window_level_accuracy": {"9k_80ep": 0.277, "30k_150ep": 0.369},
+        "pair_level_accuracy": {"9k_80ep": 0.0472, "30k_150ep": 0.0672, "9k_80ep_fraction": "24/509", "30k_150ep_fraction": "34/509"}
+      },
+      "verdict": "real, monotonic improvement (3.3%->4.7%->6.7% across both fixes) but at a rate of return (~+1.5-2pts per ~3x compute) that does not support reaching anywhere near the 70% floor without many further doublings of an already-substantial budget. v_shape regressed (53.2%->31.7%) while diamond/shield/converging recovered -- capacity trading within a fixed architecture, not convergence toward a usable ceiling. Judged as 'results still don't improve [enough to matter]' per the user's own conditional -- moving to the pre-authorized next strategy.",
+      "ceiling_doc": "docs/CEILING.md (update section)",
+      "raw_data": "evaluation/phase0_ceiling_v3.json"
     }
   },
   "started": "2026-08-07T19:47:41Z"
