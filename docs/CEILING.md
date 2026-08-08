@@ -492,3 +492,40 @@ currently the strategy-6 checkpoint; `swarm_data/best_model_strategy5_backup.pt`
 better-performing strategy-5 checkpoint if reverting is wanted. **HALT GATE 1 is unchanged —
 still far below the 70% floor — and this turn's exploration ends with the ceiling lower than
 where strategy 5 left it.** Per instruction, stopping here to report both trajectories.
+
+## Update 2026-08-09: revert + step 1 — the ambiguity guard IS broken, confirmed directly
+
+Reverted `swarm_data/best_model.pt` to the strategy-5 checkpoint (SHA-256 verified). Standing
+rule recorded: checkpoint selection must be judged on ceiling, never test accuracy alone.
+
+**Step 1: audited `dispersed_converging_ambiguity` directly against real predictions.** The
+guard (`stgt_bridge.py:114-120`):
+
+```python
+def _is_ambiguous_dispersed_converging(class_probabilities: dict) -> bool:
+    d, c = class_probabilities.get("dispersed"), class_probabilities.get("converging")
+    return abs(d - c) < DISPERSED_CONVERGING_AMBIGUITY_MARGIN  # margin = 0.15
+```
+
+This checks only whether the two RAW probabilities happen to be close to each other in
+absolute terms — never whether either is actually competitive for the window's top
+prediction. Ran `scripts/phase0_guard_audit.py` (same seed=999 population, strategy-5
+checkpoint, inference only): across 1469 windows, the guard fires on **75.8%** of them. Of
+those firings:
+
+| condition | count | fraction of firings |
+|---|---|---|
+| BOTH dispersed and converging in top-2 (genuinely competing) | 19 | 1.7% |
+| ONE of the two in top-2 | 358 | 32.2% |
+| **NEITHER in top-2 (spurious)** | **736** | **66.1%** |
+
+**Confirmed: the guard is not testing what it claims to test.** Example firings: a window
+predicted `shield` at 98.97% confidence, with `dispersed=0.0012`/`converging=0.0005` —
+`|0.0012-0.0005| = 0.0007 < 0.15`, so the guard fires, on a window that is not remotely
+ambiguous about anything. With 8 softmax classes, when one class dominates, the remaining
+~7 split a small residual probability mass, and ANY two of them (not just dispersed/
+converging) will very often land within 0.15 of each other purely because both are near
+zero — the guard was written as if 0.15 were a meaningful gap regardless of scale, but at
+these magnitudes it's nearly always satisfied by chance. This fully explains step 2's
+finding (60.9% of pair-recovery failures, firing across every formation class uniformly) —
+it was never actually testing dispersed/converging contention.

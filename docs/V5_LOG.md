@@ -582,3 +582,20 @@ again the strategy-5 (better-ceiling) checkpoint.
 **Standing rule recorded in `HISTORY.md`:** checkpoint selection must be judged on ceiling
 (pair-level/threat-level), never test accuracy alone — strategy 6 proved a checkpoint can hit
 99.6% test accuracy while roughly halving the metric that matters.
+
+**Step 1: confirmed the guard bug directly.** Read `stgt_bridge.py:114-120`
+(`_is_ambiguous_dispersed_converging`) — it checks only `abs(d - c) < 0.15` on the raw
+`dispersed`/`converging` probabilities, with no check on whether either is actually
+competitive (e.g. in the window's top-2). Wrote `scripts/phase0_guard_audit.py` to measure
+this directly (inference only, strategy-5 checkpoint, same seed=999 population): across 1469
+windows the guard fires on 75.8% of them, and of those firings, **66.1% have NEITHER
+dispersed nor converging in the top-2 predicted classes** — a window predicted `shield` at
+98.97% confidence with `dispersed=0.0012`/`converging=0.0005` still trips it, since
+`|0.0012-0.0005|=0.0007 < 0.15`. Only 1.7% of firings are genuinely both-in-top-2 contention.
+This is the exact mechanism behind step 2's finding (60.9% of pair-recovery failures,
+uniform across every formation class): with 8 softmax classes, when one class dominates, the
+remaining ~7 split a small residual probability mass and any two of them land within 0.15 of
+each other by chance almost always — the guard was never testing dispersed/converging
+contention specifically. Full detail: `docs/CEILING.md`'s 2026-08-09 update. Proceeding to
+step 2: fix the guard (require both classes in top-2, difference under threshold), re-measure
+isolated from any other change.

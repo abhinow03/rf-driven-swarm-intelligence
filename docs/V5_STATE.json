@@ -1,7 +1,7 @@
 {
   "phase": 0,
-  "step": 9,
-  "status": "HALT_GATE_1 -- reverted swarm_data/best_model.pt to the strategy-5 checkpoint (verified by SHA-256, epoch=10/val_loss=0.610). User's next diagnosis: dispersed_converging_ambiguity guard (60.9% of pair-recovery failures per step 2) is a bug in OUR bridge code (stgt_bridge.py), not an STGT limitation. Investigating and fixing the guard, then diagnosing chain-length-2's literal 0/251. No training this round.",
+  "step": 10,
+  "status": "HALT_GATE_1 -- reverted checkpoint to strategy-5 (step 0). Step 1 confirmed the dispersed_converging_ambiguity guard bug directly: fires on 75.8% of windows, 66.1% of those firings have NEITHER dispersed nor converging in top-2 (spurious -- checks raw abs(d-c)<0.15 with no top-2/contention check). Proceeding to step 2: fix the guard, re-measure isolated.",
   "halts_cleared": [],
   "results": {
     "phase0_step1_first_check": {
@@ -265,6 +265,23 @@
       },
       "standing_rule_recorded": "STGT checkpoint selection must be judged on pair-level/threat-level ceiling, never test accuracy alone -- strategy 6 hit 99.6% test accuracy while roughly halving the ceiling. Recorded in HISTORY.md.",
       "history_doc": "HISTORY.md"
+    },
+    "phase0_step10_guard_audit": {
+      "checked": "2026-08-09T00:20:00Z",
+      "method": "scripts/phase0_guard_audit.py -- ran inference (strategy-5 checkpoint, no training) over the same seed=999 population, checked every window's class_probabilities against _is_ambiguous_dispersed_converging (stgt_bridge.py:114-120) and whether dispersed/converging are actually in that window's top-2 predicted classes.",
+      "guard_code": "def _is_ambiguous_dispersed_converging(cp): d,c = cp.get('dispersed'), cp.get('converging'); return abs(d-c) < 0.15 -- checks raw probability closeness only, no check on whether either class is competitive/top-2",
+      "results": {
+        "n_windows": 1469,
+        "n_guard_fires": 1113,
+        "fire_rate": 0.758,
+        "both_in_top2_genuine": {"count": 19, "fraction_of_fires": 0.017},
+        "one_in_top2": {"count": 358, "fraction_of_fires": 0.322},
+        "neither_in_top2_spurious": {"count": 736, "fraction_of_fires": 0.661}
+      },
+      "example": "window predicted shield at 98.97% confidence, dispersed=0.0012, converging=0.0005 -- |0.0012-0.0005|=0.0007 < 0.15, guard fires despite the window not being remotely ambiguous",
+      "verdict": "confirmed: guard is not testing dispersed/converging contention. With 8 softmax classes, when one class dominates, the remaining ~7 split a small residual probability mass and any two land within 0.15 of each other by chance almost always. This is the exact mechanism behind step 2's 60.9%-of-failures finding (uniform across all formation classes). Proceeding to step 2: fix (require both in top-2 AND difference under threshold), re-measure isolated.",
+      "ceiling_doc": "docs/CEILING.md (update section)",
+      "raw_data": "/tmp/v5_guard_audit.log (not committed -- ephemeral console output; findings captured in CEILING.md/V5_LOG.md)"
     }
   },
   "started": "2026-08-07T19:47:41Z"

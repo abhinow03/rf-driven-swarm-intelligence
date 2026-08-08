@@ -147,3 +147,16 @@ test accuracy alone.** Strategy 6 hit 99.6% test accuracy — the best of the wh
 roughly halved the ceiling (12.2%→4.9%) doing it. Test accuracy measures fit to
 `generate_dataset()`'s own distribution; the ceiling measures what the system can actually do
 on realistic long trajectories. They diverged sharply here and will again.
+
+## 2026-08-09: step 1 — the ambiguity guard bug confirmed directly, not just inferred
+
+Read `stgt_bridge.py`'s `_is_ambiguous_dispersed_converging` (lines 114-120): it checks only
+`abs(dispersed_p - converging_p) < 0.15` on raw probabilities, with no check on whether either
+class is actually competitive. Audited it directly against real predictions
+(`scripts/phase0_guard_audit.py`, strategy-5 checkpoint, no training): **fires on 75.8% of all
+windows**, and of those firings, **66.1% have neither dispersed nor converging in the window's
+top-2 predicted classes** — e.g. a window predicted `shield` at 98.97% confidence still trips
+it, because `dispersed=0.0012` and `converging=0.0005` are "close" in absolute terms despite
+both being irrelevant noise. Only 1.7% of firings are genuine both-in-top-2 contention. This
+is the exact, now-confirmed mechanism behind step 2's finding — the guard was never testing
+what its name claims.
