@@ -176,3 +176,56 @@ not converging toward a ceiling anywhere near usable.
 and the trend does not support it closing the gap on its own.** Per instruction, moving to
 the next strategy (centroid-relative node features) rather than continuing to scale the same
 lever further.
+
+## Update 2026-08-08: centroid-relative node features — window accuracy transformed, pair-level ceiling barely moves, root cause identified
+
+Per instruction's pre-authorized contingency, implemented the second strategy: `build_graph`
+now uses centroid-relative offsets (`positions - positions.mean(dim=0)`) instead of absolute
+positions as GAT node features, in both copies (`graph.py` and `stgt/model.py`, kept in sync).
+Retrained from scratch on the same 30k dataset, 150 epochs (early-stopped at 29, best epoch
+17, `test_acc=0.9873` — the highest yet, and convergence was dramatically faster: 98-99%
+train accuracy by epoch 16). `verify_upstream_physics.py` and the full suite (134/134) pass.
+
+`scripts/phase0_ceiling.py --n 1000` (`evaluation/phase0_ceiling_v4.json`):
+
+| metric | 30k/150ep, absolute position | 30k/150ep, centroid-relative |
+|---|---|---|
+| window-level accuracy | 36.9% | **72.7%** |
+| per-class range | 14.9%-72.0% (wide, uneven) | 52.3%-85.4% (much more even) |
+| **pair-level accuracy (the ceiling)** | **6.7% (34/509)** | **6.1% (31/509)** |
+
+**Window-level classification was transformed — this is the largest single improvement of
+the whole session, and per-class accuracy is now reasonably even across all 8 classes
+(52-85%, vs. previous runs' 0-80% spread with confident systematic failures on specific
+classes).** But pair-level accuracy did not move — if anything it's marginally lower.
+
+**Checked whether the existing (already-built, sec AG) `robust=True` majority-vote reduction
+unlocks the gap between window- and pair-level accuracy that unanimity-based reduction can't
+handle** (this was cheap to check — same predictions, no new GPU inference, added to
+`phase0_ceiling.py` directly): `robust=True` gives 6.5% (33/509) vs. `robust=False`'s 6.1%
+(31/509) — barely different. Bucket C shrinks substantially (188→100 — robust reduction does
+structurally resolve many more sequences into a candidate pair), but almost all of that shifts
+into bucket B (271→356), not bucket A (50→53) — the exact "recovers a pair, guard eats it
+anyway" pattern sec AG already documented, now reproduced on a much better-classified model.
+
+**Root cause identified: the model still over-predicts `"transitioning"` pervasively, at a
+strikingly uniform 20-28% false-positive rate across every one of the 7 steady formations**
+(`v_shape` 24.3%, `encirclement` 27.5%, `column` 20.5%, `diamond` 21.3%, `dispersed` 25.4%,
+`converging` 25.1%, `shield` 27.1% — computed directly from the confusion matrix). With 15-30
+windows per long, realistic trajectory, a ~20-27%-per-window false "transitioning" rate makes
+it near-certain that ANY given trajectory contains at least one spurious ambiguous window,
+which is enough to trip the `oov_name`/ambiguity-style guards regardless of how accurate
+classification is everywhere else. **This is no longer a classification-quality problem —
+window accuracy is now good. It is a residual, uniform-across-classes calibration/bias
+problem specific to the "transitioning" class**, plausibly still connected to gap 2's
+partially-addressed training regime (the fixed labeling now teaches 3 blend-timing regimes,
+but the model may still be keying "transitioning" off a broader noise/drift signature than
+genuine mid-blend geometry, especially given the higher-variance positions the acceleration
+fix introduces even within nominally-steady segments).
+
+**Both pre-authorized strategies have now been executed. Neither closed the gap.** Data+epochs
+gave real but insufficient improvement (3.3%→4.7%→6.7%). Centroid-relative features
+transformed window-level accuracy but left pair-level accuracy flat (6.7%→6.1%/6.5%), for a
+specific, now-diagnosed reason (pervasive transitioning false-positives, not confusion
+between real formations). **This remains an unambiguous HALT GATE 1 trigger.** Not
+attempting a third strategy without checking in first.

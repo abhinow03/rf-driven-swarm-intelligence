@@ -1,7 +1,7 @@
 {
   "phase": 0,
   "step": 4,
-  "status": "HALT_GATE_1 -- data+epochs scaled (3.3x/1.9x), ceiling moved 4.7%->6.7%, trend insufficient, now trying centroid-relative node features per pre-authorized 'another strategy'",
+  "status": "HALT_GATE_1 -- both pre-authorized strategies executed (data/epochs scaling, centroid-relative features). Window accuracy 36.9%->72.7%, pair-level ceiling still only 6.1-6.7%. Root cause identified (20-28% uniform transitioning false-positive rate). Awaiting user decision -- not attempting a third strategy unprompted.",
   "halts_cleared": [],
   "results": {
     "phase0_step1_first_check": {
@@ -130,6 +130,21 @@
       "verdict": "real, monotonic improvement (3.3%->4.7%->6.7% across both fixes) but at a rate of return (~+1.5-2pts per ~3x compute) that does not support reaching anywhere near the 70% floor without many further doublings of an already-substantial budget. v_shape regressed (53.2%->31.7%) while diamond/shield/converging recovered -- capacity trading within a fixed architecture, not convergence toward a usable ceiling. Judged as 'results still don't improve [enough to matter]' per the user's own conditional -- moving to the pre-authorized next strategy.",
       "ceiling_doc": "docs/CEILING.md (update section)",
       "raw_data": "evaluation/phase0_ceiling_v3.json"
+    },
+    "phase0_strategy2_centroid_relative": {
+      "checked": "2026-08-08T06:48:45Z",
+      "action": "Implemented centroid-relative node features (positions - positions.mean(dim=0)) in build_graph, both graph.py and stgt/model.py copies. Retrained from scratch on the same 30k dataset, 150 epochs (early-stopped at 29, best epoch 17, test_acc=0.9873, 18m42s). verify_upstream_physics.py + full suite (134/134) pass.",
+      "phase0_ceiling_rerun": {
+        "script": "scripts/phase0_ceiling.py --n 1000 --out evaluation/phase0_ceiling_v4.json, same seed=999",
+        "window_level_accuracy": {"30k_150ep_absolute": 0.369, "30k_150ep_centroid_relative": 0.727},
+        "per_class_range": {"before": "14.9%-72.0%", "after": "52.3%-85.4%, much more even"},
+        "pair_level_accuracy_robust_false": {"before": 0.0672, "after": 0.0611, "after_fraction": "31/509"},
+        "pair_level_accuracy_robust_true": {"after": 0.0648, "after_fraction": "33/509", "bucket_C_before": 188, "bucket_C_after": 100, "bucket_A_before": 50, "bucket_A_after": 53}
+      },
+      "root_cause_identified": "model over-predicts 'transitioning' at a strikingly uniform 20-28% false-positive rate across all 7 steady formations (v_shape 24.3%, encirclement 27.5%, column 20.5%, diamond 21.3%, dispersed 25.4%, converging 25.1%, shield 27.1%). With 15-30 windows per long trajectory this makes at least one spurious ambiguous window near-certain, tripping guards regardless of how accurate classification is elsewhere. No longer a classification-quality problem (window accuracy is now good, 72.7%) -- a residual, class-uniform calibration/bias problem specific to the transitioning class.",
+      "verdict": "both pre-authorized strategies (data/epochs scaling, centroid-relative features) executed. Window-level accuracy transformed (36.9%->72.7%) but pair-level ceiling stayed flat (6.7%->6.1%/6.5%) for a now-diagnosed, specific reason. Remains an unambiguous HALT GATE 1 trigger. Not attempting a third strategy without checking in.",
+      "ceiling_doc": "docs/CEILING.md (update section)",
+      "raw_data": "evaluation/phase0_ceiling_v4.json, evaluation/phase0_ceiling_v4_robust.json"
     }
   },
   "started": "2026-08-07T19:47:41Z"

@@ -328,6 +328,49 @@ trading within a fixed architecture, not convergence toward a usable ceiling.
 conditional, and moved to the pre-authorized next strategy: centroid-relative node
 features.** Full comparison appended to `docs/CEILING.md`.
 
+## 2026-08-08 — strategy 2 (centroid-relative features): window accuracy transformed, ceiling still flat, root cause identified
+
+Per the pre-authorized contingency (data+epochs alone was judged insufficient — see above),
+implemented centroid-relative node features: `build_graph`'s `data.x` is now
+`positions - positions.mean(dim=0)` instead of absolute positions, in both `graph.py` and the
+duplicate `stgt/model.py` copy (kept in sync — see the earlier-flagged drift risk). Committed
+`f9df8a3`. Retrained from scratch on the SAME 30k dataset (positions unchanged, only the
+graph-construction interpretation changes, so no need to regenerate data), 150 epochs,
+early-stopped at 29 (best epoch 17), `test_acc=0.9873` — highest yet, and convergence was
+dramatically faster (98-99% train accuracy by epoch 16). `verify_upstream_physics.py` and the
+full suite (134/134) pass.
+
+`scripts/phase0_ceiling.py --n 1000` (`evaluation/phase0_ceiling_v4.json`): **window-level
+accuracy 36.9%→72.7%, the largest single jump of the session, with per-class accuracy now
+much more even (52-85%, vs. previous runs' wide 0-80% spread with confident systematic
+failures on specific classes). But pair-level accuracy barely moved: 6.7%→6.1%.**
+
+Checked cheaply (same predictions, no new GPU inference — added a `robust=True` comparison
+directly into `phase0_ceiling.py`) whether sec AG's already-built majority-vote reduction
+unlocks the gap between window- and pair-level accuracy: `robust=True` gives 6.5% (33/509) vs.
+`robust=False`'s 6.1% (31/509) — barely different. Bucket C shrinks substantially (188→100)
+but nearly all of that shifts into bucket B (271→356), not bucket A (50→53) — the exact
+"recovers a structural pair, guard eats it anyway" pattern sec AG documented, reproduced here
+on a MUCH better-classified model.
+
+**Root cause identified, computed directly from the confusion matrix: the model over-predicts
+`"transitioning"` at a strikingly uniform 20-28% false-positive rate across all 7 steady
+formations** (`v_shape` 24.3%, `encirclement` 27.5%, `column` 20.5%, `diamond` 21.3%,
+`dispersed` 25.4%, `converging` 25.1%, `shield` 27.1%). With 15-30 windows per realistic long
+trajectory, this makes at least one spurious ambiguous window near-certain per trajectory,
+which is enough to trip the guard logic regardless of how accurate classification is
+everywhere else. **This is no longer a classification-quality problem — it's a residual,
+class-uniform calibration/bias problem specific to the `"transitioning"` class.**
+
+**Both pre-authorized strategies have now been executed. Neither closed the gap to anywhere
+near the 70% floor, though the second one transformed the underlying classification quality
+and produced a much more specific, actionable diagnosis of what's actually left.** Full
+writeup appended to `docs/CEILING.md`. Remains an unambiguous HALT GATE 1 trigger — not
+attempting a third strategy without checking in first, since the instruction authorized one
+pivot ("try another strategy"), not open-ended iteration.
+
+State written to `docs/V5_STATE.json`: `phase=0, step=4`, still HALT_GATE_1.
+
 **Note on the message's final instruction.** The message opened with "Do NOT patch the
 generator yourself under any circumstances" and closed with "If the bugs still exist, just
 clone the repo and fix the bugs yourself and continue working" — these directly contradict

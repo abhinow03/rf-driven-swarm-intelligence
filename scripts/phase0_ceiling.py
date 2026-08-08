@@ -166,11 +166,16 @@ def main():
         if gt_pair is not None:
             bucket_info = classify_observation(predictions, robust=False)
             recovered = tuple(bucket_info["rules_key"]) if bucket_info["bucket"] == BUCKET_A else None
+            bucket_info_r = classify_observation(predictions, robust=True)
+            recovered_r = tuple(bucket_info_r["rules_key"]) if bucket_info_r["bucket"] == BUCKET_A else None
             pair_records.append({
                 "i": i, "true_chain": chain, "gt_pair": list(gt_pair),
                 "bucket": bucket_info["bucket"],
                 "recovered_pair": list(recovered) if recovered else None,
                 "pair_correct": (recovered == gt_pair) if recovered else False,
+                "bucket_robust": bucket_info_r["bucket"],
+                "recovered_pair_robust": list(recovered_r) if recovered_r else None,
+                "pair_correct_robust": (recovered_r == gt_pair) if recovered_r else False,
             })
 
         reporter.update(1, item=f"seq {i}")
@@ -215,8 +220,15 @@ def main():
     print(f"PAIR-LEVEL ACCURACY (the ceiling) -- n_eligible={n_pair_eligible} "
          f"(chains of length 1 or 2 out of {args.n} total)")
     print("=" * 100)
-    print(f"pair-level accuracy: {n_pair_correct}/{n_pair_eligible} = {pair_accuracy:.1%}")
-    print(f"bucket distribution among pair-eligible chains: {dict(bucket_dist)}")
+    print(f"pair-level accuracy (robust=False, shipped default): {n_pair_correct}/{n_pair_eligible} = {pair_accuracy:.1%}")
+    print(f"bucket distribution (robust=False): {dict(bucket_dist)}")
+
+    n_pair_correct_r = sum(1 for r in pair_records if r["pair_correct_robust"])
+    pair_accuracy_r = n_pair_correct_r / n_pair_eligible if n_pair_eligible else float("nan")
+    bucket_dist_r = Counter(r["bucket_robust"] for r in pair_records)
+    print(f"pair-level accuracy (robust=True, sec AG's majority-vote reduction): "
+         f"{n_pair_correct_r}/{n_pair_eligible} = {pair_accuracy_r:.1%}")
+    print(f"bucket distribution (robust=True): {dict(bucket_dist_r)}")
 
     out_path = Path(args.out)
     out_path.write_text(json.dumps({
@@ -227,6 +239,9 @@ def main():
         "n_pair_eligible": n_pair_eligible, "n_pair_correct": n_pair_correct,
         "pair_level_accuracy": pair_accuracy,
         "pair_bucket_distribution": dict(bucket_dist),
+        "n_pair_correct_robust": n_pair_correct_r,
+        "pair_level_accuracy_robust": pair_accuracy_r,
+        "pair_bucket_distribution_robust": dict(bucket_dist_r),
         "pair_records": pair_records,
     }, indent=2))
     print(f"\nsaved {out_path}")
