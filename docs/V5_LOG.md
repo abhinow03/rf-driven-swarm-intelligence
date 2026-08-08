@@ -564,3 +564,21 @@ reverting is wanted. Full tables: `docs/CEILING.md`'s 2026-08-08 "step 4" update
 **HALT GATE 1 remains unambiguously triggered — further below the 70% floor than strategy 5
 left it.** Per instruction, stopping here. `docs/V5_STATE.json` updated (`phase=0, step=8`).
 Not proceeding to any further strategy without explicit direction.
+
+## 2026-08-09: step 0 — revert checkpoint to strategy 5, investigate the guard bug directly
+
+User's diagnosis: step 2's `dispersed_converging_ambiguity` finding (60.9% of failures,
+47% of failures with zero misclassified windows) points to a bug in OUR bridge code, not an
+STGT limitation. No training authorized this turn.
+
+**Step 0: reverted the checkpoint.** `swarm_data/best_model.pt` (strategy 6, worse ceiling)
+backed up to `best_model_strategy6_backup.pt`; `best_model_strategy5_backup.pt` copied over
+`best_model.pt`. Verified by SHA-256: post-revert `best_model.pt` hash
+(`18fc201d5a419ff2fb0cfb66a60810af77a9ed52969f2996f57c952d1306a01b`) matches
+`best_model_strategy5_backup.pt` exactly; loaded checkpoint confirms `epoch=10,
+val_loss=0.610` (strategy 5's own recorded best epoch). `swarm_data/best_model.pt` is once
+again the strategy-5 (better-ceiling) checkpoint.
+
+**Standing rule recorded in `HISTORY.md`:** checkpoint selection must be judged on ceiling
+(pair-level/threat-level), never test accuracy alone — strategy 6 proved a checkpoint can hit
+99.6% test accuracy while roughly halving the metric that matters.

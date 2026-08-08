@@ -131,3 +131,19 @@ already-normalized test data, a pre-existing bug. Full detail: `docs/CEILING.md`
 **HALT GATE 1 remains unambiguously triggered — further below the 70% floor than strategy 5
 left it.** Stopping here per instruction. Not proceeding to any further strategy without
 explicit direction.
+
+## 2026-08-09: revert to strategy-5 checkpoint
+
+Per instruction, restored `best_model_strategy5_backup.pt` as `swarm_data/best_model.pt`
+(verified by SHA-256: pre-revert `best_model.pt` = `9090093c...` matched the strategy-6
+backup; post-revert `best_model.pt` = `18fc201d...` matches `best_model_strategy5_backup.pt`
+exactly; loaded checkpoint confirms `epoch=10, val_loss=0.610` — strategy 5's own best epoch).
+The strategy-6 checkpoint is preserved at `swarm_data/best_model_strategy6_backup.pt` in case
+it's ever wanted again, but is no longer `best_model.pt`.
+
+**Standing rule going forward: STGT checkpoint selection must be judged on pair-level/
+threat-level ceiling (`phase0_ceiling.py`/`phase0_threat_ceiling.py`), never on in-distribution
+test accuracy alone.** Strategy 6 hit 99.6% test accuracy — the best of the whole program — and
+roughly halved the ceiling (12.2%→4.9%) doing it. Test accuracy measures fit to
+`generate_dataset()`'s own distribution; the ceiling measures what the system can actually do
+on realistic long trajectories. They diverged sharply here and will again.

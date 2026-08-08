@@ -1,7 +1,7 @@
 {
   "phase": 0,
-  "step": 8,
-  "status": "HALT_GATE_1 -- strategy 6 REGRESSED the ceiling despite fixing in-distribution under-convergence (test_acc 0.8631->0.9958): pair-level ceiling 12.2%->4.9% (robust 12.8%->5.3%), threat ceiling 13.0%->6.3% (robust 13.6%->6.9%). Overfitting/generalization tradeoff -- converged tightly to generate_dataset()'s narrower distribution at the cost of generalizing to the ceiling test's wider spread/noise ranges (diamond/shield/converging regressed hard even though encirclement/transitioning improved). swarm_data/best_model.pt is now the WORSE strategy-6 checkpoint; best_model_strategy5_backup.pt holds the better strategy-5 checkpoint. Stopping per instruction after step 4. Awaiting user decision -- not proceeding further.",
+  "step": 9,
+  "status": "HALT_GATE_1 -- reverted swarm_data/best_model.pt to the strategy-5 checkpoint (verified by SHA-256, epoch=10/val_loss=0.610). User's next diagnosis: dispersed_converging_ambiguity guard (60.9% of pair-recovery failures per step 2) is a bug in OUR bridge code (stgt_bridge.py), not an STGT limitation. Investigating and fixing the guard, then diagnosing chain-length-2's literal 0/251. No training this round.",
   "halts_cleared": [],
   "results": {
     "phase0_step1_first_check": {
@@ -252,6 +252,19 @@
       "ceiling_doc": "docs/CEILING.md (update section)",
       "history_doc": "HISTORY.md",
       "raw_data": "evaluation/phase0_ceiling_v6.json, evaluation/phase0_threat_ceiling_v6.json"
+    },
+    "phase0_step9_revert_checkpoint": {
+      "checked": "2026-08-09T00:05:00Z",
+      "action": "swarm_data/best_model.pt (strategy 6) backed up to best_model_strategy6_backup.pt; best_model_strategy5_backup.pt restored as best_model.pt",
+      "verification": {
+        "pre_revert_hash_sha256": "9090093c599acb910fb9604a1554fc9023c5a6dd4d91fda567d617a83652b07f",
+        "post_revert_hash_sha256": "18fc201d5a419ff2fb0cfb66a60810af77a9ed52969f2996f57c952d1306a01b",
+        "matches_strategy5_backup": true,
+        "loaded_checkpoint_epoch": 10,
+        "loaded_checkpoint_val_loss": 0.610021668840462
+      },
+      "standing_rule_recorded": "STGT checkpoint selection must be judged on pair-level/threat-level ceiling, never test accuracy alone -- strategy 6 hit 99.6% test accuracy while roughly halving the ceiling. Recorded in HISTORY.md.",
+      "history_doc": "HISTORY.md"
     }
   },
   "started": "2026-08-07T19:47:41Z"
