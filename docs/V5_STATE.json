@@ -1,7 +1,7 @@
 {
   "phase": 0,
-  "step": 6,
-  "status": "HALT_GATE_1 -- decomposed pair-recovery failures on strategy-5 data: chain-length-2 (real transitions) is at literal 0.0% (0/251); dispersed_converging_ambiguity guard alone accounts for 60.9% of all 447 failures, unconditional and firing across all formation classes -- reduction logic filtering to correct-only windows recovers the pair in only 0.9% of failures, ruling out 'a few bad windows' as the cause. Proceeding to strategy 6 (steadier training schedule) per instruction; flagged that this guard, not training, is the dominant blocker and is out of scope this turn.",
+  "step": 7,
+  "status": "HALT_GATE_1 -- strategy 6 (steadier LR schedule: warmup+cosine-to-floor, lr 3e-4->1e-4, patience 12->35) fixed the under-convergence: best epoch 10->51, early-stop 22->86/150, test_acc 0.8631->0.9958, encirclement fully recovered (recall 0.986). In-distribution only -- proceeding to step 4 (re-measure pair-level and threat-level ceilings on this checkpoint) before drawing conclusions about HALT GATE 1.",
   "halts_cleared": [],
   "results": {
     "phase0_step1_first_check": {
@@ -210,6 +210,30 @@
       "verdict": "reduction/guard logic, not classifier accuracy, is the dominant bottleneck: 47.2% of failures had zero misclassified windows yet still failed, and filtering to correct-only windows recovers the pair in only 0.9% of failures. dispersed_converging_ambiguity (stgt_bridge.py, unconditional, fires across all formation classes, previously documented unfixed in AUDIT.md sec AG) is the single largest cause at 60.9%. Chain-length-2 (real transitions) has NEVER succeeded once (0/251) -- every one of strategy 5's 62 successes is a steady state. Retraining (strategy 6) is unlikely to move the pair ceiling much on its own since the dominant blocker is bridge/reduction-code logic, not training data -- flagged, not acted on (out of scope this turn); proceeding to strategy 6 exactly as instructed.",
       "ceiling_doc": "docs/CEILING.md (update section)",
       "raw_data": "evaluation/phase0_decompose_failures.json"
+    },
+    "phase0_step7_strategy6_retrain": {
+      "checked": "2026-08-08T22:00:00Z",
+      "action": "checked strategy-5 dataset class distribution first (balanced, ruled out encirclement data-starvation). Replaced OneCycleLR (decays to ~0) with linear warmup (10% of steps) + cosine decay to a nonzero floor (5% of peak lr) in src/swarm_intent/config.py + train.py. Retrained on the SAME strategy-5 data: lr 3e-4->1e-4, patience 12->35. 134/134 tests pass. Backed up best_model.pt -> best_model_strategy5_backup.pt first.",
+      "dataset_class_distribution": {"v_shape": 3910, "encirclement": 3877, "column": 3865, "diamond": 3862, "dispersed": 3821, "converging": 3867, "shield": 3832, "transitioning": 2966},
+      "training_result": {
+        "strategy5": {"best_epoch": 10, "early_stopped_at": 22, "test_acc": 0.8631},
+        "strategy6": {"best_epoch": 51, "early_stopped_at": 86, "best_val_loss": 0.0505, "test_acc": 0.9958}
+      },
+      "per_class_test_metrics": {
+        "v_shape": {"precision": 0.987, "recall": 1.000, "f1": 0.993},
+        "encirclement": {"precision": 1.000, "recall": 0.986, "f1": 0.993},
+        "column": {"precision": 1.000, "recall": 1.000, "f1": 1.000},
+        "diamond": {"precision": 0.990, "recall": 1.000, "f1": 0.995},
+        "dispersed": {"precision": 0.995, "recall": 0.988, "f1": 0.991},
+        "converging": {"precision": 0.997, "recall": 1.000, "f1": 0.998},
+        "shield": {"precision": 1.000, "recall": 1.000, "f1": 1.000},
+        "transitioning": {"precision": 1.000, "recall": 0.991, "f1": 0.995}
+      },
+      "bug_found_not_fixed": "evaluate_ml_model (src/swarm_intent/llm/evaluate.py) double-normalizes X_test.npy, which is already normalized before being saved to disk -- collapses predictions to a single class. Worked around for this report by evaluating without the extra normalization step. Out of scope this turn, flagged for a future turn.",
+      "verdict": "under-convergence hypothesis confirmed and fixed: strategy 5's aggressive schedule + low patience stopped training well before it found a better optimum. In-distribution test performance now essentially saturated (all classes >=98.6% precision/recall), encirclement fully recovered. This is NOT yet the ceiling metric -- step 2's finding (dispersed_converging_ambiguity guard causes 60.9% of pair-recovery failures, independent of classification correctness) means this gain may not transfer to pair-level/threat-level ceilings. Proceeding to step 4 to measure.",
+      "ceiling_doc": "docs/CEILING.md (update section)",
+      "history_doc": "HISTORY.md",
+      "raw_data": "evaluation/phase0_strategy6_train_log.txt, evaluation/phase0_strategy6_classification_report.json"
     }
   },
   "started": "2026-08-07T19:47:41Z"

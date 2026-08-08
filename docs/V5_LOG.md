@@ -492,3 +492,38 @@ strategy 6's retrain (steadier schedule) is unlikely to move the pair-level ceil
 its own. Not revisiting the guard itself — not authorized this turn. Proceeding to strategy 6
 exactly as instructed and reporting the result honestly against this expectation.
 `docs/V5_STATE.json` updated (`phase=0, step=6`).
+
+## 2026-08-08: strategy 6 — steadier training schedule, under-convergence fixed
+
+Checked dataset class distribution FIRST (per instruction): strategy 5's 30k dataset is
+essentially balanced across all 8 classes (base formations 3821-3910 each, transitioning
+2966) — ruled out "encirclement has fewer examples" before touching training code.
+
+Changed the LR schedule (`src/swarm_intent/config.py` + `train.py` + `scripts/train_model.py`,
+new `cfg.warmup_pct`/`cfg.lr_min_frac` fields, CLI `--lr`/`--patience`/`--warmup-pct`/
+`--lr-min-frac` overrides): `OneCycleLR` (decays to ~0) replaced with linear warmup + cosine
+decay to a nonzero floor (5% of peak). Retrained on the SAME strategy-5 data with peak lr
+lowered 3e-4→1e-4 and patience raised 12→35. 134/134 tests pass after the change. Backed up
+`swarm_data/best_model.pt` → `best_model_strategy5_backup.pt` before overwriting.
+
+Training ran ~86/150 epochs (~43 min on the RTX 4090) before early stopping (best epoch 51,
+`val_loss=0.0505`), vs. strategy 5's early stop at 22/150 (best epoch 10). `test_acc` jumped
+0.8631→**0.9958**. Per-class test precision/recall are now all ≥98.6%, including
+`encirclement` (recall 0.986, up from being the class that regressed in strategy 5). This
+confirms strategy 5's checkpoint genuinely was under-converged, not just noisy.
+
+While computing the per-class report, found (not fixed, out of scope): `evaluate_ml_model`
+(`src/swarm_intent/llm/evaluate.py`) re-normalizes `X_test.npy`, which is ALREADY normalized
+before being saved to disk (`data.py`'s `split_and_normalize`/`save_splits`) — a
+double-normalization bug that collapses predictions to a single class when that function is
+used directly. Worked around by evaluating without the extra normalization step; flagging for
+a future turn since it's not this instruction's scope.
+
+Full curve: `evaluation/phase0_strategy6_train_log.txt`. Per-class report:
+`evaluation/phase0_strategy6_classification_report.json`. Full detail and before/after table:
+`docs/CEILING.md`'s 2026-08-08 "strategy 6" update.
+
+**This is in-distribution test accuracy, not the ceiling.** Step 2's finding still stands:
+the dominant pair-recovery blocker is a `stgt_bridge.py` guard independent of classification
+correctness. Proceeding to step 4: re-measure both the pair-level and threat-level ceilings
+on this checkpoint to see what, if anything, transfers.

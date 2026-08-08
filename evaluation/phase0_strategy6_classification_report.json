@@ -1,0 +1,66 @@
+{
+  "per_class_report": {
+    "v_shape": {
+      "precision": 0.9865319865319865,
+      "recall": 1.0,
+      "f1-score": 0.9932203389830508,
+      "support": 586.0
+    },
+    "encirclement": {
+      "precision": 1.0,
+      "recall": 0.9862542955326461,
+      "f1-score": 0.9930795847750865,
+      "support": 582.0
+    },
+    "column": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 580.0
+    },
+    "diamond": {
+      "precision": 0.9897435897435898,
+      "recall": 1.0,
+      "f1-score": 0.9948453608247423,
+      "support": 579.0
+    },
+    "dispersed": {
+      "precision": 0.9947275922671354,
+      "recall": 0.987783595113438,
+      "f1-score": 0.9912434325744308,
+      "support": 573.0
+    },
+    "converging": {
+      "precision": 0.9965635738831615,
+      "recall": 1.0,
+      "f1-score": 0.9982788296041308,
+      "support": 580.0
+    },
+    "shield": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 575.0
+    },
+    "transitioning": {
+      "precision": 1.0,
+      "recall": 0.9910112359550561,
+      "f1-score": 0.9954853273137697,
+      "support": 445.0
+    },
+    "accuracy": 0.9957777777777778,
+    "macro avg": {
+      "precision": 0.9959458428032342,
+      "recall": 0.9956311408251426,
+      "f1-score": 0.9957691092594014,
+      "support": 4500.0
+    },
+    "weighted avg": {
+      "precision": 0.9958122368423521,
+      "recall": 0.9957777777777778,
+      "f1-score": 0.9957755732424147,
+      "support": 4500.0
+    }
+  },
+  "overall_acc": 0.9957777777777778
+}

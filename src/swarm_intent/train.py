@@ -7,6 +7,7 @@ val/test datasets reuse the TRAIN regression stats, and paths come from
 """
 from __future__ import annotations
 
+import math
 import os
 import time
 
@@ -81,10 +82,19 @@ def train(cfg: Config, device=None, ckpt_name: str = "best_model.pt"):
     print(f"Model parameters: {n_params:,}")
 
     optimizer = torch.optim.AdamW(model.parameters(), lr=cfg.lr, weight_decay=cfg.weight_decay)
-    scheduler = torch.optim.lr_scheduler.OneCycleLR(
-        optimizer, max_lr=cfg.lr, steps_per_epoch=len(train_loader),
-        epochs=cfg.epochs, pct_start=0.1, anneal_strategy="cos",
-    )
+    # Linear warmup then cosine decay to a NONZERO floor (cfg.lr_min_frac * cfg.lr),
+    # not OneCycleLR's near-zero final_div_factor -- see cfg.warmup_pct/lr_min_frac docstring.
+    total_steps = len(train_loader) * cfg.epochs
+    warmup_steps = max(1, int(cfg.warmup_pct * total_steps))
+
+    def lr_lambda(step):
+        if step < warmup_steps:
+            return step / warmup_steps
+        progress = min(1.0, (step - warmup_steps) / max(1, total_steps - warmup_steps))
+        cos_decay = 0.5 * (1 + math.cos(math.pi * progress))
+        return cfg.lr_min_frac + (1 - cfg.lr_min_frac) * cos_decay
+
+    scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda=lr_lambda)
 
     best_val, patience_ctr = float("inf"), 0
     ckpt_path = os.path.join(d, ckpt_name)

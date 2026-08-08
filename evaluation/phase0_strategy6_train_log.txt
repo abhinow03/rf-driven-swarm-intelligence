@@ -1,0 +1,110 @@
+/home/pw26_akp_01/aadhya/uav-llm/src/swarm_intent/model.py:93: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.norm_first was True
+  self.encoder = nn.TransformerEncoder(
+Model parameters: 958,859
+Epoch   1/150 | train 2.2040/0.149 | val 2.1245/0.160 | 29.6s
+  saved best (val_loss=2.1245)
+Epoch   2/150 | train 1.9326/0.286 | val 2.0212/0.219 | 29.5s
+  saved best (val_loss=2.0212)
+Epoch   3/150 | train 1.6948/0.422 | val 2.0024/0.265 | 30.8s
+  saved best (val_loss=2.0024)
+Epoch   4/150 | train 1.4606/0.541 | val 1.8770/0.377 | 29.5s
+  saved best (val_loss=1.8770)
+Epoch   5/150 | train 1.2151/0.658 | val 1.7982/0.449 | 29.5s
+  saved best (val_loss=1.7982)
+Epoch   6/150 | train 0.9761/0.757 | val 1.7429/0.369 | 29.5s
+  saved best (val_loss=1.7429)
+Epoch   7/150 | train 0.7941/0.814 | val 1.4723/0.517 | 30.7s
+  saved best (val_loss=1.4723)
+Epoch   8/150 | train 0.6526/0.844 | val 1.5153/0.531 | 29.6s
+Epoch   9/150 | train 0.5372/0.876 | val 0.9639/0.724 | 29.6s
+  saved best (val_loss=0.9639)
+Epoch  10/150 | train 0.4632/0.893 | val 0.8579/0.707 | 30.8s
+  saved best (val_loss=0.8579)
+Epoch  11/150 | train 0.3901/0.910 | val 0.6770/0.827 | 29.4s
+  saved best (val_loss=0.6770)
+Epoch  12/150 | train 0.3318/0.925 | val 0.7859/0.772 | 29.6s
+Epoch  13/150 | train 0.2870/0.935 | val 0.6844/0.809 | 29.5s
+Epoch  14/150 | train 0.2392/0.948 | val 0.7630/0.794 | 30.7s
+Epoch  15/150 | train 0.2001/0.960 | val 0.3838/0.876 | 29.6s
+  saved best (val_loss=0.3838)
+Epoch  16/150 | train 0.1713/0.967 | val 0.2981/0.916 | 29.7s
+  saved best (val_loss=0.2981)
+Epoch  17/150 | train 0.1500/0.972 | val 0.1666/0.969 | 30.8s
+  saved best (val_loss=0.1666)
+Epoch  18/150 | train 0.1250/0.979 | val 0.1369/0.974 | 29.8s
+  saved best (val_loss=0.1369)
+Epoch  19/150 | train 0.1038/0.984 | val 0.3312/0.917 | 29.5s
+Epoch  20/150 | train 0.1059/0.985 | val 0.1046/0.980 | 29.3s
+  saved best (val_loss=0.1046)
+Epoch  21/150 | train 0.0967/0.986 | val 0.1137/0.980 | 30.7s
+Epoch  22/150 | train 0.0910/0.988 | val 0.3307/0.932 | 29.7s
+Epoch  23/150 | train 0.0758/0.991 | val 0.0921/0.988 | 29.4s
+  saved best (val_loss=0.0921)
+Epoch  24/150 | train 0.0718/0.992 | val 0.0801/0.991 | 30.7s
+  saved best (val_loss=0.0801)
+Epoch  25/150 | train 0.0722/0.992 | val 0.1585/0.958 | 29.3s
+Epoch  26/150 | train 0.0699/0.993 | val 0.2948/0.944 | 29.4s
+Epoch  27/150 | train 0.0717/0.991 | val 0.1196/0.969 | 29.4s
+Epoch  28/150 | train 0.0630/0.994 | val 0.0880/0.985 | 30.6s
+Epoch  29/150 | train 0.0678/0.993 | val 0.0859/0.980 | 29.4s
+Epoch  30/150 | train 0.0637/0.994 | val 0.5803/0.887 | 29.5s
+Epoch  31/150 | train 0.0589/0.995 | val 0.7698/0.858 | 30.9s
+Epoch  32/150 | train 0.0576/0.995 | val 0.5059/0.922 | 29.6s
+Epoch  33/150 | train 0.0585/0.995 | val 0.3348/0.950 | 29.5s
+Epoch  34/150 | train 0.0572/0.995 | val 0.4495/0.931 | 29.5s
+Epoch  35/150 | train 0.0578/0.995 | val 0.0603/0.994 | 30.8s
+  saved best (val_loss=0.0603)
+Epoch  36/150 | train 0.0562/0.996 | val 0.2883/0.956 | 29.4s
+Epoch  37/150 | train 0.0513/0.996 | val 0.1869/0.967 | 29.6s
+Epoch  38/150 | train 0.0518/0.996 | val 0.4720/0.926 | 30.6s
+Epoch  39/150 | train 0.0493/0.996 | val 0.1668/0.969 | 29.6s
+Epoch  40/150 | train 0.0540/0.997 | val 0.3116/0.950 | 29.3s
+Epoch  41/150 | train 0.0464/0.998 | val 0.6968/0.898 | 30.5s
+Epoch  42/150 | train 0.0472/0.997 | val 0.6754/0.878 | 29.4s
+Epoch  43/150 | train 0.0478/0.997 | val 0.1663/0.968 | 29.3s
+Epoch  44/150 | train 0.0470/0.997 | val 0.5094/0.917 | 29.4s
+Epoch  45/150 | train 0.0501/0.996 | val 0.2500/0.958 | 30.8s
+Epoch  46/150 | train 0.0450/0.998 | val 0.5333/0.928 | 29.4s
+Epoch  47/150 | train 0.0439/0.998 | val 0.4252/0.941 | 29.4s
+Epoch  48/150 | train 0.0499/0.996 | val 0.2069/0.967 | 29.4s
+Epoch  49/150 | train 0.0465/0.998 | val 0.3518/0.950 | 30.5s
+Epoch  50/150 | train 0.0449/0.997 | val 0.4135/0.946 | 29.3s
+Epoch  51/150 | train 0.0446/0.998 | val 0.0505/0.996 | 29.3s
+  saved best (val_loss=0.0505)
+Epoch  52/150 | train 0.0435/0.998 | val 0.6885/0.891 | 30.5s
+Epoch  53/150 | train 0.0433/0.998 | val 0.4366/0.934 | 29.4s
+Epoch  54/150 | train 0.0544/0.997 | val 0.5151/0.895 | 29.4s
+Epoch  55/150 | train 0.0448/0.997 | val 0.2812/0.951 | 30.7s
+Epoch  56/150 | train 0.0479/0.998 | val 0.4247/0.941 | 29.5s
+Epoch  57/150 | train 0.0420/0.999 | val 0.1439/0.972 | 29.4s
+Epoch  58/150 | train 0.0489/0.998 | val 0.8294/0.896 | 29.6s
+Epoch  59/150 | train 0.0430/0.998 | val 0.1815/0.972 | 30.7s
+Epoch  60/150 | train 0.0439/0.998 | val 0.2540/0.963 | 29.3s
+Epoch  61/150 | train 0.0418/0.999 | val 0.2677/0.962 | 29.4s
+Epoch  62/150 | train 0.0426/0.998 | val 0.5441/0.915 | 30.7s
+Epoch  63/150 | train 0.0432/0.998 | val 0.3691/0.950 | 29.5s
+Epoch  64/150 | train 0.0402/0.999 | val 0.2113/0.972 | 29.7s
+Epoch  65/150 | train 0.0433/0.998 | val 0.5415/0.922 | 29.7s
+Epoch  66/150 | train 0.0415/0.998 | val 0.3447/0.954 | 30.8s
+Epoch  67/150 | train 0.0413/0.999 | val 0.9637/0.875 | 29.5s
+Epoch  68/150 | train 0.0474/0.998 | val 1.1594/0.823 | 29.5s
+Epoch  69/150 | train 0.0412/0.998 | val 0.8173/0.888 | 30.5s
+Epoch  70/150 | train 0.0404/0.999 | val 0.3658/0.955 | 29.3s
+Epoch  71/150 | train 0.0393/0.999 | val 0.4646/0.942 | 29.4s
+Epoch  72/150 | train 0.0399/0.999 | val 1.2742/0.863 | 29.3s
+Epoch  73/150 | train 0.0388/0.999 | val 1.1216/0.871 | 30.6s
+Epoch  74/150 | train 0.0391/0.999 | val 0.7729/0.896 | 29.5s
+Epoch  75/150 | train 0.0387/0.999 | val 1.1928/0.825 | 29.3s
+Epoch  76/150 | train 0.0428/0.998 | val 0.7135/0.836 | 30.6s
+Epoch  77/150 | train 0.0426/0.998 | val 1.4857/0.752 | 29.4s
+Epoch  78/150 | train 0.0418/0.998 | val 0.8022/0.887 | 29.4s
+Epoch  79/150 | train 0.0389/0.999 | val 0.8404/0.820 | 29.5s
+Epoch  80/150 | train 0.0413/0.998 | val 0.2808/0.961 | 30.5s
+Epoch  81/150 | train 0.0407/0.999 | val 0.8013/0.861 | 29.4s
+Epoch  82/150 | train 0.0390/0.999 | val 1.4026/0.758 | 29.5s
+Epoch  83/150 | train 0.0385/0.999 | val 0.7309/0.916 | 30.9s
+Epoch  84/150 | train 0.0389/0.999 | val 1.4800/0.835 | 29.8s
+Epoch  85/150 | train 0.0388/0.999 | val 1.1434/0.867 | 29.7s
+Epoch  86/150 | train 0.0399/0.999 | val 1.3354/0.854 | 29.7s
+Early stopping at epoch 86
+Test loss 0.0511 | test acc 0.9958 | best epoch 51

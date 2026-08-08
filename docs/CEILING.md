@@ -384,3 +384,61 @@ pair-level ceiling by much unless this guard's threshold or unconditional behavi
 revisited; that revisit is not authorized in this instruction and is not attempted here.
 Proceeding to strategy 6 (retrain) exactly as instructed, reporting the result honestly
 against this expectation.
+
+## Update 2026-08-08: strategy 6 — steadier training schedule fixes the under-convergence
+
+**Dataset class distribution checked first** (per instruction, to rule out "encirclement just
+has fewer examples now" before retraining): strategy 5's 30k dataset is essentially balanced —
+`v_shape` 3910, `encirclement` 3877, `column` 3865, `diamond` 3862, `dispersed` 3821,
+`converging` 3867, `shield` 3832, `transitioning` 2966 (transitioning modestly lower by
+design, not a data-starvation artifact for `encirclement` specifically). Ruled out.
+
+**Change** (`src/swarm_intent/config.py`, `train.py`, `scripts/train_model.py`): replaced
+`OneCycleLR` (peak lr=3e-4, decays to ~0 via `final_div_factor`) with linear warmup
+(`warmup_pct=0.1` of total steps) + cosine decay to a **nonzero floor**
+(`lr_min_frac=0.05` × peak), and retrained at a **lower peak LR (1e-4, was 3e-4)** with
+**patience raised to 35 (was 12)**. Same strategy-5 dataset, no regeneration. 134/134 tests
+still pass after the config/scheduler change.
+
+**Full train/val curve** (`/tmp/v5_strategy6_train.log`, committed as
+`evaluation/phase0_strategy6_train_log.txt`): smooth, mostly monotonic improvement through
+epoch ~24 (val_loss 2.12→0.08, val_acc 0.16→0.99), then val_loss oscillates in later epochs
+(occasionally spiking to 0.7-1.5) similar in shape to strategy 5's volatility — but now
+around a much lower floor, with the best checkpoint found much later:
+
+| | strategy 5 (OneCycleLR, lr=3e-4, patience=12) | strategy 6 (warmup+cosine-floor, lr=1e-4, patience=35) |
+|---|---|---|
+| best epoch | 10 | **51** |
+| early-stopped at | 22/150 | **86/150** |
+| best val_loss | not recorded precisely, test_acc-inferred poor | **0.0505** |
+| test_acc | 0.8631 | **0.9958** |
+
+**Per-class test accuracy** (`evaluation/phase0_strategy6_classification_report.json`; note:
+found `evaluate_ml_model` in `llm/evaluate.py` double-normalizes already-normalized
+`X_test.npy` — a pre-existing bug, not touched here, bypassed by evaluating directly):
+
+| class | precision | recall | f1 |
+|---|---|---|---|
+| v_shape | 0.987 | 1.000 | 0.993 |
+| **encirclement** | 1.000 | **0.986** | 0.993 |
+| column | 1.000 | 1.000 | 1.000 |
+| diamond | 0.990 | 1.000 | 0.995 |
+| dispersed | 0.995 | 0.988 | 0.991 |
+| converging | 0.997 | 1.000 | 0.998 |
+| shield | 1.000 | 1.000 | 1.000 |
+| transitioning | 1.000 | 0.991 | 0.995 |
+
+**`encirclement` fully recovered** (0.986 recall, up from strategy 5's window-level 41.3% on
+the ceiling test — though that's a different, harder eval; the in-distribution regression is
+gone). Every class is now ≥98.6% on both precision and recall — essentially saturated on the
+in-distribution test split. This confirms the under-convergence hypothesis: strategy 5's
+aggressive LR schedule and low patience stopped training right as it was still finding a
+better optimum.
+
+**Caveat, flagged in advance (step 2's finding still applies):** this is in-distribution test
+accuracy, not the ceiling metric. Step 2 showed the pair-level ceiling's dominant blocker
+(`dispersed_converging_ambiguity`, 60.9% of failures) is a `stgt_bridge.py` guard that fires
+independent of classification correctness — a better-converged classifier can narrow
+probability margins and help at the margin, but is not expected to resolve that guard by
+itself. Phase 0 step 4 (next) re-measures the actual pair-level and threat-level ceilings on
+this checkpoint to see how much, if any, of this in-distribution gain transfers.

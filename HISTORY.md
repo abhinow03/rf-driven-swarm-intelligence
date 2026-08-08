@@ -93,10 +93,21 @@ correctness), strategy 6's retrain is unlikely to move the pair ceiling much by 
 Revisiting that guard is out of scope for this instruction; proceeding to strategy 6 as
 given and reporting the result honestly against this expectation.
 
-## Strategy 6 (current)
+## Strategy 6: steadier training schedule — under-convergence fixed, ceiling re-measurement pending
 
-Retraining the strategy-5 data with a steadier schedule (raised patience, lower peak LR,
-warmup, cosine decay to a nonzero floor) to address the under-convergence flagged in strategy
-5 (early stop at 22/150, volatile val curve). Full train/val curve and per-class accuracy to
-be reported, then pair-level AND threat-level ceilings re-measured on the new checkpoint.
-*(Update this section — and add a new table row — once strategy 6's retrain is complete.)*
+Checked the strategy-5 dataset's class distribution first (balanced across all 8 classes,
+ruled out "encirclement has fewer examples"). Replaced `OneCycleLR` (decays to ~0) with
+linear warmup + cosine decay to a nonzero floor, retrained on the SAME data with peak lr
+lowered (3e-4→1e-4) and patience raised (12→35).
+
+**Result: best epoch 10→51, early-stop 22→86/150, test_acc 0.8631→0.9958.** Every class is
+now ≥98.6% precision/recall, including `encirclement` (recall 0.986, fully recovered from
+strategy 5's regression). Confirms the under-convergence hypothesis was correct.
+
+**This is in-distribution test accuracy, not the ceiling** — step 2 found the dominant
+pair-recovery blocker is a `stgt_bridge.py` guard (`dispersed_converging_ambiguity`, 60.9% of
+failures) that fires independent of whether classification is correct, so this gain is not
+guaranteed to transfer. Also found (not fixed, flagged): `evaluate_ml_model` double-normalizes
+already-normalized test data, a pre-existing bug. Full detail: `docs/CEILING.md`'s 2026-08-08
+"strategy 6" update. Proceeding to step 4: re-measure pair-level AND threat-level ceilings on
+this checkpoint. *(Table row added once step 4's ceiling numbers land.)*
