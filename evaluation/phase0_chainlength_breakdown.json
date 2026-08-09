@@ -1,51 +1,49 @@
 {
   "1": {
     "robust_false": {
-      "n": 258,
-      "n_pair_correct": 226,
-      "pair_accuracy": 0.875968992248062,
-      "threat_accuracy": 0.8798449612403101,
-      "intent_accuracy": 0.875968992248062,
-      "action_accuracy": 0.8798449612403101
+      "n": 275,
+      "n_pair_correct": 235,
+      "pair_accuracy": 0.8545454545454545,
+      "threat_accuracy": 0.8727272727272727,
+      "intent_accuracy": 0.8545454545454545,
+      "action_accuracy": 0.8727272727272727
     },
     "robust_true": {
-      "n": 258,
-      "n_pair_correct": 228,
-      "pair_accuracy": 0.8837209302325582,
-      "threat_accuracy": 0.8875968992248062,
-      "intent_accuracy": 0.8837209302325582,
-      "action_accuracy": 0.8875968992248062
+      "n": 275,
+      "n_pair_correct": 236,
+      "pair_accuracy": 0.8581818181818182,
+      "threat_accuracy": 0.8763636363636363,
+      "intent_accuracy": 0.8581818181818182,
+      "action_accuracy": 0.8763636363636363
     }
   },
   "2": {
     "robust_false": {
-      "n": 251,
-      "n_pair_correct": 47,
-      "pair_accuracy": 0.18725099601593626,
-      "threat_accuracy": 0.3187250996015936,
-      "intent_accuracy": 0.20318725099601595,
-      "action_accuracy": 0.29880478087649404
+      "n": 219,
+      "n_pair_correct": 144,
+      "pair_accuracy": 0.6575342465753424,
+      "threat_accuracy": 0.7625570776255708,
+      "intent_accuracy": 0.684931506849315,
+      "action_accuracy": 0.7579908675799086
     },
     "robust_true": {
-      "n": 251,
-      "n_pair_correct": 47,
-      "pair_accuracy": 0.18725099601593626,
-      "threat_accuracy": 0.398406374501992,
-      "intent_accuracy": 0.21115537848605578,
-      "action_accuracy": 0.3665338645418327
+      "n": 219,
+      "n_pair_correct": 146,
+      "pair_accuracy": 0.6666666666666666,
+      "threat_accuracy": 0.771689497716895,
+      "intent_accuracy": 0.6940639269406392,
+      "action_accuracy": 0.7671232876712328
     }
   },
   "3+": {
-    "n": 491,
-    "bucket_A_false_positive_rate_robust_false": 0.08961303462321792,
-    "bucket_A_false_positive_rate_robust_true": 0.08961303462321792,
+    "n": 506,
+    "bucket_A_false_positive_rate_robust_false": 0.017786561264822136,
+    "bucket_A_false_positive_rate_robust_true": 0.017786561264822136,
     "bucket_distribution": {
-      "C": 445,
-      "C_robust": 63,
-      "A": 44,
-      "A_robust": 44,
-      "B": 2,
-      "B_robust": 0
+      "C": 497,
+      "C_robust": 19,
+      "A": 9,
+      "A_robust": 9
     }
   }
 }

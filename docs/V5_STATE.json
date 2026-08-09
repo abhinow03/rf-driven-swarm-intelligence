@@ -1,7 +1,7 @@
 {
   "phase": 0,
-  "step": 23,
-  "status": "Discipline-catch turn COMPLETE (all 6 steps done). Step 0: verified threshold unchanged, recorded dev-split-reuse discipline catch. Step 1: fresh mining split (seed=2024) reversed the 0.6 recommendation -- threshold stays 0.7. Step 2a/2b: fixed oov_name (69% spurious) and dominant_history_contradiction (100% spurious) guards, isolated commits, each re-measured. Step 3: fixed robust=True trim step (62.5% spurious), precision within bucket A 62.4%->65.8% session-cumulative. Step 4: RULES coverage report only, chain-3+ patterns don't collapse (385 distinct/491), no action taken. Step 5: CEILING.md rewritten stratified -- revealed pooling hid a 3x chain-2 improvement (6.0%->18.7%) vs near-flat chain-1. Step 6: UPSTREAM_ISSUES.md issue #3 added (destination formation never observed, generator segment-length issue, 95% of remaining chain-2 failures, 0% now attributable to any bridge-logic defect). STOPPING per instruction -- no further action without explicit direction.",
+  "step": 26,
+  "status": "Chain-2 generator-fix consolidation + source symmetrization COMPLETE (docs/V5_LOG.md step 26, 3 commits: 3591051 consolidation, 9061392 symmetrization, + docs/results commit -- no STGT/bridge/LLM code changed, same frozen strategy-5 checkpoint). Step 1: consolidated 5 duplicate copies of build_long_sequence_labeled into src/swarm_intent/eval_trajectories.py (4 live scripts now import it; 1 frozen historical-reproduction script deliberately excluded, documented); confirmed NONE of the 5 ever fed real STGT training data (that's generate_dataset(), separate code). Step 2: symmetrized LEAD_IN_RANGE (15,35)->(30,50), derived the same way as MIN_DWELL_RANGE (lead_in>=25 for a window-0 majority, no stride-slack term since window 0 always starts at t=0); verified source OBS_NONE 16.3%->0.0% at population scale. Step 3: chain-2 pair_acc 39.9%->65.8% (was 18.7% original baseline, 3.5x total), threat_acc 72.1%->76.3%. Step 4: refined 20-case taxonomy found 100% boundary/blend-timing-concentrated failures, 0% clean (non-boundary) misses. Step 5: chain-3+ false-positive rate investigated and RESOLVED (12.6%->1.8%, below the 9.0% original baseline, p=4.3e-07) -- mechanistically explained by the shared per-hop sampling loop, not a bug, not noise (dest-only-fix regression itself was only borderline significant, p=0.062). Step 6: blend-timing overlap re-checked, STILL 0.0%, unchanged across 3 independent formula revisions. Decision: B -- blend-timing distribution mismatch is the dominant remaining issue, should be fixed BEFORE any STGT training/capacity change, not decision A as step 25 projected. STOPPING per instruction -- no STGT retraining, no blend-distribution fix started this session.",
   "halts_cleared": [],
   "results": {
     "phase0_step1_first_check": {
@@ -931,6 +931,179 @@
       "requested_change": "widen sample_chain()'s per-hop segment-length distribution so a settled destination tail reliably exceeds window_size -- a generator-parameter change, not a retrain (distinct from issue #2).",
       "history_doc": "docs/V5_LOG.md (2026-08-09 step 6 entry)",
       "upstream_issues_doc": "docs/UPSTREAM_ISSUES.md (issue #3)"
+    },
+    "phase0_step24_chain2_observability": {
+      "checked": "2026-08-09T17:12:00Z",
+      "script": "scripts/phase0_chain2_observability.py --n 1000 (seed=999, same population as every other Phase 0 measurement)",
+      "n_chain2": 251,
+      "pct_observable": 0.494,
+      "obs_group_counts": {
+        "OBS_CLEAR": 28,
+        "OBS_PARTIAL": 96,
+        "OBS_NONE": 127
+      },
+      "pair_accuracy_by_group": {
+        "OBS_CLEAR": 0.571,
+        "OBS_PARTIAL": 0.198,
+        "OBS_NONE": 0.094
+      },
+      "manually_reviewed_20case_root_cause": {
+        "destination_not_observable": 0.4,
+        "stgt_misclassification": 0.55,
+        "transition_labeling_ambiguity": 0.05,
+        "bridge_reduction_issue": 0.0
+      },
+      "train_eval_blend_overlap": 0.0,
+      "generator_fix_status": "specified in docs/V5_LOG.md step 24, NOT implemented this turn",
+      "artifacts": [
+        "evaluation/phase0_chain2_observability.json",
+        "evaluation/phase0_chain2_observability_trace.txt"
+      ]
+    },
+    "phase0_step25_chain2_dwell_fix": {
+      "checked": "2026-08-09T17:40:00Z",
+      "fix_location": "scripts/phase0_decompose_failures.py build_long_sequence_labeled ONLY",
+      "not_propagated_to": [
+        "llm_finetuning/measure_coverage.py",
+        "scripts/phase0_ceiling.py",
+        "scripts/phase0_guard_audit.py",
+        "llm_finetuning/analyze_bucket_c_windowing.py"
+      ],
+      "old_formula": "seg_len~U{50,100}; blend_start/end sampled as FRACTIONS of seg_len (0.3-0.5/0.55-0.75); dwell an unconstrained byproduct (12.5-45)",
+      "new_formula": "lead_in~U{15,35}, blend_duration~U{10,25}, dwell~U{40,60} sampled directly; seg_len=lead_in+blend_duration+dwell derived",
+      "observability_before_after": {
+        "OBS_CLEAR": [
+          0.112,
+          0.991
+        ],
+        "OBS_PARTIAL": [
+          0.382,
+          0.009
+        ],
+        "OBS_NONE": [
+          0.506,
+          0.0
+        ]
+      },
+      "chain2_pair_accuracy_before_after": [
+        0.187,
+        0.399
+      ],
+      "chain2_threat_accuracy_before_after": [
+        0.319,
+        0.721
+      ],
+      "chain1_pair_accuracy_before_after": [
+        0.876,
+        0.841
+      ],
+      "chain3plus_false_positive_rate_before_after": [
+        0.09,
+        0.126
+      ],
+      "train_eval_blend_overlap_before_after": [
+        0.0,
+        0.0
+      ],
+      "20case_root_cause_before_after": {
+        "destination_not_observable": [
+          0.4,
+          0.0
+        ],
+        "source_not_observable_new": [
+          0.0,
+          0.15
+        ],
+        "transition_labeling_ambiguity": [
+          0.05,
+          0.05
+        ],
+        "stgt_misclassification": [
+          0.55,
+          0.8
+        ],
+        "bridge_reduction_issue": [
+          0.0,
+          0.0
+        ]
+      },
+      "decision": "A -- observability fix successful, remaining problem primarily STGT recognition",
+      "artifacts": [
+        "evaluation/phase0_chain2_observability.json (after)",
+        "evaluation/phase0_chain2_observability_before.json (before, preserved)",
+        "evaluation/phase0_chain2_observability_trace.txt (after)",
+        "evaluation/phase0_chain2_observability_trace_before.txt (before, preserved)",
+        "evaluation/phase0_chainlength_breakdown.json (after)",
+        "evaluation/phase0_chainlength_breakdown_before.json (before, preserved)"
+      ]
+    },
+    "phase0_step26_consolidation_and_symmetrization": {
+      "checked": "2026-08-09T18:25:00Z",
+      "commits": [
+        "3591051 (consolidation, no behavior change)",
+        "9061392 (symmetrization)",
+        "docs+results commit (this entry)"
+      ],
+      "consolidation_module": "src/swarm_intent/eval_trajectories.py",
+      "consolidated_into": [
+        "scripts/phase0_ceiling.py",
+        "scripts/phase0_guard_audit.py",
+        "scripts/phase0_decompose_failures.py",
+        "llm_finetuning/measure_coverage.py"
+      ],
+      "deliberately_excluded": "llm_finetuning/analyze_bucket_c_windowing.py (frozen historical reproduction of sec AF step 4's seed=0 population)",
+      "training_data_provenance_finding": "none of the 5 copies feed swarm_intent.data.generate_dataset() (the real STGT training-data path) -- entirely separate code",
+      "lead_in_range_before_after": [
+        [
+          15,
+          35
+        ],
+        [
+          30,
+          50
+        ]
+      ],
+      "source_obs_none_before_after": [
+        0.163,
+        0.0
+      ],
+      "destination_obs_none_before_after": [
+        0.0,
+        0.0
+      ],
+      "chain2_pair_accuracy": {
+        "original_baseline": 0.187,
+        "dest_only_fix": 0.399,
+        "both_fixes": 0.658
+      },
+      "chain2_threat_accuracy": {
+        "original_baseline": 0.319,
+        "dest_only_fix": 0.721,
+        "both_fixes": 0.763
+      },
+      "chain3plus_false_positive_rate": {
+        "original_baseline": 0.09,
+        "dest_only_fix": 0.126,
+        "both_fixes": 0.018
+      },
+      "chain3plus_significance": {
+        "baseline_to_dest_only_p": 0.062,
+        "dest_only_to_both_p": 2.4e-11,
+        "baseline_to_both_p": 4.3e-07
+      },
+      "refined_taxonomy_20case": {
+        "boundary_blend_timing": 1.0,
+        "clean_miss_trajectory_level": 0.0,
+        "clean_miss_secondary_windows_present_in": 0.15
+      },
+      "blend_overlap_after_both_fixes": 0.0,
+      "decision": "B -- blend-timing distribution mismatch is the dominant remaining issue, fix before any STGT training change",
+      "artifacts": [
+        "evaluation/phase0_chain2_observability.json (both-fixes)",
+        "evaluation/phase0_chain2_observability_deston.json (dest-only-fix, preserved)",
+        "evaluation/phase0_chainlength_breakdown.json (both-fixes)",
+        "evaluation/phase0_chainlength_breakdown_deston.json (dest-only-fix, preserved)"
+      ]
     }
   },
   "started": "2026-08-07T19:47:41Z"

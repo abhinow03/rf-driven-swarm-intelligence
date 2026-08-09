@@ -1,0 +1,194 @@
+=== trajectory 105: encirclement -> column (obs_group=OBS_CLEAR, n_maj_b_windows=2) ===
+n_timesteps=74, n_windows=3, blend=[27,41) (duration=14 timesteps)
+  w    t-range          true          pred   conf  frac_a  frac_t  frac_b                         top2  dc_amb
+  0    0-  50  encirclement     dispersed   0.91    0.54    0.28    0.18 dispersed=0.91,converging=0.07   False <-WRONG
+  1   10-  60        column transitioning   0.96    0.34    0.28    0.38 transitioning=0.96,dispersed=0.03   False <-WRONG
+  2   20-  70        column     dispersed   0.68    0.14    0.28    0.58   dispersed=0.68,column=0.28   False <-WRONG
+bucket(robust=False)=A, guards=[], recovered=['dispersed', 'dispersed']
+bucket(robust=True)=A, guards=[], recovered=['dispersed', 'dispersed']
+SUGGESTED root cause (programmatic first pass, needs manual review): 3_stgt_misclassification
+
+=== trajectory 154: shield -> converging (obs_group=OBS_CLEAR, n_maj_b_windows=2) ===
+n_timesteps=86, n_windows=4, blend=[36,49) (duration=13 timesteps)
+  w    t-range          true          pred   conf  frac_a  frac_t  frac_b                         top2  dc_amb
+  0    0-  50        shield        shield   0.97    0.72    0.26    0.02   shield=0.97,dispersed=0.01   False
+  1   10-  60        shield transitioning   0.85    0.52    0.26    0.22 transitioning=0.85,shield=0.12   False <-WRONG
+  2   20-  70    converging transitioning   0.98    0.32    0.26    0.42 transitioning=0.98,shield=0.00   False <-WRONG
+  3   30-  80    converging transitioning   0.51    0.12    0.26    0.62 transitioning=0.51,converging=0.40   False <-WRONG
+bucket(robust=False)=C, guards=[], recovered=None
+bucket(robust=True)=C, guards=[], recovered=None
+SUGGESTED root cause (programmatic first pass, needs manual review): 3_stgt_misclassification
+
+=== trajectory 156: diamond -> v_shape (obs_group=OBS_CLEAR, n_maj_b_windows=2) ===
+n_timesteps=97, n_windows=5, blend=[47,57) (duration=10 timesteps)
+  w    t-range          true          pred   conf  frac_a  frac_t  frac_b                         top2  dc_amb
+  0    0-  50       diamond       diamond   0.99    0.94    0.06    0.00  diamond=0.99,dispersed=0.00   False
+  1   10-  60       diamond       diamond   0.99    0.74    0.20    0.06  diamond=0.99,dispersed=0.00   False
+  2   20-  70       diamond       diamond   0.98    0.54    0.20    0.26 diamond=0.98,transitioning=0.01   False
+  3   30-  80       v_shape transitioning   0.96    0.34    0.20    0.46 transitioning=0.96,shield=0.02   False <-WRONG
+  4   40-  90       v_shape transitioning   0.48    0.14    0.20    0.66 transitioning=0.48,shield=0.45   False <-WRONG
+bucket(robust=False)=C, guards=[], recovered=None
+bucket(robust=True)=C, guards=[], recovered=None
+SUGGESTED root cause (programmatic first pass, needs manual review): 3_stgt_misclassification
+
+=== trajectory 265: diamond -> encirclement (obs_group=OBS_CLEAR, n_maj_b_windows=2) ===
+n_timesteps=88, n_windows=4, blend=[38,49) (duration=11 timesteps)
+  w    t-range          true          pred   conf  frac_a  frac_t  frac_b                         top2  dc_amb
+  0    0-  50       diamond       diamond   0.99    0.76    0.22    0.02  diamond=0.99,dispersed=0.01   False
+  1   10-  60       diamond       diamond   0.99    0.56    0.22    0.22  diamond=0.99,dispersed=0.01   False
+  2   20-  70  encirclement transitioning   0.95    0.36    0.22    0.42 transitioning=0.95,diamond=0.03   False <-WRONG
+  3   30-  80  encirclement transitioning   0.87    0.16    0.22    0.62 transitioning=0.87,converging=0.06   False <-WRONG
+bucket(robust=False)=C, guards=[], recovered=None
+bucket(robust=True)=A, guards=[], recovered=['diamond', 'diamond']
+SUGGESTED root cause (programmatic first pass, needs manual review): 3_stgt_misclassification
+
+=== trajectory 359: diamond -> v_shape (obs_group=OBS_CLEAR, n_maj_b_windows=2) ===
+n_timesteps=93, n_windows=5, blend=[44,58) (duration=14 timesteps)
+  w    t-range          true          pred   conf  frac_a  frac_t  frac_b                         top2  dc_amb
+  0    0-  50       diamond       diamond   0.99    0.88    0.12    0.00  diamond=0.99,dispersed=0.01   False
+  1   10-  60       diamond       diamond   0.99    0.68    0.28    0.04  diamond=0.99,dispersed=0.01   False
+  2   20-  70       diamond       diamond   0.90    0.48    0.28    0.24 diamond=0.90,transitioning=0.08   False
+  3   30-  80       v_shape transitioning   0.99    0.28    0.28    0.44 transitioning=0.99,shield=0.00   False <-WRONG
+  4   40-  90       v_shape transitioning   0.72    0.08    0.28    0.64 transitioning=0.72,shield=0.12   False <-WRONG
+bucket(robust=False)=C, guards=[], recovered=None
+bucket(robust=True)=A, guards=[], recovered=['diamond', 'diamond']
+SUGGESTED root cause (programmatic first pass, needs manual review): 3_stgt_misclassification
+
+=== trajectory 389: v_shape -> dispersed (obs_group=OBS_CLEAR, n_maj_b_windows=2) ===
+n_timesteps=81, n_windows=4, blend=[30,46) (duration=16 timesteps)
+  w    t-range          true          pred   conf  frac_a  frac_t  frac_b                         top2  dc_amb
+  0    0-  50       v_shape transitioning   0.83    0.60    0.32    0.08 transitioning=0.83,v_shape=0.11   False <-WRONG
+  1   10-  60       v_shape transitioning   0.99    0.40    0.32    0.28 transitioning=0.99,dispersed=0.00   False <-WRONG
+  2   20-  70     dispersed transitioning   0.99    0.20    0.32    0.48 transitioning=0.99,dispersed=0.00   False <-WRONG
+  3   30-  80     dispersed     dispersed   0.99    0.00    0.32    0.68 dispersed=0.99,transitioning=0.00   False
+bucket(robust=False)=A, guards=[], recovered=['dispersed', 'dispersed']
+bucket(robust=True)=A, guards=[], recovered=['dispersed', 'dispersed']
+SUGGESTED root cause (programmatic first pass, needs manual review): 4_bridge_reduction_issue
+
+=== trajectory 13: encirclement -> converging (obs_group=OBS_PARTIAL, n_maj_b_windows=1) ===
+n_timesteps=51, n_windows=1, blend=[18,31) (duration=13 timesteps)
+  w    t-range          true          pred   conf  frac_a  frac_t  frac_b                         top2  dc_amb
+  0    0-  50    converging transitioning   0.98    0.36    0.26    0.38 transitioning=0.98,v_shape=0.00   False <-WRONG
+bucket(robust=False)=C, guards=[], recovered=None
+bucket(robust=True)=C, guards=[], recovered=None
+SUGGESTED root cause (programmatic first pass, needs manual review): 3_stgt_misclassification
+
+=== trajectory 28: encirclement -> diamond (obs_group=OBS_PARTIAL, n_maj_b_windows=1) ===
+n_timesteps=74, n_windows=3, blend=[28,46) (duration=18 timesteps)
+  w    t-range          true          pred   conf  frac_a  frac_t  frac_b                         top2  dc_amb
+  0    0-  50  encirclement     dispersed   0.76    0.56    0.36    0.08 dispersed=0.76,converging=0.20   False <-WRONG
+  1   10-  60  encirclement transitioning   0.97    0.36    0.36    0.28 transitioning=0.97,diamond=0.01   False <-WRONG
+  2   20-  70       diamond       diamond   0.94    0.16    0.36    0.48  diamond=0.94,dispersed=0.04   False
+bucket(robust=False)=A, guards=[], recovered=['dispersed', 'diamond']
+bucket(robust=True)=A, guards=[], recovered=['dispersed', 'diamond']
+SUGGESTED root cause (programmatic first pass, needs manual review): 4_bridge_reduction_issue
+
+=== trajectory 33: shield -> v_shape (obs_group=OBS_PARTIAL, n_maj_b_windows=1) ===
+n_timesteps=78, n_windows=3, blend=[29,46) (duration=17 timesteps)
+  w    t-range          true          pred   conf  frac_a  frac_t  frac_b                         top2  dc_amb
+  0    0-  50        shield        shield   0.99    0.58    0.34    0.08 shield=0.99,transitioning=0.01   False
+  1   10-  60        shield        shield   0.98    0.38    0.34    0.28 shield=0.98,transitioning=0.01   False
+  2   20-  70       v_shape        shield   0.65    0.18    0.34    0.48     shield=0.65,v_shape=0.19   False <-WRONG
+bucket(robust=False)=A, guards=[], recovered=['shield', 'shield']
+bucket(robust=True)=A, guards=[], recovered=['shield', 'shield']
+SUGGESTED root cause (programmatic first pass, needs manual review): 3_stgt_misclassification
+
+=== trajectory 34: dispersed -> encirclement (obs_group=OBS_PARTIAL, n_maj_b_windows=1) ===
+n_timesteps=62, n_windows=2, blend=[29,36) (duration=7 timesteps)
+  w    t-range          true          pred   conf  frac_a  frac_t  frac_b                         top2  dc_amb
+  0    0-  50     dispersed transitioning   0.98    0.58    0.14    0.28 transitioning=0.98,converging=0.01   False <-WRONG
+  1   10-  60  encirclement transitioning   0.98    0.38    0.14    0.48 transitioning=0.98,converging=0.00   False <-WRONG
+bucket(robust=False)=C, guards=[], recovered=None
+bucket(robust=True)=C, guards=[], recovered=None
+SUGGESTED root cause (programmatic first pass, needs manual review): 3_stgt_misclassification
+
+=== trajectory 40: dispersed -> diamond (obs_group=OBS_PARTIAL, n_maj_b_windows=1) ===
+n_timesteps=88, n_windows=4, blend=[36,55) (duration=19 timesteps)
+  w    t-range          true          pred   conf  frac_a  frac_t  frac_b                         top2  dc_amb
+  0    0-  50     dispersed    converging   0.96    0.72    0.28    0.00 converging=0.96,dispersed=0.03   False <-WRONG
+  1   10-  60     dispersed    converging   0.94    0.52    0.38    0.10 converging=0.94,dispersed=0.04   False <-WRONG
+  2   20-  70 transitioning transitioning   0.83    0.32    0.38    0.30 transitioning=0.83,diamond=0.13   False
+  3   30-  80       diamond       diamond   0.98    0.12    0.38    0.50 diamond=0.98,transitioning=0.01   False
+bucket(robust=False)=A, guards=[], recovered=['converging', 'diamond']
+bucket(robust=True)=A, guards=[], recovered=['converging', 'diamond']
+SUGGESTED root cause (programmatic first pass, needs manual review): 4_bridge_reduction_issue
+
+=== trajectory 57: converging -> dispersed (obs_group=OBS_PARTIAL, n_maj_b_windows=1) ===
+n_timesteps=60, n_windows=2, blend=[29,39) (duration=10 timesteps)
+  w    t-range          true          pred   conf  frac_a  frac_t  frac_b                         top2  dc_amb
+  0    0-  50    converging     dispersed   0.67    0.58    0.20    0.22 dispersed=0.67,converging=0.31   False <-WRONG
+  1   10-  60     dispersed     dispersed   0.94    0.38    0.20    0.42 dispersed=0.94,converging=0.05   False
+bucket(robust=False)=A, guards=[], recovered=['dispersed', 'dispersed']
+bucket(robust=True)=A, guards=[], recovered=['dispersed', 'dispersed']
+SUGGESTED root cause (programmatic first pass, needs manual review): 4_bridge_reduction_issue
+
+=== trajectory 7: shield -> converging (obs_group=OBS_NONE, n_maj_b_windows=0) ===
+n_timesteps=60, n_windows=2, blend=[30,44) (duration=14 timesteps)
+  w    t-range          true          pred   conf  frac_a  frac_t  frac_b                         top2  dc_amb
+  0    0-  50        shield        shield   0.95    0.60    0.28    0.12 shield=0.95,transitioning=0.04   False
+  1   10-  60        shield transitioning   0.98    0.40    0.28    0.32 transitioning=0.98,shield=0.01   False <-WRONG
+bucket(robust=False)=C, guards=[], recovered=None
+bucket(robust=True)=A, guards=[], recovered=['shield', 'shield']
+SUGGESTED root cause (programmatic first pass, needs manual review): 1_destination_not_observable
+
+=== trajectory 18: shield -> v_shape (obs_group=OBS_NONE, n_maj_b_windows=0) ===
+n_timesteps=69, n_windows=2, blend=[34,50) (duration=16 timesteps)
+  w    t-range          true          pred   conf  frac_a  frac_t  frac_b                         top2  dc_amb
+  0    0-  50        shield        shield   0.99    0.68    0.32    0.00 shield=0.99,transitioning=0.00   False
+  1   10-  60        shield        shield   0.99    0.48    0.32    0.20 shield=0.99,transitioning=0.01   False
+bucket(robust=False)=A, guards=[], recovered=['shield', 'shield']
+bucket(robust=True)=A, guards=[], recovered=['shield', 'shield']
+SUGGESTED root cause (programmatic first pass, needs manual review): 1_destination_not_observable
+
+=== trajectory 19: encirclement -> shield (obs_group=OBS_NONE, n_maj_b_windows=0) ===
+n_timesteps=55, n_windows=1, blend=[18,41) (duration=23 timesteps)
+  w    t-range          true          pred   conf  frac_a  frac_t  frac_b                         top2  dc_amb
+  0    0-  50 transitioning transitioning   0.98    0.36    0.46    0.18 transitioning=0.98,shield=0.01   False
+bucket(robust=False)=C, guards=[], recovered=None
+bucket(robust=True)=C, guards=[], recovered=None
+SUGGESTED root cause (programmatic first pass, needs manual review): 1_destination_not_observable
+
+=== trajectory 27: diamond -> column (obs_group=OBS_NONE, n_maj_b_windows=0) ===
+n_timesteps=57, n_windows=1, blend=[26,38) (duration=12 timesteps)
+  w    t-range          true          pred   conf  frac_a  frac_t  frac_b                         top2  dc_amb
+  0    0-  50       diamond       diamond   0.99    0.52    0.24    0.24 diamond=0.99,transitioning=0.01   False
+bucket(robust=False)=A, guards=[], recovered=['diamond', 'diamond']
+bucket(robust=True)=A, guards=[], recovered=['diamond', 'diamond']
+SUGGESTED root cause (programmatic first pass, needs manual review): 1_destination_not_observable
+
+=== trajectory 29: shield -> encirclement (obs_group=OBS_NONE, n_maj_b_windows=0) ===
+n_timesteps=65, n_windows=2, blend=[27,45) (duration=18 timesteps)
+  w    t-range          true          pred   conf  frac_a  frac_t  frac_b                         top2  dc_amb
+  0    0-  50        shield        shield   0.99    0.54    0.36    0.10 shield=0.99,transitioning=0.01   False
+  1   10-  60 transitioning transitioning   0.79    0.34    0.36    0.30 transitioning=0.79,shield=0.19   False
+bucket(robust=False)=C, guards=[], recovered=None
+bucket(robust=True)=A, guards=[], recovered=['shield', 'shield']
+SUGGESTED root cause (programmatic first pass, needs manual review): 1_destination_not_observable
+
+=== trajectory 31: converging -> diamond (obs_group=OBS_NONE, n_maj_b_windows=0) ===
+n_timesteps=99, n_windows=5, blend=[47,70) (duration=23 timesteps)
+  w    t-range          true          pred   conf  frac_a  frac_t  frac_b                         top2  dc_amb
+  0    0-  50    converging     dispersed   0.73    0.94    0.06    0.00 dispersed=0.73,converging=0.13   False <-WRONG
+  1   10-  60    converging    converging   0.96    0.74    0.26    0.00 converging=0.96,dispersed=0.03   False
+  2   20-  70    converging    converging   0.98    0.54    0.46    0.00 converging=0.98,dispersed=0.01   False
+  3   30-  80 transitioning    converging   0.50    0.34    0.46    0.20 converging=0.50,transitioning=0.42   False <-WRONG
+  4   40-  90 transitioning       diamond   0.78    0.14    0.46    0.40 diamond=0.78,transitioning=0.19   False <-WRONG
+bucket(robust=False)=C, guards=[], recovered=None
+bucket(robust=True)=C, guards=[], recovered=None
+SUGGESTED root cause (programmatic first pass, needs manual review): 1_destination_not_observable
+
+=== trajectory 32: column -> diamond (obs_group=OBS_NONE, n_maj_b_windows=0) ===
+n_timesteps=51, n_windows=1, blend=[21,35) (duration=14 timesteps)
+  w    t-range          true          pred   conf  frac_a  frac_t  frac_b                         top2  dc_amb
+  0    0-  50        column transitioning   0.46    0.42    0.28    0.30 transitioning=0.46,dispersed=0.42   False <-WRONG
+bucket(robust=False)=C, guards=[], recovered=None
+bucket(robust=True)=C, guards=[], recovered=None
+SUGGESTED root cause (programmatic first pass, needs manual review): 1_destination_not_observable
+
+=== trajectory 62: converging -> encirclement (obs_group=OBS_NONE, n_maj_b_windows=0) ===
+n_timesteps=55, n_windows=1, blend=[19,32) (duration=13 timesteps)
+  w    t-range          true          pred   conf  frac_a  frac_t  frac_b                         top2  dc_amb
+  0    0-  50    converging transitioning   0.97    0.38    0.26    0.36 transitioning=0.97,converging=0.01   False <-WRONG
+bucket(robust=False)=C, guards=[], recovered=None
+bucket(robust=True)=C, guards=[], recovered=None
+SUGGESTED root cause (programmatic first pass, needs manual review): 1_destination_not_observable

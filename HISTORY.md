@@ -277,3 +277,70 @@ gate — it isn't; it measures the wrong quantity now that the two ceilings have
 floor itself is a policy call this projection informs but doesn't set — the central estimate
 (~62%) is ~8 points short either way. Full detail: `docs/CEILING.md`'s 2026-08-09 step 6
 update.
+
+## Diagnostic checkpoint, 2026-08-09: is chain-2's 18.7% a generator ceiling or an STGT problem?
+
+Not a new strategy attempt — a scoped measurement answering `UPSTREAM_ISSUES.md` issue #3
+directly, no generator/model/LLM code changed. Defined observability (a window's true-label
+majority is B — reused from existing scoring code, not invented) and stratified all 251
+chain-2 trajectories in the standard population by it:
+
+| observability | n | % | pair accuracy |
+|---|---|---|---|
+| OBS_CLEAR (B majority in >=2 windows) | 28 | 11.2% | 57.1% |
+| OBS_PARTIAL (1 window) | 96 | 38.2% | 19.8% |
+| OBS_NONE (never) | 127 | 50.6% | 9.4% |
+
+**Not single-cause.** ~50.6% of chain-2 trajectories never make the destination formation
+observable at all (confirms issue #3, generator ceiling). But even the best-observed group
+still only reaches 57.1% — a manually-reviewed 20-case trace attributes the residual to real
+STGT misclassification (55% of traced failures: near-blend-boundary `"transitioning"`
+over-prediction and confident `dispersed`/`converging` source confusion the existing ambiguity
+guard can't catch), not bridge/reduction logic (0%). A minimal, no-retrain, eval-harness-only
+generator fix was specified (decouple destination dwell time from segment length) but not
+implemented this turn, per instruction — diagnosis and recommendation only. Full detail:
+`docs/V5_LOG.md`'s 2026-08-09 step-24 entry, `docs/CEILING.md`'s matching update.
+
+## Experiment, 2026-08-09: the dwell-time generator fix, implemented — chain-2 more than doubles
+
+Implemented the checkpoint's dwell fix specified above, in `scripts/phase0_decompose_failures.py`'s
+`build_long_sequence_labeled` only (dwell now sampled directly, `~Uniform{40,60}`, guaranteeing
+the derived `D>=35` minimum; `seg_len` now derived from `lead_in+blend_duration+dwell` instead
+of sampled first). Same frozen checkpoint, zero retraining.
+
+| | before | after |
+|---|---|---|
+| chain-2 OBS_NONE | 50.6% | **0.0%** |
+| chain-2 pair accuracy | 18.7% | **39.9%** |
+| chain-2 threat accuracy | 31.9% | **72.1%** |
+
+**Two disclosed caveats, not hidden:** (1) a new, self-inflicted ~15%-of-failures SOURCE-
+observability gap — `LEAD_IN_RANGE` wasn't derived with the same rigor as the dwell fix, a
+trivial next fix; (2) train/eval blend-timing overlap is STILL 0.0% after the fix, flagged as
+the likely driver of the now-dominant (80%, up from 55%) genuine STGT-misclassification
+failure mode. **Decision: A — observability fix successful, remaining problem primarily STGT
+recognition**, with those two caveats as the concrete next steps. Full detail:
+`docs/V5_LOG.md`'s 2026-08-09 step-25 entry, `docs/CEILING.md`'s matching update.
+
+## Experiment, 2026-08-09: consolidation + source symmetrization — chain-2 more than triples total
+
+Resolved both of step 25's caveats. Consolidated the 5 duplicate copies of the eval-trajectory
+sampling logic into `src/swarm_intent/eval_trajectories.py` (4 live scripts now import it; one
+frozen historical-reproduction script deliberately excluded, documented) — confirmed none of
+the 5 ever fed real STGT training data. Symmetrized `LEAD_IN_RANGE` from `(15,35)` to `(30,50)`,
+derived the same way as the destination fix's `MIN_DWELL_RANGE`.
+
+| | dest-only fix | both fixes | original baseline |
+|---|---|---|---|
+| source OBS_NONE | 16.3% | **0.0%** | — |
+| chain-2 pair accuracy | 39.9% | **65.8%** | 18.7% (3.5x total) |
+| chain-2 threat accuracy | 72.1% | **76.3%** | 31.9% |
+| chain-3+ false-positive rate | 12.6% | **1.8%** | 9.0% (net improvement, p=4.3e-07) |
+
+A refined 20-case failure taxonomy found the remaining chain-2 failures 100%
+boundary/blend-timing-concentrated (0% clean, non-boundary misses) — the still-unresolved
+0.0% train/eval blend-overlap (unchanged across three independent formula revisions) is the
+likely cause. **Decision: B — the blend-timing distribution mismatch is the dominant
+remaining issue and should be fixed BEFORE any STGT training/capacity change**, not decision
+A as the previous entry projected. Not started this session, per instruction. Full detail:
+`docs/V5_LOG.md`'s 2026-08-09 step-26 entry, `docs/CEILING.md`'s matching update.

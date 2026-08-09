@@ -33,70 +33,22 @@ REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO / "src"))
 
 from swarm_intent.config import BASE_FORMATIONS, TRANSITION_CLASS  # noqa: E402
-from swarm_intent.data import generate_transition_sequence  # noqa: E402
 from swarm_intent.coverage import classify_observation, BUCKET_A  # noqa: E402
 from swarm_intent.progress import Reporter  # noqa: E402
+# 2026-08-09 step 26 (docs/V5_LOG.md): consolidated here from an inline, independently-
+# maintained copy -- see src/swarm_intent/eval_trajectories.py for the full derivation of
+# both the destination-dwell (step 24/25) and source-lead-in (step 26) observability fixes.
+# Re-exported under these same names so phase0_chainlength_breakdown.py's/
+# phase0_chain2_observability.py's `from phase0_decompose_failures import (sample_chain,
+# build_long_sequence_labeled, ground_truth_pair, ...)` keeps working unchanged.
+from swarm_intent.eval_trajectories import (  # noqa: E402, F401
+    sample_chain, build_long_sequence_labeled, ground_truth_pair,
+)
 
 DATA_DIR = REPO / "swarm_data"
 CHECKPOINT = DATA_DIR / "best_model.pt"
 SEED = 999
 CLASS_ORDER = list(BASE_FORMATIONS) + [TRANSITION_CLASS]
-
-
-def sample_chain(rng: np.random.Generator) -> list[str]:
-    num_formations = int(rng.integers(1, 5))
-    chain = [rng.choice(BASE_FORMATIONS)]
-    for _ in range(num_formations - 1):
-        pool = [f for f in BASE_FORMATIONS if f != chain[-1]]
-        chain.append(rng.choice(pool))
-    return chain
-
-
-def build_long_sequence_labeled(chain: list[str], rng: np.random.Generator, spread: float, noise_std: float):
-    segments, seg_labels = [], []
-    if len(chain) == 1:
-        seg_len = int(rng.integers(50, 101))
-        seg = generate_transition_sequence(chain[0], chain[0], n_timesteps=seg_len,
-                                           spread=spread, noise_std=noise_std, rng=rng)
-        segments.append(seg)
-        seg_labels.append([chain[0]] * seg_len)
-    else:
-        for i in range(len(chain) - 1):
-            seg_len = int(rng.integers(50, 101))
-            blend_start = int(seg_len * rng.uniform(0.3, 0.5))
-            blend_end = int(seg_len * rng.uniform(0.55, 0.75))
-            seg = generate_transition_sequence(chain[i], chain[i + 1], n_timesteps=seg_len,
-                                               spread=spread, noise_std=noise_std,
-                                               blend_start=blend_start, blend_end=blend_end, rng=rng)
-            segments.append(seg)
-            labels = []
-            for t in range(seg_len):
-                if t <= blend_start:
-                    labels.append(chain[i])
-                elif t >= blend_end:
-                    labels.append(chain[i + 1])
-                else:
-                    labels.append(TRANSITION_CLASS)
-            seg_labels.append(labels)
-
-    stitched = [segments[0]]
-    for seg in segments[1:]:
-        prev_last_centroid = stitched[-1][-1].mean(axis=0)
-        this_first_centroid = seg[0].mean(axis=0)
-        delta = prev_last_centroid - this_first_centroid
-        stitched.append(seg + delta[None, None, :])
-    long_seq = np.concatenate(stitched, axis=0)
-    true_labels = [lab for seg_lab in seg_labels for lab in seg_lab]
-    assert len(true_labels) == long_seq.shape[0]
-    return long_seq, true_labels
-
-
-def ground_truth_pair(true_chain: list):
-    if len(true_chain) == 1:
-        return (true_chain[0], true_chain[0])
-    if len(true_chain) == 2:
-        return (true_chain[0], true_chain[1])
-    return None
 
 
 def position_bucket(idx: int, n: int) -> str:
