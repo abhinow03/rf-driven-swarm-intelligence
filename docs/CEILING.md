@@ -656,3 +656,69 @@ few for the destination formation to reliably resolve OR be observed at all. No 
 change (guard fix, robust reduction, anything short of retraining with longer segments or a
 larger `max_seq_len`) can fix the dominant share of this. The 15% oov_name-guard share is real
 and actionable now — see step 4's guard audit.
+
+## Update 2026-08-09: step 4 — auditing every other guard/rule the same way
+
+`scripts/phase0_full_guard_audit.py --n 1000`, same seed=999 population as every prior
+measurement. For each boolean guard: fire rate over the 509 pair-eligible trajectories,
+and — among trajectories where the guard is the SOLE reason `bucket != A`
+(`guard_reasons == [that guard]`) — what fraction of those "sole firings" are spurious, i.e.
+the structural `rules_key` (computed BEFORE guard checks, available regardless of bucket)
+already equals the ground-truth pair, so the guard blocked what would otherwise have been the
+correct answer:
+
+| guard | fire rate (of 509) | n sole-firing | sole-firing spurious rate | failures attributable |
+|---|---|---|---|---|
+| **oov_name** | 42 (8.3%) | 29 | **69.0% (20/29)** | **20** |
+| **dominant_history_contradiction** | 18 (3.5%) | 4 | **100.0% (4/4)** | **4** |
+| low_confidence | 11 (2.2%) | 4 | 25.0% (1/4) | 1 |
+| dispersed_converging_ambiguity (post-fix) | 11 (2.2%) | 4 | 50.0% (2/4) | 2 |
+
+**Two more guards of the same defective class as the original dispersed_converging bug,
+found by the same methodology:**
+
+- **`dominant_history_contradiction`: 100% spurious when it's the sole blocker (n=4, small but
+  unambiguous).** This guard fires when the two known formations' PREDICTED window counts are
+  exactly tied — but a raw count tie says nothing about whether the underlying (a,b) pair is
+  actually ambiguous; a clean, obviously-correct 2/2 window split ties just as easily as a
+  genuinely uncertain one. Every sole-firing case in this sample blocked an answer that was
+  already right. Same defect shape as the original bug: testing a condition that doesn't
+  actually correlate with untrustworthiness.
+- **`oov_name`: fires on 8.3% of trajectories, 69.0% spurious when sole, blocking 20 correct
+  answers outright — the highest-VOLUME actionable defect found.** Window-level check: of the
+  68 total unknown windows across all oov_name-firing trajectories, 57.4% are
+  `spurious_misclassification` (STGT wrongly read `"transitioning"` on a window whose true
+  label was a real, settled formation) vs. 42.6% `genuine_transitioning` (real blend
+  ambiguity). The guard is reacting to real classifier noise more than half the time, but its
+  response (blanket-block on ANY unknown window at all, zero tolerance, no threshold) massively
+  overreacts relative to how much signal the OTHER windows in the same trajectory usually
+  still carry.
+- `low_confidence` and the post-fix `dispersed_converging_ambiguity` are comparatively minor
+  and mostly-justified (25% and 50% spurious respectively, both on n=4 — small volume either
+  way, not a priority).
+
+**Two non-guard reduction mechanisms, audited the same way:**
+
+- **`key_windows` cap (`DEFAULT_MAX_KEY_WINDOWS=10`): no bug found.** 373/1000 trajectories
+  exceed the cap (almost entirely chain 3+, longer sequences) and get capped, but **0/373**
+  capped selections are missing a true endpoint formation from the narrative shown downstream —
+  the priority-based selection (first/last/unknown/low-confidence/ambiguous, sec V's original
+  design) is working as intended.
+- **Leading/trailing transitioning-run trim (`robust=True`'s `_robust_reduce`, sec AG): a real,
+  significant precision cost, found by the same window-level ground-truth check.** Fires
+  (strips >=1 window) on 101/509 (19.8%) pair-eligible trajectories, 168 windows trimmed total,
+  and **105/168 (62.5%) of trimmed windows have a true label that was NOT `"transitioning"`** —
+  i.e. the trim step is discarding genuine signal (a window the model simply misclassified as
+  transitioning) more often than it's discarding real noise. This directly explains why
+  `robust=True`'s within-bucket-A precision plateaus at 62.4% even after the dispersed_converging
+  fix (sec AG/step 2): the majority-vote algorithm's own trim step is itself contaminated by
+  the same "assume any unknown-run is genuine ambiguity" fallacy as `oov_name`, just applied
+  before the vote instead of as a guard after it.
+
+**Verdict: the dispersed_converging bug was not an isolated defect — it's an instance of a
+recurring pattern (treat a raw/local signal as evidence of genuine ambiguity with no
+competitiveness or ground-truth-correlated threshold) that also appears in
+`dominant_history_contradiction`, `oov_name`, and the `robust=True` trim step, in that rough
+order of severity. `key_windows` capping is the one mechanism audited that is NOT part of this
+pattern.** Audit only, per this turn's scope — no code changes made; these are documented
+findings for a future fix turn, not implemented here.

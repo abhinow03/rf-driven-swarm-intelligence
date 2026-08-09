@@ -701,3 +701,43 @@ finding. 5% is plain classifier misclassification (a bad window, not a bridge is
 **Verdict, stated plainly: chain-length-2's brokenness is real but is NOT primarily fixable
 by more bridge-logic changes.** Proceeding to step 2: audit every other guard/rule in
 `stgt_bridge.py` the same way the dispersed_converging guard was audited.
+
+**Step 2: full guard/rule audit.** `scripts/phase0_full_guard_audit.py --n 1000`, same
+seed=999 population. For each boolean guard, fire rate over the 509 pair-eligible
+trajectories, and — restricted to trajectories where the guard is the SOLE reason
+`bucket != A` — what fraction of those sole-firings are spurious (the structural `rules_key`,
+computed before guard checks and available regardless of bucket, already equals ground
+truth):
+
+| guard | fire rate | sole-firing spurious rate | failures attributable |
+|---|---|---|---|
+| oov_name | 8.3% (42/509) | **69.0% (20/29)** | 20 |
+| dominant_history_contradiction | 3.5% (18/509) | **100.0% (4/4)** | 4 |
+| low_confidence | 2.2% (11/509) | 25.0% (1/4) | 1 |
+| dispersed_converging_ambiguity (post-fix) | 2.2% (11/509) | 50.0% (2/4) | 2 |
+
+**Two more guards of the exact same defective class as the original dispersed_converging bug.**
+`dominant_history_contradiction` fires on a raw predicted-window-count tie, which says nothing
+about genuine ambiguity — a clean 2/2 split ties as easily as a real coin-flip — and blocks a
+correct answer 100% of the time it's the sole blocker (n=4). `oov_name` is the highest-volume
+actionable defect found this session: 8.3% fire rate, 69.0% spurious-when-sole, 20 correct
+answers blocked. Window-level ground-truth check on the 68 unknown windows behind those
+firings: 57.4% are `spurious_misclassification` (STGT wrongly read `"transitioning"` on a
+window whose true label was a real, settled formation), 42.6% `genuine_transitioning`. The
+guard reacts to real classifier noise more than half the time but overreacts to it with a
+zero-tolerance blanket block regardless of how much signal the trajectory's OTHER windows
+still carry.
+
+Also audited two non-guard mechanisms. `key_windows` capping (`DEFAULT_MAX_KEY_WINDOWS=10`):
+**no bug** — 373/1000 trajectories get capped, 0/373 lose a true endpoint formation from the
+narrative. `robust=True`'s leading/trailing transitioning-run trim (sec AG): **a real,
+significant cost** — fires on 19.8% of pair-eligible trajectories, and 62.5% (105/168) of
+trimmed windows have a true label that was NOT `"transitioning"`, i.e. the trim discards
+genuine signal more often than real noise. This directly explains why `robust=True` precision
+plateaus at 62.4% even after the guard fix (step 2 of the prior session) — the majority-vote
+algorithm's own trim step carries the same "assume any unknown-run means genuine ambiguity"
+defect, just applied before the vote instead of as a guard after it.
+
+**Audit only this step, per scope — no code changes.** Full detail: `docs/CEILING.md`'s
+2026-08-09 step 4 update. Proceeding to step 3: sweep the `robust=True` majority-vote
+threshold, tuned on a dev split, to find its actual coverage/precision operating point.

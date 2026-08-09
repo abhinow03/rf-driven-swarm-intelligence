@@ -204,3 +204,33 @@ plain classifier misclassification.
 **Not a second bug of the dispersed_converging class — no bridge-logic fix (short of
 retraining with longer segments or a larger `max_seq_len`) touches the dominant 60%.** Full
 detail: `docs/CEILING.md`'s 2026-08-09 step 3 update.
+
+## 2026-08-09: step 4 — audited every other guard/rule the same way; found two more of the same class
+
+`scripts/phase0_full_guard_audit.py --n 1000`. Same methodology as the dispersed_converging
+audit: fire rate, and (among trajectories where a guard is the SOLE blocker) how often it
+blocks an already-correct structural answer.
+
+| guard | fire rate | sole-firing spurious rate | failures attributable |
+|---|---|---|---|
+| **oov_name** | 8.3% | **69.0% (20/29)** | **20** |
+| **dominant_history_contradiction** | 3.5% | **100.0% (4/4)** | **4** |
+| low_confidence | 2.2% | 25.0% (1/4) | 1 |
+| dispersed_converging_ambiguity (post-fix) | 2.2% | 50.0% (2/4) | 2 |
+
+**Two more guards of the same defective class, found the same way.**
+`dominant_history_contradiction` (ties in raw predicted window counts) blocks a correct answer
+100% of the time it's the sole blocker (n=4, small but unambiguous). `oov_name` is the
+highest-volume actionable defect: fires 8.3% of the time, 69% spurious when sole, 20 correct
+answers blocked outright — and window-level checking shows 57.4% of the windows triggering it
+are themselves classifier misclassifications, not genuine ambiguity, which the guard then
+overreacts to with a zero-tolerance blanket block.
+
+Also audited `robust=True`'s leading/trailing trim step: **62.5% of trimmed windows (105/168)
+discard genuine signal, not noise** — this is WHY `robust=True` precision plateaus at 62.4%
+even after the guard fix; the trim step has the same defect pattern baked into its own logic.
+`key_windows` capping, by contrast: no bug found (0/373 capped selections miss a true
+endpoint).
+
+Audit only this turn, no code changes. Full detail: `docs/CEILING.md`'s 2026-08-09 step 4
+update.

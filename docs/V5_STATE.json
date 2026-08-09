@@ -1,7 +1,7 @@
 {
   "phase": 0,
-  "step": 12,
-  "status": "HALT_GATE_1 re-examination in progress (user instruction: audit bridge for more bugs like dispersed_converging before more training; settle whether 70% floor is still right). Step 1 (chain-length breakdown): chain-1 pair acc 86.8%, chain-2 STILL 6.0% -- confirmed real, but 60% of traced failures are a windowing-artefact (short single-hop trajectories, 1-2 windows, destination formation sometimes never observed) not fixable by bridge logic; only 15% is genuine guard brittleness (oov_name blocking an already-correct reduction). Proceeding to step 2: audit every other guard the same way.",
+  "step": 13,
+  "status": "HALT_GATE_1 re-examination in progress. Step 1 (chain-length): chain-2 still 6.0%, 60% windowing-artefact (not fixable without training), 15% oov_name-guard brittleness. Step 2 (full guard audit): found dominant_history_contradiction (100% spurious when sole blocker, n=4) and oov_name (69% spurious when sole, 20 correct answers blocked, highest-volume actionable defect) as two more guards of the same defective class as dispersed_converging. robust=True's leading/trailing trim step also found defective (62.5% of trims discard genuine signal) -- explains why robust=True precision plateaus at 62.4%. key_windows cap: no bug found. Audit only, no code changes. Proceeding to step 3: sweep robust=True majority-vote threshold on a dev split.",
   "halts_cleared": [],
   "results": {
     "phase0_step1_first_check": {
@@ -630,6 +630,61 @@
         "evaluation/phase0_chain2_trace.txt"
       ],
       "ceiling_doc": "docs/CEILING.md (2026-08-09 step 3 update)",
+      "history_doc": "HISTORY.md"
+    },
+    "phase0_step13_full_guard_audit": {
+      "checked": "2026-08-09T01:20:00Z",
+      "method": "scripts/phase0_full_guard_audit.py --n 1000, same seed=999 population/checkpoint. Sole-firing spurious rate = among trajectories where a guard is the ONLY entry in guard_reasons, fraction where the structural rules_key (computed before guard checks) already equals ground truth.",
+      "boolean_guards": {
+        "oov_name": {
+          "fire_rate": 0.083,
+          "n_fires": 42,
+          "n_sole_firing": 29,
+          "sole_firing_spurious_rate": 0.69,
+          "failures_attributable": 20
+        },
+        "dominant_history_contradiction": {
+          "fire_rate": 0.035,
+          "n_fires": 18,
+          "n_sole_firing": 4,
+          "sole_firing_spurious_rate": 1.0,
+          "failures_attributable": 4
+        },
+        "low_confidence": {
+          "fire_rate": 0.022,
+          "n_fires": 11,
+          "n_sole_firing": 4,
+          "sole_firing_spurious_rate": 0.25,
+          "failures_attributable": 1
+        },
+        "dispersed_converging_ambiguity_post_fix": {
+          "fire_rate": 0.022,
+          "n_fires": 11,
+          "n_sole_firing": 4,
+          "sole_firing_spurious_rate": 0.5,
+          "failures_attributable": 2
+        }
+      },
+      "oov_name_window_justification": {
+        "spurious_misclassification": 0.574,
+        "genuine_transitioning": 0.426,
+        "n_windows": 68
+      },
+      "key_windows_cap": {
+        "n_capped": 373,
+        "n_missing_endpoint": 0,
+        "verdict": "no bug found"
+      },
+      "robust_true_trim": {
+        "n_trimmed_trajectories": 101,
+        "n_pair_eligible": 509,
+        "n_windows_trimmed": 168,
+        "n_spurious": 105,
+        "spurious_rate": 0.625,
+        "verdict": "significant precision cost, explains robust=True's 62.4% ceiling"
+      },
+      "verdict": "dispersed_converging was not an isolated defect -- a recurring pattern (treat a raw/local signal as genuine ambiguity with no competitiveness/ground-truth-correlated threshold) also appears in dominant_history_contradiction, oov_name, and robust=True's trim step. key_windows capping is not part of this pattern. Audit only, no code changes made this step.",
+      "ceiling_doc": "docs/CEILING.md (2026-08-09 step 4 update)",
       "history_doc": "HISTORY.md"
     }
   },

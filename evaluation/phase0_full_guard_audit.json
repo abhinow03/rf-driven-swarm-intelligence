@@ -1,0 +1,56 @@
+{
+  "boolean_guards": {
+    "oov_name": {
+      "n_total": 509,
+      "n_fires": 42,
+      "fire_rate": 0.0825147347740668,
+      "n_sole_firing": 29,
+      "n_sole_firing_spurious": 20,
+      "sole_firing_spurious_rate": 0.6896551724137931,
+      "n_any_participation_blocking_correct_answer": 30
+    },
+    "dominant_history_contradiction": {
+      "n_total": 509,
+      "n_fires": 18,
+      "fire_rate": 0.03536345776031434,
+      "n_sole_firing": 4,
+      "n_sole_firing_spurious": 4,
+      "sole_firing_spurious_rate": 1.0,
+      "n_any_participation_blocking_correct_answer": 14
+    },
+    "low_confidence": {
+      "n_total": 509,
+      "n_fires": 11,
+      "fire_rate": 0.021611001964636542,
+      "n_sole_firing": 4,
+      "n_sole_firing_spurious": 1,
+      "sole_firing_spurious_rate": 0.25,
+      "n_any_participation_blocking_correct_answer": 4
+    },
+    "dispersed_converging_ambiguity": {
+      "n_total": 509,
+      "n_fires": 11,
+      "fire_rate": 0.021611001964636542,
+      "n_sole_firing": 4,
+      "n_sole_firing_spurious": 2,
+      "sole_firing_spurious_rate": 0.5,
+      "n_any_participation_blocking_correct_answer": 5
+    }
+  },
+  "oov_window_justification": {
+    "genuine_transitioning": 29,
+    "spurious_misclassification": 39
+  },
+  "key_windows_cap": {
+    "n_capped": 373,
+    "n_capped_missing_endpoint": 0,
+    "n_total_windows_gt_cap": 373,
+    "n_total_chain2plus": 742
+  },
+  "trim_audit": {
+    "n_trimmed_any": 101,
+    "n_trimmed_windows_total": 168,
+    "n_trimmed_windows_spurious": 105,
+    "n_pair_eligible": 509
+  }
+}
