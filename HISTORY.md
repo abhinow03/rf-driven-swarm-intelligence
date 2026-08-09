@@ -409,3 +409,55 @@ instruction). Doing so means every strategy-1-through-6 comparison above must be
 needed once the distribution itself is fixed, and strategy-style architecture/capacity tuning
 should resume only after that baseline exists. Full detail: `docs/V5_LOG.md` steps 27-30,
 `docs/CEILING.md`'s matching update.
+
+## Decision, 2026-08-10 (part 2): designing the port as three separable changes
+
+**Also deliberately NOT "Strategy 7," and a distinct decision from the one directly above —
+that decision established WHETHER to port; this one designs HOW.** The parameter diff (step
+27) surfaced two structural differences beyond blend timing: per-example vs per-timestep
+labeling granularity, and fixed-50 vs derived-80-132 example length. Porting blend timing
+alone, without resolving these, risks a dataset wrong in a new way. Three independently
+toggleable flags were designed and implemented on `generate_dataset()`
+(`corrected_blend_timing`, `windowed_examples`, `content_majority_labeling`, all default
+`False`, verified bit-identical to the pre-change generator with all off) — no training this
+session either.
+
+**Labeling rule** (full derivation: `V5_LOG.md` step 31): a window is a confident pure
+formation at `>=70%` of its own content (reuses eval's own `MIN_DWELL_RANGE`/`LEAD_IN_RANGE`
+derivation, so "eval trusts this as observed" and "training labels this pure" agree by
+construction); `"transitioning"` requires blend content to be the plurality of the window
+AND at least `20%` of it (mirroring `0.70` exactly was checked and rejected — `BLEND_
+DURATION_RANGE`'s own max is 50% of a window, so `0.70` would make the class unreachable);
+windows meeting neither bar are **excluded, not mislabeled**.
+
+**Windowing/architecture constraint** (`V5_LOG.md` step 32): checked `model.py`/`config.py`
+directly — `PositionalEncoding` slices its buffer (`T<=50` works, `T>50` crashes), and
+`max_seq_len=50` is baked into every existing checkpoint plus the entire eval harness'
+`window_size=50` convention. Increasing it is a full architecture change, out of scope.
+Decision: keep training examples at exactly 50 timesteps; slide `WINDOW_SIZE=50, STRIDE=10`
+across a long corrected-timing hop instead — the identical grid `sliding_window_inference`
+already uses at eval time.
+
+**Label-sanity results, four diagnostic datasets, n_transition=300 each** (full table:
+`V5_LOG.md` step 34):
+
+| run | kept | excluded | label disagrees with own content |
+|---|---|---|---|
+| baseline | 300 | 0 | 1/300 (0.3%) |
+| blend-timing only | 300 | 0 | 0/300 (0.0%) |
+| windowing only | 1800 | 0 | **73/1800 (4.1%)** |
+| labeling only | 297 | 3 (1.0%) | 0/297 (0.0%) |
+| **all three combined** | 886 | **928 (51.2%)** | **0/886 (0.0%)** |
+
+Two findings disclosed, not smoothed over: **windowing alone reintroduces mislabeling
+(4.1%)** — direct evidence it cannot ship without content-majority labeling paired with it —
+and **the combined port excludes 51.2% of candidate windows**, a genuine yield cost (not a
+correctness problem) that means full-scale generation needs roughly 2x the target
+`n_transition` to compensate.
+
+**Readiness verdict: labels pass sanity checks for the proposed port (all three flags
+combined) — 0% disagreement, both thresholds empirically confirmed to hold exactly as
+derived. Ready to proceed to full-scale dataset generation and STGT retraining, planning for
+the 51.2% yield loss (≈2x oversampling) and the mandatory windowing+labeling pairing.
+NOT STARTED this session** — no full-scale generation, no retraining, per explicit
+instruction. Full detail: `docs/V5_LOG.md` steps 31-34.
