@@ -1,6 +1,6 @@
 {
   "phase": 0,
-  "step": 27,
+  "step": 28,
   "status": "Step 27: confirmed eval_trajectories.py (steps 24-26's fixes) is evaluation-only -- generate_dataset() (the actual STGT training-data path) is untouched since strategy 5. Full parameter diff documented (docs/V5_LOG.md step 27): example length (train fixed 50 vs eval derived 80-132), blend-timing parameterization (train: 3 discrete regimes as window fractions; eval: continuous absolute-timestep ranges), spread/noise_std ranges both wider in eval. Underlying per-timestep physics IS identical (same generate_transition_sequence call). No training this session -- establishing facts before deciding whether to retrain (previous entry, unchanged below, preserved for history):",
   "status_pre_step27": "Chain-2 generator-fix consolidation + source symmetrization COMPLETE (docs/V5_LOG.md step 26, 3 commits: 3591051 consolidation, 9061392 symmetrization, + docs/results commit -- no STGT/bridge/LLM code changed, same frozen strategy-5 checkpoint). Step 1: consolidated 5 duplicate copies of build_long_sequence_labeled into src/swarm_intent/eval_trajectories.py (4 live scripts now import it; 1 frozen historical-reproduction script deliberately excluded, documented); confirmed NONE of the 5 ever fed real STGT training data (that's generate_dataset(), separate code). Step 2: symmetrized LEAD_IN_RANGE (15,35)->(30,50), derived the same way as MIN_DWELL_RANGE (lead_in>=25 for a window-0 majority, no stride-slack term since window 0 always starts at t=0); verified source OBS_NONE 16.3%->0.0% at population scale. Step 3: chain-2 pair_acc 39.9%->65.8% (was 18.7% original baseline, 3.5x total), threat_acc 72.1%->76.3%. Step 4: refined 20-case taxonomy found 100% boundary/blend-timing-concentrated failures, 0% clean (non-boundary) misses. Step 5: chain-3+ false-positive rate investigated and RESOLVED (12.6%->1.8%, below the 9.0% original baseline, p=4.3e-07) -- mechanistically explained by the shared per-hop sampling loop, not a bug, not noise (dest-only-fix regression itself was only borderline significant, p=0.062). Step 6: blend-timing overlap re-checked, STILL 0.0%, unchanged across 3 independent formula revisions. Decision: B -- blend-timing distribution mismatch is the dominant remaining issue, should be fixed BEFORE any STGT training/capacity change, not decision A as step 25 projected. STOPPING per instruction -- no STGT retraining, no blend-distribution fix started this session.",
   "halts_cleared": [],
@@ -1110,9 +1110,73 @@
       "checked": "2026-08-10T00:30:00Z",
       "method": "direct source read, src/swarm_intent/data.py generate_dataset()/generate_transition_sequence() vs src/swarm_intent/eval_trajectories.py -- no script needed, no code changed.",
       "finding": "eval_trajectories.py (steps 24-26's fixes) is evaluation-only, confirmed by its own module docstring and by grep -- generate_dataset() is the sole real training-data path and has been untouched since strategy 5 (2026-08-08). Every Phase 0 ceiling number through step 26 measures the frozen strategy-5 checkpoint against an increasingly-accurate but separate evaluation harness.",
-      "parameters_that_differ": ["example/segment length (fixed 50 vs derived 80-132)", "blend-timing parameterization (3 discrete window-fraction regimes vs continuous absolute-timestep ranges)", "labeling granularity (per-example vs per-timestep)", "spread range (0.7-1.5 vs 0.6-1.8)", "noise_std range (0.3-0.8 vs 0.15-1.4)"],
-      "parameters_that_match": ["dt=0.5", "per-timestep physics (shared generate_transition_sequence call, not reimplemented)", "formation-pair sampling (uniform over valid pairs)"],
+      "parameters_that_differ": [
+        "example/segment length (fixed 50 vs derived 80-132)",
+        "blend-timing parameterization (3 discrete window-fraction regimes vs continuous absolute-timestep ranges)",
+        "labeling granularity (per-example vs per-timestep)",
+        "spread range (0.7-1.5 vs 0.6-1.8)",
+        "noise_std range (0.3-0.8 vs 0.15-1.4)"
+      ],
+      "parameters_that_match": [
+        "dt=0.5",
+        "per-timestep physics (shared generate_transition_sequence call, not reimplemented)",
+        "formation-pair sampling (uniform over valid pairs)"
+      ],
       "log_doc": "docs/V5_LOG.md step 27"
+    },
+    "phase0_step28_train_eval_divergence": {
+      "checked": "2026-08-10T00:40:00Z",
+      "script": "scripts/phase0_train_eval_blend_divergence.py, n=20000 each side, EVAL ranges imported live from eval_trajectories.py",
+      "train_regime_boxes": {
+        "0": {
+          "start_frac": [
+            0.74,
+            0.88
+          ],
+          "duration_frac": [
+            0.1,
+            0.1
+          ],
+          "share": 0.331
+        },
+        "1": {
+          "start_frac": [
+            0.12,
+            0.28
+          ],
+          "duration_frac": [
+            0.44,
+            0.6
+          ],
+          "share": 0.339
+        },
+        "2": {
+          "start_frac": [
+            0.02,
+            0.14
+          ],
+          "duration_frac": [
+            0.08,
+            0.1
+          ],
+          "share": 0.33
+        }
+      },
+      "eval_box": {
+        "start_frac": [
+          0.265,
+          0.495
+        ],
+        "duration_frac": [
+          0.085,
+          0.255
+        ]
+      },
+      "overlap_with_any_regime": "0/20000 (0.0%)",
+      "structural_note": "example length also differs fundamentally: train example IS a 50-step window; eval hop is 80-132 steps (1.6x-2.6x longer), later windowed. A port is a restructuring, not a 3-constant substitution.",
+      "answer": "if generate_dataset() adopted eval current timing distribution, ~100% of transitioning examples would exhibit a blend-timing shape none of the 3 current regimes produce -- a full distributional replacement, not partial-overlap tuning.",
+      "log_doc": "docs/V5_LOG.md step 28",
+      "raw_data": "evaluation/phase0_train_eval_blend_divergence.txt"
     }
   },
   "started": "2026-08-07T19:47:41Z"

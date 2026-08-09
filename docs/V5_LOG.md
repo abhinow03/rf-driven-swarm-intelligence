@@ -1712,3 +1712,36 @@ new-architecture change.
 
 Script: none needed for this step (direct source read, `src/swarm_intent/data.py` lines
 128-219 vs `src/swarm_intent/eval_trajectories.py` lines 62-127).
+
+### Step 28: quantify what "porting the fix" would actually change
+
+`scripts/phase0_train_eval_blend_divergence.py` -- same Monte Carlo methodology as step 26
+(and its ancestor, `phase0_chain2_blend_distributions.py`), reusing `train_regime_fractions()`
+unchanged and importing EVAL's ranges live from `eval_trajectories.py` (not duplicated, so
+this can never silently drift the way the step-26 audit found `_v2.py` had). n=20000 draws
+each side.
+
+| | TRAIN regime 0 | TRAIN regime 1 | TRAIN regime 2 | EVAL (current) |
+|---|---|---|---|---|
+| start_frac | [0.740, 0.880] | [0.120, 0.280] | [0.020, 0.140] | **[0.265, 0.495]** |
+| duration_frac | [0.100, 0.100] | [0.440, 0.600] | [0.080, 0.100] | **[0.085, 0.255]** |
+| share of transitioning examples | ~33.1% | ~33.9% | ~33.0% | -- |
+
+**Overlap: 0/20000 (0.0%) in ANY of the three regime boxes — individually and combined.**
+Eval's realized region doesn't graze regime 0, 1, or 2's box even partially; it sits in the
+gap between all three. Combined with example length being fundamentally different (train's
+example IS a 50-step window; eval's hop is 80-132 steps, later cut into multiple windows),
+"porting the fix" is not a 3-number parameter substitution -- naively assigning
+`LEAD_IN_RANGE=(30,50)`/`BLEND_DURATION_RANGE=(10,25)`/`MIN_DWELL_RANGE=(40,60)` to
+`generate_dataset()` would produce examples 1.6-2.6x longer than the fixed 50-step window
+STGT is architected for (`PositionalEncoding`'s `max_len=50` buffer is baked into every
+existing checkpoint). A genuine port means restructuring `generate_dataset()`'s transitioning-
+example construction to sample a long hop the same way and extract windows from it the same
+way `sliding_window_inference` does at eval time -- not a drop-in constant change.
+
+**Answer to the question as posed**: if `generate_dataset()` adopted eval's timing
+distribution, effectively **100% of currently-generated transitioning examples would exhibit
+a blend-timing shape none of the 3 current regimes ever produce** -- this is not a partial-
+overlap tuning question, it is a full distributional replacement.
+
+Raw output: `evaluation/phase0_train_eval_blend_divergence.txt`.

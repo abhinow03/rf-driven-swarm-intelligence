@@ -1,0 +1,26 @@
+====================================================================================================
+EVAL (current, live from eval_trajectories.py): LEAD_IN_RANGE=(30, 50), BLEND_DURATION_RANGE=(10, 25), MIN_DWELL_RANGE=(40, 60)
+====================================================================================================
+  start_frac: [0.265, 0.495]  duration_frac: [0.085, 0.255]
+  seg_len (absolute timesteps): min=80 mean=106.0 max=132
+  (train's fixed example length is 50 timesteps -- eval's hop is 1.6x-2.6x longer)
+
+====================================================================================================
+TRAIN (current, generate_dataset() regime 0/1/2, n_timesteps=50 fixed): per-regime realized box
+====================================================================================================
+  regime 0 (-> labeled pure formation_a): start_frac=[0.740,0.880] duration_frac=[0.100,0.100]  (~33.1% of transitioning examples)
+  regime 1 (-> labeled 'transitioning'): start_frac=[0.120,0.280] duration_frac=[0.440,0.600]  (~33.9% of transitioning examples)
+  regime 2 (-> labeled pure formation_b): start_frac=[0.020,0.140] duration_frac=[0.080,0.100]  (~33.0% of transitioning examples)
+
+====================================================================================================
+DIVERGENCE: fraction of EVAL windows whose (start_frac, duration_frac) falls inside
+ANY current TRAIN regime's realized box (0% = the regime is entirely unrepresented)
+====================================================================================================
+  in regime 0's box: 0/20000 (0.0%)
+  in regime 1's box: 0/20000 (0.0%)
+  in regime 2's box: 0/20000 (0.0%)
+  in ANY regime's box: 0/20000 (0.0%)
+
+  => if generate_dataset() were to sample blend timing the way eval_trajectories.py
+     currently does, 100.0% of the resulting examples would exhibit a
+     (start_frac, duration_frac) shape that NONE of the current 3 regimes ever produce.
