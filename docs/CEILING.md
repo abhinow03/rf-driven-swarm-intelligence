@@ -873,3 +873,54 @@ is revised is a policy decision this projection informs but does not make — th
 central estimate (~62%) is ~8 points short of 70% either way, so the gate does not
 mechanically clear regardless of which of the two metrics it's restated against; what changes
 is which number future turns should actually be trying to move.
+
+## Update 2026-08-09: chain-2 observability — is 18.7% a generator ceiling or an STGT problem?
+
+`UPSTREAM_ISSUES.md` issue #3 hypothesized chain-2's failure is dominated by the destination
+formation never becoming observable at all. This directly measures it, per-trajectory, against
+the same seed=999/n=1000 population every table above uses
+(`scripts/phase0_chain2_observability.py`; full derivation in `docs/V5_LOG.md`'s 2026-08-09
+step-24 entry). **Observability criterion (reused, not invented): a window's true label is
+`Counter(true_labels[window]).most_common(1)`; destination B is "observable" if >=1 window's
+true-label majority is B.**
+
+| chain-2 observability | n | % of 251 | pair_acc (robust=False) | pair_acc (robust=True) |
+|---|---|---|---|---|
+| OBS_CLEAR (B majority in >=2 windows) | 28 | 11.2% | 57.1% | 57.1% |
+| OBS_PARTIAL (B majority in exactly 1 window) | 96 | 38.2% | 19.8% | 19.8% |
+| OBS_NONE (B never a window majority) | 127 | 50.6% | 9.4% | 9.4% |
+
+**Destination B is never observable in 50.6% of chain-2 trajectories — confirms issue #3's
+hypothesis as the single largest cause, and puts a hard 49.4% ceiling on chain-2 pair accuracy
+under the current generator, regardless of STGT quality.** But observability is not the whole
+story: **OBS_CLEAR (the best-case group, redundant unambiguous destination signal) still only
+reaches 57.1%** — a real, separate STGT-recognition-quality gap remains even when the generator
+does its part.
+
+A manually-reviewed 20-case failure trace (balanced across all three observability groups,
+correcting the script's programmatic first-pass categorization where it conflated source- vs.
+destination-formation misclassification) found, among traced failures: **40% destination not
+observable (generator), 55% genuine STGT misclassification, 5% thin-plurality ground-truth
+labeling ambiguity, 0% bridge/reduction-logic defects.** The STGT-misclassification share
+traces to two recurring, largely-already-documented mechanisms: near-blend-boundary
+`"transitioning"` over-prediction (the same pattern strategy 5 above measured at a 53.2% false-
+positive rate), and confident (non-near-tie) `dispersed`/`converging` SOURCE misclassification
+away from any blend region — a failure mode the `dispersed_converging_ambiguity` guard cannot
+catch, since it only fires on a close top-2 tie.
+
+A companion Monte Carlo comparison (`scripts/phase0_chain2_blend_distributions.py`, no GPU)
+found **0% overlap** between eval's per-hop blend-timing shape (start 28-50% into the segment)
+and any of `generate_dataset()`'s three training blend regimes (which only ever teach blends
+starting at 74-88%, 12-28%, or 2-14% into a fixed 50-timestep window) — a plausible mechanistic
+explanation for the near-blend-boundary misclassification specifically.
+
+**Verdict: not single-cause.** ~50.6% generator-observability ceiling, ~32-33% independent STGT
+recognition-quality gap (extrapolated from the 20-case trace onto the full observable-failure
+population), ~3% labeling-ambiguity residual, 0% bridge-logic. A minimal, no-retrain,
+eval-harness-only generator fix (widen `build_long_sequence`'s segment length / decouple
+destination dwell time from segment length so `D = seg_len - blend_end >= 30` timesteps
+reliably) is specified but **not implemented this turn** — see `docs/V5_LOG.md` step 24 for
+the full spec and the disclosed caveat that this fix alone would raise the ceiling toward
+~85-90% at best (extrapolating OBS_CLEAR's 57.1%, not 100%), not close the whole gap, because
+the STGT-recognition-quality share is real and independent. Full data:
+`evaluation/phase0_chain2_observability.json`, `evaluation/phase0_chain2_observability_trace.txt`.

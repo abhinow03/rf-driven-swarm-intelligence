@@ -277,3 +277,26 @@ gate — it isn't; it measures the wrong quantity now that the two ceilings have
 floor itself is a policy call this projection informs but doesn't set — the central estimate
 (~62%) is ~8 points short either way. Full detail: `docs/CEILING.md`'s 2026-08-09 step 6
 update.
+
+## Diagnostic checkpoint, 2026-08-09: is chain-2's 18.7% a generator ceiling or an STGT problem?
+
+Not a new strategy attempt — a scoped measurement answering `UPSTREAM_ISSUES.md` issue #3
+directly, no generator/model/LLM code changed. Defined observability (a window's true-label
+majority is B — reused from existing scoring code, not invented) and stratified all 251
+chain-2 trajectories in the standard population by it:
+
+| observability | n | % | pair accuracy |
+|---|---|---|---|
+| OBS_CLEAR (B majority in >=2 windows) | 28 | 11.2% | 57.1% |
+| OBS_PARTIAL (1 window) | 96 | 38.2% | 19.8% |
+| OBS_NONE (never) | 127 | 50.6% | 9.4% |
+
+**Not single-cause.** ~50.6% of chain-2 trajectories never make the destination formation
+observable at all (confirms issue #3, generator ceiling). But even the best-observed group
+still only reaches 57.1% — a manually-reviewed 20-case trace attributes the residual to real
+STGT misclassification (55% of traced failures: near-blend-boundary `"transitioning"`
+over-prediction and confident `dispersed`/`converging` source confusion the existing ambiguity
+guard can't catch), not bridge/reduction logic (0%). A minimal, no-retrain, eval-harness-only
+generator fix was specified (decouple destination dwell time from segment length) but not
+implemented this turn, per instruction — diagnosis and recommendation only. Full detail:
+`docs/V5_LOG.md`'s 2026-08-09 step-24 entry, `docs/CEILING.md`'s matching update.
