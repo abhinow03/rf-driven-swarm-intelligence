@@ -1802,3 +1802,75 @@ of B's does. **Decision: A.** Full reasoning and implications for strategies 1-6
 `HISTORY.md`'s 2026-08-10 decision entry. **Not executed this session — no training, no
 `generate_dataset()` changes. STOP per instruction.** `docs/V5_STATE.json` updated
 (`phase=0, step=30`).
+
+### Steps 31-33: designing the port as three separable changes (combined write-up + implementation)
+
+Decision A (step 30) said "port the fix." The parameter diff (step 27) surfaced two more
+structural differences beyond blend timing: per-example vs per-timestep labeling granularity,
+and fixed-50 vs derived-80-132 example length. Porting blend timing alone, without resolving
+these, risks a dataset that's wrong in a new way. This turn designs and implements all three
+as independently toggleable flags on `generate_dataset()` — no training yet. (Process note:
+the design (steps 31-32 below) and its implementation (step 33) landed in one commit,
+`8c7b0b7` — the design was validated by writing it; splitting further would have added
+review risk without benefit. Noted here rather than silently claiming strict one-step-one-
+commit throughout.)
+
+**Step 31 — the labeling rule.** `generate_dataset()` currently assigns ONE discrete label to
+an entire fixed 50-step example, implied directly by which of 3 regimes was chosen — the
+regime IS the label, known a priori. Once blend timing is continuous (or example length is
+variable), a window's content can be an arbitrary mix of pure-A/blend/pure-B in any
+proportion, and the label must be DERIVED from realized content, not assumed from a
+generation-time choice.
+
+Two thresholds, both derived, neither copied uncritically:
+
+- `PURE_LABEL_THRESHOLD = 0.70` (35/50). A window is labeled a pure endpoint formation only
+  if that formation holds a COMFORTABLE majority of its content, not a bare one (bare majority
+  is >=26/50 = 0.52). This reuses the exact 35/50 figure already derived for
+  `MIN_DWELL_RANGE`/`LEAD_IN_RANGE` (steps 24-26: `D>=26+9=35`, the +9 a stride-slack margin).
+  Reusing it is not laziness — it makes "a window eval's own observability logic would trust
+  as reliably showing formation A" and "a window training confidently labels pure-A" the SAME
+  window by construction, so train and eval agree on what "confidently observed" means, not
+  just on raw blend timing.
+- `TRANS_LABEL_MIN_BLEND_FRAC = 0.20` (10/50). Mirroring 0.70 for "transitioning" was
+  considered and rejected: `BLEND_DURATION_RANGE`'s own max (25 timesteps) is exactly half of
+  `WINDOW_SIZE` (50), so blend content can NEVER reach even a bare majority of any window,
+  let alone 70% — requiring 0.70 would make "transitioning" structurally unreachable and
+  silently delete the class from ported training data. Instead, "transitioning" requires blend
+  to be the PLURALITY of the window's three content types (beats pure_a and pure_b
+  individually) AND at least as large as `BLEND_DURATION_RANGE`'s own minimum (10 timesteps =
+  10/50 = 0.20) — below that floor the window is grazing a blend edge without containing a
+  meaningful chunk of it.
+- **Windows meeting neither bar are EXCLUDED from training, not mislabeled.** `_label_window`
+  (`src/swarm_intent/data.py`) returns `None` for this case; `generate_dataset` skips the
+  window entirely rather than forcing a label onto genuinely ambiguous content.
+
+**Step 32 — the windowing/architecture constraint.** Checked `src/swarm_intent/model.py` and
+`config.py` directly (not assumed): `Config.max_seq_len=50`, consumed by
+`PositionalEncoding(max_len=cfg.max_seq_len)`. Its `forward()` does
+`x = x + self.pe[:, :x.size(1), :]` — a SLICE, not an assertion, so **T<=50 works for any T**
+(the buffer just gets truncated), but **T>50 breaks**: `pe[:, :80, :]` on a 50-row buffer
+returns 50 rows, and `x` (shape `[B,80,d]`) + a 50-row slice is a shape-mismatch crash.
+Separately, `STGTModel.forward()` derives a single scalar `T = len(graph_sequences[0])` and
+reshapes the WHOLE BATCH by it — sequences within one batch must share a length (though
+different batches may differ). Combined with `window_size=50` being baked into
+`sliding_window_inference`'s default and every downstream evaluation/bridge script,
+**increasing `max_seq_len` is a full architecture change affecting every existing checkpoint
+and the entire eval harness — out of scope for a data-generation port.** Decision: training
+examples stay fixed at exactly 50 timesteps; a long (80-132-step) hop gets WINDOWED down to
+50-step slices before becoming individual training examples, using the identical
+`WINDOW_SIZE=50, STRIDE=10` grid `sliding_window_inference` already uses at eval time. This
+is also what resolves the "does windowing reintroduce the dwell-time fix's boundary problem"
+question directly: it doesn't, because each window is labeled from ITS OWN realized content
+(step 31's rule) rather than inheriting one blanket label for the whole hop — the boundary
+problem was specifically about a single label covering content it didn't match, which this
+construction cannot do by design.
+
+**Step 33 — implementation.** Three flags on `generate_dataset()`
+(`src/swarm_intent/data.py`): `corrected_blend_timing`, `windowed_examples`,
+`content_majority_labeling`, all default `False`. Verified bit-identical output (X, y, names)
+against the pre-change generator at the same seed with all three off — zero behaviour change
+for `scripts/generate_data.py`/`train_model.py`. `LEAD_IN_RANGE`/`BLEND_DURATION_RANGE`/
+`MIN_DWELL_RANGE`'s canonical definition moved to `data.py` (training wants them now too);
+`eval_trajectories.py` re-exports rather than duplicating, closing the exact silent-drift
+risk step 26 already found once. Full 140-test suite passes unchanged.
