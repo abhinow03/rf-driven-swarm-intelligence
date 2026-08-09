@@ -1,6 +1,6 @@
 {
   "phase": 0,
-  "step": 29,
+  "step": 30,
   "status": "Step 27: confirmed eval_trajectories.py (steps 24-26's fixes) is evaluation-only -- generate_dataset() (the actual STGT training-data path) is untouched since strategy 5. Full parameter diff documented (docs/V5_LOG.md step 27): example length (train fixed 50 vs eval derived 80-132), blend-timing parameterization (train: 3 discrete regimes as window fractions; eval: continuous absolute-timestep ranges), spread/noise_std ranges both wider in eval. Underlying per-timestep physics IS identical (same generate_transition_sequence call). No training this session -- establishing facts before deciding whether to retrain (previous entry, unchanged below, preserved for history):",
   "status_pre_step27": "Chain-2 generator-fix consolidation + source symmetrization COMPLETE (docs/V5_LOG.md step 26, 3 commits: 3591051 consolidation, 9061392 symmetrization, + docs/results commit -- no STGT/bridge/LLM code changed, same frozen strategy-5 checkpoint). Step 1: consolidated 5 duplicate copies of build_long_sequence_labeled into src/swarm_intent/eval_trajectories.py (4 live scripts now import it; 1 frozen historical-reproduction script deliberately excluded, documented); confirmed NONE of the 5 ever fed real STGT training data (that's generate_dataset(), separate code). Step 2: symmetrized LEAD_IN_RANGE (15,35)->(30,50), derived the same way as MIN_DWELL_RANGE (lead_in>=25 for a window-0 majority, no stride-slack term since window 0 always starts at t=0); verified source OBS_NONE 16.3%->0.0% at population scale. Step 3: chain-2 pair_acc 39.9%->65.8% (was 18.7% original baseline, 3.5x total), threat_acc 72.1%->76.3%. Step 4: refined 20-case taxonomy found 100% boundary/blend-timing-concentrated failures, 0% clean (non-boundary) misses. Step 5: chain-3+ false-positive rate investigated and RESOLVED (12.6%->1.8%, below the 9.0% original baseline, p=4.3e-07) -- mechanistically explained by the shared per-hop sampling loop, not a bug, not noise (dest-only-fix regression itself was only borderline significant, p=0.062). Step 6: blend-timing overlap re-checked, STILL 0.0%, unchanged across 3 independent formula revisions. Decision: B -- blend-timing distribution mismatch is the dominant remaining issue, should be fixed BEFORE any STGT training/capacity change, not decision A as step 25 projected. STOPPING per instruction -- no STGT retraining, no blend-distribution fix started this session.",
   "halts_cleared": [],
@@ -1187,6 +1187,14 @@
       "verdict": "A -- port corrected timing distribution into generate_dataset() and retrain STGT from scratch. Recorded as a decision, NOT executed this session (no training this session, per instruction).",
       "implication": "strategy 1-6 comparisons must be read as tuning against a flawed distribution, not a closed chapter; a new baseline is needed once the distribution is fixed",
       "log_doc": "docs/V5_LOG.md steps 27-30"
+    },
+    "phase0_step29_eval_easier_vs_generalization": {
+      "checked": "2026-08-10T01:00:00Z",
+      "question": "do the step-26 gains (18.7%->65.8%) answer does STGT need retraining on corrected data, or only the model does okay when eval got easier?",
+      "answer": "the latter. Observability fixes (steps 24-26) reduce EXPOSURE to blend-dominant windows (wider pure-content margins), they do not test performance ON blend-dominant windows. Two pieces of already-recorded evidence: (1) refined 20-case taxonomy post-both-fixes is 100% boundary/blend-timing-concentrated, 0% clean misses; (2) blend-overlap remained 0.0% even after the observability fix landed, unchanged across 3 formula revisions.",
+      "plain_statement": "65.8% means the model does well once evaluation stopped handing it windows shaped unlike anything it was trained on -- not evidence of generalization to the corrected distribution, since generate_dataset() never changed.",
+      "log_doc": "docs/V5_LOG.md step 29",
+      "ceiling_doc": "docs/CEILING.md 2026-08-10 Current state banner"
     }
   },
   "started": "2026-08-07T19:47:41Z"

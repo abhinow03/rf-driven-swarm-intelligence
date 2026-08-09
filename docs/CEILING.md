@@ -14,7 +14,29 @@
 > historical record — do not cite them as current.** The stratified section immediately
 > below supersedes every pooled figure in this file.
 
-## Current state (stratified), 2026-08-09 — supersedes every pooled number below
+## Current state, 2026-08-10 — supersedes the chain-2 numbers in the 2026-08-09 section below
+
+The section below (`## Current state (stratified), 2026-08-09`) is itself now stale on
+chain-2 specifically: steps 24-26 (`V5_LOG.md`) landed a destination dwell-time fix and a
+source-side symmetrization AFTER that section was written. Current chain-2 numbers:
+**pair accuracy 65.8%** (robust=False; 66.7% robust=True), **threat accuracy 76.3%**
+(77.2% robust=True) — see `V5_LOG.md` step 26 for the full before/after chain. Chain-1 and
+chain-3+ rows in the section below are still current (neither generator fix touches them
+materially).
+
+**Critical caveat, established 2026-08-10 (`V5_LOG.md` steps 27-29, `HISTORY.md`'s
+2026-08-10 decision entry) — read before citing 65.8% as "the model generalizes":** steps
+24-26 fixed *observability* in the EVALUATION harness only (`eval_trajectories.py`) —
+`generate_dataset()`, the actual STGT training-data path, is unchanged since strategy 5.
+The two generators' blend-timing distributions have **0.0% overlap** (Monte Carlo, n=20000,
+`V5_LOG.md` step 28), and the refined failure taxonomy shows 100% of remaining chain-2
+failures are still boundary/blend-timing-concentrated. **65.8% means "the model does well
+once evaluation stopped handing it windows shaped unlike anything it was trained on" — it
+is not evidence STGT generalizes to the corrected, realistic blend-timing shape.** Decision
+recorded (not executed): port the corrected distribution into `generate_dataset()` and
+retrain from scratch — see `HISTORY.md`'s 2026-08-10 decision entry.
+
+## Current state (stratified), 2026-08-09 — supersedes every pooled number below (chain-2 numbers here are further superseded above)
 
 `scripts/phase0_chainlength_breakdown.py --n 1000`, seed=999 (the standing ceiling
 battery), measured AFTER all three of this session's guard/trim fixes (`oov_name`,

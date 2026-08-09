@@ -1745,3 +1745,40 @@ a blend-timing shape none of the 3 current regimes ever produce** -- this is not
 overlap tuning question, it is a full distributional replacement.
 
 Raw output: `evaluation/phase0_train_eval_blend_divergence.txt`.
+
+### Step 29: do the step-26 numbers already answer "does the model need retraining"?
+
+Restated plainly, per instruction, since the two readings are easy to conflate: **"chain-2
+pair accuracy 18.7%→65.8%" and "does STGT generalize to the corrected blend-timing
+distribution" are different claims, and only the first one is actually measured.**
+
+What steps 24-26 changed: `eval_trajectories.py`'s `LEAD_IN_RANGE`/`MIN_DWELL_RANGE`, i.e. how
+wide the pure-content margin is on either side of a hop's blend, before any window gets
+carved out. Widening those margins does not change what a blend-dominant window looks like or
+whether STGT classifies it correctly — it changes how MANY of the windows a long trajectory
+produces are blend-dominant at all. With `lead_in>=30` and `dwell>=40` against a
+`window_size=50` sliding grid, the large majority of windows in a fixed chain-2 hop are now
+guaranteed to be dominated by pure formation_a or pure formation_b content; only a shrinking
+minority straddle the blend region itself.
+
+Two pieces of evidence already on the record settle this, not new measurement:
+
+1. **The refined 20-case failure taxonomy (step 26, run AFTER both observability fixes)**:
+   100% of remaining chain-2 failures are boundary/blend-timing-concentrated, 0% clean misses.
+   If the observability fix had made STGT better at blend-dominant windows, failures would
+   have become more evenly distributed, or concentrated elsewhere. They didn't — every
+   remaining failure is still exactly the case type this section is asking about.
+2. **The blend-overlap Monte Carlo (step 26 step 6, re-confirmed step 28)**: 0.0% overlap
+   between train and eval blend-timing shapes, unchanged across three independent formula
+   revisions including the observability fix itself. The observability fix changed WHICH
+   windows get evaluated; it never touched WHAT those windows' blend content looks like
+   relative to what STGT was trained on.
+
+**Plain statement**: the step-26 numbers show "the model does okay once the eval harness
+stopped handing it windows it was never trained to read" — a real, worthwhile fix, and not a
+trivial one (3.5x on its own metric). They are NOT evidence that STGT generalizes to the
+actual corrected/realistic blend-timing distribution, because no window in the post-fix
+measurement population is *more* blend-dominant than before — observability fixes reduce
+EXPOSURE to the hard case, they don't test performance ON it. The hard case (a genuinely
+blend-dominant window, shaped like eval's real distribution) remains exactly as untested by
+training as it was at step 1, because `generate_dataset()` has not changed.
