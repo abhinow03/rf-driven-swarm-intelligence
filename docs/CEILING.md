@@ -529,3 +529,61 @@ zero — the guard was written as if 0.15 were a meaningful gap regardless of sc
 these magnitudes it's nearly always satisfied by chance. This fully explains step 2's
 finding (60.9% of pair-recovery failures, firing across every formation class uniformly) —
 it was never actually testing dispersed/converging contention.
+
+## Update 2026-08-09: step 2 — the guard fix, isolated and full re-measurement
+
+**Fix (`stgt_bridge.py`'s `_is_ambiguous_dispersed_converging`):** now requires dispersed and
+converging to be the window's TOP-2 predicted classes (genuinely competing for the top spot),
+in addition to the original `abs(d-c) < 0.15` closeness check. One added condition, no other
+change to the function, no retraining, no checkpoint change (still strategy 5).
+
+**Isolated re-measurement (`scripts/phase0_guard_audit.py --n 1000`, same seed=999 population,
+same checkpoint as step 1's audit — the only variable changed is the guard code):**
+
+| condition | before (step 1) | after (step 2) |
+|---|---|---|
+| guard fires on | 1113/1469 windows (75.8%) | **19/1469 windows (1.3%)** |
+| BOTH in top-2 (genuinely competing) | 19 (1.7% of firings) | **19 (100.0% of firings)** |
+| ONE in top-2 | 358 (32.2%) | **0 (0.0%)** |
+| NEITHER in top-2 (spurious) | 736 (66.1%) | **0 (0.0%)** |
+
+**Every one of the 19 remaining firings is now genuine dispersed/converging contention.
+Zero spurious firings, zero one-sided firings — the fix is complete and clean, not a partial
+tightening.** The original 19 "genuinely competing" firings from step 1 survive unchanged
+(the top-2 condition is additive, never removes a firing that was already both-in-top-2 AND
+close), so this is exactly the expected before/after: everything spurious removed, nothing
+genuine lost.
+
+**Full ceiling re-measurement (`phase0_ceiling.py --n 1000` → `evaluation/
+phase0_ceiling_v5_guardfix.json`, `phase0_threat_ceiling.py` → `evaluation/
+phase0_threat_ceiling_v5_guardfix.json`, same seed=999/checkpoint/protocol as every prior
+ceiling measurement — the guard fix is the only variable changed):**
+
+| metric | strategy 5, before guard fix | strategy 5, after guard fix | change |
+|---|---|---|---|
+| bucket A size, robust=False (of 509 eligible) | 78 | **294 (57.8%)** | **+216** |
+| bucket A size, robust=True | 79 | **396 (77.8%)** | **+317** |
+| pair-level accuracy, robust=False | 12.2% (62/509) | **47.0% (239/509)** | **+34.8pt** |
+| pair-level accuracy, robust=True | 12.8% (65/509) | **48.5% (247/509)** | **+35.7pt** |
+| precision WITHIN bucket A, robust=False | 79.5% (62/78) | **81.3% (239/294)** | +1.8pt |
+| **precision WITHIN bucket A, robust=True** | **~20% (sec AG, capped by this defect)** | **62.4% (247/396)** | **+~42pt** |
+| threat ceiling, robust=False | 13.0% | **52.3%** | **+39.3pt** |
+| threat ceiling, robust=True | 13.6% | **58.7%** | **+45.1pt** |
+
+**This is by far the single largest gain of the entire Phase 0 program, and it came from a
+one-condition bug fix, not from retraining.** `robust=True`'s recovery precision — the exact
+number sec AG measured at 17-25% and used to justify "robust reduction should not ship" — is
+now 62.4%, because the dominant source of low-precision robust recoveries was this same
+mis-specified guard corrupting the class_probabilities signal the majority-vote reduction
+also depends on. Sec AG's verdict was correct given the code it was measured against; it does
+not hold against this fixed guard, and should not be treated as a permanent verdict on
+`robust=True` — a follow-up re-evaluation against this fix is the natural next step if a full
+pipeline_v2 re-run is wanted.
+
+**HALT GATE 1, stated plainly: still not cleared.** Threat ceiling (52.3-58.7%) remains below
+the 70% floor — this is the biggest single jump in the program (from ~57-58 points below floor
+to ~11-18 points below floor) but is not itself sufficient to clear the gate. The gap remaining
+is far smaller and now looks structurally different: no longer "the guard is nonsense," but
+genuine STGT window-level accuracy (70.4% overall, with `encirclement` at 41.3% and
+`transitioning` at 57.3% dragging the average down) and the underlying pair-reduction task's
+own remaining difficulty.

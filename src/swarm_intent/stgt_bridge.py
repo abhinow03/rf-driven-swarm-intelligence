@@ -112,10 +112,23 @@ def _validate_formation(name) -> str:
 
 
 def _is_ambiguous_dispersed_converging(class_probabilities: dict) -> bool:
+    """2026-08-09 fix (HISTORY.md strategy 7 / AUDIT.md sec AG): the original version of
+    this check compared ONLY the raw dispersed/converging probabilities (abs(d-c) < margin)
+    with no requirement that either class be competitive for the window's top prediction.
+    With 8 softmax classes, whenever one class dominates, the other ~7 split a small
+    residual probability mass and land within 0.15 of each other by chance almost always --
+    measured directly (scripts/phase0_guard_audit.py) at a 75.8% fire rate on real
+    predictions, 66.1% of which had NEITHER class in the window's top-2. Now requires
+    dispersed and converging to be the window's top-2 predicted classes (i.e. genuinely
+    competing for the top spot), in addition to the original probability-closeness check."""
     if not class_probabilities:
         return False
     d, c = class_probabilities.get("dispersed"), class_probabilities.get("converging")
     if d is None or c is None:
+        return False
+    ranked = sorted(class_probabilities.items(), key=lambda kv: kv[1], reverse=True)
+    top2_names = {name for name, _ in ranked[:2]}
+    if top2_names != {"dispersed", "converging"}:
         return False
     return abs(d - c) < DISPERSED_CONVERGING_AMBIGUITY_MARGIN
 

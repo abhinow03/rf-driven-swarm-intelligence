@@ -160,3 +160,30 @@ it, because `dispersed=0.0012` and `converging=0.0005` are "close" in absolute t
 both being irrelevant noise. Only 1.7% of firings are genuine both-in-top-2 contention. This
 is the exact, now-confirmed mechanism behind step 2's finding — the guard was never testing
 what its name claims.
+
+## 2026-08-09: step 2 — fixed the guard, the single biggest gain of the whole program
+
+`_is_ambiguous_dispersed_converging` now also requires dispersed/converging to be the
+window's top-2 predicted classes, not just close in raw probability. One condition added,
+no retraining, still the strategy-5 checkpoint.
+
+Isolated re-audit: guard fire rate 75.8%→**1.3%** (1113→19 of 1469 windows), and the 19
+remaining firings are now **100% genuine** (0% spurious, down from 66.1%).
+
+Full ceiling re-measurement, same seed=999/checkpoint/protocol as every prior measurement:
+
+| metric | before | after |
+|---|---|---|
+| pair-level accuracy (robust=False) | 12.2% | **47.0%** |
+| pair-level accuracy (robust=True) | 12.8% | **48.5%** |
+| threat ceiling (robust=False) | 13.0% | **52.3%** |
+| threat ceiling (robust=True) | 13.6% | **58.7%** |
+| `robust=True` precision within bucket A | ~20% (sec AG) | **62.4%** |
+
+Biggest jump of the program, from a one-line bug fix. Also retroactively explains sec AG's
+"robust reduction should not ship" verdict: that verdict was measured against the BROKEN
+guard corrupting the same class_probabilities signal robust reduction's majority vote reads
+— it doesn't hold against this fix and shouldn't be treated as permanent.
+
+**HALT GATE 1 still not cleared** (52-59% vs a 70% floor) but the gap shrank from ~57-58
+points to ~11-18 points. Full detail: `docs/CEILING.md`'s 2026-08-09 step 2 update.

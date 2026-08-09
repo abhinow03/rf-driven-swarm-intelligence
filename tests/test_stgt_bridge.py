@@ -181,6 +181,32 @@ class TestDispersedConvergingAmbiguity(unittest.TestCase):
         _, summary, _ = bridge_predictions(preds)
         self.assertEqual(summary["n_ambiguous_dispersed_converging_windows"], 0)
 
+    def test_close_but_irrelevant_residual_mass_not_flagged(self):
+        """2026-08-09 fix (docs/CEILING.md 2026-08-09 step 2): a window confidently
+        predicted as some OTHER class, where dispersed/converging are both tiny
+        residual probabilities that happen to be close to each other in absolute
+        terms, must NOT be flagged -- this was the exact spurious-firing mechanism
+        (V5 Phase 0 step 1: 66.1% of firings had neither class in the window's
+        top-2). Real example from scripts/phase0_guard_audit.py: shield predicted
+        at 98.97%, dispersed=0.0012, converging=0.0005."""
+        probs = {"shield": 0.9897, "dispersed": 0.0012, "converging": 0.0005,
+                 "v_shape": 0.003, "column": 0.002, "diamond": 0.001,
+                 "encirclement": 0.0005, "transitioning": 0.0011}
+        self.assertLess(abs(probs["dispersed"] - probs["converging"]),
+                        DISPERSED_CONVERGING_AMBIGUITY_MARGIN)  # close in absolute terms
+        preds = [make_window("shield", 0, class_probabilities=probs)]
+        _, summary, key_windows = bridge_predictions(preds)
+        self.assertEqual(summary["n_ambiguous_dispersed_converging_windows"], 0)
+        self.assertFalse(key_windows[0]["ambiguous_dispersed_converging"])
+
+    def test_top2_but_not_close_not_flagged(self):
+        """The two conditions are independent: top-2 alone isn't enough without
+        also being close in probability."""
+        probs = {"dispersed": 0.55, "converging": 0.20, "column": 0.15, "shield": 0.10}
+        preds = [make_window("dispersed", 0, class_probabilities=probs)]
+        _, summary, _ = bridge_predictions(preds)
+        self.assertEqual(summary["n_ambiguous_dispersed_converging_windows"], 0)
+
 
 class TestNoDisallowedCharacters(unittest.TestCase):
     """(f) no character absent from training prompts (no "warning" glyph)."""

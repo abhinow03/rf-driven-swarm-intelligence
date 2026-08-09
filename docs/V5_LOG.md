@@ -599,3 +599,55 @@ each other by chance almost always — the guard was never testing dispersed/con
 contention specifically. Full detail: `docs/CEILING.md`'s 2026-08-09 update. Proceeding to
 step 2: fix the guard (require both classes in top-2, difference under threshold), re-measure
 isolated from any other change.
+
+## 2026-08-09: step 2 — fixed the guard, re-measured isolated and full
+
+**Fix.** `stgt_bridge.py`'s `_is_ambiguous_dispersed_converging` now additionally requires
+dispersed and converging to be the window's top-2 predicted classes (sorted by probability),
+on top of the original `abs(d-c) < 0.15` closeness check. Both conditions must hold. No other
+line changed, no retraining, `swarm_data/best_model.pt` still the strategy-5 checkpoint
+reverted to in step 0. Full 134/134 test suite still passes after the change (no existing
+test asserted the OLD, broken firing behavior as a requirement).
+
+**Isolated re-measurement.** Re-ran `scripts/phase0_guard_audit.py --n 1000`, identical
+seed=999 population and checkpoint as step 1's audit — the fixed guard function is the only
+variable. Fire rate collapsed from 75.8% (1113/1469 windows) to **1.3% (19/1469)**, and of
+those 19 remaining firings, **100% are genuine both-in-top-2 contention (0% spurious, 0%
+one-sided)** — a complete fix, not a partial tightening (the 19 originally-genuine firings
+from step 1 all survive, since the new top-2 condition is additive and never removes an
+already-both-in-top-2-AND-close firing).
+
+**Full re-measurement.** Re-ran `phase0_ceiling.py --n 1000` (`evaluation/
+phase0_ceiling_v5_guardfix.json`) and `phase0_threat_ceiling.py`
+(`evaluation/phase0_threat_ceiling_v5_guardfix.json`), same seed=999/checkpoint/protocol as
+every ceiling measurement all program.
+
+| metric | before guard fix | after guard fix |
+|---|---|---|
+| bucket A (robust=False) | 78/509 (15.3%) | **294/509 (57.8%)** |
+| bucket A (robust=True) | 79/509 (15.5%) | **396/509 (77.8%)** |
+| pair-level accuracy (robust=False) | 12.2% | **47.0%** |
+| pair-level accuracy (robust=True) | 12.8% | **48.5%** |
+| precision within bucket A (robust=False) | 79.5% | 81.3% |
+| precision within bucket A (robust=True) | ~20% (sec AG) | **62.4%** |
+| threat ceiling (robust=False) | 13.0% | **52.3%** |
+| threat ceiling (robust=True) | 13.6% | **58.7%** |
+
+**This is the single biggest gain of the whole Phase 0 program, and it came from fixing one
+mis-specified boolean condition, not from retraining anything.** It also retroactively
+reframes sec AG's "robust reduction should not ship" verdict: that verdict was measured with
+the BROKEN guard corrupting the exact `class_probabilities` signal robust reduction's
+majority-vote step also reads — `robust=True` precision within bucket A was capped at ~20%
+by the same guard bug, not by a flaw in the majority-vote algorithm itself. Under the fixed
+guard, `robust=True` precision is 62.4%, close to `robust=False`'s 81.3% and clearly usable.
+Sec AG's verdict should not be treated as permanent; a fresh pipeline_v2 comparison against
+this fix is the natural next check if that's wanted.
+
+**HALT GATE 1: still not cleared, stated plainly.** 52.3-58.7% threat ceiling remains below
+the 70% floor. This is the largest single jump in the program (gap shrank from ~57-58 points
+below floor to ~11-18 points below floor) but the gate itself does not open. Per-class window
+accuracy (`docs/CEILING.md`) shows the remaining gap is now genuine STGT classification
+difficulty — `encirclement` (41.3%) and `transitioning` (57.3%) window accuracy are the
+biggest drags — not a bridge-code artefact. `docs/V5_STATE.json` updated (`phase=0, step=11`).
+Stopping here per the "re-measure isolated" instruction's scope; not proceeding to any further
+strategy without explicit direction.
