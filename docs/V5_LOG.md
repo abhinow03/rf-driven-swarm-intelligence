@@ -1004,3 +1004,107 @@ fresh end-to-end projection, not attempted this turn (out of the 4 steps this tu
 
 Proceeding to step 4: report on RULES coverage for chain-3+ (report only, no RULES
 extension).
+
+## 2026-08-09: step 4 — RULES coverage for chain-3+ (report only, no action taken)
+
+`scripts/phase0_rules_coverage_report.py`, CPU-only (replays the exact seed=999 rng
+consumption of the standing ceiling battery, including a full `build_long_sequence_labeled`
+call to stay in sync, but never loads or runs STGT — nothing here depends on model output).
+**Explicitly report-only, per instruction: no change to RULES or any other file that affects
+behaviour.**
+
+**(a) Exact chain-length distribution, n=1000, seed=999 (identical population to the
+standing ceiling battery):**
+
+| chain_length | n | % | theoretical (uniform 1-4) |
+|---|---|---|---|
+| 1 | 258 | 25.8% | 25.0% |
+| 2 | 251 | 25.1% | 25.0% |
+| 3 | 234 | 23.4% | 25.0% |
+| 4 | 257 | 25.7% | 25.0% |
+| **3+ (combined)** | **491** | **49.1%** | 50.0% |
+
+**(b) Generator parameter, not emergent.** `sample_chain()`'s `num_formations =
+rng.integers(1, 5)` is a hard-coded bound (1..5, numpy default `endpoint=False` → uniform
+over {1,2,3,4}) — an explicit design choice in the generator, not a property that falls out
+of anything else. Every subsequent formation in the chain is drawn uniformly from
+`BASE_FORMATIONS` minus only the immediately-preceding member (no consecutive repeats
+forced; non-consecutive repeats — e.g. A→B→A — ARE legal chains, this is exactly what
+produces the `oscillation` bucket-C subtype elsewhere in this project). The measured
+distribution (25.8/25.1/23.4/25.7%) matches the theoretical 25% each closely — sampling
+noise, not a hidden skew.
+
+**(c) Chain-3+ patterns do NOT collapse to a small set.** 491 chain-3+ trajectories produced
+**385 distinct patterns** — 60.7% of them appear exactly once, the single most common pattern
+repeats only 7 times, and the theoretical pattern space (7 base formations, no consecutive
+repeats: 7×6×6=252 length-3 + 7×6×6×6=1512 length-4 = **1764 possible chains**) is large
+enough that 491 draws only sample a small fraction of it. **This directly bears on how big a
+future RULES-extension effort (HALT GATE 2) would actually be**: literally enumerating
+observed chain-3+ patterns one-by-one is not a small, bounded task the way extending RULES
+for a handful of recurring shapes would be — the data doesn't support a "just add these 10
+common patterns" shortcut. A viable extension would more likely need a COMPOSITIONAL rule
+(e.g. reduce a chain to its structurally-meaningful (first, last) endpoints, or to a small
+number of derived features) rather than literal pattern enumeration — a design question for
+whoever owns HALT GATE 2's sign-off, not resolved or attempted here.
+
+**No RULES change made. No code behaviour changed.** Full data:
+`evaluation/phase0_rules_coverage_report.json`. Proceeding to step 5: rewrite
+`docs/CEILING.md` stratified by chain length, pooled numbers banned from here on.
+
+## 2026-08-09: step 5 — CEILING.md rewritten stratified; a fresh re-run made the case for itself
+
+Re-ran `scripts/phase0_chainlength_breakdown.py --n 1000` (same seed=999 population) AFTER
+all three of today's fixes to get a fully-current stratified picture:
+
+| chain_length | n | pair acc (F) | pair acc (T) | threat acc (F) | threat acc (T) |
+|---|---|---|---|---|---|
+| 1 | 258 | 87.6% | 88.4% | 88.0% | 88.8% |
+| **2** | 251 | **18.7%** | 18.7% | 31.9% | 39.8% |
+| 3+ | 491 | n/a | n/a | n/a | n/a |
+
+**Chain-2 pair accuracy moved 6.0%→18.7% (3x) across today's fixes; chain-1 barely moved
+(86.8%→87.6%).** The pooled "509 pair-eligible" number this whole session's earlier commits
+reported (47.0%→53.6%) compressed a 3x improvement and a near-zero one into one figure that
+reads as a uniform, modest gain. It wasn't. This is precisely the failure mode step 5's
+instruction exists to stop: a pooled number hides which stratum actually improved and by
+how much.
+
+**Also surfaced, only visible once stratified: chain-3+'s bucket-A false-positive rate rose
+from 1.8% to 9.0% (44/491) as a side effect of the guard fixes.** The guards being corrected
+(`oov_name`, `dominant_history_contradiction`) used to accidentally catch some chain-3+
+false positives despite testing the wrong condition; correctly scoped now, they no longer
+incidentally block a chain-3+ trajectory that happens to reduce to a clean-looking ≤2-length
+history due to classifier error. A real, disclosed trade a pooled number would never have
+shown at all.
+
+**`docs/CEILING.md` restructured**: a policy banner + a new "Current state (stratified)"
+section added at the top (supersedes every pooled figure in the file), historical dated
+entries below it left UNEDITED for the record (matches this project's standing convention
+of correcting via a superseding notice, never rewriting history in place). Pooled numbers
+are banned in every CEILING.md entry from this point forward.
+
+Proceeding to step 6: add issue #3 to `UPSTREAM_ISSUES.md` (chain-2's destination
+formation frequently never reached within the generated sequence).
+
+## 2026-08-09: step 6 — UPSTREAM_ISSUES.md issue #3
+
+Added issue #3: chain-length-2's destination formation is frequently never observed by any
+sliding window at all (distinct from issue #2's "trailing window is transitional" — here NO
+window's majority is ever the destination formation), a property of `sample_chain()`'s
+segment-length distribution relative to `window_size`, not a bridge-code or model defect.
+
+Post today's three guard/trim fixes, chain-2 pair accuracy is 18.7% (up 3x from 6.0%, but
+still the worst stratum by far vs chain-1's 87.6%). Re-traced 20 fresh chain-2 failures:
+**95% (19/20) trace to this generation-regime mechanism**, 5% to plain misclassification,
+**0% to any remaining bridge-logic defect** — confirms the guard/trim fixes fully resolved
+their share; what's left is a data-generation ceiling, not a code bug. Cited two concrete
+traced examples (`shield→v_shape` where `v_shape` never appears as any window's majority
+label; `diamond→column` where `column` never appears at all).
+
+Requested change: widen `sample_chain()`'s per-hop segment-length distribution so a settled
+destination tail reliably exceeds `window_size` — a generator-parameter change, not a
+retrain (distinct from issue #2, which does need one) — flagged as the fastest of the three
+upstream issues to act on if prioritization is being decided.
+
+`docs/V5_STATE.json` updated (`phase=0, step=23`). **STOP per instruction — all 6 steps of
+this turn complete.**

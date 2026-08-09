@@ -1,7 +1,7 @@
 {
   "phase": 0,
-  "step": 20,
-  "status": "Discipline-catch turn continuing. Step 3: fixed robust=True's trim step -- only strips a 'transitioning' edge window when the model's own confidence >=0.6 (reused low_confidence bar, no new tunable parameter). Precision within bucket A: 63.8%->65.8% (the 13 removed cases were ALL wrong before, 0 correct lost). Session-cumulative (2a+2b+3): threat ceiling 58.7%->64.6%, precision within bucket A 62.4%->65.8%. 140/140 tests pass. All 3 guard-audit fixes from the full guard audit now complete. Proceeding to step 4: RULES coverage report (chain-3+), report only.",
+  "step": 23,
+  "status": "Discipline-catch turn COMPLETE (all 6 steps done). Step 0: verified threshold unchanged, recorded dev-split-reuse discipline catch. Step 1: fresh mining split (seed=2024) reversed the 0.6 recommendation -- threshold stays 0.7. Step 2a/2b: fixed oov_name (69% spurious) and dominant_history_contradiction (100% spurious) guards, isolated commits, each re-measured. Step 3: fixed robust=True trim step (62.5% spurious), precision within bucket A 62.4%->65.8% session-cumulative. Step 4: RULES coverage report only, chain-3+ patterns don't collapse (385 distinct/491), no action taken. Step 5: CEILING.md rewritten stratified -- revealed pooling hid a 3x chain-2 improvement (6.0%->18.7%) vs near-flat chain-1. Step 6: UPSTREAM_ISSUES.md issue #3 added (destination formation never observed, generator segment-length issue, 95% of remaining chain-2 failures, 0% now attributable to any bridge-logic defect). STOPPING per instruction -- no further action without explicit direction.",
   "halts_cleared": [],
   "results": {
     "phase0_step1_first_check": {
@@ -863,6 +863,74 @@
       },
       "robust_false_unaffected": "confirmed unchanged (53.6% pair / 60.3% threat) -- never calls _robust_reduce",
       "history_doc": "docs/V5_LOG.md (2026-08-09 step 3 entry)"
+    },
+    "phase0_step21_rules_coverage_report": {
+      "checked": "2026-08-09T03:10:00Z",
+      "method": "scripts/phase0_rules_coverage_report.py, CPU-only, replays exact seed=999 rng consumption of the standing ceiling battery (no STGT/GPU load).",
+      "chain_length_distribution": {
+        "1": 258,
+        "2": 251,
+        "3": 234,
+        "4": 257,
+        "3plus_combined": 491
+      },
+      "distribution_is_generator_parameter": true,
+      "distribution_source": "sample_chain()'s num_formations = rng.integers(1,5), hard-coded bound, uniform over {1,2,3,4} by numpy default endpoint=False",
+      "chain_3plus_pattern_analysis": {
+        "n_trajectories": 491,
+        "n_distinct_patterns": 385,
+        "fraction_unique_patterns": 0.607,
+        "max_pattern_repeat_count": 7,
+        "theoretical_pattern_space": {
+          "length_3": 252,
+          "length_4": 1512,
+          "total": 1764
+        },
+        "verdict": "does NOT collapse to a small set -- a future RULES extension would need a compositional rule, not literal pattern enumeration"
+      },
+      "action_taken": "NONE -- report only, per explicit instruction. RULES unchanged. HALT GATE 2 (any RULES extension) requires Dr. Patil's sign-off, not attempted.",
+      "history_doc": "docs/V5_LOG.md (2026-08-09 step 4 entry)"
+    },
+    "phase0_step22_stratified_ceiling_rewrite": {
+      "checked": "2026-08-09T03:25:00Z",
+      "method": "scripts/phase0_chainlength_breakdown.py --n 1000, re-run post all 3 fixes, same seed=999 population.",
+      "stratified_current_state": {
+        "chain_1": {
+          "n": 258,
+          "pair_acc_F": 0.876,
+          "pair_acc_T": 0.884,
+          "threat_acc_F": 0.88,
+          "threat_acc_T": 0.888
+        },
+        "chain_2": {
+          "n": 251,
+          "pair_acc_F": 0.187,
+          "pair_acc_T": 0.187,
+          "threat_acc_F": 0.319,
+          "threat_acc_T": 0.398
+        },
+        "chain_3plus": {
+          "n": 491,
+          "bucket_A_false_positive_rate": 0.09,
+          "note": "up from 1.8% -- side effect of guard fixes, disclosed"
+        }
+      },
+      "what_pooling_hid": "chain-2 improved 3x (6.0%->18.7%) across today's fixes while chain-1 barely moved (86.8%->87.6%) -- the pooled 509-pair-eligible number (47.0%->53.6%) compressed both into one figure reading as a uniform modest gain.",
+      "ceiling_doc_change": "policy banner + 'Current state (stratified)' section added at top of docs/CEILING.md, superseding every pooled figure below it. Historical dated entries left unedited (standing project convention: correct via superseding notice, never rewrite history in place).",
+      "history_doc": "docs/V5_LOG.md (2026-08-09 step 5 entry)"
+    },
+    "phase0_step23_upstream_issue3": {
+      "checked": "2026-08-09T03:35:00Z",
+      "issue": "chain-2's destination formation is frequently never observed by any sliding window at all -- a property of sample_chain()'s segment-length distribution relative to window_size, not a bridge-code or model defect.",
+      "post_fix_chain2_trace": {
+        "n_traced": 20,
+        "generation_regime_mechanism": 0.95,
+        "plain_misclassification": 0.05,
+        "remaining_bridge_logic_defects": 0.0
+      },
+      "requested_change": "widen sample_chain()'s per-hop segment-length distribution so a settled destination tail reliably exceeds window_size -- a generator-parameter change, not a retrain (distinct from issue #2).",
+      "history_doc": "docs/V5_LOG.md (2026-08-09 step 6 entry)",
+      "upstream_issues_doc": "docs/UPSTREAM_ISSUES.md (issue #3)"
     }
   },
   "started": "2026-08-07T19:47:41Z"
