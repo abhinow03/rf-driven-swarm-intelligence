@@ -1,0 +1,14 @@
+  seed   hops  total_windows   kept  excluded  keep_rate
+     7    300           1814    886       928     48.8%
+     8    300           1830    920       910     50.3%
+     9    300           1833    903       930     49.3%
+    10    300           1837    892       945     48.6%
+    11    300           1867    946       921     50.7%
+
+keep_rate across 5 seeds: mean=49.5% std=0.8% min=48.6% max=50.7%
+exclusion_rate across 5 seeds: mean=50.5% std=0.8% min=49.3% max=51.4%
+
+windows_per_hop across seeds: mean=6.12 std=0.06
+
+RECOMMENDED compensation factor (using worst-case seed's keep_rate, not the mean, for a conservative safety margin): 1/0.486 = 2.06x
+(previous single-seed estimate from step 34 was ~2x; revise to 2.06x if this differs meaningfully)

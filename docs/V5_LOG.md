@@ -1949,3 +1949,26 @@ not severe enough to block scaling on its own.
 content ambiguity concentrated exactly where expected, formation-level exclusion is
 near-uniform, and the one pair-level outlier found is disclosed and small enough to monitor
 rather than block on. Raw output: `evaluation/phase0_exclusion_bias.txt`.
+
+### Step 36: seed stability of the keep rate
+
+`scripts/phase0_seed_stability.py`, 5 seeds (7 -- reused from steps 34/35 -- plus fresh 8, 9,
+10, 11; disjoint from every seed already used elsewhere in this program: 0, 1, 42, 999,
+2024), `n_transition=300` each, combined port.
+
+| seed | hops | total windows | kept | excluded | keep rate |
+|---|---|---|---|---|---|
+| 7 | 300 | 1814 | 886 | 928 | 48.8% |
+| 8 | 300 | 1830 | 920 | 910 | 50.3% |
+| 9 | 300 | 1833 | 903 | 930 | 49.3% |
+| 10 | 300 | 1837 | 892 | 945 | 48.6% |
+| 11 | 300 | 1867 | 946 | 921 | 50.7% |
+
+**keep_rate: mean 49.5%, std 0.8 points, range [48.6%, 50.7%].** Very stable — step 34's
+single-seed 48.8% was representative, not an outlier. `windows_per_hop` is similarly stable
+(mean 6.12, std 0.06).
+
+**Compensation factor revised using the worst-case seed (48.6%), not the mean, for a
+conservative margin: 1/0.486 = 2.06x.** Matches step 34's ~2x estimate closely — no revision
+needed beyond tightening it slightly to 2.06x. Raw output:
+`evaluation/phase0_seed_stability.txt`.
