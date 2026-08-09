@@ -33,112 +33,22 @@ REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO / "src"))
 
 from swarm_intent.config import BASE_FORMATIONS, TRANSITION_CLASS  # noqa: E402
-from swarm_intent.data import generate_transition_sequence  # noqa: E402
 from swarm_intent.coverage import classify_observation, BUCKET_A  # noqa: E402
 from swarm_intent.progress import Reporter  # noqa: E402
+# 2026-08-09 step 26 (docs/V5_LOG.md): consolidated here from an inline, independently-
+# maintained copy -- see src/swarm_intent/eval_trajectories.py for the full derivation of
+# both the destination-dwell (step 24/25) and source-lead-in (step 26) observability fixes.
+# Re-exported under these same names so phase0_chainlength_breakdown.py's/
+# phase0_chain2_observability.py's `from phase0_decompose_failures import (sample_chain,
+# build_long_sequence_labeled, ground_truth_pair, ...)` keeps working unchanged.
+from swarm_intent.eval_trajectories import (  # noqa: E402, F401
+    sample_chain, build_long_sequence_labeled, ground_truth_pair,
+)
 
 DATA_DIR = REPO / "swarm_data"
 CHECKPOINT = DATA_DIR / "best_model.pt"
 SEED = 999
 CLASS_ORDER = list(BASE_FORMATIONS) + [TRANSITION_CLASS]
-
-# 2026-08-09 observability fix (docs/V5_LOG.md step 24 diagnostic; this is step 25's fix,
-# implemented ONLY in this file's build_long_sequence_labeled -- the copy the chain-2
-# observability audit (phase0_chainlength_breakdown.py / phase0_chain2_observability.py)
-# actually exercises. NOT propagated to the other 4 verbatim duplicates of this sampling
-# logic (llm_finetuning/measure_coverage.py, scripts/phase0_ceiling.py,
-# scripts/phase0_guard_audit.py, llm_finetuning/analyze_bucket_c_windowing.py) --
-# deliberately out of scope for this experiment; those scripts' historical numbers
-# (HALT GATE 1's pooled ceiling, sec AE/AF/AG's pipeline_v2 coverage measurements) stay
-# reproducible against the OLD formula. Propagating this fix everywhere is flagged as a
-# follow-up decision, not made silently here.
-#
-# Mechanism (step 1 of this experiment): a window's true label is a majority vote over its
-# 50 timesteps, so destination B needs >=26 B-labeled timesteps in some window to ever win.
-# B-labeled timesteps come only from the post-blend dwell region, D = seg_len - blend_end.
-# But sliding_window_inference's stride=10 grid can leave up to 9 trailing timesteps outside
-# EVERY window (worst case: (seg_len-window_size) % stride == 9) -- so the real requirement
-# is D >= 26 + 9 = 35, not just D >= 26. The OLD formula sampled seg_len ~ U{50,100} and
-# blend_end as a FRACTION of seg_len (~U(0.55,0.75)), so D = seg_len*(1-blend_end_frac)
-# ranged from a worst case of 12.5 (short segment, late blend) to a best case of 45 -- the
-# lower tail of this joint distribution is exactly what produced ~50% OBS_NONE (docs/V5_LOG.md
-# step 24). Old value: seg_len ~ Uniform{50,100}, blend_start/blend_end sampled as FRACTIONS
-# of seg_len (0.3-0.5 / 0.55-0.75) -- dwell time was an unconstrained BYPRODUCT of those two
-# independent choices, not a controlled quantity.
-#
-# New value: dwell is sampled DIRECTLY and guaranteed >= 35 (with real margin, not just at
-# the boundary), and seg_len is DERIVED as lead_in + blend_duration + dwell rather than
-# sampled first. lead_in and blend_duration ranges are chosen to match the OLD formula's
-# REALIZED scale (old blend_start realized ~15-50 timesteps, old blend duration realized
-# mean ~18.8 timesteps -- scripts/phase0_chain2_blend_distributions.py) so source-formation
-# duration and transition speed/dynamics are preserved, not just observability.
-#
-# Expected effect: D is now ALWAYS >= 40 by construction (>= the derived 35 minimum, with a
-# 5-timestep margin) -- OBS_NONE should become rare/eliminated rather than ~50%. seg_len mean
-# rises modestly (~75 -> ~92.5, +23%) as a DISCLOSED SIDE EFFECT of guaranteeing dwell, not a
-# blanket "make trajectories longer" choice -- length only grows because dwell now must.
-LEAD_IN_RANGE = (15, 35)          # timesteps of settled formation_a before the blend starts
-BLEND_DURATION_RANGE = (10, 25)   # timesteps the blend itself spans (unchanged transition physics)
-MIN_DWELL_RANGE = (40, 60)        # timesteps of settled formation_b after the blend ends -- THE FIX
-
-
-def sample_chain(rng: np.random.Generator) -> list[str]:
-    num_formations = int(rng.integers(1, 5))
-    chain = [rng.choice(BASE_FORMATIONS)]
-    for _ in range(num_formations - 1):
-        pool = [f for f in BASE_FORMATIONS if f != chain[-1]]
-        chain.append(rng.choice(pool))
-    return chain
-
-
-def build_long_sequence_labeled(chain: list[str], rng: np.random.Generator, spread: float, noise_std: float):
-    segments, seg_labels = [], []
-    if len(chain) == 1:
-        seg_len = int(rng.integers(50, 101))
-        seg = generate_transition_sequence(chain[0], chain[0], n_timesteps=seg_len,
-                                           spread=spread, noise_std=noise_std, rng=rng)
-        segments.append(seg)
-        seg_labels.append([chain[0]] * seg_len)
-    else:
-        for i in range(len(chain) - 1):
-            lead_in = int(rng.integers(*LEAD_IN_RANGE))
-            blend_duration = int(rng.integers(*BLEND_DURATION_RANGE))
-            dwell = int(rng.integers(*MIN_DWELL_RANGE))
-            blend_start = lead_in
-            blend_end = lead_in + blend_duration
-            seg_len = blend_end + dwell
-            seg = generate_transition_sequence(chain[i], chain[i + 1], n_timesteps=seg_len,
-                                               spread=spread, noise_std=noise_std,
-                                               blend_start=blend_start, blend_end=blend_end, rng=rng)
-            segments.append(seg)
-            labels = []
-            for t in range(seg_len):
-                if t <= blend_start:
-                    labels.append(chain[i])
-                elif t >= blend_end:
-                    labels.append(chain[i + 1])
-                else:
-                    labels.append(TRANSITION_CLASS)
-            seg_labels.append(labels)
-
-    stitched = [segments[0]]
-    for seg in segments[1:]:
-        prev_last_centroid = stitched[-1][-1].mean(axis=0)
-        this_first_centroid = seg[0].mean(axis=0)
-        delta = prev_last_centroid - this_first_centroid
-        stitched.append(seg + delta[None, None, :])
-    long_seq = np.concatenate(stitched, axis=0)
-    true_labels = [lab for seg_lab in seg_labels for lab in seg_lab]
-    assert len(true_labels) == long_seq.shape[0]
-    return long_seq, true_labels
-
-
-def ground_truth_pair(true_chain: list):
-    if len(true_chain) == 1:
-        return (true_chain[0], true_chain[0])
-    if len(true_chain) == 2:
-        return (true_chain[0], true_chain[1])
-    return None
 
 
 def position_bucket(idx: int, n: int) -> str:
