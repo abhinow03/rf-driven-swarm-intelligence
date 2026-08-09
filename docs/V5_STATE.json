@@ -1,7 +1,7 @@
 {
   "phase": 0,
-  "step": 24,
-  "status": "Chain-2 observability diagnostic COMPLETE (docs/UPSTREAM_ISSUES.md issue #3 follow-up, no code changes). Measured observability directly per-trajectory (window true-label majority) on the standard seed=999/n=1000 population: 50.6% of chain-2 trajectories (127/251) never make the destination formation observable in any window (confirms issue #3 as the dominant single cause, hard 49.4% ceiling on chain-2 under the current generator). But even the best-observed group (OBS_CLEAR, >=2 majority-B windows) only reaches 57.1% pair accuracy -- a manually-reviewed 20-case trace found the residual is 55% genuine STGT misclassification (near-blend-boundary 'transitioning' over-prediction + confident dispersed/converging source confusion the existing ambiguity guard can't catch), 5% labeling-ambiguity, 0% bridge/reduction defects. A companion Monte Carlo found 0% overlap between eval's per-hop blend timing and any of generate_dataset()'s 3 training blend regimes -- a plausible mechanism for the misclassification share. Verdict: NOT single-cause -- ~50.6% generator observability ceiling + ~32-33% independent STGT recognition-quality gap + ~3% labeling-ambiguity residual. Decision: fix generator observability first (cheap, no-retrain, eval-harness-only parameter change, spec written in docs/V5_LOG.md step 24) but log the STGT recognition-quality gap as a real, separate, already-partially-diagnosed follow-up it will NOT resolve. Generator fix specified, NOT implemented this turn. STOPPING per instruction -- diagnosis and recommendation only, no generator/model/LLM code changed.",
+  "step": 25,
+  "status": "Chain-2 dwell-time generator fix IMPLEMENTED and re-measured (docs/V5_LOG.md step 25, follows step 24's diagnostic -- no STGT/bridge/LLM code changed, same frozen strategy-5 checkpoint). Fix: dwell (post-blend settled-B timesteps) now sampled directly ~Uniform{40,60} in scripts/phase0_decompose_failures.py's build_long_sequence_labeled ONLY (4 other verbatim duplicate copies left untouched, disclosed), guaranteeing D>=40 against a re-derived D>=35 minimum (26 for a window majority + 9 for stride=10 grid slack). seg_len now derived (lead_in+blend_duration+dwell) instead of sampled first. Result: chain-2 OBS_NONE 50.6%->0.0%, chain-2 pair accuracy 18.7%->39.9% (more than doubled), threat accuracy 31.9%->72.1%, chain-1 flat within noise (84.1%, untouched branch), chain-3+ false-positive rate ticked up 9.0%->12.6% (modest, disclosed). Two caveats disclosed, not hidden: (1) a new self-inflicted ~15%-of-failures SOURCE-observability gap (LEAD_IN_RANGE wasn't derived with the same D>=35 rigor as the dwell fix -- trivial next fix); (2) train/eval blend-timing overlap is STILL 0.0% after the fix (mismatch shape shifted but duration still never matches any training regime), flagged as the likely driver of the now-dominant (80% of a freshly manually-traced 20-case sample, up from 55%) genuine STGT-misclassification failure mode. Decision: A -- observability fix successful, remaining problem primarily STGT recognition, with the two caveats as the concrete next steps (source lead-in symmetrization, then a targeted STGT experiment on the blend-timing mismatch, not a generic retrain). STOPPING per instruction -- this experiment only, no further generator/STGT/bridge/LLM changes this turn.",
   "halts_cleared": [],
   "results": {
     "phase0_step1_first_check": {
@@ -958,6 +958,83 @@
       "artifacts": [
         "evaluation/phase0_chain2_observability.json",
         "evaluation/phase0_chain2_observability_trace.txt"
+      ]
+    },
+    "phase0_step25_chain2_dwell_fix": {
+      "checked": "2026-08-09T17:40:00Z",
+      "fix_location": "scripts/phase0_decompose_failures.py build_long_sequence_labeled ONLY",
+      "not_propagated_to": [
+        "llm_finetuning/measure_coverage.py",
+        "scripts/phase0_ceiling.py",
+        "scripts/phase0_guard_audit.py",
+        "llm_finetuning/analyze_bucket_c_windowing.py"
+      ],
+      "old_formula": "seg_len~U{50,100}; blend_start/end sampled as FRACTIONS of seg_len (0.3-0.5/0.55-0.75); dwell an unconstrained byproduct (12.5-45)",
+      "new_formula": "lead_in~U{15,35}, blend_duration~U{10,25}, dwell~U{40,60} sampled directly; seg_len=lead_in+blend_duration+dwell derived",
+      "observability_before_after": {
+        "OBS_CLEAR": [
+          0.112,
+          0.991
+        ],
+        "OBS_PARTIAL": [
+          0.382,
+          0.009
+        ],
+        "OBS_NONE": [
+          0.506,
+          0.0
+        ]
+      },
+      "chain2_pair_accuracy_before_after": [
+        0.187,
+        0.399
+      ],
+      "chain2_threat_accuracy_before_after": [
+        0.319,
+        0.721
+      ],
+      "chain1_pair_accuracy_before_after": [
+        0.876,
+        0.841
+      ],
+      "chain3plus_false_positive_rate_before_after": [
+        0.09,
+        0.126
+      ],
+      "train_eval_blend_overlap_before_after": [
+        0.0,
+        0.0
+      ],
+      "20case_root_cause_before_after": {
+        "destination_not_observable": [
+          0.4,
+          0.0
+        ],
+        "source_not_observable_new": [
+          0.0,
+          0.15
+        ],
+        "transition_labeling_ambiguity": [
+          0.05,
+          0.05
+        ],
+        "stgt_misclassification": [
+          0.55,
+          0.8
+        ],
+        "bridge_reduction_issue": [
+          0.0,
+          0.0
+        ]
+      },
+      "decision": "A -- observability fix successful, remaining problem primarily STGT recognition",
+      "artifacts": [
+        "evaluation/phase0_chain2_observability.json (after)",
+        "evaluation/phase0_chain2_observability_before.json (before, preserved)",
+        "evaluation/phase0_chain2_observability_trace.txt (after)",
+        "evaluation/phase0_chain2_observability_trace_before.txt (before, preserved)",
+        "evaluation/phase0_chainlength_breakdown.json (after)",
+        "evaluation/phase0_chainlength_breakdown_before.json (before, preserved)"
       ]
     }
   },

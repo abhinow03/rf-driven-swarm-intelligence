@@ -924,3 +924,52 @@ the full spec and the disclosed caveat that this fix alone would raise the ceili
 ~85-90% at best (extrapolating OBS_CLEAR's 57.1%, not 100%), not close the whole gap, because
 the STGT-recognition-quality share is real and independent. Full data:
 `evaluation/phase0_chain2_observability.json`, `evaluation/phase0_chain2_observability_trace.txt`.
+
+## Update 2026-08-09: the dwell-time generator fix, implemented — chain-2 more than doubles, no retrain
+
+Step 24's spec (above) implemented, in `scripts/phase0_decompose_failures.py`'s
+`build_long_sequence_labeled` only (the 4 other verbatim duplicates of this sampling logic
+left untouched, disclosed follow-up — see `docs/V5_LOG.md` step 25). Same frozen strategy-5
+checkpoint throughout, zero retraining.
+
+**Fix:** `dwell` (post-blend settled-B timesteps) is now sampled DIRECTLY, `~Uniform{40,60}`,
+guaranteeing `D >= 40` against a derived minimum requirement of `D >= 35` (26 for a window
+majority + 9 for stride=10 grid slack — precisely re-derived this turn, see V5_LOG). `seg_len`
+is now DERIVED (`lead_in + blend_duration + dwell`) instead of sampled first with dwell left
+as an unconstrained byproduct.
+
+| observability | before | after |
+|---|---|---|
+| Observable | 49.4% | **100.0%** |
+| OBS_CLEAR | 11.2% (n=28) | **99.1% (n=231)** |
+| OBS_PARTIAL | 38.2% (n=96) | 0.9% (n=2) |
+| OBS_NONE | 50.6% (n=127) | **0.0% (n=0)** |
+
+| chain_length | n | pair_acc (F) | threat_acc (F) |
+|---|---|---|---|
+| 1 (steady state) | 252 | 84.1% (flat within noise, unrelated branch untouched) | 85.7% |
+| **2 (single transition)** | 233 | **39.9% (was 18.7% — more than doubled)** | **72.1% (was 31.9%)** |
+| 3+ (no RULES key) | 515 | n/a | n/a |
+
+Chain-3+ bucket-A false-positive rate ticked up 9.0%→12.6% — modest, disclosed, not alarming
+(more windows per chain-3+ trajectory now, slightly more surface for spurious ≤2-length-
+looking noise).
+
+**Two disclosed caveats, neither hidden:**
+
+1. **A new, self-inflicted, ~15%-of-failures SOURCE-observability gap.** `LEAD_IN_RANGE=(15,35)`
+  was chosen to match the old formula's realized scale, not derived with the same `D>=35`
+  rigor as `MIN_DWELL_RANGE` — roughly the bottom half of that range is too short for the
+  SOURCE formation to ever win a window majority, the exact same failure mode mirrored onto
+  the wrong end. Trivial next fix: widen `LEAD_IN_RANGE` the same way.
+2. **Train/eval blend-timing overlap is STILL 0.0%** (`scripts/phase0_chain2_blend_distributions_v2.py`)
+  — the mismatch shape shifted (eval's blend start now reaches into training regime 1's start
+  range) but duration still never matches regime 1's blend-dominates requirement, so the two
+  conditions never jointly hold. Flagged as the likely driver of the now-dominant (80% of a
+  freshly manually-traced 20-case sample, up from 55%) genuine STGT-misclassification failure
+  mode — explicitly NOT fixed this turn.
+
+**Decision: A — observability fix successful, remaining problem primarily STGT recognition**,
+with the two caveats above as the concrete next steps (a two-line symmetrization fix, then a
+targeted STGT experiment on the blend-timing mismatch specifically, not a generic retrain).
+Full detail: `docs/V5_LOG.md`'s 2026-08-09 step-25 entry.

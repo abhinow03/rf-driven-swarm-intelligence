@@ -42,6 +42,45 @@ CHECKPOINT = DATA_DIR / "best_model.pt"
 SEED = 999
 CLASS_ORDER = list(BASE_FORMATIONS) + [TRANSITION_CLASS]
 
+# 2026-08-09 observability fix (docs/V5_LOG.md step 24 diagnostic; this is step 25's fix,
+# implemented ONLY in this file's build_long_sequence_labeled -- the copy the chain-2
+# observability audit (phase0_chainlength_breakdown.py / phase0_chain2_observability.py)
+# actually exercises. NOT propagated to the other 4 verbatim duplicates of this sampling
+# logic (llm_finetuning/measure_coverage.py, scripts/phase0_ceiling.py,
+# scripts/phase0_guard_audit.py, llm_finetuning/analyze_bucket_c_windowing.py) --
+# deliberately out of scope for this experiment; those scripts' historical numbers
+# (HALT GATE 1's pooled ceiling, sec AE/AF/AG's pipeline_v2 coverage measurements) stay
+# reproducible against the OLD formula. Propagating this fix everywhere is flagged as a
+# follow-up decision, not made silently here.
+#
+# Mechanism (step 1 of this experiment): a window's true label is a majority vote over its
+# 50 timesteps, so destination B needs >=26 B-labeled timesteps in some window to ever win.
+# B-labeled timesteps come only from the post-blend dwell region, D = seg_len - blend_end.
+# But sliding_window_inference's stride=10 grid can leave up to 9 trailing timesteps outside
+# EVERY window (worst case: (seg_len-window_size) % stride == 9) -- so the real requirement
+# is D >= 26 + 9 = 35, not just D >= 26. The OLD formula sampled seg_len ~ U{50,100} and
+# blend_end as a FRACTION of seg_len (~U(0.55,0.75)), so D = seg_len*(1-blend_end_frac)
+# ranged from a worst case of 12.5 (short segment, late blend) to a best case of 45 -- the
+# lower tail of this joint distribution is exactly what produced ~50% OBS_NONE (docs/V5_LOG.md
+# step 24). Old value: seg_len ~ Uniform{50,100}, blend_start/blend_end sampled as FRACTIONS
+# of seg_len (0.3-0.5 / 0.55-0.75) -- dwell time was an unconstrained BYPRODUCT of those two
+# independent choices, not a controlled quantity.
+#
+# New value: dwell is sampled DIRECTLY and guaranteed >= 35 (with real margin, not just at
+# the boundary), and seg_len is DERIVED as lead_in + blend_duration + dwell rather than
+# sampled first. lead_in and blend_duration ranges are chosen to match the OLD formula's
+# REALIZED scale (old blend_start realized ~15-50 timesteps, old blend duration realized
+# mean ~18.8 timesteps -- scripts/phase0_chain2_blend_distributions.py) so source-formation
+# duration and transition speed/dynamics are preserved, not just observability.
+#
+# Expected effect: D is now ALWAYS >= 40 by construction (>= the derived 35 minimum, with a
+# 5-timestep margin) -- OBS_NONE should become rare/eliminated rather than ~50%. seg_len mean
+# rises modestly (~75 -> ~92.5, +23%) as a DISCLOSED SIDE EFFECT of guaranteeing dwell, not a
+# blanket "make trajectories longer" choice -- length only grows because dwell now must.
+LEAD_IN_RANGE = (15, 35)          # timesteps of settled formation_a before the blend starts
+BLEND_DURATION_RANGE = (10, 25)   # timesteps the blend itself spans (unchanged transition physics)
+MIN_DWELL_RANGE = (40, 60)        # timesteps of settled formation_b after the blend ends -- THE FIX
+
 
 def sample_chain(rng: np.random.Generator) -> list[str]:
     num_formations = int(rng.integers(1, 5))
@@ -62,9 +101,12 @@ def build_long_sequence_labeled(chain: list[str], rng: np.random.Generator, spre
         seg_labels.append([chain[0]] * seg_len)
     else:
         for i in range(len(chain) - 1):
-            seg_len = int(rng.integers(50, 101))
-            blend_start = int(seg_len * rng.uniform(0.3, 0.5))
-            blend_end = int(seg_len * rng.uniform(0.55, 0.75))
+            lead_in = int(rng.integers(*LEAD_IN_RANGE))
+            blend_duration = int(rng.integers(*BLEND_DURATION_RANGE))
+            dwell = int(rng.integers(*MIN_DWELL_RANGE))
+            blend_start = lead_in
+            blend_end = lead_in + blend_duration
+            seg_len = blend_end + dwell
             seg = generate_transition_sequence(chain[i], chain[i + 1], n_timesteps=seg_len,
                                                spread=spread, noise_std=noise_std,
                                                blend_start=blend_start, blend_end=blend_end, rng=rng)

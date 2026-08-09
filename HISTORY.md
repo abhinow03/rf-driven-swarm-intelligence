@@ -300,3 +300,24 @@ guard can't catch), not bridge/reduction logic (0%). A minimal, no-retrain, eval
 generator fix was specified (decouple destination dwell time from segment length) but not
 implemented this turn, per instruction — diagnosis and recommendation only. Full detail:
 `docs/V5_LOG.md`'s 2026-08-09 step-24 entry, `docs/CEILING.md`'s matching update.
+
+## Experiment, 2026-08-09: the dwell-time generator fix, implemented — chain-2 more than doubles
+
+Implemented the checkpoint's dwell fix specified above, in `scripts/phase0_decompose_failures.py`'s
+`build_long_sequence_labeled` only (dwell now sampled directly, `~Uniform{40,60}`, guaranteeing
+the derived `D>=35` minimum; `seg_len` now derived from `lead_in+blend_duration+dwell` instead
+of sampled first). Same frozen checkpoint, zero retraining.
+
+| | before | after |
+|---|---|---|
+| chain-2 OBS_NONE | 50.6% | **0.0%** |
+| chain-2 pair accuracy | 18.7% | **39.9%** |
+| chain-2 threat accuracy | 31.9% | **72.1%** |
+
+**Two disclosed caveats, not hidden:** (1) a new, self-inflicted ~15%-of-failures SOURCE-
+observability gap — `LEAD_IN_RANGE` wasn't derived with the same rigor as the dwell fix, a
+trivial next fix; (2) train/eval blend-timing overlap is STILL 0.0% after the fix, flagged as
+the likely driver of the now-dominant (80%, up from 55%) genuine STGT-misclassification
+failure mode. **Decision: A — observability fix successful, remaining problem primarily STGT
+recognition**, with those two caveats as the concrete next steps. Full detail:
+`docs/V5_LOG.md`'s 2026-08-09 step-25 entry, `docs/CEILING.md`'s matching update.

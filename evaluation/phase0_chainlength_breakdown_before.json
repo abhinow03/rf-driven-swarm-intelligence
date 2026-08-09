@@ -1,0 +1,51 @@
+{
+  "1": {
+    "robust_false": {
+      "n": 258,
+      "n_pair_correct": 226,
+      "pair_accuracy": 0.875968992248062,
+      "threat_accuracy": 0.8798449612403101,
+      "intent_accuracy": 0.875968992248062,
+      "action_accuracy": 0.8798449612403101
+    },
+    "robust_true": {
+      "n": 258,
+      "n_pair_correct": 228,
+      "pair_accuracy": 0.8837209302325582,
+      "threat_accuracy": 0.8875968992248062,
+      "intent_accuracy": 0.8837209302325582,
+      "action_accuracy": 0.8875968992248062
+    }
+  },
+  "2": {
+    "robust_false": {
+      "n": 251,
+      "n_pair_correct": 47,
+      "pair_accuracy": 0.18725099601593626,
+      "threat_accuracy": 0.3187250996015936,
+      "intent_accuracy": 0.20318725099601595,
+      "action_accuracy": 0.29880478087649404
+    },
+    "robust_true": {
+      "n": 251,
+      "n_pair_correct": 47,
+      "pair_accuracy": 0.18725099601593626,
+      "threat_accuracy": 0.398406374501992,
+      "intent_accuracy": 0.21115537848605578,
+      "action_accuracy": 0.3665338645418327
+    }
+  },
+  "3+": {
+    "n": 491,
+    "bucket_A_false_positive_rate_robust_false": 0.08961303462321792,
+    "bucket_A_false_positive_rate_robust_true": 0.08961303462321792,
+    "bucket_distribution": {
+      "C": 445,
+      "C_robust": 63,
+      "A": 44,
+      "A_robust": 44,
+      "B": 2,
+      "B_robust": 0
+    }
+  }
+}
