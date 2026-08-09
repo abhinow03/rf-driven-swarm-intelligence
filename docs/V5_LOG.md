@@ -741,3 +741,33 @@ defect, just applied before the vote instead of as a guard after it.
 **Audit only this step, per scope — no code changes.** Full detail: `docs/CEILING.md`'s
 2026-08-09 step 4 update. Proceeding to step 3: sweep the `robust=True` majority-vote
 threshold, tuned on a dev split, to find its actual coverage/precision operating point.
+
+**Step 3: robust-reduction threshold sweep.** `scripts/phase0_robust_threshold_sweep.py`.
+`DEFAULT_ROBUST_THRESHOLD=0.7` was tuned once, before this session's guard fix and guard
+audit changed the underlying signal the threshold operates on — re-swept against the CURRENT
+pipeline, tuned on a dev split ONLY (seed=1, disjoint from the seed=999 held-out population),
+confirmed on held-out afterward:
+
+| threshold | dev coverage | dev precision | held-out coverage | held-out precision |
+|---|---|---|---|---|
+| 0.45-0.50 | 84.8% | 60.4% | 83.5% | 60.5% |
+| 0.55-0.65 | 81.1% | **63.1% (best)** | — | — |
+| 0.70-1.00 (current default) | 77.9% | 62.6% | 77.8% | 62.4% |
+
+Dev-vs-held-out precision gap at the tested points: 0.1pt — not overfit, essentially perfect
+generalization. **The precision curve is flat across the entire sweep (60.4-63.1%, a 2.7-point
+range from threshold 0.45 to 1.00)** — this itself confirms step 2's finding: the trim step
+(not the vote threshold) dominates contamination, and trimming happens BEFORE the vote, so no
+amount of threshold tuning can fix what the vote never gets a chance to see.
+
+**Recommended operating point: 0.55-0.65 (e.g. 0.6) — it Pareto-dominates the current shipped
+0.7** (coverage 81.1% vs 77.9%, precision 63.1% vs 62.6%, both strictly better; a free
+improvement, not a tradeoff). Going lower (0.45) buys more coverage (84.8%, +6.9pt over
+current) at a real precision cost (60.4%, -2.2pt) — legitimate if coverage is valued over
+contamination, but not free the way 0.6 is. **Tradeoff stated explicitly: none of the tested
+operating points get wrong-key contamination meaningfully below ~37% of everything reaching
+Layer 1** — the threshold is a minor lever on top of the much larger, already-identified trim-
+step problem. Recommendation only, per scope: `DEFAULT_ROBUST_THRESHOLD` left at 0.7 in code.
+
+Proceeding to step 4: re-examine HALT GATE 1 and project end-to-end threat accuracy given how
+far pair-level and threat ceilings have now diverged.

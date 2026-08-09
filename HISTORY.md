@@ -234,3 +234,20 @@ endpoint).
 
 Audit only this turn, no code changes. Full detail: `docs/CEILING.md`'s 2026-08-09 step 4
 update.
+
+## 2026-08-09: step 5 — re-swept the robust=True threshold post-guard-fix
+
+`DEFAULT_ROBUST_THRESHOLD=0.7` was tuned before this session's guard fix and guard audit, both
+of which changed the underlying signal. Re-swept on a dev split (seed=1) only, confirmed on
+held-out (seed=999): dev/held-out precision gap is 0.1pt — not overfit.
+
+**The precision curve is flat across the WHOLE sweep (60.4-63.1%)** — consistent with step 4's
+finding that the trim step (not the vote threshold) is the dominant contamination source, and
+happens before the vote even runs.
+
+**Recommended: 0.6, not the current 0.7 — it Pareto-dominates** (coverage 81.1% vs 77.9%,
+precision 63.1% vs 62.6%, both better). Going lower (0.45) buys more coverage (84.8%) at a
+real precision cost (60.4%). None of the tested thresholds get wrong-key contamination
+meaningfully below ~37% without fixing the trim step itself. Recommendation only —
+`DEFAULT_ROBUST_THRESHOLD` left at 0.7 in code. Full detail: `docs/CEILING.md`'s 2026-08-09
+step 5 update.

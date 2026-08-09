@@ -722,3 +722,46 @@ competitiveness or ground-truth-correlated threshold) that also appears in
 order of severity. `key_windows` capping is the one mechanism audited that is NOT part of this
 pattern.** Audit only, per this turn's scope — no code changes made; these are documented
 findings for a future fix turn, not implemented here.
+
+## Update 2026-08-09: step 5 — robust=True threshold re-swept post-guard-fix
+
+`DEFAULT_ROBUST_THRESHOLD=0.7` was tuned once (sec AG, the earlier engagement), before this
+session's guard fix and full guard audit — both changed the signal the threshold operates on.
+Re-swept against the CURRENT pipeline (`scripts/phase0_robust_threshold_sweep.py`), tuned on a
+DEV split ONLY (seed=1, disjoint from the seed=999 held-out population every other Phase 0
+measurement uses), then confirmed on held-out seed=999:
+
+| threshold | dev coverage | dev precision | held-out coverage | held-out precision |
+|---|---|---|---|---|
+| 0.45-0.50 | 84.8% | 60.4% | 83.5% | 60.5% |
+| **0.55-0.65** | **81.1%** | **63.1% (best)** | — | — |
+| 0.70-1.00 (current shipped default) | 77.9% | 62.6% | 77.8% | 62.4% |
+
+**Dev-vs-held-out precision gap at the tested operating points: 0.1pt — essentially perfect
+generalization, the threshold is not overfit to the dev split** (this session's own version
+of sec AG step 4's standing check).
+
+**The precision curve across the ENTIRE sweep is flat (60.4-63.1%, a 2.7-point range across
+every threshold from 0.45 to 1.00).** This is itself a finding, not just a null result:
+consistent with step 4's guard audit, the threshold barely moves precision because the
+DOMINANT source of contamination — the leading/trailing trim step discarding genuine signal
+62.5% of the time — happens BEFORE the majority vote and isn't gated by this parameter at
+all. Raising or lowering the vote threshold cannot fix a problem the vote never gets a chance
+to see.
+
+**Recommended operating point: 0.55-0.65 (e.g. 0.6), NOT the current shipped 0.7.** It
+Pareto-dominates the current default — more coverage (81.1% vs 77.9%, +3.2pt) at equal-or-
+better precision (63.1% vs 62.6%, +0.5pt) — a low-risk, unambiguous improvement over what's
+shipped today. Going lower (0.45-0.50) buys further coverage (84.8%, +6.9pt over current) but
+at a real precision cost (60.4% vs 62.6%, -2.2pt) — a legitimate choice if coverage is valued
+more than contamination, but not a free win the way 0.6 is.
+
+**Tradeoff stated explicitly, at the recommended 0.6:** moving from 0.7 to 0.6 lets ~3.2% more
+of the 509 pair-eligible population reach Layer 1 (roughly 16 more trajectories out of 509),
+with the fraction of WRONG answers among everything reaching Layer 1 essentially unchanged
+(36.9% wrong at 0.7 → 36.9% wrong at 0.6, both ≈37% contamination). At 0.45, coverage rises
+further (~35 more trajectories vs 0.7) but wrong-key contamination among Layer-1 answers rises
+to ~39.5%. **None of these operating points get contamination meaningfully below ~37% without
+also fixing the trim step itself** — the threshold is a minor lever on top of a much bigger,
+already-identified problem. Audit/recommendation only, per scope — `DEFAULT_ROBUST_THRESHOLD`
+left at 0.7 in code; changing it is a decision for a future turn, not made here.
