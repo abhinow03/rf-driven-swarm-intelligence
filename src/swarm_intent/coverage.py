@@ -108,12 +108,26 @@ def classify_observation(predictions: list[dict], calibrator=None,
     if summary["n_genuinely_oov_windows"] > 0 and not robust_recovered:
         guard_reasons.append("oov_name")
     if len(known_history) == 2 and not robust_recovered:
-        # bridge_predictions' own `dominant` is max(..., key=count) -- ties are
-        # broken silently/arbitrarily by set iteration order, which is exactly
-        # the case a caller should NOT trust as "the" dominant formation. Count
-        # directly rather than trusting summary["dominant_formation"].
-        counts = [p["formation_type"] for p in predictions if p["formation_type"] in BASE_FORMATIONS]
-        if counts.count(key[0]) == counts.count(key[1]):
+        # 2026-08-09 fix (docs/CEILING.md, V5 Phase 0 guard audit): this guard
+        # claims to test whether summary["dominant_formation"] actually
+        # CONTRADICTS the derived (from,to) key -- a genuine reason to distrust
+        # which formation is "dominant". The previous check (a raw window-count
+        # TIE between key[0] and key[1]) tested something unrelated: `key` is
+        # derived from TEMPORAL ORDER (the first/last distinct formation in
+        # formation_history), never from window counts, so a count tie says
+        # nothing about whether `key` itself is trustworthy -- a clean, obviously
+        # -correct 2/2 split ties exactly as easily as a genuinely uncertain one.
+        # Audited: 100% spurious when this was the sole blocker (n=4). Fixed to
+        # test the actual claim: does dominant_formation differ from BOTH members
+        # of key? By this point known_history already has <=2 distinct real
+        # formations (the len(known_history)>=3 check above already routed 3+ to
+        # bucket C), and summary["dominant_formation"] is the mode over the SAME
+        # valid-formations set known_history was built from -- so it is PROVABLY
+        # always one of key[0]/key[1] here. This condition is therefore correctly
+        # unreachable on real input: kept as a defensive check (matches the
+        # "no_rules_key" pattern above), not deleted, in case a future change to
+        # the upstream invariants makes it reachable again.
+        if summary["dominant_formation"] not in (key[0], key[1]):
             guard_reasons.append("dominant_history_contradiction")
     if summary["n_ambiguous_dispersed_converging_windows"] > 0:
         guard_reasons.append("dispersed_converging_ambiguity")

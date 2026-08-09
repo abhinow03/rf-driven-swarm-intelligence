@@ -894,3 +894,53 @@ tests pass.
 | threat ceiling | 52.3% → **57.2%** | 58.7% → **63.1%** |
 
 Proceeding to step 2b: fix `dominant_history_contradiction`, isolated commit, same protocol.
+
+## 2026-08-09: step 2b — fix `dominant_history_contradiction` (isolated commit)
+
+**Current triggering condition** (`coverage.py`, before this fix):
+```python
+counts = [p["formation_type"] for p in predictions if p["formation_type"] in BASE_FORMATIONS]
+if counts.count(key[0]) == counts.count(key[1]):
+    guard_reasons.append("dominant_history_contradiction")
+```
+**What it CLAIMS to test** (per its name): whether `summary["dominant_formation"]` actually
+CONTRADICTS the derived `(from, to)` key — a genuine reason to distrust which formation is
+"dominant". **What it ACTUALLY tests**: a raw window-COUNT tie between `key[0]` and `key[1]`.
+`key` is derived from TEMPORAL ORDER (the first/last distinct formation in
+`formation_history`), never from window counts — a clean, obviously-correct 2/2 split ties
+exactly as easily as a genuinely uncertain one. The two quantities are unrelated; the guard
+was never testing what its name claims. Audited: 100% spurious when this was the sole
+blocker (n=4).
+
+**Fix**: test the actual claim — does `summary["dominant_formation"]` differ from BOTH
+members of `key`? **Proof this is now correctly unreachable, not silently broken**: by the
+point this guard runs, `known_history` already has ≤2 distinct real formations (the
+`len(known_history)>=3` check earlier already routes 3+ to bucket C), and
+`dominant_formation` is the mode over the SAME `valid_formations` set `known_history` is
+built from — so `dominant_formation ∈ set(known_history) == {key[0], key[1]}` always. This
+condition can never fire via `classify_observation`'s own code path. Kept as a defensive
+check (matches the existing `no_rules_key` pattern) rather than deleted, in case a future
+change to the upstream invariants makes it reachable again — not hidden, documented in the
+code with the proof sketch above.
+
+**Regression test**: the exact previously-spurious shape (a 2/2 window-count tie) now
+resolves to bucket A with the guard absent, replacing the old assertion that it should
+guard. A genuine dominant/key contradiction cannot be hand-built through the public
+function (proven above), so — unlike step 2a's OOV case — there is no "still fires
+correctly" counterpart test to add; its absence is the correct, audited outcome, documented
+in the test's own docstring so a future reader doesn't mistake it for a gap. 137/137 tests
+pass.
+
+**Re-measured pair + threat ceiling, same seed=999 population, only this fix changed
+(cumulative with step 2a):**
+
+| | robust=False (shipped) | robust=True @ 0.7 |
+|---|---|---|
+| bucket A | 323 → **339** | 420 → **431** |
+| pair-level accuracy | 50.9% → **53.6%** | 52.1% → **54.0%** |
+| threat ceiling | 57.2% → **60.3%** | 63.1% → **65.2%** |
+
+`robust=True`'s threat ceiling (65.2%) is now close to the 70% floor — still short, but the
+gap has closed substantially across steps 2a+2b combined (52.3% → 65.2%, +12.9pt, from two
+guard fixes and zero retraining). Proceeding to step 3: fix the `robust=True` trim step,
+the last of the three defects the full guard audit found.

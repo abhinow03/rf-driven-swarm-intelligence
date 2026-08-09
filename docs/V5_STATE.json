@@ -1,7 +1,7 @@
 {
   "phase": 0,
-  "step": 18,
-  "status": "Discipline-catch turn continuing. Step 2a: fixed oov_name guard -- it conflated genuine OOV names with the classifier's own valid 'transitioning' class under the same UNKNOWN_FORMATION sentinel (structurally, genuine OOV is impossible from this 8-class model). Now tests n_genuinely_oov_windows (excludes 'transitioning') instead of n_unknown_windows. Re-measured: pair 47.0%->50.9% (robust=False), threat 52.3%->57.2%. 137/137 tests pass. Proceeding to step 2b: dominant_history_contradiction.",
+  "step": 19,
+  "status": "Discipline-catch turn continuing. Step 2b: fixed dominant_history_contradiction -- it tested a raw window-count tie (unrelated to key, which is derived from temporal order not counts). Fixed to test the actual claim (dominant_formation vs key mismatch), which is now PROVABLY unreachable given upstream invariants -- kept as a defensive check, not deleted. Re-measured (cumulative w/ step 2a): pair 50.9%->53.6% (robust=False), threat 57.2%->60.3%; robust=True threat 63.1%->65.2%, closing in on the 70% floor. 137/137 tests pass. Proceeding to step 3: fix the robust=True trim step.",
   "halts_cleared": [],
   "results": {
     "phase0_step1_first_check": {
@@ -820,6 +820,27 @@
         }
       },
       "history_doc": "docs/V5_LOG.md (2026-08-09 step 2a entry)"
+    },
+    "phase0_step19_fix_dominant_history_contradiction": {
+      "checked": "2026-08-09T02:45:00Z",
+      "claimed_condition": "summary['dominant_formation'] contradicts the derived key",
+      "actual_condition_before_fix": "counts.count(key[0]) == counts.count(key[1]) -- a raw window-count tie, unrelated to key (derived from temporal order, not counts)",
+      "fix": "summary['dominant_formation'] not in (key[0], key[1]) -- tests the literal claim",
+      "unreachability_proof": "known_history always has <=2 distinct formations by this point (len>=3 already routed to bucket C); dominant_formation is the mode over the same valid_formations set known_history is built from; therefore dominant_formation is provably always in {key[0], key[1]}. Condition is correctly unreachable, kept defensively (matches the no_rules_key pattern), not deleted.",
+      "regression_test": "the previously-spurious 2/2 count-tie shape now resolves to bucket A with the guard absent (was incorrectly guarded to B before).",
+      "remeasurement_cumulative_with_step2a": {
+        "robust_false": {
+          "bucket_A": 339,
+          "pair_accuracy": 0.536,
+          "threat_ceiling": 0.603
+        },
+        "robust_true": {
+          "bucket_A": 431,
+          "pair_accuracy": 0.54,
+          "threat_ceiling": 0.652
+        }
+      },
+      "history_doc": "docs/V5_LOG.md (2026-08-09 step 2b entry)"
     }
   },
   "started": "2026-08-07T19:47:41Z"

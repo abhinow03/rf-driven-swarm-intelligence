@@ -1,0 +1,51 @@
+{
+  "robust=False (shipped default)": {
+    "n_eligible": 509,
+    "n_no_recovery": 170,
+    "pair_accuracy": 0.5363457760314342,
+    "threat_accuracy": 0.6031434184675835,
+    "intent_accuracy": 0.5442043222003929,
+    "action_accuracy": 0.593320235756385,
+    "threat_confusion": {
+      "high|no_recovery": 56,
+      "high|high": 64,
+      "medium|medium": 118,
+      "medium|no_recovery": 59,
+      "low|low": 125,
+      "critical|no_recovery": 10,
+      "low|no_recovery": 45,
+      "high|low": 13,
+      "high|medium": 10,
+      "low|high": 1,
+      "medium|low": 5,
+      "low|medium": 2,
+      "medium|high": 1
+    }
+  },
+  "robust=True (majority-vote reduction)": {
+    "n_eligible": 509,
+    "n_no_recovery": 78,
+    "pair_accuracy": 0.5402750491159135,
+    "threat_accuracy": 0.6522593320235757,
+    "intent_accuracy": 0.5520628683693517,
+    "action_accuracy": 0.6365422396856582,
+    "threat_confusion": {
+      "high|no_recovery": 26,
+      "high|high": 66,
+      "medium|medium": 134,
+      "low|low": 132,
+      "critical|no_recovery": 4,
+      "medium|no_recovery": 29,
+      "low|no_recovery": 19,
+      "high|low": 37,
+      "low|high": 11,
+      "high|medium": 14,
+      "medium|low": 16,
+      "low|medium": 11,
+      "critical|high": 5,
+      "medium|high": 4,
+      "critical|medium": 1
+    }
+  },
+  "source": "evaluation/phase0_ceiling_v5_domfix.json"
+}
