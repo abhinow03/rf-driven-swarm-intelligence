@@ -252,7 +252,8 @@ def generate_dataset(
             labels.append(label_map[formation])
 
     diag = {"n_hops_sampled": 0, "n_examples_kept": 0, "n_excluded": 0,
-            "examples": []}  # each: (frac_a, frac_blend, frac_b, label_str)
+            "examples": [],           # each: (frac_a, frac_blend, frac_b, label_str)
+            "excluded_examples": []}  # each: (frac_a, frac_blend, frac_b, formation_a, formation_b)
 
     if include_transitions and n_transition > 0:
         names.append(TRANSITION_CLASS)
@@ -328,6 +329,7 @@ def generate_dataset(
                 lbl = _assign(frac_a, frac_blend, frac_b, regime_label, content_majority_labeling)
                 if lbl is None:
                     diag["n_excluded"] += 1
+                    diag["excluded_examples"].append((frac_a, frac_blend, frac_b, f_a, f_b))
                     continue
                 seq_label = {"pure_a": label_map[f_a], "pure_b": label_map[f_b],
                             "transitioning": trans_label}[lbl]
@@ -336,7 +338,7 @@ def generate_dataset(
                 seqs.append(seq)
                 labels.append(seq_label)
                 diag["n_examples_kept"] += 1
-                diag["examples"].append((frac_a, frac_blend, frac_b, lbl))
+                diag["examples"].append((frac_a, frac_blend, frac_b, lbl, f_a, f_b))
 
             else:
                 if corrected_blend_timing:
@@ -364,13 +366,14 @@ def generate_dataset(
                     lbl = _assign(frac_a, frac_blend, frac_b, regime_label, content_majority_labeling)
                     if lbl is None:
                         diag["n_excluded"] += 1
+                        diag["excluded_examples"].append((frac_a, frac_blend, frac_b, f_a, f_b))
                         continue
                     seq_label = {"pure_a": label_map[f_a], "pure_b": label_map[f_b],
                                 "transitioning": trans_label}[lbl]
                     seqs.append(seq[start:end])
                     labels.append(seq_label)
                     diag["n_examples_kept"] += 1
-                    diag["examples"].append((frac_a, frac_blend, frac_b, lbl))
+                    diag["examples"].append((frac_a, frac_blend, frac_b, lbl, f_a, f_b))
 
     if return_diagnostics:
         return np.array(seqs), np.array(labels), names, diag

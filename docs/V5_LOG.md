@@ -1916,3 +1916,36 @@ run range 0.700-1.000 (never below the 0.70 floor, by construction); `transition
 designed under real generation, not just in the abstract derivation.
 
 Raw output: `evaluation/phase0_generator_port_diagnostics.txt`.
+
+### Step 35: characterizing the 51.2% exclusion — biased, or just ambiguous content?
+
+`scripts/phase0_generator_port_diagnostics.py` extended to record `(frac_a, frac_blend,
+frac_b, formation_a, formation_b)` for every EXCLUDED window too, not just kept ones
+(`generate_dataset`'s `diag["excluded_examples"]`, new this turn). Same run as step 34
+(seed=7, n_transition=300) — a breakdown of that exact population, not a fresh sample.
+
+**Where in content-space**: excluded windows have `max(frac_a,frac_b)` in [0.340, 0.680]
+(median 0.540) and `frac_blend` in [0.180, 0.460] (median 0.300) — entirely inside the
+"near-miss" gap between the two thresholds (0.70 pure / 0.20+plurality transitioning), not
+spread uniformly across the full space and not concentrated in some unexpected corner. The
+2D histogram mass sits at `own_frac` 0.4-0.7 x `blend_frac` 0.2-0.4 — genuinely 3-way-mixed
+windows near a blend boundary, exactly the case the design intends to exclude rather than
+mislabel. No pathological shape found.
+
+**By formation** (appears as either `a` or `b`): exclusion rate is essentially flat —
+min 49.0% (`column`), max 53.7% (`v_shape`), **std 1.8 points**. No formation is being
+starved.
+
+**By ordered pair** (42 pairs): mean 51.1%, **std 5.1 points**, range 40.0%
+(`diamond`->`dispersed`) to 66.7% (`encirclement`->`shield`). Wider spread than the
+per-formation view, but every pair still yields a nonzero share of kept windows (worst case
+still keeps 1/3), and per-pair sample sizes at this diagnostic scale are small (9-43
+kept+excluded per pair) — a 5.1-point std across 42 small samples is consistent with sampling
+noise, not necessarily a true per-pair effect. `(encirclement, shield)` is the one pair worth
+watching at full scale, named explicitly rather than left as a future unexplained gap, but
+not severe enough to block scaling on its own.
+
+**Verdict: no severe systematic exclusion bias.** The 51.2% rate is explained by genuine
+content ambiguity concentrated exactly where expected, formation-level exclusion is
+near-uniform, and the one pair-level outlier found is disclosed and small enough to monitor
+rather than block on. Raw output: `evaluation/phase0_exclusion_bias.txt`.

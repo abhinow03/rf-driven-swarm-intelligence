@@ -47,7 +47,7 @@ def analyze(name, examples, n_hops, n_excluded):
          f"exclusion_rate={n_excluded/(n_excluded+len(examples)):.1%})" if (n_excluded + len(examples)) else name)
     print("=" * 100)
     by_label = {}
-    for frac_a, frac_blend, frac_b, lbl in examples:
+    for frac_a, frac_blend, frac_b, lbl, _f_a, _f_b in examples:
         by_label.setdefault(lbl, []).append((frac_a, frac_blend, frac_b))
 
     n_disagree = 0

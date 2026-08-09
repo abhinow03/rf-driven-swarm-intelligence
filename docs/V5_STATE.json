@@ -1,6 +1,6 @@
 {
   "phase": 0,
-  "step": 34,
+  "step": 35,
   "status": "Steps 31-34 COMPLETE (docs/V5_LOG.md): designed and implemented the generator port as 3 independently toggleable flags on generate_dataset() (corrected_blend_timing, windowed_examples, content_majority_labeling), all default False, bit-identical to pre-change generator with all off. Step 31: labeling rule derived (PURE_LABEL_THRESHOLD=0.70 reuses eval MIN_DWELL/LEAD_IN derivation; TRANS_LABEL_MIN_BLEND_FRAC=0.20 separately derived since 0.70 would make transitioning unreachable; windows meeting neither bar excluded not mislabeled). Step 32: checked model.py/config.py directly -- PositionalEncoding slices (T<=50 works, T>50 crashes), max_seq_len=50 increase is a full architecture change out of scope; decision: keep examples at 50, window long hops via WINDOW_SIZE=50/STRIDE=10 (same grid as sliding_window_inference). Step 33: implemented, 140/140 tests pass, bit-identical verified. Step 34: 4 diagnostic datasets (n_transition=300 each) -- combined port shows 0/886 (0.0%) label-content disagreement, thresholds hold empirically. Two findings disclosed: windowing-only reintroduces 4.1% mislabeling (must pair with content-majority labeling); combined port has genuine 51.2% exclusion rate (yield cost, ~2x oversampling needed at full scale). READINESS VERDICT: labels pass sanity checks, ready for full-scale generation + STGT retraining -- NOT STARTED this session, per instruction. Recorded in HISTORY.md as its own standalone decision (part 2), distinct from Strategy 7 and from the prior decision (whether to port). STOPPING per instruction after step 5/34.",
   "status_pre_step27": "Chain-2 generator-fix consolidation + source symmetrization COMPLETE (docs/V5_LOG.md step 26, 3 commits: 3591051 consolidation, 9061392 symmetrization, + docs/results commit -- no STGT/bridge/LLM code changed, same frozen strategy-5 checkpoint). Step 1: consolidated 5 duplicate copies of build_long_sequence_labeled into src/swarm_intent/eval_trajectories.py (4 live scripts now import it; 1 frozen historical-reproduction script deliberately excluded, documented); confirmed NONE of the 5 ever fed real STGT training data (that's generate_dataset(), separate code). Step 2: symmetrized LEAD_IN_RANGE (15,35)->(30,50), derived the same way as MIN_DWELL_RANGE (lead_in>=25 for a window-0 majority, no stride-slack term since window 0 always starts at t=0); verified source OBS_NONE 16.3%->0.0% at population scale. Step 3: chain-2 pair_acc 39.9%->65.8% (was 18.7% original baseline, 3.5x total), threat_acc 72.1%->76.3%. Step 4: refined 20-case taxonomy found 100% boundary/blend-timing-concentrated failures, 0% clean (non-boundary) misses. Step 5: chain-3+ false-positive rate investigated and RESOLVED (12.6%->1.8%, below the 9.0% original baseline, p=4.3e-07) -- mechanistically explained by the shared per-hop sampling loop, not a bug, not noise (dest-only-fix regression itself was only borderline significant, p=0.062). Step 6: blend-timing overlap re-checked, STILL 0.0%, unchanged across 3 independent formula revisions. Decision: B -- blend-timing distribution mismatch is the dominant remaining issue, should be fixed BEFORE any STGT training/capacity change, not decision A as step 25 projected. STOPPING per instruction -- no STGT retraining, no blend-distribution fix started this session.",
   "halts_cleared": [],
@@ -1244,6 +1244,35 @@
       "threshold_validation": "pure_a/pure_b own-content fractions in combined run: 0.700-1.000 (never below 0.70 floor); transitioning: 0.360-0.460 (never below 0.20 floor) -- confirmed empirically, not just derived",
       "log_doc": "docs/V5_LOG.md step 34",
       "raw_data": "evaluation/phase0_generator_port_diagnostics.txt"
+    },
+    "phase0_step35_exclusion_bias": {
+      "checked": "2026-08-10T02:00:00Z",
+      "script": "scripts/phase0_exclusion_bias.py, same seed=7/n_transition=300 population as step 34",
+      "content_space": "excluded windows: max(frac_a,frac_b) in [0.340,0.680] median 0.540, frac_blend in [0.180,0.460] median 0.300 -- concentrated in the near-miss gap between thresholds, not uniform, not a pathological corner",
+      "by_formation": {
+        "min": 0.49,
+        "max": 0.537,
+        "std": 0.018,
+        "verdict": "essentially flat, no formation starved"
+      },
+      "by_pair": {
+        "mean": 0.511,
+        "std": 0.051,
+        "min_pair": [
+          "diamond",
+          "dispersed",
+          0.4
+        ],
+        "max_pair": [
+          "encirclement",
+          "shield",
+          0.667
+        ],
+        "verdict": "wider spread but every pair still yields kept windows; small per-pair N (9-43), consistent with sampling noise; encirclement->shield named for monitoring, not blocking"
+      },
+      "verdict": "no severe systematic exclusion bias",
+      "log_doc": "docs/V5_LOG.md step 35",
+      "raw_data": "evaluation/phase0_exclusion_bias.txt"
     }
   },
   "started": "2026-08-07T19:47:41Z"

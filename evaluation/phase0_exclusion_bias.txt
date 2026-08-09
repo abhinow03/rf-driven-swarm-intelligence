@@ -1,0 +1,81 @@
+kept=886  excluded=928  exclusion_rate=51.2%
+
+====================================================================================================
+WHERE excluded windows sit in (own-content-fraction, blend-fraction) space
+====================================================================================================
+max(frac_a,frac_b): min=0.340 p25=0.460 median=0.540 p75=0.620 max=0.680
+frac_blend:         min=0.180 p25=0.240 median=0.300 p75=0.360 max=0.460
+
+2D histogram, max(frac_a,frac_b) row x frac_blend column (n=928):
+own\blend   [0.0,0.1)  [0.1,0.2)  [0.2,0.3)  [0.3,0.4)  [0.4,0.5)
+[0.0,0.1)           0          0          0          0          0
+[0.1,0.2)           0          0          0          0          0
+[0.2,0.3)           0          0          0          0          0
+[0.3,0.4)           0          0         22         37          0
+[0.4,0.5)           0         15        132         69         53
+[0.5,0.6)           0         21        161         94         81
+[0.6,0.7)           0         15        107        121          0
+(concentration near own_frac in [0.5,0.7) confirms exclusions are near-miss pure
+ windows -- close to confident but not quite -- not uniformly spread across the space)
+
+====================================================================================================
+BY FORMATION PAIR (a,b): excluded share vs kept share, and single-formation totals
+====================================================================================================
+pair                           kept   excl  excl_rate
+('column', 'converging')         16     14     46.7%
+('column', 'diamond')            23     22     48.9%
+('column', 'dispersed')          33     35     51.5%
+('column', 'encirclement')       10     12     54.5%
+('column', 'shield')             19     23     54.8%
+('column', 'v_shape')            22     21     48.8%
+('converging', 'column')         36     33     47.8%
+('converging', 'diamond')        21     21     50.0%
+('converging', 'dispersed')      24     30     55.6%
+('converging', 'encirclement')      9      9     50.0%
+('converging', 'shield')         19     22     53.7%
+('converging', 'v_shape')        33     43     56.6%
+('diamond', 'column')            19     17     47.2%
+('diamond', 'converging')        23     16     41.0%
+('diamond', 'dispersed')         33     22     40.0%
+('diamond', 'encirclement')      18     15     45.5%
+('diamond', 'shield')            16     23     59.0%
+('diamond', 'v_shape')           28     34     54.8%
+('dispersed', 'column')          23     24     51.1%
+('dispersed', 'converging')      27     28     50.9%
+('dispersed', 'diamond')         23     18     43.9%
+('dispersed', 'encirclement')     21     19     47.5%
+('dispersed', 'shield')          23     19     45.2%
+('dispersed', 'v_shape')         26     32     55.2%
+('encirclement', 'column')       31     25     44.6%
+('encirclement', 'converging')     27     32     54.2%
+('encirclement', 'diamond')      16     19     54.3%
+('encirclement', 'dispersed')     17     14     45.2%
+('encirclement', 'shield')        9     18     66.7%
+('encirclement', 'v_shape')      15     16     51.6%
+('shield', 'column')             15     15     50.0%
+('shield', 'converging')         23     26     53.1%
+('shield', 'diamond')            20     20     50.0%
+('shield', 'dispersed')          20     23     53.5%
+('shield', 'encirclement')       30     33     52.4%
+('shield', 'v_shape')            25     29     53.7%
+('v_shape', 'column')            15     11     42.3%
+('v_shape', 'converging')        17     23     57.5%
+('v_shape', 'diamond')           19     24     55.8%
+('v_shape', 'dispersed')         14     17     54.8%
+('v_shape', 'encirclement')      16     18     52.9%
+('v_shape', 'shield')            12     13     52.0%
+
+per-pair exclusion rate: min=40.0% mean=51.1% max=66.7% std=5.1%
+most-excluded pair: ('encirclement', 'shield') (66.7%)  least-excluded pair: ('diamond', 'dispersed') (40.0%)
+
+Per single formation (appearing as EITHER a or b), kept vs excluded counts:
+formation         kept   excl  excl_rate
+v_shape            242    281     53.7%
+encirclement       219    230     51.2%
+column             262    252     49.0%
+diamond            259    251     49.2%
+dispersed          284    281     49.7%
+converging         275    297     51.9%
+shield             231    264     53.3%
+
+per-formation exclusion rate spread: min=49.0% max=53.7% std=1.8%
