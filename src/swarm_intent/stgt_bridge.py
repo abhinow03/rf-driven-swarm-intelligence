@@ -103,6 +103,19 @@ DISALLOWED_CHARACTERS = ("⚠",)  # "⚠" -- never in any training prompt
 DEFAULT_ROBUST_THRESHOLD = 0.7
 ALL_UNKNOWN_FALLBACK_MARGIN = 0.05
 
+# 2026-08-09 fix (docs/CEILING.md, V5 Phase 0 guard audit step 4): the leading/
+# trailing trim below used to strip EVERY "transitioning"-classified edge window
+# unconditionally, trusting each one's label at face value -- audited at 62.5%
+# spurious (the window's TRUE label was a real, settled formation the classifier
+# simply got wrong, not genuine blend geometry). Reuses the SAME 0.6 confidence
+# bar the `low_confidence` guard already uses elsewhere in this codebase (not a
+# freshly-tuned value -- no new parameter, no new mining-split tuning question):
+# only a "transitioning" read the model itself is reasonably confident about is
+# trusted enough to strip. A genuine out-of-vocabulary name (never "transitioning"
+# itself) is stripped regardless of confidence -- it was never trustworthy for
+# voting purposes either way.
+TRIM_CONFIDENCE_THRESHOLD = 0.6
+
 
 def _validate_formation(name) -> str:
     """Anything not in BASE_FORMATIONS (this INCLUDES the classifier's own
@@ -165,6 +178,18 @@ def _robust_all_unknown_fallback(predictions, n_stripped_leading, n_stripped_tra
     return (top1, [top1], [], info)
 
 
+def _trustworthy_to_strip(predictions, i):
+    """2026-08-09 fix: is window i's UNKNOWN_FORMATION read trustworthy enough
+    to strip as genuine edge noise? A "transitioning" read is only trusted when
+    the model itself is reasonably confident about it (TRIM_CONFIDENCE_THRESHOLD,
+    reusing the existing low_confidence bar); a genuine out-of-vocabulary name
+    (never "transitioning") is stripped regardless of confidence -- it was never
+    trustworthy for voting purposes either way."""
+    if predictions[i]["formation_type"] == TRANSITION_CLASS:
+        return predictions[i]["formation_confidence"] >= TRIM_CONFIDENCE_THRESHOLD
+    return True
+
+
 def _robust_reduce(formation_seq, predictions, threshold):
     """Steps 2a+2b (AUDIT.md sec AG): strip leading/trailing UNKNOWN_FORMATION
     runs, then reduce what's left by MAJORITY vote (modal non-unknown formation
@@ -173,13 +198,22 @@ def _robust_reduce(formation_seq, predictions, threshold):
     Falls back to _robust_all_unknown_fallback (2c) if nothing survives
     stripping. Returns (dominant, formation_history, transitions, info) or
     None if not robustly resolvable -- callers must fall back to the original
-    unanimity-based reduction on None, not treat it as "abstain"."""
+    unanimity-based reduction on None, not treat it as "abstain".
+
+    2026-08-09 fix: stripping used to trust every UNKNOWN_FORMATION edge window
+    unconditionally (62.5% spurious, audited -- the window's true label was
+    often a real, settled formation the classifier simply misclassified as
+    "transitioning", not genuine blend geometry). Now only strips a window
+    `_trustworthy_to_strip` accepts; an untrusted low-confidence "transitioning"
+    window is left in `stripped` as UNKNOWN_FORMATION, where `modal()` below
+    already correctly excludes it from voting and counts it against that half's
+    plurality fraction -- the safe fallback, never a wrong confident answer."""
     n = len(formation_seq)
     start = 0
-    while start < n and formation_seq[start] == UNKNOWN_FORMATION:
+    while start < n and formation_seq[start] == UNKNOWN_FORMATION and _trustworthy_to_strip(predictions, start):
         start += 1
     end = n
-    while end > start and formation_seq[end - 1] == UNKNOWN_FORMATION:
+    while end > start and formation_seq[end - 1] == UNKNOWN_FORMATION and _trustworthy_to_strip(predictions, end - 1):
         end -= 1
     stripped = formation_seq[start:end]
     n_lead, n_trail = start, n - end

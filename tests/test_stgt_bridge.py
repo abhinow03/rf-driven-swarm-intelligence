@@ -233,5 +233,37 @@ class TestNoDisallowedCharacters(unittest.TestCase):
         self.assertNotIn("⚠", context)
 
 
+class TestRobustReductionTrim(unittest.TestCase):
+    """2026-08-09 fix: robust=True's leading/trailing trim used to strip every
+    UNKNOWN_FORMATION edge window unconditionally (62.5% spurious, audited --
+    the window's true label was often a real, settled formation the classifier
+    simply misclassified, not genuine blend geometry). Now only strips a
+    "transitioning" read the model is reasonably confident about."""
+
+    def test_confident_trailing_transitioning_is_still_stripped(self):
+        preds = ([make_window("column", t, confidence=0.9) for t in (0, 10, 20, 30)]
+                + [make_window("transitioning", 40, confidence=0.9)])
+        _, summary, _ = bridge_predictions(preds, robust=True, robust_threshold=0.7)
+        self.assertIsNotNone(summary["robust_reduction"])
+        self.assertEqual(summary["robust_reduction"]["stripped_trailing"], 1)
+        self.assertEqual(summary["dominant_formation"], "column")
+        self.assertEqual(summary["formation_history"], ["column"])
+
+    def test_low_confidence_trailing_transitioning_is_not_stripped(self):
+        preds = ([make_window("column", t, confidence=0.9) for t in (0, 10, 20, 30, 40, 50)]
+                + [make_window("transitioning", 60, confidence=0.3)])
+        _, summary, _ = bridge_predictions(preds, robust=True, robust_threshold=0.5)
+        self.assertIsNotNone(summary["robust_reduction"])
+        self.assertEqual(summary["robust_reduction"]["stripped_trailing"], 0)
+
+    def test_genuine_oov_trailing_window_is_still_stripped_regardless_of_confidence(self):
+        preds = ([make_window("column", t, confidence=0.9) for t in (0, 10, 20, 30)]
+                + [make_window("phalanx", 40, confidence=0.1)])
+        _, summary, _ = bridge_predictions(preds, robust=True, robust_threshold=0.7)
+        self.assertIsNotNone(summary["robust_reduction"])
+        self.assertEqual(summary["robust_reduction"]["stripped_trailing"], 1)
+        self.assertEqual(summary["dominant_formation"], "column")
+
+
 if __name__ == "__main__":
     unittest.main()

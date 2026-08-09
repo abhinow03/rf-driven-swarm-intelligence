@@ -1,7 +1,7 @@
 {
   "phase": 0,
-  "step": 19,
-  "status": "Discipline-catch turn continuing. Step 2b: fixed dominant_history_contradiction -- it tested a raw window-count tie (unrelated to key, which is derived from temporal order not counts). Fixed to test the actual claim (dominant_formation vs key mismatch), which is now PROVABLY unreachable given upstream invariants -- kept as a defensive check, not deleted. Re-measured (cumulative w/ step 2a): pair 50.9%->53.6% (robust=False), threat 57.2%->60.3%; robust=True threat 63.1%->65.2%, closing in on the 70% floor. 137/137 tests pass. Proceeding to step 3: fix the robust=True trim step.",
+  "step": 20,
+  "status": "Discipline-catch turn continuing. Step 3: fixed robust=True's trim step -- only strips a 'transitioning' edge window when the model's own confidence >=0.6 (reused low_confidence bar, no new tunable parameter). Precision within bucket A: 63.8%->65.8% (the 13 removed cases were ALL wrong before, 0 correct lost). Session-cumulative (2a+2b+3): threat ceiling 58.7%->64.6%, precision within bucket A 62.4%->65.8%. 140/140 tests pass. All 3 guard-audit fixes from the full guard audit now complete. Proceeding to step 4: RULES coverage report (chain-3+), report only.",
   "halts_cleared": [],
   "results": {
     "phase0_step1_first_check": {
@@ -841,6 +841,28 @@
         }
       },
       "history_doc": "docs/V5_LOG.md (2026-08-09 step 2b entry)"
+    },
+    "phase0_step20_fix_trim_step": {
+      "checked": "2026-08-09T03:00:00Z",
+      "fix": "_robust_reduce's leading/trailing strip loop now only strips a 'transitioning' edge window when formation_confidence >= TRIM_CONFIDENCE_THRESHOLD (0.6, reused from the existing low_confidence guard bar -- no new tunable parameter). Genuine OOV names still stripped regardless of confidence.",
+      "regression_tests": "tests/test_stgt_bridge.py TestRobustReductionTrim: confident transitioning window still stripped; low-confidence one is not; genuine OOV still stripped regardless of confidence.",
+      "remeasurement_robust_true": {
+        "bucket_A_before": 431,
+        "bucket_A_after": 418,
+        "precision_within_A_before": 0.638,
+        "precision_within_A_after": 0.658,
+        "threat_ceiling_before": 0.652,
+        "threat_ceiling_after": 0.646,
+        "note": "the 13 trajectories removed from bucket A were ALL wrong before (275 correct unchanged) -- fix precisely targets over-trusted wrong recoveries. Threat ceiling moves slightly down because this ceiling script scores bucket C as wrong, not crediting Layer 3 for the newly-excluded cases -- expected, not a regression."
+      },
+      "session_cumulative_robust_true": {
+        "threat_ceiling_start": 0.587,
+        "threat_ceiling_now": 0.646,
+        "precision_within_A_start": 0.624,
+        "precision_within_A_now": 0.658
+      },
+      "robust_false_unaffected": "confirmed unchanged (53.6% pair / 60.3% threat) -- never calls _robust_reduce",
+      "history_doc": "docs/V5_LOG.md (2026-08-09 step 3 entry)"
     }
   },
   "started": "2026-08-07T19:47:41Z"

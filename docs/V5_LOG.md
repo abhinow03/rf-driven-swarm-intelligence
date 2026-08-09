@@ -944,3 +944,63 @@ pass.
 gap has closed substantially across steps 2a+2b combined (52.3% → 65.2%, +12.9pt, from two
 guard fixes and zero retraining). Proceeding to step 3: fix the `robust=True` trim step,
 the last of the three defects the full guard audit found.
+
+## 2026-08-09: step 3 — fix the `robust=True` trim step (isolated commit)
+
+**Current behaviour**: `_robust_reduce`'s leading/trailing strip loop removed EVERY
+`UNKNOWN_FORMATION` edge window unconditionally, trusting each individual "transitioning"
+classification at face value. Audited: 62.5% (105/168) of trimmed windows had a true label
+that was NOT `"transitioning"` — the classifier simply misclassified a real, settled window,
+and the trim step compounded that error by discarding it as if it were genuine blend
+geometry rather than noise.
+
+**Fix**: only strip a `"transitioning"`-classified edge window when the model's OWN
+`formation_confidence` for it is `>= TRIM_CONFIDENCE_THRESHOLD` (0.6 — REUSED from the
+existing `low_confidence` guard's bar elsewhere in this codebase, not a freshly-tuned value,
+so this introduces no new parameter needing its own mining-split tuning question). A
+genuine out-of-vocabulary name (never `"transitioning"` itself) is still stripped regardless
+of confidence — it was never trustworthy for voting purposes either way. An untrusted
+low-confidence window is left in place as `UNKNOWN_FORMATION`, where `modal()`'s existing
+logic already excludes it from voting and correctly counts it against that half's plurality
+fraction — the safe fallback (a case that no longer resolves), never a confidently wrong one.
+
+**Regression tests** (`tests/test_stgt_bridge.py`, new `TestRobustReductionTrim`): a
+confident trailing `"transitioning"` window is still stripped (unchanged behaviour);
+a low-confidence one is now left unstripped; a genuine OOV edge window is still stripped
+regardless of confidence. 140/140 tests pass.
+
+**Re-measured, same seed=999 population.** `robust=False` is untouched by this fix (it never
+calls `_robust_reduce`) — its numbers are unchanged from step 2b (53.6% pair / 60.3% threat),
+a useful consistency check. `robust=True`:
+
+| | before this fix (2a+2b only) | after this fix |
+|---|---|---|
+| bucket A | 431 | **418** (-13) |
+| pair-level accuracy (of 509) | 54.0% | 54.0% (unchanged count, smaller base) |
+| threat ceiling | 65.2% | 64.6% (-0.6pt) |
+| **precision WITHIN bucket A** | **63.8% (275/431)** | **65.8% (275/418)** |
+
+**The 13 trajectories the fix removes from bucket A were ALL wrong before (275 correct stays
+exactly 275) — the fix precisely targets and excludes over-trusted wrong recoveries without
+losing a single correct one.** The headline "62.4%" this whole exercise started from (before
+ANY of this session's three fixes) is now **65.8%** — a real, if modest, improvement in the
+metric that actually matters for safety (how often a "guaranteed" Layer-1 answer is right).
+The overall threat-ceiling number moves slightly the OTHER way (65.2%→64.6%) because this
+ceiling script scores bucket C as "no recovery = wrong" — it doesn't credit Layer 3 for
+picking up the newly-excluded cases, so a correct trade (fewer confident wrong answers, more
+honest abstentions) reads as a flat-to-slightly-down number in a metric that was never
+designed to reward that trade. This is expected and does not indicate a regression; it's the
+`current_ceiling` term from sec AH's end-to-end identity losing a little while the
+`precision × P(bucket C)` term (Layer 3's opportunity) gains — a fuller accounting needs a
+fresh end-to-end projection, not attempted this turn (out of the 4 steps this turn scoped).
+
+**Session-cumulative result across all three fixes (2a + 2b + 3), robust=True:**
+
+| | session start | after all 3 fixes |
+|---|---|---|
+| bucket A | 396 | **418** |
+| threat ceiling | 58.7% | **64.6%** |
+| precision within bucket A | 62.4% | **65.8%** |
+
+Proceeding to step 4: report on RULES coverage for chain-3+ (report only, no RULES
+extension).
