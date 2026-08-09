@@ -804,3 +804,24 @@ gate should simply be declared cleared by relabeling it.
 
 `docs/V5_STATE.json` updated (`phase=0, step=15`). Stopping here per this turn's explicit
 "STOP after step 4" instruction — no further strategy or code change without direction.
+
+## 2026-08-09: step 0 of the next turn — discipline catch, not a result
+
+**Verified first, not assumed:** `grep DEFAULT_ROBUST_THRESHOLD src/swarm_intent/stgt_bridge.py`
+confirms it is still `0.7` in code. The step-5 recommendation (0.6) was never applied —
+nothing to revert in the shipped default itself.
+
+**The process concern is real regardless, and is recorded as a discipline catch, not
+walked back as a wrong number.** Step 5's sweep selected the threshold using ONLY the dev
+split (seed=1) and used the seed=999 ceiling battery strictly for a post-hoc confirmation
+check — that specific selection step did not read eval-set metrics. But seed=1 had ALREADY
+been used once before, in the earlier engagement (sec AG), to make a threshold-tuning
+decision — reusing the same nominally-"held-out" split for a SECOND independent round of
+threshold selection is exactly the kind of repeated-reuse that erodes a dev split's validity
+over time, even when any single round's selection step is clean in isolation. Treating
+seed=1 as an evergreen, reusable "the dev split" rather than retiring it after its first use
+is the actual discipline lapse — not a specific number being wrong, a norm being loose.
+**Standing rule going forward: a dev/mining split is used for tuning ONCE, then retired; a
+fresh, disjoint seed is cut for each new tuning question.** Proceeding to step 1: cut a
+proper mining split and re-run the threshold sweep there, never touching seed=1 or seed=999
+for selection again.

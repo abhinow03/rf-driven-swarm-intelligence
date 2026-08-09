@@ -1,7 +1,7 @@
 {
   "phase": 0,
-  "step": 15,
-  "status": "HALT_GATE_1 re-examination COMPLETE (this turn's 4 steps done). Chain-length-2 confirmed still broken (6.0%) but 60% is a windowing artefact, not a bridge bug. Full guard audit found 2 more guards of the dispersed_converging defect class (dominant_history_contradiction 100% spurious-when-sole, oov_name 69% spurious/20 answers blocked) plus a defective robust=True trim step (62.5% spurious). Threshold re-swept, recommend 0.6 over shipped 0.7 (Pareto-dominates). End-to-end threat accuracy projected at ~61.6-62.3% central estimate (58.3-64.4% sensitivity range) -- does not clear 70% under any tested assumption. Verdict: 70% stated in PAIR-LEVEL terms is the wrong gate now that pair (47.0%) and threat (52.3%) ceilings have diverged; recommend restating the gate in end-to-end threat-accuracy terms. Numeric floor is a policy decision, not set here. STOPPING per explicit instruction -- no further strategy or code change without direction.",
+  "step": 16,
+  "status": "New turn started: discipline audit + guard fixes + reporting, no training. Step 0: verified DEFAULT_ROBUST_THRESHOLD is still 0.7 in code (never applied) -- nothing to revert. Recorded the real process concern as a discipline catch: seed=1 was reused across TWO separate threshold-tuning rounds (sec AG, then step 5), which erodes a dev split's validity even though each individual selection step only read dev metrics. Standing rule: a mining/dev split is used once then retired. Proceeding to step 1: cut a fresh mining split.",
   "halts_cleared": [],
   "results": {
     "phase0_step1_first_check": {
@@ -747,6 +747,13 @@
       "verdict": "Even the most optimistic projection (64.4%) does not clear a 70% floor. The actual question -- is 70% stated in pair-level terms still the right gate -- has a clear answer: no, it measures the wrong quantity now that pair-level (47.0%) and threat-level (52.3%) ceilings have diverged, and will keep diverging as pair-level-specific fixes land (RULES' 49-pair-to-4-threat structure guarantees threat-level doesn't move 1:1 with pair-level). Recommend restating the gate in end-to-end threat-accuracy terms; the numeric floor itself is a policy decision this projection informs but does not set -- the central estimate (~62%) is short of 70% under either metric.",
       "ceiling_doc": "docs/CEILING.md (2026-08-09 step 6 update)",
       "history_doc": "HISTORY.md"
+    },
+    "phase0_step16_discipline_catch": {
+      "checked": "2026-08-09T02:00:00Z",
+      "verified": "grep DEFAULT_ROBUST_THRESHOLD src/swarm_intent/stgt_bridge.py -> 0.7, unchanged",
+      "finding": "Not a code revert -- a process finding. seed=1 was used for threshold tuning twice across two different sessions (sec AG originally, then step 5 of the prior turn), which is repeated reuse of a nominally-held-out split even though neither individual round's selection logic read the seed=999 ceiling battery.",
+      "standing_rule": "A dev/mining split is used for tuning ONCE, then retired. A fresh, disjoint seed is cut for each new tuning question going forward.",
+      "history_doc": "docs/V5_LOG.md (2026-08-09 step 0 entry)"
     }
   },
   "started": "2026-08-07T19:47:41Z"
