@@ -1,7 +1,7 @@
 {
   "phase": 0,
-  "step": 16,
-  "status": "New turn started: discipline audit + guard fixes + reporting, no training. Step 0: verified DEFAULT_ROBUST_THRESHOLD is still 0.7 in code (never applied) -- nothing to revert. Recorded the real process concern as a discipline catch: seed=1 was reused across TWO separate threshold-tuning rounds (sec AG, then step 5), which erodes a dev split's validity even though each individual selection step only read dev metrics. Standing rule: a mining/dev split is used once then retired. Proceeding to step 1: cut a fresh mining split.",
+  "step": 17,
+  "status": "Discipline-catch turn continuing. Step 1 (fresh mining split, seed=2024, single-use): REVERSES the prior sweep's conclusion. Current default (0.7) has the highest precision in the sweep (63.3%); the candidate threshold (0.55) does NOT dominate on either the mining split or held-out confirmation. dominates_current_default=False. Per instruction, DEFAULT_ROBUST_THRESHOLD stays at 0.7 -- not changed. The discipline catch in step 0 was validated: the earlier '0.6 is free' conclusion was an artefact of a doubly-reused dev split. Proceeding to step 2: fix oov_name and dominant_history_contradiction, one commit each.",
   "halts_cleared": [],
   "results": {
     "phase0_step1_first_check": {
@@ -754,6 +754,43 @@
       "finding": "Not a code revert -- a process finding. seed=1 was used for threshold tuning twice across two different sessions (sec AG originally, then step 5 of the prior turn), which is repeated reuse of a nominally-held-out split even though neither individual round's selection logic read the seed=999 ceiling battery.",
       "standing_rule": "A dev/mining split is used for tuning ONCE, then retired. A fresh, disjoint seed is cut for each new tuning question going forward.",
       "history_doc": "docs/V5_LOG.md (2026-08-09 step 0 entry)"
+    },
+    "phase0_step17_mining_split_sweep": {
+      "checked": "2026-08-09T02:15:00Z",
+      "method": "scripts/phase0_mining_split_sweep.py, MINING_SEED=2024 (fresh, single-use, disjoint from training=42/ceiling=999/retired-dev=1), n=500 (252 pair-eligible), held-out seed=999 n=1000 (509 pair-eligible) for confirmation only.",
+      "mining_sweep_summary": {
+        "0.45-0.50": {
+          "coverage": 0.833,
+          "precision": 0.6
+        },
+        "0.55-0.65": {
+          "coverage": 0.734,
+          "precision": 0.622
+        },
+        "0.70-1.00_current_default": {
+          "coverage": 0.702,
+          "precision": 0.633,
+          "note": "best precision in sweep"
+        }
+      },
+      "chosen_by_selection_rule": {
+        "threshold": 0.55,
+        "mining_coverage": 0.734,
+        "mining_precision": 0.622
+      },
+      "dominates_current_default": false,
+      "held_out_confirmation": {
+        "at_0.55": {
+          "coverage": 0.784,
+          "precision": 0.619
+        },
+        "at_current_default_0.7": {
+          "coverage": 0.778,
+          "precision": 0.624
+        }
+      },
+      "verdict": "REVERSES the prior (now-retired seed=1) sweep's conclusion -- on a properly fresh, single-use split, the current default 0.7 has the best precision in the sweep and the candidate threshold does not dominate it on mining OR held-out. DEFAULT_ROBUST_THRESHOLD left unchanged at 0.7. Validates the step 0 discipline catch: the earlier conclusion was an artefact of dev-split reuse, not a robust finding.",
+      "history_doc": "docs/V5_LOG.md (2026-08-09 step 1 entry)"
     }
   },
   "started": "2026-08-07T19:47:41Z"

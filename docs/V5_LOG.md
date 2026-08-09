@@ -825,3 +825,30 @@ is the actual discipline lapse — not a specific number being wrong, a norm bei
 fresh, disjoint seed is cut for each new tuning question.** Proceeding to step 1: cut a
 proper mining split and re-run the threshold sweep there, never touching seed=1 or seed=999
 for selection again.
+
+**Step 1: fresh mining split, re-run.** `scripts/phase0_mining_split_sweep.py`,
+`MINING_SEED=2024` — disjoint from training (42), the standing ceiling battery (999), and
+the now-retired dev split (1). Single-use: spent after this sweep, not to be reused for
+future tuning decisions either.
+
+| threshold | mining coverage | mining precision |
+|---|---|---|
+| 0.45-0.50 | 83.3% | 60.0% |
+| 0.55-0.65 | 73.4% | 62.2% |
+| **0.70-1.00 (current shipped default)** | 70.2% | **63.3% (best in sweep)** |
+
+**The result reverses the prior (now-retired) sweep's conclusion. On this fresh split, the
+current shipped default (0.7) has the HIGHEST precision of the entire sweep, not the lowest.**
+The selection rule (lowest threshold within 3pt of max precision) picks 0.55 — but 0.55 has
+BOTH lower precision (62.2% vs 63.3%) AND, once confirmed on held-out, does not beat 0.7 either
+(held-out: 0.55 → 78.4% coverage / 61.9% precision vs 0.7 → 77.8% coverage / 62.4% precision —
+0.55 trades precision for coverage, not a free win). **`dominates_current_default: False`,
+computed and checked directly, not eyeballed.**
+
+**Per the explicit instruction ("if 0.6 still dominates, we ship it legitimately"), the
+converse applies: it does not dominate on a properly single-use split, so `DEFAULT_ROBUST_
+THRESHOLD` stays at 0.7. Not changed.** This is exactly the outcome the discipline catch in
+step 0 exists to protect against: the earlier "0.6 is a free improvement" conclusion was an
+artefact of testing against a dev split reused past its first legitimate use, not a robust
+property of the pipeline. Good process caught a real difference in outcome, not just a
+theoretical risk.
