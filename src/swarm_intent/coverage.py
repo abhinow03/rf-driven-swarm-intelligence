@@ -98,7 +98,14 @@ def classify_observation(predictions: list[dict], calibrator=None,
         return _c("no_rules_key")
 
     guard_reasons = []
-    if summary["n_unknown_windows"] > 0 and not robust_recovered:
+    # 2026-08-09 fix (docs/CEILING.md, V5 Phase 0 guard audit): "oov_name" claims to
+    # flag a genuinely out-of-vocabulary formation name -- a real data-integrity
+    # concern -- but n_unknown_windows also counts the classifier's own valid
+    # "transitioning" class (a normal, expected read for a blend/transient window,
+    # not a vocabulary problem). Audited: 69% spurious when this was the sole
+    # blocker. n_genuinely_oov_windows (stgt_bridge.py) excludes "transitioning",
+    # so this now only fires on what the guard's name actually claims.
+    if summary["n_genuinely_oov_windows"] > 0 and not robust_recovered:
         guard_reasons.append("oov_name")
     if len(known_history) == 2 and not robust_recovered:
         # bridge_predictions' own `dominant` is max(..., key=count) -- ties are

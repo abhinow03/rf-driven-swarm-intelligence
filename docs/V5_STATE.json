@@ -1,7 +1,7 @@
 {
   "phase": 0,
-  "step": 17,
-  "status": "Discipline-catch turn continuing. Step 1 (fresh mining split, seed=2024, single-use): REVERSES the prior sweep's conclusion. Current default (0.7) has the highest precision in the sweep (63.3%); the candidate threshold (0.55) does NOT dominate on either the mining split or held-out confirmation. dominates_current_default=False. Per instruction, DEFAULT_ROBUST_THRESHOLD stays at 0.7 -- not changed. The discipline catch in step 0 was validated: the earlier '0.6 is free' conclusion was an artefact of a doubly-reused dev split. Proceeding to step 2: fix oov_name and dominant_history_contradiction, one commit each.",
+  "step": 18,
+  "status": "Discipline-catch turn continuing. Step 2a: fixed oov_name guard -- it conflated genuine OOV names with the classifier's own valid 'transitioning' class under the same UNKNOWN_FORMATION sentinel (structurally, genuine OOV is impossible from this 8-class model). Now tests n_genuinely_oov_windows (excludes 'transitioning') instead of n_unknown_windows. Re-measured: pair 47.0%->50.9% (robust=False), threat 52.3%->57.2%. 137/137 tests pass. Proceeding to step 2b: dominant_history_contradiction.",
   "halts_cleared": [],
   "results": {
     "phase0_step1_first_check": {
@@ -791,6 +791,35 @@
       },
       "verdict": "REVERSES the prior (now-retired seed=1) sweep's conclusion -- on a properly fresh, single-use split, the current default 0.7 has the best precision in the sweep and the candidate threshold does not dominate it on mining OR held-out. DEFAULT_ROBUST_THRESHOLD left unchanged at 0.7. Validates the step 0 discipline catch: the earlier conclusion was an artefact of dev-split reuse, not a robust finding.",
       "history_doc": "docs/V5_LOG.md (2026-08-09 step 1 entry)"
+    },
+    "phase0_step18_fix_oov_name": {
+      "checked": "2026-08-09T02:30:00Z",
+      "claimed_condition": "a genuinely out-of-vocabulary formation name appeared",
+      "actual_condition_before_fix": "n_unknown_windows > 0 -- conflates genuine OOV with the classifier's own valid 'transitioning' class",
+      "fix": "stgt_bridge.py computes n_genuinely_oov_windows (formation_type not in BASE_FORMATIONS and != TRANSITION_CLASS) separately; coverage.py's oov_name guard now checks that field instead of n_unknown_windows.",
+      "regression_tests": [
+        "tests/test_stgt_bridge.py: n_genuinely_oov_windows correctness (0 for transitioning, 1 for real OOV)",
+        "tests/test_coverage.py: transitioning blip now resolves to bucket A; genuine OOV name still guards to bucket B"
+      ],
+      "remeasurement": {
+        "robust_false": {
+          "bucket_A_before": 294,
+          "bucket_A_after": 323,
+          "pair_accuracy_before": 0.47,
+          "pair_accuracy_after": 0.509,
+          "threat_ceiling_before": 0.523,
+          "threat_ceiling_after": 0.572
+        },
+        "robust_true": {
+          "bucket_A_before": 396,
+          "bucket_A_after": 420,
+          "pair_accuracy_before": 0.485,
+          "pair_accuracy_after": 0.521,
+          "threat_ceiling_before": 0.587,
+          "threat_ceiling_after": 0.631
+        }
+      },
+      "history_doc": "docs/V5_LOG.md (2026-08-09 step 2a entry)"
     }
   },
   "started": "2026-08-07T19:47:41Z"

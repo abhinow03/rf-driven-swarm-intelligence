@@ -852,3 +852,45 @@ step 0 exists to protect against: the earlier "0.6 is a free improvement" conclu
 artefact of testing against a dev split reused past its first legitimate use, not a robust
 property of the pipeline. Good process caught a real difference in outcome, not just a
 theoretical risk.
+
+## 2026-08-09: step 2a — fix `oov_name` (isolated commit)
+
+**Current triggering condition** (`coverage.py`, `classify_observation`, before this fix):
+```python
+if summary["n_unknown_windows"] > 0 and not robust_recovered:
+    guard_reasons.append("oov_name")
+```
+**What it CLAIMS to test** (per its own name): a genuinely out-of-vocabulary formation
+name appeared — a real data-integrity concern, the kind of signal that should make a
+downstream consumer distrust the read. **What it ACTUALLY tests**: `n_unknown_windows`
+(`stgt_bridge.py`) counts BOTH a genuine OOV name AND the classifier's own valid
+`"transitioning"` class under the same `UNKNOWN_FORMATION` sentinel — `_validate_formation`
+maps anything outside `BASE_FORMATIONS` (which includes `"transitioning"`, a real, expected,
+trained class) to the identical sentinel. The guard fires on either indiscriminately. Given
+the model has exactly 8 output classes (7 base + `"transitioning"`), a genuinely OOV string
+is structurally impossible from THIS classifier at all — every one of the 8.3% firings
+measured in the full guard audit was, by construction, a `"transitioning"` read, not a data-
+integrity issue.
+
+**Fix**: `stgt_bridge.py` now computes `n_genuinely_oov_windows` separately —
+`formation_type not in BASE_FORMATIONS and formation_type != TRANSITION_CLASS` — and the
+guard in `coverage.py` now checks that field instead of the broader `n_unknown_windows`
+(which keeps its existing, broader meaning for narrative-text purposes, unchanged).
+`n_unknown_windows` is unaffected; existing tests asserting its value pass unchanged.
+
+**Regression tests** (`tests/test_stgt_bridge.py`, `tests/test_coverage.py`): confirmed
+`n_genuinely_oov_windows == 0` for a `"transitioning"` blip (was miscounted as 1 before this
+fix) and `== 1` for a real unrecognized name; confirmed a `"transitioning"`-blip trajectory
+that structurally reduces cleanly now reaches bucket A (was incorrectly guarded to bucket B);
+confirmed a genuinely-OOV-named blip is still correctly guarded to bucket B, unchanged. 137/137
+tests pass.
+
+**Re-measured pair + threat ceiling, same seed=999 population, only this fix changed:**
+
+| | robust=False (shipped) | robust=True @ 0.7 |
+|---|---|---|
+| bucket A | 294 → **323** | 396 → **420** |
+| pair-level accuracy | 47.0% → **50.9%** | 48.5% → **52.1%** |
+| threat ceiling | 52.3% → **57.2%** | 58.7% → **63.1%** |
+
+Proceeding to step 2b: fix `dominant_history_contradiction`, isolated commit, same protocol.

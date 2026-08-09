@@ -47,8 +47,22 @@ class TestBucketA(unittest.TestCase):
 
 
 class TestBucketBGuards(unittest.TestCase):
-    def test_oov_blip_amid_clean_transition_is_guardable(self):
+    def test_transitioning_blip_amid_clean_transition_is_now_resolvable(self):
+        """2026-08-09 fix: a "transitioning" read is the classifier's own valid
+        class, not a genuinely out-of-vocabulary name -- this must no longer
+        trigger oov_name (it did before the fix; that was the bug)."""
         preds = [make_window("column", 0), make_window("transitioning", 10),
+                make_window("diamond", 20), make_window("diamond", 30)]
+        r = classify_observation(preds)
+        self.assertEqual(r["bucket"], BUCKET_A)
+        self.assertNotIn("oov_name", r["guard_reasons"])
+        self.assertEqual(r["rules_key"], ("column", "diamond"))
+
+    def test_genuinely_oov_name_amid_clean_transition_is_still_guardable(self):
+        """The guard's actual claimed purpose -- a real out-of-vocabulary
+        formation name (not the classifier's own "transitioning" class) --
+        must still fire."""
+        preds = [make_window("column", 0), make_window("phalanx", 10),
                 make_window("diamond", 20), make_window("diamond", 30)]
         r = classify_observation(preds)
         self.assertEqual(r["bucket"], BUCKET_B)

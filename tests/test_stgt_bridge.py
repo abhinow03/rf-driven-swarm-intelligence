@@ -107,6 +107,10 @@ class TestAbstentionOnUnknownFormation(unittest.TestCase):
         _, summary, key_windows = bridge_predictions(preds)
         self.assertEqual(summary["dominant_formation"], "column")
         self.assertEqual(summary["n_unknown_windows"], 1)
+        # 2026-08-09 fix: "transitioning" is the classifier's own VALID class, not a
+        # genuinely out-of-vocabulary name -- n_genuinely_oov_windows must be 0 here
+        # even though n_unknown_windows (the broader, narrative-only count) is 1.
+        self.assertEqual(summary["n_genuinely_oov_windows"], 0)
         self.assertIn(UNKNOWN_FORMATION, summary["formation_history"])
         # no transition pair should mention "transitioning" on either side
         for t in summary["transitions_detected"]:
@@ -120,6 +124,9 @@ class TestAbstentionOnUnknownFormation(unittest.TestCase):
         preds = [make_window("v_shape", 0), make_window("not_a_real_formation", 10)]
         _, summary, _ = bridge_predictions(preds)
         self.assertEqual(summary["n_unknown_windows"], 1)
+        # a genuinely unrecognized name (unlike "transitioning") IS a real
+        # data-integrity concern -- n_genuinely_oov_windows must count it.
+        self.assertEqual(summary["n_genuinely_oov_windows"], 1)
 
     def test_all_unknown_triggers_full_abstention(self):
         preds = [make_window("transitioning", 0), make_window("transitioning", 10)]

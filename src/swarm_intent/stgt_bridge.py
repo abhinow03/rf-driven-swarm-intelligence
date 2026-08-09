@@ -91,7 +91,7 @@ import numpy as np
 
 from . import context_spec as spec
 from .calibration import AbsoluteCalibrator, Calibrator
-from .config import BASE_FORMATIONS
+from .config import BASE_FORMATIONS, TRANSITION_CLASS
 
 UNKNOWN_FORMATION = "unknown"
 DEFAULT_MAX_KEY_WINDOWS = 10
@@ -274,6 +274,16 @@ def bridge_predictions(predictions: list[dict], calibrator: "Calibrator | None" 
 
     formation_seq = [_validate_formation(p["formation_type"]) for p in predictions]
     n_unknown = sum(1 for f in formation_seq if f == UNKNOWN_FORMATION)
+    # 2026-08-09 fix (docs/CEILING.md, "oov_name guard"): n_unknown counts BOTH a
+    # genuinely out-of-vocabulary formation name (real data-integrity concern) AND
+    # the classifier's own valid "transitioning" class (a normal, expected read for
+    # a blend/transient window, not a vocabulary problem at all) under the SAME
+    # sentinel. The oov_name guard's name claims to test the former; audited, it
+    # was firing on the latter (V5 Phase 0 full guard audit: 69% spurious when the
+    # sole blocker). This narrower count lets the guard test only what it claims.
+    n_genuinely_oov = sum(1 for p in predictions
+                          if p["formation_type"] not in BASE_FORMATIONS
+                          and p["formation_type"] != TRANSITION_CLASS)
 
     robust_info = None
     robust_result = _robust_reduce(formation_seq, predictions, robust_threshold) if robust else None
@@ -299,6 +309,7 @@ def bridge_predictions(predictions: list[dict], calibrator: "Calibrator | None" 
             "abstain_reason": f"all {n} window(s) classified outside BASE_FORMATIONS "
                               f"(transitioning / unrecognized) -- no reliable formation signal",
             "formation_history": formation_history, "n_windows": n, "n_unknown_windows": n_unknown,
+            "n_genuinely_oov_windows": n_genuinely_oov,
         }
         context = ("No reliable formation classification in this observation window "
                   "(every window's classification fell outside the known formation "
@@ -367,7 +378,8 @@ def bridge_predictions(predictions: list[dict], calibrator: "Calibrator | None" 
         "mean_stability": round(mean_stability, 3), "spread_dynamics": approach_summary,
         "mean_approach_rate": round(mean_approach, 3), "role_differentiation": role_flag,
         "mean_confidence": round(mean_conf, 3), "low_conf_windows": low_conf, "n_windows": n,
-        "n_unknown_windows": n_unknown, "n_ambiguous_dispersed_converging_windows": n_ambiguous,
+        "n_unknown_windows": n_unknown, "n_genuinely_oov_windows": n_genuinely_oov,
+        "n_ambiguous_dispersed_converging_windows": n_ambiguous,
         "robust_reduction": robust_info,  # None unless robust=True AND it actually recovered a pair
     }
 
