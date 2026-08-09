@@ -1,31 +1,45 @@
 """
 Step 7 of the 2026-08-09 chain-2 generator-fix experiment: after the observability fix
-(scripts/phase0_decompose_failures.py's build_long_sequence_labeled, LEAD_IN_RANGE/
+(src/swarm_intent/eval_trajectories.py's build_long_sequence_labeled, LEAD_IN_RANGE/
 BLEND_DURATION_RANGE/MIN_DWELL_RANGE), does eval's blend timing still miss every training
 regime the way scripts/phase0_chain2_blend_distributions.py found pre-fix (0.0% overlap)?
 
 Same methodology as that script (Monte Carlo, mirrors the exact sampling formulas, no GPU),
-just re-expressing the NEW decoupled lead_in/blend_duration/dwell sampling as
-(start_frac, duration_frac) of the NOW-DERIVED seg_len so it's directly comparable to the
-training regimes' realized boxes on the same axes.
+just re-expressing the decoupled lead_in/blend_duration/dwell sampling as (start_frac,
+duration_frac) of the DERIVED seg_len so it's directly comparable to the training regimes'
+realized boxes on the same axes.
+
+2026-08-09 fix (found while auditing step 26's "eval v3 (both fixes)" claim in V5_LOG.md/
+HISTORY.md): this script previously hardcoded its own copy of LEAD_IN_RANGE=(15,35) -- the
+step-25 (dest-only-fix) value -- and was never updated when step 26 symmetrized the range to
+(30,50) in the new consolidated module. The documented "eval v3 (both fixes)" row (start_frac
+[0.265,0.495], duration_frac [0.085,0.255], 0.0% overlap) was real and independently
+reproduced when re-derived with (30,50), but this committed script could not itself reproduce
+it -- running it as-is silently regenerated the superseded "eval v2" numbers instead. Now
+imports the three ranges directly from eval_trajectories.py (the single canonical source
+since step 26) instead of a hand-duplicated copy, so this can't silently drift again.
 
 Usage:
     python scripts/phase0_chain2_blend_distributions_v2.py
 """
 from __future__ import annotations
 
+import sys
+from pathlib import Path
+
 import numpy as np
 
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
+
 from phase0_chain2_blend_distributions import train_regime_fractions, summarize
+from swarm_intent.eval_trajectories import LEAD_IN_RANGE, BLEND_DURATION_RANGE, MIN_DWELL_RANGE  # noqa: E402
 
 
 def eval_hop_fractions_v2(n_draws=20000, seed=2):
-    """Mirrors the NEW scripts/phase0_decompose_failures.py build_long_sequence_labeled
-    chain>=2 sampling exactly: lead_in/blend_duration/dwell sampled directly, seg_len derived."""
+    """Mirrors src/swarm_intent/eval_trajectories.py's build_long_sequence_labeled chain>=2
+    sampling exactly (lead_in/blend_duration/dwell sampled directly, seg_len derived), using
+    that module's LIVE range constants -- always reflects whatever is currently canonical."""
     rng = np.random.default_rng(seed)
-    LEAD_IN_RANGE = (15, 35)
-    BLEND_DURATION_RANGE = (10, 25)
-    MIN_DWELL_RANGE = (40, 60)
     out = []
     for _ in range(n_draws):
         lead_in = int(rng.integers(*LEAD_IN_RANGE))
@@ -43,7 +57,8 @@ def main():
     eval_v2 = eval_hop_fractions_v2()
 
     print("=" * 100)
-    print("EVAL v2 (post observability-fix): per-hop blend timing as fraction of DERIVED seg_len")
+    print(f"EVAL (current canonical, LEAD_IN_RANGE={LEAD_IN_RANGE}): per-hop blend timing "
+         f"as fraction of DERIVED seg_len")
     print("=" * 100)
     summarize("eval v2 per-hop blend", eval_v2)
     seg_lens = [f[3] for f in eval_v2]
