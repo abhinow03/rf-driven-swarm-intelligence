@@ -4,7 +4,7 @@ V5 program, Phase 0, step 4 of the discipline-catch turn (docs/V5_LOG.md):
 no RULES key exists for them, and they are silently excluded from every
 pair-level/threat-level ceiling number reported so far. REPORT ONLY, per
 instruction -- does NOT touch RULES (extending it is HALT GATE 2, needs
-Dr. Patil's sign-off, not done here).
+the project supervisor's sign-off, not done here).
 
 Answers three questions:
   (a) the exact chain-length distribution the generator produces
@@ -113,7 +113,7 @@ def main():
     out_path.write_text(json.dumps(out, indent=2))
     print(f"\nsaved {out_path}")
     print("\nNo RULES change made -- report only, per instruction. Extending RULES is HALT GATE "
-         "2 and needs Dr. Patil's sign-off.")
+         "2 and needs the project supervisor's sign-off.")
 
 
 if __name__ == "__main__":

@@ -3,14 +3,7 @@ message: "No publication exists yet for this work. If you use this code, please 
 title: "RF-Driven Swarm Intelligence"
 type: software
 authors:
-  - family-names: Shetty
-    given-names: Aadhya S
-  - family-names: Waddinavar
-    given-names: Abhinav
-  - family-names: Prakash
-    given-names: Alisha
-  - family-names: Chiradoni
-    given-names: Sharva
+  - name: "RF-Driven Swarm Intelligence Project"
 date-released: "2026-08-09"
 url: "https://github.com/abhinow03/rf-driven-swarm-intelligence"
 license: MIT

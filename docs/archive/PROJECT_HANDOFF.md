@@ -11,8 +11,7 @@ below; nothing is backed up).
 ## 1. What this project is
 
 University capstone: **"LLM-Driven Semantic RF Analysis for Detection and Visualisation
-of UAV Swarm Communication."** Team: Aadhya S Shetty, Abhinav Waddinavar, Alisha Prakash,
-Sharva Chiradoni. Guide: Dr. Ashok Kumar Patil.
+of UAV Swarm Communication."** Team and guide names redacted for public release.
 
 **Pitch:** go from raw drone RF signals to a human-readable tactical assessment
 ("V-formation, accelerating, converging → likely attack pattern, alert operator") in
