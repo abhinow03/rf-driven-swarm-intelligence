@@ -26,6 +26,66 @@ from sklearn.model_selection import train_test_split
 from .config import Config, BASE_FORMATIONS, TRANSITION_CLASS
 from .formations import get_formation_offsets
 
+# --- corrected blend-timing / windowing / labeling constants (2026-08-10 decision, see
+# docs/V5_LOG.md steps 31-33, HISTORY.md's 2026-08-10 "port design" decision) ---
+#
+# Canonical home for LEAD_IN_RANGE/BLEND_DURATION_RANGE/MIN_DWELL_RANGE: this module, not
+# eval_trajectories.py, now that both the training path (generate_dataset, via the
+# corrected_blend_timing/windowed_examples flags below) and the evaluation path want them.
+# eval_trajectories.py imports these FROM here rather than duplicating them, closing off
+# the exact silent-drift risk the V5 program's step-26 audit found once already (a Monte
+# Carlo diagnostic script whose own hardcoded copy of these ranges went stale).
+WINDOW_SIZE = 50            # matches Config.max_seq_len -- PositionalEncoding's buffer is
+                             # sized to this; every existing checkpoint assumes it exactly.
+STRIDE = 10                 # matches sliding_window_inference's default stride.
+LEAD_IN_RANGE = (30, 50)          # timesteps of settled formation_a before the blend starts
+BLEND_DURATION_RANGE = (10, 25)   # timesteps the blend itself spans
+MIN_DWELL_RANGE = (40, 60)        # timesteps of settled formation_b after the blend ends
+
+# Window-labeling thresholds (docs/V5_LOG.md step 31 has the full derivation):
+#
+# PURE_LABEL_THRESHOLD = 0.70 (35/50): a window is labeled a PURE endpoint formation only
+# if that formation's per-timestep true content is a COMFORTABLE majority, not a bare one.
+# Reuses the exact same 35/50 figure already derived for MIN_DWELL_RANGE/LEAD_IN_RANGE
+# (docs/V5_LOG.md steps 24-26: a window needs >=26/50 timesteps of one formation for an
+# outright majority; +9 stride-slack margin gives real headroom above that minimum, 35/50 =
+# 0.70). Reusing it here is not laziness: it means "a window eval's OWN observability logic
+# would trust as reliably showing formation A" and "a window training confidently labels
+# pure-A" are THE SAME window, by construction -- train and eval agree on what "confidently
+# observed" means, not just on blend timing.
+#
+# TRANS_LABEL_MIN_BLEND_FRAC = 0.20 (10/50): "transitioning" as a label CANNOT use the same
+# 0.70 bar -- BLEND_DURATION_RANGE's own max (25 timesteps) is exactly half of WINDOW_SIZE,
+# so blend content can never reach even a bare majority (>=26/50) of any window, let alone
+# 70%. Requiring 0.70 for "transitioning" would make the label unreachable under the
+# corrected timing and silently delete the class from ported training data. Instead: a
+# window is "transitioning" if blend content is the PLURALITY of its three content types
+# (beats both pure_a and pure_b individually) AND is at least as large as the shortest
+# possible full blend region can produce (BLEND_DURATION_RANGE's own minimum, 10/50 = 0.20)
+# -- below that floor, the window is grazing a blend edge without containing a meaningful
+# chunk of it, and belongs in the EXCLUDE band, not the transitioning class.
+PURE_LABEL_THRESHOLD = 0.70
+TRANS_LABEL_MIN_BLEND_FRAC = 0.20
+
+
+def _label_window(frac_a: float, frac_blend: float, frac_b: float):
+    """Assigns ONE training label to a window from its realized per-timestep content
+    fractions (must sum to ~1.0), or returns None if the window should be EXCLUDED from
+    training rather than mislabeled. See the threshold derivations above.
+
+    Order matters: pure checks first (a window that is 70% A and 20% blend and 10% B is
+    unambiguously pure-A even though blend > TRANS_LABEL_MIN_BLEND_FRAC) -- transitioning
+    is deliberately the fallback for windows where NEITHER endpoint dominates, not a
+    competing first-class check.
+    """
+    if frac_a >= PURE_LABEL_THRESHOLD:
+        return "a"
+    if frac_b >= PURE_LABEL_THRESHOLD:
+        return "b"
+    if frac_blend >= TRANS_LABEL_MIN_BLEND_FRAC and frac_blend > frac_a and frac_blend > frac_b:
+        return "transitioning"
+    return None
+
 
 def generate_swarm_sequence(
     formation_type: str,
@@ -132,14 +192,49 @@ def generate_dataset(
     dt: float = 0.5,
     include_transitions: bool = False,
     n_transition: int = 0,
-) -> Tuple[np.ndarray, np.ndarray, List[str]]:
+    corrected_blend_timing: bool = False,
+    windowed_examples: bool = False,
+    content_majority_labeling: bool = False,
+    return_diagnostics: bool = False,
+):
     """Build the full dataset across all formations (+ optional transitions).
+
+    Three independently toggleable flags port eval_trajectories.py's corrected blend-timing
+    distribution into training (2026-08-10 decision, docs/V5_LOG.md steps 31-33; all default
+    False, reproducing the exact pre-2026-08-10 behaviour):
+
+    corrected_blend_timing   -- sample blend placement from BLEND_DURATION_RANGE (and, when
+                                 windowed_examples is also True, LEAD_IN_RANGE/MIN_DWELL_RANGE)
+                                 instead of the old 3-regime fractional scheme. When False but
+                                 windowed_examples is True, a neutral fixed seg_len (106, the
+                                 corrected range's own mean) is used with the OLD regime logic
+                                 scaled to it, so that ablation isolates windowing alone.
+    windowed_examples        -- generate a long hop and slide WINDOW_SIZE/STRIDE across it
+                                 (like sliding_window_inference), yielding zero or more 50-step
+                                 training examples per hop, instead of one direct n_timesteps
+                                 example per call. n_transition then means "hops sampled", not
+                                 "examples produced" -- see return_diagnostics.
+    content_majority_labeling -- label each example/window from its REALIZED per-timestep
+                                 content via _label_window's purity/plurality rule (may EXCLUDE
+                                 a window rather than mislabel it). When False, a window's
+                                 label is either the old regime's implied label (when
+                                 corrected_blend_timing is False) or a naive best-effort
+                                 plurality label with NO purity floor and NO exclusion (when
+                                 corrected_blend_timing is True and this is False) -- documented
+                                 as the crude fallback it is, used only to isolate the other two
+                                 flags' individual effects during ablation.
+
+    return_diagnostics: if True, also returns a dict with per-example (frac_a, frac_blend,
+    frac_b, assigned_label) for every transitioning-pool example actually kept, plus counts of
+    how many were excluded -- used by scripts/phase0_generator_port_diagnostics.py for the
+    step-4 label-sanity report. Never used by scripts/generate_data.py / train_model.py.
 
     Returns
     -------
-    X : (N, n_timesteps, 6, 3)
+    X : (N, n_timesteps or WINDOW_SIZE, 6, 3)
     y : (N,)  integer labels
     names : list[str]  index -> formation name
+    diagnostics : dict, only if return_diagnostics=True
     """
     rng = np.random.default_rng(cfg.seed)
     names = list(BASE_FORMATIONS)
@@ -156,66 +251,129 @@ def generate_dataset(
             seqs.append(seq)
             labels.append(label_map[formation])
 
+    diag = {"n_hops_sampled": 0, "n_examples_kept": 0, "n_excluded": 0,
+            "examples": []}  # each: (frac_a, frac_blend, frac_b, label_str)
+
     if include_transitions and n_transition > 0:
         names.append(TRANSITION_CLASS)
         trans_label = label_map.setdefault(TRANSITION_CLASS, len(label_map))
         pairs = [(a, b) for a in BASE_FORMATIONS for b in BASE_FORMATIONS if a != b]
+
+        def _old_regime_blend(seg_len, rng):
+            """The pre-2026-08-10 3-regime fractional scheme (see git history for its own
+            derivation), parameterized by segment length so it can be reused both at
+            n_timesteps=50 (unwindowed) and at a neutral long seg_len (windowed-only
+            ablation)."""
+            margin = max(1, int(0.10 * seg_len))
+            regime = int(rng.integers(0, 3))
+            if regime == 0:
+                blend_start = int(seg_len * rng.uniform(0.74, 0.90))
+                blend_end = int(np.clip(blend_start + seg_len * rng.uniform(0.05, 0.10),
+                                        blend_start + margin, seg_len - 1))
+            elif regime == 1:
+                blend_start = int(seg_len * rng.uniform(0.12, 0.30))
+                blend_end = int(np.clip(blend_start + seg_len * rng.uniform(0.45, 0.62),
+                                        blend_start + margin, seg_len - margin))
+            else:
+                blend_end = int(seg_len * rng.uniform(0.10, 0.26))
+                blend_start = int(np.clip(blend_end - seg_len * rng.uniform(0.05, 0.10),
+                                          1, blend_end - margin))
+            blend_start = max(1, min(blend_start, seg_len - 2))
+            blend_end = max(blend_start + 1, min(blend_end, seg_len - 1))
+            return blend_start, blend_end, regime
+
+        def _content_fracs(window_start, window_end, blend_start, blend_end):
+            """Fraction of [window_start, window_end) timesteps that are pure_a
+            (t<=blend_start), blend (blend_start<t<blend_end), pure_b (t>=blend_end) --
+            same convention eval_trajectories.py's build_long_sequence_labeled uses."""
+            n = window_end - window_start
+            ts = np.arange(window_start, window_end)
+            n_a = int(np.sum(ts <= blend_start))
+            n_b = int(np.sum(ts >= blend_end))
+            n_blend = n - n_a - n_b
+            return n_a / n, n_blend / n, n_b / n
+
+        def _assign(frac_a, frac_blend, frac_b, regime_label, use_content_rule):
+            if use_content_rule:
+                r = _label_window(frac_a, frac_blend, frac_b)
+                if r is None:
+                    return None
+                return {"a": "pure_a", "b": "pure_b", "transitioning": "transitioning"}[r]
+            if regime_label is not None:
+                return regime_label  # old regime's implied label, unchanged behaviour
+            # naive fallback (corrected_blend_timing=True, content_majority_labeling=False):
+            # bare plurality, no purity floor, no exclusion -- deliberately crude, isolates
+            # the OTHER two flags' effects rather than being a real labeling proposal.
+            best = max(("a", frac_a), ("transitioning", frac_blend), ("b", frac_b), key=lambda kv: kv[1])[0]
+            return {"a": "pure_a", "b": "pure_b", "transitioning": "transitioning"}[best]
+
         for _ in range(n_transition):
             f_a, f_b = pairs[rng.integers(len(pairs))]
             spread = rng.uniform(0.7, 1.5)
             noise = rng.uniform(0.3, 0.8)
+            diag["n_hops_sampled"] += 1
 
-            # Three blend-timing regimes (ported from upstream's own
-            # generate_transition_dataset regime logic -- see V5_LOG.md's gap 2
-            # diagnosis, 2026-08-07). A single fixed, centered blend_start=20/
-            # blend_end=30 taught the model ONLY "a full window straddling a
-            # centered blend = transitioning", with zero exposure to a window
-            # that is mostly-before or mostly-after a blend and should read as
-            # the pure endpoint formation -- exactly what every long,
-            # sliding-window-evaluated real trajectory constantly produces.
-            # Regimes 0/2 label the DOMINANT pure formation; only regime 1
-            # (blend genuinely centered) is labeled "transitioning".
-            #
-            # 2026-08-08 (strategy 5, HISTORY.md): the first version of this
-            # regime split still let up to ~35% residual pure-B content into
-            # regime-1 "transitioning" examples (and symmetrically, real blend
-            # content near the edges of regimes 0/2's "pure" examples).
-            # Diagnosed directly: false-positive "transitioning" predictions
-            # are 1.8% on fully unambiguous windows (zero blend anywhere) but
-            # 53.2% on windows within 15 steps of a genuine blend boundary --
-            # not a broad miscalibration, a too-wide grey zone at the regime
-            # boundaries. Tightened: regime 1 now requires the blend region
-            # itself to dominate the window (>=45% of n_timesteps), and
-            # regimes 0/2 push the blend further to the very edge with a
-            # short duration, so "pure" examples carry minimal genuine blend
-            # content and "transitioning" examples are blend-dominant, not
-            # just blend-containing.
-            margin = max(1, int(0.10 * n_timesteps))
-            regime = rng.integers(0, 3)
-            if regime == 0:  # blend very late, short -> cleanly mostly formation_a
-                blend_start = int(n_timesteps * rng.uniform(0.74, 0.90))
-                blend_end = int(np.clip(blend_start + n_timesteps * rng.uniform(0.05, 0.10),
-                                        blend_start + margin, n_timesteps - 1))
-                seq_label = label_map[f_a]
-            elif regime == 1:  # blend dominates the window -> genuinely transitioning
-                blend_start = int(n_timesteps * rng.uniform(0.12, 0.30))
-                blend_end = int(np.clip(blend_start + n_timesteps * rng.uniform(0.45, 0.62),
-                                        blend_start + margin, n_timesteps - margin))
-                seq_label = trans_label
-            else:  # blend very early, short -> cleanly mostly formation_b
-                blend_end = int(n_timesteps * rng.uniform(0.10, 0.26))
-                blend_start = int(np.clip(blend_end - n_timesteps * rng.uniform(0.05, 0.10),
-                                          1, blend_end - margin))
-                seq_label = label_map[f_b]
+            if not windowed_examples:
+                if corrected_blend_timing:
+                    blend_duration = int(rng.integers(*BLEND_DURATION_RANGE))
+                    blend_duration = min(blend_duration, n_timesteps - 2)
+                    blend_start = int(rng.integers(0, n_timesteps - blend_duration))
+                    blend_end = blend_start + blend_duration
+                    regime_label = None
+                else:
+                    blend_start, blend_end, regime = _old_regime_blend(n_timesteps, rng)
+                    regime_label = {0: "pure_a", 1: "transitioning", 2: "pure_b"}[regime]
 
-            blend_start = max(1, min(blend_start, n_timesteps - 2))
-            blend_end = max(blend_start + 1, min(blend_end, n_timesteps - 1))
+                frac_a, frac_blend, frac_b = _content_fracs(0, n_timesteps, blend_start, blend_end)
+                lbl = _assign(frac_a, frac_blend, frac_b, regime_label, content_majority_labeling)
+                if lbl is None:
+                    diag["n_excluded"] += 1
+                    continue
+                seq_label = {"pure_a": label_map[f_a], "pure_b": label_map[f_b],
+                            "transitioning": trans_label}[lbl]
+                seq = generate_transition_sequence(f_a, f_b, n_timesteps, dt, spread, noise,
+                                                   blend_start=blend_start, blend_end=blend_end, rng=rng)
+                seqs.append(seq)
+                labels.append(seq_label)
+                diag["n_examples_kept"] += 1
+                diag["examples"].append((frac_a, frac_blend, frac_b, lbl))
 
-            seq = generate_transition_sequence(f_a, f_b, n_timesteps, dt, spread, noise,
-                                               blend_start=blend_start, blend_end=blend_end, rng=rng)
-            seqs.append(seq)
-            labels.append(seq_label)
+            else:
+                if corrected_blend_timing:
+                    lead_in = int(rng.integers(*LEAD_IN_RANGE))
+                    blend_duration = int(rng.integers(*BLEND_DURATION_RANGE))
+                    dwell = int(rng.integers(*MIN_DWELL_RANGE))
+                    blend_start, blend_end = lead_in, lead_in + blend_duration
+                    seg_len = blend_end + dwell
+                    old_regime = None
+                else:
+                    seg_len = int(np.mean([sum(LEAD_IN_RANGE) / 2 + sum(BLEND_DURATION_RANGE) / 2
+                                          + sum(MIN_DWELL_RANGE) / 2]))  # 106, held constant so
+                                                                        # this ablation isolates
+                                                                        # windowing, not length
+                    blend_start, blend_end, old_regime = _old_regime_blend(seg_len, rng)
 
+                seq = generate_transition_sequence(f_a, f_b, seg_len, dt, spread, noise,
+                                                   blend_start=blend_start, blend_end=blend_end, rng=rng)
+                for start in range(0, seg_len - WINDOW_SIZE + 1, STRIDE):
+                    end = start + WINDOW_SIZE
+                    frac_a, frac_blend, frac_b = _content_fracs(start, end, blend_start, blend_end)
+                    regime_label = ({0: "pure_a", 1: "transitioning", 2: "pure_b"}[old_regime]
+                                    if old_regime is not None and not content_majority_labeling
+                                    else None)
+                    lbl = _assign(frac_a, frac_blend, frac_b, regime_label, content_majority_labeling)
+                    if lbl is None:
+                        diag["n_excluded"] += 1
+                        continue
+                    seq_label = {"pure_a": label_map[f_a], "pure_b": label_map[f_b],
+                                "transitioning": trans_label}[lbl]
+                    seqs.append(seq[start:end])
+                    labels.append(seq_label)
+                    diag["n_examples_kept"] += 1
+                    diag["examples"].append((frac_a, frac_blend, frac_b, lbl))
+
+    if return_diagnostics:
+        return np.array(seqs), np.array(labels), names, diag
     return np.array(seqs), np.array(labels), names
 
 

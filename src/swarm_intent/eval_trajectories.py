@@ -57,11 +57,13 @@ from __future__ import annotations
 import numpy as np
 
 from .config import BASE_FORMATIONS, TRANSITION_CLASS
-from .data import generate_transition_sequence
-
-LEAD_IN_RANGE = (30, 50)          # timesteps of settled formation_a before the blend starts
-BLEND_DURATION_RANGE = (10, 25)   # timesteps the blend itself spans (unchanged transition physics)
-MIN_DWELL_RANGE = (40, 60)        # timesteps of settled formation_b after the blend ends
+from .data import (  # noqa: F401 -- LEAD_IN_RANGE/BLEND_DURATION_RANGE/MIN_DWELL_RANGE
+    # re-exported here since every existing consumer of this module imports them from here;
+    # canonical definition moved to data.py 2026-08-10 (docs/V5_LOG.md step 31) now that
+    # generate_dataset()'s corrected_blend_timing/windowed_examples flags use them too --
+    # single source of truth, closing the exact silent-drift risk step 26's audit found once.
+    generate_transition_sequence, LEAD_IN_RANGE, BLEND_DURATION_RANGE, MIN_DWELL_RANGE,
+)
 
 
 def sample_chain(rng: np.random.Generator) -> list[str]:
