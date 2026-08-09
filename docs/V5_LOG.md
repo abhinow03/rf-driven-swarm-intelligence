@@ -1004,3 +1004,49 @@ fresh end-to-end projection, not attempted this turn (out of the 4 steps this tu
 
 Proceeding to step 4: report on RULES coverage for chain-3+ (report only, no RULES
 extension).
+
+## 2026-08-09: step 4 — RULES coverage for chain-3+ (report only, no action taken)
+
+`scripts/phase0_rules_coverage_report.py`, CPU-only (replays the exact seed=999 rng
+consumption of the standing ceiling battery, including a full `build_long_sequence_labeled`
+call to stay in sync, but never loads or runs STGT — nothing here depends on model output).
+**Explicitly report-only, per instruction: no change to RULES or any other file that affects
+behaviour.**
+
+**(a) Exact chain-length distribution, n=1000, seed=999 (identical population to the
+standing ceiling battery):**
+
+| chain_length | n | % | theoretical (uniform 1-4) |
+|---|---|---|---|
+| 1 | 258 | 25.8% | 25.0% |
+| 2 | 251 | 25.1% | 25.0% |
+| 3 | 234 | 23.4% | 25.0% |
+| 4 | 257 | 25.7% | 25.0% |
+| **3+ (combined)** | **491** | **49.1%** | 50.0% |
+
+**(b) Generator parameter, not emergent.** `sample_chain()`'s `num_formations =
+rng.integers(1, 5)` is a hard-coded bound (1..5, numpy default `endpoint=False` → uniform
+over {1,2,3,4}) — an explicit design choice in the generator, not a property that falls out
+of anything else. Every subsequent formation in the chain is drawn uniformly from
+`BASE_FORMATIONS` minus only the immediately-preceding member (no consecutive repeats
+forced; non-consecutive repeats — e.g. A→B→A — ARE legal chains, this is exactly what
+produces the `oscillation` bucket-C subtype elsewhere in this project). The measured
+distribution (25.8/25.1/23.4/25.7%) matches the theoretical 25% each closely — sampling
+noise, not a hidden skew.
+
+**(c) Chain-3+ patterns do NOT collapse to a small set.** 491 chain-3+ trajectories produced
+**385 distinct patterns** — 60.7% of them appear exactly once, the single most common pattern
+repeats only 7 times, and the theoretical pattern space (7 base formations, no consecutive
+repeats: 7×6×6=252 length-3 + 7×6×6×6=1512 length-4 = **1764 possible chains**) is large
+enough that 491 draws only sample a small fraction of it. **This directly bears on how big a
+future RULES-extension effort (HALT GATE 2) would actually be**: literally enumerating
+observed chain-3+ patterns one-by-one is not a small, bounded task the way extending RULES
+for a handful of recurring shapes would be — the data doesn't support a "just add these 10
+common patterns" shortcut. A viable extension would more likely need a COMPOSITIONAL rule
+(e.g. reduce a chain to its structurally-meaningful (first, last) endpoints, or to a small
+number of derived features) rather than literal pattern enumeration — a design question for
+whoever owns HALT GATE 2's sign-off, not resolved or attempted here.
+
+**No RULES change made. No code behaviour changed.** Full data:
+`evaluation/phase0_rules_coverage_report.json`. Proceeding to step 5: rewrite
+`docs/CEILING.md` stratified by chain length, pooled numbers banned from here on.
