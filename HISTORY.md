@@ -251,3 +251,29 @@ real precision cost (60.4%). None of the tested thresholds get wrong-key contami
 meaningfully below ~37% without fixing the trim step itself. Recommendation only —
 `DEFAULT_ROBUST_THRESHOLD` left at 0.7 in code. Full detail: `docs/CEILING.md`'s 2026-08-09
 step 5 update.
+
+## 2026-08-09: step 6 — HALT GATE 1 re-examined: end-to-end threat accuracy projected at ~62%
+
+The 70% floor was set when pair-level and threat-level ceilings were nearly identical (12.2%
+vs 13.0%); they've since diverged to 47.0% vs 52.3% (RULES maps 49 pairs onto only 4 threat
+levels, so wrong pairs often still land on the right threat). Computed the projection the
+user asked for: `end_to_end = current_threat_ceiling + P(bucket C) * Layer_3_accuracy`.
+
+| | robust=False | robust=True @ 0.7 |
+|---|---|---|
+| threat accuracy within bucket A | **90.5%** | 75.5% |
+| current threat ceiling | 52.3% | 58.7% |
+| **end-to-end projection (central)** | **61.6%** | **62.3%** |
+
+Layer 3's contribution is a disclosed estimate (v3b-fix's 30.9% from the earlier engagement's
+real-STGT-output eval, pre-guard-fix checkpoint, not bucket-conditioned) with a
+conservative(20%)/optimistic(40%) sensitivity band: 58.3-64.4% (robust=False), 61.1-63.4%
+(robust=True, narrower since it depends less on Layer 3).
+
+**Verdict: even the most optimistic projection tested (64.4%) does not clear 70%.** But the
+actual instruction was to settle whether 70% stated in PAIR-LEVEL terms is still the right
+gate — it isn't; it measures the wrong quantity now that the two ceilings have diverged.
+**Recommendation: restate HALT GATE 1 in end-to-end threat-accuracy terms.** The numeric
+floor itself is a policy call this projection informs but doesn't set — the central estimate
+(~62%) is ~8 points short either way. Full detail: `docs/CEILING.md`'s 2026-08-09 step 6
+update.

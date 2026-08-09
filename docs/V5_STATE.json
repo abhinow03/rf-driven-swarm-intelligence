@@ -1,7 +1,7 @@
 {
   "phase": 0,
-  "step": 14,
-  "status": "HALT_GATE_1 re-examination in progress. Steps 1-2 (chain-length + full guard audit) done. Step 3 (threshold sweep): re-swept robust=True's majority-vote threshold post-guard-fix on a dev split (seed=1), confirmed on held-out (seed=999, 0.1pt precision gap, not overfit). Precision curve is flat across the whole sweep (60.4-63.1%) -- confirms the trim step, not the threshold, dominates contamination. Recommended threshold 0.6 (Pareto-dominates current shipped 0.7); DEFAULT_ROBUST_THRESHOLD left unchanged in code, recommendation only. Proceeding to step 4: re-examine HALT GATE 1 given pair/threat ceiling divergence.",
+  "step": 15,
+  "status": "HALT_GATE_1 re-examination COMPLETE (this turn's 4 steps done). Chain-length-2 confirmed still broken (6.0%) but 60% is a windowing artefact, not a bridge bug. Full guard audit found 2 more guards of the dispersed_converging defect class (dominant_history_contradiction 100% spurious-when-sole, oov_name 69% spurious/20 answers blocked) plus a defective robust=True trim step (62.5% spurious). Threshold re-swept, recommend 0.6 over shipped 0.7 (Pareto-dominates). End-to-end threat accuracy projected at ~61.6-62.3% central estimate (58.3-64.4% sensitivity range) -- does not clear 70% under any tested assumption. Verdict: 70% stated in PAIR-LEVEL terms is the wrong gate now that pair (47.0%) and threat (52.3%) ceilings have diverged; recommend restating the gate in end-to-end threat-accuracy terms. Numeric floor is a policy decision, not set here. STOPPING per explicit instruction -- no further strategy or code change without direction.",
   "halts_cleared": [],
   "results": {
     "phase0_step1_first_check": {
@@ -718,6 +718,34 @@
       },
       "verdict": "Precision curve flat across the entire sweep (60.4-63.1%) -- consistent with step 2's finding that the trim step (not the vote threshold) dominates contamination, and trimming happens before the vote runs. Recommended operating point 0.55-0.65 (e.g. 0.6): Pareto-dominates the current shipped 0.7 (more coverage AND more precision). Lower (0.45) buys more coverage at a real precision cost. No tested threshold gets contamination meaningfully below ~37%. Recommendation only -- DEFAULT_ROBUST_THRESHOLD left at 0.7 in code, not changed this session.",
       "ceiling_doc": "docs/CEILING.md (2026-08-09 step 5 update)",
+      "history_doc": "HISTORY.md"
+    },
+    "phase0_step15_endtoend_projection": {
+      "checked": "2026-08-09T01:50:00Z",
+      "method": "scripts/phase0_endtoend_projection.py -- pure post-processing of evaluation/phase0_ceiling_v5_guardfix.json + phase0_threat_ceiling_v5_guardfix.json, plus one disclosed external estimate (v3b-fix accuracy from AUDIT.md sec AF's earlier real-STGT-output eval, pre-guard-fix checkpoint, not bucket-conditioned).",
+      "identity": "current 'threat ceiling' = P(bucket A) * threat_accuracy_within_A; bucket B/C score 0 in that metric (no LLM layer runs in the ceiling scripts).",
+      "robust_false": {
+        "bucket_A": 0.578,
+        "bucket_B": 0.12,
+        "bucket_C": 0.303,
+        "threat_accuracy_within_A": 0.905,
+        "current_threat_ceiling": 0.523,
+        "end_to_end_conservative_20pct": 0.583,
+        "end_to_end_central_30.9pct": 0.616,
+        "end_to_end_optimistic_40pct": 0.644
+      },
+      "robust_true_at_0.7": {
+        "bucket_A": 0.778,
+        "bucket_B": 0.106,
+        "bucket_C": 0.116,
+        "threat_accuracy_within_A": 0.755,
+        "current_threat_ceiling": 0.587,
+        "end_to_end_conservative_20pct": 0.611,
+        "end_to_end_central_30.9pct": 0.623,
+        "end_to_end_optimistic_40pct": 0.634
+      },
+      "verdict": "Even the most optimistic projection (64.4%) does not clear a 70% floor. The actual question -- is 70% stated in pair-level terms still the right gate -- has a clear answer: no, it measures the wrong quantity now that pair-level (47.0%) and threat-level (52.3%) ceilings have diverged, and will keep diverging as pair-level-specific fixes land (RULES' 49-pair-to-4-threat structure guarantees threat-level doesn't move 1:1 with pair-level). Recommend restating the gate in end-to-end threat-accuracy terms; the numeric floor itself is a policy decision this projection informs but does not set -- the central estimate (~62%) is short of 70% under either metric.",
+      "ceiling_doc": "docs/CEILING.md (2026-08-09 step 6 update)",
       "history_doc": "HISTORY.md"
     }
   },

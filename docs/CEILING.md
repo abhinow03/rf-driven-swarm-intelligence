@@ -765,3 +765,60 @@ to ~39.5%. **None of these operating points get contamination meaningfully below
 also fixing the trim step itself** — the threshold is a minor lever on top of a much bigger,
 already-identified problem. Audit/recommendation only, per scope — `DEFAULT_ROBUST_THRESHOLD`
 left at 0.7 in code; changing it is a decision for a future turn, not made here.
+
+## Update 2026-08-09: step 6 — HALT GATE 1 re-examined, end-to-end threat accuracy projected
+
+The 70% floor was set when pair-level (12.2%) and threat-level (13.0%) ceilings were nearly
+identical, so a single number implicitly gated both. They have since diverged sharply — 47.0%
+pair vs 52.3% threat (robust=False) — because RULES maps 49 (from,to) pairs onto only 4
+threat levels: a wrong recovered pair frequently still lands on the correct threat. This
+divergence will only widen as pair-level brittleness gets fixed (this session's guard fixes
+help pair-level directly; RULES' many-to-one structure means threat-level doesn't move 1:1
+with it). `scripts/phase0_endtoend_projection.py` computes what the CURRENT pipeline actually
+projects to, end-to-end (pure post-processing of already-saved ceiling data, no new inference):
+
+**Identity used**: `phase0_threat_ceiling.py`'s reported "threat ceiling" (52.3%/58.7%) is
+ALREADY `P(bucket A) × threat_accuracy_within_bucket_A` — bucket B/C score 0 in that metric
+(no LLM layer runs in these ceiling scripts). The only missing term for a true end-to-end
+number is Layer 3's real contribution on bucket C; bucket B (guard) contributes 0 either way,
+by design.
+
+| | robust=False (shipped default) | robust=True @ 0.7 |
+|---|---|---|
+| bucket A / B / C | 57.8% / 12.0% / 30.3% | 77.8% / 10.6% / 11.6% |
+| **threat accuracy WITHIN bucket A** | **90.5% (266/294)** | 75.5% (299/396) |
+| current measured "threat ceiling" | 52.3% | 58.7% |
+| end-to-end (Layer 3 @ 20%, conservative) | 58.3% | 61.1% |
+| **end-to-end (Layer 3 @ 30.9%, sec AF's measured v3b-fix)** | **61.6%** | **62.3%** |
+| end-to-end (Layer 3 @ 40%, optimistic) | 64.4% | 63.4% |
+
+Threat-accuracy-within-bucket-A (90.5% robust=False) is dramatically higher than pair-accuracy-
+within-bucket-A (81.3%, sec AG/step 2) — direct confirmation of the many-to-one RULES mapping
+effect. Layer 3's contribution is a DISCLOSED ESTIMATE, not measured this turn: reused from
+the earlier engagement's real-STGT-output eval (AUDIT.md sec AF, `evaluation/
+eval_real_stgt_output.json`, v3b-fix 77/249 = 30.9%) — a different checkpoint/bridge state
+(pre-guard-fix) and not bucket-conditioned (that eval ran v3b-fix on every case, not just
+bucket-C-shaped ones), so reported as a central estimate with an explicit conservative/
+optimistic band rather than a single number treated as precise.
+
+**Central projection: end-to-end threat accuracy is ~61.6-62.3%, essentially the same under
+either reduction mode** — `robust=True` reaches more of the population via the cheap,
+deterministic Layer 1 pathway (77.8% vs 57.8% coverage) at lower per-case quality within it
+(75.5% vs 90.5%), and those two effects roughly cancel in the end-to-end number. `robust=True`
+DOES have a materially narrower sensitivity band (61.1-63.4%, 2.3pt) than `robust=False`
+(58.3-64.4%, 6.1pt), because it depends on the uncertain Layer-3 estimate for a much smaller
+share of the population (11.6% vs 30.3%) — a real, if secondary, argument for shipping
+`robust=True` beyond precision alone.
+
+**HALT GATE 1 verdict, stated plainly: even under the most favorable end-to-end framing tested
+(optimistic Layer 3, robust=False, 64.4%), the projection does not clear a 70% floor.** The
+gap is real, not an artefact of scoring bucket B/C as zero. But the RIGHT QUESTION per this
+turn's instruction is whether 70% stated in PAIR-LEVEL terms is still the right gate, and the
+answer is no — it is measuring the wrong quantity for what the gate is actually meant to
+protect (end-to-end tactical correctness), and pair-level and threat-level will keep
+diverging as bridge fixes land. **Recommendation: restate HALT GATE 1 in end-to-end threat-
+accuracy terms going forward, not pair-level terms.** Whether the numeric floor stays 70% or
+is revised is a policy decision this projection informs but does not make — the projected
+central estimate (~62%) is ~8 points short of 70% either way, so the gate does not
+mechanically clear regardless of which of the two metrics it's restated against; what changes
+is which number future turns should actually be trying to move.

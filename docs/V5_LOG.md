@@ -771,3 +771,36 @@ step problem. Recommendation only, per scope: `DEFAULT_ROBUST_THRESHOLD` left at
 
 Proceeding to step 4: re-examine HALT GATE 1 and project end-to-end threat accuracy given how
 far pair-level and threat ceilings have now diverged.
+
+**Step 4: end-to-end threat accuracy projection, and the HALT GATE 1 re-examination.**
+`scripts/phase0_endtoend_projection.py`. Key identity: `phase0_threat_ceiling.py`'s reported
+"threat ceiling" (52.3%/58.7%) is ALREADY `P(bucket A) × threat_accuracy_within_bucket_A` —
+bucket B/C score 0 there, no LLM layer runs in the ceiling scripts. The only missing term for
+a genuine end-to-end number is Layer 3's real contribution on bucket C.
+
+| | robust=False (shipped) | robust=True @ 0.7 |
+|---|---|---|
+| bucket A / B / C | 57.8% / 12.0% / 30.3% | 77.8% / 10.6% / 11.6% |
+| threat accuracy WITHIN bucket A | **90.5%** (vs 81.3% pair-accuracy-within-A — RULES' many-to-one mapping, confirmed directly) | 75.5% |
+| current threat ceiling | 52.3% | 58.7% |
+| end-to-end @ Layer3=20%/30.9%/40% | 58.3% / **61.6%** / 64.4% | 61.1% / **62.3%** / 63.4% |
+
+Layer 3's 30.9% is a disclosed estimate (v3b-fix, sec AF's real-STGT-output eval, different
+checkpoint/bridge state, not bucket-conditioned) — reported with a sensitivity band, not
+treated as precise. Central projection: **~61.6-62.3% end-to-end, essentially the same under
+either reduction mode** (robust=True trades bucket-A quality for bucket-A coverage and the two
+roughly cancel), but robust=True's band is narrower (2.3pt vs 6.1pt) since it depends on the
+uncertain Layer-3 number for a much smaller share of the population.
+
+**HALT GATE 1 verdict: even the most optimistic tested projection (64.4%) does not clear 70%.**
+But the actual question this step was asked to settle — is 70% stated in PAIR-LEVEL terms
+still the right gate — has a clear answer: no. It measures the wrong quantity now that pair-
+level and threat-level have diverged, and will keep diverging as pair-level-specific fixes
+land without threat-level moving 1:1 (RULES' structure guarantees this). **Recommendation:
+restate the gate in end-to-end threat-accuracy terms.** The numeric floor itself (keep 70%,
+or set something else) is a policy decision this projection informs but does not make — the
+central estimate (~62%) falls short of 70% under either metric, so nothing here argues the
+gate should simply be declared cleared by relabeling it.
+
+`docs/V5_STATE.json` updated (`phase=0, step=15`). Stopping here per this turn's explicit
+"STOP after step 4" instruction — no further strategy or code change without direction.
