@@ -651,3 +651,53 @@ difficulty — `encirclement` (41.3%) and `transitioning` (57.3%) window accurac
 biggest drags — not a bridge-code artefact. `docs/V5_STATE.json` updated (`phase=0, step=11`).
 Stopping here per the "re-measure isolated" instruction's scope; not proceeding to any further
 strategy without explicit direction.
+
+## 2026-08-09: step 3 — user's new instruction, chain-length-2 audit before more training
+
+User's new instruction: audit the bridge for more bugs of the SAME CLASS as the
+dispersed_converging guard before any more STGT training, and settle whether the 70% HALT
+GATE 1 floor is still the right gate now that pair-level and threat ceilings have diverged
+(47.0% vs 58.7%, previously nearly identical at 12.2%/13.0%). Four steps: (1) chain-length
+breakdown + trace, (2) audit every other guard/rule, (3) robust-reduction threshold sweep
+tuned on a dev split, (4) end-to-end threat accuracy projection to re-examine the gate. No
+training this session.
+
+**Step 1: chain-length breakdown.** `scripts/phase0_chainlength_breakdown.py --n 1000`, same
+seed=999 population. Confirmed the user's hypothesis is correct on the numbers: chain-1
+(steady state) pair accuracy is 86.8%, **chain-2 (single real transition) is still 6.0%** —
+essentially unmoved by the guard fix. Chain-3+ (no possible RULES key) has a low, stable
+bucket-A false-positive rate (~1.8%, both reduction modes) — not where the remaining problem
+concentrates.
+
+**But tracing 20 failing chain-2 trajectories stage by stage (window classifications → guard
+→ temporal derivation → reduction → bucket; full trace `evaluation/phase0_chain2_trace.txt`)
+shows this is NOT a second guard bug of the dispersed_converging class:**
+
+| diagnosis | n/20 |
+|---|---|
+| all_windows_transitioning | 35.0% |
+| structural_reduction_wrong_pair | 25.0% |
+| trailing_transitioning_run | 20.0% |
+| blocked_by_oov_name_guard | 15.0% |
+| spurious_third_formation_from_misclassification | 5.0% |
+
+60% (the first three rows) trace to the SAME windowing-artefact mechanism the earlier
+engagement already diagnosed (AUDIT.md sec AF step 4): chain-2 trajectories are a single
+50-100-timestep hop, frequently only 1-2 sliding windows — genuinely too few observations for
+the destination formation to reliably resolve, or in several traced cases (e.g. trajectory
+18, `shield→v_shape`) to even be REACHED within the generated sequence at all — the model
+reads the FIRST formation correctly and confidently on every available window because that's
+all that's actually there to see. No bridge-logic change fixes this; it needs longer
+segments in the sampling regime or a larger `max_seq_len` (retraining, out of scope this
+session).
+
+Only 15% (`blocked_by_oov_name_guard`) is real, actionable bridge-logic brittleness — cases
+where the structural reduction ALREADY lands on the exact correct pair (`rules_key ==
+gt_pair`) but the strict `oov_name` guard (fires on ANY unknown window, no threshold) routes
+it to bucket B anyway. This is exactly what `robust=True`'s majority-vote/trim logic exists
+to fix, and is folded into step 2's guard audit below rather than treated as a separate
+finding. 5% is plain classifier misclassification (a bad window, not a bridge issue).
+
+**Verdict, stated plainly: chain-length-2's brokenness is real but is NOT primarily fixable
+by more bridge-logic changes.** Proceeding to step 2: audit every other guard/rule in
+`stgt_bridge.py` the same way the dispersed_converging guard was audited.

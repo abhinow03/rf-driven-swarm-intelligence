@@ -587,3 +587,72 @@ is far smaller and now looks structurally different: no longer "the guard is non
 genuine STGT window-level accuracy (70.4% overall, with `encirclement` at 41.3% and
 `transitioning` at 57.3% dragging the average down) and the underlying pair-reduction task's
 own remaining difficulty.
+
+## Update 2026-08-09: step 3 — chain-length-2 is still broken, and it's NOT a second guard bug
+
+Before the guard fix, `scripts/phase0_decompose_failures.py` found chain-length-2 (single real
+transition) accuracy near zero while chain-length-1 (steady state) succeeded. Re-measured with
+the fixed guard (`scripts/phase0_chainlength_breakdown.py --n 1000`, same seed=999 population,
+strategy-5 checkpoint):
+
+| chain_length | n | pair_acc (robust=False) | pair_acc (robust=True) | threat_acc (F) | threat_acc (T) |
+|---|---|---|---|---|---|
+| 1 (steady state) | 258 | **86.8%** | 88.4% | 86.8% | 88.8% |
+| 2 (single transition) | 251 | **6.0%** | 7.6% | 16.7% | 27.9% |
+| 3+ (no RULES key) | 491 | n/a | n/a | n/a | n/a |
+
+**Confirmed: chain-length-2 is still almost entirely broken (6.0% vs 86.8% for steady state) —
+this is real, not fixed by the guard fix, exactly the user's hypothesis.** Chain 3+'s bucket-A
+false-positive rate (any A-resolution here is wrong by construction — no 2-tuple ground truth
+exists) is low and roughly stable regardless of reduction mode: 1.8% (robust=False), 1.8%
+(robust=True) — chain 3+ isn't where the problem lives.
+
+**But it is NOT a second bug of the same class as the dispersed_converging guard.** Traced 20
+failing chain-length-2 trajectories stage by stage (window classifications → guard →
+temporal transition derivation → reduction → bucket; full trace:
+`evaluation/phase0_chain2_trace.txt`):
+
+| diagnosis | n | % of 20 |
+|---|---|---|
+| all_windows_transitioning | 7 | 35.0% |
+| structural_reduction_wrong_pair | 5 | 25.0% |
+| trailing_transitioning_run | 4 | 20.0% |
+| blocked_by_oov_name_guard | 3 | 15.0% |
+| spurious_third_formation_from_misclassification | 1 | 5.0% |
+
+**60% of traced failures (all_windows_transitioning + trailing_transitioning_run + most of
+structural_reduction_wrong_pair) trace back to the SAME windowing-artefact mechanism identified
+in the earlier engagement (AUDIT.md sec AF step 4): chain-length-2 trajectories are a SINGLE
+hop, 50-100 timesteps, often only 1-2 sliding windows total.** Two concrete examples from the
+trace:
+- Trajectory 34 (`dispersed→encirclement`, 2 windows): BOTH windows' true labels are
+  `dispersed`/`encirclement` respectively, but STGT reads `transitioning` on both (98% and 98%
+  confidence) — with only 1-2 windows and no redundancy to average over, a single hard
+  misclassification collapses the whole trajectory to `all_unknown`.
+- Trajectory 18 (`shield→v_shape`, 2 windows): both windows' TRUE label is `shield` — the
+  transition to `v_shape` never actually completes within the observed span at all. STGT
+  correctly, confidently reads `shield` on both windows (99% conf) and the bridge correctly,
+  confidently reduces to `(shield, shield)` — WRONG relative to the generator's chain, but not
+  because anything in the classifier or bridge is broken. The ground truth itself isn't
+  observable in the data as generated.
+
+**Only 15% (blocked_by_oov_name_guard) is genuine bridge-logic brittleness of the kind step 2
+already fixed once.** Example: trajectory 11 (`v_shape→column`, 5 windows) structurally
+reduces to the EXACT correct pair (`v_shape`, `column`) — `rules_key` matches ground truth
+exactly — but 2 interior windows read `transitioning` (a real, if brief, blend read), tripping
+`oov_name` and routing to bucket B instead of A. This IS fixable without retraining (it's
+exactly what `robust=True`'s trim/majority-vote logic is for), and IS covered by step 4's guard
+audit below.
+
+**5% is genuine STGT misclassification** (trajectory 31: `dispersed`→`converging`→`diamond`
+predicted where truth is `converging`→`diamond`, from a single bad window at the very start) —
+not a bridge-logic issue, a classifier-accuracy one.
+
+**Verdict, stated plainly: chain-length-2's brokenness is NOT primarily a fixable bridge bug.**
+It is dominated (60%) by a structural property of the sampling regime — segment lengths
+(50-100 timesteps) close to or barely above `window_size` (50, architecturally fixed for this
+checkpoint) mean many single-transition trajectories provide only 1-2 observation windows, too
+few for the destination formation to reliably resolve OR be observed at all. No bridge-logic
+change (guard fix, robust reduction, anything short of retraining with longer segments or a
+larger `max_seq_len`) can fix the dominant share of this. The 15% oov_name-guard share is real
+and actionable now — see step 4's guard audit.

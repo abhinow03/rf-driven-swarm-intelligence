@@ -187,3 +187,20 @@ guard corrupting the same class_probabilities signal robust reduction's majority
 
 **HALT GATE 1 still not cleared** (52-59% vs a 70% floor) but the gap shrank from ~57-58
 points to ~11-18 points. Full detail: `docs/CEILING.md`'s 2026-08-09 step 2 update.
+
+## 2026-08-09: step 3 — chain-length-2 confirmed still broken, but NOT a second guard bug
+
+Re-measured pair/threat ceiling by chain length with the fixed guard: chain-1 (steady state)
+86.8%, **chain-2 (single transition) still 6.0%**. Confirmed real, not fixed by the guard fix.
+
+Traced 20 failing chain-2 trajectories stage by stage. 60% (all_windows_transitioning 35% +
+trailing_transitioning_run 20% + most of structural_reduction_wrong_pair 25%) is the SAME
+windowing-artefact mechanism from the earlier engagement — chain-2 trajectories are a single
+50-100-timestep hop, often only 1-2 sliding windows, too few for the destination formation to
+reliably resolve or even be observed. Only 15% is genuine bridge-logic brittleness
+(`oov_name` blocking an already-correct structural reduction — fixable, see step 4). 5% is
+plain classifier misclassification.
+
+**Not a second bug of the dispersed_converging class — no bridge-logic fix (short of
+retraining with longer segments or a larger `max_seq_len`) touches the dominant 60%.** Full
+detail: `docs/CEILING.md`'s 2026-08-09 step 3 update.

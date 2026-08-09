@@ -1,7 +1,7 @@
 {
   "phase": 0,
-  "step": 11,
-  "status": "HALT_GATE_1 -- fixed the dispersed_converging_ambiguity guard (top-2 competitiveness check added). Isolated re-audit: fire rate 75.8%->1.3% (19/1469 windows), 100% of remaining firings genuine (0% spurious, down from 66.1%). Full ceiling re-measurement on strategy-5 checkpoint: threat ceiling 13.0%->52.3% (robust=False), 13.6%->58.7% (robust=True) -- biggest single gain of the program, from a one-condition bug fix, no retraining. robust=True precision within bucket A 20%->62.4%, reframing sec AG's 'should not ship' verdict (measured against the broken guard). HALT GATE 1 still NOT cleared -- 52.3-58.7% vs 70% floor -- but gap shrank from ~57-58pt to ~11-18pt below floor. Stopped here per instruction scope (fix + re-measure isolated); not proceeding to any further strategy without explicit direction.",
+  "step": 12,
+  "status": "HALT_GATE_1 re-examination in progress (user instruction: audit bridge for more bugs like dispersed_converging before more training; settle whether 70% floor is still right). Step 1 (chain-length breakdown): chain-1 pair acc 86.8%, chain-2 STILL 6.0% -- confirmed real, but 60% of traced failures are a windowing-artefact (short single-hop trajectories, 1-2 windows, destination formation sometimes never observed) not fixable by bridge logic; only 15% is genuine guard brittleness (oov_name blocking an already-correct reduction). Proceeding to step 2: audit every other guard the same way.",
   "halts_cleared": [],
   "results": {
     "phase0_step1_first_check": {
@@ -585,6 +585,51 @@
       },
       "verdict": "Single biggest gain of the whole Phase 0 program, from a one-condition bug fix, no retraining. Retroactively reframes sec AG's 'robust reduction should not ship' verdict as measured against the broken guard, not a permanent judgment on the majority-vote algorithm itself. HALT GATE 1 still not cleared (52.3-58.7% vs 70% floor) but the gap shrank from ~57-58 points to ~11-18 points below floor.",
       "ceiling_doc": "docs/CEILING.md (2026-08-09 step 2 update)",
+      "history_doc": "HISTORY.md"
+    },
+    "phase0_step12_chainlength_breakdown": {
+      "checked": "2026-08-09T01:05:00Z",
+      "method": "scripts/phase0_chainlength_breakdown.py --n 1000, same seed=999 population/checkpoint.",
+      "pair_level_by_chain_length": {
+        "chain_1": {
+          "n": 258,
+          "robust_false": 0.868,
+          "robust_true": 0.884
+        },
+        "chain_2": {
+          "n": 251,
+          "robust_false": 0.06,
+          "robust_true": 0.076
+        },
+        "chain_3plus": {
+          "n": 491,
+          "bucket_A_false_positive_rate_robust_false": 0.018,
+          "bucket_A_false_positive_rate_robust_true": 0.018
+        }
+      },
+      "threat_ceiling_by_chain_length": {
+        "chain_1": {
+          "robust_false": 0.868,
+          "robust_true": 0.888
+        },
+        "chain_2": {
+          "robust_false": 0.167,
+          "robust_true": 0.279
+        }
+      },
+      "chain2_trace_diagnosis_n20": {
+        "all_windows_transitioning": 0.35,
+        "structural_reduction_wrong_pair": 0.25,
+        "trailing_transitioning_run": 0.2,
+        "blocked_by_oov_name_guard": 0.15,
+        "spurious_third_formation_from_misclassification": 0.05
+      },
+      "verdict": "Chain-length-2 is still almost entirely broken (6.0% vs 86.8% for steady state), confirmed real. NOT a second guard bug of the dispersed_converging class -- 60% of traced failures trace to the windowing-artefact mechanism (short single-hop trajectories provide too few windows, sometimes the destination formation is never actually observed within the generated span) already diagnosed in the earlier engagement, not fixable by bridge-logic changes. Only 15% (oov_name guard blocking an already-correct structural reduction) is actionable without retraining.",
+      "raw_data": [
+        "evaluation/phase0_chainlength_breakdown.json",
+        "evaluation/phase0_chain2_trace.txt"
+      ],
+      "ceiling_doc": "docs/CEILING.md (2026-08-09 step 3 update)",
       "history_doc": "HISTORY.md"
     }
   },
