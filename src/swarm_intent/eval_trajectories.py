@@ -35,13 +35,18 @@ up to 9 trailing timesteps outside EVERY window (worst case: ``(seg_len-window_s
 == 9``), so the real requirement is ``D >= 26 + 9 = 35``. ``MIN_DWELL_RANGE=(40,60)`` gives
 real margin above that minimum.
 
-SOURCE (A) side (step 26, NOT YET applied as of this commit -- see the commit that follows this
-one): the same analysis, mechanically, gives ``lead_in >= 25`` (window 0 always starts at
-exactly ``t=0``, so there is no equivalent trailing-slack term on this side). At consolidation
-time ``LEAD_IN_RANGE=(15,35)`` is carried over UNCHANGED from the pre-consolidation value
-(matching the destination-only fix's realized-scale choice, not yet derived with this rigor)
-so this commit is a pure code-motion with NO behavior change; the symmetrization to
-``(30,50)`` lands as its own, separately-reviewable commit immediately after.
+SOURCE (A) side (step 26): A-labeled timesteps occupy ``[0, blend_start]`` and window 0 always
+starts at exactly ``t=0`` (the sliding-window grid always includes ``start=0``) -- there is NO
+equivalent trailing-slack loss on this side. The requirement is simply
+``lead_in + 1 >= 26``, i.e. ``lead_in >= 25``, for formation A to hold an outright majority
+(not just a plurality) of window 0 regardless of how ``blend_duration``/dwell split the rest of
+that window. ``LEAD_IN_RANGE=(30,50)`` mirrors ``MIN_DWELL_RANGE``'s margin shape (threshold+5
+to threshold+25) above this minimum. Before this fix, ``LEAD_IN_RANGE=(15,35)`` carried over
+the pre-observability-fix formula's REALIZED scale rather than being derived -- roughly half
+that range (15-25) sits below the 25-26 minimum, which is exactly why the destination-only fix
+(commit before this one) left a new, self-inflicted ~15%-16% source-non-observability gap
+(docs/V5_LOG.md step 25's 20-case trace; verified at population scale in step 26: 16.3% source
+OBS_NONE under the old range vs 0.0% after this fix).
 
 ``blend_duration`` is UNCHANGED transition physics/timing scale, chosen to match the original
 (pre-fix) formula's REALIZED duration range (~10-25 timesteps, mean ~18.8) -- only WHERE the
@@ -54,7 +59,7 @@ import numpy as np
 from .config import BASE_FORMATIONS, TRANSITION_CLASS
 from .data import generate_transition_sequence
 
-LEAD_IN_RANGE = (15, 35)          # timesteps of settled formation_a before the blend starts
+LEAD_IN_RANGE = (30, 50)          # timesteps of settled formation_a before the blend starts
 BLEND_DURATION_RANGE = (10, 25)   # timesteps the blend itself spans (unchanged transition physics)
 MIN_DWELL_RANGE = (40, 60)        # timesteps of settled formation_b after the blend ends
 
