@@ -103,3 +103,49 @@ would itself justify a retrain), please consider increasing `max_seq_len` past 5
 since `trailing_transitioning_run` at 25.7% of reduction failures is large enough that a longer
 window would likely recover a meaningful share of it for free, given the retrain is already
 happening. Not requesting a stand-alone retrain for this reason alone.
+
+## 3. Chain-length-2 trajectories: the destination formation is frequently never observed at all
+
+**Not a code bug in `src/swarm_intent/` — a property of the generated data.** `sample_chain()`
+(`scripts/phase0_ceiling.py`, mirrored in `llm_finetuning/measure_coverage.py`) draws a
+single-hop segment length uniformly from `{50..100}` timesteps for a chain-length-2 trajectory.
+`window_size=50` (issue #2). When the segment is short and/or the blend (`blend_start`/
+`blend_end`, drawn as fractions of the segment length) lands late, **no 50-timestep sliding
+window's MAJORITY of timesteps ever falls in the settled destination formation** — every window
+in the trajectory, not just the trailing one, reads as the origin formation or as
+`"transitioning"`. This is a stronger, distinct failure mode from issue #2 (a transitional
+*final* window): here the destination formation is invisible to the classifier's input at every
+window, so no bridge-logic or reduction-algorithm change — including the guard fixes and
+`robust=True` trim fix shipped this session — can recover it. It is a ceiling imposed by the
+generator's segment-length distribution relative to `window_size`, not by anything downstream.
+
+**Measured downstream cost, this session (`docs/V5_LOG.md`/`docs/CEILING.md`, 2026-08-09):**
+before today's guard fixes, chain-length-2 pair accuracy was **6.0%**; after fixing `oov_name`,
+`dominant_history_contradiction`, and the `robust=True` trim step (three real, now-fixed bridge
+defects), chain-length-2 pair accuracy is **18.7%** — a 3x improvement, but still the single
+worst-performing stratum in the pipeline by a wide margin (chain-1's steady-state accuracy is
+**87.6%**). Tracing 20 fresh chain-2 failures (post-fix, `evaluation/phase0_chain2_trace.txt`)
+found **95%** (19/20) trace to this generation-regime mechanism specifically (`
+all_windows_transitioning` 35% + `structural_reduction_wrong_pair` 35% +
+`trailing_transitioning_run` 25%), with only 5% attributable to plain classifier
+misclassification — none attributable to a bridge-logic defect anymore, now that the three
+guard/trim bugs are fixed. Two concrete examples:
+
+- Trajectory 18, true chain `shield → v_shape` (2 windows): BOTH windows' true per-timestep-
+  majority label is `shield` — `v_shape` is never the majority of any window. STGT correctly,
+  confidently reads `shield` on both windows (99% confidence) and the bridge correctly reduces
+  to `(shield, shield)` — wrong relative to the generator's chain, but nothing in the classifier
+  or bridge is broken; the destination formation genuinely never appears as a majority-labelled
+  window in the generated data.
+- Trajectory 27, true chain `diamond → column` (1 window, a segment length only barely above
+  `window_size`): the single available window's true label is `diamond`; `column` never
+  appears in the observable data at all.
+
+**Requested change**: widen `sample_chain()`'s per-hop segment length distribution for
+chain-length-2 (and longer) trajectories so that, after the blend region, a meaningful settled
+tail of the destination formation reliably exceeds `window_size` (50) — e.g. raise the lower
+bound of the `{50..100}` range, or make the minimum segment length a function of
+`window_size` plus a fixed settled-tail requirement, rather than a value that can equal
+`window_size` almost exactly. This is a generator-parameter change, not a retrain or an
+architecture change (distinct from issue #2, which does need a retrain) — the fastest of the
+three upstream issues to act on, if prioritization is being decided.

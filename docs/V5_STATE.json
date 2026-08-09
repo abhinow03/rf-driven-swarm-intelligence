@@ -1,7 +1,7 @@
 {
   "phase": 0,
-  "step": 22,
-  "status": "Discipline-catch turn continuing. Step 5: rewrote docs/CEILING.md stratified by chain-length -- policy banner + new 'Current state (stratified)' section at top, historical pooled entries left unedited below (superseding-notice convention, not rewritten). Fresh re-run revealed the pooled number was hiding a 3x chain-2 improvement (6.0%->18.7%) vs near-flat chain-1 (86.8%->87.6%), and a real trade: chain-3+ bucket-A false-positive rate rose 1.8%->9.0% as a side effect of the guard fixes. Pooled numbers banned in CEILING.md going forward. Proceeding to step 6: UPSTREAM_ISSUES.md issue #3.",
+  "step": 23,
+  "status": "Discipline-catch turn COMPLETE (all 6 steps done). Step 0: verified threshold unchanged, recorded dev-split-reuse discipline catch. Step 1: fresh mining split (seed=2024) reversed the 0.6 recommendation -- threshold stays 0.7. Step 2a/2b: fixed oov_name (69% spurious) and dominant_history_contradiction (100% spurious) guards, isolated commits, each re-measured. Step 3: fixed robust=True trim step (62.5% spurious), precision within bucket A 62.4%->65.8% session-cumulative. Step 4: RULES coverage report only, chain-3+ patterns don't collapse (385 distinct/491), no action taken. Step 5: CEILING.md rewritten stratified -- revealed pooling hid a 3x chain-2 improvement (6.0%->18.7%) vs near-flat chain-1. Step 6: UPSTREAM_ISSUES.md issue #3 added (destination formation never observed, generator segment-length issue, 95% of remaining chain-2 failures, 0% now attributable to any bridge-logic defect). STOPPING per instruction -- no further action without explicit direction.",
   "halts_cleared": [],
   "results": {
     "phase0_step1_first_check": {
@@ -918,6 +918,19 @@
       "what_pooling_hid": "chain-2 improved 3x (6.0%->18.7%) across today's fixes while chain-1 barely moved (86.8%->87.6%) -- the pooled 509-pair-eligible number (47.0%->53.6%) compressed both into one figure reading as a uniform modest gain.",
       "ceiling_doc_change": "policy banner + 'Current state (stratified)' section added at top of docs/CEILING.md, superseding every pooled figure below it. Historical dated entries left unedited (standing project convention: correct via superseding notice, never rewrite history in place).",
       "history_doc": "docs/V5_LOG.md (2026-08-09 step 5 entry)"
+    },
+    "phase0_step23_upstream_issue3": {
+      "checked": "2026-08-09T03:35:00Z",
+      "issue": "chain-2's destination formation is frequently never observed by any sliding window at all -- a property of sample_chain()'s segment-length distribution relative to window_size, not a bridge-code or model defect.",
+      "post_fix_chain2_trace": {
+        "n_traced": 20,
+        "generation_regime_mechanism": 0.95,
+        "plain_misclassification": 0.05,
+        "remaining_bridge_logic_defects": 0.0
+      },
+      "requested_change": "widen sample_chain()'s per-hop segment-length distribution so a settled destination tail reliably exceeds window_size -- a generator-parameter change, not a retrain (distinct from issue #2).",
+      "history_doc": "docs/V5_LOG.md (2026-08-09 step 6 entry)",
+      "upstream_issues_doc": "docs/UPSTREAM_ISSUES.md (issue #3)"
     }
   },
   "started": "2026-08-07T19:47:41Z"

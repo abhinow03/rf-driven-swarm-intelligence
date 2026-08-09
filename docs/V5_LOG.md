@@ -1085,3 +1085,26 @@ are banned in every CEILING.md entry from this point forward.
 
 Proceeding to step 6: add issue #3 to `UPSTREAM_ISSUES.md` (chain-2's destination
 formation frequently never reached within the generated sequence).
+
+## 2026-08-09: step 6 — UPSTREAM_ISSUES.md issue #3
+
+Added issue #3: chain-length-2's destination formation is frequently never observed by any
+sliding window at all (distinct from issue #2's "trailing window is transitional" — here NO
+window's majority is ever the destination formation), a property of `sample_chain()`'s
+segment-length distribution relative to `window_size`, not a bridge-code or model defect.
+
+Post today's three guard/trim fixes, chain-2 pair accuracy is 18.7% (up 3x from 6.0%, but
+still the worst stratum by far vs chain-1's 87.6%). Re-traced 20 fresh chain-2 failures:
+**95% (19/20) trace to this generation-regime mechanism**, 5% to plain misclassification,
+**0% to any remaining bridge-logic defect** — confirms the guard/trim fixes fully resolved
+their share; what's left is a data-generation ceiling, not a code bug. Cited two concrete
+traced examples (`shield→v_shape` where `v_shape` never appears as any window's majority
+label; `diamond→column` where `column` never appears at all).
+
+Requested change: widen `sample_chain()`'s per-hop segment-length distribution so a settled
+destination tail reliably exceeds `window_size` — a generator-parameter change, not a
+retrain (distinct from issue #2, which does need one) — flagged as the fastest of the three
+upstream issues to act on if prioritization is being decided.
+
+`docs/V5_STATE.json` updated (`phase=0, step=23`). **STOP per instruction — all 6 steps of
+this turn complete.**
