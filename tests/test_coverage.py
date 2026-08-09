@@ -47,8 +47,22 @@ class TestBucketA(unittest.TestCase):
 
 
 class TestBucketBGuards(unittest.TestCase):
-    def test_oov_blip_amid_clean_transition_is_guardable(self):
+    def test_transitioning_blip_amid_clean_transition_is_now_resolvable(self):
+        """2026-08-09 fix: a "transitioning" read is the classifier's own valid
+        class, not a genuinely out-of-vocabulary name -- this must no longer
+        trigger oov_name (it did before the fix; that was the bug)."""
         preds = [make_window("column", 0), make_window("transitioning", 10),
+                make_window("diamond", 20), make_window("diamond", 30)]
+        r = classify_observation(preds)
+        self.assertEqual(r["bucket"], BUCKET_A)
+        self.assertNotIn("oov_name", r["guard_reasons"])
+        self.assertEqual(r["rules_key"], ("column", "diamond"))
+
+    def test_genuinely_oov_name_amid_clean_transition_is_still_guardable(self):
+        """The guard's actual claimed purpose -- a real out-of-vocabulary
+        formation name (not the classifier's own "transitioning" class) --
+        must still fire."""
+        preds = [make_window("column", 0), make_window("phalanx", 10),
                 make_window("diamond", 20), make_window("diamond", 30)]
         r = classify_observation(preds)
         self.assertEqual(r["bucket"], BUCKET_B)
@@ -69,12 +83,23 @@ class TestBucketBGuards(unittest.TestCase):
         self.assertEqual(r["bucket"], BUCKET_B)
         self.assertIn("low_confidence", r["guard_reasons"])
 
-    def test_tied_dominant_count_is_guardable(self):
+    def test_tied_window_count_is_no_longer_guardable(self):
+        """2026-08-09 fix: `key` (the derived (from,to) pair) is determined by
+        TEMPORAL ORDER, never by window count -- a raw 2/2 count tie says
+        nothing about whether `key` is trustworthy (a clean, obviously-correct
+        split ties exactly as easily as an uncertain one). This exact shape
+        (100% spurious when it was the sole blocker) must no longer guard.
+        Note: a GENUINE dominant/key contradiction is provably unreachable via
+        classify_observation's own code path post-fix (dominant_formation is
+        always the mode over the same valid-formations set known_history is
+        built from, so it can never differ from both members of key) -- there
+        is no hand-buildable input that fires this guard anymore, which is
+        the correct, audited outcome, not a gap in this test."""
         preds = [make_window("column", 0), make_window("column", 10),
                 make_window("diamond", 20), make_window("diamond", 30)]
         r = classify_observation(preds)
-        self.assertEqual(r["bucket"], BUCKET_B)
-        self.assertIn("dominant_history_contradiction", r["guard_reasons"])
+        self.assertEqual(r["bucket"], BUCKET_A)
+        self.assertNotIn("dominant_history_contradiction", r["guard_reasons"])
 
     def test_one_window_confident_is_not_guardable_on_confidence(self):
         preds = [make_window("shield", 0, confidence=0.5), make_window("shield", 10, confidence=0.95)]

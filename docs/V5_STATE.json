@@ -1,7 +1,7 @@
 {
   "phase": 0,
-  "step": 9,
-  "status": "HALT_GATE_1 -- reverted swarm_data/best_model.pt to the strategy-5 checkpoint (verified by SHA-256, epoch=10/val_loss=0.610). User's next diagnosis: dispersed_converging_ambiguity guard (60.9% of pair-recovery failures per step 2) is a bug in OUR bridge code (stgt_bridge.py), not an STGT limitation. Investigating and fixing the guard, then diagnosing chain-length-2's literal 0/251. No training this round.",
+  "step": 20,
+  "status": "Discipline-catch turn continuing. Step 3: fixed robust=True's trim step -- only strips a 'transitioning' edge window when the model's own confidence >=0.6 (reused low_confidence bar, no new tunable parameter). Precision within bucket A: 63.8%->65.8% (the 13 removed cases were ALL wrong before, 0 correct lost). Session-cumulative (2a+2b+3): threat ceiling 58.7%->64.6%, precision within bucket A 62.4%->65.8%. 140/140 tests pass. All 3 guard-audit fixes from the full guard audit now complete. Proceeding to step 4: RULES coverage report (chain-3+), report only.",
   "halts_cleared": [],
   "results": {
     "phase0_step1_first_check": {
@@ -11,7 +11,9 @@
     "phase0_step1_upstream_verification": {
       "checked": "2026-08-07T19:57:56Z",
       "upstream_repo": "https://github.com/pizz-beep/capstone",
-      "upstream_branches": ["main (only branch, no tags)"],
+      "upstream_branches": [
+        "main (only branch, no tags)"
+      ],
       "upstream_main_commit_count": 11,
       "upstream_main_head": {
         "hash": "9158b081e812a4f4a757840c677ea43d3cfb476c",
@@ -36,7 +38,18 @@
       "local_checkpoint_provenance": {
         "file": "swarm_data/best_model.pt",
         "mtime": "2026-08-03T13:08+05:30 (5h17m BEFORE upstream's fix commit)",
-        "keys_in_checkpoint": ["epoch", "model_state_dict", "optimizer_state_dict", "val_loss", "val_acc", "cfg", "reg_mean", "reg_std", "train_mean", "train_std"],
+        "keys_in_checkpoint": [
+          "epoch",
+          "model_state_dict",
+          "optimizer_state_dict",
+          "val_loss",
+          "val_acc",
+          "cfg",
+          "reg_mean",
+          "reg_std",
+          "train_mean",
+          "train_std"
+        ],
         "provenance_metadata_present": false,
         "finding": "the checkpoint carries NO git hash, dataset hash, or source-file identifier of any kind -- only hyperparameters (cfg dict) and normalization stats. There is no way to verify which generator version ANY checkpoint was trained against just by inspecting it. This is itself a finding, addressed by scripts/verify_upstream_physics.py + the deferred rebuild_derived.py hash extension (Phase 3)."
       },
@@ -66,20 +79,41 @@
       "window_level_overall_accuracy": 0.223,
       "pair_level_accuracy": 0.033,
       "pair_level_fraction": "17/509",
-      "pair_eligible_bucket_distribution": {"A": 100, "B": 174, "C": 235},
+      "pair_eligible_bucket_distribution": {
+        "A": 100,
+        "B": 174,
+        "C": 235
+      },
       "per_class_window_accuracy": {
-        "v_shape": 0.013, "encirclement": 0.002, "column": 0.158, "diamond": 0.206,
-        "dispersed": 0.256, "converging": 0.001, "shield": 0.240, "transitioning": 0.804
+        "v_shape": 0.013,
+        "encirclement": 0.002,
+        "column": 0.158,
+        "diamond": 0.206,
+        "dispersed": 0.256,
+        "converging": 0.001,
+        "shield": 0.24,
+        "transitioning": 0.804
       },
       "diagnostics_run_before_trusting_this_number": {
         "window_label_alignment_checked_against_sliding_window_inference_source": "correct, not a bug",
-        "early_vs_late_window_accuracy_60_fresh_trajectories": {"early_w_idx_lt_2": 0.363, "late_last_2": 0.327,
-          "conclusion": "essentially flat -- rules out simple position-drift-into-OOD-normalization as the sole/primary mechanism"},
+        "early_vs_late_window_accuracy_60_fresh_trajectories": {
+          "early_w_idx_lt_2": 0.363,
+          "late_last_2": 0.327,
+          "conclusion": "essentially flat -- rules out simple position-drift-into-OOD-normalization as the sole/primary mechanism"
+        },
         "training_distribution_matched_check": {
           "regime": "generate_swarm_sequence, n_timesteps=50, single steady formation -- EXACT generate_dataset() regime, same sliding_window_inference/predict_v2 inference path",
-          "overall_accuracy": 0.695, "n": 105,
-          "per_class": {"v_shape": "0/15 (0%)", "encirclement": "0/15 (0%)", "column": "14/15", "diamond": "14/15",
-            "dispersed": "15/15", "converging": "15/15", "shield": "15/15"},
+          "overall_accuracy": 0.695,
+          "n": 105,
+          "per_class": {
+            "v_shape": "0/15 (0%)",
+            "encirclement": "0/15 (0%)",
+            "column": "14/15",
+            "diamond": "14/15",
+            "dispersed": "15/15",
+            "converging": "15/15",
+            "shield": "15/15"
+          },
           "finding": "93.5% (train.py's own reported test_acc) -> 69.5% (same matched regime, but via sliding_window_inference/predict_v2 -- the path every real eval in this project uses) is itself an unexplained gap, with v_shape/encirclement specifically collapsing to 0% -- unrelated to this session's physics fix. NOT diagnosed further; flagged."
         }
       },
@@ -90,7 +124,11 @@
     "phase0_gap_diagnosis": {
       "checked": "2026-08-07T21:49:25Z",
       "doc": "docs/GAP_DIAGNOSIS.md",
-      "gap1_ruled_out": ["duplicate model/graph implementation (swarm_intent.model vs swarm_intent.stgt.model) -- identical result via both", "normalization round-trip inconsistency -- both paths agree on real X_test.npy examples", "small-sample luck -- 0% reproduced at n=100, two seeds"],
+      "gap1_ruled_out": [
+        "duplicate model/graph implementation (swarm_intent.model vs swarm_intent.stgt.model) -- identical result via both",
+        "normalization round-trip inconsistency -- both paths agree on real X_test.npy examples",
+        "small-sample luck -- 0% reproduced at n=100, two seeds"
+      ],
       "gap1_confirmed": "v_shape/encirclement confidently (97.1%) misclassified as 'diamond', 30/30 fresh examples -- not noise/OOD collapse, a real generalization failure. Leading (unproven) explanation: deterministic-template formations + absolute (not centroid-relative) node features + acceleration-driven position variance increase + only 67 epochs/11min training -- perfect on in-run held-out data (X_test.npy), collapsed on genuinely fresh data.",
       "gap1_side_finding": "src/swarm_intent/stgt/ is an undocumented parallel copy of model/graph/config, reintroduces the hidden-global-state pattern the project's migration was meant to eliminate (module-level device global vs parameter-inferred). Harmless in this single-GPU env but a real duplication/drift risk -- every eval script uses stgt/, train.py uses the main package.",
       "gap2_ruled_out": "simple position-drift-into-OOD (already ruled out in CEILING.md)",
@@ -104,15 +142,47 @@
       "retrain": "80 full epochs (no early stop this time), best epoch 75, test_acc=0.9333, 13m07s. verify_upstream_physics.py still passes.",
       "phase0_ceiling_rerun": {
         "script": "scripts/phase0_ceiling.py --n 1000 --out evaluation/phase0_ceiling_v2.json, same seed=999",
-        "window_level_accuracy": {"before": 0.223, "after": 0.277},
-        "pair_level_accuracy": {"before": 0.0334, "after": 0.0472, "before_fraction": "17/509", "after_fraction": "24/509"},
+        "window_level_accuracy": {
+          "before": 0.223,
+          "after": 0.277
+        },
+        "pair_level_accuracy": {
+          "before": 0.0334,
+          "after": 0.0472,
+          "before_fraction": "17/509",
+          "after_fraction": "24/509"
+        },
         "per_class_notable": {
-          "v_shape": {"before": 0.013, "after": 0.532, "note": "large improvement"},
-          "encirclement": {"before": 0.002, "after": 0.143, "note": "still very poor"},
-          "diamond": {"before": 0.206, "after": 0.102, "note": "got worse"},
-          "converging": {"before": 0.001, "after": 0.077, "note": "still very poor"},
-          "shield": {"before": 0.240, "after": 0.154, "note": "got worse"},
-          "transitioning": {"before": 0.804, "after": 0.355, "note": "recall dropped sharply, not just population share"}
+          "v_shape": {
+            "before": 0.013,
+            "after": 0.532,
+            "note": "large improvement"
+          },
+          "encirclement": {
+            "before": 0.002,
+            "after": 0.143,
+            "note": "still very poor"
+          },
+          "diamond": {
+            "before": 0.206,
+            "after": 0.102,
+            "note": "got worse"
+          },
+          "converging": {
+            "before": 0.001,
+            "after": 0.077,
+            "note": "still very poor"
+          },
+          "shield": {
+            "before": 0.24,
+            "after": 0.154,
+            "note": "got worse"
+          },
+          "transitioning": {
+            "before": 0.804,
+            "after": 0.355,
+            "note": "recall dropped sharply, not just population share"
+          }
         }
       },
       "verdict": "gap-2 fix correctly diagnosed and implemented, measurably helped v_shape specifically (1.3%->53.2%), but pair-level ceiling only moved 3.3%->4.7% -- still nowhere near the 70% floor, and 3 classes (diamond, shield, transitioning's own recall) got WORSE, not just unchanged. Nothing further attempted -- reporting per HALT GATE 1 protocol.",
@@ -124,8 +194,16 @@
       "action": "User authorized: increase training epochs and data size, retrain, try another strategy if results still don't improve. Scaled n_per_formation 1000->3000, n_transition 2000->9000 (30000 total sequences vs 9000), epochs 80->150 (early-stopped at 42, best epoch 30, test_acc=0.9771).",
       "phase0_ceiling_rerun": {
         "script": "scripts/phase0_ceiling.py --n 1000 --out evaluation/phase0_ceiling_v3.json, same seed=999",
-        "window_level_accuracy": {"9k_80ep": 0.277, "30k_150ep": 0.369},
-        "pair_level_accuracy": {"9k_80ep": 0.0472, "30k_150ep": 0.0672, "9k_80ep_fraction": "24/509", "30k_150ep_fraction": "34/509"}
+        "window_level_accuracy": {
+          "9k_80ep": 0.277,
+          "30k_150ep": 0.369
+        },
+        "pair_level_accuracy": {
+          "9k_80ep": 0.0472,
+          "30k_150ep": 0.0672,
+          "9k_80ep_fraction": "24/509",
+          "30k_150ep_fraction": "34/509"
+        }
       },
       "verdict": "real, monotonic improvement (3.3%->4.7%->6.7% across both fixes) but at a rate of return (~+1.5-2pts per ~3x compute) that does not support reaching anywhere near the 70% floor without many further doublings of an already-substantial budget. v_shape regressed (53.2%->31.7%) while diamond/shield/converging recovered -- capacity trading within a fixed architecture, not convergence toward a usable ceiling. Judged as 'results still don't improve [enough to matter]' per the user's own conditional -- moving to the pre-authorized next strategy.",
       "ceiling_doc": "docs/CEILING.md (update section)",
@@ -136,10 +214,27 @@
       "action": "Implemented centroid-relative node features (positions - positions.mean(dim=0)) in build_graph, both graph.py and stgt/model.py copies. Retrained from scratch on the same 30k dataset, 150 epochs (early-stopped at 29, best epoch 17, test_acc=0.9873, 18m42s). verify_upstream_physics.py + full suite (134/134) pass.",
       "phase0_ceiling_rerun": {
         "script": "scripts/phase0_ceiling.py --n 1000 --out evaluation/phase0_ceiling_v4.json, same seed=999",
-        "window_level_accuracy": {"30k_150ep_absolute": 0.369, "30k_150ep_centroid_relative": 0.727},
-        "per_class_range": {"before": "14.9%-72.0%", "after": "52.3%-85.4%, much more even"},
-        "pair_level_accuracy_robust_false": {"before": 0.0672, "after": 0.0611, "after_fraction": "31/509"},
-        "pair_level_accuracy_robust_true": {"after": 0.0648, "after_fraction": "33/509", "bucket_C_before": 188, "bucket_C_after": 100, "bucket_A_before": 50, "bucket_A_after": 53}
+        "window_level_accuracy": {
+          "30k_150ep_absolute": 0.369,
+          "30k_150ep_centroid_relative": 0.727
+        },
+        "per_class_range": {
+          "before": "14.9%-72.0%",
+          "after": "52.3%-85.4%, much more even"
+        },
+        "pair_level_accuracy_robust_false": {
+          "before": 0.0672,
+          "after": 0.0611,
+          "after_fraction": "31/509"
+        },
+        "pair_level_accuracy_robust_true": {
+          "after": 0.0648,
+          "after_fraction": "33/509",
+          "bucket_C_before": 188,
+          "bucket_C_after": 100,
+          "bucket_A_before": 50,
+          "bucket_A_after": 53
+        }
       },
       "root_cause_identified": "model over-predicts 'transitioning' at a strikingly uniform 20-28% false-positive rate across all 7 steady formations (v_shape 24.3%, encirclement 27.5%, column 20.5%, diamond 21.3%, dispersed 25.4%, converging 25.1%, shield 27.1%). With 15-30 windows per long trajectory this makes at least one spurious ambiguous window near-certain, tripping guards regardless of how accurate classification is elsewhere. No longer a classification-quality problem (window accuracy is now good, 72.7%) -- a residual, class-uniform calibration/bias problem specific to the transitioning class.",
       "verdict": "both pre-authorized strategies (data/epochs scaling, centroid-relative features) executed. Window-level accuracy transformed (36.9%->72.7%) but pair-level ceiling stayed flat (6.7%->6.1%/6.5%) for a now-diagnosed, specific reason. Remains an unambiguous HALT GATE 1 trigger. Not attempting a third strategy without checking in.",
@@ -159,10 +254,29 @@
       "retrain": "regenerated 30k dataset, 150 epochs, early-stopped at 22 (best epoch 10), test_acc=0.8631 -- notably lower and more volatile val curve than strategy 4, possibly not fully converged. verify_upstream_physics.py + full suite (134/134) pass.",
       "phase0_ceiling_rerun": {
         "script": "scripts/phase0_ceiling.py --n 1000 --out evaluation/phase0_ceiling_v5.json, same seed=999",
-        "window_level_accuracy": {"before": 0.727, "after": 0.704},
-        "pair_level_accuracy_robust_false": {"before": 0.0611, "after": 0.1218, "after_fraction": "62/509"},
-        "pair_level_accuracy_robust_true": {"before": 0.0648, "after": 0.1277, "after_fraction": "65/509"},
-        "transitioning_fp_rate_per_class_after": {"v_shape": 0.162, "encirclement": 0.230, "column": 0.186, "diamond": 0.040, "dispersed": 0.217, "converging": 0.197, "shield": 0.085},
+        "window_level_accuracy": {
+          "before": 0.727,
+          "after": 0.704
+        },
+        "pair_level_accuracy_robust_false": {
+          "before": 0.0611,
+          "after": 0.1218,
+          "after_fraction": "62/509"
+        },
+        "pair_level_accuracy_robust_true": {
+          "before": 0.0648,
+          "after": 0.1277,
+          "after_fraction": "65/509"
+        },
+        "transitioning_fp_rate_per_class_after": {
+          "v_shape": 0.162,
+          "encirclement": 0.23,
+          "column": 0.186,
+          "diamond": 0.04,
+          "dispersed": 0.217,
+          "converging": 0.197,
+          "shield": 0.085
+        },
         "side_effect": "encirclement window-level accuracy regressed sharply (62.2%->41.3%), same capacity-trading pattern as strategy 3"
       },
       "verdict": "pair-level ceiling roughly DOUBLED (6.1%->12.2%, robust 6.5%->12.8%) -- the largest single relative jump of the program so far, and a well-targeted, diagnosis-driven fix, not a blind retrain. Still far below the 70% floor. Remains an unambiguous HALT GATE 1 trigger. Training curve volatility (early stop at 22/150, lower aggregate test_acc) suggests this checkpoint may not be fully converged -- untested whether steadier training does better on the same fixed data.",
@@ -175,14 +289,20 @@
       "method": "no retraining/resampling -- re-scored the SAME 509 pair-eligible records from evaluation/phase0_ceiling_v5.json against RULES (llm_finetuning/build_sft_dataset.py) for threat_level/likely_intent/recommended_action instead of exact-pair match. Script: scripts/phase0_threat_ceiling.py.",
       "rationale": "RULES maps 49 (from,to) pairs onto only 4 threat levels, so a wrong recovered pair can still yield the correct threat -- exact-pair accuracy is a pessimistic lower bound on the number that actually gates end-to-end tactical accuracy.",
       "robust_false": {
-        "n_eligible": 509, "n_no_recovery": 431,
-        "pair_accuracy": 0.122, "threat_accuracy": 0.130,
-        "intent_accuracy": 0.122, "action_accuracy": 0.130
+        "n_eligible": 509,
+        "n_no_recovery": 431,
+        "pair_accuracy": 0.122,
+        "threat_accuracy": 0.13,
+        "intent_accuracy": 0.122,
+        "action_accuracy": 0.13
       },
       "robust_true": {
-        "n_eligible": 509, "n_no_recovery": 428,
-        "pair_accuracy": 0.128, "threat_accuracy": 0.136,
-        "intent_accuracy": 0.128, "action_accuracy": 0.136
+        "n_eligible": 509,
+        "n_no_recovery": 428,
+        "pair_accuracy": 0.128,
+        "threat_accuracy": 0.136,
+        "intent_accuracy": 0.128,
+        "action_accuracy": 0.136
       },
       "conditional_on_recovery": "of the 78 (robust=False) / 81 (robust=True) trajectories that DID reach bucket A, threat accuracy is 66/78=84.6% / 69/81=85.2% -- decent. RULES-mapping tolerance is NOT the bottleneck.",
       "verdict": "70% floor NOT met on the threat ceiling either (13.0%/13.6%) -- barely moved off exact-pair accuracy (12.2%/12.8%). Root cause is upstream of RULES entirely: 84.7%/84.1% of trajectories never reach a resolvable bucket-A pair (bucket B guard-blocked or bucket C multi-hop/unresolvable), so there is no pair to look up in the first place. HALT GATE 1 verdict is unchanged by this more generous metric.",
@@ -193,10 +313,25 @@
       "checked": "2026-08-08T13:30:00Z",
       "method": "re-ran inference (no retraining) with identical seed=999 regime, reproduced all 509 pair-eligible trajectories index-for-index (62 correct/447 failed, exact match to phase0_ceiling_v5.json). For each failure: per-window correctness + position, whether the pair was recoverable from correct-only windows re-reduced, and the exact stgt_bridge guard_reasons that blocked bucket A. Script: scripts/phase0_decompose_failures.py.",
       "chain_length_breakdown": {
-        "chain_1_steady_state": {"n": 258, "n_correct": 62, "accuracy": 0.240},
-        "chain_2_single_transition": {"n": 251, "n_correct": 0, "accuracy": 0.0}
+        "chain_1_steady_state": {
+          "n": 258,
+          "n_correct": 62,
+          "accuracy": 0.24
+        },
+        "chain_2_single_transition": {
+          "n": 251,
+          "n_correct": 0,
+          "accuracy": 0.0
+        }
       },
-      "bad_window_distribution_among_failures": {"0": 211, "1": 121, "2": 79, "3": 26, "4": 6, "5": 4},
+      "bad_window_distribution_among_failures": {
+        "0": 211,
+        "1": 121,
+        "2": 79,
+        "3": 26,
+        "4": 6,
+        "5": 4
+      },
       "fraction_failures_with_1_2_bad_windows": 0.447,
       "fraction_recoverable_from_correct_only_windows": 0.009,
       "guard_reason_breakdown_all_447_failures": {
@@ -214,20 +349,70 @@
     "phase0_step7_strategy6_retrain": {
       "checked": "2026-08-08T22:00:00Z",
       "action": "checked strategy-5 dataset class distribution first (balanced, ruled out encirclement data-starvation). Replaced OneCycleLR (decays to ~0) with linear warmup (10% of steps) + cosine decay to a nonzero floor (5% of peak lr) in src/swarm_intent/config.py + train.py. Retrained on the SAME strategy-5 data: lr 3e-4->1e-4, patience 12->35. 134/134 tests pass. Backed up best_model.pt -> best_model_strategy5_backup.pt first.",
-      "dataset_class_distribution": {"v_shape": 3910, "encirclement": 3877, "column": 3865, "diamond": 3862, "dispersed": 3821, "converging": 3867, "shield": 3832, "transitioning": 2966},
+      "dataset_class_distribution": {
+        "v_shape": 3910,
+        "encirclement": 3877,
+        "column": 3865,
+        "diamond": 3862,
+        "dispersed": 3821,
+        "converging": 3867,
+        "shield": 3832,
+        "transitioning": 2966
+      },
       "training_result": {
-        "strategy5": {"best_epoch": 10, "early_stopped_at": 22, "test_acc": 0.8631},
-        "strategy6": {"best_epoch": 51, "early_stopped_at": 86, "best_val_loss": 0.0505, "test_acc": 0.9958}
+        "strategy5": {
+          "best_epoch": 10,
+          "early_stopped_at": 22,
+          "test_acc": 0.8631
+        },
+        "strategy6": {
+          "best_epoch": 51,
+          "early_stopped_at": 86,
+          "best_val_loss": 0.0505,
+          "test_acc": 0.9958
+        }
       },
       "per_class_test_metrics": {
-        "v_shape": {"precision": 0.987, "recall": 1.000, "f1": 0.993},
-        "encirclement": {"precision": 1.000, "recall": 0.986, "f1": 0.993},
-        "column": {"precision": 1.000, "recall": 1.000, "f1": 1.000},
-        "diamond": {"precision": 0.990, "recall": 1.000, "f1": 0.995},
-        "dispersed": {"precision": 0.995, "recall": 0.988, "f1": 0.991},
-        "converging": {"precision": 0.997, "recall": 1.000, "f1": 0.998},
-        "shield": {"precision": 1.000, "recall": 1.000, "f1": 1.000},
-        "transitioning": {"precision": 1.000, "recall": 0.991, "f1": 0.995}
+        "v_shape": {
+          "precision": 0.987,
+          "recall": 1.0,
+          "f1": 0.993
+        },
+        "encirclement": {
+          "precision": 1.0,
+          "recall": 0.986,
+          "f1": 0.993
+        },
+        "column": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "diamond": {
+          "precision": 0.99,
+          "recall": 1.0,
+          "f1": 0.995
+        },
+        "dispersed": {
+          "precision": 0.995,
+          "recall": 0.988,
+          "f1": 0.991
+        },
+        "converging": {
+          "precision": 0.997,
+          "recall": 1.0,
+          "f1": 0.998
+        },
+        "shield": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "transitioning": {
+          "precision": 1.0,
+          "recall": 0.991,
+          "f1": 0.995
+        }
       },
       "bug_found_not_fixed": "evaluate_ml_model (src/swarm_intent/llm/evaluate.py) double-normalizes X_test.npy, which is already normalized before being saved to disk -- collapses predictions to a single class. Worked around for this report by evaluating without the extra normalization step. Out of scope this turn, flagged for a future turn.",
       "verdict": "under-convergence hypothesis confirmed and fixed: strategy 5's aggressive schedule + low patience stopped training well before it found a better optimum. In-distribution test performance now essentially saturated (all classes >=98.6% precision/recall), encirclement fully recovered. This is NOT yet the ceiling metric -- step 2's finding (dispersed_converging_ambiguity guard causes 60.9% of pair-recovery failures, independent of classification correctness) means this gain may not transfer to pair-level/threat-level ceilings. Proceeding to step 4 to measure.",
@@ -238,14 +423,67 @@
     "phase0_step8_remeasure_strategy6": {
       "checked": "2026-08-08T22:20:00Z",
       "method": "phase0_ceiling.py --n 1000 and phase0_threat_ceiling.py re-run on the strategy-6 checkpoint, identical seed=999 protocol.",
-      "pair_level_accuracy": {"strategy5": {"robust_false": 0.1218, "robust_true": 0.1277}, "strategy6": {"robust_false": 0.0491, "robust_true": 0.0530}},
-      "threat_ceiling": {"strategy5": {"robust_false": 0.130, "robust_true": 0.136}, "strategy6": {"robust_false": 0.063, "robust_true": 0.069}},
-      "window_level_accuracy": {"strategy5": 0.7043, "strategy6": 0.6911},
-      "conditional_accuracy_within_bucket_A": {"strategy5": "62/78 = 79.5%", "strategy6": "25/77 = 32.5%"},
+      "pair_level_accuracy": {
+        "strategy5": {
+          "robust_false": 0.1218,
+          "robust_true": 0.1277
+        },
+        "strategy6": {
+          "robust_false": 0.0491,
+          "robust_true": 0.053
+        }
+      },
+      "threat_ceiling": {
+        "strategy5": {
+          "robust_false": 0.13,
+          "robust_true": 0.136
+        },
+        "strategy6": {
+          "robust_false": 0.063,
+          "robust_true": 0.069
+        }
+      },
+      "window_level_accuracy": {
+        "strategy5": 0.7043,
+        "strategy6": 0.6911
+      },
+      "conditional_accuracy_within_bucket_A": {
+        "strategy5": "62/78 = 79.5%",
+        "strategy6": "25/77 = 32.5%"
+      },
       "per_class_window_accuracy_delta": {
-        "v_shape": [0.780, 0.774], "encirclement": [0.413, 0.618], "column": [0.688, 0.762],
-        "diamond": [0.940, 0.700], "dispersed": [0.713, 0.714], "converging": [0.667, 0.374],
-        "shield": [0.903, 0.665], "transitioning": [0.573, 0.875]
+        "v_shape": [
+          0.78,
+          0.774
+        ],
+        "encirclement": [
+          0.413,
+          0.618
+        ],
+        "column": [
+          0.688,
+          0.762
+        ],
+        "diamond": [
+          0.94,
+          0.7
+        ],
+        "dispersed": [
+          0.713,
+          0.714
+        ],
+        "converging": [
+          0.667,
+          0.374
+        ],
+        "shield": [
+          0.903,
+          0.665
+        ],
+        "transitioning": [
+          0.573,
+          0.875
+        ]
       },
       "diagnosis": "strategy 6 converged much more tightly to generate_dataset()'s narrower training distribution (spread/noise ranges) than the ceiling test's wider realistic long-trajectory sampling -- genuine overfitting/generalization tradeoff, not a bug. encirclement and transitioning generalized better; diamond, shield, converging generalized markedly worse. Net effect: pair-level and threat-level ceilings both roughly HALVED.",
       "verdict": "strategy 6 achieved its own literal objective (fix under-convergence, raise test_acc) while making the metric that actually matters significantly WORSE. HALT GATE 1 remains unambiguously triggered, further below the 70% floor than strategy 5 left it. swarm_data/best_model.pt is currently the worse strategy-6 checkpoint; swarm_data/best_model_strategy5_backup.pt holds the better strategy-5 checkpoint, available to revert to if wanted. STOPPING per instruction after step 4 -- not proceeding to any further strategy without explicit user direction.",
@@ -265,6 +503,366 @@
       },
       "standing_rule_recorded": "STGT checkpoint selection must be judged on pair-level/threat-level ceiling, never test accuracy alone -- strategy 6 hit 99.6% test accuracy while roughly halving the ceiling. Recorded in HISTORY.md.",
       "history_doc": "HISTORY.md"
+    },
+    "phase0_step10_guard_audit": {
+      "checked": "2026-08-09T00:20:00Z",
+      "method": "scripts/phase0_guard_audit.py -- ran inference (strategy-5 checkpoint, no training) over the same seed=999 population, checked every window's class_probabilities against _is_ambiguous_dispersed_converging (stgt_bridge.py:114-120) and whether dispersed/converging are actually in that window's top-2 predicted classes.",
+      "guard_code": "def _is_ambiguous_dispersed_converging(cp): d,c = cp.get('dispersed'), cp.get('converging'); return abs(d-c) < 0.15 -- checks raw probability closeness only, no check on whether either class is competitive/top-2",
+      "results": {
+        "n_windows": 1469,
+        "n_guard_fires": 1113,
+        "fire_rate": 0.758,
+        "both_in_top2_genuine": {
+          "count": 19,
+          "fraction_of_fires": 0.017
+        },
+        "one_in_top2": {
+          "count": 358,
+          "fraction_of_fires": 0.322
+        },
+        "neither_in_top2_spurious": {
+          "count": 736,
+          "fraction_of_fires": 0.661
+        }
+      },
+      "example": "window predicted shield at 98.97% confidence, dispersed=0.0012, converging=0.0005 -- |0.0012-0.0005|=0.0007 < 0.15, guard fires despite the window not being remotely ambiguous",
+      "verdict": "confirmed: guard is not testing dispersed/converging contention. With 8 softmax classes, when one class dominates, the remaining ~7 split a small residual probability mass and any two land within 0.15 of each other by chance almost always. This is the exact mechanism behind step 2's 60.9%-of-failures finding (uniform across all formation classes). Proceeding to step 2: fix (require both in top-2 AND difference under threshold), re-measure isolated.",
+      "ceiling_doc": "docs/CEILING.md (update section)",
+      "raw_data": "/tmp/v5_guard_audit.log (not committed -- ephemeral console output; findings captured in CEILING.md/V5_LOG.md)"
+    },
+    "phase0_step11_guard_fix_and_remeasure": {
+      "checked": "2026-08-09T00:45:00Z",
+      "fix": "_is_ambiguous_dispersed_converging (stgt_bridge.py) now additionally requires dispersed and converging to be the window's top-2 predicted classes, on top of the original abs(d-c)<0.15 closeness check. No retraining, checkpoint unchanged (strategy-5, verified by hash).",
+      "isolated_reaudit": {
+        "method": "scripts/phase0_guard_audit.py --n 1000, same seed=999 population/checkpoint as step 1's audit -- only the guard function changed.",
+        "fire_rate_before": 0.758,
+        "fire_rate_after": 0.013,
+        "n_fires_before": 1113,
+        "n_fires_after": 19,
+        "spurious_fraction_before": 0.661,
+        "spurious_fraction_after": 0.0,
+        "genuine_fraction_before": 0.017,
+        "genuine_fraction_after": 1.0
+      },
+      "full_remeasurement": {
+        "method": "phase0_ceiling.py --n 1000 + phase0_threat_ceiling.py, same seed=999/checkpoint/protocol as every prior ceiling measurement.",
+        "bucket_A_size_before": {
+          "robust_false": 78,
+          "robust_true": 79
+        },
+        "bucket_A_size_after": {
+          "robust_false": 294,
+          "robust_true": 396
+        },
+        "pair_level_accuracy_before": {
+          "robust_false": 0.122,
+          "robust_true": 0.128
+        },
+        "pair_level_accuracy_after": {
+          "robust_false": 0.4695,
+          "robust_true": 0.4853
+        },
+        "precision_within_bucket_A_before": {
+          "robust_false": 0.795,
+          "robust_true": "~0.20 (sec AG)"
+        },
+        "precision_within_bucket_A_after": {
+          "robust_false": 0.813,
+          "robust_true": 0.624
+        },
+        "threat_ceiling_before": {
+          "robust_false": 0.13,
+          "robust_true": 0.136
+        },
+        "threat_ceiling_after": {
+          "robust_false": 0.523,
+          "robust_true": 0.587
+        },
+        "raw_data": [
+          "evaluation/phase0_ceiling_v5_guardfix.json",
+          "evaluation/phase0_threat_ceiling_v5_guardfix.json"
+        ]
+      },
+      "verdict": "Single biggest gain of the whole Phase 0 program, from a one-condition bug fix, no retraining. Retroactively reframes sec AG's 'robust reduction should not ship' verdict as measured against the broken guard, not a permanent judgment on the majority-vote algorithm itself. HALT GATE 1 still not cleared (52.3-58.7% vs 70% floor) but the gap shrank from ~57-58 points to ~11-18 points below floor.",
+      "ceiling_doc": "docs/CEILING.md (2026-08-09 step 2 update)",
+      "history_doc": "HISTORY.md"
+    },
+    "phase0_step12_chainlength_breakdown": {
+      "checked": "2026-08-09T01:05:00Z",
+      "method": "scripts/phase0_chainlength_breakdown.py --n 1000, same seed=999 population/checkpoint.",
+      "pair_level_by_chain_length": {
+        "chain_1": {
+          "n": 258,
+          "robust_false": 0.868,
+          "robust_true": 0.884
+        },
+        "chain_2": {
+          "n": 251,
+          "robust_false": 0.06,
+          "robust_true": 0.076
+        },
+        "chain_3plus": {
+          "n": 491,
+          "bucket_A_false_positive_rate_robust_false": 0.018,
+          "bucket_A_false_positive_rate_robust_true": 0.018
+        }
+      },
+      "threat_ceiling_by_chain_length": {
+        "chain_1": {
+          "robust_false": 0.868,
+          "robust_true": 0.888
+        },
+        "chain_2": {
+          "robust_false": 0.167,
+          "robust_true": 0.279
+        }
+      },
+      "chain2_trace_diagnosis_n20": {
+        "all_windows_transitioning": 0.35,
+        "structural_reduction_wrong_pair": 0.25,
+        "trailing_transitioning_run": 0.2,
+        "blocked_by_oov_name_guard": 0.15,
+        "spurious_third_formation_from_misclassification": 0.05
+      },
+      "verdict": "Chain-length-2 is still almost entirely broken (6.0% vs 86.8% for steady state), confirmed real. NOT a second guard bug of the dispersed_converging class -- 60% of traced failures trace to the windowing-artefact mechanism (short single-hop trajectories provide too few windows, sometimes the destination formation is never actually observed within the generated span) already diagnosed in the earlier engagement, not fixable by bridge-logic changes. Only 15% (oov_name guard blocking an already-correct structural reduction) is actionable without retraining.",
+      "raw_data": [
+        "evaluation/phase0_chainlength_breakdown.json",
+        "evaluation/phase0_chain2_trace.txt"
+      ],
+      "ceiling_doc": "docs/CEILING.md (2026-08-09 step 3 update)",
+      "history_doc": "HISTORY.md"
+    },
+    "phase0_step13_full_guard_audit": {
+      "checked": "2026-08-09T01:20:00Z",
+      "method": "scripts/phase0_full_guard_audit.py --n 1000, same seed=999 population/checkpoint. Sole-firing spurious rate = among trajectories where a guard is the ONLY entry in guard_reasons, fraction where the structural rules_key (computed before guard checks) already equals ground truth.",
+      "boolean_guards": {
+        "oov_name": {
+          "fire_rate": 0.083,
+          "n_fires": 42,
+          "n_sole_firing": 29,
+          "sole_firing_spurious_rate": 0.69,
+          "failures_attributable": 20
+        },
+        "dominant_history_contradiction": {
+          "fire_rate": 0.035,
+          "n_fires": 18,
+          "n_sole_firing": 4,
+          "sole_firing_spurious_rate": 1.0,
+          "failures_attributable": 4
+        },
+        "low_confidence": {
+          "fire_rate": 0.022,
+          "n_fires": 11,
+          "n_sole_firing": 4,
+          "sole_firing_spurious_rate": 0.25,
+          "failures_attributable": 1
+        },
+        "dispersed_converging_ambiguity_post_fix": {
+          "fire_rate": 0.022,
+          "n_fires": 11,
+          "n_sole_firing": 4,
+          "sole_firing_spurious_rate": 0.5,
+          "failures_attributable": 2
+        }
+      },
+      "oov_name_window_justification": {
+        "spurious_misclassification": 0.574,
+        "genuine_transitioning": 0.426,
+        "n_windows": 68
+      },
+      "key_windows_cap": {
+        "n_capped": 373,
+        "n_missing_endpoint": 0,
+        "verdict": "no bug found"
+      },
+      "robust_true_trim": {
+        "n_trimmed_trajectories": 101,
+        "n_pair_eligible": 509,
+        "n_windows_trimmed": 168,
+        "n_spurious": 105,
+        "spurious_rate": 0.625,
+        "verdict": "significant precision cost, explains robust=True's 62.4% ceiling"
+      },
+      "verdict": "dispersed_converging was not an isolated defect -- a recurring pattern (treat a raw/local signal as genuine ambiguity with no competitiveness/ground-truth-correlated threshold) also appears in dominant_history_contradiction, oov_name, and robust=True's trim step. key_windows capping is not part of this pattern. Audit only, no code changes made this step.",
+      "ceiling_doc": "docs/CEILING.md (2026-08-09 step 4 update)",
+      "history_doc": "HISTORY.md"
+    },
+    "phase0_step14_robust_threshold_sweep": {
+      "checked": "2026-08-09T01:35:00Z",
+      "method": "scripts/phase0_robust_threshold_sweep.py, dev split seed=1 (n=500, n_pair_eligible=244) for tuning, held-out seed=999 (n=1000, n_pair_eligible=509) for confirmation only, threshold frozen before held-out generation.",
+      "dev_sweep_summary": {
+        "0.45-0.50": {
+          "coverage": 0.848,
+          "precision": 0.604
+        },
+        "0.55-0.65": {
+          "coverage": 0.811,
+          "precision": 0.631,
+          "note": "best precision in sweep"
+        },
+        "0.70-1.00_current_default": {
+          "coverage": 0.779,
+          "precision": 0.626
+        }
+      },
+      "held_out_confirmation": {
+        "at_chosen_0.45": {
+          "coverage": 0.835,
+          "precision": 0.605
+        },
+        "at_current_default_0.7": {
+          "coverage": 0.778,
+          "precision": 0.624
+        },
+        "dev_vs_held_out_precision_gap": 0.001
+      },
+      "verdict": "Precision curve flat across the entire sweep (60.4-63.1%) -- consistent with step 2's finding that the trim step (not the vote threshold) dominates contamination, and trimming happens before the vote runs. Recommended operating point 0.55-0.65 (e.g. 0.6): Pareto-dominates the current shipped 0.7 (more coverage AND more precision). Lower (0.45) buys more coverage at a real precision cost. No tested threshold gets contamination meaningfully below ~37%. Recommendation only -- DEFAULT_ROBUST_THRESHOLD left at 0.7 in code, not changed this session.",
+      "ceiling_doc": "docs/CEILING.md (2026-08-09 step 5 update)",
+      "history_doc": "HISTORY.md"
+    },
+    "phase0_step15_endtoend_projection": {
+      "checked": "2026-08-09T01:50:00Z",
+      "method": "scripts/phase0_endtoend_projection.py -- pure post-processing of evaluation/phase0_ceiling_v5_guardfix.json + phase0_threat_ceiling_v5_guardfix.json, plus one disclosed external estimate (v3b-fix accuracy from AUDIT.md sec AF's earlier real-STGT-output eval, pre-guard-fix checkpoint, not bucket-conditioned).",
+      "identity": "current 'threat ceiling' = P(bucket A) * threat_accuracy_within_A; bucket B/C score 0 in that metric (no LLM layer runs in the ceiling scripts).",
+      "robust_false": {
+        "bucket_A": 0.578,
+        "bucket_B": 0.12,
+        "bucket_C": 0.303,
+        "threat_accuracy_within_A": 0.905,
+        "current_threat_ceiling": 0.523,
+        "end_to_end_conservative_20pct": 0.583,
+        "end_to_end_central_30.9pct": 0.616,
+        "end_to_end_optimistic_40pct": 0.644
+      },
+      "robust_true_at_0.7": {
+        "bucket_A": 0.778,
+        "bucket_B": 0.106,
+        "bucket_C": 0.116,
+        "threat_accuracy_within_A": 0.755,
+        "current_threat_ceiling": 0.587,
+        "end_to_end_conservative_20pct": 0.611,
+        "end_to_end_central_30.9pct": 0.623,
+        "end_to_end_optimistic_40pct": 0.634
+      },
+      "verdict": "Even the most optimistic projection (64.4%) does not clear a 70% floor. The actual question -- is 70% stated in pair-level terms still the right gate -- has a clear answer: no, it measures the wrong quantity now that pair-level (47.0%) and threat-level (52.3%) ceilings have diverged, and will keep diverging as pair-level-specific fixes land (RULES' 49-pair-to-4-threat structure guarantees threat-level doesn't move 1:1 with pair-level). Recommend restating the gate in end-to-end threat-accuracy terms; the numeric floor itself is a policy decision this projection informs but does not set -- the central estimate (~62%) is short of 70% under either metric.",
+      "ceiling_doc": "docs/CEILING.md (2026-08-09 step 6 update)",
+      "history_doc": "HISTORY.md"
+    },
+    "phase0_step16_discipline_catch": {
+      "checked": "2026-08-09T02:00:00Z",
+      "verified": "grep DEFAULT_ROBUST_THRESHOLD src/swarm_intent/stgt_bridge.py -> 0.7, unchanged",
+      "finding": "Not a code revert -- a process finding. seed=1 was used for threshold tuning twice across two different sessions (sec AG originally, then step 5 of the prior turn), which is repeated reuse of a nominally-held-out split even though neither individual round's selection logic read the seed=999 ceiling battery.",
+      "standing_rule": "A dev/mining split is used for tuning ONCE, then retired. A fresh, disjoint seed is cut for each new tuning question going forward.",
+      "history_doc": "docs/V5_LOG.md (2026-08-09 step 0 entry)"
+    },
+    "phase0_step17_mining_split_sweep": {
+      "checked": "2026-08-09T02:15:00Z",
+      "method": "scripts/phase0_mining_split_sweep.py, MINING_SEED=2024 (fresh, single-use, disjoint from training=42/ceiling=999/retired-dev=1), n=500 (252 pair-eligible), held-out seed=999 n=1000 (509 pair-eligible) for confirmation only.",
+      "mining_sweep_summary": {
+        "0.45-0.50": {
+          "coverage": 0.833,
+          "precision": 0.6
+        },
+        "0.55-0.65": {
+          "coverage": 0.734,
+          "precision": 0.622
+        },
+        "0.70-1.00_current_default": {
+          "coverage": 0.702,
+          "precision": 0.633,
+          "note": "best precision in sweep"
+        }
+      },
+      "chosen_by_selection_rule": {
+        "threshold": 0.55,
+        "mining_coverage": 0.734,
+        "mining_precision": 0.622
+      },
+      "dominates_current_default": false,
+      "held_out_confirmation": {
+        "at_0.55": {
+          "coverage": 0.784,
+          "precision": 0.619
+        },
+        "at_current_default_0.7": {
+          "coverage": 0.778,
+          "precision": 0.624
+        }
+      },
+      "verdict": "REVERSES the prior (now-retired seed=1) sweep's conclusion -- on a properly fresh, single-use split, the current default 0.7 has the best precision in the sweep and the candidate threshold does not dominate it on mining OR held-out. DEFAULT_ROBUST_THRESHOLD left unchanged at 0.7. Validates the step 0 discipline catch: the earlier conclusion was an artefact of dev-split reuse, not a robust finding.",
+      "history_doc": "docs/V5_LOG.md (2026-08-09 step 1 entry)"
+    },
+    "phase0_step18_fix_oov_name": {
+      "checked": "2026-08-09T02:30:00Z",
+      "claimed_condition": "a genuinely out-of-vocabulary formation name appeared",
+      "actual_condition_before_fix": "n_unknown_windows > 0 -- conflates genuine OOV with the classifier's own valid 'transitioning' class",
+      "fix": "stgt_bridge.py computes n_genuinely_oov_windows (formation_type not in BASE_FORMATIONS and != TRANSITION_CLASS) separately; coverage.py's oov_name guard now checks that field instead of n_unknown_windows.",
+      "regression_tests": [
+        "tests/test_stgt_bridge.py: n_genuinely_oov_windows correctness (0 for transitioning, 1 for real OOV)",
+        "tests/test_coverage.py: transitioning blip now resolves to bucket A; genuine OOV name still guards to bucket B"
+      ],
+      "remeasurement": {
+        "robust_false": {
+          "bucket_A_before": 294,
+          "bucket_A_after": 323,
+          "pair_accuracy_before": 0.47,
+          "pair_accuracy_after": 0.509,
+          "threat_ceiling_before": 0.523,
+          "threat_ceiling_after": 0.572
+        },
+        "robust_true": {
+          "bucket_A_before": 396,
+          "bucket_A_after": 420,
+          "pair_accuracy_before": 0.485,
+          "pair_accuracy_after": 0.521,
+          "threat_ceiling_before": 0.587,
+          "threat_ceiling_after": 0.631
+        }
+      },
+      "history_doc": "docs/V5_LOG.md (2026-08-09 step 2a entry)"
+    },
+    "phase0_step19_fix_dominant_history_contradiction": {
+      "checked": "2026-08-09T02:45:00Z",
+      "claimed_condition": "summary['dominant_formation'] contradicts the derived key",
+      "actual_condition_before_fix": "counts.count(key[0]) == counts.count(key[1]) -- a raw window-count tie, unrelated to key (derived from temporal order, not counts)",
+      "fix": "summary['dominant_formation'] not in (key[0], key[1]) -- tests the literal claim",
+      "unreachability_proof": "known_history always has <=2 distinct formations by this point (len>=3 already routed to bucket C); dominant_formation is the mode over the same valid_formations set known_history is built from; therefore dominant_formation is provably always in {key[0], key[1]}. Condition is correctly unreachable, kept defensively (matches the no_rules_key pattern), not deleted.",
+      "regression_test": "the previously-spurious 2/2 count-tie shape now resolves to bucket A with the guard absent (was incorrectly guarded to B before).",
+      "remeasurement_cumulative_with_step2a": {
+        "robust_false": {
+          "bucket_A": 339,
+          "pair_accuracy": 0.536,
+          "threat_ceiling": 0.603
+        },
+        "robust_true": {
+          "bucket_A": 431,
+          "pair_accuracy": 0.54,
+          "threat_ceiling": 0.652
+        }
+      },
+      "history_doc": "docs/V5_LOG.md (2026-08-09 step 2b entry)"
+    },
+    "phase0_step20_fix_trim_step": {
+      "checked": "2026-08-09T03:00:00Z",
+      "fix": "_robust_reduce's leading/trailing strip loop now only strips a 'transitioning' edge window when formation_confidence >= TRIM_CONFIDENCE_THRESHOLD (0.6, reused from the existing low_confidence guard bar -- no new tunable parameter). Genuine OOV names still stripped regardless of confidence.",
+      "regression_tests": "tests/test_stgt_bridge.py TestRobustReductionTrim: confident transitioning window still stripped; low-confidence one is not; genuine OOV still stripped regardless of confidence.",
+      "remeasurement_robust_true": {
+        "bucket_A_before": 431,
+        "bucket_A_after": 418,
+        "precision_within_A_before": 0.638,
+        "precision_within_A_after": 0.658,
+        "threat_ceiling_before": 0.652,
+        "threat_ceiling_after": 0.646,
+        "note": "the 13 trajectories removed from bucket A were ALL wrong before (275 correct unchanged) -- fix precisely targets over-trusted wrong recoveries. Threat ceiling moves slightly down because this ceiling script scores bucket C as wrong, not crediting Layer 3 for the newly-excluded cases -- expected, not a regression."
+      },
+      "session_cumulative_robust_true": {
+        "threat_ceiling_start": 0.587,
+        "threat_ceiling_now": 0.646,
+        "precision_within_A_start": 0.624,
+        "precision_within_A_now": 0.658
+      },
+      "robust_false_unaffected": "confirmed unchanged (53.6% pair / 60.3% threat) -- never calls _robust_reduce",
+      "history_doc": "docs/V5_LOG.md (2026-08-09 step 3 entry)"
     }
   },
   "started": "2026-08-07T19:47:41Z"

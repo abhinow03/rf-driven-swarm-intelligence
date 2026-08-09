@@ -107,6 +107,10 @@ class TestAbstentionOnUnknownFormation(unittest.TestCase):
         _, summary, key_windows = bridge_predictions(preds)
         self.assertEqual(summary["dominant_formation"], "column")
         self.assertEqual(summary["n_unknown_windows"], 1)
+        # 2026-08-09 fix: "transitioning" is the classifier's own VALID class, not a
+        # genuinely out-of-vocabulary name -- n_genuinely_oov_windows must be 0 here
+        # even though n_unknown_windows (the broader, narrative-only count) is 1.
+        self.assertEqual(summary["n_genuinely_oov_windows"], 0)
         self.assertIn(UNKNOWN_FORMATION, summary["formation_history"])
         # no transition pair should mention "transitioning" on either side
         for t in summary["transitions_detected"]:
@@ -120,6 +124,9 @@ class TestAbstentionOnUnknownFormation(unittest.TestCase):
         preds = [make_window("v_shape", 0), make_window("not_a_real_formation", 10)]
         _, summary, _ = bridge_predictions(preds)
         self.assertEqual(summary["n_unknown_windows"], 1)
+        # a genuinely unrecognized name (unlike "transitioning") IS a real
+        # data-integrity concern -- n_genuinely_oov_windows must count it.
+        self.assertEqual(summary["n_genuinely_oov_windows"], 1)
 
     def test_all_unknown_triggers_full_abstention(self):
         preds = [make_window("transitioning", 0), make_window("transitioning", 10)]
@@ -181,6 +188,32 @@ class TestDispersedConvergingAmbiguity(unittest.TestCase):
         _, summary, _ = bridge_predictions(preds)
         self.assertEqual(summary["n_ambiguous_dispersed_converging_windows"], 0)
 
+    def test_close_but_irrelevant_residual_mass_not_flagged(self):
+        """2026-08-09 fix (docs/CEILING.md 2026-08-09 step 2): a window confidently
+        predicted as some OTHER class, where dispersed/converging are both tiny
+        residual probabilities that happen to be close to each other in absolute
+        terms, must NOT be flagged -- this was the exact spurious-firing mechanism
+        (V5 Phase 0 step 1: 66.1% of firings had neither class in the window's
+        top-2). Real example from scripts/phase0_guard_audit.py: shield predicted
+        at 98.97%, dispersed=0.0012, converging=0.0005."""
+        probs = {"shield": 0.9897, "dispersed": 0.0012, "converging": 0.0005,
+                 "v_shape": 0.003, "column": 0.002, "diamond": 0.001,
+                 "encirclement": 0.0005, "transitioning": 0.0011}
+        self.assertLess(abs(probs["dispersed"] - probs["converging"]),
+                        DISPERSED_CONVERGING_AMBIGUITY_MARGIN)  # close in absolute terms
+        preds = [make_window("shield", 0, class_probabilities=probs)]
+        _, summary, key_windows = bridge_predictions(preds)
+        self.assertEqual(summary["n_ambiguous_dispersed_converging_windows"], 0)
+        self.assertFalse(key_windows[0]["ambiguous_dispersed_converging"])
+
+    def test_top2_but_not_close_not_flagged(self):
+        """The two conditions are independent: top-2 alone isn't enough without
+        also being close in probability."""
+        probs = {"dispersed": 0.55, "converging": 0.20, "column": 0.15, "shield": 0.10}
+        preds = [make_window("dispersed", 0, class_probabilities=probs)]
+        _, summary, _ = bridge_predictions(preds)
+        self.assertEqual(summary["n_ambiguous_dispersed_converging_windows"], 0)
+
 
 class TestNoDisallowedCharacters(unittest.TestCase):
     """(f) no character absent from training prompts (no "warning" glyph)."""
@@ -198,6 +231,38 @@ class TestNoDisallowedCharacters(unittest.TestCase):
         preds = [make_window("transitioning", 0)]
         context, summary, _ = bridge_predictions(preds)
         self.assertNotIn("⚠", context)
+
+
+class TestRobustReductionTrim(unittest.TestCase):
+    """2026-08-09 fix: robust=True's leading/trailing trim used to strip every
+    UNKNOWN_FORMATION edge window unconditionally (62.5% spurious, audited --
+    the window's true label was often a real, settled formation the classifier
+    simply misclassified, not genuine blend geometry). Now only strips a
+    "transitioning" read the model is reasonably confident about."""
+
+    def test_confident_trailing_transitioning_is_still_stripped(self):
+        preds = ([make_window("column", t, confidence=0.9) for t in (0, 10, 20, 30)]
+                + [make_window("transitioning", 40, confidence=0.9)])
+        _, summary, _ = bridge_predictions(preds, robust=True, robust_threshold=0.7)
+        self.assertIsNotNone(summary["robust_reduction"])
+        self.assertEqual(summary["robust_reduction"]["stripped_trailing"], 1)
+        self.assertEqual(summary["dominant_formation"], "column")
+        self.assertEqual(summary["formation_history"], ["column"])
+
+    def test_low_confidence_trailing_transitioning_is_not_stripped(self):
+        preds = ([make_window("column", t, confidence=0.9) for t in (0, 10, 20, 30, 40, 50)]
+                + [make_window("transitioning", 60, confidence=0.3)])
+        _, summary, _ = bridge_predictions(preds, robust=True, robust_threshold=0.5)
+        self.assertIsNotNone(summary["robust_reduction"])
+        self.assertEqual(summary["robust_reduction"]["stripped_trailing"], 0)
+
+    def test_genuine_oov_trailing_window_is_still_stripped_regardless_of_confidence(self):
+        preds = ([make_window("column", t, confidence=0.9) for t in (0, 10, 20, 30)]
+                + [make_window("phalanx", 40, confidence=0.1)])
+        _, summary, _ = bridge_predictions(preds, robust=True, robust_threshold=0.7)
+        self.assertIsNotNone(summary["robust_reduction"])
+        self.assertEqual(summary["robust_reduction"]["stripped_trailing"], 1)
+        self.assertEqual(summary["dominant_formation"], "column")
 
 
 if __name__ == "__main__":

@@ -492,3 +492,333 @@ currently the strategy-6 checkpoint; `swarm_data/best_model_strategy5_backup.pt`
 better-performing strategy-5 checkpoint if reverting is wanted. **HALT GATE 1 is unchanged —
 still far below the 70% floor — and this turn's exploration ends with the ceiling lower than
 where strategy 5 left it.** Per instruction, stopping here to report both trajectories.
+
+## Update 2026-08-09: revert + step 1 — the ambiguity guard IS broken, confirmed directly
+
+Reverted `swarm_data/best_model.pt` to the strategy-5 checkpoint (SHA-256 verified). Standing
+rule recorded: checkpoint selection must be judged on ceiling, never test accuracy alone.
+
+**Step 1: audited `dispersed_converging_ambiguity` directly against real predictions.** The
+guard (`stgt_bridge.py:114-120`):
+
+```python
+def _is_ambiguous_dispersed_converging(class_probabilities: dict) -> bool:
+    d, c = class_probabilities.get("dispersed"), class_probabilities.get("converging")
+    return abs(d - c) < DISPERSED_CONVERGING_AMBIGUITY_MARGIN  # margin = 0.15
+```
+
+This checks only whether the two RAW probabilities happen to be close to each other in
+absolute terms — never whether either is actually competitive for the window's top
+prediction. Ran `scripts/phase0_guard_audit.py` (same seed=999 population, strategy-5
+checkpoint, inference only): across 1469 windows, the guard fires on **75.8%** of them. Of
+those firings:
+
+| condition | count | fraction of firings |
+|---|---|---|
+| BOTH dispersed and converging in top-2 (genuinely competing) | 19 | 1.7% |
+| ONE of the two in top-2 | 358 | 32.2% |
+| **NEITHER in top-2 (spurious)** | **736** | **66.1%** |
+
+**Confirmed: the guard is not testing what it claims to test.** Example firings: a window
+predicted `shield` at 98.97% confidence, with `dispersed=0.0012`/`converging=0.0005` —
+`|0.0012-0.0005| = 0.0007 < 0.15`, so the guard fires, on a window that is not remotely
+ambiguous about anything. With 8 softmax classes, when one class dominates, the remaining
+~7 split a small residual probability mass, and ANY two of them (not just dispersed/
+converging) will very often land within 0.15 of each other purely because both are near
+zero — the guard was written as if 0.15 were a meaningful gap regardless of scale, but at
+these magnitudes it's nearly always satisfied by chance. This fully explains step 2's
+finding (60.9% of pair-recovery failures, firing across every formation class uniformly) —
+it was never actually testing dispersed/converging contention.
+
+## Update 2026-08-09: step 2 — the guard fix, isolated and full re-measurement
+
+**Fix (`stgt_bridge.py`'s `_is_ambiguous_dispersed_converging`):** now requires dispersed and
+converging to be the window's TOP-2 predicted classes (genuinely competing for the top spot),
+in addition to the original `abs(d-c) < 0.15` closeness check. One added condition, no other
+change to the function, no retraining, no checkpoint change (still strategy 5).
+
+**Isolated re-measurement (`scripts/phase0_guard_audit.py --n 1000`, same seed=999 population,
+same checkpoint as step 1's audit — the only variable changed is the guard code):**
+
+| condition | before (step 1) | after (step 2) |
+|---|---|---|
+| guard fires on | 1113/1469 windows (75.8%) | **19/1469 windows (1.3%)** |
+| BOTH in top-2 (genuinely competing) | 19 (1.7% of firings) | **19 (100.0% of firings)** |
+| ONE in top-2 | 358 (32.2%) | **0 (0.0%)** |
+| NEITHER in top-2 (spurious) | 736 (66.1%) | **0 (0.0%)** |
+
+**Every one of the 19 remaining firings is now genuine dispersed/converging contention.
+Zero spurious firings, zero one-sided firings — the fix is complete and clean, not a partial
+tightening.** The original 19 "genuinely competing" firings from step 1 survive unchanged
+(the top-2 condition is additive, never removes a firing that was already both-in-top-2 AND
+close), so this is exactly the expected before/after: everything spurious removed, nothing
+genuine lost.
+
+**Full ceiling re-measurement (`phase0_ceiling.py --n 1000` → `evaluation/
+phase0_ceiling_v5_guardfix.json`, `phase0_threat_ceiling.py` → `evaluation/
+phase0_threat_ceiling_v5_guardfix.json`, same seed=999/checkpoint/protocol as every prior
+ceiling measurement — the guard fix is the only variable changed):**
+
+| metric | strategy 5, before guard fix | strategy 5, after guard fix | change |
+|---|---|---|---|
+| bucket A size, robust=False (of 509 eligible) | 78 | **294 (57.8%)** | **+216** |
+| bucket A size, robust=True | 79 | **396 (77.8%)** | **+317** |
+| pair-level accuracy, robust=False | 12.2% (62/509) | **47.0% (239/509)** | **+34.8pt** |
+| pair-level accuracy, robust=True | 12.8% (65/509) | **48.5% (247/509)** | **+35.7pt** |
+| precision WITHIN bucket A, robust=False | 79.5% (62/78) | **81.3% (239/294)** | +1.8pt |
+| **precision WITHIN bucket A, robust=True** | **~20% (sec AG, capped by this defect)** | **62.4% (247/396)** | **+~42pt** |
+| threat ceiling, robust=False | 13.0% | **52.3%** | **+39.3pt** |
+| threat ceiling, robust=True | 13.6% | **58.7%** | **+45.1pt** |
+
+**This is by far the single largest gain of the entire Phase 0 program, and it came from a
+one-condition bug fix, not from retraining.** `robust=True`'s recovery precision — the exact
+number sec AG measured at 17-25% and used to justify "robust reduction should not ship" — is
+now 62.4%, because the dominant source of low-precision robust recoveries was this same
+mis-specified guard corrupting the class_probabilities signal the majority-vote reduction
+also depends on. Sec AG's verdict was correct given the code it was measured against; it does
+not hold against this fixed guard, and should not be treated as a permanent verdict on
+`robust=True` — a follow-up re-evaluation against this fix is the natural next step if a full
+pipeline_v2 re-run is wanted.
+
+**HALT GATE 1, stated plainly: still not cleared.** Threat ceiling (52.3-58.7%) remains below
+the 70% floor — this is the biggest single jump in the program (from ~57-58 points below floor
+to ~11-18 points below floor) but is not itself sufficient to clear the gate. The gap remaining
+is far smaller and now looks structurally different: no longer "the guard is nonsense," but
+genuine STGT window-level accuracy (70.4% overall, with `encirclement` at 41.3% and
+`transitioning` at 57.3% dragging the average down) and the underlying pair-reduction task's
+own remaining difficulty.
+
+## Update 2026-08-09: step 3 — chain-length-2 is still broken, and it's NOT a second guard bug
+
+Before the guard fix, `scripts/phase0_decompose_failures.py` found chain-length-2 (single real
+transition) accuracy near zero while chain-length-1 (steady state) succeeded. Re-measured with
+the fixed guard (`scripts/phase0_chainlength_breakdown.py --n 1000`, same seed=999 population,
+strategy-5 checkpoint):
+
+| chain_length | n | pair_acc (robust=False) | pair_acc (robust=True) | threat_acc (F) | threat_acc (T) |
+|---|---|---|---|---|---|
+| 1 (steady state) | 258 | **86.8%** | 88.4% | 86.8% | 88.8% |
+| 2 (single transition) | 251 | **6.0%** | 7.6% | 16.7% | 27.9% |
+| 3+ (no RULES key) | 491 | n/a | n/a | n/a | n/a |
+
+**Confirmed: chain-length-2 is still almost entirely broken (6.0% vs 86.8% for steady state) —
+this is real, not fixed by the guard fix, exactly the user's hypothesis.** Chain 3+'s bucket-A
+false-positive rate (any A-resolution here is wrong by construction — no 2-tuple ground truth
+exists) is low and roughly stable regardless of reduction mode: 1.8% (robust=False), 1.8%
+(robust=True) — chain 3+ isn't where the problem lives.
+
+**But it is NOT a second bug of the same class as the dispersed_converging guard.** Traced 20
+failing chain-length-2 trajectories stage by stage (window classifications → guard →
+temporal transition derivation → reduction → bucket; full trace:
+`evaluation/phase0_chain2_trace.txt`):
+
+| diagnosis | n | % of 20 |
+|---|---|---|
+| all_windows_transitioning | 7 | 35.0% |
+| structural_reduction_wrong_pair | 5 | 25.0% |
+| trailing_transitioning_run | 4 | 20.0% |
+| blocked_by_oov_name_guard | 3 | 15.0% |
+| spurious_third_formation_from_misclassification | 1 | 5.0% |
+
+**60% of traced failures (all_windows_transitioning + trailing_transitioning_run + most of
+structural_reduction_wrong_pair) trace back to the SAME windowing-artefact mechanism identified
+in the earlier engagement (AUDIT.md sec AF step 4): chain-length-2 trajectories are a SINGLE
+hop, 50-100 timesteps, often only 1-2 sliding windows total.** Two concrete examples from the
+trace:
+- Trajectory 34 (`dispersed→encirclement`, 2 windows): BOTH windows' true labels are
+  `dispersed`/`encirclement` respectively, but STGT reads `transitioning` on both (98% and 98%
+  confidence) — with only 1-2 windows and no redundancy to average over, a single hard
+  misclassification collapses the whole trajectory to `all_unknown`.
+- Trajectory 18 (`shield→v_shape`, 2 windows): both windows' TRUE label is `shield` — the
+  transition to `v_shape` never actually completes within the observed span at all. STGT
+  correctly, confidently reads `shield` on both windows (99% conf) and the bridge correctly,
+  confidently reduces to `(shield, shield)` — WRONG relative to the generator's chain, but not
+  because anything in the classifier or bridge is broken. The ground truth itself isn't
+  observable in the data as generated.
+
+**Only 15% (blocked_by_oov_name_guard) is genuine bridge-logic brittleness of the kind step 2
+already fixed once.** Example: trajectory 11 (`v_shape→column`, 5 windows) structurally
+reduces to the EXACT correct pair (`v_shape`, `column`) — `rules_key` matches ground truth
+exactly — but 2 interior windows read `transitioning` (a real, if brief, blend read), tripping
+`oov_name` and routing to bucket B instead of A. This IS fixable without retraining (it's
+exactly what `robust=True`'s trim/majority-vote logic is for), and IS covered by step 4's guard
+audit below.
+
+**5% is genuine STGT misclassification** (trajectory 31: `dispersed`→`converging`→`diamond`
+predicted where truth is `converging`→`diamond`, from a single bad window at the very start) —
+not a bridge-logic issue, a classifier-accuracy one.
+
+**Verdict, stated plainly: chain-length-2's brokenness is NOT primarily a fixable bridge bug.**
+It is dominated (60%) by a structural property of the sampling regime — segment lengths
+(50-100 timesteps) close to or barely above `window_size` (50, architecturally fixed for this
+checkpoint) mean many single-transition trajectories provide only 1-2 observation windows, too
+few for the destination formation to reliably resolve OR be observed at all. No bridge-logic
+change (guard fix, robust reduction, anything short of retraining with longer segments or a
+larger `max_seq_len`) can fix the dominant share of this. The 15% oov_name-guard share is real
+and actionable now — see step 4's guard audit.
+
+## Update 2026-08-09: step 4 — auditing every other guard/rule the same way
+
+`scripts/phase0_full_guard_audit.py --n 1000`, same seed=999 population as every prior
+measurement. For each boolean guard: fire rate over the 509 pair-eligible trajectories,
+and — among trajectories where the guard is the SOLE reason `bucket != A`
+(`guard_reasons == [that guard]`) — what fraction of those "sole firings" are spurious, i.e.
+the structural `rules_key` (computed BEFORE guard checks, available regardless of bucket)
+already equals the ground-truth pair, so the guard blocked what would otherwise have been the
+correct answer:
+
+| guard | fire rate (of 509) | n sole-firing | sole-firing spurious rate | failures attributable |
+|---|---|---|---|---|
+| **oov_name** | 42 (8.3%) | 29 | **69.0% (20/29)** | **20** |
+| **dominant_history_contradiction** | 18 (3.5%) | 4 | **100.0% (4/4)** | **4** |
+| low_confidence | 11 (2.2%) | 4 | 25.0% (1/4) | 1 |
+| dispersed_converging_ambiguity (post-fix) | 11 (2.2%) | 4 | 50.0% (2/4) | 2 |
+
+**Two more guards of the same defective class as the original dispersed_converging bug,
+found by the same methodology:**
+
+- **`dominant_history_contradiction`: 100% spurious when it's the sole blocker (n=4, small but
+  unambiguous).** This guard fires when the two known formations' PREDICTED window counts are
+  exactly tied — but a raw count tie says nothing about whether the underlying (a,b) pair is
+  actually ambiguous; a clean, obviously-correct 2/2 window split ties just as easily as a
+  genuinely uncertain one. Every sole-firing case in this sample blocked an answer that was
+  already right. Same defect shape as the original bug: testing a condition that doesn't
+  actually correlate with untrustworthiness.
+- **`oov_name`: fires on 8.3% of trajectories, 69.0% spurious when sole, blocking 20 correct
+  answers outright — the highest-VOLUME actionable defect found.** Window-level check: of the
+  68 total unknown windows across all oov_name-firing trajectories, 57.4% are
+  `spurious_misclassification` (STGT wrongly read `"transitioning"` on a window whose true
+  label was a real, settled formation) vs. 42.6% `genuine_transitioning` (real blend
+  ambiguity). The guard is reacting to real classifier noise more than half the time, but its
+  response (blanket-block on ANY unknown window at all, zero tolerance, no threshold) massively
+  overreacts relative to how much signal the OTHER windows in the same trajectory usually
+  still carry.
+- `low_confidence` and the post-fix `dispersed_converging_ambiguity` are comparatively minor
+  and mostly-justified (25% and 50% spurious respectively, both on n=4 — small volume either
+  way, not a priority).
+
+**Two non-guard reduction mechanisms, audited the same way:**
+
+- **`key_windows` cap (`DEFAULT_MAX_KEY_WINDOWS=10`): no bug found.** 373/1000 trajectories
+  exceed the cap (almost entirely chain 3+, longer sequences) and get capped, but **0/373**
+  capped selections are missing a true endpoint formation from the narrative shown downstream —
+  the priority-based selection (first/last/unknown/low-confidence/ambiguous, sec V's original
+  design) is working as intended.
+- **Leading/trailing transitioning-run trim (`robust=True`'s `_robust_reduce`, sec AG): a real,
+  significant precision cost, found by the same window-level ground-truth check.** Fires
+  (strips >=1 window) on 101/509 (19.8%) pair-eligible trajectories, 168 windows trimmed total,
+  and **105/168 (62.5%) of trimmed windows have a true label that was NOT `"transitioning"`** —
+  i.e. the trim step is discarding genuine signal (a window the model simply misclassified as
+  transitioning) more often than it's discarding real noise. This directly explains why
+  `robust=True`'s within-bucket-A precision plateaus at 62.4% even after the dispersed_converging
+  fix (sec AG/step 2): the majority-vote algorithm's own trim step is itself contaminated by
+  the same "assume any unknown-run is genuine ambiguity" fallacy as `oov_name`, just applied
+  before the vote instead of as a guard after it.
+
+**Verdict: the dispersed_converging bug was not an isolated defect — it's an instance of a
+recurring pattern (treat a raw/local signal as evidence of genuine ambiguity with no
+competitiveness or ground-truth-correlated threshold) that also appears in
+`dominant_history_contradiction`, `oov_name`, and the `robust=True` trim step, in that rough
+order of severity. `key_windows` capping is the one mechanism audited that is NOT part of this
+pattern.** Audit only, per this turn's scope — no code changes made; these are documented
+findings for a future fix turn, not implemented here.
+
+## Update 2026-08-09: step 5 — robust=True threshold re-swept post-guard-fix
+
+`DEFAULT_ROBUST_THRESHOLD=0.7` was tuned once (sec AG, the earlier engagement), before this
+session's guard fix and full guard audit — both changed the signal the threshold operates on.
+Re-swept against the CURRENT pipeline (`scripts/phase0_robust_threshold_sweep.py`), tuned on a
+DEV split ONLY (seed=1, disjoint from the seed=999 held-out population every other Phase 0
+measurement uses), then confirmed on held-out seed=999:
+
+| threshold | dev coverage | dev precision | held-out coverage | held-out precision |
+|---|---|---|---|---|
+| 0.45-0.50 | 84.8% | 60.4% | 83.5% | 60.5% |
+| **0.55-0.65** | **81.1%** | **63.1% (best)** | — | — |
+| 0.70-1.00 (current shipped default) | 77.9% | 62.6% | 77.8% | 62.4% |
+
+**Dev-vs-held-out precision gap at the tested operating points: 0.1pt — essentially perfect
+generalization, the threshold is not overfit to the dev split** (this session's own version
+of sec AG step 4's standing check).
+
+**The precision curve across the ENTIRE sweep is flat (60.4-63.1%, a 2.7-point range across
+every threshold from 0.45 to 1.00).** This is itself a finding, not just a null result:
+consistent with step 4's guard audit, the threshold barely moves precision because the
+DOMINANT source of contamination — the leading/trailing trim step discarding genuine signal
+62.5% of the time — happens BEFORE the majority vote and isn't gated by this parameter at
+all. Raising or lowering the vote threshold cannot fix a problem the vote never gets a chance
+to see.
+
+**Recommended operating point: 0.55-0.65 (e.g. 0.6), NOT the current shipped 0.7.** It
+Pareto-dominates the current default — more coverage (81.1% vs 77.9%, +3.2pt) at equal-or-
+better precision (63.1% vs 62.6%, +0.5pt) — a low-risk, unambiguous improvement over what's
+shipped today. Going lower (0.45-0.50) buys further coverage (84.8%, +6.9pt over current) but
+at a real precision cost (60.4% vs 62.6%, -2.2pt) — a legitimate choice if coverage is valued
+more than contamination, but not a free win the way 0.6 is.
+
+**Tradeoff stated explicitly, at the recommended 0.6:** moving from 0.7 to 0.6 lets ~3.2% more
+of the 509 pair-eligible population reach Layer 1 (roughly 16 more trajectories out of 509),
+with the fraction of WRONG answers among everything reaching Layer 1 essentially unchanged
+(36.9% wrong at 0.7 → 36.9% wrong at 0.6, both ≈37% contamination). At 0.45, coverage rises
+further (~35 more trajectories vs 0.7) but wrong-key contamination among Layer-1 answers rises
+to ~39.5%. **None of these operating points get contamination meaningfully below ~37% without
+also fixing the trim step itself** — the threshold is a minor lever on top of a much bigger,
+already-identified problem. Audit/recommendation only, per scope — `DEFAULT_ROBUST_THRESHOLD`
+left at 0.7 in code; changing it is a decision for a future turn, not made here.
+
+## Update 2026-08-09: step 6 — HALT GATE 1 re-examined, end-to-end threat accuracy projected
+
+The 70% floor was set when pair-level (12.2%) and threat-level (13.0%) ceilings were nearly
+identical, so a single number implicitly gated both. They have since diverged sharply — 47.0%
+pair vs 52.3% threat (robust=False) — because RULES maps 49 (from,to) pairs onto only 4
+threat levels: a wrong recovered pair frequently still lands on the correct threat. This
+divergence will only widen as pair-level brittleness gets fixed (this session's guard fixes
+help pair-level directly; RULES' many-to-one structure means threat-level doesn't move 1:1
+with it). `scripts/phase0_endtoend_projection.py` computes what the CURRENT pipeline actually
+projects to, end-to-end (pure post-processing of already-saved ceiling data, no new inference):
+
+**Identity used**: `phase0_threat_ceiling.py`'s reported "threat ceiling" (52.3%/58.7%) is
+ALREADY `P(bucket A) × threat_accuracy_within_bucket_A` — bucket B/C score 0 in that metric
+(no LLM layer runs in these ceiling scripts). The only missing term for a true end-to-end
+number is Layer 3's real contribution on bucket C; bucket B (guard) contributes 0 either way,
+by design.
+
+| | robust=False (shipped default) | robust=True @ 0.7 |
+|---|---|---|
+| bucket A / B / C | 57.8% / 12.0% / 30.3% | 77.8% / 10.6% / 11.6% |
+| **threat accuracy WITHIN bucket A** | **90.5% (266/294)** | 75.5% (299/396) |
+| current measured "threat ceiling" | 52.3% | 58.7% |
+| end-to-end (Layer 3 @ 20%, conservative) | 58.3% | 61.1% |
+| **end-to-end (Layer 3 @ 30.9%, sec AF's measured v3b-fix)** | **61.6%** | **62.3%** |
+| end-to-end (Layer 3 @ 40%, optimistic) | 64.4% | 63.4% |
+
+Threat-accuracy-within-bucket-A (90.5% robust=False) is dramatically higher than pair-accuracy-
+within-bucket-A (81.3%, sec AG/step 2) — direct confirmation of the many-to-one RULES mapping
+effect. Layer 3's contribution is a DISCLOSED ESTIMATE, not measured this turn: reused from
+the earlier engagement's real-STGT-output eval (AUDIT.md sec AF, `evaluation/
+eval_real_stgt_output.json`, v3b-fix 77/249 = 30.9%) — a different checkpoint/bridge state
+(pre-guard-fix) and not bucket-conditioned (that eval ran v3b-fix on every case, not just
+bucket-C-shaped ones), so reported as a central estimate with an explicit conservative/
+optimistic band rather than a single number treated as precise.
+
+**Central projection: end-to-end threat accuracy is ~61.6-62.3%, essentially the same under
+either reduction mode** — `robust=True` reaches more of the population via the cheap,
+deterministic Layer 1 pathway (77.8% vs 57.8% coverage) at lower per-case quality within it
+(75.5% vs 90.5%), and those two effects roughly cancel in the end-to-end number. `robust=True`
+DOES have a materially narrower sensitivity band (61.1-63.4%, 2.3pt) than `robust=False`
+(58.3-64.4%, 6.1pt), because it depends on the uncertain Layer-3 estimate for a much smaller
+share of the population (11.6% vs 30.3%) — a real, if secondary, argument for shipping
+`robust=True` beyond precision alone.
+
+**HALT GATE 1 verdict, stated plainly: even under the most favorable end-to-end framing tested
+(optimistic Layer 3, robust=False, 64.4%), the projection does not clear a 70% floor.** The
+gap is real, not an artefact of scoring bucket B/C as zero. But the RIGHT QUESTION per this
+turn's instruction is whether 70% stated in PAIR-LEVEL terms is still the right gate, and the
+answer is no — it is measuring the wrong quantity for what the gate is actually meant to
+protect (end-to-end tactical correctness), and pair-level and threat-level will keep
+diverging as bridge fixes land. **Recommendation: restate HALT GATE 1 in end-to-end threat-
+accuracy terms going forward, not pair-level terms.** Whether the numeric floor stays 70% or
+is revised is a policy decision this projection informs but does not make — the projected
+central estimate (~62%) is ~8 points short of 70% either way, so the gate does not
+mechanically clear regardless of which of the two metrics it's restated against; what changes
+is which number future turns should actually be trying to move.

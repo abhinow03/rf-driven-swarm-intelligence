@@ -91,7 +91,7 @@ import numpy as np
 
 from . import context_spec as spec
 from .calibration import AbsoluteCalibrator, Calibrator
-from .config import BASE_FORMATIONS
+from .config import BASE_FORMATIONS, TRANSITION_CLASS
 
 UNKNOWN_FORMATION = "unknown"
 DEFAULT_MAX_KEY_WINDOWS = 10
@@ -103,6 +103,19 @@ DISALLOWED_CHARACTERS = ("⚠",)  # "⚠" -- never in any training prompt
 DEFAULT_ROBUST_THRESHOLD = 0.7
 ALL_UNKNOWN_FALLBACK_MARGIN = 0.05
 
+# 2026-08-09 fix (docs/CEILING.md, V5 Phase 0 guard audit step 4): the leading/
+# trailing trim below used to strip EVERY "transitioning"-classified edge window
+# unconditionally, trusting each one's label at face value -- audited at 62.5%
+# spurious (the window's TRUE label was a real, settled formation the classifier
+# simply got wrong, not genuine blend geometry). Reuses the SAME 0.6 confidence
+# bar the `low_confidence` guard already uses elsewhere in this codebase (not a
+# freshly-tuned value -- no new parameter, no new mining-split tuning question):
+# only a "transitioning" read the model itself is reasonably confident about is
+# trusted enough to strip. A genuine out-of-vocabulary name (never "transitioning"
+# itself) is stripped regardless of confidence -- it was never trustworthy for
+# voting purposes either way.
+TRIM_CONFIDENCE_THRESHOLD = 0.6
+
 
 def _validate_formation(name) -> str:
     """Anything not in BASE_FORMATIONS (this INCLUDES the classifier's own
@@ -112,10 +125,23 @@ def _validate_formation(name) -> str:
 
 
 def _is_ambiguous_dispersed_converging(class_probabilities: dict) -> bool:
+    """2026-08-09 fix (HISTORY.md strategy 7 / AUDIT.md sec AG): the original version of
+    this check compared ONLY the raw dispersed/converging probabilities (abs(d-c) < margin)
+    with no requirement that either class be competitive for the window's top prediction.
+    With 8 softmax classes, whenever one class dominates, the other ~7 split a small
+    residual probability mass and land within 0.15 of each other by chance almost always --
+    measured directly (scripts/phase0_guard_audit.py) at a 75.8% fire rate on real
+    predictions, 66.1% of which had NEITHER class in the window's top-2. Now requires
+    dispersed and converging to be the window's top-2 predicted classes (i.e. genuinely
+    competing for the top spot), in addition to the original probability-closeness check."""
     if not class_probabilities:
         return False
     d, c = class_probabilities.get("dispersed"), class_probabilities.get("converging")
     if d is None or c is None:
+        return False
+    ranked = sorted(class_probabilities.items(), key=lambda kv: kv[1], reverse=True)
+    top2_names = {name for name, _ in ranked[:2]}
+    if top2_names != {"dispersed", "converging"}:
         return False
     return abs(d - c) < DISPERSED_CONVERGING_AMBIGUITY_MARGIN
 
@@ -152,6 +178,18 @@ def _robust_all_unknown_fallback(predictions, n_stripped_leading, n_stripped_tra
     return (top1, [top1], [], info)
 
 
+def _trustworthy_to_strip(predictions, i):
+    """2026-08-09 fix: is window i's UNKNOWN_FORMATION read trustworthy enough
+    to strip as genuine edge noise? A "transitioning" read is only trusted when
+    the model itself is reasonably confident about it (TRIM_CONFIDENCE_THRESHOLD,
+    reusing the existing low_confidence bar); a genuine out-of-vocabulary name
+    (never "transitioning") is stripped regardless of confidence -- it was never
+    trustworthy for voting purposes either way."""
+    if predictions[i]["formation_type"] == TRANSITION_CLASS:
+        return predictions[i]["formation_confidence"] >= TRIM_CONFIDENCE_THRESHOLD
+    return True
+
+
 def _robust_reduce(formation_seq, predictions, threshold):
     """Steps 2a+2b (AUDIT.md sec AG): strip leading/trailing UNKNOWN_FORMATION
     runs, then reduce what's left by MAJORITY vote (modal non-unknown formation
@@ -160,13 +198,22 @@ def _robust_reduce(formation_seq, predictions, threshold):
     Falls back to _robust_all_unknown_fallback (2c) if nothing survives
     stripping. Returns (dominant, formation_history, transitions, info) or
     None if not robustly resolvable -- callers must fall back to the original
-    unanimity-based reduction on None, not treat it as "abstain"."""
+    unanimity-based reduction on None, not treat it as "abstain".
+
+    2026-08-09 fix: stripping used to trust every UNKNOWN_FORMATION edge window
+    unconditionally (62.5% spurious, audited -- the window's true label was
+    often a real, settled formation the classifier simply misclassified as
+    "transitioning", not genuine blend geometry). Now only strips a window
+    `_trustworthy_to_strip` accepts; an untrusted low-confidence "transitioning"
+    window is left in `stripped` as UNKNOWN_FORMATION, where `modal()` below
+    already correctly excludes it from voting and counts it against that half's
+    plurality fraction -- the safe fallback, never a wrong confident answer."""
     n = len(formation_seq)
     start = 0
-    while start < n and formation_seq[start] == UNKNOWN_FORMATION:
+    while start < n and formation_seq[start] == UNKNOWN_FORMATION and _trustworthy_to_strip(predictions, start):
         start += 1
     end = n
-    while end > start and formation_seq[end - 1] == UNKNOWN_FORMATION:
+    while end > start and formation_seq[end - 1] == UNKNOWN_FORMATION and _trustworthy_to_strip(predictions, end - 1):
         end -= 1
     stripped = formation_seq[start:end]
     n_lead, n_trail = start, n - end
@@ -261,6 +308,16 @@ def bridge_predictions(predictions: list[dict], calibrator: "Calibrator | None" 
 
     formation_seq = [_validate_formation(p["formation_type"]) for p in predictions]
     n_unknown = sum(1 for f in formation_seq if f == UNKNOWN_FORMATION)
+    # 2026-08-09 fix (docs/CEILING.md, "oov_name guard"): n_unknown counts BOTH a
+    # genuinely out-of-vocabulary formation name (real data-integrity concern) AND
+    # the classifier's own valid "transitioning" class (a normal, expected read for
+    # a blend/transient window, not a vocabulary problem at all) under the SAME
+    # sentinel. The oov_name guard's name claims to test the former; audited, it
+    # was firing on the latter (V5 Phase 0 full guard audit: 69% spurious when the
+    # sole blocker). This narrower count lets the guard test only what it claims.
+    n_genuinely_oov = sum(1 for p in predictions
+                          if p["formation_type"] not in BASE_FORMATIONS
+                          and p["formation_type"] != TRANSITION_CLASS)
 
     robust_info = None
     robust_result = _robust_reduce(formation_seq, predictions, robust_threshold) if robust else None
@@ -286,6 +343,7 @@ def bridge_predictions(predictions: list[dict], calibrator: "Calibrator | None" 
             "abstain_reason": f"all {n} window(s) classified outside BASE_FORMATIONS "
                               f"(transitioning / unrecognized) -- no reliable formation signal",
             "formation_history": formation_history, "n_windows": n, "n_unknown_windows": n_unknown,
+            "n_genuinely_oov_windows": n_genuinely_oov,
         }
         context = ("No reliable formation classification in this observation window "
                   "(every window's classification fell outside the known formation "
@@ -354,7 +412,8 @@ def bridge_predictions(predictions: list[dict], calibrator: "Calibrator | None" 
         "mean_stability": round(mean_stability, 3), "spread_dynamics": approach_summary,
         "mean_approach_rate": round(mean_approach, 3), "role_differentiation": role_flag,
         "mean_confidence": round(mean_conf, 3), "low_conf_windows": low_conf, "n_windows": n,
-        "n_unknown_windows": n_unknown, "n_ambiguous_dispersed_converging_windows": n_ambiguous,
+        "n_unknown_windows": n_unknown, "n_genuinely_oov_windows": n_genuinely_oov,
+        "n_ambiguous_dispersed_converging_windows": n_ambiguous,
         "robust_reduction": robust_info,  # None unless robust=True AND it actually recovered a pair
     }
 

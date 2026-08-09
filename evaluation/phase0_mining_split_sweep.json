@@ -1,0 +1,139 @@
+{
+  "mining_seed": 2024,
+  "held_out_seed": 999,
+  "retired_seeds": [
+    1
+  ],
+  "mining_sweep": [
+    {
+      "threshold": 0.45,
+      "n": 252,
+      "n_recovered": 210,
+      "coverage": 0.8333333333333334,
+      "n_correct": 126,
+      "precision": 0.6
+    },
+    {
+      "threshold": 0.5,
+      "n": 252,
+      "n_recovered": 210,
+      "coverage": 0.8333333333333334,
+      "n_correct": 126,
+      "precision": 0.6
+    },
+    {
+      "threshold": 0.55,
+      "n": 252,
+      "n_recovered": 185,
+      "coverage": 0.7341269841269841,
+      "n_correct": 115,
+      "precision": 0.6216216216216216
+    },
+    {
+      "threshold": 0.6,
+      "n": 252,
+      "n_recovered": 185,
+      "coverage": 0.7341269841269841,
+      "n_correct": 115,
+      "precision": 0.6216216216216216
+    },
+    {
+      "threshold": 0.65,
+      "n": 252,
+      "n_recovered": 185,
+      "coverage": 0.7341269841269841,
+      "n_correct": 115,
+      "precision": 0.6216216216216216
+    },
+    {
+      "threshold": 0.7,
+      "n": 252,
+      "n_recovered": 177,
+      "coverage": 0.7023809523809523,
+      "n_correct": 112,
+      "precision": 0.632768361581921
+    },
+    {
+      "threshold": 0.75,
+      "n": 252,
+      "n_recovered": 177,
+      "coverage": 0.7023809523809523,
+      "n_correct": 112,
+      "precision": 0.632768361581921
+    },
+    {
+      "threshold": 0.8,
+      "n": 252,
+      "n_recovered": 177,
+      "coverage": 0.7023809523809523,
+      "n_correct": 112,
+      "precision": 0.632768361581921
+    },
+    {
+      "threshold": 0.85,
+      "n": 252,
+      "n_recovered": 177,
+      "coverage": 0.7023809523809523,
+      "n_correct": 112,
+      "precision": 0.632768361581921
+    },
+    {
+      "threshold": 0.9,
+      "n": 252,
+      "n_recovered": 177,
+      "coverage": 0.7023809523809523,
+      "n_correct": 112,
+      "precision": 0.632768361581921
+    },
+    {
+      "threshold": 0.95,
+      "n": 252,
+      "n_recovered": 177,
+      "coverage": 0.7023809523809523,
+      "n_correct": 112,
+      "precision": 0.632768361581921
+    },
+    {
+      "threshold": 1.0,
+      "n": 252,
+      "n_recovered": 177,
+      "coverage": 0.7023809523809523,
+      "n_correct": 112,
+      "precision": 0.632768361581921
+    }
+  ],
+  "chosen_threshold": 0.55,
+  "chosen_mining": {
+    "threshold": 0.55,
+    "n": 252,
+    "n_recovered": 185,
+    "coverage": 0.7341269841269841,
+    "n_correct": 115,
+    "precision": 0.6216216216216216
+  },
+  "current_default_on_mining": {
+    "threshold": 0.7,
+    "n": 252,
+    "n_recovered": 177,
+    "coverage": 0.7023809523809523,
+    "n_correct": 112,
+    "precision": 0.632768361581921
+  },
+  "dominates_current_default": false,
+  "held_out_at_chosen": {
+    "threshold": 0.55,
+    "n": 509,
+    "n_recovered": 399,
+    "coverage": 0.7838899803536346,
+    "n_correct": 247,
+    "precision": 0.6190476190476191
+  },
+  "held_out_at_current_default_0.7": {
+    "threshold": 0.7,
+    "n": 509,
+    "n_recovered": 396,
+    "coverage": 0.7779960707269156,
+    "n_correct": 247,
+    "precision": 0.6237373737373737
+  }
+}
