@@ -1,0 +1,49 @@
+====================================================================================================
+baseline (all off, current behaviour)  (n_hops_sampled=300, n_kept=300, n_excluded=0, exclusion_rate=0.0%)
+====================================================================================================
+  pure_a: n=86  own-content-fraction: min=0.760 p25=0.780 mean=0.829 p75=0.860 max=0.900
+  pure_b: n=107  own-content-fraction: min=0.760 p25=0.800 mean=0.831 p75=0.880 max=0.900
+  transitioning: n=107  own-content-fraction: min=0.420 p25=0.480 mean=0.510 p75=0.560 max=0.580
+  windows where assigned label DISAGREES with plurality of own content: 1/300 (0.3%)
+
+====================================================================================================
+blend-timing only  (n_hops_sampled=300, n_kept=300, n_excluded=0, exclusion_rate=0.0%)
+====================================================================================================
+  pure_a: n=113  own-content-fraction: min=0.340 p25=0.460 mean=0.532 p75=0.600 max=0.800
+  pure_b: n=137  own-content-fraction: min=0.380 p25=0.440 mean=0.524 p75=0.580 max=0.800
+  transitioning: n=50  own-content-fraction: min=0.340 p25=0.400 mean=0.427 p75=0.460 max=0.460
+  windows where assigned label DISAGREES with plurality of own content: 0/300 (0.0%)
+
+====================================================================================================
+windowing only  (n_hops_sampled=300, n_kept=1800, n_excluded=0, exclusion_rate=0.0%)
+====================================================================================================
+  pure_a: n=606  own-content-fraction: min=0.600 p25=0.980 mean=0.951 p75=1.000 max=1.000
+  pure_b: n=600  own-content-fraction: min=0.460 p25=0.820 mean=0.900 p75=1.000 max=1.000
+  transitioning: n=594  own-content-fraction: min=0.220 p25=0.600 mean=0.742 p75=0.900 max=1.000
+  windows where assigned label DISAGREES with plurality of own content: 73/1800 (4.1%)
+
+====================================================================================================
+labeling only  (n_hops_sampled=300, n_kept=297, n_excluded=3, exclusion_rate=1.0%)
+====================================================================================================
+  pure_a: n=101  own-content-fraction: min=0.760 p25=0.780 mean=0.832 p75=0.880 max=0.900
+  pure_b: n=92  own-content-fraction: min=0.760 p25=0.780 mean=0.826 p75=0.880 max=0.900
+  transitioning: n=104  own-content-fraction: min=0.420 p25=0.460 mean=0.506 p75=0.540 max=0.580
+  windows where assigned label DISAGREES with plurality of own content: 0/297 (0.0%)
+
+====================================================================================================
+all three combined (the actual proposed port)  (n_hops_sampled=300, n_kept=886, n_excluded=928, exclusion_rate=51.2%)
+====================================================================================================
+  pure_a: n=320  own-content-fraction: min=0.700 p25=0.740 mean=0.821 p75=0.900 max=1.000
+  pure_b: n=452  own-content-fraction: min=0.700 p25=0.760 mean=0.850 p75=0.940 max=1.000
+  transitioning: n=114  own-content-fraction: min=0.360 p25=0.420 mean=0.430 p75=0.460 max=0.460
+  windows where assigned label DISAGREES with plurality of own content: 0/886 (0.0%)
+
+====================================================================================================
+SUMMARY
+====================================================================================================
+run                                           X.shape              hops   kept   excl   disagree
+baseline (all off, current behaviour)         (300, 50, 6, 3)       300    300      0      1/300
+blend-timing only                             (300, 50, 6, 3)       300    300      0      0/300
+windowing only                                (1800, 50, 6, 3)      300   1800      0    73/1800
+labeling only                                 (297, 50, 6, 3)       300    297      3      0/297
+all three combined (the actual proposed port) (886, 50, 6, 3)       300    886    928      0/886

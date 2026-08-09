@@ -1,6 +1,6 @@
 {
   "phase": 0,
-  "step": 33,
+  "step": 34,
   "status": "Steps 27-30 COMPLETE (docs/V5_LOG.md): established that eval_trajectories.py fixes (steps 24-26) never touched generate_dataset() (the real training-data path, unchanged since strategy 5). Step 27: full parameter diff (example length 50 fixed vs 80-132 derived; 3 discrete regimes vs continuous absolute ranges; spread/noise_std both wider in eval; per-timestep physics identical). Step 28: 0.0% Monte Carlo overlap (n=20000) between train regimes and eval distribution -- full distributional replacement, not partial tuning. Step 29: step-26 gains (18.7%->65.8%) shown to be explained by reduced exposure to blend-dominant windows (observability fix), NOT genuine generalization -- blend-overlap and boundary-concentrated failure taxonomy both unmoved by the observability fix. Step 30: decision gate closed, verdict A (port corrected distribution into generate_dataset(), retrain STGT from scratch) -- recorded in HISTORY.md as its own standalone decision, explicitly NOT Strategy 7, since it invalidates strategy 1-6 comparisons unless read as tuning-against-a-flawed-distribution. NOT EXECUTED this session -- no training, no generate_dataset() changes, per explicit instruction. STOPPING per instruction after step 5/30.",
   "status_pre_step27": "Chain-2 generator-fix consolidation + source symmetrization COMPLETE (docs/V5_LOG.md step 26, 3 commits: 3591051 consolidation, 9061392 symmetrization, + docs/results commit -- no STGT/bridge/LLM code changed, same frozen strategy-5 checkpoint). Step 1: consolidated 5 duplicate copies of build_long_sequence_labeled into src/swarm_intent/eval_trajectories.py (4 live scripts now import it; 1 frozen historical-reproduction script deliberately excluded, documented); confirmed NONE of the 5 ever fed real STGT training data (that's generate_dataset(), separate code). Step 2: symmetrized LEAD_IN_RANGE (15,35)->(30,50), derived the same way as MIN_DWELL_RANGE (lead_in>=25 for a window-0 majority, no stride-slack term since window 0 always starts at t=0); verified source OBS_NONE 16.3%->0.0% at population scale. Step 3: chain-2 pair_acc 39.9%->65.8% (was 18.7% original baseline, 3.5x total), threat_acc 72.1%->76.3%. Step 4: refined 20-case taxonomy found 100% boundary/blend-timing-concentrated failures, 0% clean (non-boundary) misses. Step 5: chain-3+ false-positive rate investigated and RESOLVED (12.6%->1.8%, below the 9.0% original baseline, p=4.3e-07) -- mechanistically explained by the shared per-hop sampling loop, not a bug, not noise (dest-only-fix regression itself was only borderline significant, p=0.062). Step 6: blend-timing overlap re-checked, STILL 0.0%, unchanged across 3 independent formula revisions. Decision: B -- blend-timing distribution mismatch is the dominant remaining issue, should be fixed BEFORE any STGT training/capacity change, not decision A as step 25 projected. STOPPING per instruction -- no STGT retraining, no blend-distribution fix started this session.",
   "halts_cleared": [],
@@ -1202,6 +1202,48 @@
       "step32_windowing_constraint": "PositionalEncoding.forward does a SLICE (x + pe[:,:T,:]) so T<=50 works, T>50 crashes on shape mismatch; STGTModel.forward requires uniform T within a batch. max_seq_len=50 increase = full architecture change, out of scope. Decision: keep examples fixed at 50, window long hops down via WINDOW_SIZE=50/STRIDE=10, same grid as sliding_window_inference.",
       "step33_implementation": "commit 8c7b0b7, 3 flags (corrected_blend_timing, windowed_examples, content_majority_labeling) all default False, verified bit-identical to pre-change generator with all off, 140/140 tests pass.",
       "log_doc": "docs/V5_LOG.md steps 31-33"
+    },
+    "phase0_step34_label_sanity_diagnostics": {
+      "checked": "2026-08-10T01:35:00Z",
+      "script": "scripts/phase0_generator_port_diagnostics.py, n_transition=300/run, seed=7",
+      "results_table": {
+        "baseline": {
+          "hops": 300,
+          "kept": 300,
+          "excluded": 0,
+          "disagree": "1/300 (0.3%)"
+        },
+        "blend_timing_only": {
+          "hops": 300,
+          "kept": 300,
+          "excluded": 0,
+          "disagree": "0/300 (0.0%)"
+        },
+        "windowing_only": {
+          "hops": 300,
+          "kept": 1800,
+          "excluded": 0,
+          "disagree": "73/1800 (4.1%)"
+        },
+        "labeling_only": {
+          "hops": 300,
+          "kept": 297,
+          "excluded": 3,
+          "disagree": "0/297 (0.0%)"
+        },
+        "all_three_combined": {
+          "hops": 300,
+          "kept": 886,
+          "excluded": 928,
+          "excluded_pct": 0.512,
+          "disagree": "0/886 (0.0%)"
+        }
+      },
+      "finding1": "windowing-only reintroduces mislabeling at 4.1% -- confirms windowing MUST be paired with content-majority labeling, cannot ship alone",
+      "finding2": "combined port has a real 51.2% exclusion rate (structural, from 3-way-ambiguous windows) -- full-scale generation should request ~2x n_transition to compensate for yield loss; a compute/planning consideration, not a correctness problem",
+      "threshold_validation": "pure_a/pure_b own-content fractions in combined run: 0.700-1.000 (never below 0.70 floor); transitioning: 0.360-0.460 (never below 0.20 floor) -- confirmed empirically, not just derived",
+      "log_doc": "docs/V5_LOG.md step 34",
+      "raw_data": "evaluation/phase0_generator_port_diagnostics.txt"
     }
   },
   "started": "2026-08-07T19:47:41Z"

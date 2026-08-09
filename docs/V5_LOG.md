@@ -1874,3 +1874,45 @@ for `scripts/generate_data.py`/`train_model.py`. `LEAD_IN_RANGE`/`BLEND_DURATION
 `MIN_DWELL_RANGE`'s canonical definition moved to `data.py` (training wants them now too);
 `eval_trajectories.py` re-exports rather than duplicating, closing the exact silent-drift
 risk step 26 already found once. Full 140-test suite passes unchanged.
+
+### Step 34: label-sanity numbers for all four diagnostic datasets
+
+`scripts/phase0_generator_port_diagnostics.py --n_transition 300` (seed=7, fresh, disjoint
+from 0/1/42/999/2024), `return_diagnostics=True`. For every KEPT example: own-content
+fraction distribution by assigned label, and whether the assigned label disagrees with the
+PLURALITY of that example's own realized content (checked numerically, not assumed).
+
+| run | hops | kept | excluded | disagree-with-own-content |
+|---|---|---|---|---|
+| baseline (all off) | 300 | 300 | 0 (0.0%) | **1/300 (0.3%)** |
+| blend-timing only | 300 | 300 | 0 (0.0%) | 0/300 (0.0%) |
+| windowing only | 300 | 1800 | 0 (0.0%) | **73/1800 (4.1%)** |
+| labeling only | 300 | 297 | 3 (1.0%) | 0/297 (0.0%) |
+| **all three combined (the proposed port)** | 300 | 886 | **928 (51.2%)** | **0/886 (0.0%)** |
+
+**Two findings worth flagging plainly, not just the headline pass/fail:**
+
+1. **"Windowing only" reintroduces mislabeling at 4.1%** — directly confirms the concern
+   raised when this session was scoped ("does windowing reintroduce the boundary problem the
+   dwell-time fix just solved?"). With `content_majority_labeling=False`, every window sliced
+   from one hop inherits that hop's single regime-implied label regardless of what content
+   that specific window actually contains — the exact per-hop-blanket-label bug pattern this
+   whole line of work exists to fix, now happening per-window instead of per-hop. This is
+   direct empirical evidence that **windowing must be paired with content-majority labeling**;
+   shipping windowing alone would make training data worse, not better.
+2. **The proposed port's exclusion rate is a real cost: 51.2% of candidate windows are
+   thrown away, not mislabeled.** Structural cause: `BLEND_DURATION_RANGE`'s max (25/50=50%)
+   means a window can be genuinely 3-way ambiguous (e.g. ~55% pure-A / ~25% blend / ~20%
+   pure-B) — below `PURE_LABEL_THRESHOLD` for pure-A, and blend isn't a clean plurality
+   either. The design deliberately excludes these rather than force a label (per step 31's
+   stated goal), but at full training scale this means `n_transition` must be requested at
+   roughly **2x** the desired final example count to compensate for yield loss — a planning
+   /compute consideration, not a correctness problem, and disclosed here rather than
+   discovered later.
+
+**Also confirmed, not just claimed**: `pure_a`/`pure_b` own-content fractions in the combined
+run range 0.700-1.000 (never below the 0.70 floor, by construction); `transitioning`'s range
+0.360-0.460 (never below the 0.20 floor, always plurality). Both thresholds hold exactly as
+designed under real generation, not just in the abstract derivation.
+
+Raw output: `evaluation/phase0_generator_port_diagnostics.txt`.
