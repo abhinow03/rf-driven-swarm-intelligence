@@ -1782,3 +1782,23 @@ measurement population is *more* blend-dominant than before — observability fi
 EXPOSURE to the hard case, they don't test performance ON it. The hard case (a genuinely
 blend-dominant window, shaped like eval's real distribution) remains exactly as untested by
 training as it was at step 1, because `generate_dataset()` has not changed.
+
+### Step 30: decision gate, closed
+
+Per the gate criteria set out in advance:
+
+- **A** (port + retrain) — justified if step 28 shows substantial train/eval divergence AND
+  step 29 shows the current checkpoint's gains are eval-artifact-driven, not genuine
+  generalization.
+- **B** (leave `generate_dataset()` as-is) — justified if step 29 instead showed the frozen
+  checkpoint already generalizes well to corrected eval trajectories.
+- **C** (insufficient evidence) — if neither is cleanly established.
+
+Step 28: 0.0% overlap (0/20000), not partial — divergence is total, not a tuning gap. Step 29:
+the step-26 gains are explained in full by reduced exposure to blend-dominant windows, with
+the blend-dominant failure mode itself unmoved (100% boundary-concentrated failures, 0.0%
+overlap, both measured AFTER the observability fix). Both of A's conditions hold and neither
+of B's does. **Decision: A.** Full reasoning and implications for strategies 1-6's standing:
+`HISTORY.md`'s 2026-08-10 decision entry. **Not executed this session — no training, no
+`generate_dataset()` changes. STOP per instruction.** `docs/V5_STATE.json` updated
+(`phase=0, step=30`).
