@@ -1050,3 +1050,38 @@ whoever owns HALT GATE 2's sign-off, not resolved or attempted here.
 **No RULES change made. No code behaviour changed.** Full data:
 `evaluation/phase0_rules_coverage_report.json`. Proceeding to step 5: rewrite
 `docs/CEILING.md` stratified by chain length, pooled numbers banned from here on.
+
+## 2026-08-09: step 5 — CEILING.md rewritten stratified; a fresh re-run made the case for itself
+
+Re-ran `scripts/phase0_chainlength_breakdown.py --n 1000` (same seed=999 population) AFTER
+all three of today's fixes to get a fully-current stratified picture:
+
+| chain_length | n | pair acc (F) | pair acc (T) | threat acc (F) | threat acc (T) |
+|---|---|---|---|---|---|
+| 1 | 258 | 87.6% | 88.4% | 88.0% | 88.8% |
+| **2** | 251 | **18.7%** | 18.7% | 31.9% | 39.8% |
+| 3+ | 491 | n/a | n/a | n/a | n/a |
+
+**Chain-2 pair accuracy moved 6.0%→18.7% (3x) across today's fixes; chain-1 barely moved
+(86.8%→87.6%).** The pooled "509 pair-eligible" number this whole session's earlier commits
+reported (47.0%→53.6%) compressed a 3x improvement and a near-zero one into one figure that
+reads as a uniform, modest gain. It wasn't. This is precisely the failure mode step 5's
+instruction exists to stop: a pooled number hides which stratum actually improved and by
+how much.
+
+**Also surfaced, only visible once stratified: chain-3+'s bucket-A false-positive rate rose
+from 1.8% to 9.0% (44/491) as a side effect of the guard fixes.** The guards being corrected
+(`oov_name`, `dominant_history_contradiction`) used to accidentally catch some chain-3+
+false positives despite testing the wrong condition; correctly scoped now, they no longer
+incidentally block a chain-3+ trajectory that happens to reduce to a clean-looking ≤2-length
+history due to classifier error. A real, disclosed trade a pooled number would never have
+shown at all.
+
+**`docs/CEILING.md` restructured**: a policy banner + a new "Current state (stratified)"
+section added at the top (supersedes every pooled figure in the file), historical dated
+entries below it left UNEDITED for the record (matches this project's standing convention
+of correcting via a superseding notice, never rewriting history in place). Pooled numbers
+are banned in every CEILING.md entry from this point forward.
+
+Proceeding to step 6: add issue #3 to `UPSTREAM_ISSUES.md` (chain-2's destination
+formation frequently never reached within the generated sequence).

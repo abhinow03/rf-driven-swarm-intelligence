@@ -1,7 +1,7 @@
 {
   "phase": 0,
-  "step": 21,
-  "status": "Discipline-catch turn continuing. Step 4 (RULES coverage, report only, no action): chain-length distribution matches the generator's explicit uniform 1-4 parameter (25.8/25.1/23.4/25.7%), chain-3+ = 49.1% of population. Chain-3+ patterns do NOT collapse to a small set: 385 distinct patterns from 491 trajectories, 60.7% unique, theoretical space is 1764 possible chains -- a future RULES extension (HALT GATE 2) would need a compositional rule, not pattern enumeration. No RULES change made. Proceeding to step 5: stratify CEILING.md by chain length, pooled numbers banned going forward.",
+  "step": 22,
+  "status": "Discipline-catch turn continuing. Step 5: rewrote docs/CEILING.md stratified by chain-length -- policy banner + new 'Current state (stratified)' section at top, historical pooled entries left unedited below (superseding-notice convention, not rewritten). Fresh re-run revealed the pooled number was hiding a 3x chain-2 improvement (6.0%->18.7%) vs near-flat chain-1 (86.8%->87.6%), and a real trade: chain-3+ bucket-A false-positive rate rose 1.8%->9.0% as a side effect of the guard fixes. Pooled numbers banned in CEILING.md going forward. Proceeding to step 6: UPSTREAM_ISSUES.md issue #3.",
   "halts_cleared": [],
   "results": {
     "phase0_step1_first_check": {
@@ -890,6 +890,34 @@
       },
       "action_taken": "NONE -- report only, per explicit instruction. RULES unchanged. HALT GATE 2 (any RULES extension) requires Dr. Patil's sign-off, not attempted.",
       "history_doc": "docs/V5_LOG.md (2026-08-09 step 4 entry)"
+    },
+    "phase0_step22_stratified_ceiling_rewrite": {
+      "checked": "2026-08-09T03:25:00Z",
+      "method": "scripts/phase0_chainlength_breakdown.py --n 1000, re-run post all 3 fixes, same seed=999 population.",
+      "stratified_current_state": {
+        "chain_1": {
+          "n": 258,
+          "pair_acc_F": 0.876,
+          "pair_acc_T": 0.884,
+          "threat_acc_F": 0.88,
+          "threat_acc_T": 0.888
+        },
+        "chain_2": {
+          "n": 251,
+          "pair_acc_F": 0.187,
+          "pair_acc_T": 0.187,
+          "threat_acc_F": 0.319,
+          "threat_acc_T": 0.398
+        },
+        "chain_3plus": {
+          "n": 491,
+          "bucket_A_false_positive_rate": 0.09,
+          "note": "up from 1.8% -- side effect of guard fixes, disclosed"
+        }
+      },
+      "what_pooling_hid": "chain-2 improved 3x (6.0%->18.7%) across today's fixes while chain-1 barely moved (86.8%->87.6%) -- the pooled 509-pair-eligible number (47.0%->53.6%) compressed both into one figure reading as a uniform modest gain.",
+      "ceiling_doc_change": "policy banner + 'Current state (stratified)' section added at top of docs/CEILING.md, superseding every pooled figure below it. Historical dated entries left unedited (standing project convention: correct via superseding notice, never rewrite history in place).",
+      "history_doc": "docs/V5_LOG.md (2026-08-09 step 5 entry)"
     }
   },
   "started": "2026-08-07T19:47:41Z"

@@ -1,5 +1,56 @@
 # Phase 0: the ceiling — measured, and it is far below the plan's floor
 
+> ## 📌 STRATIFICATION POLICY (2026-08-09, discipline-catch turn)
+>
+> **Pooled ceiling numbers are BANNED from this point forward. Every measurement in this
+> file from here on must report per-chain-length stratum (1 / 2 / 3+), never a single
+> number averaged across all pair-eligible trajectories.** Chain-1 (steady state) and
+> chain-2 (single transition) have had wildly different ceilings for this program's entire
+> history — chain-2 was near-zero (6.0%) while chain-1 sat at 87%+, and the "509
+> pair-eligible" pooled number this file reported throughout quietly averaged the two
+> together, hiding exactly the kind of differential problem (and differential improvement)
+> that mattered most. **Every historical entry below this notice, dated before
+> 2026-08-09, reports POOLED numbers as originally measured and is left unedited for the
+> historical record — do not cite them as current.** The stratified section immediately
+> below supersedes every pooled figure in this file.
+
+## Current state (stratified), 2026-08-09 — supersedes every pooled number below
+
+`scripts/phase0_chainlength_breakdown.py --n 1000`, seed=999 (the standing ceiling
+battery), measured AFTER all three of this session's guard/trim fixes (`oov_name`,
+`dominant_history_contradiction`, the `robust=True` trim step — see `V5_LOG.md`'s
+2026-08-09 entries for each).
+
+| chain_length | n | % of population | pair accuracy (robust=False) | pair accuracy (robust=True) | threat accuracy (robust=False) | threat accuracy (robust=True) |
+|---|---|---|---|---|---|---|
+| **1 (steady state)** | 258 | 25.8% | 87.6% | 88.4% | 88.0% | 88.8% |
+| **2 (single transition)** | 251 | 25.1% | **18.7%** | 18.7% | 31.9% | 39.8% |
+| **3+ (no RULES key exists)** | 491 | 49.1% | n/a — see false-positive rate below | n/a | n/a | n/a |
+
+**Chain-3+ bucket-A false-positive rate** (any bucket-A resolution here is wrong by
+construction — no 2-tuple ground truth can exist for a 3+-hop chain): **44/491 (9.0%)**,
+both reduction modes. This is UP from 1.8% measured earlier in the program — a real,
+disclosed side effect of this session's guard fixes: the guards being corrected (`oov_name`,
+`dominant_history_contradiction`) used to accidentally catch some chain-3+ false positives
+even though they were testing the wrong condition; now correctly scoped to their claimed
+purpose, they no longer incidentally block a chain-3+ trajectory whose classifier errors
+happen to make it LOOK like a clean ≤2-length reduction. Not hidden: a pooled number would
+never have surfaced this trade at all.
+
+**What the pooled number was hiding, made visible by stratification**: chain-2's pair
+accuracy moved from 6.0% (before today's fixes) to 18.7% (after) — a 3x improvement — while
+chain-1 barely moved (86.8%→87.6%). The POOLED "509 pair-eligible" number this file reported
+throughout today's fixes (47.0%→53.6%) compressed a 3x within-stratum improvement and a
+near-zero one into a single figure that looks like a modest, uniform gain. It wasn't uniform.
+Chain-2's remaining 81.3% failure rate is now dominated (95%, per the stage trace re-run
+this session) by the windowing-artefact mechanism (`docs/HISTORY.md`, `UPSTREAM_ISSUES.md`
+issue #3) — genuinely not fixable by more bridge-logic changes, unlike the guard bugs that
+were.
+
+Full data: `evaluation/phase0_chainlength_breakdown.json`, `evaluation/phase0_chain2_trace.txt`.
+
+---
+
 **Headline: pair-level accuracy on realistic long trajectories is 3.3% (17/509).** Per the
 V5 plan's own pre-stated decision rule ("If < 70%: the bottleneck is upstream, not the LLM,
 and the plan changes"), this is a HALT GATE 1 trigger, not a borderline call.
