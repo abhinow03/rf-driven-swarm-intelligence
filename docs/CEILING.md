@@ -973,3 +973,37 @@ looking noise).
 with the two caveats above as the concrete next steps (a two-line symmetrization fix, then a
 targeted STGT experiment on the blend-timing mismatch specifically, not a generic retrain).
 Full detail: `docs/V5_LOG.md`'s 2026-08-09 step-25 entry.
+
+## Update 2026-08-09: consolidation + source symmetrization — chain-2 more than triples total
+
+Both of step 25's caveats resolved this turn (`docs/V5_LOG.md` step 26 for full detail). (1)
+The 5 duplicate copies of the eval-trajectory sampling logic consolidated into
+`src/swarm_intent/eval_trajectories.py`, imported by all 4 LIVE eval scripts (one, a frozen
+historical-reproduction script, deliberately excluded, documented). Confirmed **none of the 5
+ever fed real STGT training data** — that's `generate_dataset()`, entirely separate code — so
+consolidation is about eval-harness reproducibility, not training-data provenance. (2)
+`LEAD_IN_RANGE` symmetrized from `(15,35)` (realized-scale guess) to `(30,50)` (derived the
+same way as `MIN_DWELL_RANGE`: source needs `lead_in>=25` to hold an outright window-0
+majority, no stride-slack term on this side since window 0 always starts at `t=0`).
+
+| | dest-only fix | **both fixes** |
+|---|---|---|
+| source OBS_NONE | 16.3% | **0.0%** |
+| destination OBS_NONE | 0.0% | 0.0% |
+| **chain-2 pair_acc** | 39.9% | **65.8%** (was 18.7% at original baseline — 3.5x) |
+| **chain-2 threat_acc** | 72.1% | **76.3%** |
+| chain-3+ false-positive rate | 12.6% | **1.8%** (below the 9.0% original baseline; z=-6.68, p=2.4e-11 vs. dest-only, mechanistically explained — same shared per-hop sampling loop affects every hop of every chain length, not just chain-2's single hop) |
+
+**Refined failure taxonomy (20 fresh failures, manually traced): 100% boundary/blend-timing-
+concentrated at the trajectory level, 0% clean (non-boundary) misses.** Blend-overlap
+Monte Carlo re-run a third time: **still 0.0%**, unchanged across three independent formula
+revisions.
+
+**Decision: B — blend-timing distribution mismatch is the dominant remaining issue and
+should be fixed BEFORE any STGT training/capacity change.** Both observability fixes worked
+cleanly and the chain-3+ false-positive concern is resolved (not a live bug). But the
+taxonomy gives no support for a capacity-limited-STGT story (0% clean misses) and the
+blend-overlap gap has now persisted, unmoved, through three formula iterations — the next
+experiment should target that mismatch directly (a 4th training regime, or a widened regime
+1, matching eval's actual realized blend shape), not a generic retrain. Not started this
+session, per instruction. Full detail: `docs/V5_LOG.md`'s 2026-08-09 step-26 entry.

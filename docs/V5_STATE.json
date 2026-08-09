@@ -1,7 +1,7 @@
 {
   "phase": 0,
-  "step": 25,
-  "status": "Chain-2 dwell-time generator fix IMPLEMENTED and re-measured (docs/V5_LOG.md step 25, follows step 24's diagnostic -- no STGT/bridge/LLM code changed, same frozen strategy-5 checkpoint). Fix: dwell (post-blend settled-B timesteps) now sampled directly ~Uniform{40,60} in scripts/phase0_decompose_failures.py's build_long_sequence_labeled ONLY (4 other verbatim duplicate copies left untouched, disclosed), guaranteeing D>=40 against a re-derived D>=35 minimum (26 for a window majority + 9 for stride=10 grid slack). seg_len now derived (lead_in+blend_duration+dwell) instead of sampled first. Result: chain-2 OBS_NONE 50.6%->0.0%, chain-2 pair accuracy 18.7%->39.9% (more than doubled), threat accuracy 31.9%->72.1%, chain-1 flat within noise (84.1%, untouched branch), chain-3+ false-positive rate ticked up 9.0%->12.6% (modest, disclosed). Two caveats disclosed, not hidden: (1) a new self-inflicted ~15%-of-failures SOURCE-observability gap (LEAD_IN_RANGE wasn't derived with the same D>=35 rigor as the dwell fix -- trivial next fix); (2) train/eval blend-timing overlap is STILL 0.0% after the fix (mismatch shape shifted but duration still never matches any training regime), flagged as the likely driver of the now-dominant (80% of a freshly manually-traced 20-case sample, up from 55%) genuine STGT-misclassification failure mode. Decision: A -- observability fix successful, remaining problem primarily STGT recognition, with the two caveats as the concrete next steps (source lead-in symmetrization, then a targeted STGT experiment on the blend-timing mismatch, not a generic retrain). STOPPING per instruction -- this experiment only, no further generator/STGT/bridge/LLM changes this turn.",
+  "step": 26,
+  "status": "Chain-2 generator-fix consolidation + source symmetrization COMPLETE (docs/V5_LOG.md step 26, 3 commits: 3591051 consolidation, 9061392 symmetrization, + docs/results commit -- no STGT/bridge/LLM code changed, same frozen strategy-5 checkpoint). Step 1: consolidated 5 duplicate copies of build_long_sequence_labeled into src/swarm_intent/eval_trajectories.py (4 live scripts now import it; 1 frozen historical-reproduction script deliberately excluded, documented); confirmed NONE of the 5 ever fed real STGT training data (that's generate_dataset(), separate code). Step 2: symmetrized LEAD_IN_RANGE (15,35)->(30,50), derived the same way as MIN_DWELL_RANGE (lead_in>=25 for a window-0 majority, no stride-slack term since window 0 always starts at t=0); verified source OBS_NONE 16.3%->0.0% at population scale. Step 3: chain-2 pair_acc 39.9%->65.8% (was 18.7% original baseline, 3.5x total), threat_acc 72.1%->76.3%. Step 4: refined 20-case taxonomy found 100% boundary/blend-timing-concentrated failures, 0% clean (non-boundary) misses. Step 5: chain-3+ false-positive rate investigated and RESOLVED (12.6%->1.8%, below the 9.0% original baseline, p=4.3e-07) -- mechanistically explained by the shared per-hop sampling loop, not a bug, not noise (dest-only-fix regression itself was only borderline significant, p=0.062). Step 6: blend-timing overlap re-checked, STILL 0.0%, unchanged across 3 independent formula revisions. Decision: B -- blend-timing distribution mismatch is the dominant remaining issue, should be fixed BEFORE any STGT training/capacity change, not decision A as step 25 projected. STOPPING per instruction -- no STGT retraining, no blend-distribution fix started this session.",
   "halts_cleared": [],
   "results": {
     "phase0_step1_first_check": {
@@ -1035,6 +1035,74 @@
         "evaluation/phase0_chain2_observability_trace_before.txt (before, preserved)",
         "evaluation/phase0_chainlength_breakdown.json (after)",
         "evaluation/phase0_chainlength_breakdown_before.json (before, preserved)"
+      ]
+    },
+    "phase0_step26_consolidation_and_symmetrization": {
+      "checked": "2026-08-09T18:25:00Z",
+      "commits": [
+        "3591051 (consolidation, no behavior change)",
+        "9061392 (symmetrization)",
+        "docs+results commit (this entry)"
+      ],
+      "consolidation_module": "src/swarm_intent/eval_trajectories.py",
+      "consolidated_into": [
+        "scripts/phase0_ceiling.py",
+        "scripts/phase0_guard_audit.py",
+        "scripts/phase0_decompose_failures.py",
+        "llm_finetuning/measure_coverage.py"
+      ],
+      "deliberately_excluded": "llm_finetuning/analyze_bucket_c_windowing.py (frozen historical reproduction of sec AF step 4's seed=0 population)",
+      "training_data_provenance_finding": "none of the 5 copies feed swarm_intent.data.generate_dataset() (the real STGT training-data path) -- entirely separate code",
+      "lead_in_range_before_after": [
+        [
+          15,
+          35
+        ],
+        [
+          30,
+          50
+        ]
+      ],
+      "source_obs_none_before_after": [
+        0.163,
+        0.0
+      ],
+      "destination_obs_none_before_after": [
+        0.0,
+        0.0
+      ],
+      "chain2_pair_accuracy": {
+        "original_baseline": 0.187,
+        "dest_only_fix": 0.399,
+        "both_fixes": 0.658
+      },
+      "chain2_threat_accuracy": {
+        "original_baseline": 0.319,
+        "dest_only_fix": 0.721,
+        "both_fixes": 0.763
+      },
+      "chain3plus_false_positive_rate": {
+        "original_baseline": 0.09,
+        "dest_only_fix": 0.126,
+        "both_fixes": 0.018
+      },
+      "chain3plus_significance": {
+        "baseline_to_dest_only_p": 0.062,
+        "dest_only_to_both_p": 2.4e-11,
+        "baseline_to_both_p": 4.3e-07
+      },
+      "refined_taxonomy_20case": {
+        "boundary_blend_timing": 1.0,
+        "clean_miss_trajectory_level": 0.0,
+        "clean_miss_secondary_windows_present_in": 0.15
+      },
+      "blend_overlap_after_both_fixes": 0.0,
+      "decision": "B -- blend-timing distribution mismatch is the dominant remaining issue, fix before any STGT training change",
+      "artifacts": [
+        "evaluation/phase0_chain2_observability.json (both-fixes)",
+        "evaluation/phase0_chain2_observability_deston.json (dest-only-fix, preserved)",
+        "evaluation/phase0_chainlength_breakdown.json (both-fixes)",
+        "evaluation/phase0_chainlength_breakdown_deston.json (dest-only-fix, preserved)"
       ]
     }
   },

@@ -1,289 +1,322 @@
-=== trajectory 3: true_chain=[np.str_('shield'), np.str_('converging')], gt_pair=(np.str_('shield'), np.str_('converging')) ===
-n_windows=3
+=== trajectory 9: true_chain=[np.str_('encirclement'), np.str_('shield')], gt_pair=(np.str_('encirclement'), np.str_('shield')) ===
+n_windows=6
  idx          true          pred   conf                           top2  d/c_amb
-   0    converging transitioning   0.98 transitioning=0.98,shield=0.01    False <-WRONG
-   1    converging    converging   0.84 converging=0.84,transitioning=0.12    False
-   2    converging    converging   0.97 converging=0.97,dispersed=0.02    False
+   0  encirclement  encirclement   0.94 encirclement=0.94,dispersed=0.03    False
+   1  encirclement     dispersed   0.45 dispersed=0.45,encirclement=0.40    False <-WRONG
+   2  encirclement transitioning   0.52 transitioning=0.52,dispersed=0.45    False <-WRONG
+   3        shield transitioning   0.97 transitioning=0.97,shield=0.01    False <-WRONG
+   4        shield        shield   0.99 shield=0.99,transitioning=0.01    False
+   5        shield        shield   0.99 shield=0.99,transitioning=0.00    False
 
-formation_history (raw, consecutive-collapsed): ['unknown', 'converging']
-transitions_detected (temporal): []
-n_unknown_windows=1, n_ambiguous_dispersed_converging_windows=0
-FINAL: bucket=A, subtype=None, guard_reasons=[], rules_key=('converging', 'converging')
-n_wrong_windows=1/3, DIAGNOSIS: structural_reduction_wrong_pair
-
-=== trajectory 16: true_chain=[np.str_('shield'), np.str_('encirclement')], gt_pair=(np.str_('shield'), np.str_('encirclement')) ===
-n_windows=5
- idx          true          pred   conf                           top2  d/c_amb
-   0        shield        shield   0.97 shield=0.97,transitioning=0.02    False
-   1  encirclement transitioning   0.97 transitioning=0.97,shield=0.01    False <-WRONG
-   2  encirclement       v_shape   0.93 v_shape=0.93,transitioning=0.03    False <-WRONG
-   3  encirclement  encirclement   0.57 encirclement=0.57,v_shape=0.36    False
-   4  encirclement  encirclement   0.81 encirclement=0.81,v_shape=0.15    False
-
-formation_history (raw, consecutive-collapsed): ['shield', 'unknown', 'v_shape', 'encirclement']
-transitions_detected (temporal): [{'at_time_s': 15.0, 'from': 'v_shape', 'to': 'encirclement'}]
-n_unknown_windows=1, n_ambiguous_dispersed_converging_windows=0
+formation_history (raw, consecutive-collapsed): ['encirclement', 'dispersed', 'unknown', 'shield']
+transitions_detected (temporal): [{'at_time_s': 5.0, 'from': 'encirclement', 'to': 'dispersed'}]
+n_unknown_windows=2, n_ambiguous_dispersed_converging_windows=0
 FINAL: bucket=C, subtype=multi_hop, guard_reasons=[], rules_key=None
-n_wrong_windows=2/5, DIAGNOSIS: spurious_third_formation_from_misclassification
+n_wrong_windows=3/6, DIAGNOSIS: spurious_third_formation_from_misclassification
 
-=== trajectory 23: true_chain=[np.str_('column'), np.str_('diamond')], gt_pair=(np.str_('column'), np.str_('diamond')) ===
-n_windows=4
+=== trajectory 31: true_chain=[np.str_('column'), np.str_('diamond')], gt_pair=(np.str_('column'), np.str_('diamond')) ===
+n_windows=6
  idx          true          pred   conf                           top2  d/c_amb
-   0        column       diamond   0.55 diamond=0.55,transitioning=0.23    False <-WRONG
-   1       diamond       diamond   0.99 diamond=0.99,transitioning=0.01    False
-   2       diamond       diamond   0.99 diamond=0.99,transitioning=0.00    False
-   3       diamond       diamond   0.99 diamond=0.99,transitioning=0.00    False
+   0        column       diamond   0.81       diamond=0.81,column=0.05    False <-WRONG
+   1        column       diamond   0.98 diamond=0.98,transitioning=0.01    False <-WRONG
+   2        column       diamond   0.99 diamond=0.99,transitioning=0.01    False <-WRONG
+   3       diamond       diamond   0.98 diamond=0.98,transitioning=0.01    False
+   4       diamond       diamond   0.98 diamond=0.98,transitioning=0.01    False
+   5       diamond       diamond   0.98 diamond=0.98,transitioning=0.01    False
 
 formation_history (raw, consecutive-collapsed): ['diamond']
 transitions_detected (temporal): []
 n_unknown_windows=0, n_ambiguous_dispersed_converging_windows=0
-FINAL: bucket=A, subtype=None, guard_reasons=[], rules_key=('diamond', 'diamond')
-n_wrong_windows=1/4, DIAGNOSIS: structural_reduction_wrong_pair
-
-=== trajectory 33: true_chain=[np.str_('encirclement'), np.str_('shield')], gt_pair=(np.str_('encirclement'), np.str_('shield')) ===
-n_windows=5
- idx          true          pred   conf                           top2  d/c_amb
-   0  encirclement     dispersed   0.66 dispersed=0.66,converging=0.26    False <-WRONG
-   1  encirclement transitioning   0.99 transitioning=0.99,dispersed=0.00    False <-WRONG
-   2        shield        shield   0.95 shield=0.95,transitioning=0.04    False
-   3        shield        shield   0.99 shield=0.99,transitioning=0.00    False
-   4        shield        shield   0.99 shield=0.99,transitioning=0.00    False
-
-formation_history (raw, consecutive-collapsed): ['dispersed', 'unknown', 'shield']
-transitions_detected (temporal): []
-n_unknown_windows=1, n_ambiguous_dispersed_converging_windows=0
-FINAL: bucket=A, subtype=None, guard_reasons=[], rules_key=('dispersed', 'shield')
-n_wrong_windows=2/5, DIAGNOSIS: structural_reduction_wrong_pair
-
-=== trajectory 46: true_chain=[np.str_('converging'), np.str_('dispersed')], gt_pair=(np.str_('converging'), np.str_('dispersed')) ===
-n_windows=4
- idx          true          pred   conf                           top2  d/c_amb
-   0    converging transitioning   0.91 transitioning=0.91,dispersed=0.04    False <-WRONG
-   1     dispersed transitioning   0.69 transitioning=0.69,dispersed=0.20    False <-WRONG
-   2     dispersed     dispersed   0.76 dispersed=0.76,converging=0.15    False
-   3     dispersed     dispersed   0.77 dispersed=0.77,converging=0.10    False
-
-formation_history (raw, consecutive-collapsed): ['unknown', 'dispersed']
-transitions_detected (temporal): []
-n_unknown_windows=2, n_ambiguous_dispersed_converging_windows=0
-FINAL: bucket=A, subtype=None, guard_reasons=[], rules_key=('dispersed', 'dispersed')
-n_wrong_windows=2/4, DIAGNOSIS: structural_reduction_wrong_pair
-
-=== trajectory 48: true_chain=[np.str_('encirclement'), np.str_('converging')], gt_pair=(np.str_('encirclement'), np.str_('converging')) ===
-n_windows=5
- idx          true          pred   conf                           top2  d/c_amb
-   0  encirclement transitioning   0.92 transitioning=0.92,v_shape=0.05    False <-WRONG
-   1  encirclement transitioning   0.98 transitioning=0.98,v_shape=0.01    False <-WRONG
-   2    converging transitioning   0.94 transitioning=0.94,converging=0.02    False <-WRONG
-   3    converging    converging   0.97 converging=0.97,dispersed=0.01    False
-   4    converging     dispersed   0.62 dispersed=0.62,converging=0.20    False <-WRONG
-
-formation_history (raw, consecutive-collapsed): ['unknown', 'converging', 'dispersed']
-transitions_detected (temporal): [{'at_time_s': 20.0, 'from': 'converging', 'to': 'dispersed'}]
-n_unknown_windows=3, n_ambiguous_dispersed_converging_windows=0
-FINAL: bucket=A, subtype=None, guard_reasons=[], rules_key=('converging', 'dispersed')
-n_wrong_windows=4/5, DIAGNOSIS: structural_reduction_wrong_pair
-
-=== trajectory 49: true_chain=[np.str_('column'), np.str_('shield')], gt_pair=(np.str_('column'), np.str_('shield')) ===
-n_windows=6
- idx          true          pred   conf                           top2  d/c_amb
-   0        column transitioning   0.96 transitioning=0.96,diamond=0.02    False <-WRONG
-   1        shield transitioning   0.99 transitioning=0.99,diamond=0.00    False <-WRONG
-   2        shield        shield   0.99 shield=0.99,transitioning=0.00    False
-   3        shield        shield   0.99 shield=0.99,transitioning=0.00    False
-   4        shield        shield   0.99 shield=0.99,transitioning=0.00    False
-   5        shield        shield   0.99 shield=0.99,transitioning=0.00    False
-
-formation_history (raw, consecutive-collapsed): ['unknown', 'shield']
-transitions_detected (temporal): []
-n_unknown_windows=2, n_ambiguous_dispersed_converging_windows=0
-FINAL: bucket=A, subtype=None, guard_reasons=[], rules_key=('shield', 'shield')
-n_wrong_windows=2/6, DIAGNOSIS: structural_reduction_wrong_pair
-
-=== trajectory 53: true_chain=[np.str_('column'), np.str_('encirclement')], gt_pair=(np.str_('column'), np.str_('encirclement')) ===
-n_windows=3
- idx          true          pred   conf                           top2  d/c_amb
-   0        column transitioning   0.98 transitioning=0.98,dispersed=0.01    False <-WRONG
-   1  encirclement transitioning   0.78 transitioning=0.78,encirclement=0.13    False <-WRONG
-   2  encirclement    converging   0.75 converging=0.75,encirclement=0.12    False <-WRONG
-
-formation_history (raw, consecutive-collapsed): ['unknown', 'converging']
-transitions_detected (temporal): []
-n_unknown_windows=2, n_ambiguous_dispersed_converging_windows=0
-FINAL: bucket=A, subtype=None, guard_reasons=[], rules_key=('converging', 'converging')
-n_wrong_windows=3/3, DIAGNOSIS: structural_reduction_wrong_pair
-
-=== trajectory 58: true_chain=[np.str_('v_shape'), np.str_('diamond')], gt_pair=(np.str_('v_shape'), np.str_('diamond')) ===
-n_windows=6
- idx          true          pred   conf                           top2  d/c_amb
-   0       v_shape       v_shape   0.48       v_shape=0.48,shield=0.38    False
-   1       v_shape        shield   0.97 shield=0.97,transitioning=0.02    False <-WRONG
-   2       diamond        shield   0.91 shield=0.91,transitioning=0.07    False <-WRONG
-   3       diamond       diamond   0.97 diamond=0.97,transitioning=0.01    False
-   4       diamond       diamond   0.99 diamond=0.99,transitioning=0.01    False
-   5       diamond       diamond   0.99 diamond=0.99,transitioning=0.00    False
-
-formation_history (raw, consecutive-collapsed): ['v_shape', 'shield', 'diamond']
-transitions_detected (temporal): [{'at_time_s': 5.0, 'from': 'v_shape', 'to': 'shield'}, {'at_time_s': 15.0, 'from': 'shield', 'to': 'diamond'}]
-n_unknown_windows=0, n_ambiguous_dispersed_converging_windows=0
-FINAL: bucket=C, subtype=multi_hop, guard_reasons=[], rules_key=None
-n_wrong_windows=2/6, DIAGNOSIS: spurious_third_formation_from_misclassification
-
-=== trajectory 65: true_chain=[np.str_('encirclement'), np.str_('diamond')], gt_pair=(np.str_('encirclement'), np.str_('diamond')) ===
-n_windows=3
- idx          true          pred   conf                           top2  d/c_amb
-   0  encirclement transitioning   0.70 transitioning=0.70,diamond=0.16    False <-WRONG
-   1       diamond transitioning   0.58 transitioning=0.58,diamond=0.38    False <-WRONG
-   2       diamond       diamond   0.99    diamond=0.99,dispersed=0.01    False
-
-formation_history (raw, consecutive-collapsed): ['unknown', 'diamond']
-transitions_detected (temporal): []
-n_unknown_windows=2, n_ambiguous_dispersed_converging_windows=0
-FINAL: bucket=A, subtype=None, guard_reasons=[], rules_key=('diamond', 'diamond')
-n_wrong_windows=2/3, DIAGNOSIS: structural_reduction_wrong_pair
-
-=== trajectory 66: true_chain=[np.str_('diamond'), np.str_('v_shape')], gt_pair=(np.str_('diamond'), np.str_('v_shape')) ===
-n_windows=6
- idx          true          pred   conf                           top2  d/c_amb
-   0       diamond       diamond   0.97 diamond=0.97,transitioning=0.01    False
-   1       diamond        shield   0.47       shield=0.47,diamond=0.37    False <-WRONG
-   2       v_shape        shield   0.94 shield=0.94,transitioning=0.05    False <-WRONG
-   3       v_shape       v_shape   0.58       v_shape=0.58,shield=0.28    False
-   4       v_shape       v_shape   0.95 v_shape=0.95,transitioning=0.03    False
-   5       v_shape       v_shape   0.95 v_shape=0.95,transitioning=0.03    False
-
-formation_history (raw, consecutive-collapsed): ['diamond', 'shield', 'v_shape']
-transitions_detected (temporal): [{'at_time_s': 5.0, 'from': 'diamond', 'to': 'shield'}, {'at_time_s': 15.0, 'from': 'shield', 'to': 'v_shape'}]
-n_unknown_windows=0, n_ambiguous_dispersed_converging_windows=0
-FINAL: bucket=C, subtype=multi_hop, guard_reasons=[], rules_key=None
-n_wrong_windows=2/6, DIAGNOSIS: spurious_third_formation_from_misclassification
-
-=== trajectory 73: true_chain=[np.str_('v_shape'), np.str_('diamond')], gt_pair=(np.str_('v_shape'), np.str_('diamond')) ===
-n_windows=4
- idx          true          pred   conf                           top2  d/c_amb
-   0       v_shape        shield   0.93 shield=0.93,transitioning=0.05    False <-WRONG
-   1 transitioning transitioning   0.52 transitioning=0.52,shield=0.46    False
-   2       diamond       diamond   0.98 diamond=0.98,transitioning=0.01    False
-   3       diamond       diamond   0.99 diamond=0.99,transitioning=0.00    False
-
-formation_history (raw, consecutive-collapsed): ['shield', 'unknown', 'diamond']
-transitions_detected (temporal): []
-n_unknown_windows=1, n_ambiguous_dispersed_converging_windows=0
-FINAL: bucket=A, subtype=None, guard_reasons=[], rules_key=('shield', 'diamond')
-n_wrong_windows=1/4, DIAGNOSIS: structural_reduction_wrong_pair
-
-=== trajectory 76: true_chain=[np.str_('v_shape'), np.str_('diamond')], gt_pair=(np.str_('v_shape'), np.str_('diamond')) ===
-n_windows=6
- idx          true          pred   conf                           top2  d/c_amb
-   0       v_shape transitioning   0.83 transitioning=0.83,v_shape=0.07    False <-WRONG
-   1       v_shape transitioning   0.99 transitioning=0.99,shield=0.00    False <-WRONG
-   2       diamond transitioning   0.93 transitioning=0.93,diamond=0.03    False <-WRONG
-   3       diamond       diamond   0.98    diamond=0.98,dispersed=0.01    False
-   4       diamond       diamond   0.98    diamond=0.98,dispersed=0.01    False
-   5       diamond       diamond   0.98    diamond=0.98,dispersed=0.02    False
-
-formation_history (raw, consecutive-collapsed): ['unknown', 'diamond']
-transitions_detected (temporal): []
-n_unknown_windows=3, n_ambiguous_dispersed_converging_windows=0
 FINAL: bucket=A, subtype=None, guard_reasons=[], rules_key=('diamond', 'diamond')
 n_wrong_windows=3/6, DIAGNOSIS: structural_reduction_wrong_pair
 
-=== trajectory 89: true_chain=[np.str_('column'), np.str_('converging')], gt_pair=(np.str_('column'), np.str_('converging')) ===
-n_windows=4
+=== trajectory 40: true_chain=[np.str_('diamond'), np.str_('column')], gt_pair=(np.str_('diamond'), np.str_('column')) ===
+n_windows=7
  idx          true          pred   conf                           top2  d/c_amb
-   0    converging transitioning   0.98 transitioning=0.98,encirclement=0.00    False <-WRONG
-   1    converging    converging   0.91 converging=0.91,transitioning=0.07    False
-   2    converging    converging   0.98 converging=0.98,dispersed=0.02    False
-   3    converging    converging   0.66 converging=0.66,dispersed=0.32    False
+   0       diamond       diamond   0.99    diamond=0.99,dispersed=0.01    False
+   1       diamond       diamond   0.99    diamond=0.99,dispersed=0.01    False
+   2       diamond       diamond   0.81 diamond=0.81,transitioning=0.13    False
+   3        column     dispersed   0.69 dispersed=0.69,transitioning=0.23    False <-WRONG
+   4        column        column   0.86     column=0.86,dispersed=0.12    False
+   5        column        column   0.92     column=0.92,dispersed=0.07    False
+   6        column        column   0.91     column=0.91,dispersed=0.07    False
 
-formation_history (raw, consecutive-collapsed): ['unknown', 'converging']
-transitions_detected (temporal): []
-n_unknown_windows=1, n_ambiguous_dispersed_converging_windows=0
-FINAL: bucket=A, subtype=None, guard_reasons=[], rules_key=('converging', 'converging')
-n_wrong_windows=1/4, DIAGNOSIS: structural_reduction_wrong_pair
-
-=== trajectory 109: true_chain=[np.str_('encirclement'), np.str_('v_shape')], gt_pair=(np.str_('encirclement'), np.str_('v_shape')) ===
-n_windows=4
- idx          true          pred   conf                           top2  d/c_amb
-   0  encirclement       v_shape   0.99 v_shape=0.99,transitioning=0.01    False <-WRONG
-   1       v_shape       v_shape   0.98 v_shape=0.98,transitioning=0.02    False
-   2       v_shape       v_shape   0.97 v_shape=0.97,transitioning=0.02    False
-   3       v_shape       v_shape   0.97 v_shape=0.97,transitioning=0.02    False
-
-formation_history (raw, consecutive-collapsed): ['v_shape']
-transitions_detected (temporal): []
+formation_history (raw, consecutive-collapsed): ['diamond', 'dispersed', 'column']
+transitions_detected (temporal): [{'at_time_s': 15.0, 'from': 'diamond', 'to': 'dispersed'}, {'at_time_s': 20.0, 'from': 'dispersed', 'to': 'column'}]
 n_unknown_windows=0, n_ambiguous_dispersed_converging_windows=0
-FINAL: bucket=A, subtype=None, guard_reasons=[], rules_key=('v_shape', 'v_shape')
-n_wrong_windows=1/4, DIAGNOSIS: structural_reduction_wrong_pair
+FINAL: bucket=C, subtype=multi_hop, guard_reasons=[], rules_key=None
+n_wrong_windows=1/7, DIAGNOSIS: spurious_third_formation_from_misclassification
 
-=== trajectory 115: true_chain=[np.str_('dispersed'), np.str_('column')], gt_pair=(np.str_('dispersed'), np.str_('column')) ===
-n_windows=4
- idx          true          pred   conf                           top2  d/c_amb
-   0     dispersed transitioning   0.98 transitioning=0.98,column=0.01    False <-WRONG
-   1        column        column   0.50 column=0.50,transitioning=0.45    False
-   2        column        column   0.88     column=0.88,dispersed=0.10    False
-   3        column        column   0.83     column=0.83,dispersed=0.15    False
-
-formation_history (raw, consecutive-collapsed): ['unknown', 'column']
-transitions_detected (temporal): []
-n_unknown_windows=1, n_ambiguous_dispersed_converging_windows=0
-FINAL: bucket=A, subtype=None, guard_reasons=[], rules_key=('column', 'column')
-n_wrong_windows=1/4, DIAGNOSIS: structural_reduction_wrong_pair
-
-=== trajectory 116: true_chain=[np.str_('dispersed'), np.str_('column')], gt_pair=(np.str_('dispersed'), np.str_('column')) ===
+=== trajectory 41: true_chain=[np.str_('v_shape'), np.str_('diamond')], gt_pair=(np.str_('v_shape'), np.str_('diamond')) ===
 n_windows=6
  idx          true          pred   conf                           top2  d/c_amb
-   0     dispersed    converging   0.88 converging=0.88,dispersed=0.10    False <-WRONG
-   1 transitioning transitioning   0.97 transitioning=0.97,converging=0.01    False
-   2 transitioning transitioning   0.98 transitioning=0.98,column=0.01    False
-   3        column        column   0.95     column=0.95,dispersed=0.04    False
-   4        column        column   0.96     column=0.96,dispersed=0.03    False
-   5        column        column   0.96     column=0.96,dispersed=0.03    False
+   0       v_shape       v_shape   0.95 v_shape=0.95,transitioning=0.02    False
+   1       v_shape       v_shape   0.60       v_shape=0.60,shield=0.27    False
+   2       v_shape        shield   0.96 shield=0.96,transitioning=0.03    False <-WRONG
+   3       diamond        shield   0.93 shield=0.93,transitioning=0.05    False <-WRONG
+   4       diamond       diamond   0.98 diamond=0.98,transitioning=0.01    False
+   5       diamond       diamond   0.99 diamond=0.99,transitioning=0.01    False
 
-formation_history (raw, consecutive-collapsed): ['converging', 'unknown', 'column']
+formation_history (raw, consecutive-collapsed): ['v_shape', 'shield', 'diamond']
+transitions_detected (temporal): [{'at_time_s': 10.0, 'from': 'v_shape', 'to': 'shield'}, {'at_time_s': 20.0, 'from': 'shield', 'to': 'diamond'}]
+n_unknown_windows=0, n_ambiguous_dispersed_converging_windows=0
+FINAL: bucket=C, subtype=multi_hop, guard_reasons=[], rules_key=None
+n_wrong_windows=2/6, DIAGNOSIS: spurious_third_formation_from_misclassification
+
+=== trajectory 48: true_chain=[np.str_('encirclement'), np.str_('diamond')], gt_pair=(np.str_('encirclement'), np.str_('diamond')) ===
+n_windows=5
+ idx          true          pred   conf                           top2  d/c_amb
+   0  encirclement     dispersed   0.72 dispersed=0.72,encirclement=0.17    False <-WRONG
+   1  encirclement transitioning   0.55 transitioning=0.55,dispersed=0.21    False <-WRONG
+   2       diamond transitioning   0.79 transitioning=0.79,diamond=0.18    False <-WRONG
+   3       diamond       diamond   0.99    diamond=0.99,dispersed=0.00    False
+   4       diamond       diamond   0.99    diamond=0.99,dispersed=0.00    False
+
+formation_history (raw, consecutive-collapsed): ['dispersed', 'unknown', 'diamond']
 transitions_detected (temporal): []
 n_unknown_windows=2, n_ambiguous_dispersed_converging_windows=0
-FINAL: bucket=A, subtype=None, guard_reasons=[], rules_key=('converging', 'column')
-n_wrong_windows=1/6, DIAGNOSIS: structural_reduction_wrong_pair
+FINAL: bucket=A, subtype=None, guard_reasons=[], rules_key=('dispersed', 'diamond')
+n_wrong_windows=3/5, DIAGNOSIS: structural_reduction_wrong_pair
 
-=== trajectory 117: true_chain=[np.str_('column'), np.str_('diamond')], gt_pair=(np.str_('column'), np.str_('diamond')) ===
-n_windows=4
+=== trajectory 51: true_chain=[np.str_('shield'), np.str_('converging')], gt_pair=(np.str_('shield'), np.str_('converging')) ===
+n_windows=7
  idx          true          pred   conf                           top2  d/c_amb
-   0        column       diamond   0.76       diamond=0.76,column=0.13    False <-WRONG
-   1 transitioning       diamond   0.99 diamond=0.99,transitioning=0.01    False <-WRONG
-   2       diamond       diamond   0.99 diamond=0.99,transitioning=0.00    False
-   3       diamond       diamond   0.99 diamond=0.99,transitioning=0.00    False
+   0        shield        shield   0.98     shield=0.98,dispersed=0.01    False
+   1        shield        shield   0.99 shield=0.99,transitioning=0.01    False
+   2        shield transitioning   0.65 transitioning=0.65,shield=0.33    False <-WRONG
+   3    converging transitioning   0.98 transitioning=0.98,shield=0.00    False <-WRONG
+   4    converging    converging   0.83 converging=0.83,transitioning=0.11    False
+   5    converging    converging   0.94 converging=0.94,dispersed=0.05    False
+   6    converging    converging   0.54 converging=0.54,dispersed=0.43     True
 
-formation_history (raw, consecutive-collapsed): ['diamond']
+formation_history (raw, consecutive-collapsed): ['shield', 'unknown', 'converging']
 transitions_detected (temporal): []
-n_unknown_windows=0, n_ambiguous_dispersed_converging_windows=0
-FINAL: bucket=A, subtype=None, guard_reasons=[], rules_key=('diamond', 'diamond')
-n_wrong_windows=2/4, DIAGNOSIS: structural_reduction_wrong_pair
+n_unknown_windows=2, n_ambiguous_dispersed_converging_windows=1
+FINAL: bucket=B, subtype=None, guard_reasons=['dispersed_converging_ambiguity'], rules_key=('shield', 'converging')
+n_wrong_windows=2/7, DIAGNOSIS: blocked_by_ambiguity_guard
 
-=== trajectory 124: true_chain=[np.str_('diamond'), np.str_('converging')], gt_pair=(np.str_('diamond'), np.str_('converging')) ===
-n_windows=4
+=== trajectory 61: true_chain=[np.str_('v_shape'), np.str_('encirclement')], gt_pair=(np.str_('v_shape'), np.str_('encirclement')) ===
+n_windows=5
  idx          true          pred   conf                           top2  d/c_amb
-   0       diamond transitioning   0.68 transitioning=0.68,diamond=0.28    False <-WRONG
-   1    converging transitioning   0.87 transitioning=0.87,converging=0.09    False <-WRONG
-   2    converging    converging   0.97 converging=0.97,dispersed=0.02    False
-   3    converging    converging   0.85 converging=0.85,dispersed=0.13    False
+   0       v_shape       v_shape   0.94    v_shape=0.94,dispersed=0.03    False
+   1       v_shape       v_shape   0.81 v_shape=0.81,transitioning=0.16    False
+   2  encirclement transitioning   0.98 transitioning=0.98,v_shape=0.01    False <-WRONG
+   3  encirclement transitioning   0.75 transitioning=0.75,converging=0.10    False <-WRONG
+   4  encirclement    converging   0.96 converging=0.96,dispersed=0.02    False <-WRONG
+
+formation_history (raw, consecutive-collapsed): ['v_shape', 'unknown', 'converging']
+transitions_detected (temporal): []
+n_unknown_windows=2, n_ambiguous_dispersed_converging_windows=0
+FINAL: bucket=A, subtype=None, guard_reasons=[], rules_key=('v_shape', 'converging')
+n_wrong_windows=3/5, DIAGNOSIS: structural_reduction_wrong_pair
+
+=== trajectory 72: true_chain=[np.str_('column'), np.str_('encirclement')], gt_pair=(np.str_('column'), np.str_('encirclement')) ===
+n_windows=7
+ idx          true          pred   conf                           top2  d/c_amb
+   0        column        column   0.75     column=0.75,dispersed=0.22    False
+   1        column        column   0.68     column=0.68,dispersed=0.30    False
+   2 transitioning transitioning   0.98 transitioning=0.98,dispersed=0.01    False
+   3  encirclement transitioning   0.91 transitioning=0.91,encirclement=0.04    False <-WRONG
+   4  encirclement    converging   0.83 converging=0.83,dispersed=0.11    False <-WRONG
+   5  encirclement  encirclement   0.42 encirclement=0.42,dispersed=0.37    False
+   6  encirclement  encirclement   0.54 encirclement=0.54,dispersed=0.35    False
+
+formation_history (raw, consecutive-collapsed): ['column', 'unknown', 'converging', 'encirclement']
+transitions_detected (temporal): [{'at_time_s': 25.0, 'from': 'converging', 'to': 'encirclement'}]
+n_unknown_windows=2, n_ambiguous_dispersed_converging_windows=0
+FINAL: bucket=C, subtype=multi_hop, guard_reasons=[], rules_key=None
+n_wrong_windows=2/7, DIAGNOSIS: spurious_third_formation_from_misclassification
+
+=== trajectory 73: true_chain=[np.str_('encirclement'), np.str_('v_shape')], gt_pair=(np.str_('encirclement'), np.str_('v_shape')) ===
+n_windows=6
+ idx          true          pred   conf                           top2  d/c_amb
+   0  encirclement    converging   0.61 converging=0.61,dispersed=0.17    False <-WRONG
+   1  encirclement transitioning   0.89 transitioning=0.89,v_shape=0.03    False <-WRONG
+   2 transitioning transitioning   0.94 transitioning=0.94,v_shape=0.04    False
+   3       v_shape       v_shape   0.98 v_shape=0.98,transitioning=0.01    False
+   4       v_shape       v_shape   0.98 v_shape=0.98,transitioning=0.01    False
+   5       v_shape       v_shape   0.98 v_shape=0.98,transitioning=0.01    False
+
+formation_history (raw, consecutive-collapsed): ['converging', 'unknown', 'v_shape']
+transitions_detected (temporal): []
+n_unknown_windows=2, n_ambiguous_dispersed_converging_windows=0
+FINAL: bucket=A, subtype=None, guard_reasons=[], rules_key=('converging', 'v_shape')
+n_wrong_windows=2/6, DIAGNOSIS: structural_reduction_wrong_pair
+
+=== trajectory 93: true_chain=[np.str_('diamond'), np.str_('encirclement')], gt_pair=(np.str_('diamond'), np.str_('encirclement')) ===
+n_windows=6
+ idx          true          pred   conf                           top2  d/c_amb
+   0       diamond       diamond   0.98 diamond=0.98,transitioning=0.01    False
+   1       diamond       diamond   0.97 diamond=0.97,transitioning=0.01    False
+   2 transitioning transitioning   0.65 transitioning=0.65,diamond=0.21    False
+   3  encirclement       v_shape   0.32       v_shape=0.32,shield=0.32    False <-WRONG
+   4  encirclement       v_shape   0.99 v_shape=0.99,transitioning=0.01    False <-WRONG
+   5  encirclement       v_shape   0.99 v_shape=0.99,transitioning=0.00    False <-WRONG
+
+formation_history (raw, consecutive-collapsed): ['diamond', 'unknown', 'v_shape']
+transitions_detected (temporal): []
+n_unknown_windows=1, n_ambiguous_dispersed_converging_windows=0
+FINAL: bucket=A, subtype=None, guard_reasons=[], rules_key=('diamond', 'v_shape')
+n_wrong_windows=3/6, DIAGNOSIS: structural_reduction_wrong_pair
+
+=== trajectory 98: true_chain=[np.str_('dispersed'), np.str_('column')], gt_pair=(np.str_('dispersed'), np.str_('column')) ===
+n_windows=6
+ idx          true          pred   conf                           top2  d/c_amb
+   0     dispersed     dispersed   0.93     dispersed=0.93,column=0.05    False
+   1     dispersed     dispersed   0.92     dispersed=0.92,column=0.06    False
+   2     dispersed     dispersed   0.82     dispersed=0.82,column=0.11    False
+   3        column transitioning   0.96 transitioning=0.96,column=0.02    False <-WRONG
+   4        column       diamond   0.75       diamond=0.75,column=0.14    False <-WRONG
+   5        column       diamond   0.84       diamond=0.84,column=0.06    False <-WRONG
+
+formation_history (raw, consecutive-collapsed): ['dispersed', 'unknown', 'diamond']
+transitions_detected (temporal): []
+n_unknown_windows=1, n_ambiguous_dispersed_converging_windows=0
+FINAL: bucket=A, subtype=None, guard_reasons=[], rules_key=('dispersed', 'diamond')
+n_wrong_windows=3/6, DIAGNOSIS: structural_reduction_wrong_pair
+
+=== trajectory 137: true_chain=[np.str_('shield'), np.str_('encirclement')], gt_pair=(np.str_('shield'), np.str_('encirclement')) ===
+n_windows=6
+ idx          true          pred   conf                           top2  d/c_amb
+   0        shield        shield   0.99 shield=0.99,transitioning=0.00    False
+   1        shield        shield   0.99 shield=0.99,transitioning=0.01    False
+   2        shield        shield   0.69 shield=0.69,transitioning=0.29    False
+   3  encirclement transitioning   0.95 transitioning=0.95,shield=0.03    False <-WRONG
+   4  encirclement       v_shape   0.98 v_shape=0.98,transitioning=0.01    False <-WRONG
+   5  encirclement       v_shape   0.82 v_shape=0.82,encirclement=0.13    False <-WRONG
+
+formation_history (raw, consecutive-collapsed): ['shield', 'unknown', 'v_shape']
+transitions_detected (temporal): []
+n_unknown_windows=1, n_ambiguous_dispersed_converging_windows=0
+FINAL: bucket=A, subtype=None, guard_reasons=[], rules_key=('shield', 'v_shape')
+n_wrong_windows=3/6, DIAGNOSIS: structural_reduction_wrong_pair
+
+=== trajectory 138: true_chain=[np.str_('dispersed'), np.str_('column')], gt_pair=(np.str_('dispersed'), np.str_('column')) ===
+n_windows=5
+ idx          true          pred   conf                           top2  d/c_amb
+   0     dispersed       diamond   0.99    diamond=0.99,dispersed=0.00    False <-WRONG
+   1     dispersed       diamond   0.99 diamond=0.99,transitioning=0.00    False <-WRONG
+   2        column       diamond   0.98 diamond=0.98,transitioning=0.01    False <-WRONG
+   3        column       diamond   0.59    diamond=0.59,dispersed=0.26    False <-WRONG
+   4        column        column   0.98     column=0.98,dispersed=0.01    False
+
+formation_history (raw, consecutive-collapsed): ['diamond', 'column']
+transitions_detected (temporal): [{'at_time_s': 20.0, 'from': 'diamond', 'to': 'column'}]
+n_unknown_windows=0, n_ambiguous_dispersed_converging_windows=0
+FINAL: bucket=A, subtype=None, guard_reasons=[], rules_key=('diamond', 'column')
+n_wrong_windows=4/5, DIAGNOSIS: structural_reduction_wrong_pair
+
+=== trajectory 197: true_chain=[np.str_('shield'), np.str_('encirclement')], gt_pair=(np.str_('shield'), np.str_('encirclement')) ===
+n_windows=7
+ idx          true          pred   conf                           top2  d/c_amb
+   0        shield        shield   0.97     shield=0.97,dispersed=0.02    False
+   1        shield        shield   0.97     shield=0.97,dispersed=0.02    False
+   2        shield        shield   0.97     shield=0.97,dispersed=0.02    False
+   3 transitioning transitioning   0.99 transitioning=0.99,dispersed=0.00    False
+   4  encirclement transitioning   0.98 transitioning=0.98,v_shape=0.00    False <-WRONG
+   5  encirclement    converging   0.96 converging=0.96,dispersed=0.02    False <-WRONG
+   6  encirclement  encirclement   0.58 encirclement=0.58,dispersed=0.23    False
+
+formation_history (raw, consecutive-collapsed): ['shield', 'unknown', 'converging', 'encirclement']
+transitions_detected (temporal): [{'at_time_s': 30.0, 'from': 'converging', 'to': 'encirclement'}]
+n_unknown_windows=2, n_ambiguous_dispersed_converging_windows=0
+FINAL: bucket=C, subtype=multi_hop, guard_reasons=[], rules_key=None
+n_wrong_windows=2/7, DIAGNOSIS: spurious_third_formation_from_misclassification
+
+=== trajectory 237: true_chain=[np.str_('v_shape'), np.str_('diamond')], gt_pair=(np.str_('v_shape'), np.str_('diamond')) ===
+n_windows=8
+ idx          true          pred   conf                           top2  d/c_amb
+   0       v_shape       v_shape   0.98 v_shape=0.98,transitioning=0.01    False
+   1       v_shape       v_shape   0.97 v_shape=0.97,transitioning=0.02    False
+   2       v_shape        shield   0.75 shield=0.75,transitioning=0.17    False <-WRONG
+   3       v_shape transitioning   0.91 transitioning=0.91,shield=0.07    False <-WRONG
+   4       diamond       diamond   0.78 diamond=0.78,transitioning=0.17    False
+   5       diamond       diamond   0.99 diamond=0.99,transitioning=0.00    False
+   6       diamond       diamond   0.99 diamond=0.99,transitioning=0.00    False
+   7       diamond       diamond   0.99 diamond=0.99,transitioning=0.00    False
+
+formation_history (raw, consecutive-collapsed): ['v_shape', 'shield', 'unknown', 'diamond']
+transitions_detected (temporal): [{'at_time_s': 10.0, 'from': 'v_shape', 'to': 'shield'}]
+n_unknown_windows=1, n_ambiguous_dispersed_converging_windows=0
+FINAL: bucket=C, subtype=multi_hop, guard_reasons=[], rules_key=None
+n_wrong_windows=2/8, DIAGNOSIS: spurious_third_formation_from_misclassification
+
+=== trajectory 272: true_chain=[np.str_('v_shape'), np.str_('diamond')], gt_pair=(np.str_('v_shape'), np.str_('diamond')) ===
+n_windows=5
+ idx          true          pred   conf                           top2  d/c_amb
+   0       v_shape       v_shape   0.97 v_shape=0.97,transitioning=0.02    False
+   1       v_shape        shield   0.52 shield=0.52,transitioning=0.28    False <-WRONG
+   2       v_shape transitioning   0.85 transitioning=0.85,shield=0.14    False <-WRONG
+   3       diamond transitioning   0.89 transitioning=0.89,diamond=0.05    False <-WRONG
+   4       diamond       diamond   0.99 diamond=0.99,transitioning=0.00    False
+
+formation_history (raw, consecutive-collapsed): ['v_shape', 'shield', 'unknown', 'diamond']
+transitions_detected (temporal): [{'at_time_s': 5.0, 'from': 'v_shape', 'to': 'shield'}]
+n_unknown_windows=2, n_ambiguous_dispersed_converging_windows=0
+FINAL: bucket=C, subtype=multi_hop, guard_reasons=[], rules_key=None
+n_wrong_windows=3/5, DIAGNOSIS: spurious_third_formation_from_misclassification
+
+=== trajectory 276: true_chain=[np.str_('encirclement'), np.str_('dispersed')], gt_pair=(np.str_('encirclement'), np.str_('dispersed')) ===
+n_windows=7
+ idx          true          pred   conf                           top2  d/c_amb
+   0  encirclement       v_shape   0.99 v_shape=0.99,transitioning=0.01    False <-WRONG
+   1  encirclement       v_shape   0.98 v_shape=0.98,transitioning=0.01    False <-WRONG
+   2  encirclement transitioning   0.97 transitioning=0.97,encirclement=0.01    False <-WRONG
+   3     dispersed transitioning   0.98 transitioning=0.98,encirclement=0.00    False <-WRONG
+   4     dispersed     dispersed   0.71 dispersed=0.71,converging=0.14    False
+   5     dispersed     dispersed   0.98 dispersed=0.98,converging=0.01    False
+   6     dispersed     dispersed   0.99 dispersed=0.99,converging=0.00    False
+
+formation_history (raw, consecutive-collapsed): ['v_shape', 'unknown', 'dispersed']
+transitions_detected (temporal): []
+n_unknown_windows=2, n_ambiguous_dispersed_converging_windows=0
+FINAL: bucket=A, subtype=None, guard_reasons=[], rules_key=('v_shape', 'dispersed')
+n_wrong_windows=4/7, DIAGNOSIS: structural_reduction_wrong_pair
+
+=== trajectory 279: true_chain=[np.str_('v_shape'), np.str_('converging')], gt_pair=(np.str_('v_shape'), np.str_('converging')) ===
+n_windows=5
+ idx          true          pred   conf                           top2  d/c_amb
+   0       v_shape       v_shape   0.98 v_shape=0.98,transitioning=0.01    False
+   1       v_shape       v_shape   0.96 v_shape=0.96,transitioning=0.03    False
+   2       v_shape transitioning   0.94 transitioning=0.94,v_shape=0.04    False <-WRONG
+   3    converging transitioning   0.98 transitioning=0.98,v_shape=0.00    False <-WRONG
+   4    converging transitioning   0.75 transitioning=0.75,converging=0.19    False <-WRONG
+
+formation_history (raw, consecutive-collapsed): ['v_shape', 'unknown']
+transitions_detected (temporal): []
+n_unknown_windows=3, n_ambiguous_dispersed_converging_windows=0
+FINAL: bucket=C, subtype=terminal_unknown, guard_reasons=[], rules_key=None
+n_wrong_windows=3/5, DIAGNOSIS: trailing_transitioning_run
+
+=== trajectory 281: true_chain=[np.str_('column'), np.str_('converging')], gt_pair=(np.str_('column'), np.str_('converging')) ===
+n_windows=6
+ idx          true          pred   conf                           top2  d/c_amb
+   0        column transitioning   0.64 transitioning=0.64,column=0.31    False <-WRONG
+   1        column transitioning   0.99 transitioning=0.99,column=0.00    False <-WRONG
+   2    converging transitioning   0.98 transitioning=0.98,converging=0.00    False <-WRONG
+   3    converging    converging   0.83 converging=0.83,transitioning=0.12    False
+   4    converging    converging   0.57 converging=0.57,dispersed=0.39    False
+   5    converging    converging   0.55 converging=0.55,dispersed=0.41     True
 
 formation_history (raw, consecutive-collapsed): ['unknown', 'converging']
 transitions_detected (temporal): []
-n_unknown_windows=2, n_ambiguous_dispersed_converging_windows=0
-FINAL: bucket=A, subtype=None, guard_reasons=[], rules_key=('converging', 'converging')
-n_wrong_windows=2/4, DIAGNOSIS: structural_reduction_wrong_pair
+n_unknown_windows=3, n_ambiguous_dispersed_converging_windows=1
+FINAL: bucket=B, subtype=None, guard_reasons=['dispersed_converging_ambiguity'], rules_key=('converging', 'converging')
+n_wrong_windows=3/6, DIAGNOSIS: blocked_by_ambiguity_guard
 
-=== trajectory 126: true_chain=[np.str_('encirclement'), np.str_('column')], gt_pair=(np.str_('encirclement'), np.str_('column')) ===
-n_windows=4
+=== trajectory 286: true_chain=[np.str_('converging'), np.str_('encirclement')], gt_pair=(np.str_('converging'), np.str_('encirclement')) ===
+n_windows=7
  idx          true          pred   conf                           top2  d/c_amb
-   0  encirclement     dispersed   0.59 dispersed=0.59,encirclement=0.17    False <-WRONG
-   1        column transitioning   0.98 transitioning=0.98,column=0.00    False <-WRONG
-   2        column        column   0.82     column=0.82,dispersed=0.15    False
-   3        column        column   0.88     column=0.88,dispersed=0.10    False
+   0    converging     dispersed   0.70 dispersed=0.70,encirclement=0.20    False <-WRONG
+   1    converging    converging   0.82 converging=0.82,dispersed=0.16    False
+   2    converging    converging   0.97 converging=0.97,dispersed=0.02    False
+   3 transitioning    converging   0.95 converging=0.95,transitioning=0.04    False <-WRONG
+   4  encirclement transitioning   0.94 transitioning=0.94,converging=0.02    False <-WRONG
+   5  encirclement       v_shape   0.99 v_shape=0.99,transitioning=0.01    False <-WRONG
+   6  encirclement       v_shape   0.99 v_shape=0.99,transitioning=0.00    False <-WRONG
 
-formation_history (raw, consecutive-collapsed): ['dispersed', 'unknown', 'column']
-transitions_detected (temporal): []
+formation_history (raw, consecutive-collapsed): ['dispersed', 'converging', 'unknown', 'v_shape']
+transitions_detected (temporal): [{'at_time_s': 5.0, 'from': 'dispersed', 'to': 'converging'}]
 n_unknown_windows=1, n_ambiguous_dispersed_converging_windows=0
-FINAL: bucket=A, subtype=None, guard_reasons=[], rules_key=('dispersed', 'column')
-n_wrong_windows=2/4, DIAGNOSIS: structural_reduction_wrong_pair
+FINAL: bucket=C, subtype=multi_hop, guard_reasons=[], rules_key=None
+n_wrong_windows=5/7, DIAGNOSIS: spurious_third_formation_from_misclassification

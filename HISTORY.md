@@ -321,3 +321,26 @@ the likely driver of the now-dominant (80%, up from 55%) genuine STGT-misclassif
 failure mode. **Decision: A — observability fix successful, remaining problem primarily STGT
 recognition**, with those two caveats as the concrete next steps. Full detail:
 `docs/V5_LOG.md`'s 2026-08-09 step-25 entry, `docs/CEILING.md`'s matching update.
+
+## Experiment, 2026-08-09: consolidation + source symmetrization — chain-2 more than triples total
+
+Resolved both of step 25's caveats. Consolidated the 5 duplicate copies of the eval-trajectory
+sampling logic into `src/swarm_intent/eval_trajectories.py` (4 live scripts now import it; one
+frozen historical-reproduction script deliberately excluded, documented) — confirmed none of
+the 5 ever fed real STGT training data. Symmetrized `LEAD_IN_RANGE` from `(15,35)` to `(30,50)`,
+derived the same way as the destination fix's `MIN_DWELL_RANGE`.
+
+| | dest-only fix | both fixes | original baseline |
+|---|---|---|---|
+| source OBS_NONE | 16.3% | **0.0%** | — |
+| chain-2 pair accuracy | 39.9% | **65.8%** | 18.7% (3.5x total) |
+| chain-2 threat accuracy | 72.1% | **76.3%** | 31.9% |
+| chain-3+ false-positive rate | 12.6% | **1.8%** | 9.0% (net improvement, p=4.3e-07) |
+
+A refined 20-case failure taxonomy found the remaining chain-2 failures 100%
+boundary/blend-timing-concentrated (0% clean, non-boundary misses) — the still-unresolved
+0.0% train/eval blend-overlap (unchanged across three independent formula revisions) is the
+likely cause. **Decision: B — the blend-timing distribution mismatch is the dominant
+remaining issue and should be fixed BEFORE any STGT training/capacity change**, not decision
+A as the previous entry projected. Not started this session, per instruction. Full detail:
+`docs/V5_LOG.md`'s 2026-08-09 step-26 entry, `docs/CEILING.md`'s matching update.
