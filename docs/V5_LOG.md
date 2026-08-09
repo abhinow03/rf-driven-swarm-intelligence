@@ -1678,3 +1678,37 @@ Full data: `evaluation/phase0_chain2_observability.json` (both-fixes result),
 `docs/V5_STATE.json` updated (`phase=0, step=26`). **STOP per instruction — no STGT
 retraining, no blend-distribution fix started this session; reported and stopped per the
 decision gate.**
+
+### Step 27: the elephant in the room — eval_trajectories.py is evaluation-only, generate_dataset() is untouched
+
+Every fix landed in steps 24-26 (dwell-time, source symmetrization, consolidation) lives in
+`src/swarm_intent/eval_trajectories.py`, which builds long EVALUATION trajectories only.
+`swarm_intent.data.generate_dataset()` — the function `scripts/generate_data.py` actually
+calls to build STGT's training set — was last touched by strategy 5 (regime-margin
+tightening, 2026-08-08) and has not changed since. Every Phase 0 ceiling number through step
+26 measures the SAME frozen strategy-5 checkpoint, trained on the OLD (unchanged) regime
+distribution, scored by an increasingly-accurate but entirely separate evaluation harness. No
+training this session — establishing facts first.
+
+**Full parameter diff, TRAIN (`generate_dataset()`/`generate_transition_sequence`) vs EVAL
+(`eval_trajectories.py`, current, both fixes applied):**
+
+| parameter | TRAIN (generate_dataset) | EVAL (eval_trajectories.py) | same? |
+|---|---|---|---|
+| example/segment length | fixed `n_timesteps=50` — the example IS the window | derived `seg_len` = lead_in+blend_duration+dwell, **80-132 timesteps** (1.6x-2.6x longer), later cut into multiple 50-step windows by `sliding_window_inference` | **NO** |
+| blend timing | 3 discrete regimes, each a FRACTION of the fixed 50-step window (regime 0/2: blend very late/early + short, "pure"; regime 1: blend dominates >=45% of the window, "transitioning") | `lead_in~U(30,50)`, `blend_duration~U(10,25)`, `dwell~U(40,60)` sampled directly as ABSOLUTE timesteps, one continuous shape, no discrete regime split | **NO** (different parameterization AND different realized shape, quantified in step 28) |
+| labeling | per-EXAMPLE single label (pure formation_a / "transitioning" / pure formation_b, chosen by regime) | per-TIMESTEP true label, consumed downstream by windowing — no single "regime" concept at generation time | **NO** (different granularity, though eval's labels are ground truth, not model input) |
+| spread | `rng.uniform(0.7, 1.5)` | `rng.uniform(0.6, 1.8)` | NO (eval range is wider, ~26% lower min, ~20% higher max) |
+| noise_std | `rng.uniform(0.3, 0.8)` | `rng.uniform(0.15, 1.4)` | NO (eval range is much wider — up to 1.75x train's max, down to half train's min) |
+| dt | `0.5` | `0.5` (uses `generate_transition_sequence`'s own default, never overridden) | yes |
+| per-timestep physics (cosine-ramp blend, acceleration, noise injection) | `generate_transition_sequence()` | same function, called directly (`from .data import generate_transition_sequence`) — not reimplemented | **yes, identical** — everything downstream of "which blend_start/blend_end/spread/noise_std get passed in" is the same code |
+| formation-pair sampling | uniform over all `(a,b), a != b` ordered pairs | `sample_chain()`: first formation uniform, each subsequent one uniform over `BASE_FORMATIONS \ {previous}` — equivalent for a single hop | yes (for chain length 2) |
+
+**The one thing NOT different**: the underlying per-timestep trajectory physics. Every
+divergence is in what blend_start/blend_end/spread/noise_std get sampled and handed to that
+shared, unmodified physics function — never in the physics itself. This matters for step 3's
+framing: porting the fix is a training-DISTRIBUTION change, not a new-physics or
+new-architecture change.
+
+Script: none needed for this step (direct source read, `src/swarm_intent/data.py` lines
+128-219 vs `src/swarm_intent/eval_trajectories.py` lines 62-127).
