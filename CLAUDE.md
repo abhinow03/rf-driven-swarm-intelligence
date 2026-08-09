@@ -4,14 +4,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this repo actually contains
 
-This is a university capstone. The README describes a **four-component** counter-UAV system (RF fingerprinting → EKF multilateration → swarm behavior model → LLM intent layer → AR dashboard), but **only two of those components have code here**:
+This is a university capstone. The full stated project is a **four-component** counter-UAV
+system (RF fingerprinting → EKF multilateration → swarm behavior model → LLM intent layer →
+AR dashboard, see `docs/architecture.md`), but **only two of those components have code
+here**:
 
 - **Swarm behavior model (STGT)** — a Spatial-Temporal Graph Transformer that classifies swarm formation from drone *positions* (not RF signals).
 - **LLM interpretation layer** — sliding-window inference → rule-based tactical context → prompt → LLM tactical assessment (JSON).
 
-The RF fingerprinting model, EKF/multilateration tracker, ONNX export, and AR dashboard are **not in this repo** (per `MIGRATION_GUIDE.md` they live in a teammate's repo, to be added under `src/swarm_intent/rf/` and `.../tracking/`). When the README and the code disagree, trust the code. See `CODE_REVIEW.md` for an honest assessment of known limitations (synthetic-only data, circular regression labels, units bug).
+The RF fingerprinting model, EKF/multilateration tracker, ONNX export, and AR dashboard are **not in this repo** (per `MIGRATION_GUIDE.md` they live in a teammate's repo, to be added under `src/swarm_intent/rf/` and `.../tracking/`). When any documentation and the code disagree, trust the code. See `CODE_REVIEW.md` for an honest assessment of known limitations (synthetic-only data, circular regression labels, units bug).
 
-The package was migrated from three Jupyter notebooks (still present at repo root: `capstone_with_llm.ipynb`, `capstone_with eval.ipynb`, `models + data generation.ipynb`). **`src/swarm_intent/` is the source of truth** — do not edit or revive the notebooks for new work; `MIGRATION_GUIDE.md` maps old notebook functions to new module locations.
+The package was migrated from three Jupyter notebooks (`capstone_with_llm.ipynb`, `capstone_with eval.ipynb`, `models + data generation.ipynb`) in the initial commit; the notebooks themselves are no longer present in this repository's tree. **`src/swarm_intent/` is the source of truth** — do not edit or revive the notebooks for new work; `MIGRATION_GUIDE.md` maps old notebook functions to new module locations.
 
 ## Commands
 

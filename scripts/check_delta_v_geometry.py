@@ -23,9 +23,10 @@ LATE half -> inflates v_late -> positive delta_v. Regime 2 (blend early)
 concentrates it in the EARLY half -> negative delta_v. Regime 1 (blend
 spans the midpoint) splits the shift across both halves -> partially cancels.
 
-Imports the teammate's data_gen.py/dataset.py/config.py directly from the
-scratchpad clone (same one vendored into src/swarm_intent/stgt/ in sec V step
-3) rather than reimplementing them -- if the clone isn't present, re-clones it.
+Imports the teammate's data_gen.py/dataset.py/config.py directly from a local
+clone of her repo (cached under .cache/, same source vendored into
+src/swarm_intent/stgt/ in sec V step 3) rather than reimplementing them -- if
+the clone isn't present, clones it on first run.
 
 Usage:
     python scripts/check_delta_v_geometry.py
@@ -39,8 +40,7 @@ from pathlib import Path
 import numpy as np
 
 REPO = Path(__file__).resolve().parent.parent
-SCRATCHPAD_CLONE = Path("/tmp/claude-1004/-home-pw26-akp-01-aadhya-uav-llm/"
-                        "fae9053f-5ab6-47ba-8583-d58ca0394b31/scratchpad/teammate_repo")
+SCRATCHPAD_CLONE = REPO / ".cache" / "teammate_repo"
 UPSTREAM_COMMIT = "b139dcee71feb82244ef1470a6193a628040f318"
 
 N_PAIRS_SAMPLE = 12          # of the 42 ordered (a,b) pairs, cycle through this many

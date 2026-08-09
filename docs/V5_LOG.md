@@ -1460,7 +1460,7 @@ only, no further generator/STGT/bridge/LLM changes this turn.**
 
 Step 25 shipped the destination-dwell fix in ONE of 5 duplicate copies of this sampling logic
 and disclosed the other 4 as out of scope. This turn: (1) consolidates all 5 into a single
-canonical module, (2) symmetrizes the fix onto the source side per Claude's own step-25
+canonical module, (2) symmetrizes the fix onto the source side per the step-25
 recommendation, (3) re-measures chain-2 with both fixes, (4) refines the failure taxonomy,
 (5) investigates the chain-3+ false-positive movement, (6) re-checks blend overlap. No
 STGT retraining, no LLM/RULES/architecture changes. Same frozen strategy-5 checkpoint

@@ -1,206 +1,243 @@
-# LLM-Driven Semantic RF Analysis for Detection and Visualisation of UAV Swarm Communication
+# RF-Driven Swarm Intelligence
 
- 
-> **Team:** Aadhya S Shetty, Abhinav Waddinavar, Alisha Prakash, Sharva Chiradoni  
-> **Guide:** Dr. Ashok Kumar Patil  
+> **Team:** Aadhya S Shetty, Abhinav Waddinavar, Alisha Prakash, Sharva Chiradoni
+> **Guide:** Dr. Ashok Kumar Patil
 
+## Abstract
 
----
+Counter-UAV systems can tell an operator *where* drones are; they rarely tell the operator
+*what the swarm is doing* or *what to do about it*. This project attacks the second half of
+that problem. Given a sequence of drone positions, a **Spatial-Temporal Graph Transformer
+(STGT)** classifies the swarm's formation and detects transitions between formations; a
+**bridge/rules layer** reduces that noisy, per-window classifier output into a deterministic
+tactical read wherever it safely can; and an **LLM reasoning layer** (a hosted baseline model
+plus a QLoRA-fine-tuned local model) handles the residual cases the rules layer structurally
+cannot — producing a structured threat-level / likely-intent / recommended-action assessment.
+The repository also documents, at length and without cherry-picking, an ongoing empirical
+program to find and fix the actual bottlenecks in that pipeline — several of which turned out
+to be synthetic-data generation bugs and evaluation-harness bugs, not model capacity.
 
-## Overview
+## Problem
 
-Traditional RF-ML pipelines can classify signal types or localize individual drones — but they fail to interpret **swarm-level intent**. They can tell you *what* signals exist, not *what the swarm is doing*.
+A formation classifier alone is not a tactical assessment. Two failure modes make the gap
+between them hard to close honestly:
 
-This project bridges that gap. We combine distributed RF sensing, multi-drone localization, graph-based swarm modeling, and an LLM reasoning layer to move from raw I/Q signal data to actionable, human-readable tactical assessments in real time.
+1. **The reduction problem.** A trained classifier's raw per-window output is noisy near
+   formation transitions; naively reducing a window sequence to "the swarm went from A to B"
+   throws away resolvable cases and — if done carelessly — can also manufacture false
+   confidence on genuinely ambiguous ones.
+2. **The LLM-necessity problem.** If a lookup table can answer 100% of realistic inputs, an
+   LLM in the loop is decoration. If it can only answer a small, sharply bounded slice, the
+   system needs a principled, measured routing policy between deterministic rules, a
+   machine-generated "I don't know", and an LLM — not a vague "ask the LLM for everything"
+   design.
 
-**Example LLM output:**
+This repo's `docs/development-history.md` and `AUDIT.md` are, deliberately, a record of
+getting both of those wrong first and then measuring exactly how and why, rather than a
+retroactively cleaned-up success story.
+
+## Architecture
+
 ```
-"V-formation with increasing velocity and stable centroid suggests 
-leader-follower attack pattern. Recommend alerting operator — confidence: HIGH."
+Drone position sequence (6 drones x 3 coords x 50 timesteps)
+        |
+        v
+[STGT] SpatialGAT (2x GATv2Conv + pooling) -> per-timestep embedding
+        |
+        v
+[STGT] Temporal Transformer (4x encoder layers) -> sequence embedding
+        |
+        v
+[STGT] cls_head (7/8-way formation) + reg_head (velocity, approach rate, stability)
+        |
+        v
+[stgt_bridge] sliding-window reduction: per-window predictions -> one (from, to)
+              formation pair, or an explicit "not safely resolvable" flag
+        |
+        v
+[coverage] bucket classification: A (dict-resolvable) / B (guardable, abstain) /
+           C (structurally unresolvable -- needs real reasoning)
+        |
+        +--- A --> [RULES] deterministic (from,to) -> threat/intent/action lookup,
+        |          LLM used only to narrate, never to decide (decision fields are
+        |          validated against RULES and overwritten on any deviation)
+        |
+        +--- B --> machine-generated abstention, no model call
+        |
+        +--- C --> [LLM] Groq-hosted baseline, or QLoRA-fine-tuned local model,
+                    with a scoped prior correction restricted to provable near-ties
+        |
+        v
+Structured tactical assessment (threat_level, likely_intent, recommended_action,
+explanation) -- JSON, schema in src/swarm_intent/inference.py
 ```
 
----
+**What this repo does NOT implement**, despite the project's full stated scope (RF sensing
+- fingerprinting - localization/tracking - swarm modeling - LLM reasoning - AR dashboard):
+RF fingerprinting, multilateration/EKF tracking, ONNX edge export, and the AR/3D dashboard
+are a teammate's work, tracked in a separate repository, and are not present here. STGT
+consumes drone *positions* directly (as would come out of that upstream tracker), not RF
+signals. See `docs/architecture.md` for the implemented/experimental/planned breakdown in
+full and `MIGRATION_GUIDE.md` for where the missing pieces are meant to land
+(`src/swarm_intent/rf/`, `src/swarm_intent/tracking/`) once integrated.
 
-## System Architecture
+## Research contributions
 
-```
-UAV RF Signals
-     │
-     ▼
-[1] On-Drone DL Model (RF Fingerprinting)
-     │  Extracts: AoA, TDoA, RSSI, Doppler, Bandwidth
-     │  Output: 128-dim hardware fingerprint per drone
-     ▼
-[2] Base Station — Multilateration & Swarm Modeling
-     │  Fuses features across drones → 3D position + velocity
-     │  Swarm graph: Nodes = drones, Edges = spatial proximity
-     │  GATv2 (spatial) + Transformer (temporal) → formation type,
-     │  stability, approach rate, role differentiation
-     ▼
-[3] LLM Interpretation Layer
-     │  Input: structured JSON from ML models
-     │  Output: threat level, intent, recommended action, explanation
-     ▼
-[4] Visualisation (3D / AR Dashboard)
-     │  Real-time emitter positions, swarm formation, behavior trends
-```
+Claimed only to the extent the repository actually demonstrates them:
 
----
+- A measured, reproducible answer to "why not just ship a lookup table instead of an LLM":
+  bucket-classified real STGT output shows the deterministic RULES dict alone resolves a
+  small, specific minority of real observations (see `docs/evaluation.md`); the rest are
+  either safely-abstainable or genuinely need the LLM layer.
+- A three-layer routing architecture (`src/swarm_intent/pipeline_v2.py`) with a *provable*
+  guarantee that the LLM can never override a deterministic RULES decision in the cases RULES
+  actually covers (independently verified in `docs/development-history.md`'s sec AH summary:
+  0 deviations across a dedicated verification run).
+- Multiple real bottlenecks in the STGT-to-tactical-assessment pipeline, found, audited, and
+  root-caused (guard-condition bugs that tested the wrong thing, a data-generator labeling
+  regime that never matched realistic long-trajectory evaluation, an evaluation bridge that
+  threw away resolvable sequences on brittle unanimity voting) — and, where fixed,
+  re-measured with the same protocol before and after, including negative results (one large
+  fix, "robust reduction", was implemented, tested, and explicitly **not** shipped as the
+  default after measurement showed it traded accuracy for confident silence).
+- An explicit chain of custody from a real upstream generator physics bug (shared
+  dispersed/converging geometry, no acceleration term) through to its measured effect on
+  end-to-end threat-classification ceiling (13.0% to 52.3%/58.7% from one fix), documented
+  with the diff that caused it and the commit that ported it.
 
-## The Three-Layer Reasoning Model
+No claim is made that the current system meets its own stated 70%-pair-accuracy internal
+target — it does not, yet. See Current status.
 
-| Layer | Question it answers | Features used |
-|---|---|---|
-| **Perception** | "What signals and objects exist?" | TDoA, AoA, Bandwidth, RSSI, Center freq, Doppler |
-| **Kinematics** | "How are drones moving relative to each other?" | Position (x,y,z), velocity, acceleration, climb rate, timestamp |
-| **Intent (LLM)** | "What does this collective motion *mean*?" | Structured JSON: formation type, stability, approach rate, rf_coordination_score, behavior_trend |
+## Current status
 
----
-
-## Component Details
-
-### 1. RF Fingerprinting Model (V4)
-
-Extracts unique hardware fingerprints from raw I/Q signals to individually identify drones — even unseen ones.
-
-- **Architecture:** Dual-branch
-  - Time-domain: 1D ResNet
-  - Frequency-domain: STFT + 2D ResNet
-  - Fused via cross-attention
-- **Output:** 128-dim L2-normalized embedding (not class probabilities)
-- **Loss:** Supervised Contrastive (SupCon) — pulls same-device signals together, pushes others apart
-- **Inference:** Cosine similarity on embeddings
-- **Specs:** ~3.69M params training / ~1.48M inference · 4096-sample window
-
-**Key results:**
-- 74.3% assignment purity on simulated edge deployment (streaming unknown I/Q windows)
-- Successfully detected and registered previously unseen emitters from held-out data
-- Zero-shot distance accuracy: cosine similarity of **0.9856** on entirely unseen distances (20ft & 26ft) — trained only on 8ft & 14ft
-- Peak separation margin (Sim Gap): **1.3440** — 159% improvement over baseline
-- Within-device similarity: **0.7870** (above target threshold)
-
-> **Hardware limit discovered:** Nanometer-level manufacturing variations within a single batch form a continuous "ring manifold" rather than discrete clusters. Two of four held-out USRP X310s were falsely merged — operating at the absolute boundary of physical detectability.
-
-### 2. Multilateration & Tracking
-
-- Measurements: Range, Azimuth, Elevation, Doppler, RSSI, TDOA
-- Sensor fusion via **Extended Kalman Filter (EKF)**
-- Outputs: 3D position estimates + velocity vectors
-
-### 3. Swarm Behavior Model
-
-- **Spatial modeling:** GATv2 (Graph Attention Network v2)
-- **Temporal modeling:** Transformer encoder
-- **Dataset:** ~19,600 sequences (augmented) · 7 formation types + transition cases · varying noise, speed, spread
-- **Outputs:** Formation type, velocity, stability, approach rate
-
-**Supported formations and their tactical meaning:**
-
-| Formation | Tactical meaning |
+| Component | Status |
 |---|---|
-| V-shape | Leader-follower coordinated movement |
-| Encirclement / Converging | High threat — potential attack |
-| Shield | Electromagnetic protection bubble |
-| Diamond mesh | Resilience against anti-jamming |
-| Column / Trail | Penetration pattern |
-| Dispersed | Surveillance / area scanning |
+| STGT formation classifier | **Implemented**, trained on synthetic data only. Chain-length-2 (single real transition) pair accuracy is under active improvement: 18.7% -> 65.8% across the V5 program's fixes so far (docs/development-history.md), short of the program's internally stated 70% floor. Chain-length-1 (steady state) accuracy is ~85-88%. |
+| Bridge / reduction logic (`stgt_bridge.py`) | **Implemented**, audited, several guard bugs found and fixed (see docs/development-history.md). A "robust" majority-vote reduction mode exists, is tested, and is **disabled by default** after measurement showed it hurts more than it helps. |
+| Coverage routing (`coverage.py`, bucket A/B/C) | **Implemented** and measured against real STGT output, not just templated text cases. |
+| RULES deterministic layer | **Implemented**, 49 (from,to) pairs -> threat/intent/action, canonical in `llm_finetuning/build_sft_dataset.py`. |
+| LLM layer — hosted baseline | **Implemented** (Groq API, `src/swarm_intent/llm/client.py`). |
+| LLM layer — fine-tuned local model | **Implemented**, 5 QLoRA adapter iterations documented in `docs/ADAPTER_VERSIONS.md`; adapter weights are not committed (regenerate via `llm_finetuning/train_qlora.py`). |
+| RF fingerprinting | **Not implemented here** — teammate's repo, not integrated. |
+| Multilateration / EKF tracking | **Not implemented here** — teammate's repo, not integrated. |
+| AR / 3D visualisation dashboard | **Not implemented, planned.** |
+| Test suite | 140 unit tests, `python -m unittest discover -s tests`, no GPU required for the bridge/coverage/config tests. |
 
-### 4. LLM Interpretation Layer
+## Repository structure
 
-Takes structured ML outputs and produces human-readable tactical intelligence.
+```
+src/swarm_intent/       importable package (import swarm_intent) -- STGT model, graph
+                         construction, synthetic data generation, the stgt_bridge/coverage
+                         routing logic, pipeline_v2, and the LLM client layer
+scripts/                 data generation, training, and the V5 diagnostic/audit scripts
+                         (see scripts/README.md for which are production vs. research tools)
+llm_finetuning/          QLoRA fine-tuning pipeline: SFT dataset construction, training,
+                         evaluation, and ~50 audit/diagnostic scripts (own README.md)
+tests/                   unit tests (unittest, no test framework dependency)
+data/                    SFT training/validation sets consumed by llm_finetuning/ (see
+                         data/README.md) -- NOT raw RF data; this project's data is synthetic
+evaluation/              raw evaluation output (JSON) from the eval scripts above
+docs/                    architecture, methodology, development history, evaluation summary,
+                         V5 program logs (V5_LOG.md, CEILING.md, etc.), archived stale docs
+calibration/             a small calibration artifact consumed by prior-correction tests
+visuals/                 example output figures
+```
 
-- **Input:** JSON with formation type, stability, velocity, approach rate, rf_coordination_score, role_differentiation, behavior_trend
-- **Pipeline:** Rule-based context building → prompt generation → LLM inference
-- **Output (JSON):** threat level · intent · recommended action · explanation
-- Low-temperature setup for deterministic responses
-- Currently: prompt-engineered system with Groq API
-- **In progress:** Fine-tuning Mistral 7B Instruct v0.3 with QLoRA (4-bit NF4 + LoRA adapters, r=16, α=32) on ~500 synthetic samples for domain adaptation, lower latency, and reduced prompt dependency
+Deliberately unchanged from the working-development layout: the Python package is named
+`swarm_intent` (not `rf_swarm`) — renaming it would touch every import across ~150 files for
+no functional benefit, so this repository keeps the real, working name rather than a
+cosmetic one chosen to match a template.
 
-**Example input → output:**
+## Installation
 
-```json
-// Input to LLM
-{
-  "num_drones": 6,
-  "formation_type": "encirclement",
-  "formation_stability": 0.82,
-  "centroid_velocity": 4.3,
-  "approach_rate": -1.2,
-  "rf_coordination_score": 0.76,
-  "role_differentiation": true,
-  "behavior_trend": "converging"
+```bash
+git clone https://github.com/abhinow03/rf-driven-swarm-intelligence.git
+cd rf-driven-swarm-intelligence
+pip install -e .
+pip install -r requirements.txt   # torch / torch-geometric are platform-specific; see the file
+```
+
+LLM fine-tuning has its own, GPU-specific dependency set (`pip install -e ".[finetune]"`) —
+see `llm_finetuning/README.md`.
+
+## Data
+
+All data in this project is **synthetic**, generated from `src/swarm_intent/data.py` /
+`src/swarm_intent/eval_trajectories.py` — there is no raw RF or flight data of any kind
+committed or required. `data/*.jsonl` (SFT training sets for the LLM fine-tuning pipeline) is
+committed since it is small (a few MB) and is itself a research artifact with a documented
+provenance (see `data/README.md`); it can also be regenerated from scratch. Model
+checkpoints, LoRA adapters, and `swarm_data/` (normalization stats, generated splits) are
+**not** committed (`.gitignore`) — regenerate them with the commands below.
+
+## Training
+
+```bash
+# 1. Generate the synthetic STGT dataset (omit --transitions for the 7-class model)
+python scripts/generate_data.py --per-formation 1000 --transitions 2000
+
+# 2. Train STGT
+python scripts/train_model.py --classes 8 --epochs 80
+
+# 3. LLM fine-tuning (separate GPU workflow) -- see llm_finetuning/README.md
+export GROQ_API_KEY=...   # required for the teacher-distillation and judge steps
+python llm_finetuning/build_sft_dataset.py --n 600 --out data/sft_train.jsonl
+python llm_finetuning/train_qlora.py ...
+```
+
+## Evaluation
+
+The headline metric throughout this project is **end-to-end objective accuracy**
+(intent/threat correctness against independently-derived ground truth), not an LLM grading
+its own output — an early version of the eval harness had a model self-score 5/5 while
+objective accuracy was near 0%; that failure mode is explicitly guarded against now
+(`src/swarm_intent/llm/evaluate.py`'s docstring, `docs/methodology.md`). See
+`docs/evaluation.md` for the current numbers and what they mean; see
+`docs/development-history.md` for how they got there.
+
+## Reproduction
+
+```bash
+pip install -e . && pip install -r requirements.txt
+python -m unittest discover -s tests -q                      # 140 tests, no GPU needed
+python scripts/generate_data.py --per-formation 20 --transitions 40   # smoke-test data gen
+python scripts/train_model.py --classes 8 --epochs 2                  # smoke-test training
+python scripts/phase0_ceiling.py --n 100                              # V5 ceiling measurement
+```
+
+## Experiments
+
+`docs/development-history.md` summarizes the V1-V5 arc; `docs/experiments.md` lists what each
+major experiment established, including the ones that didn't pan out (a "robust reduction"
+majority-vote fix that was built, tested, and deliberately not shipped after measurement).
+
+## Limitations
+
+Stated plainly, not buried:
+
+- **Synthetic data only.** STGT has never seen real drone telemetry or real RF-derived
+  positions; generalization to real sensor noise is untested.
+- **Regression labels are in normalized-space, not physical units** (a known bug — see
+  `CODE_REVIEW.md`). Do not present `centroid_velocity` output as m/s without rescaling.
+- **The pipeline does not yet meet its own internal accuracy target.** `docs/CEILING.md`
+  documents the actual measured effect of every attempted fix, including negative results.
+- **Chain-length-2 pair accuracy (65.8%) is still below this program's own 70% internal
+  target**, and the leading hypothesis (train/eval blend-timing distribution mismatch) is
+  diagnosed but not yet fixed as of the latest entry in `docs/V5_LOG.md`.
+- **RF fingerprinting, tracking, and the AR dashboard are not in this repository.**
+
+## Citation
+
+No publication exists yet for this work. If you use this code, please cite the repository
+directly until a paper citation is available:
+
+```bibtex
+@software{rf_driven_swarm_intelligence,
+  title  = {RF-Driven Swarm Intelligence},
+  author = {Shetty, Aadhya S and Waddinavar, Abhinav and Prakash, Alisha and Chiradoni, Sharva},
+  year   = {2026},
+  url    = {https://github.com/abhinow03/rf-driven-swarm-intelligence}
 }
 ```
 
-```
-// LLM output
-Threat Level: HIGH
-Intent: APPROACH / ENCIRCLEMENT
-Explanation: Increased RF coordination combined with adaptive encirclement
-formation and base-oriented approach suggests coordinated surveillance or
-attack intent rather than random flight.
-Recommended action: ALERT OPERATOR — monitor next observation window.
-```
-
----
-
-## Datasets
-
-### RF Fingerprinting — Iteration History
-
-| Dataset | Purpose | Outcome |
-|---|---|---|
-| CS-SEI (5 UAVs) | Initial closed-set fingerprinting | 100% accuracy — but model memorized waveforms, not hardware fingerprints. Discarded. |
-| DroneRF (5 brands) | Brand-level discrimination | Underfitting — high intra-class variance from distance/interference. Discarded. |
-| **ORACLE / KRI-16** (Northeastern Univ.) | **Open-set hardware fingerprinting** | ✅ Current — 123 identical-model Wi-Fi radios, designed for hardware-imperfection-based SEI, supports open-set validation on unseen devices |
-
-> ORACLE dataset: supplementary material for *"ORACLE: Optimized Radio Classification through Convolutional Neural Networks"* (IEEE INFOCOM 2019). [DOI: 10.1109/INFOCOM.2019.8737463](https://doi.org/10.1109/INFOCOM.2019.8737463)
-
-### Swarm Behavior Model
-
-- ~19,600 augmented sequences simulated in MATLAB
-- 7 formation types + formation transition cases
-- Varying noise, speed, spread, and drone count
-
----
-
-## Tech Stack
-
-```
-Python · PyTorch · TensorFlow · MATLAB
-Groq API / LLM APIs
-ONNX (edge deployment target)
-GATv2 · Transformer encoder · 1D ResNet · STFT + 2D ResNet
-Extended Kalman Filter (EKF)
-Supervised Contrastive Loss · QLoRA · PEFT · HuggingFace Transformers
-```
-
----
-
-## Current Progress
-
-- [x] MATLAB simulation of full pipeline
-- [x] RF fingerprinting model (V4) — dual-branch architecture with SupCon loss
-- [x] Multilateration and EKF tracking
-- [x] Swarm behavior model — GATv2 + Transformer on 19.6k sequences
-- [x] Formation classification across 7 formation types
-- [x] LLM interpretation layer (prompt-engineered, Groq API)
-- [x] Structured JSON pipeline from ML models → LLM
-- [x] Synthetic dataset generation pipeline (~500 samples for fine-tuning)
-- [ ] Mistral 7B fine-tuning with QLoRA — **in progress**
-- [ ] Dataset enhancement and model optimization
-- [ ] Full system integration
-- [ ] 3D / AR visualisation dashboard
-
----
-
-## Roadmap (Phase 3 & 4)
-
-- **Domain-adapted LLM** — fine-tuned Mistral 7B for RF/swarm domain, improved reasoning consistency, reduced token usage
-- **Dataset enhancement** — broader formation diversity, real-world RF noise
-- **Model optimization** — ONNX export for edge deployment, inference latency reduction
-- **Full system integration** — end-to-end pipeline from raw I/Q to operator dashboard
-- **3D / AR visualisation** — real-time emitter positions, swarm formation overlay, behavior trend display
-
----
-
+See `CITATION.cff` for the machine-readable version.
