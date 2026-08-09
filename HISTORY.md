@@ -344,3 +344,68 @@ likely cause. **Decision: B — the blend-timing distribution mismatch is the do
 remaining issue and should be fixed BEFORE any STGT training/capacity change**, not decision
 A as the previous entry projected. Not started this session, per instruction. Full detail:
 `docs/V5_LOG.md`'s 2026-08-09 step-26 entry, `docs/CEILING.md`'s matching update.
+
+## Decision, 2026-08-10: does STGT need to be retrained on a corrected distribution?
+
+**This is deliberately NOT "Strategy 7."** Strategies 1-6 above all tuned architecture,
+training schedule, or capacity against a training distribution that was held fixed (aside
+from strategy 2/5's own regime-margin adjustments). This decision is about whether that
+training distribution — `generate_dataset()`'s 3-regime blend timing, last touched by
+strategy 5 and untouched since — is itself the bottleneck. That is a categorically different
+question: fixing the distribution invalidates strategy-to-strategy comparisons made above
+unless read correctly. Strategies 1-6 answer "given this (possibly flawed) distribution, what
+architecture/schedule/capacity choice does best on it." This decision asks "is the
+distribution the thing that was flawed all along." No retraining happened this session —
+this entry establishes facts only, per explicit instruction.
+
+**Fact 1 — the two generators have been diverging silently.** `eval_trajectories.py` (steps
+24-26's dwell-time and source-symmetrization fixes) builds long EVALUATION trajectories only.
+`generate_dataset()`, the actual training-data path, has not changed since strategy 5. Every
+Phase 0 ceiling number reported above (strategies 1 through 6, and steps 24-26) measures the
+frozen strategy-5 checkpoint against an increasingly-accurate but entirely separate evaluation
+harness — never against a training set built the corrected way. Full parameter-by-parameter
+diff: `docs/V5_LOG.md` step 27.
+
+**Fact 2 — the two distributions do not overlap.** Monte Carlo comparison (n=20000/side,
+`docs/V5_LOG.md` step 28): eval's realized `(start_frac, duration_frac)` region has **0.0%
+overlap** with any of `generate_dataset()`'s 3 current regime boxes. If `generate_dataset()`
+adopted eval's current timing distribution, effectively 100% of transitioning examples would
+land outside every regime STGT has ever been trained on. This is not a partial-tuning gap —
+it is a full distributional replacement, and a structural one: eval's segment is 1.6-2.6x
+longer than train's fixed 50-step window, so a genuine port means restructuring how
+`generate_dataset()` builds a transitioning example, not substituting three constants.
+
+**Fact 3 — the step-26 gains (18.7%→65.8%) answer a different question than "does the model
+generalize to the corrected distribution."** Steps 24-26 fixed *observability* — ensuring a
+chain-2 trajectory's source and destination formations each dominate at least one sliding
+window, via wide lead-in/dwell margins (`lead_in>=30`, `dwell>=40`). That construction
+deliberately produces windows heavily weighted toward PURE, low-blend-content material — it
+does not test whether STGT correctly classifies a genuinely blend-dominant window. The
+refined failure taxonomy from step 26 itself already shows this directly: 100% of the 20
+freshly-traced chain-2 failures under both fixes are boundary/blend-timing-concentrated, and
+the train/eval blend-overlap remained exactly 0.0% even after the observability fix landed.
+**These are not the same claim.** "65.8% pair accuracy" means "the model does well once the
+eval harness stopped handing it windows dominated by blend content it was never trained on" —
+it is evidence the observability bug was real and worth fixing, not evidence the model
+generalizes to the actual corrected (realistic) blend-timing shape. Observability and
+distribution-mismatch are orthogonal problems; fixing one doesn't touch the other.
+
+**Decision gate:**
+- **A** (port the fix, retrain) is justified if fact 2 shows substantial divergence AND fact 3
+  shows the current checkpoint's gains are eval-artifact-driven rather than genuine
+  generalization to the corrected distribution.
+- **B** (leave `generate_dataset()` as-is) is justified if the frozen checkpoint already
+  generalizes well to corrected eval trajectories — meaning the training distribution,
+  though different, wasn't actually the bottleneck.
+- **C** (insufficient evidence) if neither is cleanly established.
+
+**Both of A's conditions hold: fact 2 shows 0.0% overlap (full divergence, not partial), and
+fact 3 shows the step-26 gains are explained by the observability fix alone, with the
+blend-boundary failure mode both predating and surviving it unchanged. Verdict: A — port the
+corrected timing distribution into `generate_dataset()` and retrain STGT from scratch,
+recorded as a decision, not executed this session** (no training this session, per explicit
+instruction). Doing so means every strategy-1-through-6 comparison above must be read as
+"tuning against a flawed distribution," not as a closed chapter — a genuinely new baseline is
+needed once the distribution itself is fixed, and strategy-style architecture/capacity tuning
+should resume only after that baseline exists. Full detail: `docs/V5_LOG.md` steps 27-30,
+`docs/CEILING.md`'s matching update.
