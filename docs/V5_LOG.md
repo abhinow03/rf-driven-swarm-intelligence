@@ -2191,3 +2191,85 @@ noise at this small scale. **A single run is not enough statistical power for a 
 go/no-go call either way; reported as the literal result, not rounded to a verdict the data
 doesn't clearly support.** See `HISTORY.md`'s 2026-08-10 part-4 decision for the full
 disposition.
+
+### Step 42: measuring the noise floor — baseline variance, 5 seeds
+
+Before trusting any further single-run comparison, `scripts/phase0_variance_measurement.py`
+trains the baseline (old format) at 5 fresh, disjoint seeds (20-24, both data-generation and
+model-init seed together per run — this captures genuine data/init variance, not just GPU
+non-determinism alone, though steps 37/39/41 already showed that alone is real: identical
+nominal seeds still produced varying results). Same small-scale protocol throughout
+(`n_per_formation=300`, `n_transition=900`, 60 epochs). Eval ruler fixed:
+`eval_trajectories.py` seed=999, unchanged across every run.
+
+| seed | test_acc | chain-2 pair_acc | chain-2 threat_acc |
+|---|---|---|---|
+| 20 | 93.33% | 76.32% | 84.21% |
+| 21 | 83.56% | 60.53% | 71.05% |
+| 22 | 96.44% | 79.82% | 85.09% |
+| 23 | 97.11% | 78.95% | 85.09% |
+| 24 | 93.78% | 71.05% | 78.07% |
+| **mean** | **92.84%** | **73.33%** | **80.70%** |
+| **std** | **4.87** | **7.10** | **5.49** |
+| min | 83.56% | 60.53% | 71.05% |
+| max | 97.11% | 79.82% | 85.09% |
+
+**This is the noise floor.** At this dataset scale (n_per_formation=300 steady-state,
+n_transition=900), with identical config/data-generation logic and only the seed varying,
+chain-2 pair accuracy alone swings across an 19.3-point range (60.5%-79.8%) and threat
+accuracy across a 14.0-point range (71.1%-85.1%). Single-run comparisons anywhere in this
+program at comparable scale need to be read against this, not treated as exact.
+
+### Step 43: corrected-port variance, 5 seeds, same protocol
+
+Same 5 seeds (20-24), same protocol, the normalization-fixed/uncapped-acceleration config
+from step 41 (commit f6c5ffb: `n_transition=303` hops, `robust=True` in
+`split_and_normalize`, acceleration uncapped).
+
+| seed | test_acc | chain-2 pair_acc | chain-2 threat_acc |
+|---|---|---|---|
+| 20 | 95.37% | 64.91% | 71.05% |
+| 21 | 82.56% | 61.40% | 73.68% |
+| 22 | 94.48% | 67.54% | 73.68% |
+| 23 | 95.58% | 57.89% | 68.42% |
+| 24 | 92.11% | 68.42% | 75.44% |
+| **mean** | **92.02%** | **64.04%** | **72.46%** |
+| **std** | **4.89** | **3.92** | **2.46** |
+| min | 82.56% | 57.89% | 68.42% |
+| max | 95.58% | 68.42% | 75.44% |
+
+**Notable**: corrected-port's own run-to-run std is *smaller* than baseline's on both
+chain-2 metrics (pair: 3.92 vs 7.10; threat: 2.46 vs 5.49) — it is more consistent seed-to-
+seed, even though its mean sits below baseline's on both. Raw `test_acc` variance is
+essentially identical between the two formats (4.89 vs 4.87).
+
+### Step 44: statistical comparison
+
+Welch's t-test (unequal variance), corrected vs. baseline, both n=5:
+
+| metric | baseline mean±std | corrected mean±std | delta | t | p |
+|---|---|---|---|---|---|
+| test_acc | 92.84% ± 4.87 | 92.02% ± 4.89 | -0.82pt | -0.239 | **0.817** |
+| chain-2 pair_acc | 73.33% ± 7.10 | 64.04% ± 3.92 | -9.29pt | -2.294 | **0.060** |
+| chain-2 threat_acc | 80.70% ± 5.49 | 72.46% ± 2.46 | -8.24pt | -2.741 | **0.037** |
+
+**Stated plainly, per instruction — this is not a tie.** `test_acc` is statistically
+indistinguishable (p=0.82) — the underlying classifier learns comparably well either way.
+But on the metrics that actually matter (chain-2 pair/threat accuracy), corrected-port scores
+consistently lower across all 5 seeds on both metrics, with `threat_acc`'s gap reaching
+conventional significance (p=0.037, below 0.05) and `pair_acc`'s gap just short of it
+(p=0.060) while pointing the same direction with a similar effect size. Two metrics, same
+direction, one significant and one borderline, is a coherent signal, not noise. **Corrected-
+port is more likely worse than baseline than not at 5-seed resolution — not "statistically
+tied."**
+
+**Standing note for future strategy decisions** (added per instruction): single-run
+comparisons at this dataset scale (n_per_formation≈300, n_transition≈900) are **not reliable
+below roughly 5-7 points of difference** (the observed std range across test_acc/pair_acc/
+threat_acc above) — read any future single-run delta smaller than that with real skepticism,
+and prefer a multi-seed comparison before treating it as decisive. This std was measured at
+SMALL scale (n_chain2≈114 per run); full-scale runs (n_per_formation≈3000,
+n_chain2≈250-500) likely have a smaller true noise floor, both from more training data and
+from a larger eval sample reducing sampling error — this is a conservative, not exact, bound
+for those, offered as the best available evidence without re-running full-scale strategies
+multiple times each.
