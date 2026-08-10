@@ -513,3 +513,44 @@ identified above, most likely by capping or decaying acceleration's effect so it
 compound unboundedly over hop lengths several times longer than the regime it was designed
 for — then re-running step 37's exact small-scale comparison (not skipping straight back to
 full scale) before reconsidering this gate.
+
+## Decision, 2026-08-10 (part 4): mechanism isolated — normalization, not acceleration; gate remains NO-GO, narrowly
+
+**Also its own decision, distinct from parts 1-3 and from Strategy 7.** Part 3 named
+acceleration/velocity-growth as the leading hypothesis and recommended capping it. This part
+tested that directly, found it insufficient, isolated the real mechanism, and re-measured.
+
+**Acceleration capping tested and rejected as the explanation.** `ACCEL_SPEED_CAP=33.0` was
+implemented (derived from `generate_transition_sequence`'s own 50-step design envelope,
+provably inert for every existing ≤50-step call site), measurably reduced long-hop growth
+(16x→11x), and **produced an identical collapse** (13.2%/0.0%/0.0%, matching the uncapped
+result to 4 decimal places). That exact match was itself the signal that acceleration wasn't
+the operative mechanism.
+
+**Second contributor confirmed sufficient on its own.** `split_and_normalize`'s global
+`train_mean`/`train_std` scalar is 1.71x larger for the corrected dataset (143.2 vs 83.7),
+inflated by a minority of high-drift windows drawn from deep inside long hops — a robust
+(percentile-trimmed) version of the same scalar, with acceleration left **completely
+uncapped**, resolved the collapse on its own: test_acc 13.2%→**87.7%**, chain-2 pair/threat
+accuracy 0.0%/0.0%→**51.8%/60.5%**. Steps 2 and 3 of the isolation protocol (split
+regression-target vs. graph-edge-threshold distortion; re-run with the identified fix) were
+addressed without separate runs — moot once the collapse was directly resolved, and already
+satisfied by the same run, respectively. `ACCEL_SPEED_CAP` has been **reverted**
+(`src/swarm_intent/data.py`, verified bit-identical to the pre-cap code) — the record
+corrected so it doesn't overstate what that change accomplished. Full detail:
+`docs/V5_LOG.md` steps 39-41.
+
+**Decision gate, reported literally, not rounded up**: "proceed only if the fixed version
+beats baseline" — in this single run it does not (51.8%<57.0% pair, 60.5%<63.2% threat),
+though the gap is now small (previously 60+ points, now single digits) and baseline's own
+figures swung by up to 10 points on test_acc and ~5 on threat_acc across nominally-identical
+reruns of this exact config across steps 37/39/41 — real training-run noise at this scale,
+not a data difference. **A single run does not carry enough statistical power for a confident
+go/no-go call in either direction. Verdict: NO-GO, narrowly** — reported as the literal
+result the data supports, not stretched into a GO on the strength of "close." Full-scale
+generation and retraining remain **not authorized**.
+
+**What would resolve this cleanly**: repeat this exact small-scale comparison across several
+seeds (data seed and/or model-init seed) to separate genuine signal from the observed
+run-to-run noise, before either authorizing full-scale generation or concluding the port
+still underperforms. Not done this session — no full-scale generation, per instruction.

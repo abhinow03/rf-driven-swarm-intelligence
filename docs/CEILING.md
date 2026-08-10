@@ -46,6 +46,15 @@ not superseded by a retrain, because no retrain happened. See `HISTORY.md`'s 202
 decision entry for the full finding and the leading root-cause hypothesis (unbounded
 acceleration over the port's longer hop lengths).
 
+**Update, same day, part 4**: the acceleration hypothesis above was tested directly and
+rejected — capping it produced an identical collapse. The real mechanism is
+`split_and_normalize`'s global position-normalization scalar (1.71x inflated by high-drift
+outlier windows); a robust (percentile-trimmed) version, with acceleration left fully
+uncapped, recovered the small-scale corrected model from 13.2%/0.0%/0.0% to
+**87.7%/51.8%/60.5%** (test_acc/pair/threat) — close to, but not clearly exceeding, baseline
+in a single noisy run. Verdict remains **NO-GO, narrowly** pending a multi-seed confirmation.
+See `HISTORY.md`'s 2026-08-10 part-4 decision entry.
+
 ## Current state (stratified), 2026-08-09 — supersedes every pooled number below (chain-2 numbers here are further superseded above)
 
 `scripts/phase0_chainlength_breakdown.py --n 1000`, seed=999 (the standing ceiling
