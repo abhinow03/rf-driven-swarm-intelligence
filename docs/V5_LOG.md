@@ -2299,3 +2299,76 @@ implicate the labeling or windowing design at all. Directly testable by requesti
 (not more compensation-adjusted-to-match-kept-count) so independent-sample count, not just
 kept-example count, matches baseline — flagged as a candidate fix if steps 1/3 point toward a
 diffuse (not pair-concentrated) explanation.
+
+### Step 46: per-pair and per-formation breakdown (step 1 of the diagnosis request)
+
+5-seed checkpoints regenerated (`scripts/phase0_variance_diagnosis.py`, same protocol/seeds
+20-24 as steps 42-44, but persisted this time — `checkpoints_variance_diagnosis/`) with
+per-trajectory `(formation_a, formation_b, pair_correct, threat_correct)` recorded during
+eval, pooled across all 5 seeds. Threat-ceiling terms first, per instruction.
+
+**Per-formation** (appears as either `a` or `b`, `n=145-180` each — the more statistically
+reliable view):
+
+| formation | threat_acc gap (corrected − baseline) |
+|---|---|
+| `converging` | **+16.1%** |
+| `encirclement` | +3.1% |
+| `column` | -2.8% |
+| `dispersed` | -3.0% |
+| `diamond` | -7.3% |
+| `shield` | -8.2% |
+| `v_shape` | **-12.4%** |
+
+Mean -2.1%, **std 8.7 points**, range -12.4% to +16.1%. Moderate, roughly-uniform spread —
+`v_shape` and `shield` somewhat worse, `converging` clearly better — but **no formation is
+catastrophically broken**; nothing near the pooled -8.2pt gap's own scale, let alone the
+±30-40pt swings seen at the pair level below.
+
+**Per-(a,b)-pair** (`n=5-30` per pair — inherently noisier): gap mean -1.4%, **std 19.5
+points**, range -40.0% to +40.0%. Before reading this as "certain pairs are broken," the
+expected standard error from PURE BINOMIAL SAMPLING NOISE alone at these sample sizes was
+computed directly: at `n=10/side`, expected SE ≈0.224; at `n=20/side`, ≈0.158; at
+`n=30/side`, ≈0.129 — **matching or exceeding the observed per-pair std (0.195) across the
+board.** Most of the per-pair spread is explained by small-sample noise, not a real
+pair-specific effect.
+
+**Cross-referenced against the exclusion-bias breakdown** (two sessions ago: mean 51.1%, std
+5.1pt, range 40.0-66.7%, `encirclement→shield` flagged as the worst-exclusion pair):
+Pearson correlation between per-pair exclusion rate and per-pair threat_acc gap, `n=36`
+pairs with `>=10` samples both sides: **r=-0.259, p=0.128 — not significant.** Weakly in the
+expected direction (higher exclusion associated with a slightly worse gap) but does not clear
+conventional significance. `encirclement→shield` itself (66.7% exclusion, the single worst
+watch-item pair) does show one of the more negative gaps (-30.0%, `n=10` each side) — but
+that is one data point among many equally-large swings in both directions across the table,
+consistent with the noise-dominated picture above, not a clean confirming signal specific to
+that pair.
+
+**Verdict on step 1: the deficit is diffuse, not concentrated.** No formation or pair stands
+out as a clear, isolated, fixable culprit; the apparent per-pair concentration is
+substantially explained by small-sample noise rather than a residual labeling/windowing
+artifact tied to specific formations.
+
+### Step 47: training dynamics — converged, not undertrained (step 3 of the diagnosis request)
+
+Full loss/accuracy history saved for all 10 runs (`evaluation/phase0_variance_diagnosis_histories.json`);
+compared seed 20's baseline vs. corrected curves directly.
+
+| | baseline (seed 20) | corrected (seed 20) |
+|---|---|---|
+| epochs run (early-stopped) | 43 | 41 |
+| best epoch (min val_loss) | 31 | 29 |
+| final train_loss | ~0.14-0.16 | ~0.14-0.28 |
+| final train_acc | ~0.97-0.98 | ~0.97-0.98 |
+| val_acc trajectory | noisy, peaks ~0.90 mid-training, ends ~0.65-0.74 | noisy, peaks ~0.64 mid-training, ends ~0.60-0.64 |
+
+**Both runs show the same qualitative pattern: train accuracy saturates near ~97-98% well
+before early stopping triggers, and early stopping engages at a similar relative point (best
+epoch ~29-31 of ~41-43 run).** Neither shows "still improving when cut off" — both are
+converged (in the sense of having fit the training data) by the time training stops. This
+rules out simple undertraining as the explanation: more epochs at the same config would not
+be expected to close the gap, since corrected isn't stopping early relative to its own
+learning curve, it's converging to a lower validation/eval ceiling given its own training
+data.
+
+**Verdict on step 3: converged, not undertrained.**

@@ -1,0 +1,6896 @@
+{
+  "baseline": {
+    "20": {
+      "test_acc": 0.9022222222222223,
+      "records": [
+        {
+          "a": "v_shape",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "encirclement",
+          "b": "shield",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "shield",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "converging",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "dispersed",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "dispersed",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "diamond",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "encirclement",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "converging",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "diamond",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "encirclement",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "dispersed",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "converging",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "dispersed",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "diamond",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "encirclement",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "shield",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        }
+      ]
+    },
+    "21": {
+      "test_acc": 0.8,
+      "records": [
+        {
+          "a": "v_shape",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "shield",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "shield",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "dispersed",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "converging",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "diamond",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "encirclement",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "converging",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "encirclement",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "encirclement",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "dispersed",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "converging",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "encirclement",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "shield",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        }
+      ]
+    },
+    "22": {
+      "test_acc": 0.9688888888888889,
+      "records": [
+        {
+          "a": "v_shape",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "diamond",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "encirclement",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "dispersed",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "encirclement",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "dispersed",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "dispersed",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "diamond",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "shield",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        }
+      ]
+    },
+    "23": {
+      "test_acc": 0.7533333333333333,
+      "records": [
+        {
+          "a": "v_shape",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "encirclement",
+          "b": "shield",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "encirclement",
+          "b": "shield",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "dispersed",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "shield",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "encirclement",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "encirclement",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "encirclement",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "converging",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "diamond",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "dispersed",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "diamond",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "encirclement",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "diamond",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "encirclement",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "converging",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "diamond",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "converging",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "shield",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "converging",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "encirclement",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "encirclement",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "dispersed",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "converging",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "dispersed",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "dispersed",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "dispersed",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "converging",
+          "b": "shield",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "dispersed",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "dispersed",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "diamond",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "encirclement",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "diamond",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "encirclement",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "diamond",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "dispersed",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "dispersed",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        }
+      ]
+    },
+    "24": {
+      "test_acc": 0.9355555555555556,
+      "records": [
+        {
+          "a": "v_shape",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "converging",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "diamond",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "dispersed",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "converging",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "dispersed",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "diamond",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "shield",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        }
+      ]
+    }
+  },
+  "corrected": {
+    "20": {
+      "test_acc": 0.9427312775330396,
+      "records": [
+        {
+          "a": "v_shape",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "shield",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "encirclement",
+          "b": "shield",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "converging",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "encirclement",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "diamond",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "encirclement",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "dispersed",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "converging",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "diamond",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "shield",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "converging",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "encirclement",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "dispersed",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "converging",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "dispersed",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "diamond",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "diamond",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "shield",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        }
+      ]
+    },
+    "21": {
+      "test_acc": 0.82560706401766,
+      "records": [
+        {
+          "a": "v_shape",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "shield",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "shield",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "diamond",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "diamond",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "shield",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "encirclement",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "converging",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "diamond",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "encirclement",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "encirclement",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "dispersed",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "converging",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "encirclement",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "shield",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        }
+      ]
+    },
+    "22": {
+      "test_acc": 0.9006622516556292,
+      "records": [
+        {
+          "a": "v_shape",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "encirclement",
+          "b": "shield",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "encirclement",
+          "b": "shield",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "converging",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "diamond",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "encirclement",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "diamond",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "dispersed",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "diamond",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "converging",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "diamond",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "encirclement",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "encirclement",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "dispersed",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "dispersed",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "converging",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "dispersed",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "diamond",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "encirclement",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "diamond",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "dispersed",
+          "b": "shield",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        }
+      ]
+    },
+    "23": {
+      "test_acc": 0.9426048565121413,
+      "records": [
+        {
+          "a": "v_shape",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "shield",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "shield",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "converging",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "diamond",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "encirclement",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "diamond",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "dispersed",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "converging",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "diamond",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "encirclement",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "dispersed",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "converging",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "encirclement",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "diamond",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "shield",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        }
+      ]
+    },
+    "24": {
+      "test_acc": 0.9298245614035088,
+      "records": [
+        {
+          "a": "v_shape",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "diamond",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "dispersed",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "diamond",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "shield",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "converging",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "encirclement",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "encirclement",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "dispersed",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "encirclement",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "converging",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "diamond",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "v_shape",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "v_shape",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "column",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "column",
+          "pair_correct": false,
+          "threat_correct": false
+        },
+        {
+          "a": "encirclement",
+          "b": "dispersed",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "encirclement",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "diamond",
+          "b": "converging",
+          "pair_correct": false,
+          "threat_correct": true
+        },
+        {
+          "a": "v_shape",
+          "b": "column",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "shield",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "diamond",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "converging",
+          "b": "dispersed",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "shield",
+          "b": "encirclement",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "column",
+          "b": "converging",
+          "pair_correct": true,
+          "threat_correct": true
+        },
+        {
+          "a": "dispersed",
+          "b": "v_shape",
+          "pair_correct": true,
+          "threat_correct": true
+        }
+      ]
+    }
+  }
+}
