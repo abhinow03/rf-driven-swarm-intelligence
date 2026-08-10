@@ -1,0 +1,88 @@
+{
+  "baseline": {
+    "1": {
+      "robust_false": {
+        "n": 275,
+        "n_pair_correct": 235,
+        "pair_accuracy": 0.8545454545454545,
+        "threat_accuracy": 0.8727272727272727,
+        "intent_accuracy": 0.8545454545454545,
+        "action_accuracy": 0.8727272727272727
+      },
+      "robust_true": {
+        "n": 275,
+        "n_pair_correct": 236,
+        "pair_accuracy": 0.8581818181818182,
+        "threat_accuracy": 0.8763636363636363,
+        "intent_accuracy": 0.8581818181818182,
+        "action_accuracy": 0.8763636363636363
+      }
+    },
+    "2": {
+      "robust_false": {
+        "n": 219,
+        "n_pair_correct": 144,
+        "pair_accuracy": 0.6575342465753424,
+        "threat_accuracy": 0.7625570776255708,
+        "intent_accuracy": 0.684931506849315,
+        "action_accuracy": 0.7579908675799086
+      },
+      "robust_true": {
+        "n": 219,
+        "n_pair_correct": 146,
+        "pair_accuracy": 0.6666666666666666,
+        "threat_accuracy": 0.771689497716895,
+        "intent_accuracy": 0.6940639269406392,
+        "action_accuracy": 0.7671232876712328
+      }
+    },
+    "3+": {
+      "n": 506,
+      "bucket_A_false_positive_rate_robust_false": 0.017786561264822136,
+      "bucket_A_false_positive_rate_robust_true": 0.017786561264822136
+    }
+  },
+  "candidate": {
+    "1": {
+      "robust_false": {
+        "n": 275,
+        "n_pair_correct": 230,
+        "pair_accuracy": 0.8363636363636363,
+        "threat_accuracy": 0.8727272727272727,
+        "intent_accuracy": 0.8363636363636363,
+        "action_accuracy": 0.8727272727272727
+      },
+      "robust_true": {
+        "n": 275,
+        "n_pair_correct": 230,
+        "pair_accuracy": 0.8363636363636363,
+        "threat_accuracy": 0.8727272727272727,
+        "intent_accuracy": 0.8363636363636363,
+        "action_accuracy": 0.8727272727272727
+      }
+    },
+    "2": {
+      "robust_false": {
+        "n": 219,
+        "n_pair_correct": 106,
+        "pair_accuracy": 0.4840182648401826,
+        "threat_accuracy": 0.5799086757990868,
+        "intent_accuracy": 0.5251141552511416,
+        "action_accuracy": 0.5981735159817352
+      },
+      "robust_true": {
+        "n": 219,
+        "n_pair_correct": 110,
+        "pair_accuracy": 0.502283105022831,
+        "threat_accuracy": 0.6027397260273972,
+        "intent_accuracy": 0.54337899543379,
+        "action_accuracy": 0.6210045662100456
+      }
+    },
+    "3+": {
+      "n": 506,
+      "bucket_A_false_positive_rate_robust_false": 0.043478260869565216,
+      "bucket_A_false_positive_rate_robust_true": 0.043478260869565216
+    }
+  }
+}

@@ -2453,3 +2453,59 @@ as a real problem in the full-scale ceiling numbers (e.g. anomalously high false
 "transitioning" reads), that would be a genuine new finding for a future session, not
 something to preemptively engineer around by deviating from the validated configuration.
 Not silently carried forward — stated and reasoned here before training.
+
+### Step 51: full-scale candidate trained
+
+`scripts/phase0_fullscale_candidate_train.py`, seed=100 (fresh, single seed per instruction —
+5-seed repetition was for the small-scale diagnostic, the full 1000-trajectory ceiling
+comparison below is the actual statistical gate). 150 epochs (matching strategy 5/6's own
+convention), early-stopped at epoch 16 (best epoch 4), test_acc=82.34%. Checkpoint:
+`swarm_data_candidate_fullscale/best_model.pt`. Does not touch `swarm_data/` (the standing
+strategy-5 checkpoint).
+
+### Step 52: the full 1000-trajectory ceiling comparison — and a major correction to the record
+
+`scripts/phase0_fullscale_ceiling_comparison.py`, seed=999, n=1000, same stratified protocol
+as every ceiling measurement throughout Phase 0. Threat-ceiling terms first.
+
+**Per-chain-length** (robust=False / robust=True):
+
+| chain | n | threat_baseline | threat_candidate | pair_baseline | pair_candidate |
+|---|---|---|---|---|---|
+| 1 (steady) | 275 | 87.3% / 87.6% | 87.3% / 87.3% | 85.5% / 85.8% | 83.6% / 83.6% |
+| 2 (transition) | 219 | **76.3% / 77.2%** | **58.0% / 60.3%** | 65.8% / 66.7% | 48.4% / 50.2% |
+| 3+ (false-positive rate) | 506 | 1.8% / 1.8% | 4.3% / 4.3% | — | — |
+
+Chain-1 is essentially tied. **Chain-2 — the exact class this entire port exists to fix — is
+substantially WORSE for the candidate**: threat_acc drops 16.9pt (77.2%→60.3% robust=True),
+pair_acc drops 16.5pt. Chain-3+ false-positive rate also more than doubles (1.8%→4.3%). The
+5-seed tie (step 49) did **not** hold at full resolution.
+
+**Reconciling against the historical "58.7%" figure — this is not a straightforward
+comparison, and the discrepancy uncovered something important.** Pooling chain-1+chain-2
+using the SAME formula the original guard-fix threat ceiling used (pair-eligible population
+only, `n=n1+n2`, matching step 11's `bucket_A(0.778) * accuracy_within_A(0.755) = 0.587`
+methodology exactly):
+
+| | baseline (this measurement) | candidate | historical "58.7%" (step 11, pre-dwell-fix) |
+|---|---|---|---|
+| threat ceiling (robust=True) | **83.0%** | 75.3% | 58.7% |
+| threat ceiling (robust=False) | 82.4% | 74.3% | 52.3% |
+| pair accuracy (robust=True) | **77.3%** | 68.8% | ~12.8% (exact-pair, different measure) |
+
+**The standing checkpoint's TRUE current threat ceiling, using the current codebase
+(dwell-time fix + source symmetrization applied), is 83.0% — not 58.7%.** The 58.7% figure
+was measured at step 11, before the dwell-time fix (steps 24-26) improved chain-2 threat
+accuracy from ~40% to 77.2%. Every measurement since then reported chain-2's number in
+isolation (e.g. "65.8%/76.3%") but nobody re-pooled it with chain-1 into the same headline
+metric "58.7%" used — so the headline figure went stale and was never corrected, even though
+the underlying chain-2 improvement was fully measured and audited (step 26). Verified this
+is not a computation artifact: chain-2's pair/threat figures in this measurement (65.8%/76.3%
+robust=False) match step 26's audited figures to the decimal point.
+
+**This also means the standing checkpoint already clears the program's original 70%
+pair-level floor** (77.3% pair-eligible-pooled pair accuracy, +7.3pt above 70%) — a fact that
+predates this session's port work entirely and was simply never recomputed as a pooled
+headline number after the dwell-time fix landed.
+
+Raw output: `evaluation/phase0_fullscale_ceiling_comparison.json`.
