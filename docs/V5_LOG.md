@@ -2025,3 +2025,39 @@ session, per the "no full-scale generation, no further training" instruction.
 
 Raw output: `evaluation/phase0_smallscale_port_comparison.json`, training log in the task
 runner (not committed — ephemeral console output, findings captured here).
+
+### Step 38: compute/time budget for full-scale generation + retrain (context for the gate, now moot pending a fix)
+
+Requested in advance of the decision gate so a go would have carried a real cost estimate.
+Reported for completeness even though step 37 already returned a clear no-go on correctness
+grounds — the budget below is what a full-scale attempt WOULD have cost, not a recommendation
+to spend it as-is.
+
+**Training time**, from real measurements, not pure extrapolation:
+- Small-scale (this session, ~3000 examples): baseline 47 epochs @ ~3.0s/epoch = ~2.4 min;
+  corrected 13 epochs (early-stopped on non-generalization) @ ~3.0s/epoch = ~0.7 min. Per-epoch
+  cost is essentially identical between formats at matched dataset size — consistent with the
+  collapse being a generalization failure, not a raw compute-per-example difference.
+- Historical full-scale reference points (`docs/V5_LOG.md` strategy 5/6): ~9k examples/67
+  epochs = 11m13s (~10s/epoch); ~30k examples/86 epochs = ~43 min (~30s/epoch). Roughly linear
+  in dataset size.
+- Full-scale target (matching strategy 5/6's own scale): `n_per_formation=3000`,
+  `n_transition=9000` → corrected format needs `9000/(6.12*0.486) ≈ 3030` hops requested
+  (step 36's compensation factor, 10x this session's 303). Total ≈30k examples each format,
+  matching the historical ~30s/epoch reference directly.
+- **Estimated per-model training time at full scale: ~40-45 min** (assuming a similar
+  epoch count to strategy 5/6's 80-150-epoch runs before early stopping). **Two models
+  (baseline + corrected, for a fair full-scale comparison) ≈ 80-90 min total.**
+
+**Generation time**: small-scale generation (2100 steady + up to 1854 hops in the buggy first
+attempt) completed in well under a minute — numpy-vectorized, not a meaningful cost driver
+even at 10x scale (still expect low single-digit minutes).
+
+**Generation RISK, informed by step 36's seed-stability result**: keep_rate std was only 0.8
+points across 5 seeds — negligible risk of needing a retry/larger request to hit the target
+example count at full scale. No contingency buffer added for generation variability.
+
+**Total estimated wall time for a full-scale go: ~1.5-2 hours** (generation + two training
+runs + evaluation), on the same RTX 4090 used throughout this program. **This estimate is
+informational only — step 37's decision gate (below) returns no-go before this budget would
+be spent.**
