@@ -77,6 +77,19 @@ a real structural cost of the format — are not distinguished by this session's
 candidate fix (retrain at matched independent-sample count, ≈900 hops not 303) is flagged,
 not implemented. See `HISTORY.md`'s 2026-08-10 part-6 decision entry.
 
+**Update, same day, part 7 — B confirmed, gap closed**: the flagged fix (resize
+`n_transition` 303→900 hops, matching baseline's independent-sample count 1:1) was applied
+and re-tested on the exact same 5-seed comparison. `chain-2 threat_acc`: 72.46%→**81.05%**
+(baseline: 79.65%) — was significantly worse (p=0.037), now statistically indistinguishable
+from baseline (p=0.768) and numerically slightly higher. `pair_acc` and `test_acc` show the
+same pattern (p=0.93, p=0.74). **Verdict B confirmed: the deficit was an effective-dataset-
+size shortfall, not a structural format cost.** Candidate checkpoint: corrected-port,
+`n_transition=900`, robust normalization, uncapped acceleration. **Full-scale generation is
+still NOT authorized** — flagged as ready for a full 500-trajectory ceiling comparison
+against the standing guard-fix/dwell-time-fix baseline (58.7% robust threat ceiling), the
+same rigor applied throughout this program, not yet run. See `HISTORY.md`'s 2026-08-10
+part-7 decision entry.
+
 ## Current state (stratified), 2026-08-09 — supersedes every pooled number below (chain-2 numbers here are further superseded above)
 
 `scripts/phase0_chainlength_breakdown.py --n 1000`, seed=999 (the standing ceiling
