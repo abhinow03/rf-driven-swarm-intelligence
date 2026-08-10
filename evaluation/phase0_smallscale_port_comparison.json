@@ -11,7 +11,7 @@
     "n_chain2": 114,
     "pair_accuracy": 0.6052631578947368,
     "threat_accuracy": 0.6491228070175439,
-    "test_acc": 0.9222222222222223
+    "test_acc": 0.92
   },
   "corrected": {
     "n_chain2": 114,

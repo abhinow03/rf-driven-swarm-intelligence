@@ -2061,3 +2061,74 @@ example count at full scale. No contingency buffer added for generation variabil
 runs + evaluation), on the same RTX 4090 used throughout this program. **This estimate is
 informational only — step 37's decision gate (below) returns no-go before this budget would
 be spent.**
+
+### Step 39: capping acceleration — confirmed necessary, NOT sufficient
+
+Latent bug, not introduced this session: `generate_transition_sequence`'s acceleration term
+was exercised almost exclusively at `n_timesteps<=50` throughout this project's history.
+Added `ACCEL_SPEED_CAP = 33.0` (`src/swarm_intent/data.py`) — the maximum `|velocity|` the
+function could EVER reach within its original 50-timestep design envelope
+(`speed_max=8.0 + accel_mag_max=1.0 * dt=0.5 * 50 = 25.0`), clipped after every timestep's
+velocity update. **Provably inert for `n_timesteps<=50`**: checked across 200 seeds, the
+theoretical max achievable speed within 50 steps never exceeds 33.0, so the clip cannot
+engage for any existing call site. Measured at 132 steps: growth ratio reduced from 16x to
+11x (displacement now saturates at ~16.5 units/step instead of growing to ~24.6) — the
+mechanism is real and the cap works exactly as designed.
+
+**Re-ran step 37's exact comparison (same seed=7, same 303-hop/900-target combined-port
+config) with ONLY this cap added. Result: unchanged.**
+
+| | test_acc | chain-2 pair_acc | chain-2 threat_acc |
+|---|---|---|---|
+| baseline (unaffected — cap never engages at n_timesteps=50) | 92.0% | 60.5% | 64.9% |
+| corrected, uncapped (step 37) | 13.2% | 0.0% | 0.0% |
+| **corrected, capped (this step)** | **13.2%** | **0.0%** | **0.0%** |
+
+Baseline's 92.0% vs step 37's 92.2% is GPU training run-to-run noise (cuDNN non-determinism),
+not a data change — consistent with the cap being provably inert on baseline's inputs.
+**The cap alone does not resolve the collapse — proceeding to step 40's second-contributor
+check, per the "if step 1 doesn't fully resolve it" instruction, rather than attempting a
+second fix blind.**
+
+### Step 40: second contributor found — global position normalization, indirectly length-sensitive
+
+Checked `src/swarm_intent/dataset.py`/`data.py`'s normalization: `split_and_normalize`
+computes `train_mean`/`train_std` as **single global scalars** over the whole `X_train`
+array (`X_train.mean()`, `X_train.std()`) — not literally parameterized by sequence length
+(every saved example is already a fixed 50-step window; length isn't even a per-example field
+by the time data reaches this function). So the literal answer is: **global, not
+per-hop-length.**
+
+But it is **de facto sensitive to hop length anyway**, and this is the real second
+contributor: capping velocity (step 39) bounds how fast the centroid can move, but does
+**not** bound how FAR it can drift over a SUSTAINED long duration — a window drawn near the
+end of a 130-step hop has been moving at up to the capped speed for ~2.6x longer than
+anything in the 50-step regime ever could, so absolute centroid displacement keeps growing
+with hop length even after the velocity fix. Measured directly (seed=7, same population as
+step 37/39):
+
+| | train_std (global scalar) | final-timestep centroid drift: p50 / p95 / max |
+|---|---|---|
+| baseline | 83.7 | 166.1 / 432.7 / 516.1 |
+| corrected | **143.2 (1.71x)** | **201.8 / 829.9 / 1536.4 (1.9x / 3.0x)** |
+
+One global `train_std` then rescales EVERY example uniformly — including well-behaved,
+low-drift ones — by a factor inflated by the minority of examples drawn from deep inside long
+hops. This plausibly distorts two things at once: (1) `compute_regression_labels`
+(`dataset.py`) computes `centroid_velocity` etc. on these globally-rescaled positions, so
+regression targets for early- vs. late-hop windows now differ by an even more distorted
+margin under one shared scale; (2) graph edges (`sequence_to_graphs`, `cfg.edge_threshold`) a
+FIXED, uncalibrated normalized-distance threshold — connect drones based on normalized
+inter-drone distance, and a globally-inflated std shrinks the EFFECTIVE normalized spacing
+for most (low-drift) examples, a plausible mechanism for degraded graph structure independent
+of the centroid-relative feature subtraction (which removes absolute position but not this
+scale distortion). **Not yet isolated to a single one of these two; reported as evidence for
+"a second, independent contributor exists and is length-related," not a confirmed complete
+explanation.** No fix attempted this session, per instruction ("before attempting a second
+fix blind").
+
+**Per the stated stop condition** ("STOP after step 4, or after step 2 if step 1 fails to
+isolate it") **and since step 1's cap did not resolve the collapse: stopping after this
+diagnostic step. Step 4 (re-running the decisive test) is not performed — there is nothing
+fixed yet to re-test**, and re-running it now would just reproduce step 39's unchanged
+negative result.

@@ -1,6 +1,6 @@
 {
   "phase": 0,
-  "step": 38,
+  "step": 39,
   "status": "Steps 35-38 COMPLETE (docs/V5_LOG.md), pre-scaling checks before full-scale port+retrain. Step 35: exclusion-bias characterization -- no severe systematic bias (formation-level std=1.8pts, one pair outlier encirclement->shield 66.7% flagged for monitoring). Step 36: seed stability -- keep_rate std=0.8pts across 5 seeds, ~2.06x compensation confirmed. Step 37 (THE DECISIVE TEST): matched-size small-scale train comparison, corrected-format model COLLAPSED to near-random (13.2% test_acc, 0% chain-2 pair/threat acc) vs baseline (92.2% test_acc, 60.5%/64.9% pair/threat) -- a real bug in test oversampling math was found+fixed mid-step (disclosed) before this result. Root cause hypothesis quantified: generate_transition_sequence acceleration term unbounded, exercised historically only at n_timesteps<=50, produces 16x centroid-displacement growth over the ports 80-132-step hops vs 4.5x over 50 steps -- training directly on windows spanning this growing-velocity range plausibly destabilizes the shared backbone via order-of-magnitude regression-target heterogeneity. Step 38: compute budget (~1.5-2hrs) reported, now moot. DECISION GATE: (a) no severe exclusion bias -- PASSED. (b) corrected beats baseline -- FAILED decisively. VERDICT: NO-GO. Full-scale generation and retraining NOT AUTHORIZED on current port design. Recorded in HISTORY.md as its own standalone decision (part 3), distinct from parts 1/2 and from Strategy 7. Next step (not started): fix the acceleration/velocity-growth mechanism, re-run step 37s exact small-scale comparison before reconsidering. STOPPING per instruction after step 5/38.",
   "status_pre_step27": "Chain-2 generator-fix consolidation + source symmetrization COMPLETE (docs/V5_LOG.md step 26, 3 commits: 3591051 consolidation, 9061392 symmetrization, + docs/results commit -- no STGT/bridge/LLM code changed, same frozen strategy-5 checkpoint). Step 1: consolidated 5 duplicate copies of build_long_sequence_labeled into src/swarm_intent/eval_trajectories.py (4 live scripts now import it; 1 frozen historical-reproduction script deliberately excluded, documented); confirmed NONE of the 5 ever fed real STGT training data (that's generate_dataset(), separate code). Step 2: symmetrized LEAD_IN_RANGE (15,35)->(30,50), derived the same way as MIN_DWELL_RANGE (lead_in>=25 for a window-0 majority, no stride-slack term since window 0 always starts at t=0); verified source OBS_NONE 16.3%->0.0% at population scale. Step 3: chain-2 pair_acc 39.9%->65.8% (was 18.7% original baseline, 3.5x total), threat_acc 72.1%->76.3%. Step 4: refined 20-case taxonomy found 100% boundary/blend-timing-concentrated failures, 0% clean (non-boundary) misses. Step 5: chain-3+ false-positive rate investigated and RESOLVED (12.6%->1.8%, below the 9.0% original baseline, p=4.3e-07) -- mechanistically explained by the shared per-hop sampling loop, not a bug, not noise (dest-only-fix regression itself was only borderline significant, p=0.062). Step 6: blend-timing overlap re-checked, STILL 0.0%, unchanged across 3 independent formula revisions. Decision: B -- blend-timing distribution mismatch is the dominant remaining issue, should be fixed BEFORE any STGT training/capacity change, not decision A as step 25 projected. STOPPING per instruction -- no STGT retraining, no blend-distribution fix started this session.",
   "halts_cleared": [],
@@ -1334,6 +1334,26 @@
       "total_estimate": "~1.5-2 hours wall time on the RTX 4090",
       "note": "informational only -- step 37 already returns no-go before this budget would be spent",
       "log_doc": "docs/V5_LOG.md step 38"
+    },
+    "phase0_step39_accel_cap_retest": {
+      "checked": "2026-08-10T03:00:00Z",
+      "fix": "ACCEL_SPEED_CAP=33.0 in src/swarm_intent/data.py, derived from generate_transition_sequence own 50-step design envelope (speed_max=8.0 + accel_mag_max=1.0*dt=0.5*50=25.0), clips |velocity| after every timestep update in generate_transition_sequence",
+      "provably_inert_at_50_steps": "checked across 200 seeds, theoretical max speed within 50 steps never exceeds 33.0",
+      "measured_at_132_steps": "growth ratio 16x -> 11x (displacement saturates ~16.5/step instead of growing to ~24.6)",
+      "retest_result": {
+        "baseline": {
+          "test_acc": 0.92,
+          "chain2_pair_acc": 0.6053,
+          "chain2_threat_acc": 0.6491
+        },
+        "corrected_capped": {
+          "test_acc": 0.1319,
+          "chain2_pair_acc": 0.0,
+          "chain2_threat_acc": 0.0
+        }
+      },
+      "verdict": "UNCHANGED from uncapped step 37 result -- cap alone does not resolve the collapse",
+      "log_doc": "docs/V5_LOG.md step 39"
     }
   },
   "started": "2026-08-07T19:47:41Z"

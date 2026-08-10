@@ -67,6 +67,30 @@ MIN_DWELL_RANGE = (40, 60)        # timesteps of settled formation_b after the b
 PURE_LABEL_THRESHOLD = 0.70
 TRANS_LABEL_MIN_BLEND_FRAC = 0.20
 
+# --- acceleration speed cap (2026-08-10, docs/V5_LOG.md step 39) ---
+#
+# generate_transition_sequence's acceleration term (velocity += acceleration * dt every
+# timestep, uncapped) was exercised almost exclusively at n_timesteps<=50 throughout this
+# project's history -- the 50-step regime it was implicitly validated against. The combined
+# port's windowed_examples path calls it at 80-132 timesteps, and unbounded linear velocity
+# accumulation over that much MORE elapsed time produced a measured 16x per-timestep
+# centroid-displacement growth (vs 4.5x over 50 steps) -- see docs/V5_LOG.md step 37's
+# root-cause hypothesis, confirmed step 39.
+#
+# ACCEL_SPEED_CAP is the maximum |velocity| the function could EVER produce within its
+# original, implicitly-validated 50-timestep design envelope:
+#   speed_max (rng.uniform(3.0, 8.0) upper bound)             = 8.0
+# + accel_mag_max (rng.uniform(-1.0, 1.0) upper bound)
+#   * dt (always 0.5)  * design_max_n_timesteps (50)           = 1.0 * 0.5 * 50 = 25.0
+#   = 33.0
+# Clipping |velocity| to this bound after every update makes calls at n_timesteps<=50
+# PROVABLY UNCHANGED (velocity can never exceed 33.0 within 50 steps regardless of the
+# accel_mag/speed draw, so the clip never engages) while calls at longer lengths saturate at
+# the same ceiling a 50-step call could reach, instead of growing without limit. This is the
+# smallest change that constrains the mechanism: one clamp, no change to how
+# speed/accel_mag/angle are sampled, no change to the cosine-ramp blend physics.
+ACCEL_SPEED_CAP = 8.0 + 1.0 * 0.5 * 50  # = 33.0
+
 
 def _label_window(frac_a: float, frac_blend: float, frac_b: float):
     """Assigns ONE training label to a window from its realized per-timestep content
@@ -170,6 +194,9 @@ def generate_transition_sequence(
 
     for t in range(n_timesteps):
         velocity = velocity + acceleration * dt
+        speed_now = np.linalg.norm(velocity)
+        if speed_now > ACCEL_SPEED_CAP:
+            velocity = velocity * (ACCEL_SPEED_CAP / speed_now)
         centroid = centroid + velocity * dt
         if t <= blend_start:
             alpha = 0.0
