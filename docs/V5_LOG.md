@@ -2372,3 +2372,22 @@ learning curve, it's converging to a lower validation/eval ceiling given its own
 data.
 
 **Verdict on step 3: converged, not undertrained.**
+
+### Step 48: the B-vs-C decisive test — resize verification
+
+Resizes `n_transition` from 303 hops (tuned to match baseline's KEPT-example count, step 37)
+to **900 hops (tuned to match baseline's INDEPENDENT-sample count directly)** — since
+`n_transition` IS the hop-count parameter, this is a 1:1 match by construction, verified
+before training anything: `generate_dataset(..., n_transition=900, ...)` at seed=20 produced
+`n_hops_sampled=900` exactly. Across 5 seeds: `900*5=4500`, exactly matching baseline's 4500
+independent draws — the resize worked as intended, no off-by-one or exclusion-related
+surprise.
+
+**Accepted side effect, not a bug**: kept transitioning examples jump to ~2753/seed (vs
+baseline's 900, vs the previous 303-hop config's ~933) — windowing still yields ~6.12 windows
+per hop even after the ~51% exclusion filter, so 900 independent hops necessarily produce far
+more TOTAL windows than baseline's 900 direct examples. Corrected's dataset is now larger
+(steady 2100 + transitioning ~2753 ≈ 4853 vs baseline's 3000) and skewed toward the
+transitioning class (~56.7% vs baseline's 30%). This run deliberately prioritizes matching
+INDEPENDENT sample count over matching kept-example count or class balance, to isolate
+exactly the variable step 45 flagged.
