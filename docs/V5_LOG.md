@@ -2429,3 +2429,27 @@ Raw output: `evaluation/phase0_variance_matched_independent.json`.
 already applied to the guard-fix/dwell-time-fix baseline), not authorized to proceed to
 full-scale generation yet.** Per instruction: stopping here for that decision. See
 `HISTORY.md`'s 2026-08-10 part-7 decision entry.
+
+### Step 50: full-scale go authorized — class balance check before training
+
+Full-scale target matches strategy 5/6's own scale: `n_per_formation=3000` (21000 steady,
+unaffected by any port flag), `n_transition=9000` hops (direct 10x scale-up of the validated
+900-hop resize, matching the standing baseline's own 9000 independent transitioning draws
+1:1). Generated once (no training) to confirm the resulting class balance before committing
+to a full training run: **`n_hops_sampled=9000` (confirms the resize scaled correctly),
+27,681 kept transitioning examples, 56.9% of the 48,681-example dataset — transitioning is
+9.23x larger than any single steady formation's 3000** (matches the 5-seed diagnostic's 56.7%
+ratio almost exactly, as expected — the underlying keep-rate mechanics are scale-invariant).
+
+**Decision: keep the skew, do not rebalance.** Three reasons: (1) this exact ratio is what
+the 5-seed comparison (step 49) already validated — closing the threat_acc gap from
+significantly-worse (p=0.037) to tied-or-better (p=0.768) — introducing a NEW rebalancing
+step now would confound the one experiment meant to confirm that already-validated result at
+scale, not extend it; (2) the 7 steady formations remain individually balanced (3000 each)
+regardless of the transitioning class's absolute size — no formation is starved, the skew is
+entirely about one class (transitioning) being large relative to the other seven individually,
+not about any formation being underrepresented; (3) if transitioning-class-size bias shows up
+as a real problem in the full-scale ceiling numbers (e.g. anomalously high false-
+"transitioning" reads), that would be a genuine new finding for a future session, not
+something to preemptively engineer around by deviating from the validated configuration.
+Not silently carried forward — stated and reasoned here before training.

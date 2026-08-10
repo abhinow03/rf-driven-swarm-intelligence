@@ -1,6 +1,6 @@
 {
   "phase": 0,
-  "step": 49,
+  "step": 50,
   "status": "Step 48-49 COMPLETE (docs/V5_LOG.md): B-vs-C RESOLVED. Resized corrected-port n_transition 303->900 hops (matches baseline independent-sample count 1:1, verified before training: n_hops_sampled=900, x5=4500=baseline total). Re-ran the exact 5-seed comparison (steps 42-44 protocol): chain-2 threat_acc 72.46%->81.05% for corrected (baseline 79.65%) -- was significantly worse (p=0.037), now statistically INDISTINGUISHABLE (p=0.768) and numerically slightly higher. pair_acc/test_acc same pattern (p=0.93/p=0.74). VERDICT B CONFIRMED: deficit was effective-dataset-size shortfall (step 45s 2.97x independent-sample shortfall), not a structural format cost. Candidate checkpoint identified: corrected-port, n_transition=900, robust=True normalization, uncapped acceleration. Recorded in HISTORY.md as its own standalone decision (part 7). FULL-SCALE GENERATION STILL NOT AUTHORIZED -- flagged as ready for a full 500-trajectory ceiling comparison against the standing guard-fix/dwell-time-fix baseline (58.7% robust threat ceiling), matching the rigor applied throughout this program. Not run this session. STOPPING per instruction after step 4 (B confirmed branch), awaiting go/no-go decision on the full-scale ceiling comparison.",
   "status_pre_step27": "Chain-2 generator-fix consolidation + source symmetrization COMPLETE (docs/V5_LOG.md step 26, 3 commits: 3591051 consolidation, 9061392 symmetrization, + docs/results commit -- no STGT/bridge/LLM code changed, same frozen strategy-5 checkpoint). Step 1: consolidated 5 duplicate copies of build_long_sequence_labeled into src/swarm_intent/eval_trajectories.py (4 live scripts now import it; 1 frozen historical-reproduction script deliberately excluded, documented); confirmed NONE of the 5 ever fed real STGT training data (that's generate_dataset(), separate code). Step 2: symmetrized LEAD_IN_RANGE (15,35)->(30,50), derived the same way as MIN_DWELL_RANGE (lead_in>=25 for a window-0 majority, no stride-slack term since window 0 always starts at t=0); verified source OBS_NONE 16.3%->0.0% at population scale. Step 3: chain-2 pair_acc 39.9%->65.8% (was 18.7% original baseline, 3.5x total), threat_acc 72.1%->76.3%. Step 4: refined 20-case taxonomy found 100% boundary/blend-timing-concentrated failures, 0% clean (non-boundary) misses. Step 5: chain-3+ false-positive rate investigated and RESOLVED (12.6%->1.8%, below the 9.0% original baseline, p=4.3e-07) -- mechanistically explained by the shared per-hop sampling loop, not a bug, not noise (dest-only-fix regression itself was only borderline significant, p=0.062). Step 6: blend-timing overlap re-checked, STILL 0.0%, unchanged across 3 independent formula revisions. Decision: B -- blend-timing distribution mismatch is the dominant remaining issue, should be fixed BEFORE any STGT training/capacity change, not decision A as step 25 projected. STOPPING per instruction -- no STGT retraining, no blend-distribution fix started this session.",
   "halts_cleared": [],
@@ -1681,6 +1681,27 @@
       "note": "corrected own std now HIGHER than baseline on all 3 metrics (reversed from steps 42-44) -- larger class-skewed dataset trades consistency for higher mean, does not affect verdict",
       "log_doc": "docs/V5_LOG.md step 49",
       "raw_data": "evaluation/phase0_variance_matched_independent.json"
+    },
+    "phase0_step50_fullscale_class_balance": {
+      "checked": "2026-08-10T08:00:00Z",
+      "target": "n_per_formation=3000, n_transition=9000 hops -- 10x scale-up of the validated 900-hop resize, matches strategy 5/6 own scale",
+      "measured": {
+        "n_hops_sampled": 9000,
+        "n_kept_transitioning": 27681,
+        "n_excluded": 27765,
+        "keep_rate": 0.4992,
+        "total_examples": 48681,
+        "transitioning_class_ratio": 0.569,
+        "vs_each_steady_formation": 9.23
+      },
+      "decision": "KEEP the skew, do not rebalance",
+      "reasoning": [
+        "this exact ratio is what the 5-seed comparison already validated (step 49) -- rebalancing now would confound the confirmation, not extend it",
+        "7 steady formations remain individually balanced at 3000 each regardless of transitioning class absolute size -- no formation starved",
+        "if bias shows up in full-scale ceiling numbers, that is a new finding for a future session, not something to preemptively engineer around"
+      ],
+      "standing_baseline_confirmed": "swarm_data/best_model.pt is the strategy-5 checkpoint (epoch=10, val_acc=0.8682, matches phase0_step9_revert_checkpoint record exactly)",
+      "log_doc": "docs/V5_LOG.md step 50"
     }
   },
   "started": "2026-08-07T19:47:41Z"
