@@ -1,0 +1,9 @@
+BASELINE: X_train raw stats mean=32.41 std=84.18 min=-507.19 max=511.09
+BASELINE: train_mean=32.7864 train_std=83.7498
+BASELINE: final-timestep centroid drift from origin: min=2.4 p50=166.1 p95=432.7 max=516.1
+
+CORRECTED (capped acceleration): X_train raw stats mean=31.95 std=141.45 min=-1391.04 max=1408.34
+CORRECTED (capped acceleration): train_mean=31.3983 train_std=143.2281
+CORRECTED (capped acceleration): final-timestep centroid drift from origin: min=3.1 p50=201.8 p95=829.9 max=1536.4
+
+train_std ratio corrected/baseline: 1.71x
