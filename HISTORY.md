@@ -627,3 +627,62 @@ mislabel ambiguity) are real and disclosed, but the session's own stated gate do
 them as sufficient on their own when the measured ceiling metrics point the other way at
 significance. No full-scale generation, no further training beyond the 10 runs already
 executed for this comparison, per instruction.
+
+## Decision, 2026-08-10 (part 6): diagnosing where the threat_acc deficit concentrates — diffuse, not a quick labeling fix
+
+**Also its own decision, distinct from parts 1-5 and Strategy 7.** Part 5 established the
+deficit is real (not noise) at the pooled level. This part asks WHERE it concentrates, using
+a freshly-regenerated 5-seed comparison (same seeds/protocol as parts 5's, checkpoints kept
+this time) with per-trajectory pair/formation detail. Reported in threat-ceiling terms first,
+per instruction — threat_acc, not pair_acc, is what the 60-65%/70% floor is actually about.
+
+**Per-formation** (`n=145-180` each): threat_acc gap std **8.7 points**, range -12.4%
+(`v_shape`) to +16.1% (`converging`) — a moderate, roughly-uniform spread. No formation is
+catastrophically broken.
+
+**Per-(a,b)-pair** (`n=5-30` each): gap std 19.5 points, range ±40%. Checked directly whether
+this is real pair-specific signal or small-sample noise: expected standard error from pure
+binomial sampling at these sample sizes (0.13-0.22) **matches or exceeds** the observed
+spread (0.195) — most of the apparent per-pair concentration is sampling noise, not a
+residual defect tied to specific pairs.
+
+**Cross-referenced against the exclusion-bias breakdown** (two sessions ago): correlation
+between per-pair exclusion rate and per-pair threat_acc gap is weak and **not significant**
+(r=-0.26, p=0.13, n=36 pairs). `encirclement→shield` (the worst-exclusion pair, 66.7%) does
+show one of the more negative gaps (-30.0%) — but it's one point among many equally-large
+swings in both directions, not a clean confirming signal.
+
+**Verdict on WHERE: diffuse, not concentrated.** No pair or formation is a specific, isolated,
+cheaply-fixable culprit — ruling out verdict A.
+
+**Training dynamics** (seed 20, full loss/accuracy curves, both formats): both baseline and
+corrected saturate train accuracy (~97-98%) and early-stop at a similar relative point (best
+epoch ~29-31 of ~41-43 run). Neither shows "still improving when cut off." **Converged, not
+undertrained** — ruling out verdict D; more epochs would not be expected to close the gap.
+
+**What remains: verdict B (effective dataset size) vs. verdict C (structural cost),
+genuinely undetermined by this session's evidence.** Step 45 (previous session) quantified a
+real, plausible mechanism: corrected's 5 seeds saw 2.97x fewer independent transitioning
+trajectories than baseline (1515 vs 4500) despite similar kept-example counts, because
+windows from the same hop share one random draw. A diffuse deficit with converged (not
+diverging or undertrained) curves is consistent with a model reaching a genuinely lower
+ceiling because it saw less independent variation — exactly what a diversity shortfall would
+produce. But this session's evidence does not distinguish that from verdict C (a real,
+structural cost of the windowed/robust-normalized format independent of sample count) — the
+only way to tell them apart is to actually vary independent sample count and re-measure,
+which is a new training run.
+
+**Candidate fix, flagged, not implemented**: retrain the corrected-port small-scale
+comparison with `n_transition` sized to match baseline's INDEPENDENT sample count (≈900 hops,
+not the current 303 tuned to match kept-example count) — accepting a larger resulting
+kept-example count as a side effect — then re-run the exact 5-seed statistical comparison
+from part 5. If the gap closes, verdict B is confirmed and the fix is exactly this
+re-sizing. If it doesn't, verdict C stands and the guard-fix/dwell-time-fix baseline (58.7%
+threat ceiling) remains the better checkpoint. **This is the single next experiment that
+would resolve B vs. C — not run this session, per explicit instruction.**
+
+**No verdict letter is picked as final** — the honest state is "A and D ruled out; B is the
+better-supported working hypothesis given the quantified mechanism and consistent qualitative
+picture, but not confirmed over C without the flagged follow-up." Full-scale generation and
+retraining remain not authorized; no new training run was started. Reporting and stopping
+here, per instruction.

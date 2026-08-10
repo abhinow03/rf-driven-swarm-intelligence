@@ -66,6 +66,17 @@ narrow). Full-scale generation and retraining remain not authorized. See `HISTOR
 2026-08-10 part-5 decision entry, including a retroactive check of this program's own
 strategy-by-strategy trajectory against the newly-measured noise floor.
 
+**Update, same day, part 6 — where the deficit concentrates**: per-formation threat_acc gap
+std=8.7pt (diffuse, no formation catastrophically broken); per-pair std=19.5pt but expected
+binomial sampling noise alone at these small sample sizes matches or exceeds it (SE
+0.13-0.22); exclusion-rate correlation weak, not significant (r=-0.26, p=0.13). Training
+curves converged (not undertrained) for both formats. **Rules out a quick pair-specific
+labeling fix (verdict A) and undertraining (verdict D).** Remaining candidates — effective
+dataset size (corrected saw 2.97x fewer independent transitioning trajectories, step 45) vs.
+a real structural cost of the format — are not distinguished by this session's evidence. A
+candidate fix (retrain at matched independent-sample count, ≈900 hops not 303) is flagged,
+not implemented. See `HISTORY.md`'s 2026-08-10 part-6 decision entry.
+
 ## Current state (stratified), 2026-08-09 — supersedes every pooled number below (chain-2 numbers here are further superseded above)
 
 `scripts/phase0_chainlength_breakdown.py --n 1000`, seed=999 (the standing ceiling
