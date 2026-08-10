@@ -1,6 +1,6 @@
 {
   "phase": 0,
-  "step": 48,
+  "step": 49,
   "status": "Steps 46-47 COMPLETE (docs/V5_LOG.md): diagnosed WHERE the threat_acc deficit (72.46% vs 80.70%, p=0.037, step 44) concentrates. Regenerated 5-seed comparison with checkpoints persisted (checkpoints_variance_diagnosis/) and per-trajectory pair/formation detail. Per-formation gap std=8.7pt, diffuse, no formation catastrophic. Per-pair std=19.5pt but expected binomial-noise SE (0.13-0.22) matches/exceeds observed spread -- mostly sampling noise. Exclusion-rate correlation weak, not significant (r=-0.26, p=0.13). Training curves (seed 20) show BOTH formats converged (train_acc~97-98%, early-stop at similar relative epoch) -- not undertrained. VERDICT: A (pair-concentrated) and D (undertrained) RULED OUT. B (effective dataset size, step 45s 2.97x independent-sample shortfall) vs C (structural cost) NOT DISTINGUISHED by available evidence -- would require a new training run (retrain at matched independent-sample count, ~900 hops not 303) to resolve. CANDIDATE FIX FLAGGED, NOT IMPLEMENTED, per explicit instruction not to proceed without confirming first. Recorded in HISTORY.md as its own standalone decision (part 6). No new training run started. STOPPING per instruction after step 4.",
   "status_pre_step27": "Chain-2 generator-fix consolidation + source symmetrization COMPLETE (docs/V5_LOG.md step 26, 3 commits: 3591051 consolidation, 9061392 symmetrization, + docs/results commit -- no STGT/bridge/LLM code changed, same frozen strategy-5 checkpoint). Step 1: consolidated 5 duplicate copies of build_long_sequence_labeled into src/swarm_intent/eval_trajectories.py (4 live scripts now import it; 1 frozen historical-reproduction script deliberately excluded, documented); confirmed NONE of the 5 ever fed real STGT training data (that's generate_dataset(), separate code). Step 2: symmetrized LEAD_IN_RANGE (15,35)->(30,50), derived the same way as MIN_DWELL_RANGE (lead_in>=25 for a window-0 majority, no stride-slack term since window 0 always starts at t=0); verified source OBS_NONE 16.3%->0.0% at population scale. Step 3: chain-2 pair_acc 39.9%->65.8% (was 18.7% original baseline, 3.5x total), threat_acc 72.1%->76.3%. Step 4: refined 20-case taxonomy found 100% boundary/blend-timing-concentrated failures, 0% clean (non-boundary) misses. Step 5: chain-3+ false-positive rate investigated and RESOLVED (12.6%->1.8%, below the 9.0% original baseline, p=4.3e-07) -- mechanistically explained by the shared per-hop sampling loop, not a bug, not noise (dest-only-fix regression itself was only borderline significant, p=0.062). Step 6: blend-timing overlap re-checked, STILL 0.0%, unchanged across 3 independent formula revisions. Decision: B -- blend-timing distribution mismatch is the dominant remaining issue, should be fixed BEFORE any STGT training/capacity change, not decision A as step 25 projected. STOPPING per instruction -- no STGT retraining, no blend-distribution fix started this session.",
   "halts_cleared": [],
@@ -1631,6 +1631,56 @@
       },
       "accepted_side_effect": "kept transitioning examples ~2753/seed (vs baseline 900) -- corrected dataset now larger and class-skewed toward transitioning (~56.7% vs baselines 30%), deliberate tradeoff to isolate independent-sample count specifically",
       "log_doc": "docs/V5_LOG.md step 48"
+    },
+    "phase0_step49_bvc_decisive_rerun": {
+      "checked": "2026-08-10T07:15:00Z",
+      "script": "scripts/phase0_variance_matched_independent.py, same seeds/protocol as steps 42-44, corrected n_transition=900 (step 48 resize)",
+      "per_seed_threat_acc": {
+        "baseline": [
+          0.7719,
+          0.7281,
+          0.8333,
+          0.8509,
+          0.7982
+        ],
+        "corrected": [
+          0.7456,
+          0.693,
+          0.9123,
+          0.8421,
+          0.8596
+        ]
+      },
+      "summary": {
+        "test_acc": {
+          "baseline_mean": 0.9124,
+          "baseline_std": 0.0458,
+          "corrected_mean": 0.9261,
+          "corrected_std": 0.064,
+          "t": 0.347,
+          "p": 0.7381
+        },
+        "threat_acc": {
+          "baseline_mean": 0.7965,
+          "baseline_std": 0.0438,
+          "corrected_mean": 0.8105,
+          "corrected_std": 0.0797,
+          "t": 0.308,
+          "p": 0.7678
+        },
+        "pair_acc": {
+          "baseline_mean": 0.7263,
+          "baseline_std": 0.07,
+          "corrected_mean": 0.7316,
+          "corrected_std": 0.1006,
+          "t": 0.086,
+          "p": 0.9339
+        }
+      },
+      "verdict": "GAP CLOSED. All 3 metrics statistically indistinguishable from baseline (p=0.74-0.93) and numerically slightly above baseline mean. VERDICT B CONFIRMED: deficit was effective-dataset-size shortfall, not structural format cost. Resize (independent-sample-count matching) is the fix.",
+      "note": "corrected own std now HIGHER than baseline on all 3 metrics (reversed from steps 42-44) -- larger class-skewed dataset trades consistency for higher mean, does not affect verdict",
+      "log_doc": "docs/V5_LOG.md step 49",
+      "raw_data": "evaluation/phase0_variance_matched_independent.json"
     }
   },
   "started": "2026-08-07T19:47:41Z"

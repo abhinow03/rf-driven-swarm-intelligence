@@ -2391,3 +2391,41 @@ more TOTAL windows than baseline's 900 direct examples. Corrected's dataset is n
 transitioning class (~56.7% vs baseline's 30%). This run deliberately prioritizes matching
 INDEPENDENT sample count over matching kept-example count or class balance, to isolate
 exactly the variable step 45 flagged.
+
+### Step 49: the B-vs-C decisive test — re-run, gap closed
+
+Same 5 seeds (20-24), same `eval_trajectories.py` protocol (seed=999 ruler, EVAL_N=500), same
+Welch's t-test format as steps 42-44. Only change: corrected's `n_transition=900` (step 48).
+Threat-ceiling terms first, per standing convention.
+
+| metric | baseline mean±std | corrected mean±std | delta | t | p |
+|---|---|---|---|---|---|
+| **chain-2 threat_acc** | 79.65% ± 4.38 | **81.05% ± 7.97** | **+1.40pt** | 0.308 | **0.768** |
+| chain-2 pair_acc | 72.63% ± 7.00 | 73.16% ± 10.06 | +0.53pt | 0.086 | 0.934 |
+| test_acc | 91.24% ± 4.58 | 92.61% ± 6.40 | +1.37pt | 0.347 | 0.738 |
+
+Per-seed: baseline threat_acc `[77.2%, 72.8%, 83.3%, 85.1%, 79.8%]`; corrected
+`[74.6%, 69.3%, 91.2%, 84.2%, 86.0%]`.
+
+**The gap has closed.** Compare to step 44's result on the SAME seeds/protocol with the old
+303-hop sizing: `threat_acc` was significantly WORSE (p=0.037), `pair_acc` borderline worse
+(p=0.060). Now both are statistically indistinguishable from baseline (p=0.77, p=0.93) and
+numerically slightly ABOVE baseline's mean on every one of the three metrics. **Verdict B
+confirmed: the deficit was an effective-dataset-size shortfall, not a structural cost of the
+windowed/robust-normalized format.** The resize (matching independent-sample count, not
+kept-example count) is the fix.
+
+One notable change: corrected's own std is now HIGHER than baseline's on all three metrics
+(reversed from steps 42-44, where corrected was more consistent) — plausibly the larger,
+class-skewed dataset (~56.7% transitioning) trades consistency for a higher mean; means are
+close enough that this doesn't affect the verdict, but worth tracking if this checkpoint
+proceeds further.
+
+Raw output: `evaluation/phase0_variance_matched_independent.json`.
+
+### Decision gate
+
+**Ready for a go/no-go on the FULL 500-trajectory ceiling comparison (matching the rigor
+already applied to the guard-fix/dwell-time-fix baseline), not authorized to proceed to
+full-scale generation yet.** Per instruction: stopping here for that decision. See
+`HISTORY.md`'s 2026-08-10 part-7 decision entry.
