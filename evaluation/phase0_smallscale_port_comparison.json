@@ -1,0 +1,24 @@
+{
+  "n_per_formation": 300,
+  "target_transitioning": 900,
+  "n_transition_corrected_requested": 303,
+  "n_kept_transitioning_corrected": 933,
+  "epochs": 60,
+  "model_init_seed": 4242,
+  "eval_seed": 999,
+  "eval_n": 500,
+  "baseline": {
+    "n_chain2": 114,
+    "pair_accuracy": 0.6052631578947368,
+    "threat_accuracy": 0.6491228070175439,
+    "test_acc": 0.9222222222222223
+  },
+  "corrected": {
+    "n_chain2": 114,
+    "pair_accuracy": 0.0,
+    "threat_accuracy": 0.0,
+    "test_acc": 0.13186813186813187
+  },
+  "delta_pair_accuracy": -0.6052631578947368,
+  "delta_threat_accuracy": -0.6491228070175439
+}

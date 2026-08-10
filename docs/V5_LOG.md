@@ -1972,3 +1972,56 @@ single-seed 48.8% was representative, not an outlier. `windows_per_hop` is simil
 conservative margin: 1/0.486 = 2.06x.** Matches step 34's ~2x estimate closely — no revision
 needed beyond tightening it slightly to 2.06x. Raw output:
 `evaluation/phase0_seed_stability.txt`.
+
+### Step 37: THE DECISIVE TEST — small-scale train, corrected format vs. baseline
+
+`scripts/phase0_smallscale_port_comparison.py`. Matched-size datasets (`n_per_formation=300`
+each; baseline `n_transition=900` direct; corrected sized via step 36's factor to also land
+near 900 kept transitioning examples), two STGT models from IDENTICAL initial weights
+(`torch.manual_seed(4242)` reset immediately before each model's construction, before any
+other torch RNG consumption), differing only in which dataset they saw, both evaluated on the
+same `eval_trajectories.py` chain-2 population (seed=999, `n=500` sampled, `n_chain2=114`).
+
+**Bug found and fixed mid-step, disclosed rather than silently corrected**: the first attempt
+computed `n_transition_corrected = target * compensation_factor` directly (1854 hops) —
+treating the 2.06x compensation factor as "hops needed" when it's actually "windows needed,"
+and each hop already yields ~6.12 windows (step 36) BEFORE the exclusion filter. That
+produced 5656 kept transitioning examples against a target of 900 — a 7756-example, 73%-
+transitioning dataset vs baseline's 3000-example, 30%-transitioning one. Fixed:
+`hops = target / (windows_per_hop * keep_rate)` = 303 hops, yielding 933 kept (dataset sizes
+now matched: 3033 vs 3000 total).
+
+**Result** (`evaluation/phase0_smallscale_port_comparison.json`):
+
+| | test_acc | chain-2 pair_acc | chain-2 threat_acc |
+|---|---|---|---|
+| baseline (old format) | 92.2% | **60.5%** | **64.9%** |
+| corrected (combined port) | 13.2% | **0.0%** | **0.0%** |
+
+**The corrected model collapsed to nearly random (13.2% test_acc, 1/8=12.5% chance) even with
+dataset size matched — this is not the class-imbalance confound the bug above would have
+caused; the bug was fixed before this result.** Training curves show why: corrected model's
+train accuracy climbs similarly to baseline's (13%→87.7% by epoch 13) but val_loss RISES
+(2.15→2.77) while val_acc stays flat/noisy (13%→34%) — early-stopped at epoch 13 (best
+epoch 1), never generalizing.
+
+**Root-cause hypothesis, quantified, not just asserted**: `generate_transition_sequence`'s
+acceleration term (`velocity += acceleration * dt` every timestep, unbounded, no cap or
+decay) was exercised almost exclusively at `n_timesteps<=50` throughout this project's
+history. The corrected port's hops run 80-132 timesteps. Direct measurement (worst-case
+`accel_mag`, `dt=0.5`): per-timestep centroid displacement grows from ~1.5 units near the
+start of a 132-step hop to ~24.6 units near the end — a **16x increase** — versus only a
+**~4.5x** increase over a 50-step call (1.8->8.1 units). This mechanism has technically been
+present in every `eval_trajectories.py`-based ceiling measurement throughout the V5 program
+(it calls the same function at the same long lengths) — but eval only tests a model trained
+on velocity-scale-appropriate short sequences against it; **this port, for the first time,
+TRAINS directly on windows spanning this whole growing-velocity range.** Regression targets
+(`centroid_velocity` etc.) for a window drawn near the start vs. the end of the same hop
+differ by an order of magnitude, normalized by ONE train-set-wide `reg_mean`/`reg_std` — a
+severe target-scale heterogeneity that plausibly destabilizes the shared backbone
+(`cls_head`/`reg_head` share `shared_head`), degrading classification alongside regression.
+Offered as the leading, quantified hypothesis — not confirmed by an isolation experiment this
+session, per the "no full-scale generation, no further training" instruction.
+
+Raw output: `evaluation/phase0_smallscale_port_comparison.json`, training log in the task
+runner (not committed — ephemeral console output, findings captured here).
