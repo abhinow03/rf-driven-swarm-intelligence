@@ -55,6 +55,17 @@ uncapped, recovered the small-scale corrected model from 13.2%/0.0%/0.0% to
 in a single noisy run. Verdict remains **NO-GO, narrowly** pending a multi-seed confirmation.
 See `HISTORY.md`'s 2026-08-10 part-4 decision entry.
 
+**Update, same day, part 5 — the multi-seed confirmation**: 5 seeds each, baseline vs.
+corrected-port, same protocol. Noise floor measured directly: chain-2 pair accuracy std
+**7.10 points**, threat accuracy std **5.49 points** at this scale — single-run deltas below
+that are not reliable, a standing note now applies program-wide. Welch's t-test: `test_acc`
+indistinguishable (p=0.82), `chain-2 threat_acc` significantly worse for corrected-port
+(p=0.037), `pair_acc` borderline in the same direction (p=0.060). **Not a statistical tie —
+corrected-port is more likely worse than baseline. Verdict: NO-GO** (confirmed, not merely
+narrow). Full-scale generation and retraining remain not authorized. See `HISTORY.md`'s
+2026-08-10 part-5 decision entry, including a retroactive check of this program's own
+strategy-by-strategy trajectory against the newly-measured noise floor.
+
 ## Current state (stratified), 2026-08-09 — supersedes every pooled number below (chain-2 numbers here are further superseded above)
 
 `scripts/phase0_chainlength_breakdown.py --n 1000`, seed=999 (the standing ceiling

@@ -554,3 +554,76 @@ generation and retraining remain **not authorized**.
 seeds (data seed and/or model-init seed) to separate genuine signal from the observed
 run-to-run noise, before either authorizing full-scale generation or concluding the port
 still underperforms. Not done this session — no full-scale generation, per instruction.
+
+## Decision, 2026-08-10 (part 5): the noise floor, measured — and what it means for this program's own trajectory
+
+**Also its own decision, distinct from parts 1-4 and Strategy 7.** Part 4 ended on a single
+noisy run. This part measures the actual noise floor at 5-seed resolution, uses it for a
+proper statistical comparison, and — the more important half — turns it back on this
+program's own strategy-by-strategy history to flag which past single-run deltas rested on a
+plausibly noise-sized gap.
+
+**The noise floor** (`docs/V5_LOG.md` steps 42-44, 5 seeds each, same small-scale protocol):
+baseline chain-2 pair accuracy std **7.10 points** (range 60.5%-79.8%), threat accuracy std
+**5.49 points** (range 71.1%-85.1%), test_acc std **4.87 points**. Corrected-port's own std
+is smaller on both chain-2 metrics (3.92, 2.46) despite a lower mean on both.
+
+**Statistical comparison, not a tie**: Welch's t-test, corrected vs. baseline, n=5 each.
+`test_acc`: indistinguishable (p=0.82). `chain-2 threat_acc`: significant, corrected worse
+(p=0.037). `chain-2 pair_acc`: borderline, same direction, similar effect size (p=0.060).
+Two metrics agreeing is a coherent signal. **Corrected-port is more likely worse than
+baseline than tied with it, at 5-seed resolution — not a statistical tie**, and per this
+session's own decision criterion (GO if confidently better or tied, NO-GO if confidently
+worse), this reads closer to NO-GO than the criterion's "tied" branch, though not as sharply
+confident as a p<0.01 result would be.
+
+**Standing note, added per instruction**: single-run comparisons at this dataset scale
+(`n_per_formation≈300`, `n_transition≈900`) are **not reliable below roughly 5-7 points of
+difference**. Treat any future single-run delta smaller than that with real skepticism.
+Small-scale std is likely an overestimate of full-scale noise (more training data, larger
+eval samples both reduce variance) — offered as the best available conservative reference
+without re-running full-scale strategies multiple times each.
+
+**Retroactive flag list — this program's own pair-level-ceiling trajectory, judged against a
+~7.1-point std**: only strategies 1-6 are subject to this noise source at all, because each
+involved a genuine fresh retrain (a different trained model each time). The later guard-fix/
+dwell-time-fix/source-symmetrization deltas do **not** — they re-score the SAME frozen
+strategy-5 checkpoint under different deterministic bridge/generator code, with zero
+retraining involved, so there is no training-run-variance question to ask of them at all;
+they are correctly exempted, and for a stronger reason than "the delta happens to be large."
+
+| transition | delta | vs. ~7.1pt std | read |
+|---|---|---|---|
+| Strategy 1→2 (3.3%→4.7%) | +1.4pt | well under 1 std | **FLAG — plausibly noise-sized** |
+| Strategy 2→3 (4.7%→6.7%) | +2.0pt | well under 1 std | **FLAG — plausibly noise-sized** |
+| Strategy 3→4 (6.7%→6.1%) | -0.6pt | trivially under | **FLAG — most clearly noise-sized of all six** |
+| Strategy 4→5 (6.1%→12.2%) | +6.1pt | just under 1 std | **FLAG — borderline**, though strategy 5's own conclusion doesn't rest on this delta alone: it was independently corroborated by a targeted diagnostic (1.8% FP on unambiguous windows vs. 53.2% near a real blend boundary) showing a real, specific mechanism, not just a post-hoc number |
+| Strategy 5→6 (12.2%→4.9%) | -7.3pt | ≈1 std on this metric | **NOT flagged — confirmed real**, independently corroborated by a much larger, unambiguous shift on a different metric (test_acc 86.3%→99.6%, +13.3pt, ≈2.7x the test_acc std) |
+| Guard fix (13.0%→52.3%) | +39.3pt | ≈5.5x std | **NOT flagged — confirmed real**, and exempt from this analysis entirely (no retrain) |
+| Dwell-time fix (chain-2 18.7%→39.9%) | +21.2pt | ≈3x std | **NOT flagged — confirmed real**, exempt (no retrain) |
+| Source symmetrization (39.9%→65.8%) | +25.9pt | ≈3.6x std | **NOT flagged — confirmed real**, exempt (no retrain) |
+
+**What this does and doesn't mean**: it does **not** mean strategies 1-3's reported ceiling
+numbers were wrong — each was still the actual measured result of an actual training run, and
+nothing here contradicts that. It means the specific NARRATIVE of "strategy 2 helped by 1.4
+points, strategy 3 helped by another 2.0" is weaker evidence for a real, reproducible effect
+than it read as at the time, given what run-to-run noise turns out to look like at this scale
+— those transitions could each individually be within the range a re-run of the SAME strategy
+would produce by chance. Strategy 4's flat-pair-level/transformed-window-accuracy finding and
+strategy 6's regression both stand on independent corroborating evidence beyond the raw pair
+delta, and remain credible. The big wins (guard fix, dwell-time fix, source symmetrization)
+were never in question — none of them were single-run retrain comparisons in the first place.
+
+## Decision gate, per this session's stated criterion
+
+GO if corrected-port is confidently better or statistically tied; NO-GO only if confidently
+worse. Step 44's comparison shows corrected-port scoring lower on both chain-2 metrics across
+all 5 seeds, with `threat_acc` reaching significance (p=0.037) and `pair_acc` just short
+(p=0.060) in the same direction — closer to "confidently worse" than to "tied." **Verdict:
+NO-GO.** Full-scale generation and retraining remain not authorized on the current port
+design. The port's other, non-ceiling benefits (0% train/eval blend overlap resolved by
+construction, correct per-window labeling granularity, no more silent 51.2%-exclusion-vs-
+mislabel ambiguity) are real and disclosed, but the session's own stated gate does not treat
+them as sufficient on their own when the measured ceiling metrics point the other way at
+significance. No full-scale generation, no further training beyond the 10 runs already
+executed for this comparison, per instruction.
