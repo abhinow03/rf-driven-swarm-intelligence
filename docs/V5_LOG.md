@@ -2649,3 +2649,37 @@ hit rate degrades meaningfully from the calibrated range.
 **Both step 0 and step 1 are halt gates. Stopping here per instruction ("STOP after step 5,
 or after the step-1 halt gate, whichever comes first") — no corpus generation, no teacher API
 calls, no tmux session started, since there is no long-running work yet to protect.**
+
+## 2026-08-10 (later) — Phase 1 step 2: full run hit quota, resumed after key resupply
+
+The full 12,000-row run launched in the prior entry ran for 48.4 min and stopped itself
+correctly at its own `--max-teacher-fails 100` gate: **436/12,000 generated, 100 consecutive
+teacher fallbacks (daily NVIDIA quota exhausted)**. Wrote what it had — 392 train + 43 val
+(435 rows, 305/436 = 70% with real teacher prose) — to `data/sft_train_v5_phase1.jsonl` /
+`_val.jsonl`. Not a bug: this is exactly the `--max-teacher-fails` gate doing its job rather
+than silently grinding out templated filler for 20,000 more minutes.
+
+User supplied a fresh `NVIDIA_API_KEY` directly. Exported into the tmux `v5` shell only —
+never written to a file, never committed, per this repo's standing secrets discipline.
+Verified live before trusting it with the full job: `--n 8 --concurrency 8
+--max-teacher-fails 8` smoke test, **7/7 generated, 7/7 (100%) with teacher prose** — quota
+confirmed reset/available.
+
+**Checkpoint freshness lock re-verified** before resuming (per Phase 1's own discipline —
+assert the hashes still match before every step): `best_model.pt`
+(`18fc201d...`) and `stgt_bridge.py` (`e99472e1...`) both match the `phase1_checkpoint_lock`
+recorded at Phase 1's start. No drift.
+
+**Resumed**: `python3 llm_finetuning/build_sft_dataset.py --n 11565 --concurrency 24
+--max-teacher-fails 100 --out data/sft_train_v5_phase1.jsonl --append`. `--n 11565` =
+12,000 − 435 already-written rows, so this attempt's fresh stratified draw plus the existing
+435 lands close to the 12,000 target once merged (`--append` loads existing train+val, merges,
+dedupes on exact prompt text, reshuffles with a new random seed, re-splits). Launched in the
+same tmux `v5` session (survives client disconnects), log `/tmp/v5_build_sft_resume1.log`,
+watched via a persistent background monitor filtered to only completion/`STOPPING
+EARLY`/crash lines (not every progress tick, to avoid notification spam over a
+potentially multi-hour job). If this run also hits the daily quota gate before finishing,
+the same `--append` pattern resumes again with `--n` recomputed as `12000 − <rows so far>`.
+
+State: `docs/V5_STATE.json` `phase1_step2_corpus_generation` records both attempts. Still
+`phase=1, step=2`.

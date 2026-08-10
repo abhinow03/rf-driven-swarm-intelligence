@@ -1,9 +1,12 @@
 {
   "phase": 1,
   "step": 2,
-  "status": "PHASE 1 STARTED: production corpus generation. Phase 0 CLOSED -- standing checkpoint swarm_data/best_model.pt (strategy-5 STGT + guard fix + dwell-time fix + source symmetrization via stgt_bridge.py), confirmed ceiling 83.0% threat / 77.3% pair (full 1000-trajectory measurement, seed=999, superseding the stale 58.7% figure -- do not cite 58.7% going forward). Step 0 (Groq key rotation confirmation): HALTED -- no record found in repo of the exposure incident or a rotation, no GROQ_API_KEY in environment to check, rotation happens on the provider dashboard and cannot be verified from the repo. Awaiting user confirmation before any teacher-generation API calls. Step 1 (RULES critical-pair count) computed in parallel since it needs no API access -- see phase1_step1_rules_critical_count below. STOPPING for user confirmation per instruction. UPDATE 2026-08-10: both gates RESOLVED by user -- see phase1_step0_teacher_provider_switch and phase1_step1_rules_critical_count for resolutions. Groq path abandoned, NvidiaClient in place, fallback stratification implemented, both smoke-tested individually. Next: end-to-end build_sft_dataset.py smoke test, then full 12000-row generation run.",
+  "status": "PHASE 1 STEP 2 IN PROGRESS: production corpus generation. Steps 0/1 resolved (Nemotron teacher swap + fallback stratification, both committed 4bc4df9). First full-run attempt (concurrency=24, seed=42, tmux v5) hit NVIDIA daily-quota exhaustion at 436/12000 rows (392 train + 43 val written to data/sft_train_v5_phase1.jsonl, untracked). User supplied a fresh NVIDIA_API_KEY; quota-recheck smoke test (n=8) confirmed the key is live (7/7 teacher hits). Resumed via --append --n 11565 (remaining-to-target) in the same tmux v5 session; running now, will accumulate onto the existing 435 rows and re-split train/val on completion. Watching via a persistent background monitor for STOPPING EARLY / crash / completion.",
   "status_pre_step27": "Chain-2 generator-fix consolidation + source symmetrization COMPLETE (docs/V5_LOG.md step 26, 3 commits: 3591051 consolidation, 9061392 symmetrization, + docs/results commit -- no STGT/bridge/LLM code changed, same frozen strategy-5 checkpoint). Step 1: consolidated 5 duplicate copies of build_long_sequence_labeled into src/swarm_intent/eval_trajectories.py (4 live scripts now import it; 1 frozen historical-reproduction script deliberately excluded, documented); confirmed NONE of the 5 ever fed real STGT training data (that's generate_dataset(), separate code). Step 2: symmetrized LEAD_IN_RANGE (15,35)->(30,50), derived the same way as MIN_DWELL_RANGE (lead_in>=25 for a window-0 majority, no stride-slack term since window 0 always starts at t=0); verified source OBS_NONE 16.3%->0.0% at population scale. Step 3: chain-2 pair_acc 39.9%->65.8% (was 18.7% original baseline, 3.5x total), threat_acc 72.1%->76.3%. Step 4: refined 20-case taxonomy found 100% boundary/blend-timing-concentrated failures, 0% clean (non-boundary) misses. Step 5: chain-3+ false-positive rate investigated and RESOLVED (12.6%->1.8%, below the 9.0% original baseline, p=4.3e-07) -- mechanistically explained by the shared per-hop sampling loop, not a bug, not noise (dest-only-fix regression itself was only borderline significant, p=0.062). Step 6: blend-timing overlap re-checked, STILL 0.0%, unchanged across 3 independent formula revisions. Decision: B -- blend-timing distribution mismatch is the dominant remaining issue, should be fixed BEFORE any STGT training/capacity change, not decision A as step 25 projected. STOPPING per instruction -- no STGT retraining, no blend-distribution fix started this session.",
-  "halts_cleared": ["phase1_step0_groq_key_rotation (superseded by provider switch)", "phase1_step1_rules_critical_count"],
+  "halts_cleared": [
+    "phase1_step0_groq_key_rotation (superseded by provider switch)",
+    "phase1_step1_rules_critical_count"
+  ],
   "results": {
     "phase0_step1_first_check": {
       "checked": "2026-08-07T19:47:41Z",
@@ -1829,6 +1832,31 @@
       "resolution": "Groq retired as Phase 1 teacher provider; switched to NVIDIA NIM-hosted nvidia/nemotron-3-super-120b-a12b (https://integrate.api.nvidia.com/v1, OpenAI-compatible). Sidesteps the original unverifiable-Groq-key-rotation halt rather than clearing it -- Groq is no longer called at all in this phase.",
       "implementation": "NvidiaClient added to src/swarm_intent/llm/client.py (same request/response shape as GroqClient); build_sft_dataset.py's teacher instantiation switched. Key read from NVIDIA_API_KEY env var, never committed.",
       "verified": "one live smoke-test API call (forced-JSON echo), round-tripped correctly -- /tmp/v5_nvidia_client_smoketest.log"
+    },
+    "phase1_step2_corpus_generation": {
+      "attempt_1": {
+        "launched": "2026-08-10T20:58:40+05:30",
+        "args": "--concurrency 24 --max-teacher-fails 100 --out data/sft_train_v5_phase1.jsonl (seed=42, fresh, no --append)",
+        "outcome": "STOPPING EARLY at 436/12000 (100 consecutive teacher fallbacks, daily NVIDIA quota exhausted)",
+        "wrote": "392 train + 43 val = 435 rows, 305/436 (70%) with real teacher prose",
+        "wall_time_min": 48.4
+      },
+      "key_resupply": {
+        "time": "2026-08-10T22:5x IST (approx)",
+        "action": "user supplied a new NVIDIA_API_KEY directly in chat; exported into the tmux v5 shell only (not written to any file, not committed)",
+        "verification": "quota-recheck smoke test, n=8 concurrency=8 --max-teacher-fails 8: 7/7 generated, 7/7 (100%) with teacher prose -- quota confirmed live before relaunching the full job"
+      },
+      "checkpoint_freshness_reverified": {
+        "best_model_pt_sha256": "18fc201d5a419ff2fb0cfb66a60810af77a9ed52969f2996f57c952d1306a01b",
+        "stgt_bridge_sha256": "e99472e16525588be83f7e7e78abeb5d781d7c2d238adc902c10c660bbb022f7",
+        "matches_phase1_checkpoint_lock": true
+      },
+      "attempt_2_resume": {
+        "launched": "2026-08-10T22:47 IST (approx)",
+        "args": "--n 11565 --concurrency 24 --max-teacher-fails 100 --out data/sft_train_v5_phase1.jsonl --append (seed randomized under --append)",
+        "rationale_for_n": "12000 - 435 already-written rows = 11565 remaining; --append merges+dedupes+reshuffles on completion",
+        "status": "RUNNING in tmux v5, log /tmp/v5_build_sft_resume1.log, watched via persistent Monitor for STOPPING EARLY/crash/completion"
+      }
     }
   },
   "started": "2026-08-07T19:47:41Z"
