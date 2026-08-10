@@ -2509,3 +2509,63 @@ predates this session's port work entirely and was simply never recomputed as a 
 headline number after the dwell-time fix landed.
 
 Raw output: `evaluation/phase0_fullscale_ceiling_comparison.json`.
+
+---
+
+# PHASE 1: production corpus generation
+
+Phase 0 CLOSED as of `V5_STATE.json` phase-0-closing entry: standing checkpoint
+`swarm_data/best_model.pt` (sha256 `18fc201d...`), confirmed ceiling 83.0% threat / 77.3%
+pair (full 1000-trajectory measurement, seed=999) — supersedes the stale 58.7% figure
+program-wide.
+
+**Checkpoint freshness lock** (new discipline, learned from the stale-58.7%-figure near-miss):
+`swarm_data/best_model.pt` sha256 `18fc201d5a419ff2fb0cfb66a60810af77a9ed52969f2996f57c952d1306a01b`,
+`src/swarm_intent/stgt_bridge.py` sha256 `e99472e16525588be83f7e7e78abeb5d781d7c2d238adc902c10c660bbb022f7`.
+Every subsequent Phase 1 step must assert both hashes still match before running; if either
+changes mid-phase, HALT rather than silently continuing on a drifted checkpoint.
+
+### Step 0: Groq key rotation — HALTED, cannot self-verify
+
+No record found anywhere in the repo (`AUDIT.md`, `docs/*.md`, `CODE_REVIEW.md`) of the
+specific exposure incident referenced, and `GROQ_API_KEY` is not set in the current
+environment to inspect. Key rotation happens on Groq's own provider dashboard — genuinely
+outside anything verifiable from repo state or available tools. **Stopping per explicit
+instruction: do not proceed to teacher generation on an unconfirmed key.**
+
+### Step 1: RULES critical-pair count — HALT GATE triggered
+
+Direct count, no API needed: 49 total RULES pairs, threat distribution `{low: 13, medium: 22,
+high: 12, critical: 2}`. **Only 2 distinct critical pairs**: `(converging, encirclement)` and
+its reverse — both directions of the same compound-escalation event (simultaneously
+encircling AND closing distance), both mapping to `deploy_countermeasure`. Below the ~5-pair
+threshold — **halt gate triggered**.
+
+**Proposed extension (NOT applied, needs Dr. Patil sign-off)**: the only two candidates with
+genuine tactical justification found are the two STEADY-STATE "ingredients" of the existing
+critical pair — `(converging, converging)` and `(encirclement, encirclement)`, both currently
+`high`/`alert_operator`. Reasoning: a sustained converging or encircling posture arguably
+represents persistent rather than transient hostile intent, comparably severe to a one-time
+transition into the compound state. Deliberately did not stretch to invent a 3rd/4th/5th pair
+just to clear the threshold — RULES' critical tier reads as a deliberate, narrow design (one
+matched bidirectional pair, one specific compound threat signature), not an oversight.
+Promoting the two steady states would also raise whether their `action` should escalate from
+`alert_operator` to `deploy_countermeasure` — a real system-behavior change, not just a label
+edit, requiring the same sign-off.
+
+**Fallback stratification (proposed, NOT implemented)**: cap critical-stratum repetition at
+600 rows/pair (2 pairs × 600 = 1,200 total, ~150 rows per narrative-combination cell at 8
+combos/pair) instead of forcing a uniform 3,000. Redistribute the 1,800-row shortfall
+proportionally across the other three strata (+600 each):
+
+| stratum | uniform target (blocked) | fallback target |
+|---|---|---|
+| low | 3,000 | 3,600 |
+| medium | 3,000 | 3,600 |
+| high | 3,000 | 3,600 |
+| critical | 3,000 | 1,200 |
+| **total** | 12,000 | 12,000 |
+
+**Both step 0 and step 1 are halt gates. Stopping here per instruction ("STOP after step 5,
+or after the step-1 halt gate, whichever comes first") — no corpus generation, no teacher API
+calls, no tmux session started, since there is no long-running work yet to protect.**

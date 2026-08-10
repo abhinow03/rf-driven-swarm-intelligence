@@ -1,7 +1,7 @@
 {
-  "phase": 0,
-  "step": 52,
-  "status": "Steps 51-52 COMPLETE (docs/V5_LOG.md), full-scale go/no-go gate resolved. Candidate trained full-scale (seed=100, n_transition=9000 hops, robust norm, uncapped accel, 150ep, early-stopped ep16/best ep4, test_acc=82.3%). Full 1000-trajectory stratified ceiling comparison vs standing strategy-5 checkpoint (seed=999): chain-1 TIED (87.6->87.3% threat); chain-2 REGRESSED 16.9pt (77.2->60.3% threat) -- the exact class this port exists to fix; chain-3+ FP rate more than doubled (1.8->4.3%). 5-seed tie (step 49) did NOT hold at full resolution. VERDICT: candidate LOSES. Standing strategy-5 checkpoint (swarm_data/best_model.pt) remains Phase 0s checkpoint, no change. MAJOR SEPARATE FINDING: the 58.7% figure cited as standing baseline throughout this session is STALE -- predates dwell-time fix (steps 24-26). True current value (same pooling formula, verified against step-26-audited chain-2 figures matching exactly): threat=83.0%, pair=77.3%. Standing checkpoint ALREADY clears the original 70% pair-level floor and the 60-65% C-track threshold, independent of the port work. CEILING.md headline corrected (pooled figure reported only as compatibility bridge per the 2026-08-09 anti-pooling policy; stratified numbers remain authoritative). RECOMMENDATION: move to Phase 1 (B), not further C-track -- both thresholds already cleared by the standing checkpoint. Recorded in HISTORY.md as its own standalone decision (part 8). Corrected-port line of work (parts 1-8, 2026-08-10) CLOSED. STOPPING per instruction after step 5.",
+  "phase": 1,
+  "step": 0,
+  "status": "PHASE 1 STARTED: production corpus generation. Phase 0 CLOSED -- standing checkpoint swarm_data/best_model.pt (strategy-5 STGT + guard fix + dwell-time fix + source symmetrization via stgt_bridge.py), confirmed ceiling 83.0% threat / 77.3% pair (full 1000-trajectory measurement, seed=999, superseding the stale 58.7% figure -- do not cite 58.7% going forward). Step 0 (Groq key rotation confirmation): HALTED -- no record found in repo of the exposure incident or a rotation, no GROQ_API_KEY in environment to check, rotation happens on the provider dashboard and cannot be verified from the repo. Awaiting user confirmation before any teacher-generation API calls. Step 1 (RULES critical-pair count) computed in parallel since it needs no API access -- see phase1_step1_rules_critical_count below. STOPPING for user confirmation per instruction.",
   "status_pre_step27": "Chain-2 generator-fix consolidation + source symmetrization COMPLETE (docs/V5_LOG.md step 26, 3 commits: 3591051 consolidation, 9061392 symmetrization, + docs/results commit -- no STGT/bridge/LLM code changed, same frozen strategy-5 checkpoint). Step 1: consolidated 5 duplicate copies of build_long_sequence_labeled into src/swarm_intent/eval_trajectories.py (4 live scripts now import it; 1 frozen historical-reproduction script deliberately excluded, documented); confirmed NONE of the 5 ever fed real STGT training data (that's generate_dataset(), separate code). Step 2: symmetrized LEAD_IN_RANGE (15,35)->(30,50), derived the same way as MIN_DWELL_RANGE (lead_in>=25 for a window-0 majority, no stride-slack term since window 0 always starts at t=0); verified source OBS_NONE 16.3%->0.0% at population scale. Step 3: chain-2 pair_acc 39.9%->65.8% (was 18.7% original baseline, 3.5x total), threat_acc 72.1%->76.3%. Step 4: refined 20-case taxonomy found 100% boundary/blend-timing-concentrated failures, 0% clean (non-boundary) misses. Step 5: chain-3+ false-positive rate investigated and RESOLVED (12.6%->1.8%, below the 9.0% original baseline, p=4.3e-07) -- mechanistically explained by the shared per-hop sampling loop, not a bug, not noise (dest-only-fix regression itself was only borderline significant, p=0.062). Step 6: blend-timing overlap re-checked, STILL 0.0%, unchanged across 3 independent formula revisions. Decision: B -- blend-timing distribution mismatch is the dominant remaining issue, should be fixed BEFORE any STGT training/capacity change, not decision A as step 25 projected. STOPPING per instruction -- no STGT retraining, no blend-distribution fix started this session.",
   "halts_cleared": [],
   "results": {
@@ -1756,6 +1756,73 @@
       },
       "log_doc": "docs/V5_LOG.md steps 51-52",
       "raw_data": "evaluation/phase0_fullscale_ceiling_comparison.json"
+    },
+    "phase0_closing": {
+      "checked": "2026-08-10T09:00:00Z",
+      "standing_checkpoint": "swarm_data/best_model.pt (strategy-5)",
+      "checkpoint_sha256": "18fc201d5a419ff2fb0cfb66a60810af77a9ed52969f2996f57c952d1306a01b",
+      "stgt_bridge_sha256_at_close": "e99472e16525588be83f7e7e78abeb5d781d7c2d238adc902c10c660bbb022f7",
+      "confirmed_ceiling": {
+        "threat_pct": 83.0,
+        "pair_pct": 77.3,
+        "method": "full 1000-trajectory stratified measurement, seed=999, pair-eligible-pooled robust=True"
+      },
+      "superseded_figure": "58.7% (stale, pre-dwell-time-fix, do not cite going forward)",
+      "git_head_at_close": "cc68511",
+      "recommendation_followed": "move to Phase 1 (B), corrected-port line of work (parts 1-8) closed"
+    },
+    "phase1_step1_rules_critical_count": {
+      "checked": "2026-08-10T09:05:00Z",
+      "method": "direct count of llm_finetuning/build_sft_dataset.py RULES dict, no API needed",
+      "total_pairs": 49,
+      "threat_distribution": {
+        "low": 13,
+        "medium": 22,
+        "high": 12,
+        "critical": 2
+      },
+      "critical_pairs": [
+        [
+          "converging",
+          "encirclement"
+        ],
+        [
+          "encirclement",
+          "converging"
+        ]
+      ],
+      "halt_gate_triggered": true,
+      "threshold": 5,
+      "proposed_new_critical_pairs_NOT_APPLIED": [
+        {
+          "pair": [
+            "converging",
+            "converging"
+          ],
+          "current": "high",
+          "reasoning": "sustained converging posture -- arguably as or more severe than a one-time transition INTO the critical compound state, since it indicates persistent rather than transient hostile intent. Currently shares the \"high\"/alert_operator tier with many single-axis-escalation pairs."
+        },
+        {
+          "pair": [
+            "encirclement",
+            "encirclement"
+          ],
+          "current": "high",
+          "reasoning": "same logic as converging/converging -- sustained encircling posture."
+        }
+      ],
+      "note": "only 2 candidates identified with genuine tactical justification (the two ingredient steady-states of the existing critical pair) -- did not stretch to invent a 3rd/4th/5th just to clear the 5-pair threshold, since RULES critical appears to be a deliberate, narrow design (matched action=deploy_countermeasure for exactly the compound converging+encircling transition). Promoting these would also require deciding whether their action should escalate from alert_operator to deploy_countermeasure -- a real behavior change requiring the same sign-off, not just a label change.",
+      "fallback_stratification_PROPOSED_NOT_IMPLEMENTED": {
+        "description": "cap critical-stratum repetition at 600 rows/pair (2 pairs = 1200 total, ~150 rows/narrative-combination-cell if 8 combos/pair) instead of forcing a uniform 3000. Redistribute the 1800-row shortfall proportionally across the other 3 strata (+600 each).",
+        "resulting_targets": {
+          "low": 3600,
+          "medium": 3600,
+          "high": 3600,
+          "critical": 1200,
+          "total": 12000
+        }
+      },
+      "status": "HALTED -- awaiting user confirmation on both the critical-pair extension proposal (with Dr. Patil sign-off) and/or authorization to proceed with the fallback stratification"
     }
   },
   "started": "2026-08-07T19:47:41Z"
