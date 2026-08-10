@@ -461,3 +461,55 @@ derived. Ready to proceed to full-scale dataset generation and STGT retraining, 
 the 51.2% yield loss (≈2x oversampling) and the mandatory windowing+labeling pairing.
 NOT STARTED this session** — no full-scale generation, no retraining, per explicit
 instruction. Full detail: `docs/V5_LOG.md` steps 31-34.
+
+## Decision, 2026-08-10 (part 3): pre-scaling checks — NO-GO, a real problem found before spending the full-scale budget
+
+**Also its own decision, not "Strategy 7," and distinct from parts 1 and 2 above** — those
+established WHETHER to port and HOW to design it; this one is the pre-registered gate that
+was supposed to say go/no-go on actually doing it. Two checks were run first (exclusion bias,
+seed stability), then the decisive test itself (small-scale train comparison), before any
+full-scale commitment.
+
+**Step 1 — exclusion bias**: no severe systematic bias found. Content-space concentration
+sits exactly in the expected near-miss ambiguity zone; formation-level exclusion is
+near-uniform (std 1.8 points); the one pair-level outlier (`encirclement`->`shield`, 66.7%
+vs. 51.1% mean) is disclosed for monitoring, not severe enough to block on its own. **This
+gate condition passed.** Full detail: `docs/V5_LOG.md` step 35.
+
+**Step 2 — seed stability**: keep rate is very stable across 5 seeds (std 0.8 points, range
+48.6%-50.7%). The ~2x compensation estimate holds; revised slightly to 2.06x using the
+worst-case seed. Full detail: `docs/V5_LOG.md` step 36.
+
+**Step 3 — the decisive test**: matched-size small-scale datasets, two STGT models from
+identical initial weights, differing only in training data format. **The corrected-format
+model collapsed to near-random accuracy (13.2% test_acc, ~chance for 8 classes) and scored
+0% on both chain-2 pair and threat accuracy — against baseline's 92.2% test_acc, 60.5% pair
+accuracy, 64.9% threat accuracy on the identical eval population.** A real bug in the test's
+own oversampling arithmetic was found and fixed mid-step (disclosed above and in
+`V5_LOG.md` step 37) — the collapse is not that bug; it was fixed before this result, and
+dataset sizes were confirmed matched (3033 vs 3000 total examples) when the collapse was
+measured. **This gate condition failed, decisively.** Full detail: `docs/V5_LOG.md` step 37.
+
+**Root cause, quantified, not just asserted**: `generate_transition_sequence`'s acceleration
+term is unbounded and was exercised almost exclusively at `n_timesteps<=50` throughout this
+project's history. The port's hops run 80-132 timesteps — measured per-timestep centroid
+displacement growth of 16x across a 132-step hop vs. 4.5x across 50 steps. Every
+`eval_trajectories.py`-based ceiling measurement this whole program has relied on already
+calls the same function at the same long lengths, so this mechanism isn't new — but this port
+is the first thing to TRAIN directly on windows spanning that whole growing-velocity range,
+where regression targets for a window near hop-start vs. hop-end differ by an order of
+magnitude under one shared normalization. Offered as the leading hypothesis; not confirmed by
+an isolation experiment this session.
+
+**Decision gate, as stated in advance: proceed to full-scale generation + retrain only if (a)
+no severe exclusion bias AND (b) the small-scale corrected model beats baseline. (a) passed;
+(b) failed decisively. Verdict: NO-GO.** Full-scale generation and retraining are **not**
+authorized on the current port design. Compute budget for the (now moot) full-scale attempt
+was ~1.5-2 hours — not spent, precisely because this small-scale gate existed to catch this
+first (`docs/V5_LOG.md` step 38).
+
+**What needs fixing before any further attempt**: the acceleration/velocity-growth mechanism
+identified above, most likely by capping or decaying acceleration's effect so it doesn't
+compound unboundedly over hop lengths several times longer than the regime it was designed
+for — then re-running step 37's exact small-scale comparison (not skipping straight back to
+full scale) before reconsidering this gate.

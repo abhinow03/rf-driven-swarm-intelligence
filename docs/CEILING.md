@@ -36,6 +36,16 @@ is not evidence STGT generalizes to the corrected, realistic blend-timing shape.
 recorded (not executed): port the corrected distribution into `generate_dataset()` and
 retrain from scratch — see `HISTORY.md`'s 2026-08-10 decision entry.
 
+**Update, same day, part 3**: the port was designed (3 toggleable flags, `V5_LOG.md` steps
+31-34) and pre-scaling-checked (`V5_LOG.md` steps 35-38) before any full-scale attempt. The
+decisive small-scale test found the corrected-format model **collapses to near-random
+accuracy** (13.2% test_acc, 0% chain-2 pair/threat accuracy) — **NO-GO**, full-scale
+generation and retraining are not authorized on the current port design. The 65.8%/76.3%
+numbers above remain the current, real figures for the *existing* frozen checkpoint; they are
+not superseded by a retrain, because no retrain happened. See `HISTORY.md`'s 2026-08-10 part-3
+decision entry for the full finding and the leading root-cause hypothesis (unbounded
+acceleration over the port's longer hop lengths).
+
 ## Current state (stratified), 2026-08-09 — supersedes every pooled number below (chain-2 numbers here are further superseded above)
 
 `scripts/phase0_chainlength_breakdown.py --n 1000`, seed=999 (the standing ceiling
