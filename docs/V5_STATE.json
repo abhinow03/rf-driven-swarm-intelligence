@@ -1,7 +1,7 @@
 {
   "phase": 1,
   "step": 2,
-  "status": "PHASE 1 STEP 2 IN PROGRESS: 8290/12000 corpus rows on disk after 4 quota cycles. Cycle durations varying (48/118/34 min) with no fixed period -- rolling rate limit, not calendar-day.",
+  "status": "PHASE 1 STEP 2 PAUSED: 8531/12000 corpus rows on disk after 5 quota cycles. Cycle durations/hit-rates degrading each round -- flagged to user as possible real daily-cap exhaustion rather than transient throttling. Awaiting user direction (wait longer, second key/quota pool, or accept current progress) before further retries.",
   "status_pre_step27": "Chain-2 generator-fix consolidation + source symmetrization COMPLETE (docs/V5_LOG.md step 26, 3 commits: 3591051 consolidation, 9061392 symmetrization, + docs/results commit -- no STGT/bridge/LLM code changed, same frozen strategy-5 checkpoint). Step 1: consolidated 5 duplicate copies of build_long_sequence_labeled into src/swarm_intent/eval_trajectories.py (4 live scripts now import it; 1 frozen historical-reproduction script deliberately excluded, documented); confirmed NONE of the 5 ever fed real STGT training data (that's generate_dataset(), separate code). Step 2: symmetrized LEAD_IN_RANGE (15,35)->(30,50), derived the same way as MIN_DWELL_RANGE (lead_in>=25 for a window-0 majority, no stride-slack term since window 0 always starts at t=0); verified source OBS_NONE 16.3%->0.0% at population scale. Step 3: chain-2 pair_acc 39.9%->65.8% (was 18.7% original baseline, 3.5x total), threat_acc 72.1%->76.3%. Step 4: refined 20-case taxonomy found 100% boundary/blend-timing-concentrated failures, 0% clean (non-boundary) misses. Step 5: chain-3+ false-positive rate investigated and RESOLVED (12.6%->1.8%, below the 9.0% original baseline, p=4.3e-07) -- mechanistically explained by the shared per-hop sampling loop, not a bug, not noise (dest-only-fix regression itself was only borderline significant, p=0.062). Step 6: blend-timing overlap re-checked, STILL 0.0%, unchanged across 3 independent formula revisions. Decision: B -- blend-timing distribution mismatch is the dominant remaining issue, should be fixed BEFORE any STGT training/capacity change, not decision A as step 25 projected. STOPPING per instruction -- no STGT retraining, no blend-distribution fix started this session.",
   "halts_cleared": [
     "phase1_step0_groq_key_rotation (superseded by provider switch)",
@@ -1873,6 +1873,13 @@
         "args": "--n 4889 --concurrency 24 --max-teacher-fails 100 --out data/sft_train_v5_phase1.jsonl --append",
         "outcome": "STOPPING EARLY at 1180/4890, 34.0 min elapsed (shortest cycle yet), 617 new teacher-prose rows (52% hit rate)",
         "merged_total": "7111 existing + 1179 new = 8290 (7461 train + 829 val)"
+      },
+      "attempt_5_resume": {
+        "launched": "2026-08-11T03:49 IST",
+        "args": "--n 3710 --concurrency 24 --max-teacher-fails 100 --out data/sft_train_v5_phase1.jsonl --append",
+        "outcome": "STOPPING EARLY at 242/3710 after only 3.3 min -- sharpest, fastest cutoff yet. Teacher hit rate collapsed mid-run (100% for first ~144 rows, then abruptly 0%, ending at 34% overall -- below the scripts own 50% quality WARNING).",
+        "merged_total": "8290 existing + 241 new = 8531 (7678 train + 853 val)",
+        "pattern_note": "cycle durations trending DOWN across attempts (48min -> 118min -> 34min -> 3.3min) with hit rate also degrading (97%->87%->63%->52%->34%) -- this now reads more like approaching/hitting a real daily quota ceiling than transient rate-limit throttling. Pausing auto-retry to check in with user rather than keep burning small recheck calls against a possibly near-exhausted daily budget."
       }
     }
   },
