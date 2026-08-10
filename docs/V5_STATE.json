@@ -1,6 +1,6 @@
 {
   "phase": 0,
-  "step": 44,
+  "step": 45,
   "status": "Steps 42-44 COMPLETE (docs/V5_LOG.md): noise floor measured, 5 seeds each. Baseline: pair_acc std=7.10pts (range 60.5-79.8%), threat_acc std=5.49pts (71.1-85.1%), test_acc std=4.87pts. Corrected-port: pair_acc std=3.92, threat_acc std=2.46 (MORE consistent than baseline despite lower mean), test_acc std=4.89. Welch t-test: test_acc tied (p=0.82), threat_acc significant worse for corrected (p=0.037), pair_acc borderline same direction (p=0.060). NOT a statistical tie -- corrected more likely worse. RETROACTIVE CHECK (HISTORY.md part 5): using ~7.1pt std, flagged strategies 1-2 (+1.4pt), 2-3 (+2.0pt), 3-4 (-0.6pt) as plausibly noise-sized single-run deltas; 4-5 (+6.1pt) flagged borderline but corroborated by independent diagnostic; 5-6 (-7.3pt) NOT flagged, confirmed real via independent test_acc corroboration (+13.3pt). Guard-fix/dwell-time-fix/source-symmetrization deltas correctly exempt from this analysis entirely (same frozen checkpoint re-scored, zero retraining, no training-variance question applies). Standing note added: single-run comparisons below ~5-7pts unreliable at this scale, program-wide going forward. DECISION GATE per stated criterion (GO if better-or-tied, NO-GO if confidently worse): corrected-port reads closer to confidently-worse than tied. VERDICT: NO-GO (confirmed, not merely narrow as part 4 left it). Full-scale generation and retraining remain NOT AUTHORIZED. Recorded in HISTORY.md as its own standalone decision (part 5). STOPPING per instruction after step 5/44.",
   "status_pre_step27": "Chain-2 generator-fix consolidation + source symmetrization COMPLETE (docs/V5_LOG.md step 26, 3 commits: 3591051 consolidation, 9061392 symmetrization, + docs/results commit -- no STGT/bridge/LLM code changed, same frozen strategy-5 checkpoint). Step 1: consolidated 5 duplicate copies of build_long_sequence_labeled into src/swarm_intent/eval_trajectories.py (4 live scripts now import it; 1 frozen historical-reproduction script deliberately excluded, documented); confirmed NONE of the 5 ever fed real STGT training data (that's generate_dataset(), separate code). Step 2: symmetrized LEAD_IN_RANGE (15,35)->(30,50), derived the same way as MIN_DWELL_RANGE (lead_in>=25 for a window-0 majority, no stride-slack term since window 0 always starts at t=0); verified source OBS_NONE 16.3%->0.0% at population scale. Step 3: chain-2 pair_acc 39.9%->65.8% (was 18.7% original baseline, 3.5x total), threat_acc 72.1%->76.3%. Step 4: refined 20-case taxonomy found 100% boundary/blend-timing-concentrated failures, 0% clean (non-boundary) misses. Step 5: chain-3+ false-positive rate investigated and RESOLVED (12.6%->1.8%, below the 9.0% original baseline, p=4.3e-07) -- mechanistically explained by the shared per-hop sampling loop, not a bug, not noise (dest-only-fix regression itself was only borderline significant, p=0.062). Step 6: blend-timing overlap re-checked, STILL 0.0%, unchanged across 3 independent formula revisions. Decision: B -- blend-timing distribution mismatch is the dominant remaining issue, should be fixed BEFORE any STGT training/capacity change, not decision A as step 25 projected. STOPPING per instruction -- no STGT retraining, no blend-distribution fix started this session.",
   "halts_cleared": [],
@@ -1537,6 +1537,29 @@
       "standing_note_added": "single-run comparisons at this dataset scale are not reliable below roughly 5-7 points of difference (observed std range) -- added to docs/V5_LOG.md step 44 and this entry for future strategy decisions. Small-scale std is a conservative (likely oversized) estimate for full-scale runs, offered as best available evidence without re-running full-scale strategies multiple times.",
       "log_doc": "docs/V5_LOG.md step 44",
       "raw_data": "evaluation/phase0_variance_measurement.json"
+    },
+    "phase0_step45_effective_dataset_size": {
+      "checked": "2026-08-10T05:00:00Z",
+      "method": "pure arithmetic, no training/checkpoints needed",
+      "baseline": {
+        "independent_draws_per_seed": 900,
+        "kept_per_seed": 900,
+        "loss": "0%"
+      },
+      "corrected": {
+        "independent_hop_draws_per_seed": 303,
+        "kept_per_seed_mean": 933,
+        "windows_per_hop": 6.12,
+        "note": "windows within one hop share the same spread/noise/pair/blend draw -- not independent"
+      },
+      "independent_sample_ratio": 0.337,
+      "across_5_seeds": {
+        "baseline_independent_draws": 4500,
+        "corrected_independent_draws": 1515,
+        "reduction_factor": 2.97
+      },
+      "verdict": "distinct, testable hypothesis from format-is-worse: 2.97x fewer independent transitioning trajectories despite similar kept-example counts, confined to the transitioning class (steady-state examples identical, 2100/seed both formats). Candidate fix if diffuse: request more hops so independent-sample count (not just kept-example count) matches baseline.",
+      "log_doc": "docs/V5_LOG.md step 45"
     }
   },
   "started": "2026-08-07T19:47:41Z"

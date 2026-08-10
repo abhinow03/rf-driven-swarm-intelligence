@@ -2273,3 +2273,29 @@ n_chain2≈250-500) likely have a smaller true noise floor, both from more train
 from a larger eval sample reducing sampling error — this is a conservative, not exact, bound
 for those, offered as the best available evidence without re-running full-scale strategies
 multiple times each.
+
+### Step 45: effective dataset size check (diagnosing the threat_acc deficit, step 2 of the request)
+
+Pure arithmetic, no checkpoints or training needed. Baseline's `n_transition=900` are 900
+FULLY INDEPENDENT draws (each a direct, standalone call to `generate_transition_sequence` at
+`n_timesteps=50`) → 900 kept examples, 0% loss, independent-sample ratio 1.0. Corrected's
+`n_transition=303` are 303 independent HOP draws; each hop yields `~6.12` windows (step 36)
+that all share the SAME spread/noise_std/formation-pair/blend-timing draw — only WHICH
+50-step slice differs. Post-exclusion this nets `~933` kept examples per seed (close to
+baseline's 900), but those 933 originate from only **303 independent underlying
+trajectories**, not 933.
+
+**Independent-sample ratio: 303/900 = 33.7%.** Across the 5 seeds used in steps 42-44:
+baseline saw 4500 independent transitioning draws; corrected saw only 1515 — **a 2.97x
+reduction in independent transitioning-example diversity**, despite kept EXAMPLE counts being
+closely matched (4665 vs 4500). Steady-state examples (2100/seed) are identical and
+unaffected by any port flag — the shortfall is confined entirely to the transitioning class.
+
+**This is a distinct, testable hypothesis from "the port format itself is worse":** a model
+trained on 303 independent transitioning trajectories, even split into ~933 windows, may
+simply see less genuine variation (different spread/noise/pair combinations) than one trained
+on 900 fully independent examples — a diffuse, capacity/diversity-driven gap that would not
+implicate the labeling or windowing design at all. Directly testable by requesting MORE hops
+(not more compensation-adjusted-to-match-kept-count) so independent-sample count, not just
+kept-example count, matches baseline — flagged as a candidate fix if steps 1/3 point toward a
+diffuse (not pair-concentrated) explanation.
