@@ -1,0 +1,16 @@
+{
+  "accel_speed_cap": "inf (uncapped)",
+  "corrected_normalization": "robust=True (P5-P95 trimmed)",
+  "baseline": {
+    "n_chain2": 114,
+    "pair_accuracy": 0.5701754385964912,
+    "threat_accuracy": 0.631578947368421,
+    "test_acc": 0.8222222222222222
+  },
+  "corrected": {
+    "n_chain2": 114,
+    "pair_accuracy": 0.5175438596491229,
+    "threat_accuracy": 0.6052631578947368,
+    "test_acc": 0.8769230769230769
+  }
+}

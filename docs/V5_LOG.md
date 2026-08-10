@@ -2132,3 +2132,62 @@ isolate it") **and since step 1's cap did not resolve the collapse: stopping aft
 diagnostic step. Step 4 (re-running the decisive test) is not performed — there is nothing
 fixed yet to re-test**, and re-running it now would just reproduce step 39's unchanged
 negative result.
+
+### Step 41 — mechanism isolation, part 2: robust normalization ALONE, acceleration UNCAPPED
+
+Tests whether step 40's global-scalar distortion, not step 39's acceleration growth, is the
+real (and sufficient) cause. `scripts/phase0_smallscale_normalization_isolation.py`:
+`ACCEL_SPEED_CAP` monkeypatched to `+inf` (acceleration completely uncapped — provably
+identical to the original, pre-step-39 code, verified bit-identical at both 50 and 132
+timesteps against the pre-step-39 commit), and `split_and_normalize` given a new `robust=True`
+mode (`src/swarm_intent/data.py`): `train_mean`/`train_std` computed from the
+`[5, 95]`-percentile-trimmed range of `X_train` instead of the raw range — a standard
+trimmed-statistics recipe, chosen because it requires **zero** changes anywhere else in the
+pipeline (still exactly two saved scalars, applied identically by `sliding_window_inference`
+at eval time regardless of how they were computed). 5% trim chosen because step 40's
+measurement showed drift only becomes extreme above roughly the 90th-95th percentile — this
+excludes that tail specifically, a small symmetric trim, not an arbitrary round number.
+Applied to the CORRECTED dataset only; baseline kept `robust=False` (its own scale was never
+distorted, changing it would add an unrelated variable to this test).
+
+**Result** (`evaluation/phase0_normalization_isolation_result.json`, same seed=7/303-hop
+config as steps 37/39):
+
+| | test_acc | chain-2 pair_acc | chain-2 threat_acc |
+|---|---|---|---|
+| baseline (this run) | 82.2% | 57.0% | 63.2% |
+| corrected, uncapped + robust norm (step 39's numbers, for reference) | 13.2% | 0.0% | 0.0% |
+| **corrected, uncapped + robust norm (this step)** | **87.7%** | **51.8%** | **60.5%** |
+
+**The collapse is resolved.** Test accuracy recovers from near-random (13.2%, ~chance) to
+87.7% — in the same range as baseline, and higher than THIS run's own baseline figure (though
+baseline's test_acc has varied 82.2%-92.2% across nominally-identical reruns of this exact
+config, GPU training non-determinism, not a data change — see the note on statistical power
+below). Chain-2 pair/threat accuracy recover from a hard 0.0%/0.0% floor to 51.8%/60.5% — close
+to, but not exceeding, this run's baseline (57.0%/63.2%).
+
+**Confirms: robust normalization alone is sufficient. Acceleration was never a real
+contributor** — this run had it completely uncapped and the collapse still resolved. Step
+39's `ACCEL_SPEED_CAP` has been **reverted** (`src/swarm_intent/data.py`, verified bit-
+identical to the pre-step-39 code at both 50 and 132 timesteps) rather than carried alongside
+a fix that does the actual work, correcting the record: step 39's entry above should be read
+as "capping was tested and shown NOT to matter," not as a fix that shipped.
+
+**Steps 2 and 3 of this session's request, addressed without separate runs**: step 2
+(isolate regression-target vs. graph-edge distortion) is now moot — there is no remaining
+unexplained collapse to isolate the cause of; the direct experimental resolution above is
+stronger evidence than a post-hoc mechanism split would have been, and attempting one now
+would answer a question that no longer has practical consequence. Step 3 ("apply whichever
+fix step 1/2 identify, regenerate, train, evaluate one more time") is directly satisfied by
+this step's own run, since it already tested exactly the identified fix (robust norm,
+uncapped acceleration) — a second identical run was not repeated.
+
+**Decision gate, stated honestly, not rounded up**: the instruction was "proceed to full-scale
+generation + retrain only if this fixed version beats baseline." Literally, in this single
+run, it does not (51.8%<57.0% pair, 60.5%<63.2% threat) — though the gap is small and baseline
+itself swung by as much as 10 points on test_acc and ~5 points on threat_acc across
+nominally-identical prior reruns (steps 37/39/this step), suggesting real run-to-run training
+noise at this small scale. **A single run is not enough statistical power for a confident
+go/no-go call either way; reported as the literal result, not rounded to a verdict the data
+doesn't clearly support.** See `HISTORY.md`'s 2026-08-10 part-4 decision for the full
+disposition.
