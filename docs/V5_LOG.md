@@ -2558,6 +2558,39 @@ edit, requiring the same sign-off.
 combos/pair) instead of forcing a uniform 3,000. Redistribute the 1,800-row shortfall
 proportionally across the other three strata (+600 each):
 
+## 2026-08-10 — Phase 1 steps 0-1: both halt gates resolved by user
+
+**Step 0 (Groq key rotation) — RESOLVED by provider switch, not by rotation.** User
+instruction: retire Groq as the Phase 1 teacher provider entirely, switch to an NVIDIA
+NIM-hosted teacher (`nvidia/nemotron-3-super-120b-a12b`, `https://integrate.api.nvidia.com/v1`,
+OpenAI-compatible `/chat/completions`). This sidesteps the original halt (an unverifiable Groq
+key rotation) rather than clearing it — Groq is no longer used as the teacher at all.
+Implemented `NvidiaClient` in `src/swarm_intent/llm/client.py` (same shape as `GroqClient`:
+Bearer auth, `{model, messages, temperature, max_tokens}` body, reads `NVIDIA_API_KEY` from the
+environment — never hardcoded, never committed, per this repo's existing secrets discipline).
+`llm_finetuning/build_sft_dataset.py`'s teacher instantiation switched from `GroqClient` to
+`NvidiaClient`. Smoke-tested with one live API call (forced-JSON echo prompt) — round-tripped
+correctly (`/tmp/v5_nvidia_client_smoketest.log`) — before touching any generation code path.
+
+**Step 1 (RULES critical-pair count) — RESOLVED: fallback stratification, no RULES edit.**
+User chose the fallback over the critical-pair-extension proposal — RULES stays exactly as
+audited (49 pairs, 2 critical), no Dr. Patil sign-off needed. Implemented
+`STRATA_TARGETS = {low: 3600, medium: 3600, high: 3600, critical: 1200}` and
+`build_stratified_pairs()` in `build_sft_dataset.py`: groups RULES pairs by threat tier, spreads
+each tier's target count as evenly as possible across that tier's pairs (remainder shuffled
+across pairs so it doesn't always land on the same ones), shuffles the resulting 12,000-pair
+sequence. Verified offline (no API calls) against a `seed=42` draw: tier totals exactly
+{low: 3600, medium: 3600, high: 3600, critical: 1200}; both critical pairs get exactly 600 rows
+each; the 13 low-tier pairs get 276-277 rows each (max spread of 1, as designed). `--n` still
+overrides the total (scales `STRATA_TARGETS` proportionally); `--no-stratify` restores the old
+uniform-over-49-pairs sampling for anyone who needs it. `default --n` changed from a flat 600 to
+`sum(STRATA_TARGETS)` (12,000) since stratified sampling is now the default path.
+
+Both changes are prerequisites only — no corpus generation has been run at scale yet. Next:
+a small end-to-end smoke test of `build_sft_dataset.py` itself (stratified sampling + the new
+teacher client + RULES override, on ~20 rows) before committing to the full 12,000-row/
+NVIDIA-metered run.
+
 | stratum | uniform target (blocked) | fallback target |
 |---|---|---|
 | low | 3,000 | 3,600 |

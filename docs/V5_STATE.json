@@ -1,9 +1,9 @@
 {
   "phase": 1,
-  "step": 0,
-  "status": "PHASE 1 STARTED: production corpus generation. Phase 0 CLOSED -- standing checkpoint swarm_data/best_model.pt (strategy-5 STGT + guard fix + dwell-time fix + source symmetrization via stgt_bridge.py), confirmed ceiling 83.0% threat / 77.3% pair (full 1000-trajectory measurement, seed=999, superseding the stale 58.7% figure -- do not cite 58.7% going forward). Step 0 (Groq key rotation confirmation): HALTED -- no record found in repo of the exposure incident or a rotation, no GROQ_API_KEY in environment to check, rotation happens on the provider dashboard and cannot be verified from the repo. Awaiting user confirmation before any teacher-generation API calls. Step 1 (RULES critical-pair count) computed in parallel since it needs no API access -- see phase1_step1_rules_critical_count below. STOPPING for user confirmation per instruction.",
+  "step": 2,
+  "status": "PHASE 1 STARTED: production corpus generation. Phase 0 CLOSED -- standing checkpoint swarm_data/best_model.pt (strategy-5 STGT + guard fix + dwell-time fix + source symmetrization via stgt_bridge.py), confirmed ceiling 83.0% threat / 77.3% pair (full 1000-trajectory measurement, seed=999, superseding the stale 58.7% figure -- do not cite 58.7% going forward). Step 0 (Groq key rotation confirmation): HALTED -- no record found in repo of the exposure incident or a rotation, no GROQ_API_KEY in environment to check, rotation happens on the provider dashboard and cannot be verified from the repo. Awaiting user confirmation before any teacher-generation API calls. Step 1 (RULES critical-pair count) computed in parallel since it needs no API access -- see phase1_step1_rules_critical_count below. STOPPING for user confirmation per instruction. UPDATE 2026-08-10: both gates RESOLVED by user -- see phase1_step0_teacher_provider_switch and phase1_step1_rules_critical_count for resolutions. Groq path abandoned, NvidiaClient in place, fallback stratification implemented, both smoke-tested individually. Next: end-to-end build_sft_dataset.py smoke test, then full 12000-row generation run.",
   "status_pre_step27": "Chain-2 generator-fix consolidation + source symmetrization COMPLETE (docs/V5_LOG.md step 26, 3 commits: 3591051 consolidation, 9061392 symmetrization, + docs/results commit -- no STGT/bridge/LLM code changed, same frozen strategy-5 checkpoint). Step 1: consolidated 5 duplicate copies of build_long_sequence_labeled into src/swarm_intent/eval_trajectories.py (4 live scripts now import it; 1 frozen historical-reproduction script deliberately excluded, documented); confirmed NONE of the 5 ever fed real STGT training data (that's generate_dataset(), separate code). Step 2: symmetrized LEAD_IN_RANGE (15,35)->(30,50), derived the same way as MIN_DWELL_RANGE (lead_in>=25 for a window-0 majority, no stride-slack term since window 0 always starts at t=0); verified source OBS_NONE 16.3%->0.0% at population scale. Step 3: chain-2 pair_acc 39.9%->65.8% (was 18.7% original baseline, 3.5x total), threat_acc 72.1%->76.3%. Step 4: refined 20-case taxonomy found 100% boundary/blend-timing-concentrated failures, 0% clean (non-boundary) misses. Step 5: chain-3+ false-positive rate investigated and RESOLVED (12.6%->1.8%, below the 9.0% original baseline, p=4.3e-07) -- mechanistically explained by the shared per-hop sampling loop, not a bug, not noise (dest-only-fix regression itself was only borderline significant, p=0.062). Step 6: blend-timing overlap re-checked, STILL 0.0%, unchanged across 3 independent formula revisions. Decision: B -- blend-timing distribution mismatch is the dominant remaining issue, should be fixed BEFORE any STGT training/capacity change, not decision A as step 25 projected. STOPPING per instruction -- no STGT retraining, no blend-distribution fix started this session.",
-  "halts_cleared": [],
+  "halts_cleared": ["phase1_step0_groq_key_rotation (superseded by provider switch)", "phase1_step1_rules_critical_count"],
   "results": {
     "phase0_step1_first_check": {
       "checked": "2026-08-07T19:47:41Z",
@@ -1822,7 +1822,13 @@
           "total": 12000
         }
       },
-      "status": "HALTED -- awaiting user confirmation on both the critical-pair extension proposal (with Dr. Patil sign-off) and/or authorization to proceed with the fallback stratification"
+      "status": "RESOLVED 2026-08-10: user chose fallback stratification (not the critical-pair extension). Implemented in build_sft_dataset.py (STRATA_TARGETS, build_stratified_pairs()) and verified offline against seed=42 -- tier totals and per-pair spread match this table exactly."
+    },
+    "phase1_step0_teacher_provider_switch": {
+      "resolved": "2026-08-10T00:00:00Z",
+      "resolution": "Groq retired as Phase 1 teacher provider; switched to NVIDIA NIM-hosted nvidia/nemotron-3-super-120b-a12b (https://integrate.api.nvidia.com/v1, OpenAI-compatible). Sidesteps the original unverifiable-Groq-key-rotation halt rather than clearing it -- Groq is no longer called at all in this phase.",
+      "implementation": "NvidiaClient added to src/swarm_intent/llm/client.py (same request/response shape as GroqClient); build_sft_dataset.py's teacher instantiation switched. Key read from NVIDIA_API_KEY env var, never committed.",
+      "verified": "one live smoke-test API call (forced-JSON echo), round-tripped correctly -- /tmp/v5_nvidia_client_smoketest.log"
     }
   },
   "started": "2026-08-07T19:47:41Z"

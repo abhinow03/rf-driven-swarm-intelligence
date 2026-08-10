@@ -23,6 +23,7 @@ from typing import Optional
 import requests
 
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
+NVIDIA_URL = "https://integrate.api.nvidia.com/v1/chat/completions"
 
 
 def _extract_json(text: str) -> dict:
@@ -106,6 +107,37 @@ class GroqClient(LLMClient):
         messages.append({"role": "user", "content": f"Return ONLY valid JSON.\n\n{prompt}"})
         resp = requests.post(
             GROQ_URL,
+            headers={"Authorization": f"Bearer {self.api_key}",
+                     "Content-Type": "application/json"},
+            json={"model": self.model, "messages": messages,
+                  "temperature": self.temperature, "max_tokens": self.max_tokens},
+            timeout=60,
+        )
+        resp.raise_for_status()
+        return resp.json()["choices"][0]["message"]["content"]
+
+
+class NvidiaClient(LLMClient):
+    """NVIDIA NIM-hosted teacher (build.nvidia.com), OpenAI-compatible endpoint.
+    Replaces GroqClient as the Phase 1 corpus-generation teacher (AUDIT.md V5
+    Phase 1 step 0) -- same request/response shape, so build_sft_dataset.py's
+    gold_assessment()/teacher.complete() call sites are unchanged."""
+
+    def __init__(self, model: str = "nvidia/nemotron-3-super-120b-a12b",
+                 api_key: Optional[str] = None, temperature: float = 0.3,
+                 max_tokens: int = 1024):
+        self.model = model
+        self.api_key = api_key or os.environ.get("NVIDIA_API_KEY")
+        if not self.api_key:
+            raise ValueError("Set NVIDIA_API_KEY (env var) or pass api_key=...")
+        self.temperature = temperature
+        self.max_tokens = max_tokens
+
+    def generate(self, prompt: str, system_prompt: Optional[str] = None) -> str:
+        messages = ([{"role": "system", "content": system_prompt}] if system_prompt else [])
+        messages.append({"role": "user", "content": f"Return ONLY valid JSON.\n\n{prompt}"})
+        resp = requests.post(
+            NVIDIA_URL,
             headers={"Authorization": f"Bearer {self.api_key}",
                      "Content-Type": "application/json"},
             json={"model": self.model, "messages": messages,

@@ -3,13 +3,17 @@ Build a supervised fine-tuning (SFT) dataset for the tactical-reasoning LLM.
 
 Strategy (teacher-distillation + rule-based label cleaning):
   1. Sample many diverse swarm scenarios (formation pairs, speeds, stabilities,
-     approach rates, drone counts, noise levels).
+     approach rates, drone counts, noise levels) -- stratified by RULES threat
+     tier (AUDIT.md V5 Phase 1 step 1 fallback stratification; see
+     STRATA_TARGETS below), not uniformly across all 49 pairs.
   2. For each, synthesise the SAME tactical-context + key-window prompt the
      real pipeline produces (so the fine-tuned model sees in-distribution input).
-  3. Get a GOLD assessment. By default we call a strong TEACHER model (Groq
-     llama-3.3-70b) to draft it, then OVERRIDE threat_level / likely_intent /
-     recommended_action with the canonical domain rule for that scenario. This
-     removes teacher noise and makes the targets internally consistent.
+  3. Get a GOLD assessment. By default we call a strong TEACHER model (NVIDIA
+     NIM-hosted Nemotron 3 Super 120B, AUDIT.md V5 Phase 1 step 0 -- Groq was
+     retired as the teacher provider this phase) to draft it, then OVERRIDE
+     threat_level / likely_intent / recommended_action with the canonical
+     domain rule for that scenario. This removes teacher noise and makes the
+     targets internally consistent.
   4. Write chat-format JSONL: [{"role":"user",...},{"role":"assistant",...}].
 
 Why distill + clean rather than pure rules: the teacher supplies fluent,
@@ -21,8 +25,9 @@ Run WITHOUT a teacher (--no-teacher) to get rule-only templated targets — lowe
 quality prose but zero API cost, useful for a first smoke test.
 
 Usage:
-    export GROQ_API_KEY=...
-    python llm_finetuning/build_sft_dataset.py --n 600 --out data/sft_train.jsonl
+    export NVIDIA_API_KEY=...
+    python llm_finetuning/build_sft_dataset.py --out data/sft_train.jsonl
+    # --n overrides the total row count; default is sum(STRATA_TARGETS) = 12000.
 """
 from __future__ import annotations
 
@@ -145,6 +150,41 @@ RULES = {
     ("shield",       "dispersed"):    ("low",      "surveillance",        "monitor"),
 }
 DEFAULT_RULE = ("medium", "reposition", "monitor")  # ponytail: safety net only, should never fire now
+
+# ---------------------------------------------------------------------------
+# AUDIT.md V5 Phase 1 step 1: fallback stratification. RULES has only 2
+# distinct critical pairs (below the ~5-pair halt-gate threshold; see
+# docs/V5_LOG.md), so a uniform 3,000 rows/tier would force 1,500 rows onto
+# each of the 2 critical pairs alone -- far more repetition than the other
+# tiers' pairs get. Instead: cap critical at 600 rows/pair (2 x 600 = 1,200)
+# and redistribute the 1,800-row shortfall proportionally (+600 each) across
+# the other three tiers. RULES itself is untouched (no critical-pair
+# extension applied -- that needs Dr. Patil sign-off, not taken here).
+# ---------------------------------------------------------------------------
+STRATA_TARGETS = {"low": 3600, "medium": 3600, "high": 3600, "critical": 1200}
+
+
+def build_stratified_pairs(rng: random.Random, targets: dict[str, int]) -> list[tuple]:
+    """Returns a shuffled list of (form_a, form_b) pairs, length sum(targets.values()),
+    with exactly `targets[tier]` rows drawn from tier `tier`'s pairs and, within
+    a tier, counts spread as evenly as possible across that tier's pairs (so no
+    single pair dominates a tier's rows)."""
+    tier_pairs: dict[str, list[tuple]] = {}
+    for pair, (threat, _intent, _action) in RULES.items():
+        tier_pairs.setdefault(threat, []).append(pair)
+
+    out = []
+    for tier, target in targets.items():
+        pairs = sorted(tier_pairs.get(tier, []))  # sorted: deterministic before shuffle
+        if not pairs:
+            continue
+        base, remainder = divmod(target, len(pairs))
+        counts = [base + (1 if i < remainder else 0) for i in range(len(pairs))]
+        rng.shuffle(counts)  # so the +1 remainder doesn't always land on the same pairs
+        for pair, count in zip(pairs, counts):
+            out.extend([pair] * count)
+    rng.shuffle(out)
+    return out
 
 
 def synth_context(form_a: str, form_b: str, rng: random.Random) -> tuple[str, list]:
@@ -281,14 +321,19 @@ def gold_assessment(form_a, form_b, ctx, teacher=None, prompt=None) -> tuple[dic
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--n", type=int, default=600)
+    ap.add_argument("--n", type=int, default=None,
+                    help="total row count. Default: sum(STRATA_TARGETS) = 12000 "
+                         "under stratified sampling, 600 under --no-stratify.")
     ap.add_argument("--out", default="data/sft_train.jsonl")
     ap.add_argument("--val-frac", type=float, default=0.1)
     ap.add_argument("--no-teacher", action="store_true",
-                    help="skip the Groq teacher; use templated targets only")
+                    help="skip the NVIDIA teacher; use templated targets only")
     ap.add_argument("--teacher-model", default=None,
-                    help="Groq model for the teacher (default: GroqClient's default). "
-                         "Daily quotas are per-model, so switching models resets the budget.")
+                    help="NVIDIA NIM model id for the teacher (default: NvidiaClient's "
+                         "default, nvidia/nemotron-3-super-120b-a12b).")
+    ap.add_argument("--no-stratify", action="store_true",
+                    help="sample pairs uniformly (old behaviour) instead of the "
+                         "RULES-threat-tier stratification (AUDIT.md V5 Phase 1 step 1)")
     ap.add_argument("--append", action="store_true",
                     help="add to the existing --out dataset instead of overwriting it "
                          "(loads train+val, re-shuffles, re-splits). For accumulating "
@@ -304,26 +349,35 @@ def main():
     args = ap.parse_args()
     if args.seed is None:
         args.seed = 42 if not args.append else random.SystemRandom().randrange(1 << 30)
+    if args.n is None:
+        args.n = sum(STRATA_TARGETS.values()) if not args.no_stratify else 600
 
     teacher = None
     if not args.no_teacher:
-        from swarm_intent.llm.client import GroqClient
+        from swarm_intent.llm.client import NvidiaClient
         # max_tokens=3072: reasoning teachers (qwen3 family) spend hundreds of
         # <think> tokens before the JSON; 1024 truncates mid-answer. Harmless
         # cap for non-reasoning teachers, which finish well under it.
-        teacher = (GroqClient(model=args.teacher_model, max_tokens=3072)
+        teacher = (NvidiaClient(model=args.teacher_model, max_tokens=3072)
                    if args.teacher_model
-                   else GroqClient(max_tokens=3072))  # reads GROQ_API_KEY
+                   else NvidiaClient(max_tokens=3072))  # reads NVIDIA_API_KEY
 
     rng = random.Random(args.seed)
-    pairs = list(RULES.keys()) + [(a, b) for a in BASE_FORMATIONS for b in BASE_FORMATIONS]
+    if args.no_stratify:
+        pairs = list(RULES.keys()) + [(a, b) for a in BASE_FORMATIONS for b in BASE_FORMATIONS]
+        pair_sequence = [rng.choice(pairs) for _ in range(args.n)]
+    else:
+        # scale STRATA_TARGETS proportionally if --n overrides the 12000 default
+        scale = args.n / sum(STRATA_TARGETS.values())
+        targets = {tier: round(target * scale) for tier, target in STRATA_TARGETS.items()}
+        pair_sequence = build_stratified_pairs(rng, targets)
+    args.n = len(pair_sequence)  # rounding in the stratified path can shift the exact total
     rows = []
     n_teacher_ok = 0
     n_gen = 0
     consec_fails = 0
     t0 = time.monotonic()
-    for _ in range(args.n):
-        form_a, form_b = rng.choice(pairs)
+    for form_a, form_b in pair_sequence:
         ctx, key_windows = synth_context(form_a, form_b, rng)
         # Build the exact prompt the real pipeline uses.
         prompt = build_llm_prompt(
