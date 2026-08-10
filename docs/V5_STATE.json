@@ -1,6 +1,6 @@
 {
   "phase": 0,
-  "step": 43,
+  "step": 44,
   "status": "Step 41 COMPLETE (docs/V5_LOG.md): mechanism isolated. Acceleration capping (step 39) tested and REJECTED as the explanation -- capped vs uncapped produced an IDENTICAL collapse (13.2%/0.0%/0.0% to 4 decimal places). Real mechanism: split_and_normalize global train_std scalar 1.71x inflated by high-drift outlier windows (step 40). Fix: robust=True mode (P5-P95 trimmed scalar) added to split_and_normalize, requires zero eval-path changes (still two saved scalars). Tested with acceleration COMPLETELY UNCAPPED: collapse resolved, test_acc 13.2%->87.7%, chain-2 pair/threat 0.0%/0.0%->51.8%/60.5%. ACCEL_SPEED_CAP REVERTED (verified bit-identical to pre-step-39 code) -- corrected the step-39 record so it does not overstate what that change accomplished. Steps 2/3 of the isolation protocol addressed without separate runs (moot / already satisfied). DECISION GATE reported literally: corrected does NOT yet strictly beat baseline in this single run (51.8%<57.0% pair, 60.5%<63.2% threat) though the gap is now single-digit (was 60+) and baseline itself swung ~10pts test_acc / ~5pts threat_acc across nominally-identical reruns (steps 37/39/41) -- real training noise, not a data difference. VERDICT: NO-GO, narrowly -- single run insufficient statistical power for a confident call either way. Recorded in HISTORY.md as its own standalone decision (part 4). Recommended next step (not started): repeat this exact comparison across several seeds to separate signal from noise before a final call. Full-scale generation and retraining remain NOT AUTHORIZED. STOPPING per instruction after step 4/41.",
   "status_pre_step27": "Chain-2 generator-fix consolidation + source symmetrization COMPLETE (docs/V5_LOG.md step 26, 3 commits: 3591051 consolidation, 9061392 symmetrization, + docs/results commit -- no STGT/bridge/LLM code changed, same frozen strategy-5 checkpoint). Step 1: consolidated 5 duplicate copies of build_long_sequence_labeled into src/swarm_intent/eval_trajectories.py (4 live scripts now import it; 1 frozen historical-reproduction script deliberately excluded, documented); confirmed NONE of the 5 ever fed real STGT training data (that's generate_dataset(), separate code). Step 2: symmetrized LEAD_IN_RANGE (15,35)->(30,50), derived the same way as MIN_DWELL_RANGE (lead_in>=25 for a window-0 majority, no stride-slack term since window 0 always starts at t=0); verified source OBS_NONE 16.3%->0.0% at population scale. Step 3: chain-2 pair_acc 39.9%->65.8% (was 18.7% original baseline, 3.5x total), threat_acc 72.1%->76.3%. Step 4: refined 20-case taxonomy found 100% boundary/blend-timing-concentrated failures, 0% clean (non-boundary) misses. Step 5: chain-3+ false-positive rate investigated and RESOLVED (12.6%->1.8%, below the 9.0% original baseline, p=4.3e-07) -- mechanistically explained by the shared per-hop sampling loop, not a bug, not noise (dest-only-fix regression itself was only borderline significant, p=0.062). Step 6: blend-timing overlap re-checked, STILL 0.0%, unchanged across 3 independent formula revisions. Decision: B -- blend-timing distribution mismatch is the dominant remaining issue, should be fixed BEFORE any STGT training/capacity change, not decision A as step 25 projected. STOPPING per instruction -- no STGT retraining, no blend-distribution fix started this session.",
   "halts_cleared": [],
@@ -1508,6 +1508,34 @@
       },
       "notable": "corrected own run-to-run std is SMALLER than baseline on both chain-2 metrics (pair 3.92 vs 7.10, threat 2.46 vs 5.49) -- more consistent seed-to-seed despite a lower mean",
       "log_doc": "docs/V5_LOG.md step 43",
+      "raw_data": "evaluation/phase0_variance_measurement.json"
+    },
+    "phase0_step44_statistical_comparison": {
+      "checked": "2026-08-10T04:35:00Z",
+      "method": "Welch's t-test (unequal variance), corrected vs baseline, n=5 each",
+      "results": {
+        "test_acc": {
+          "delta": -0.0082,
+          "t": -0.239,
+          "p": 0.8174,
+          "verdict": "no difference"
+        },
+        "pair_acc": {
+          "delta": -0.0929,
+          "t": -2.294,
+          "p": 0.06,
+          "verdict": "borderline, trending worse"
+        },
+        "threat_acc": {
+          "delta": -0.0824,
+          "t": -2.741,
+          "p": 0.0366,
+          "verdict": "significant, worse"
+        }
+      },
+      "verdict": "NOT a statistical tie. test_acc indistinguishable (p=0.82) but chain-2 pair/threat accuracy consistently lower for corrected across all 5 seeds on both metrics, threat_acc reaching conventional significance (p=0.037), pair_acc just short (p=0.060) with same direction and similar effect size -- a coherent signal, not noise. Corrected-port is more likely worse than baseline at 5-seed resolution.",
+      "standing_note_added": "single-run comparisons at this dataset scale are not reliable below roughly 5-7 points of difference (observed std range) -- added to docs/V5_LOG.md step 44 and this entry for future strategy decisions. Small-scale std is a conservative (likely oversized) estimate for full-scale runs, offered as best available evidence without re-running full-scale strategies multiple times.",
+      "log_doc": "docs/V5_LOG.md step 44",
       "raw_data": "evaluation/phase0_variance_measurement.json"
     }
   },
