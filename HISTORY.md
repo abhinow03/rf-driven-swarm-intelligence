@@ -729,3 +729,54 @@ small-scale comparison, which was designed to be cheap and directionally informa
 substitute for the program's own established ceiling-measurement standard. **Flagged as ready
 for that go/no-go. Not started this session. Stopping here for the decision, per explicit
 instruction.**
+
+## Decision, 2026-08-10 (part 8): the full-scale gate — 5-seed tie did not hold, and a stale headline number corrected
+
+**Also its own decision, distinct from parts 1-7 and Strategy 7. This is the real gate.**
+Trained the candidate at full scale (single seed=100, `n_transition=9000` hops matching the
+standing baseline's own independent-sample count, class skew accepted per part 7/step 50's
+reasoning) and ran the exact 1000-trajectory stratified ceiling protocol used throughout
+Phase 0 against both the candidate and the standing strategy-5 checkpoint.
+
+**Per-chain-length (threat first, robust=True):**
+
+| chain | n | baseline | candidate | delta |
+|---|---|---|---|---|
+| 1 (steady) | 275 | 87.6% | 87.3% | -0.3pt (tied) |
+| **2 (transition)** | 219 | **77.2%** | **60.3%** | **-16.9pt** |
+| 3+ (false-positive rate, lower is better) | 506 | 1.8% | 4.3% | +2.5pt (worse) |
+
+**The 5-seed tie did not hold at full resolution. Chain-2 — the exact class this port was
+built to fix — regressed by 16.9 points, and chain-3+'s false-positive rate more than
+doubled.** This is a real and useful negative result precisely because the 5-seed
+confirmation (part 7) looked so clean; the small-scale test's own limitations (discussed at
+the time — smaller n, larger noise) turned out to matter here.
+
+**A significant, separate finding surfaced while reconciling this against the historical
+"58.7%" figure cited as the standing baseline: that figure is stale.** It was measured at
+step 11, before the dwell-time fix (steps 24-26) that raised chain-2 threat accuracy from
+~40% to 77.2%. Using the identical pooling formula on the CURRENT codebase (verified against
+step 26's independently-audited chain-2 figures, matching to the decimal point), the standing
+checkpoint's true current threat ceiling is **83.0%** (pair accuracy 77.3%), not 58.7%. Nobody
+had recomputed the pooled headline number after the dwell-time fix landed — every subsequent
+report cited chain-2's number in isolation. **This means the standing checkpoint already
+clears the program's original 70% pair-level floor (77.3%, +7.3pt above 70%) — a fact that
+predates this session's port work entirely.**
+
+**Decision gate: the candidate loses.** Against the correctly-updated baseline (83.0%
+threat / 77.3% pair), the candidate scores 75.3% threat / 68.8% pair — a real, ~7-8 point
+deficit, not a rounding artifact. **The standing strategy-5 checkpoint (`swarm_data/best_model.pt`)
+remains Phase 0's checkpoint.** `docs/CEILING.md`'s headline is corrected to 83.0%/77.3% —
+not because the candidate won (it didn't), but because the existing "58.7%" figure was simply
+wrong for the current codebase and needed fixing regardless of this session's outcome.
+
+**Recommendation on C-track vs. B, against the actual stated threshold, not qualitatively**:
+the standing checkpoint's threat ceiling (83.0%) and pair accuracy (77.3%) are both already
+well past the "cross 60-65%" trigger for reconsidering C-track work, and past the original
+70% pair-level floor too. **Recommend moving to Phase 1 (B) — accept the current ceiling and
+transition — rather than further C-track sessions.** The corrected-port line of work (parts
+1-8 of 2026-08-10) is closed: it fixed real bugs along the way (a stale Monte Carlo script,
+an acceleration-cap red herring correctly ruled out, a genuine effective-dataset-size insight
+confirmed at small scale) but does not beat the properly-measured standing checkpoint at full
+scale, and the standing checkpoint alone already clears the bar that would justify continuing
+C-track work in the first place. No further training this session, per instruction.

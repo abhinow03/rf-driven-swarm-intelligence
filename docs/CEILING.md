@@ -90,6 +90,27 @@ against the standing guard-fix/dwell-time-fix baseline (58.7% robust threat ceil
 same rigor applied throughout this program, not yet run. See `HISTORY.md`'s 2026-08-10
 part-7 decision entry.
 
+**Update, same day, part 8 — the full gate: candidate loses, AND the "58.7%" figure above is
+stale.** Full 1000-trajectory stratified comparison (seed=999, same protocol throughout):
+chain-1 tied (87.6%→87.3% threat, robust=True); **chain-2 — the class this port exists to
+fix — regressed 16.9 points (77.2%→60.3% threat)**; chain-3+ false-positive rate more than
+doubled (1.8%→4.3%). The 5-seed tie (part 7) did not hold at full resolution.
+**Verdict: candidate loses. The standing strategy-5 checkpoint (`swarm_data/best_model.pt`)
+remains Phase 0's checkpoint — no change to which model is in use.**
+
+Separately: the "58.7%" figure cited above (and throughout this session) as the standing
+baseline is now known to be **stale** — it was measured at step 11, before the dwell-time fix
+(steps 24-26) raised chain-2 threat accuracy from ~40% to 77.2%. Recomputed on the current
+codebase with the identical pooling formula (verified against step 26's audited chain-2
+figures, matching exactly): the true current value is **83.0% threat / 77.3% pair**. Per this
+file's own 2026-08-09 stratification policy, this pooled figure is reported here **only as a
+compatibility bridge explaining why 58.7% no longer applies** — it is not a new pooled
+headline superseding stratified reporting. **The authoritative current numbers remain the
+stratified ones**: chain-1 87.6% threat / 85.8% pair, chain-2 77.2% threat / 66.7% pair
+(robust=True; see the "Current state" sections above). Both, independently, already clear the
+program's original 70% pair-level floor and the 60-65% C-track-reconsideration threshold.
+Full detail: `HISTORY.md`'s 2026-08-10 part-8 decision entry.
+
 ## Current state (stratified), 2026-08-09 — supersedes every pooled number below (chain-2 numbers here are further superseded above)
 
 `scripts/phase0_chainlength_breakdown.py --n 1000`, seed=999 (the standing ceiling
