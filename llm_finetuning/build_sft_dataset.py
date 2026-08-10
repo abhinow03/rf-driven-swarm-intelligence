@@ -277,30 +277,33 @@ def synth_context(form_a: str, form_b: str, rng: random.Random) -> tuple[str, li
     return ctx, key_windows
 
 
-def gold_assessment(form_a, form_b, ctx, teacher=None, prompt=None) -> tuple[dict, bool]:
-    """Returns (assessment, used_teacher). The teacher must see the same
-    schema-bearing prompt the student trains on — otherwise its JSON comes
-    back with different keys and every draft.get() silently falls back to
-    the template (the bug that produced a fully-templated v2 dataset)."""
+def build_teacher_prompt(form_a: str, form_b: str, ctx: str, prompt: Optional[str] = None) -> str:
+    """The teacher must see the same schema-bearing prompt the student trains
+    on -- otherwise its JSON comes back with different keys and every
+    draft.get() silently falls back to the template (the bug that produced a
+    fully-templated v2 dataset). Only the teacher sees the canonical rule
+    labels (the student prompt in the dataset stays label-free) -- without
+    this, a teacher that disagrees with RULES writes threat_reasoning arguing
+    for its own prediction, which then contradicts the overridden
+    threat_level in the saved row."""
     threat, intent, action = RULES.get((form_a, form_b), DEFAULT_RULE)
-    draft = {}
-    if teacher is not None:
-        base = prompt or f"Given this UAV swarm tactical context, write the JSON assessment.\n\n{ctx}"
-        # Only the teacher sees the canonical rule labels (the student prompt in
-        # the dataset stays label-free). Without this, a teacher that disagrees
-        # with RULES writes threat_reasoning arguing for its own prediction,
-        # which then contradicts the overridden threat_level in the saved row.
-        teacher_prompt = (
-            f"{base}\n\n"
-            f"GROUND TRUTH from the canonical rule engine — use exactly these values, "
-            f'do not deviate: threat_level="{threat}", likely_intent="{intent}", '
-            f'recommended_action="{action}". Write situation_summary, threat_reasoning, '
-            f"key_indicators and follow_up_watch so they genuinely support this assessment."
-        )
-        draft = teacher.complete(teacher_prompt)
-        if not isinstance(draft, dict) or "error" in draft:
-            draft = {}
-    # Override the decision fields with the canonical rule (clean labels).
+    base = prompt or f"Given this UAV swarm tactical context, write the JSON assessment.\n\n{ctx}"
+    return (
+        f"{base}\n\n"
+        f"GROUND TRUTH from the canonical rule engine — use exactly these values, "
+        f'do not deviate: threat_level="{threat}", likely_intent="{intent}", '
+        f'recommended_action="{action}". Write situation_summary, threat_reasoning, '
+        f"key_indicators and follow_up_watch so they genuinely support this assessment."
+    )
+
+
+def finalize_assessment(form_a: str, form_b: str, draft: Optional[dict]) -> tuple[dict, bool]:
+    """Overrides the decision fields with the canonical rule (clean labels),
+    filling in templated prose wherever the teacher draft is missing/failed.
+    Returns (assessment, used_teacher)."""
+    threat, intent, action = RULES.get((form_a, form_b), DEFAULT_RULE)
+    if not isinstance(draft, dict) or "error" in draft:
+        draft = {}
     used_teacher = bool(draft.get("situation_summary"))
     return {
         "situation_summary": draft.get("situation_summary",
@@ -317,6 +320,16 @@ def gold_assessment(form_a, form_b, ctx, teacher=None, prompt=None) -> tuple[dic
         "follow_up_watch": draft.get("follow_up_watch",
             "Monitor formation and approach rate over the next window."),
     }, used_teacher
+
+
+def gold_assessment(form_a, form_b, ctx, teacher=None, prompt=None) -> tuple[dict, bool]:
+    """Unbatched convenience wrapper (kept for --no-stratify/single-item call
+    sites and any external importers) -- one teacher.complete() call, then
+    finalize_assessment(). main()'s generation loop calls the two halves
+    separately so it can batch build_teacher_prompt()'s output through
+    teacher.complete_batch() instead."""
+    draft = teacher.complete(build_teacher_prompt(form_a, form_b, ctx, prompt)) if teacher is not None else {}
+    return finalize_assessment(form_a, form_b, draft)
 
 
 def main():
@@ -346,6 +359,10 @@ def main():
     ap.add_argument("--seed", type=int, default=None,
                     help="default 42, but randomized under --append so re-runs don't "
                          "regenerate duplicate scenarios")
+    ap.add_argument("--concurrency", type=int, default=16,
+                    help="teacher API calls in flight at once (thread pool, "
+                         "NvidiaClient/GroqClient generate_batch). 1 = fully serial. "
+                         "Keep within whatever concurrent-request limit the provider allows.")
     args = ap.parse_args()
     if args.seed is None:
         args.seed = 42 if not args.append else random.SystemRandom().randrange(1 << 30)
@@ -377,39 +394,59 @@ def main():
     n_gen = 0
     consec_fails = 0
     t0 = time.monotonic()
-    for form_a, form_b in pair_sequence:
-        ctx, key_windows = synth_context(form_a, form_b, rng)
-        # Build the exact prompt the real pipeline uses.
-        prompt = build_llm_prompt(
-            predictions=[{**kw, "time_start_s": 0, "time_end_s": 0,
-                          "formation_type": kw["formation"], "centroid_velocity": kw["velocity"],
-                          "approach_rate": kw["approach"], "formation_stability": kw["stability"],
-                          "formation_confidence": kw["confidence"],
-                          "role_differentiation": kw["role_differentiation"],
-                          "transition_from": kw["from"], "transition_to": kw["to"]} for kw in key_windows],
-            tactical_context=ctx, summary={})
-        gold, used_teacher = gold_assessment(form_a, form_b, ctx, teacher, prompt=prompt)
-        n_gen += 1
-        n_teacher_ok += used_teacher
+    stop_early = False
+    chunk_size = max(1, args.concurrency)
+    for chunk_start in range(0, len(pair_sequence), chunk_size):
+        chunk = pair_sequence[chunk_start:chunk_start + chunk_size]
+        # Cheap, CPU-only per-item work stays sequential; only the teacher
+        # network calls are batched/concurrent.
+        chunk_ctx, chunk_prompts = [], []
+        for form_a, form_b in chunk:
+            ctx, key_windows = synth_context(form_a, form_b, rng)
+            prompt = build_llm_prompt(
+                predictions=[{**kw, "time_start_s": 0, "time_end_s": 0,
+                              "formation_type": kw["formation"], "centroid_velocity": kw["velocity"],
+                              "approach_rate": kw["approach"], "formation_stability": kw["stability"],
+                              "formation_confidence": kw["confidence"],
+                              "role_differentiation": kw["role_differentiation"],
+                              "transition_from": kw["from"], "transition_to": kw["to"]} for kw in key_windows],
+                tactical_context=ctx, summary={})
+            chunk_ctx.append(ctx)
+            chunk_prompts.append(prompt)
+
         if teacher is not None:
-            consec_fails = 0 if used_teacher else consec_fails + 1
-            if args.max_teacher_fails and consec_fails >= args.max_teacher_fails:
-                print(f"STOPPING EARLY: {consec_fails} consecutive teacher fallbacks — "
-                      "daily token quota likely exhausted. Re-run later with --append, "
-                      "or switch quota pools with --teacher-model.", flush=True)
-                break
-        if args.teacher_only and not used_teacher:
-            continue
-        rows.append({"messages": [
-            {"role": "user", "content": prompt},
-            {"role": "assistant", "content": json.dumps(gold, indent=2)},
-        ]})
-        if n_gen % 25 == 0:
-            elapsed = time.monotonic() - t0
-            eta = elapsed / n_gen * (args.n - n_gen)
-            print(f"{n_gen}/{args.n} generated ({len(rows)} kept, {n_teacher_ok} with "
-                  f"teacher prose) [{elapsed/60:.1f} min elapsed, ~{eta/60:.1f} min left]",
-                  flush=True)
+            teacher_prompts = [build_teacher_prompt(fa, fb, ctx, prompt) for (fa, fb), ctx, prompt
+                               in zip(chunk, chunk_ctx, chunk_prompts)]
+            drafts = teacher.complete_batch(teacher_prompts, batch_size=chunk_size)
+        else:
+            drafts = [None] * len(chunk)
+
+        for (form_a, form_b), prompt, draft in zip(chunk, chunk_prompts, drafts):
+            gold, used_teacher = finalize_assessment(form_a, form_b, draft)
+            n_gen += 1
+            n_teacher_ok += used_teacher
+            if teacher is not None:
+                consec_fails = 0 if used_teacher else consec_fails + 1
+                if args.max_teacher_fails and consec_fails >= args.max_teacher_fails:
+                    print(f"STOPPING EARLY: {consec_fails} consecutive teacher fallbacks — "
+                          "daily token quota likely exhausted. Re-run later with --append, "
+                          "or switch quota pools with --teacher-model.", flush=True)
+                    stop_early = True
+                    break
+            if args.teacher_only and not used_teacher:
+                continue
+            rows.append({"messages": [
+                {"role": "user", "content": prompt},
+                {"role": "assistant", "content": json.dumps(gold, indent=2)},
+            ]})
+
+        elapsed = time.monotonic() - t0
+        eta = elapsed / n_gen * (args.n - n_gen) if n_gen else 0.0
+        print(f"{n_gen}/{args.n} generated ({len(rows)} kept, {n_teacher_ok} with "
+              f"teacher prose) [{elapsed/60:.1f} min elapsed, ~{eta/60:.1f} min left]",
+              flush=True)
+        if stop_early:
+            break
 
     os.makedirs(os.path.dirname(args.out) or ".", exist_ok=True)
     val_path = args.out.replace(".jsonl", "_val.jsonl")

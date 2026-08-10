@@ -2591,6 +2591,53 @@ a small end-to-end smoke test of `build_sft_dataset.py` itself (stratified sampl
 teacher client + RULES override, on ~20 rows) before committing to the full 12,000-row/
 NVIDIA-metered run.
 
+## 2026-08-10 — Phase 1: throughput calibration, full corpus run launched
+
+**Serial smoke test (20 rows): 72s/example — full 12,000-row run would take ~10 days.** Not
+viable. User directed parallelization.
+
+**Implemented concurrent teacher calls.** `_ThreadedBatchMixin.generate_batch()`
+(`src/swarm_intent/llm/client.py`) runs `generate()` across a `ThreadPoolExecutor`
+(`batch_size` = `max_workers`), same per-item 3-attempt/backoff retry as `complete()`, total
+failure returns `""` (fails JSON parse downstream → treated as a normal template-fallback row,
+not a crash). `GroqClient`/`NvidiaClient` both mix it in — this is a client-layer capability,
+not tied to the teacher swap. `build_sft_dataset.py`'s `gold_assessment()` split into
+`build_teacher_prompt()` + `finalize_assessment()` so `main()`'s generation loop can batch a
+whole chunk's teacher prompts through `teacher.complete_batch()` instead of one call at a time;
+new `--concurrency` flag (default 16) sets chunk size / thread count.
+
+**Calibration sweep (small batches, `~sqrt` bisection over 16-48), teacher-prose hit rate is
+the quality signal (drop = rate-limiting, not a crash — requests degrade to templated fallback,
+they don't fail loudly):**
+
+| concurrency | s/example | teacher-hit rate | effective teacher-rows/hr |
+|---|---|---|---|
+| 16 | 12.7 | 97% (31/32) | ~275 |
+| 24 | 6.9 | 87% (20/23) | ~454 |
+| 32 | 7.1 | 82% (27/33) | ~416 |
+| 40 | 3.0 | 62% (25/40) | ~744 |
+| 48 | 3.9 | 40% (19/47) | ~369 — triggers the script's own <50% quality WARNING |
+
+**Not a clean unimodal curve** — samples are n=23-47 per point, so the ordering between 24/32/40
+is within plausible binomial noise (and/or NVIDIA-side load varying in real time across the ~20
+minutes these 5 tests spanned), not a stable ranking. 48 is unambiguously bad (crosses the
+existing 50% warning threshold). **Chose concurrency=24**: near the high end of the
+still-clean range, keeps teacher-hit rate close to the unthrottled 87-97% band (quality matters
+here — the whole point of teacher distillation is the fluent varied prose a template fallback
+doesn't have; chasing 40's raw throughput number would mean >1/3 of the corpus reverting to
+templated text), while still ~1.8x faster than 16.
+
+**Full run launched**: `python llm_finetuning/build_sft_dataset.py --concurrency 24
+--max-teacher-fails 100 --out data/sft_train_v5_phase1.jsonl` (tmux `v5`, `tail -f
+/tmp/v5_build_sft_full_run.log`). New output path, NOT `data/sft_train.jsonl` — that file is
+git-tracked, already holds 2,700 rows from earlier (pre-Phase-1) work, not overwritten.
+`--max-teacher-fails` raised 20→100 for this run specifically: at ~85% single-item hit rate a
+transient rate-limit burst could plausibly string together 20 misses (correlated failures
+across a chunk, not independent draws) and would incorrectly halt an unattended multi-hour job;
+100 still catches genuine sustained quota exhaustion. First chunk: 24/24 kept, 100% teacher
+prose, ETA ~888 min (~14.8h) — will re-report the actual total once it completes or if the
+hit rate degrades meaningfully from the calibrated range.
+
 | stratum | uniform target (blocked) | fallback target |
 |---|---|---|
 | low | 3,000 | 3,600 |

@@ -18,12 +18,42 @@ import json
 import os
 import re
 import time
+from concurrent.futures import ThreadPoolExecutor
 from typing import Optional
 
 import requests
 
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
 NVIDIA_URL = "https://integrate.api.nvidia.com/v1/chat/completions"
+
+
+def _generate_one_with_retry(client: "LLMClient", prompt: str, system_prompt: Optional[str]) -> str:
+    """Same 3-attempt/exponential-backoff shape as LLMClient.complete(), but
+    returns raw text (never raises) so a single flaky/rate-limited request in a
+    threaded batch can't take down the whole batch. Total failure returns ""
+    -- fails JSON parsing downstream, which complete_batch's caller already
+    treats as a normal per-row teacher fallback."""
+    for attempt in range(3):
+        try:
+            return client.generate(prompt, system_prompt=system_prompt)
+        except Exception:
+            if attempt == 2:
+                return ""
+            time.sleep(2 ** attempt)
+    return ""
+
+
+class _ThreadedBatchMixin:
+    """Mixin for HTTP-API clients (network-bound, GIL-released during I/O):
+    runs generate() concurrently across a thread pool instead of LocalHFClient's
+    GPU-batched forward pass. batch_size doubles as max_workers -- keep it
+    within whatever concurrent-request limit the provider actually allows."""
+
+    def generate_batch(self, prompts: list[str], batch_size: int = 8,
+                       system_prompt: Optional[str] = None) -> list[str]:
+        with ThreadPoolExecutor(max_workers=batch_size) as ex:
+            futures = [ex.submit(_generate_one_with_retry, self, p, system_prompt) for p in prompts]
+            return [f.result() for f in futures]
 
 
 def _extract_json(text: str) -> dict:
@@ -91,7 +121,7 @@ class LLMClient:
         raise NotImplementedError
 
 
-class GroqClient(LLMClient):
+class GroqClient(_ThreadedBatchMixin, LLMClient):
     def __init__(self, model: str = "llama-3.3-70b-versatile",
                  api_key: Optional[str] = None, temperature: float = 0.3,
                  max_tokens: int = 1024):
@@ -117,7 +147,7 @@ class GroqClient(LLMClient):
         return resp.json()["choices"][0]["message"]["content"]
 
 
-class NvidiaClient(LLMClient):
+class NvidiaClient(_ThreadedBatchMixin, LLMClient):
     """NVIDIA NIM-hosted teacher (build.nvidia.com), OpenAI-compatible endpoint.
     Replaces GroqClient as the Phase 1 corpus-generation teacher (AUDIT.md V5
     Phase 1 step 0) -- same request/response shape, so build_sft_dataset.py's
