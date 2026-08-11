@@ -3197,3 +3197,35 @@ best-performing arm.
 replacement proposed. Step 2 (diversity): gate confirmed to hold under a stricter check. Step
 3 (preregistration): committed. `train_sft_v5.py` may now be run for real per the original
 instruction's condition.
+
+## 2026-08-11 (later) — judge fix implemented (not deferred)
+
+Added `default_judge_client()` + `JUDGE_MODEL = "meta/llama-3.1-70b-instruct"` to
+`src/swarm_intent/llm/client.py`, routed through `NvidiaClient` (already-verified
+infrastructure) instead of `GroqClient`. Updated all 11 call sites that constructed a Groq
+judge (10 identified in the blast-radius check plus `run_v3c_eval.py`, found during the
+sweep and fixed for consistency): `run_degradation_eval.py`, `eval_composite.py`,
+`run_4way_eval.py`, `run_stratified_abstention_retest.py`,
+`run_holdout_eval_rules_in_prompt.py`, `evaluate_finetuned.py`, `run_degradation_eval_v3.py`,
+`run_holdout_eval.py`, `run_masking_ablation.py`, `run_headline_eval.py`,
+`run_v3c_eval.py`. `evaluate_finetuned.py`'s pattern was actually a latent crash risk fixed as
+a side effect: it previously constructed `GroqClient(...)` unconditionally unless
+`--no-judge` was passed, which would raise at construction if `GROQ_API_KEY` wasn't set;
+`default_judge_client()` returns `None` gracefully instead.
+
+**Verified (not assumed), via the `NVIDIA_API_KEY` already exported in the tmux `v5` session
+so the credential was never re-typed into any command this session:**
+
+- **(a) live judge call succeeds**: `judge.complete(...)` round-tripped a real
+  `meta/llama-3.1-70b-instruct` call and returned a parseable `{"overall_score": ...}`.
+- **(b) headline/objective metrics are byte-identical with judge present vs. absent**: ran
+  `evaluate_llm` on a tiny stub battery with `judge_client=None` and with the real judge
+  client, stripped only the `judge_overall_mean` field from each, and diffed — identical.
+  Confirmed the judge fields themselves DID differ correctly (`judge_overall_mean` populated
+  only when a judge was passed) — proving the judge was genuinely exercised, not silently
+  skipped, while never touching the metrics that matter. This directly confirms the
+  "advisory-only, never load-bearing" design still holds under the new client.
+- **(c) no circularity**: `JUDGE_MODEL` (`meta/llama-3.1-70b-instruct`) is a different model
+  from the Phase 1 teacher (`nvidia/nemotron-3-super-120b-a12b`) and appears nowhere in
+  `train_sft_v5.py`'s training path or the Phase 1 corpus-generation scripts — confirmed
+  clean, no self-grading/contamination risk.

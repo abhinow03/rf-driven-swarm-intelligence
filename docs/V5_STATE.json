@@ -2034,6 +2034,16 @@
       },
       "grounding": "ceiling 83.0%/77.3% explicitly rejected as unreachable-by-construction; v2's best prior real-STGT-output number (51.8% pooled / 68.6% low-threat, AUDIT.md sec AF) used as the floor-to-beat reference.",
       "gate_status": "ALL THREE pre-training gate items now resolved -- train_sft_v5.py may be run for real per the original instruction's condition (step 1 Groq: not blocked, replacement proposed; step 2 diversity: gate holds under stricter check; step 3 preregistration: committed)."
+    },
+    "judge_fix_implemented": {
+      "date": "2026-08-11",
+      "change": "src/swarm_intent/llm/client.py: added JUDGE_MODEL='meta/llama-3.1-70b-instruct' and default_judge_client() (NvidiaClient-backed). Updated all 11 GroqClient judge call sites (10 from the blast-radius check + run_v3c_eval.py found during the sweep): run_degradation_eval.py, eval_composite.py, run_4way_eval.py, run_stratified_abstention_retest.py, run_holdout_eval_rules_in_prompt.py, evaluate_finetuned.py, run_degradation_eval_v3.py, run_holdout_eval.py, run_masking_ablation.py, run_headline_eval.py, run_v3c_eval.py. evaluate_finetuned.py's old pattern was a latent crash risk (unconditional GroqClient() construction) fixed as a side effect.",
+      "verification": {
+        "a_live_call": "PASS -- judge.complete() round-tripped a real meta/llama-3.1-70b-instruct call, parseable JSON returned",
+        "b_byte_identical_headline_metrics": "PASS -- evaluate_llm on a stub battery with judge_client=None vs a real judge: per_case results identical except judge_overall_mean (populated only when judge present, None when absent) -- advisory-only design confirmed still holds",
+        "c_no_circularity": "PASS -- JUDGE_MODEL != nemotron (Phase 1 teacher), not referenced anywhere in train_sft_v5.py or corpus-generation scripts"
+      },
+      "credential_handling": "verified via the NVIDIA_API_KEY already exported in the tmux v5 session -- never re-typed into any command this session"
     }
   },
   "parallel_prep": {

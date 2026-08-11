@@ -32,7 +32,7 @@ REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO / "src"))
 sys.path.insert(0, str(REPO / "llm_finetuning"))
 
-from swarm_intent.llm.client import GroqClient, LocalHFClient  # noqa: E402
+from swarm_intent.llm.client import LocalHFClient, JUDGE_MODEL, default_judge_client  # noqa: E402
 from swarm_intent.llm.evaluate import evaluate_llm  # noqa: E402
 from swarm_intent.llm.prompts import TEST_CASES, ORIGINAL_TEST_CASES  # noqa: E402
 from swarm_intent.progress import Reporter  # noqa: E402
@@ -53,12 +53,11 @@ def main():
     ap.add_argument("--out-dir", default=str(REPO / "evaluation"))
     args = ap.parse_args()
 
-    judge = None
-    if os.environ.get("GROQ_API_KEY"):
-        judge = GroqClient(model="llama-3.3-70b-versatile")
-        print("judge: llama-3.3-70b-versatile (advisory only)")
+    judge = default_judge_client()
+    if judge:
+        print(f"judge: {JUDGE_MODEL} via NVIDIA NIM (advisory only)")
     else:
-        print("GROQ_API_KEY not set — running WITHOUT a judge; objective metrics unaffected")
+        print("NVIDIA_API_KEY not set — running WITHOUT a judge; objective metrics unaffected")
 
     out_dir = Path(args.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)

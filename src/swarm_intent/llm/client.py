@@ -178,6 +178,34 @@ class NvidiaClient(_ThreadedBatchMixin, LLMClient):
         return resp.json()["choices"][0]["message"]["content"]
 
 
+# AUDIT.md pre-training-gate step 1: the advisory-only judge used across every
+# evaluate_llm(judge_client=...) call site was GroqClient(llama-3.3-70b-versatile).
+# Retired because (a) Groq's earlier retirement (Phase 1 step 0) was due to an
+# unverifiable key-rotation/exposure concern that was never actually confirmed
+# safe -- reusing a fresh Groq key for judge purposes would quietly reintroduce
+# that same unresolved risk, and (b) GROQ_API_KEY was never set in this
+# environment to begin with. Routed through NvidiaClient instead, since that
+# infrastructure/credential is already verified working (Phase 1 corpus
+# generation). JUDGE_MODEL is deliberately NOT nemotron -- nemotron is the
+# Phase 1 teacher that authored v5-a's own training corpus; using it as judge
+# too would contaminate the score with the exact prose/reasoning patterns v5-a
+# was fine-tuned to imitate (a variant of the self-grading bug
+# src/swarm_intent/llm/evaluate.py's own docstring already documents and fixed
+# once). Verified live (2026-08-11) via the NVIDIA_API_KEY already exported for
+# Phase 1: a real generate() call succeeded.
+JUDGE_MODEL = "meta/llama-3.1-70b-instruct"
+
+
+def default_judge_client() -> Optional["NvidiaClient"]:
+    """The advisory-only judge every eval script passes as evaluate_llm's
+    judge_client. Returns None if NVIDIA_API_KEY isn't set -- every call site
+    already handles a None judge gracefully (this is by design: the judge is
+    advisory-only, never load-bearing for headline/objective metrics)."""
+    if not os.environ.get("NVIDIA_API_KEY"):
+        return None
+    return NvidiaClient(model=JUDGE_MODEL)
+
+
 class LocalHFClient(LLMClient):
     """Wraps a local (optionally QLoRA-fine-tuned) HuggingFace causal LM.
 

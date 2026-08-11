@@ -10,13 +10,13 @@ sec A). rules_lookup is the control: a 49-entry dict with zero model involved. I
 is EXPECTED to score at or near 100% on these 6 clean synthetic cases — that's the
 ceiling every LLM-backed system is being measured against, not a failure.
 
-Judge (llama-3.3-70b-versatile, GroqClient) is ADVISORY ONLY: the headline metrics
-(intent/threat/action accuracy, hallucination rate, abstention rate) are all
-computed independent of it. If GROQ_API_KEY isn't set, runs without a judge rather
-than blocking.
+Judge (NvidiaClient/JUDGE_MODEL, see src/swarm_intent/llm/client.py) is ADVISORY
+ONLY: the headline metrics (intent/threat/action accuracy, hallucination rate,
+abstention rate) are all computed independent of it. If NVIDIA_API_KEY isn't
+set, runs without a judge rather than blocking.
 
 Usage:
-    export GROQ_API_KEY=...   # optional, judge only
+    export NVIDIA_API_KEY=...   # optional, judge only
     python llm_finetuning/run_4way_eval.py --n-runs 5
 """
 from __future__ import annotations
@@ -32,7 +32,7 @@ REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO / "src"))
 sys.path.insert(0, str(REPO / "llm_finetuning"))
 
-from swarm_intent.llm.client import GroqClient, LocalHFClient  # noqa: E402
+from swarm_intent.llm.client import LocalHFClient, JUDGE_MODEL, default_judge_client  # noqa: E402
 from swarm_intent.llm.evaluate import evaluate_llm  # noqa: E402
 from swarm_intent.llm.prompts import TEST_CASES  # noqa: E402
 
@@ -67,12 +67,11 @@ def main():
     ap.add_argument("--out-dir", default=str(REPO / "evaluation"))
     args = ap.parse_args()
 
-    judge = None
-    if os.environ.get("GROQ_API_KEY"):
-        judge = GroqClient(model="llama-3.3-70b-versatile")
-        print("judge: llama-3.3-70b-versatile (advisory only)")
+    judge = default_judge_client()
+    if judge:
+        print(f"judge: {JUDGE_MODEL} via NVIDIA NIM (advisory only)")
     else:
-        print("GROQ_API_KEY not set — running WITHOUT a judge; "
+        print("NVIDIA_API_KEY not set — running WITHOUT a judge; "
               "objective headline metrics are unaffected")
 
     out_dir = Path(args.out_dir)

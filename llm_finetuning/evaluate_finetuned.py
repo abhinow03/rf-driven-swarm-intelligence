@@ -3,13 +3,13 @@ Evaluate the fine-tuned LLM against the prompt-engineered baseline, using an
 INDEPENDENT judge (this is the fix for the old self-judging eval).
 
 The system under test = your local fine-tuned model (LocalHFClient).
-The judge = a DIFFERENT hosted model (GroqClient, llama-3.3-70b) so no model
-grades its own output.
+The judge = a DIFFERENT hosted model (NvidiaClient/JUDGE_MODEL, see
+src/swarm_intent/llm/client.py) so no model grades its own output.
 
 Reports objective intent/threat accuracy as the HEADLINE metric.
 
 Usage:
-    export GROQ_API_KEY=...
+    export NVIDIA_API_KEY=...
     python llm_finetuning/evaluate_finetuned.py \
         --base Qwen/Qwen2.5-7B-Instruct --adapter adapters/qwen-swarm
 """
@@ -23,7 +23,7 @@ import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
-from swarm_intent.llm.client import GroqClient, LocalHFClient
+from swarm_intent.llm.client import LocalHFClient, JUDGE_MODEL, default_judge_client
 from swarm_intent.llm.evaluate import evaluate_llm
 from swarm_intent.llm.prompts import TEST_CASES
 from swarm_intent.inference import build_llm_prompt
@@ -42,7 +42,11 @@ def main():
     args = ap.parse_args()
 
     system = LocalHFClient(args.base, adapter_path=args.adapter, temperature=0.3)
-    judge = None if args.no_judge else GroqClient(model="llama-3.3-70b-versatile")
+    judge = None if args.no_judge else default_judge_client()
+    if judge:
+        print(f"judge: {JUDGE_MODEL} via NVIDIA NIM (advisory only)")
+    elif not args.no_judge:
+        print("NVIDIA_API_KEY not set — running WITHOUT a judge; objective metrics unaffected")
     rng = random.Random(0)
 
     def run_case(case):

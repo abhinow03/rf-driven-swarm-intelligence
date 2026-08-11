@@ -22,7 +22,7 @@ REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO / "src"))
 sys.path.insert(0, str(REPO / "llm_finetuning"))
 
-from swarm_intent.llm.client import GroqClient, LocalHFClient  # noqa: E402
+from swarm_intent.llm.client import LocalHFClient, JUDGE_MODEL, default_judge_client  # noqa: E402
 from swarm_intent.llm.evaluate import evaluate_llm  # noqa: E402
 from swarm_intent.llm.prompts import TEST_CASES  # noqa: E402
 from swarm_intent.progress import Reporter  # noqa: E402
@@ -44,9 +44,9 @@ def main():
     print(f"=== qwen-swarm-v3c: {n_cases} cases x {args.n_runs} runs = {total} generations ===")
     print(f"estimated runtime at --rate-hint={args.rate_hint}/s: ~{total / args.rate_hint / 60:.1f} min")
 
-    judge = None
-    if os.environ.get("GROQ_API_KEY"):
-        judge = GroqClient(model="llama-3.3-70b-versatile")
+    judge = default_judge_client()
+    if judge:
+        print(f"judge: {JUDGE_MODEL} via NVIDIA NIM (advisory only)")
 
     reporter = Reporter("run_v3c_eval", total, rate_hint=args.rate_hint)
     client = LocalHFClient(args.base, adapter_path=str(REPO / args.adapter), temperature=0.3)

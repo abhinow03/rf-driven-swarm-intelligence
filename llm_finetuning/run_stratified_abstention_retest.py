@@ -29,7 +29,7 @@ REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO / "src"))
 sys.path.insert(0, str(REPO / "llm_finetuning"))
 
-from swarm_intent.llm.client import GroqClient, LocalHFClient  # noqa: E402
+from swarm_intent.llm.client import LocalHFClient, JUDGE_MODEL, default_judge_client  # noqa: E402
 from swarm_intent.llm.evaluate import evaluate_llm  # noqa: E402
 from swarm_intent.llm.prompts import TEST_CASES  # noqa: E402
 from swarm_intent.progress import Reporter  # noqa: E402
@@ -127,12 +127,11 @@ def main():
 
     reporter = Reporter("run_stratified_abstention_retest", total_generations, rate_hint=args.rate_hint)
 
-    judge = None
-    if os.environ.get("GROQ_API_KEY"):
-        judge = GroqClient(model="llama-3.3-70b-versatile")
-        print("judge: llama-3.3-70b-versatile (advisory only)")
+    judge = default_judge_client()
+    if judge:
+        print(f"judge: {JUDGE_MODEL} via NVIDIA NIM (advisory only)")
     else:
-        print("GROQ_API_KEY not set — running WITHOUT a judge; objective metrics unaffected")
+        print("NVIDIA_API_KEY not set — running WITHOUT a judge; objective metrics unaffected")
 
     client = LocalHFClient(args.base, adapter_path=str(REPO / args.adapter), temperature=0.3)
     run_case = make_llm_battery_run_case(client)
