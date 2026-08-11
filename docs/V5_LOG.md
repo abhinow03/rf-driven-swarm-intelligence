@@ -3163,3 +3163,37 @@ directly comparable:
 only a 0.3-point drop from the exact-match figure. Near-duplication is real but small enough
 that it does not change the gate's outcome — reporting both numbers rather than only the more
 favorable exact-match one.
+
+## 2026-08-11 (later) — pre-training gate, step 3: docs/PREREGISTRATION.md created
+
+Written and committed BEFORE any v5-a training run, per instruction, so the protocol and
+success bars cannot be shaped around a result later. Full document at
+`docs/PREREGISTRATION.md`; summary:
+
+**Protocol**: 1,000 held-out real STGT trajectories (fresh seed, disjoint from every seed
+already used in this project), ground truth from the generator's own `true_chain` only
+(never from any model's bridge/reduction output — the sec AF/AG discipline), `n_runs=20` on
+volatile strata with 95% CIs, greedy decoding for every headline number, the full metric set
+from `llm_finetuning/eval_sft_v5.py`.
+
+**Success bars**, grounded in the two available reference points (the 83.0%/77.3% ceiling,
+explicitly rejected as a bar since it's unreachable by construction, and v2's best prior
+real-STGT-output number, 51.8% pooled / 68.6% low-threat, from `AUDIT.md` sec AF):
+
+| metric | bar |
+|---|---|
+| pair accuracy, pooled, when-answerable | >= 55.0% |
+| threat accuracy, `low` (per-class) | >= 65.0% |
+| threat accuracy, pooled, when-answerable | >= 55.0% |
+| over-abstention rate | <= 15.0% |
+| schema-validity rate | >= 95.0% |
+
+Deliberately modest relative to the ceiling: real STGT output has historically been much
+harder than the synthetic battery every earlier headline number in this project was measured
+against, and v5-a is the plain-SFT baseline arm of a 4-way ablation, not expected to be the
+best-performing arm.
+
+**All three pre-training gate items are now resolved.** Step 1 (Groq): not blocked, judge
+replacement proposed. Step 2 (diversity): gate confirmed to hold under a stricter check. Step
+3 (preregistration): committed. `train_sft_v5.py` may now be run for real per the original
+instruction's condition.

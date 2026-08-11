@@ -2020,6 +2020,20 @@
         "strict_090_cosine_cluster": "11191/12001 (93.3%)",
         "verdict": "PASS under both definitions, only a 0.3pt drop -- near-duplication is real but small, does not change the gate's outcome"
       }
+    },
+    "pretraining_gate_step3_preregistration": {
+      "date": "2026-08-11",
+      "file": "docs/PREREGISTRATION.md",
+      "committed_before_training": true,
+      "success_bars": {
+        "pair_accuracy_pooled_when_answerable": ">=55.0%",
+        "threat_accuracy_low_per_class": ">=65.0%",
+        "threat_accuracy_pooled_when_answerable": ">=55.0%",
+        "over_abstention_rate": "<=15.0%",
+        "schema_validity_rate": ">=95.0%"
+      },
+      "grounding": "ceiling 83.0%/77.3% explicitly rejected as unreachable-by-construction; v2's best prior real-STGT-output number (51.8% pooled / 68.6% low-threat, AUDIT.md sec AF) used as the floor-to-beat reference.",
+      "gate_status": "ALL THREE pre-training gate items now resolved -- train_sft_v5.py may be run for real per the original instruction's condition (step 1 Groq: not blocked, replacement proposed; step 2 diversity: gate holds under stricter check; step 3 preregistration: committed)."
     }
   },
   "parallel_prep": {
