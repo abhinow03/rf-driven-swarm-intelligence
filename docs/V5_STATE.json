@@ -1968,6 +1968,34 @@
         "distinct_situation_summary": "67.9% -> 93.6% overall, PASS on every split (target >=90%)",
         "prompt_overlap": "PASS, re-re-verified, still 0 across all pairwise splits"
       }
+    },
+    "phase1_step3_step3_coverage_report": {
+      "date": "2026-08-11",
+      "script": "llm_finetuning/report_phase1_coverage.py",
+      "pair_threat_coverage": {
+        "low": {"target": 3600, "actual": 3655, "pct_of_target": "101.5%"},
+        "medium": {"target": 3600, "actual": 3566, "pct_of_target": "99.1%"},
+        "high": {"target": 3600, "actual": 3562, "pct_of_target": "98.9%"},
+        "critical": {"target": 1200, "actual": 1218, "pct_of_target": "101.5%"},
+        "pair_coverage": "49/49 RULES pairs appear at least once, 0 pairs with zero rows"
+      },
+      "narrative_combination_coverage": {
+        "target": ">=8 distinct combos/pair (full space 3x3x3x2=54)",
+        "result": "0/49 pairs below target. mean=43.4, min=37, max=49.",
+        "critical_pairs": {
+          "(converging, encirclement)": {"rows": 606, "combos": 48, "rows_per_combo": 12.6},
+          "(encirclement, converging)": {"rows": 612, "combos": 49, "rows_per_combo": 12.5}
+        }
+      },
+      "source_model_distribution": {
+        "finding": "DOES NOT match a prior task instruction's assumption of '>=3 distinct Groq families actually used'. No per-row field exists to measure this directly; reconstructed from V5_LOG.md's documented history: Groq was retired entirely before any Phase 1 generation ran, replaced by a single NVIDIA NIM teacher (nvidia/nemotron-3-super-120b-a12b). Exactly 1 distinct teacher family was ever used across all 7 generation/regeneration cycles; Groq was never called during Phase 1.",
+        "reported_plainly": true
+      }
+    },
+    "phase1_step3_step4_preregistration_reverification": {
+      "date": "2026-08-11",
+      "finding": "docs/PREREGISTRATION.md does not exist anywhere in this repo (searched via find + repo-wide grep). Nothing to re-verify -- the instruction's 'same as originally scoped' framing implied this file already existed from a prior session; it does not.",
+      "recommendation_only_no_file_created_or_edited": "confirmed ceiling is 83.0% threat / 77.3% pair (V5_LOG.md Phase 0 close, seed=999, robust=True, best_model.pt sha256 18fc201d...). This is the swarm classifier's own upper bound -- any downstream LLM layer cannot exceed information the classifier already lost. A preregistered success bar for v5-a/b/c/d should be set meaningfully BELOW 83.0%/77.3%, not at or above (the LLM adds its own error on top of the classifier's ceiling). No specific number proposed -- how much headroom to reserve is a domain judgment call, same posture as RULES_EXTENSION_PROPOSAL.md's open question."
     }
   },
   "parallel_prep": {

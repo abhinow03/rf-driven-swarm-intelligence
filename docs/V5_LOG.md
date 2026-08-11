@@ -2987,3 +2987,60 @@ sft_train_v5_phase1_provenance.json` still accurately tags the residual 810 rows
 `used_teacher: false` for any future filtering/weighting need.
 
 Proceeding to step 3 (coverage report) and step 4 (preregistration re-verification).
+
+## 2026-08-11 (later) — Phase 1 step 3, step 3: coverage report
+
+`llm_finetuning/report_phase1_coverage.py`, run on the final 12,001-row regenerated corpus.
+
+**(pair, threat) coverage vs. fallback stratification target:**
+
+| tier | target | actual | delta | % of target |
+|---|---|---|---|---|
+| low | 3,600 | 3,655 | +55 | 101.5% |
+| medium | 3,600 | 3,566 | -34 | 99.1% |
+| high | 3,600 | 3,562 | -38 | 98.9% |
+| critical | 1,200 | 1,218 | +18 | 101.5% |
+
+All 49 RULES pairs appear at least once (100% pair coverage, 0 pairs with zero rows).
+
+**Narrative-combination coverage (target >=8 distinct combos/pair, full space is 3x3x3x2=54):**
+0/49 pairs fall below the target. Mean 43.4 distinct combos/pair, min 37, max 49 -- far
+exceeds the floor. Critical stratum specifically (the one flagged for extra attention):
+`(converging, encirclement)` 606 rows / 48 combos (12.6 rows/combo), `(encirclement,
+converging)` 612 rows / 49 combos (12.5 rows/combo) -- both comfortably PASS, and land close
+to the "~150 rows per cell at 8 combos" planning figure inverted (actual combos-per-pair came
+in much higher than 8, at proportionally fewer rows/combo -- more diverse, not less, than
+originally planned for).
+
+**Source-model distribution -- does NOT match the >=3-distinct-Groq-families assumption.**
+No per-row source_model field exists (step 0 already established this). Reconstructed from
+this file's own documented history instead: Groq was **retired entirely** before any Phase 1
+generation ran (2026-08-10, "Phase 1 step 0" halt-gate resolution), replaced by a single
+NVIDIA NIM-hosted teacher (`nvidia/nemotron-3-super-120b-a12b`). No teacher-model switch
+happened at any point afterward -- every one of the 7 generation/regeneration cycles used the
+same single model. **Exactly 1 distinct teacher family was ever used, not >=3 Groq families,
+and Groq was never called during Phase 1 at all.** Reporting this plainly rather than
+reconciling it silently -- the assumption in a prior task's instructions does not match this
+corpus's actual build history.
+
+## 2026-08-11 (later) — Phase 1 step 3, step 4: preregistration re-verification
+
+**`docs/PREREGISTRATION.md` does not exist anywhere in this repo.** Searched the full repo
+(`find`, plus a repo-wide grep for "preregistration") -- no file by that name, no other file
+containing preregistered bars under a different name. The instruction to "re-verify... same
+as originally scoped" implies this document was expected to already exist from a prior
+session; it does not. There is nothing to re-verify.
+
+**Recommendation only (per instruction, not creating or editing any file):** the confirmed
+ceiling this project has established is **83.0% threat accuracy / 77.3% pair accuracy**
+(`docs/V5_LOG.md` Phase 0 close, `swarm_data/best_model.pt` sha256 `18fc201d...`, full
+1000-trajectory measurement, seed=999, `robust=True`). This is the **swarm classifier's own
+upper bound** -- the maximum any downstream LLM layer could ever score if it perfectly
+interpreted every STGT read, since the LLM cannot outperform information the classifier
+itself already lost. Any preregistered success bar for v5-a (or v5-b/c/d) should therefore be
+set **meaningfully below** 83.0%/77.3%, not at or above them -- the LLM layer adds its own
+error on top of the classifier's ceiling (misreading context, RULES-lookup mistakes on
+resolvable pairs, hallucination on unresolvable ones), so a bar equal to the ceiling would be
+an unachievable target by construction. No specific number is proposed here -- how much
+headroom to reserve is a judgment call this project has no basis to make unilaterally, same
+posture as `docs/RULES_EXTENSION_PROPOSAL.md`'s open question.
