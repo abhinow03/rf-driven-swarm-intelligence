@@ -2683,3 +2683,43 @@ the same `--append` pattern resumes again with `--n` recomputed as `12000 − <r
 
 State: `docs/V5_STATE.json` `phase1_step2_corpus_generation` records both attempts. Still
 `phase=1, step=2`.
+
+## 2026-08-11 — Phase 1 step 2: five quota cycles, 8531/12000, paused on degrading pattern
+
+Continued resuming with `--append --n <12000 - current_total>` across repeated NVIDIA
+quota-exhaustion cycles, checkpointing (commit + `V5_STATE.json` update) after every cycle:
+
+| attempt | new rows kept | teacher-prose hit rate | wall time |
+|---|---|---|---|
+| 1 (fresh, seed=42) | 435 | 70% | 48.4 min |
+| 2 (`--append`) | 3459 | 63% | 113.1 min |
+| 3 (`--append`) | 3217 | 63% | 117.9 min |
+| 4 (`--append`) | 1179 | 52% | 34.0 min |
+| 5 (`--append`) | 241 | **34%** (crosses the script's own 50% warning) | **3.3 min** |
+| **running total** | **8531** (7678 train + 853 val) | | |
+
+Each cycle recovered after roughly an hour (verified via a small `--n 8` smoke test before
+ever relaunching the full job, to avoid trusting a possibly-still-exhausted key with a
+multi-hour job). Both duration-until-exhaustion and hit-rate-within-cycle **trended down
+monotonically across all 5 attempts** — not consistent with simple transient rate-limiting,
+which should recover to a similar operating point each time. Reads instead as approaching a
+real daily quota ceiling. Stopped the auto-retry loop here rather than keep spending recheck
+calls against a likely near-empty budget, and asked the user how to proceed.
+
+**One operational hiccup, diagnosed and confirmed harmless.** After attempt 2 finished, a
+stray terminal escape sequence (a VT100 "Primary Device Attributes" response,
+`\x1b[?61;4;6;7;...c`) landed in the tmux pane and corrupted the next typed command
+(`dpython3` instead of `python3`, which correctly failed as "command not found"). The pane's
+`tmux capture-pane` output right after this looked like a second, unauthorized corpus-generation
+process had started — investigated via `ps aux` before trusting the pane text: no such process
+existed, and the file mtimes hadn't moved. The suspicious lines turned out to be tmux
+redisplaying attempt 2's own early scrollback (`grep`-verified against `resume1.log` lines
+4-9, exact match). No quota was wasted, no duplicate run occurred; a plain `echo` check
+confirmed the shell was healthy before retrying the real command cleanly.
+
+**User decision: wait and retry later**, not switch `--teacher-model` or accept 8531 as final.
+No further auto-retry until directed to resume. Next session: one `--n 8` quota-recheck before
+relaunching `--append --n <12000 - current_total>` (currently 3469 remaining).
+
+`docs/V5_STATE.json` updated: `phase1_step2_corpus_generation` records all 5 attempts plus the
+escape-sequence incident. Still `phase=1, step=2`, now explicitly paused pending user resume.
