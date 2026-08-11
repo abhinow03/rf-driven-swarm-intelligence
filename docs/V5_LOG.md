@@ -3044,3 +3044,76 @@ resolvable pairs, hallucination on unresolvable ones), so a bar equal to the cei
 an unachievable target by construction. No specific number is proposed here -- how much
 headroom to reserve is a judgment call this project has no basis to make unilaterally, same
 posture as `docs/RULES_EXTENSION_PROPOSAL.md`'s open question.
+
+## 2026-08-11 (later) — pre-training gate, step 1: Groq retirement blast-radius (PRIORITY)
+
+**Verdict up front: the project is NOT currently blocked from running any evaluation that
+includes `rules_in_prompt` or the judge.** Full reasoning below.
+
+**1a — does GroqClient still function?** No `GROQ_API_KEY` is set anywhere in this
+environment (checked env, `.env*` files, shell rc files — none found). `GroqClient()` fails at
+**construction time**, before any network call: `ValueError: Set GROQ_API_KEY (env var) or
+pass api_key=...`. Separately, `curl -X POST https://api.groq.com/openai/v1/chat/completions`
+(no auth) returned **HTTP 401**, not a connection failure/DNS error/5xx — the Groq API
+endpoint itself is reachable and responding normally. **Conclusion: Groq is not technically
+dead. The blocker is entirely "no working credential in this environment," not "the service is
+down."**
+
+**1b — call-site inventory (grepped every `GroqClient`/`llama-3.3-70b` reference in the repo):**
+- **Judge role, `llama-3.3-70b-versatile`, ADVISORY ONLY** — used in exactly this role and no
+  other, across 10 files: `run_degradation_eval.py`, `eval_composite.py`, `run_4way_eval.py`,
+  `run_stratified_abstention_retest.py`, `run_holdout_eval_rules_in_prompt.py`,
+  `evaluate_finetuned.py`, `run_degradation_eval_v3.py`, `run_holdout_eval.py`,
+  `run_masking_ablation.py`, `run_headline_eval.py`, `run_v3c_eval.py`. **Every single one**
+  already checks `os.environ.get("GROQ_API_KEY")` and gracefully runs WITHOUT a judge if unset
+  — this is explicitly documented in-line in every file ("objective metrics unaffected").
+- **`rules_in_prompt` — CORRECTION to this task's framing: does NOT use Groq at all.**
+  `llm_finetuning/baselines.py` (`make_rules_in_prompt_run_case`): base **Qwen2.5-7B-Instruct,
+  no adapter**, via `LocalHFClient` with `llm_finetuning/RULES.txt` as `system_prompt` — a
+  fully local model, zero Groq/hosted-API dependency. The historical "82.6%±3.2% low-threat
+  baseline" this task cited was never Groq-dependent and is unaffected by anything Groq-related.
+- **`v2`/`v3b-fix` (the fine-tuned adapters compared against `rules_in_prompt`)**: also
+  `LocalHFClient`, also zero Groq dependency.
+- **No other Groq call sites exist** in the repo besides the judge role above.
+
+**1c — Groq's retirement was scoped and deliberate, not an accident.** `docs/V5_LOG.md`'s own
+earlier entry (Phase 1 step 0): Groq was retired specifically as the **teacher** provider,
+because a prior key-rotation/exposure incident could not be self-verified from this repo
+("no record found... GROQ_API_KEY is not set in the current environment to inspect... Stopping
+per explicit instruction: do not proceed on an unconfirmed key"), and the user's resolution was
+to sidestep by switching the teacher role to NVIDIA Nemotron entirely — not to confirm the key
+was safe. **That same unverifiable-safety concern applies equally to using Groq as judge**,
+since it's the identical `GROQ_API_KEY` credential/account. Obtaining a fresh Groq key and
+reusing it for judge purposes without addressing the original concern would quietly
+reintroduce the exact risk the Phase 1 halt gate was built to catch.
+
+**Proposed replacement (not implemented this session — proposal only, per instruction):**
+route the judge role through the SAME `NvidiaClient` infrastructure already verified working
+throughout Phase 1 (avoids standing up a new provider/credential), but backed by a
+**DIFFERENT model than Nemotron** — e.g. `meta/llama-3.1-70b-instruct` or another
+non-Nemotron model hosted on NVIDIA NIM. This is a straightforward single-line swap at each of
+the 10 call sites (`GroqClient(model="llama-3.3-70b-versatile")` ->
+`NvidiaClient(model="<non-nemotron-model>")`, same `if <key env var> set` graceful-degradation
+shape), not attempted here since it touches 10 files and wasn't explicitly requested as an
+implementation task this session.
+
+**1d — confirmed: Nemotron is NOT currently used as judge or as `rules_in_prompt`'s backing
+model anywhere in the eval chain.** Judge is always Groq (when configured) or `None`.
+`rules_in_prompt` is always local Qwen2.5-7B-Instruct base. **This is not yet a live
+circularity bug** — but it IS a forward-looking constraint worth stating explicitly for when
+the judge IS replaced: **the replacement must not be Nemotron**, because Nemotron is the
+teacher that authored v5-a's own training corpus (Phase 1). Using it as judge for v5-a's
+evaluation would contaminate the judge with the exact prose/reasoning patterns v5-a was
+fine-tuned to imitate — a different but related form of the same self-grading problem
+`src/swarm_intent/llm/evaluate.py`'s own module docstring already documents and fixed once
+(the original notebook-era bug: a model grading itself, 5/5 self-scores against ~0% objective
+accuracy). The proposed `meta/llama-3.1-70b-instruct` (or similar) replacement above avoids
+this by construction.
+
+**Bottom line: training (`train_sft_v5.py`) has ZERO Groq dependency at any point and was
+never blocked by this. Evaluation is not blocked either — every judge call site already
+degrades gracefully, and this project's own established discipline treats objective/headline
+metrics as the ones that matter, with the judge always advisory-only.** What IS still open:
+a concrete judge replacement should be implemented before anyone wants a secondary advisory
+score for Phase 2, and the replacement must avoid both the unresolved Groq-credential-trust
+issue and Nemotron-circularity.
