@@ -207,6 +207,10 @@ def main():
                      help="device_map='meta', zero GPU memory allocated, tokenizer/dataset/"
                           "collator/mask logic only. The only mode this script may be run in "
                           "while Phase 1 corpus work is still in flight (see module docstring).")
+    ap.add_argument("--progress-task", default=None,
+                     help="if set, writes evaluation/progress/<task>.json once per optimizer "
+                          "step via swarm_intent.progress.Reporter, same convention as "
+                          "train_qlora.py's --progress-task.")
     args = ap.parse_args()
 
     import torch
@@ -316,8 +320,36 @@ def main():
         report_to="none",
     )
 
+    assert sft_cfg.assistant_only_loss is True, "SFTConfig.assistant_only_loss is not True"
+    assert sft_cfg.per_device_train_batch_size * sft_cfg.gradient_accumulation_steps == EFFECTIVE_BATCH_SIZE, \
+        "effective batch size drifted from the agreed v5 plan"
+    print(f"CONFIRMED before training starts: assistant_only_loss={sft_cfg.assistant_only_loss}, "
+         f"effective_batch_size={sft_cfg.per_device_train_batch_size}*"
+         f"{sft_cfg.gradient_accumulation_steps}={sft_cfg.per_device_train_batch_size * sft_cfg.gradient_accumulation_steps}")
+
+    callbacks = []
+    if args.progress_task:
+        from swarm_intent.progress import Reporter
+        from transformers import TrainerCallback
+
+        steps_per_epoch = -(-len(ds_train) // (PER_DEVICE_TRAIN_BATCH_SIZE * GRADIENT_ACCUMULATION_STEPS))
+        total_steps = round(steps_per_epoch * sft_cfg.num_train_epochs)
+        reporter = Reporter(args.progress_task, total_steps)
+
+        class ReporterCallback(TrainerCallback):
+            def on_step_end(self, targs, state, control, **kwargs):
+                reporter.update(1, item=f"step {state.global_step}/{total_steps} epoch {state.epoch:.2f}")
+
+            def on_train_end(self, targs, state, control, **kwargs):
+                reporter.status = "done"
+                reporter._write()
+
+        callbacks.append(ReporterCallback())
+        print(f"progress reporter on: evaluation/progress/{args.progress_task}.json, "
+             f"{total_steps} total steps estimated ({steps_per_epoch}/epoch x {sft_cfg.num_train_epochs} epochs)")
+
     trainer = SFTTrainer(model=model, args=sft_cfg, train_dataset=ds_train,
-                        eval_dataset=ds_val, processing_class=tok)
+                        eval_dataset=ds_val, processing_class=tok, callbacks=callbacks or None)
     trainer.train()
     trainer.save_model(args.out)
     tok.save_pretrained(args.out)
