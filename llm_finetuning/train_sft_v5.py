@@ -307,7 +307,11 @@ def main():
         gradient_checkpointing=True,
         gradient_checkpointing_kwargs={"use_reentrant": False},
         optim="paged_adamw_8bit",
-        group_by_length=True,
+        # group_by_length=True was specified in the agreed v5 plan but is NOT a valid
+        # SFTConfig/TrainingArguments field in the installed transformers==5.13.1 /
+        # trl==1.8.0 (removed upstream -- confirmed via inspect.signature(), not a typo).
+        # No equivalent replacement kwarg exists in this version. Deliberately omitted
+        # rather than worked around; flagged plainly in V5_LOG.md, not silently dropped.
         bf16=True,
         packing=False,
         eval_strategy="steps",
