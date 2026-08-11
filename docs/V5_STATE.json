@@ -1,7 +1,7 @@
 {
   "phase": 1,
   "step": 3,
-  "status": "PHASE 1 STEP 2 COMPLETE: corpus generation finished at 12001/12000 rows (attempt_6_resume, 8531 existing + 3470 new, 235.0 min). PHASE 1 STEP 3 (quality-gate provenance check) step 0 done: all three provenance questions resolved -- see phase1_corpus_provenance_audit. Proceeding to steps 1-2 (teacher-prose gap, quality gates) next.",
+  "status": "PHASE 1 STEP 2 COMPLETE: corpus generation finished at 12001/12000 rows. PHASE 1 STEP 3 (quality-gate provenance check): steps 0-2 done and fallback-row regeneration complete (teacher-prose 93.3%, distinct-summary 93.6% PASS, 810 rows still fallback -- user accepted, see phase1_step3_fallback_regeneration_complete). Proceeding to step 3 (coverage report) and step 4 (preregistration re-verification). Earlier notes: PHASE 1 STEP 3 (quality-gate provenance check) step 0 done: all three provenance questions resolved -- see phase1_corpus_provenance_audit. Proceeding to steps 1-2 (teacher-prose gap, quality gates) next.",
   "status_pre_step27": "Chain-2 generator-fix consolidation + source symmetrization COMPLETE (docs/V5_LOG.md step 26, 3 commits: 3591051 consolidation, 9061392 symmetrization, + docs/results commit -- no STGT/bridge/LLM code changed, same frozen strategy-5 checkpoint). Step 1: consolidated 5 duplicate copies of build_long_sequence_labeled into src/swarm_intent/eval_trajectories.py (4 live scripts now import it; 1 frozen historical-reproduction script deliberately excluded, documented); confirmed NONE of the 5 ever fed real STGT training data (that's generate_dataset(), separate code). Step 2: symmetrized LEAD_IN_RANGE (15,35)->(30,50), derived the same way as MIN_DWELL_RANGE (lead_in>=25 for a window-0 majority, no stride-slack term since window 0 always starts at t=0); verified source OBS_NONE 16.3%->0.0% at population scale. Step 3: chain-2 pair_acc 39.9%->65.8% (was 18.7% original baseline, 3.5x total), threat_acc 72.1%->76.3%. Step 4: refined 20-case taxonomy found 100% boundary/blend-timing-concentrated failures, 0% clean (non-boundary) misses. Step 5: chain-3+ false-positive rate investigated and RESOLVED (12.6%->1.8%, below the 9.0% original baseline, p=4.3e-07) -- mechanistically explained by the shared per-hop sampling loop, not a bug, not noise (dest-only-fix regression itself was only borderline significant, p=0.062). Step 6: blend-timing overlap re-checked, STILL 0.0%, unchanged across 3 independent formula revisions. Decision: B -- blend-timing distribution mismatch is the dominant remaining issue, should be fixed BEFORE any STGT training/capacity change, not decision A as step 25 projected. STOPPING per instruction -- no STGT retraining, no blend-distribution fix started this session.",
   "halts_cleared": [
     "phase1_step0_groq_key_rotation (superseded by provider switch)",
@@ -1945,6 +1945,29 @@
         "action": "NOT resolved -- per instruction not to silently drop rows on a gate failure, stopping to ask the user how to handle this (same underlying rows as step1's open regeneration question)."
       },
       "prompt_overlap_final_check": {"result": "PASS", "note": "re-verified train/val/mining pairwise disjoint (0 overlap each pair), as the final gate per instruction"}
+    },
+    "phase1_step3_fallback_regeneration_complete": {
+      "date": "2026-08-11",
+      "user_decision": "regenerate all 3893 fallback rows with a fresh NVIDIA_API_KEY, not keep/tag or drop",
+      "runs": [
+        {"run": 1, "log": "/tmp/v5_regen_fallback.log", "targets": 3885, "outcome": "interrupted by Ctrl+C at 528/3885 processed, 415 fixed and safely checkpointed (113 attempted rows failed and correctly stayed fallback)"},
+        {"run": 2, "log": "/tmp/v5_regen_fallback_resume1.log", "targets": 3470, "outcome": "completed cleanly, 200.9 min, 2660/3470 fixed, no further interruption, no consecutive-failure streak near --max-teacher-fails 100"}
+      ],
+      "final_state": {
+        "total_originally_fallback": 3893, "total_now_fixed": 3083, "still_fallback": 810,
+        "by_split": {
+          "train": {"n": 10801, "teacher": 10080, "teacher_pct": "93.3%", "fallback": 721, "distinct_summary_pct": "93.7%"},
+          "val": {"n": 600, "teacher": 523, "teacher_pct": "87.2%", "fallback": 77, "distinct_summary_pct": "93.7%"},
+          "mining": {"n": 600, "teacher": 588, "teacher_pct": "98.0%", "fallback": 12, "distinct_summary_pct": "99.8%"},
+          "all": {"n": 12001, "teacher": 11191, "teacher_pct": "93.3%", "fallback": 810, "distinct_summary_pct": "93.6%"}
+        },
+        "note": "NOT 100% teacher-authored as originally requested -- 810 rows (6.7%) remain template fallback even with the fresh key, a normal non-zero per-call failure rate across two full regeneration passes. User reviewed this state directly and chose to proceed rather than chase full 100%."
+      },
+      "gates_now": {
+        "teacher_prose_gap": "32.4% -> 6.7% fallback",
+        "distinct_situation_summary": "67.9% -> 93.6% overall, PASS on every split (target >=90%)",
+        "prompt_overlap": "PASS, re-re-verified, still 0 across all pairwise splits"
+      }
     }
   },
   "parallel_prep": {

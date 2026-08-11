@@ -2943,3 +2943,47 @@ tactical justification; the open question this project cannot resolve on its own
 `deploy_countermeasure` to match the existing critical pair, or something narrower) -- framed
 as a question, not a proposed answer. Explicitly notes this is NOT blocking Phase 1, which
 already proceeded under the fallback.
+
+## 2026-08-11 (later) — Phase 1 step 3: fallback-row regeneration complete (2 runs, 1 interrupt)
+
+User provided a fresh `NVIDIA_API_KEY` and chose "regenerate all 3893 fallback rows" over
+"keep and tag" or "drop" (see the step 1/step 2 entries above). Ran in two passes:
+
+- **Run 1** (`/tmp/v5_regen_fallback.log`): launched at concurrency=24, targets=3885 (3893 -
+  the 8-row smoke test already fixed). **Interrupted by Ctrl+C at 528/3885 processed.**
+  Verified on disk before resuming: the interrupt landed cleanly on a checkpoint boundary
+  (`--checkpoint-every 1` writes after every 24-row chunk) -- 415/528 succeeded and were
+  safely persisted (113 attempted rows failed the teacher call and correctly stayed tagged
+  `used_teacher: false`, not lost). This is NOT the same as "528 rows saved" -- the
+  provenance file and the log's own last line (`528/3885 regenerated (415 fixed)`) agree
+  exactly.
+- **Run 2** (`/tmp/v5_regen_fallback_resume1.log`): re-ran the identical command in the same
+  `v5` tmux session (the API key was still exported in that shell -- Ctrl+C only killed the
+  foreground process). The script re-derives its target list from the provenance file every
+  launch, so it self-resumed at exactly `targets: 3470` (3885-415, matching the verified disk
+  state precisely) -- confirmed no restart-from-scratch and no duplicate processing of the
+  415 already-fixed rows. Ran to full completion this time (200.9 min, no further
+  interruption): 3470/3470 processed, 2660 fixed.
+
+**Final corpus state — NOT 100% teacher, but close.** Combined across both runs: 8+415+2660 =
+3083 of 3893 originally-fallback rows were successfully regenerated; **810 rows (6.7% of the
+12,001-row corpus) remain template fallback** even with the fresh key -- some individual
+teacher calls still failed across both runs (a normal, non-zero failure rate, not a repeat of
+the earlier quota-exhaustion pattern: no consecutive-failure streak ever approached the
+`--max-teacher-fails 100` gate in either run). User reviewed this state directly (pasted the
+script's own final line) and said to proceed rather than chase the remaining 810.
+
+| split | n | teacher | fallback | distinct situation_summary |
+|---|---|---|---|---|
+| train | 10,801 | 10,080 (93.3%) | 721 (6.7%) | 10,118 (93.7%) |
+| val | 600 | 523 (87.2%) | 77 (12.8%) | 562 (93.7%) |
+| mining | 600 | 588 (98.0%) | 12 (2.0%) | 599 (99.8%) |
+| **all** | **12,001** | **11,191 (93.3%)** | **810 (6.7%)** | **11,227 (93.6%)** |
+
+**Both step 1 and step 2's blockers are now resolved.** Teacher-prose rate: 32.4% fallback ->
+6.7% fallback. Distinct-summary gate (target >=90%): 67.9% -> **93.6%, PASS** on every split.
+Prompt overlap re-re-verified: still 0 across all three pairwise splits. `data/
+sft_train_v5_phase1_provenance.json` still accurately tags the residual 810 rows'
+`used_teacher: false` for any future filtering/weighting need.
+
+Proceeding to step 3 (coverage report) and step 4 (preregistration re-verification).
