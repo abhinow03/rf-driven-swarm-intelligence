@@ -2006,6 +2006,20 @@
       "why_groq_was_retired": "Phase 1 step 0: an unverifiable key-rotation/exposure concern (no incident record found in this repo), sidestepped by switching the TEACHER role to NVIDIA Nemotron entirely -- never actually confirmed safe. The same unresolved concern applies equally to judge use (same credential).",
       "proposed_replacement": "NvidiaClient (already verified working throughout Phase 1) backed by a NON-Nemotron model, e.g. meta/llama-3.1-70b-instruct, for the judge role only. Proposal only, not implemented this session (would touch 10 files, not explicitly requested as an implementation task).",
       "circularity_check": "Nemotron is NOT currently used as judge or as rules_in_prompt's backing model anywhere -- confirmed clean. Forward-looking constraint: any judge replacement must NOT be Nemotron, since Nemotron authored v5-a's own training corpus -- using it as judge would contaminate the score, a variant of the self-grading bug src/swarm_intent/llm/evaluate.py already fixed once."
+    },
+    "pretraining_gate_step2_diversity_spot_check": {
+      "date": "2026-08-11",
+      "script": "llm_finetuning/report_distinctness_similarity.py",
+      "manual_spot_check": "20 rows across 20 distinct (pair,threat) cells (of 49 total) -- all genuinely different prose, no templated-with-swapped-word pattern observed.",
+      "near_duplicate_rates_tfidf_cosine": {
+        ">=0.99": "0.3% (28/11191)", ">=0.95": "0.4% (42/11191)", ">=0.90": "0.8% (94/11191)",
+        ">=0.80": "3.1% (346/11191)", ">=0.70": "8.6% (959/11191)"
+      },
+      "gate_recomputation": {
+        "exact_dedup_original": "11227/12001 (93.6%)",
+        "strict_090_cosine_cluster": "11191/12001 (93.3%)",
+        "verdict": "PASS under both definitions, only a 0.3pt drop -- near-duplication is real but small, does not change the gate's outcome"
+      }
     }
   },
   "parallel_prep": {

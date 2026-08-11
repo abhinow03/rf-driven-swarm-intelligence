@@ -3117,3 +3117,49 @@ metrics as the ones that matter, with the judge always advisory-only.** What IS 
 a concrete judge replacement should be implemented before anyone wants a secondary advisory
 score for Phase 2, and the replacement must avoid both the unresolved Groq-credential-trust
 issue and Nemotron-circularity.
+
+## 2026-08-11 (later) — pre-training gate, step 2: diversity spot-check (distinctness, not just distinctness-of-strings)
+
+`llm_finetuning/report_distinctness_similarity.py`. The distinct-summary gate (93.6%, step 2
+of the earlier quality-gate audit) only checked EXACT string uniqueness. Verified two ways:
+
+**Manual spot-check**: 20 rows sampled across 20 distinct `(pair, threat)` cells (out of 49
+total). All 20 read as genuinely different prose — different sentence structure, different
+emphasis (velocity vs. stability vs. approach-rate framing), different narrative arc
+(withdrawal / consolidation / defensive posture / routine patrol), not templated text with a
+single swapped word. No obvious near-duplicate pattern from this sample alone.
+
+**Quantitative check (TF-IDF cosine similarity, word 1-2 grams, over all 11,191
+teacher-authored `situation_summary` strings, combined across train+val+mining)**:
+
+| threshold | near-duplicate rate |
+|---|---|
+| >= 0.99 (near-exact) | 0.3% (28/11,191) |
+| >= 0.95 | 0.4% (42/11,191) |
+| >= 0.90 | 0.8% (94/11,191) |
+| >= 0.80 | 3.1% (346/11,191) |
+| >= 0.70 | 8.6% (959/11,191) |
+
+Mean nearest-neighbor similarity: 0.508 (most rows have no close neighbor at all). Manual
+review of the 10 highest-similarity NON-identical pairs (0.95-0.98 range) confirmed the
+concern is real but minor: paraphrase-level near-duplicates exist ("A group of UAVs" vs "A
+small group of UAVs", "converging approach" vs "converging approach rate", "drones" vs
+"UAVs") — genuinely templated-adjacent, but a small minority, not a systemic pattern. The
+top-10-by-similarity list before excluding exact matches was dominated by TRUE exact
+duplicates (sim=1.000, already fully accounted for by the original exact-dedup count, not a
+new finding).
+
+**Gate re-computed under a STRICT definition** (connected-components clustering at cosine
+similarity >= 0.90 — two summaries within 0.90 of each other count as ONE distinct unit, not
+two), same combined-set methodology as the original 93.6% figure so the two numbers are
+directly comparable:
+
+| gate definition | distinct | rate |
+|---|---|---|
+| exact-dedup (original) | 11,227/12,001 | 93.6% |
+| **strict (>=0.90 cosine cluster)** | **11,191/12,001** | **93.3%** |
+
+**Verdict: the gate still PASSES under the tightened definition** (93.3% vs. the 90% target),
+only a 0.3-point drop from the exact-match figure. Near-duplication is real but small enough
+that it does not change the gate's outcome — reporting both numbers rather than only the more
+favorable exact-match one.
