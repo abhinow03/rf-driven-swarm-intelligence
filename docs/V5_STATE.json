@@ -2044,6 +2044,15 @@
         "c_no_circularity": "PASS -- JUDGE_MODEL != nemotron (Phase 1 teacher), not referenced anywhere in train_sft_v5.py or corpus-generation scripts"
       },
       "credential_handling": "verified via the NVIDIA_API_KEY already exported in the tmux v5 session -- never re-typed into any command this session"
+    },
+    "memorization_vs_generalization_check": {
+      "date": "2026-08-11",
+      "file": "docs/PREREGISTRATION.md",
+      "chosen_metric": "verbatim/near-verbatim output-vs-training-target overlap rate (TF-IDF cosine, same method as report_distinctness_similarity.py) -- fraction of answered Phase 4 cases whose max similarity to any same-pair training-split situation_summary is >=0.90",
+      "rejected_alternative": "mining-split novel-narrative-combination accuracy -- computed: only 27/600 (4.5%) mining rows have a combo not in training for their pair, critical-tier n=1, too thin",
+      "null_hypothesis_baseline_measured": "0.6% (56/10080) -- same-pair near-dup rate among independently-generated (never-trained-on) teacher rows",
+      "interpretation_bar": "not meaningfully above ~0.6-2% supports generalization; >=15% is a positive memorization signal, reported explicitly regardless of accuracy-bar outcome",
+      "committed_before_training": true
     }
   },
   "parallel_prep": {

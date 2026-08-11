@@ -79,6 +79,56 @@ not expected to fix: context distillation, class-imbalance-aware loss, and an un
 control for comparison). Clearing these bars is "worth reporting as real progress," not
 "the project's final target."
 
+## Memorization-vs-generalization check
+
+**The bars above cannot by themselves distinguish "v5-a generalized" from "v5-a memorized its
+larger corpus the same way v2 memorized its smaller one."** v2's own historical numbers (100%
+in-distribution, 0% abstention, never declines) are consistent with either story — clearing
+the bars above alone would not settle which one is true for v5-a, and that ambiguity is the
+exact thing this training program exists to resolve. One additional preregistered metric,
+decided and committed before any real number exists:
+
+**Metric: verbatim/near-verbatim output-vs-training-target overlap rate.** For every
+Phase 4 battery case v5-a answers (non-abstained), compute the TF-IDF cosine similarity
+(word 1-2 grams — identical method to `llm_finetuning/report_distinctness_similarity.py`)
+between v5-a's generated `situation_summary` and every TRAINING-split row's
+`situation_summary` sharing the same `(form_a, form_b)` RULES pair. Take the maximum. The
+**overlap rate** is the fraction of answered cases whose max similarity to some same-pair
+training target is `>= 0.90`. A model producing genuinely scenario-tailored prose (varying
+with the specific velocity/stability/approach-rate/role details of each eval case) should
+rarely hit this threshold by chance alone; a model that has memorized associates-pair-with-
+canned-prose regardless of the eval scenario's actual details would hit it often.
+
+**Why this metric over the mining-split novel-combination alternative**: both options from
+the original instruction were evaluated before committing to one. The alternative
+(accuracy specifically on mining-split narrative combinations absent from training for the
+same pair) was computed directly on the real corpus: of 600 mining rows, only **27 (4.5%)**
+have a `(velocity_trend, stability_trend, spread_trend, role_differentiation)` combination
+not already present in training for their pair — and critical-tier contributes only **1**
+such row. That subgroup is too thin to support a reliable comparison (the same low-n problem
+this project has hit before with the critical tier specifically) and was rejected in favor of
+the overlap-rate metric, which uses the FULL answered-case sample, not a ~4.5% subgroup, and
+needs no new held-out split or model retraining to compute.
+
+**Preregistered null-hypothesis baseline (measured now, on the real corpus, before v5-a
+exists)**: among TEACHER-authored training rows sharing the same pair — text that was
+independently generated for genuinely different scenarios, never trained on anything, so any
+similarity between them is pure narrative/vocabulary coincidence, not memorization — the
+same-pair near-duplicate rate at `>= 0.90` cosine similarity is **0.6% (56/10,080)**. This is
+the "chance" rate two unrelated same-pair descriptions hit this threshold.
+
+**Preregistered interpretation bar**: v5-a's overlap rate should be compared against this
+0.6% chance baseline, not judged in isolation.
+- **Overlap rate not meaningfully above ~0.6-2%**: consistent with generalization — the model
+  is producing scenario-specific prose, matching training text only as often as two
+  independently-written same-pair descriptions coincidentally would.
+- **Overlap rate substantially higher (the specific threshold this document commits to:
+  `>= 15%`)**: treated as a positive memorization signal, reported explicitly as such
+  regardless of whether the accuracy bars above are also cleared — clearing the accuracy bars
+  while failing this check would mean v5-a is accurate BECAUSE it memorized, not because it
+  generalized, and that distinction must be reported, not absorbed into a single pass/fail
+  headline.
+
 ## Explicitly not blocking
 
 This document does not gate whether v5-a training is ALLOWED to run — it gates how the

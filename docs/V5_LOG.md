@@ -3229,3 +3229,26 @@ so the credential was never re-typed into any command this session:**
   from the Phase 1 teacher (`nvidia/nemotron-3-super-120b-a12b`) and appears nowhere in
   `train_sft_v5.py`'s training path or the Phase 1 corpus-generation scripts — confirmed
   clean, no self-grading/contamination risk.
+
+## 2026-08-11 (later) — memorization-vs-generalization check added to PREREGISTRATION.md
+
+Added before any v5-a training or eval number exists, per instruction. Considered both
+options the task suggested and computed each on the real corpus before choosing:
+
+- **Mining-split novel-narrative-combination accuracy** (option A): computed directly —
+  of 600 mining rows, only 27 (4.5%) have a narrative-combination tuple not already present
+  in training for their pair, and critical-tier contributes only 1 such row. Too thin for a
+  reliable comparison (the same low-n problem this project has repeatedly hit with the
+  critical tier) — rejected.
+- **Verbatim/near-verbatim output-vs-training-target overlap rate** (option B, chosen):
+  reuses `report_distinctness_similarity.py`'s TF-IDF cosine-similarity method, applied
+  against every answered Phase 4 case's max similarity to any same-pair training target.
+  Uses the FULL answered-case sample (not a ~4.5% subgroup), needs no new split or model
+  inference beyond what Phase 4 already runs.
+
+Preregistered null-hypothesis baseline, measured now on the real corpus: same-pair
+near-duplicate rate among independently-generated (never-trained-on) teacher rows at >=0.90
+cosine similarity is 0.6% (56/10,080) -- the "chance" collision rate. Interpretation bar
+committed now: overlap rate not meaningfully above ~0.6-2% supports generalization; >=15% is
+treated as a positive memorization signal and reported explicitly regardless of whether the
+accuracy bars are also cleared.
