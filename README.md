@@ -23,7 +23,7 @@ Drone positions (6 x 3 x 50)
    +----+----+----------------+
    |         |                |
    v         v                v
-[RULES]  [abstain]        [ LLM ]  Groq baseline or fine-tuned local model
+[RULES]  [abstain]        [ LLM ]  fine-tuned qwen2.5 7B
    |         |                |
    +----+----+----------------+
         v
