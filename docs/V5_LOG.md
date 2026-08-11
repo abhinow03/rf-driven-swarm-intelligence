@@ -3252,3 +3252,46 @@ cosine similarity is 0.6% (56/10,080) -- the "chance" collision rate. Interpreta
 committed now: overlap rate not meaningfully above ~0.6-2% supports generalization; >=15% is
 treated as a positive memorization signal and reported explicitly regardless of whether the
 accuracy bars are also cleared.
+
+## 2026-08-11 (later) — post-training prep, while v5-a trains in a separate session
+
+Built entirely in parallel with v5-a training (its own tmux session, GPU at 100% utilization
+throughout). Does NOT advance phase/step -- see `docs/V5_STATE.json`'s new `post_training_prep`
+key for full detail. Standing rule added to `CLAUDE.md` per instruction (known-verified
+optimizations are defaults from init; new numerics-affecting changes still need an
+equivalence check regardless of urgency).
+
+**Step 1+3 (`llm_finetuning/eval_sft_v5.py`)**: real checkpoint-path resolution
+(`resolve_adapter_path`, numeric not lexicographic sort, tested against a fake dir tree) +
+zero-GPU meta-device model/LoRA-config construction (`load_model_dry_run`, torch.cuda.
+memory_allocated()==0 verified) + judge wiring (`evaluate(judge_client=...)`, verified
+byte-identical headline metrics present/absent/raising). Generation itself remains stubbed --
+no real checkpoint weights exist yet.
+
+**Step 2 (`llm_finetuning/score_memorization.py`)**: the overlap-rate metric from
+`docs/PREREGISTRATION.md`, as real code, verified against hand-crafted cases with a known
+right answer (exact copy -> 1.0, novel -> ~0, paraphrase -> still caught, mixed batch -> exact
+fraction).
+
+**Step 4 (`scripts/check_preregistration.py`)**: bars checker, tested against synthetic
+pass/fail results. Found and flagged a real schema gap: "pair accuracy" has no corresponding
+field in `eval_sft_v5.py`'s output (it only measures threat-level match) -- reported as NOT
+COMPUTABLE rather than silently reusing the wrong number.
+
+**Step 5 (`evaluation/phase4_eval_set.json`)**: 1,000 real STGT trajectories, seed=4321
+(fresh), forced CPU (zero GPU delta verified), locked at sha256 `6501b8d0...`. 498/1000
+(49.8%) ground-truth-determinable, bucket split A=442/B=14/C=544 -- much higher bucket-A than
+sec AE's stale 1.8% figure, consistent with this project's own Phase 0 guard fixes landing
+after that measurement (same stale-vs-fresh pattern already reconciled once for the ceiling
+figure). **Found a real bug along the way**: `stgt/model.py`'s graph-batching step hardcodes
+the global `config.device` instead of deriving from the model's own parameter device --
+contradicts this file's own documented invariant. Worked around via a namespace monkeypatch
+(not a source edit, given training was running elsewhere); flagging the real fix as a
+follow-up: the batch device in that line should be read from the model's own parameters.
+
+**Step 6 (`llm_finetuning/prerun_baselines_phase4.py`) -- DEFERRED, not run.** GPU was at
+23,258/24,564 MiB (100% utilization) from v5-a training for this session's entire duration --
+running a second 7B-model inference job concurrently risked both OOM and slowing training.
+Script written and syntax-checked only. Run the moment v5-a's tmux session reports training
+complete: `python llm_finetuning/prerun_baselines_phase4.py --expected-sha256
+6501b8d059bd6f6eb4ff43f725b63c01c4e8f1e11661cbeea7dbdeb37bd79bea`.

@@ -2055,6 +2055,56 @@
       "committed_before_training": true
     }
   },
+  "post_training_prep": {
+    "date": "2026-08-11",
+    "note": "Built in parallel with v5-a training running in a SEPARATE tmux session (evaluation/progress/v5a_training.json). Does NOT advance phase/step -- v5-a training itself is the only thing advancing those. Zero GPU usage from any step here except step 5 (CPU-forced) and the deferred step 6.",
+    "standing_rule_added": "CLAUDE.md Conventions: known-verified optimizations (FA2, the locked v5-a batch config) are defaults from init for future runs; any new numerics-affecting change still needs a short equivalence check regardless of urgency.",
+    "step1_step3_eval_sft_v5_real_adapter_and_judge": {
+      "file": "llm_finetuning/eval_sft_v5.py",
+      "resolve_adapter_path": "finds the highest-step checkpoint-<N> subdir numerically (not lexicographically), or uses a path directly if already a saved adapter. Tested against a fake dir tree (no real checkpoint exists yet); real checkpoints/v5_sft/ correctly raises FileNotFoundError right now (training hasn't hit save_steps=500 yet).",
+      "load_model_dry_run": "real tokenizer + meta-device base model + LoRA config (imported from train_sft_v5.py, not re-typed) -- torch.cuda.memory_allocated()==0 verified before/after. Generation itself still stubbed (stub_generate->mock_predict) -- no real checkpoint weights loaded yet.",
+      "judge_wiring": "evaluate() accepts judge_client, adds judge_scores/judge_overall_mean as a side channel no other field reads. Verified with a stub judge (no network): headline metrics byte-identical present/absent/raising.",
+      "tests": "tests/test_eval_sft_v5.py, 9 tests, all passing"
+    },
+    "step2_memorization_scorer": {
+      "file": "llm_finetuning/score_memorization.py",
+      "metric": "verbatim/near-verbatim output-vs-training-target overlap rate (TF-IDF cosine >=0.90, same method as report_distinctness_similarity.py)",
+      "verified": "exact training-target copy -> 1.0/near-dup; clearly novel text -> ~0; one-word-swap paraphrase -> still caught (>=0.70); mixed 2-memorized/2-novel batch -> exactly 0.5. Smoke-tested against the real 12001-row corpus too.",
+      "tests": "tests/test_score_memorization.py, 9 tests, all passing"
+    },
+    "step4_check_preregistration": {
+      "file": "scripts/check_preregistration.py",
+      "bars_checked": ["threat_accuracy_pooled_when_answerable>=55%", "threat_accuracy_low_per_class>=65%",
+                       "over_abstention_rate<=15%", "schema_validity_rate>=95%",
+                       "escalation_direction (under>=over, qualitative)"],
+      "not_computable": "pair_accuracy_pooled_when_answerable -- no pair-identification field exists in eval_sft_v5.py's schema (accuracy_when_answerable measures threat_level match, not pair match). Flagged explicitly, never silently scored.",
+      "missing_blocks_pass": "a MISSING metric blocks overall PASS exactly like FAIL -- an incomplete results file is never reported as clearing the bars.",
+      "tests": "tests/test_check_preregistration.py, 10 tests, all passing"
+    },
+    "step5_phase4_eval_set_lock": {
+      "file": "evaluation/phase4_eval_set.json",
+      "generator_script": "llm_finetuning/generate_phase4_eval_set.py",
+      "seed": 4321,
+      "n_sequences": 1000,
+      "n_ground_truth_determinable": 498,
+      "n_ground_truth_pct": "49.8%",
+      "bucket_split": {"A": 442, "B": 14, "C": 544},
+      "bucket_split_note": "much higher bucket-A than the stale sec AE 1.8% figure -- consistent with this project's own documented Phase 0 guard fixes (oov_name/dispersed_converging_ambiguity fixes, 2026-08-09) landing AFTER that measurement; not a discrepancy, matches the same kind of stale-vs-fresh reconciliation already done once for the 58.7%->83.0% ceiling figure.",
+      "checkpoint_sha256": "18fc201d5a419ff2fb0cfb66a60810af77a9ed52969f2996f57c952d1306a01b",
+      "stgt_bridge_sha256": "e99472e16525588be83f7e7e78abeb5d781d7c2d238adc902c10c660bbb022f7",
+      "file_sha256_LOCK": "6501b8d059bd6f6eb4ff43f725b63c01c4e8f1e11661cbeea7dbdeb37bd79bea",
+      "cpu_only": true,
+      "bug_found": "stgt/model.py's graph-batching step (~line 194) hardcodes the global config.device (cuda-if-available) instead of deriving from the model's own parameter device -- contradicts CLAUDE.md's stated invariant. Worked around via a namespace monkeypatch in generate_phase4_eval_set.py rather than editing shared model code mid-training; real fix is a follow-up."
+    },
+    "step6_baselines_prerun_DEFERRED": {
+      "file": "llm_finetuning/prerun_baselines_phase4.py",
+      "status": "written and syntax-checked, NOT executed",
+      "reason": "GPU at 23258/24564 MiB, 100% utilization, for v5-a training's entire duration so far -- concurrent 7B inference risks OOM and slowing training",
+      "run_this_on_completion": "python llm_finetuning/prerun_baselines_phase4.py --expected-sha256 6501b8d059bd6f6eb4ff43f725b63c01c4e8f1e11661cbeea7dbdeb37bd79bea",
+      "systems": ["v2", "rules_in_prompt", "v3b-fix", "base"],
+      "scoring": "deliberately not implemented in this script -- left to a follow-up shared with v5-a's own scoring path"
+    }
+  },
   "parallel_prep": {
     "date": "2026-08-11",
     "note": "Built AHEAD of Phase 1 finishing, in a SEPARATE session from the Phase 1 corpus regeneration tmux job (which was using network/CPU only -- NVIDIA teacher API calls, no local GPU -- but this work independently avoided the GPU regardless). Does NOT advance phase/step above -- Phase 1 step 2 completion is not yet confirmed (regeneration of the 3893 template-fallback rows was still running when this was written).",
