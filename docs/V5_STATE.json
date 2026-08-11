@@ -1,7 +1,7 @@
 {
   "phase": 1,
-  "step": 2,
-  "status": "PHASE 1 STEP 2 PAUSED (user-directed): 8531/12000 corpus rows on disk. User chose wait-and-retry-later over switching teacher models or accepting 8531 as final. No further auto-retry until user says to resume -- next session should do a single quota-recheck (n=8, concurrency=8) before relaunching, then --append --n <12000 - current_total>.",
+  "step": 3,
+  "status": "PHASE 1 STEP 2 COMPLETE: corpus generation finished at 12001/12000 rows (attempt_6_resume, 8531 existing + 3470 new, 235.0 min). PHASE 1 STEP 3 (quality-gate provenance check) step 0 done: all three provenance questions resolved -- see phase1_corpus_provenance_audit. Proceeding to steps 1-2 (teacher-prose gap, quality gates) next.",
   "status_pre_step27": "Chain-2 generator-fix consolidation + source symmetrization COMPLETE (docs/V5_LOG.md step 26, 3 commits: 3591051 consolidation, 9061392 symmetrization, + docs/results commit -- no STGT/bridge/LLM code changed, same frozen strategy-5 checkpoint). Step 1: consolidated 5 duplicate copies of build_long_sequence_labeled into src/swarm_intent/eval_trajectories.py (4 live scripts now import it; 1 frozen historical-reproduction script deliberately excluded, documented); confirmed NONE of the 5 ever fed real STGT training data (that's generate_dataset(), separate code). Step 2: symmetrized LEAD_IN_RANGE (15,35)->(30,50), derived the same way as MIN_DWELL_RANGE (lead_in>=25 for a window-0 majority, no stride-slack term since window 0 always starts at t=0); verified source OBS_NONE 16.3%->0.0% at population scale. Step 3: chain-2 pair_acc 39.9%->65.8% (was 18.7% original baseline, 3.5x total), threat_acc 72.1%->76.3%. Step 4: refined 20-case taxonomy found 100% boundary/blend-timing-concentrated failures, 0% clean (non-boundary) misses. Step 5: chain-3+ false-positive rate investigated and RESOLVED (12.6%->1.8%, below the 9.0% original baseline, p=4.3e-07) -- mechanistically explained by the shared per-hop sampling loop, not a bug, not noise (dest-only-fix regression itself was only borderline significant, p=0.062). Step 6: blend-timing overlap re-checked, STILL 0.0%, unchanged across 3 independent formula revisions. Decision: B -- blend-timing distribution mismatch is the dominant remaining issue, should be fixed BEFORE any STGT training/capacity change, not decision A as step 25 projected. STOPPING per instruction -- no STGT retraining, no blend-distribution fix started this session.",
   "halts_cleared": [
     "phase1_step0_groq_key_rotation (superseded by provider switch)",
@@ -1880,6 +1880,35 @@
         "outcome": "STOPPING EARLY at 242/3710 after only 3.3 min -- sharpest, fastest cutoff yet. Teacher hit rate collapsed mid-run (100% for first ~144 rows, then abruptly 0%, ending at 34% overall -- below the scripts own 50% quality WARNING).",
         "merged_total": "8290 existing + 241 new = 8531 (7678 train + 853 val)",
         "pattern_note": "cycle durations trending DOWN across attempts (48min -> 118min -> 34min -> 3.3min) with hit rate also degrading (97%->87%->63%->52%->34%) -- this now reads more like approaching/hitting a real daily quota ceiling than transient rate-limit throttling. Pausing auto-retry to check in with user rather than keep burning small recheck calls against a possibly near-exhausted daily budget."
+      },
+      "quota_recheck_final": {
+        "launched": "2026-08-11T09:33 IST",
+        "note": "n=8 concurrency=8 --max-teacher-fails 8 (v5_quota_recheck6.log): 7/7 generated, 7/7 (100%) teacher prose -- quota live, cleared to relaunch the full remaining run"
+      },
+      "attempt_6_resume": {
+        "launched": "2026-08-11T09:33 IST (approx, inferred from quota_recheck_final + resume5.log start)",
+        "args": "--n 3469 --concurrency 24 --max-teacher-fails 100 --out data/sft_train_v5_phase1.jsonl --append",
+        "outcome": "COMPLETED (did not hit quota gate this cycle): 3470/3470 generated, 235.0 min elapsed, 2894/3470 (83%) with teacher prose",
+        "merged_total": "8531 existing + 3470 new = 12001 (10801 train + 1200 val)",
+        "not_logged_at_launch_time": "this attempt's launch was never recorded in V5_LOG.md/V5_STATE.json before it ran (last entry prior to this audit was the 'paused at 8531' state) -- reconstructed after the fact from /tmp/v5_quota_recheck6.log, /tmp/v5_build_sft_resume5.log timestamps, and tmux pane scrollback. See phase1_corpus_provenance_audit.step_0b for the hash-assertion implication."
+      }
+    },
+    "phase1_corpus_provenance_audit": {
+      "date": "2026-08-11",
+      "step_0a_existing_8531_rows": {
+        "finding": "All 8531 pre-existing rows were generated in 5 quota-cycle attempts spanning 2026-08-10 20:58 IST to 2026-08-11 03:53 IST (git commits 405b604/447b81a/c6df352/6779a1c), entirely AFTER both the fallback stratification decision (STRATA_TARGETS implemented 2026-08-10, verified offline against seed=42) and the checkpoint-freshness lock (recorded at Phase 0 close, before Phase 1 step 0). Checkpoint hash was explicitly re-verified in V5_LOG.md before at least one resume cycle (attempt_2). swarm_data/best_model.pt and src/swarm_intent/stgt_bridge.py file mtimes (2026-08-09 00:29 and 13:00 respectively) predate all of Phase 1 and show no modification since -- no retrain occurred during or between any generation cycle.",
+        "per_row_metadata_caveat": "rows carry NO per-row provenance fields -- each line is exactly {\"messages\": [user, assistant]}, no source_model/timestamp/stratum. Provenance is therefore established at the FILE/commit level (git log + mtime + V5_LOG.md narrative), not per-row. This is sufficient here (single continuous generation lineage, no regime change events found) but means a future mixed-regime corpus would need the script itself to start stamping rows.",
+        "verdict": "SAFE TO INCLUDE. No regeneration or dropping needed on provenance grounds."
+      },
+      "step_0b_checkpoint_lock_assertion": {
+        "finding": "The final completion run (attempt_6_resume, 8531->12001) has NO logged pre-launch hash assertion -- V5_LOG.md/V5_STATE.json were never updated between the 'paused at 8531' entry and this run's completion, unlike every prior cycle which explicitly logged a re-verification.",
+        "as_of_now_check": "sha256sum swarm_data/best_model.pt = 18fc201d5a419ff2fb0cfb66a60810af77a9ed52969f2996f57c952d1306a01b (MATCH); sha256sum src/swarm_intent/stgt_bridge.py = e99472e16525588be83f7e7e78abeb5d781d7c2d238adc902c10c660bbb022f7 (MATCH). Both file mtimes unchanged since 2026-08-09, before Phase 1 started -- no retrain window exists in which drift could have occurred and reverted.",
+        "verdict": "PASS (verified after the fact, not asserted before launch as discipline requires). Recommendation: build_sft_dataset.py should print/log both hashes itself at startup so this can never again depend on an operator remembering to check and log it manually."
+      },
+      "step_0c_val_mining_split": {
+        "finding": "data/sft_train_v5_phase1_val.jsonl was ONE combined 1200-row file (--val-frac 0.1 default), not two disjoint val/mining splits. Searched AUDIT.md, V5_LOG.md, and V5_STATE.json for a documented plan calling for a 600/600 val+mining split -- found none. The 'as originally specified' 600/600 split referenced in this audit's instructions has no corresponding record in this repo.",
+        "action_taken": "Split now: SPLIT_SEED=5001 (fresh, disjoint from every seed already in use in this program: 0, 1, 7, 42, 999, 2024), Python random.Random(5001).shuffle over the 1200 rows, first 600 -> val (held-out), remaining 600 -> mining (dev). Verified zero prompt overlap: val vs mining, val vs train (10801), mining vs train -- all disjoint.",
+        "files": "data/sft_train_v5_phase1_val.jsonl (600, held-out val) / data/sft_train_v5_phase1_mining.jsonl (600, mining/dev, new file)."
       }
     }
   },

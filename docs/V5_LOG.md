@@ -2723,3 +2723,49 @@ relaunching `--append --n <12000 - current_total>` (currently 3469 remaining).
 
 `docs/V5_STATE.json` updated: `phase1_step2_corpus_generation` records all 5 attempts plus the
 escape-sequence incident. Still `phase=1, step=2`, now explicitly paused pending user resume.
+
+## 2026-08-11 (later) — Phase 1 step 2 completed; step 3 (quality gates) step 0 provenance check
+
+**Step 2 finished without further user intervention.** A 6th cycle (`v5_quota_recheck6.log`,
+09:33 IST: `--n 8 --concurrency 8 --max-teacher-fails 8`, 7/7 generated, 100% teacher prose)
+confirmed quota was live, then `--n 3469 --concurrency 24 --max-teacher-fails 100 --append`
+ran to full completion this time (235.0 min, `/tmp/v5_build_sft_resume5.log`, reused filename
+from an earlier cycle — do not confuse with attempt 5's own 3.3-minute log) — 3470/3470
+generated, 2894/3470 (83%) with teacher prose, no quota gate hit. Merged total: 8531 existing +
+3470 new = **12,001/12,000** (10,801 train + 1,200 val). This run's launch was **not logged**
+in this file or `V5_STATE.json` before it happened — reconstructed after the fact from the
+`/tmp` log timestamps and tmux scrollback; see the provenance audit below for what that gap
+does and doesn't affect.
+
+**Provenance audit, step 0 (mandatory before any quality-gate work on the unified corpus):**
+
+- **0a — origin of the 8,531 pre-existing rows.** All generated 2026-08-10 20:58 IST through
+  2026-08-11 03:53 IST (5 quota cycles, commits `405b604`/`447b81a`/`c6df352`/`6779a1c`),
+  entirely after both the fallback stratification decision and the checkpoint-freshness lock
+  were already in force. `best_model.pt`/`stgt_bridge.py` mtimes (2026-08-09) predate all of
+  Phase 1 and are unchanged — no retrain occurred anywhere in this window. **Caveat found**:
+  rows carry no per-row provenance metadata at all (`{"messages": [...]}` only, no
+  source_model/timestamp/stratum field) — provenance here rests entirely on file-level git
+  history + mtimes, which is sufficient for this single continuous lineage but would not
+  survive a future mixed-regime corpus. **Verdict: safe to include as-is.**
+- **0b — checkpoint-lock assertion before the final (attempt 6) run.** Not logged — this is
+  the first cycle in the whole Phase 1 sequence where the pre-launch hash check wasn't written
+  down. Checked now: `best_model.pt` sha256 `18fc201d...` and `stgt_bridge.py` sha256
+  `e99472e1...` both **match** the recorded `phase1_checkpoint_lock` exactly, and neither
+  file's mtime moved during or after generation — no drift window exists. **Verdict: pass,
+  but after-the-fact, not asserted-before-launch as the discipline requires.** Recommendation:
+  `build_sft_dataset.py` should print/assert both hashes itself at startup so this can't
+  depend on an operator remembering to check and log it by hand again.
+- **0c — val/mining split.** `data/sft_train_v5_phase1_val.jsonl` was one combined 1,200-row
+  file (`--val-frac 0.1` default), not the specified two disjoint 600/600 val+mining splits.
+  Searched this file, `V5_STATE.json`, and `AUDIT.md` for where that 600/600 plan was
+  originally recorded — **found no such record anywhere in this repo.** Split now:
+  `SPLIT_SEED=5001` (fresh, disjoint from every seed already used in this program: 0, 1, 7,
+  42, 999, 2024), random shuffle of the 1,200 rows, first 600 → held-out val, remaining 600 →
+  mining/dev. Verified pairwise zero prompt overlap (val/mining/train, all three pairs).
+  Renamed per instruction: `data/sft_train_v5_phase1_val.jsonl` (600, held-out) /
+  `data/sft_train_v5_phase1_mining.jsonl` (600, mining/dev — new file).
+
+All three provenance questions resolved cleanly (no drift, no undocumented regime change, gap
+in 0b closed after the fact). Proceeding to step 1 (teacher-prose gap) and step 2 (quality
+gates) next.
