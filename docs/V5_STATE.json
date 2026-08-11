@@ -1910,6 +1910,19 @@
         "action_taken": "Split now: SPLIT_SEED=5001 (fresh, disjoint from every seed already in use in this program: 0, 1, 7, 42, 999, 2024), Python random.Random(5001).shuffle over the 1200 rows, first 600 -> val (held-out), remaining 600 -> mining (dev). Verified zero prompt overlap: val vs mining, val vs train (10801), mining vs train -- all disjoint.",
         "files": "data/sft_train_v5_phase1_val.jsonl (600, held-out val) / data/sft_train_v5_phase1_mining.jsonl (600, mining/dev, new file)."
       }
+    },
+    "phase1_step3_step1_teacher_prose_gap": {
+      "date": "2026-08-11",
+      "detector": "used_teacher = assistant.follow_up_watch != 'Monitor formation and approach rate over the next window.' (finalize_assessment()'s hardcoded default, never produced by the teacher). Validated exact match against the generation log: 576 fallback rows detected on the newest 3470 rows == 3470-2894 from resume5.log's own '2894/3470 (83%) with teacher prose'.",
+      "scoped_finding_newest_3470_rows": {"n": 3470, "fallback": 576, "pct": "16.6%"},
+      "corpus_wide_finding": {
+        "n": 12001, "fallback": 3893, "pct": "32.4%",
+        "note": "much larger than the 17% newest-cycle figure -- driven by lower teacher-hit rates in earlier quota cycles (70/63/63/52/34% before this final 83% cycle, weighted avg ~67% matching the 67.6% measured teacher-prose rate). Any '100% teacher prose' claim about this corpus is false.",
+        "per_split": {"train": "3493/10801 (32.3%)", "val": "196/600 (32.7%)", "mining": "204/600 (34.0%)"}
+      },
+      "diagnosis": "100% plain template fallback in all 10 sampled rows -- byte-identical to finalize_assessment()'s hardcoded defaults except for RULES-derived fields. Not a silently-retried failure (retry already exhausted inside _generate_one_with_retry before finalize_assessment sees the empty draft) and not a distinct legitimate path (only one NvidiaClient teacher instantiated per run).",
+      "decision": "TAG, do not drop or regenerate yet. RULES-derived decision fields are unconditionally correct on fallback rows regardless of teacher success (real signal, not bad data); NVIDIA quota already shown degrading (step 2); train_qlora.py expects the raw {\"messages\":[...]} shape untouched. Implemented data/sft_train_v5_phase1_provenance.json (sha256(prompt) -> {split, used_teacher}) covering all 12001 rows; corpus files themselves not modified. Regeneration left open as a user decision pending step 2's actual quality-gate impact.",
+      "provenance_file": "data/sft_train_v5_phase1_provenance.json"
     }
   },
   "started": "2026-08-07T19:47:41Z"

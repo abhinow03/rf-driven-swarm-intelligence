@@ -2769,3 +2769,57 @@ does and doesn't affect.
 All three provenance questions resolved cleanly (no drift, no undocumented regime change, gap
 in 0b closed after the fact). Proceeding to step 1 (teacher-prose gap) and step 2 (quality
 gates) next.
+
+## 2026-08-11 (later) — Phase 1 step 3, step 1: teacher-prose gap is much bigger than it looked
+
+**Detection method.** No per-row provenance field exists (rows are exactly
+`{"messages": [user, assistant]}`), so `used_teacher` was reconstructed from
+`finalize_assessment()`'s own template: `follow_up_watch` defaults to the fixed string
+`"Monitor formation and approach rate over the next window."` whenever `draft` lacked a
+`situation_summary` (i.e. the teacher call failed/timed out/rate-limited after
+`_generate_one_with_retry`'s 3 attempts, or the teacher's JSON didn't parse). This string is
+never produced by the teacher (it only appears via the exact code-path default) and is
+otherwise unconstrained free text — a clean, unambiguous signal. Validated against the
+generation log itself: on the newest 3,470 rows this detector finds exactly 576 fallback rows,
+matching `/tmp/v5_build_sft_resume5.log`'s own reported "2894/3470 (83%) with teacher prose"
+to the row (3470-2894=576) exactly.
+
+**The scoped question (newest 3,470 rows): confirmed, 576/3470 = 16.6% (~17%).** All 10 sampled
+non-teacher rows are byte-identical to `finalize_assessment()`'s hardcoded defaults for
+`situation_summary`/`threat_reasoning`/`key_indicators`/`follow_up_watch` (only `form_a`,
+`form_b`, and the RULES-derived `threat_level`/`likely_intent`/`recommended_action` vary) —
+e.g. `"The swarm is in a dispersed formation, holding steady."` /
+`"dispersed->dispersed dynamics with the observed approach rate indicate a low threat."` This
+is **plain template fallback**, not a generation failure silently retried into something else
+(the retry already happened, inside `_generate_one_with_retry`'s 3-attempt/backoff, before
+`finalize_assessment` ever sees the empty draft) and not a distinct legitimate path (the script
+instantiates exactly one `NvidiaClient` per run — there is no second teacher family in this
+dataset).
+
+**The corpus-wide number is much larger: 3,893/12,001 = 32.4%, not 17%.** The 17% figure only
+describes the final (highest-hit-rate) generation cycle. Applying the identical detector to
+the full unified corpus (train 10,801 + val 600 + mining 600) finds 3,893 template-fallback
+rows overall — driven by the earlier quota cycles' much lower hit rates (attempts 1-5 logged
+70%/63%/63%/52%/34% before this final 83% cycle; weighted average ≈67%, matching the
+detector's 67.6% teacher-prose rate almost exactly). **Any "100% teacher prose" claim about
+this corpus is false and must not ship as stated** — the true figure is 67.6% (8,108/12,001).
+Per-split: train 32.3% fallback (3,493/10,801), val 32.7% (196/600), mining 34.0% (204/600) —
+fallback rate is roughly uniform across splits (expected, since `--append` reshuffles before
+re-splitting), not concentrated in one split.
+
+**Decision: tag and exclude from the quality claim, do not drop or regenerate (yet).**
+Reasoning: (1) the RULES-derived decision fields (`threat_level`/`likely_intent`/
+`recommended_action`) are unconditionally correct on every fallback row regardless of teacher
+success — dropping 3,893 rows would discard real, correctly-labeled training signal, not bad
+data; (2) NVIDIA quota has already shown a documented degrading pattern (Phase 1 step 2) —
+blind regeneration of 3,893 rows is expensive and not guaranteed to succeed before hitting the
+same ceiling again; (3) `train_qlora.py` (line 103) expects exactly the raw `{"messages": [...]}`
+shape — adding a provenance field into the training JSONL itself would touch a schema other
+code depends on for no necessary reason. Instead: wrote
+`data/sft_train_v5_phase1_provenance.json`, a side-car mapping `sha256(prompt) ->
+{split, used_teacher}` for all 12,001 rows, built with the same validated detector. The
+corpus itself is untouched. **Regeneration of the 3,893 fallback rows remains an open option
+for the user to weigh in on** once step 2's actual quality-gate impact (esp. distinct-summary
+rate, since template fallback collapses `situation_summary` to one of only ~64 possible
+(form_a, form_b) strings) is known — not decided preemptively here, since it is a real
+further quota-spending action, unlike tagging.
