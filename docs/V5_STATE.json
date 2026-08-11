@@ -1923,6 +1923,28 @@
       "diagnosis": "100% plain template fallback in all 10 sampled rows -- byte-identical to finalize_assessment()'s hardcoded defaults except for RULES-derived fields. Not a silently-retried failure (retry already exhausted inside _generate_one_with_retry before finalize_assessment sees the empty draft) and not a distinct legitimate path (only one NvidiaClient teacher instantiated per run).",
       "decision": "TAG, do not drop or regenerate yet. RULES-derived decision fields are unconditionally correct on fallback rows regardless of teacher success (real signal, not bad data); NVIDIA quota already shown degrading (step 2); train_qlora.py expects the raw {\"messages\":[...]} shape untouched. Implemented data/sft_train_v5_phase1_provenance.json (sha256(prompt) -> {split, used_teacher}) covering all 12001 rows; corpus files themselves not modified. Regeneration left open as a user decision pending step 2's actual quality-gate impact.",
       "provenance_file": "data/sft_train_v5_phase1_provenance.json"
+    },
+    "phase1_step3_step2_quality_gates": {
+      "date": "2026-08-11",
+      "status": "BLOCKED on distinct-summary hard fail, awaiting user decision (coupled to step1's open regeneration question)",
+      "rationale_entailment": {
+        "method": "llm_finetuning/check_rationale_entailment.py -- whole-word {low,medium,high,critical} matches in threat_reasoning, excluding matches within a 3-token window of descriptive-signal words (confidence/stability/speed/velocity/approach/rate/likelihood/probability/value). Fails if filtered match set contains a level word other than the assigned threat_level.",
+        "tuning": "mining split (396 teacher rows) only. 2-word window: 18/396 flagged. 3-word window + descriptive-word list: 2/396 flagged. Manually read ALL flags at every setting -- 100% false positives (idiom 'X-threat maneuver', negated phrasing 'keeps threat from escalating to X').",
+        "held_out_check": "train+val: 98/7712 teacher rows flagged (1.27%). Spot-checked 15/98 -- 15/15 false positives, same patterns.",
+        "decision": "0 rows dropped -- zero confirmed genuine contradictions found; residual flags are heuristic noise, not evidence of bad labels."
+      },
+      "decision_field_contradiction": {
+        "status": "not automated -- ~35 rows read during entailment tuning/spot-checks were all internally consistent (summary/indicators matched likely_intent). Residual gap: not verified at full scale."
+      },
+      "distinct_situation_summary": {
+        "target": ">=90%",
+        "result": "HARD FAIL",
+        "by_split": {"train": "7353/10801 (68.1%)", "val": "451/600 (75.2%)", "mining": "444/600 (74.0%)", "all": "8153/12001 (67.9%)"},
+        "by_provenance": {"teacher_only": "8104/8108 (100.0%)", "fallback_only": "49/3893 (1.3%)"},
+        "root_cause": "identical to step1's teacher-prose gap -- fallback situation_summary is a pure function of (form_a,form_b), collapsing 3893 rows onto exactly 49 distinct strings. If fallback rows were excluded, remaining 8108-row corpus clears the gate at 100.0%.",
+        "action": "NOT resolved -- per instruction not to silently drop rows on a gate failure, stopping to ask the user how to handle this (same underlying rows as step1's open regeneration question)."
+      },
+      "prompt_overlap_final_check": {"result": "PASS", "note": "re-verified train/val/mining pairwise disjoint (0 overlap each pair), as the final gate per instruction"}
     }
   },
   "started": "2026-08-07T19:47:41Z"

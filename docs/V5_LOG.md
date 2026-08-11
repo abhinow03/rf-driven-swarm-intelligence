@@ -2823,3 +2823,65 @@ for the user to weigh in on** once step 2's actual quality-gate impact (esp. dis
 rate, since template fallback collapses `situation_summary` to one of only ~64 possible
 (form_a, form_b) strings) is known — not decided preemptively here, since it is a real
 further quota-spending action, unlike tagging.
+
+## 2026-08-11 (later) — Phase 1 step 3, step 2: quality gates -- one hard fail, tied to step 1
+
+`llm_finetuning/check_rationale_entailment.py`.
+
+**Rationale-label entailment (tuned on mining split only).** Heuristic: extract whole-word
+`{low, medium, high, critical}` matches from `threat_reasoning`, excluding matches within a
+3-token window of descriptive-signal words (`confidence`, `stability`, `speed`, `velocity`,
+`approach`, `rate`, `likelihood`, `probability`, `value`, etc. -- words that describe an INPUT
+signal, not the writer's own verdict). A row fails if the filtered match set contains any
+level word other than its assigned `threat_level`. Tuning trace on the 396 teacher-authored
+mining rows: an initial 2-word-window version flagged 18/396 (4.5%); widening to a 3-word
+window and adding the descriptive-word list dropped this to 2/396 (0.5%). **Manually read all
+396 mining rows' flags (18 at the first setting, 2 at the final setting) -- every single flag
+at every setting was a false positive**, caused by idioms like "encirclement is a
+high-threat maneuver" (a generic domain fact, not a per-instance verdict) and negated
+phrasing like "keeps the threat from escalating to high or critical" (the mentioned level is
+explicitly ruled out, not asserted). **Zero genuine label-reasoning contradictions found on
+the mining split at any tuning setting.** Spot-checked 15 of 98 flags on the held-out
+train+val application (1.27% of teacher rows, 0.86% of all rows) -- same pattern, 15/15 false
+positives. **Decision: 0 rows dropped on this gate.** The evidence says the teacher reliably
+complied with the prompt's "use exactly these values... genuinely support this assessment"
+instruction; the residual 98 heuristic flags are noise from free-text idiom, not real
+contradictions, and dropping on an unconfirmed heuristic would discard good, correctly-labeled
+data. (Template-fallback rows are trivially self-consistent by construction -- excluded from
+this check entirely, not counted as passes or failures.)
+
+**Decision-field contradiction (situation_summary/key_indicators vs. likely_intent/
+recommended_action).** No dedicated automated check built -- the ~35 teacher rows read during
+the entailment tuning/spot-check passes above were all internally consistent (e.g. a
+`likely_intent="encircle"` row's summary/indicators always described encircling behavior, never
+a mismatched intent). Not exhaustively verified at full scale; flagged as a residual gap if a
+future pass wants machine verification here.
+
+**Distinct situation_summary rate -- HARD FAIL, target >=90%.**
+
+| split | n | distinct | rate |
+|---|---|---|---|
+| train | 10,801 | 7,353 | 68.1% |
+| val | 600 | 451 | 75.2% |
+| mining | 600 | 444 | 74.0% |
+| **all** | **12,001** | **8,153** | **67.9%** |
+
+Decomposed by provenance (using the `used_teacher` tag from step 1's side-car file) -- this
+is the whole story: **teacher-authored rows are 8,104/8,108 = 100.0% distinct** (a handful of
+coincidental exact duplicates). **Template-fallback rows are 49/3,893 = 1.3% distinct** -- they
+collapse onto exactly the 49 RULES pairs' fixed strings, one per (form_a, form_b) key,
+because `finalize_assessment()`'s default `situation_summary` is a pure function of the pair.
+**This gate's failure is not a new, independent quality problem -- it is step 1's teacher-prose
+gap (32.4% fallback) restated in duplicate-string terms.** If the fallback rows were excluded
+entirely, the remaining 8,108-row corpus would clear the gate at 100.0% distinct, comfortably
+above the 90% target.
+
+**Prompt overlap -- re-verified, PASS.** train (10,801) / val (600) / mining (600): all three
+pairwise intersections are empty (re-confirmed after step 0's split, as the final gate per
+instruction).
+
+**Per the explicit instruction not to silently drop rows on a gate failure and move on:**
+stopping here to ask how to handle the distinct-summary hard fail before proceeding to step 3
+(coverage report) and step 4 (preregistration re-verification) -- the answer is coupled to step
+1's still-open regeneration question, since both are downstream of the same 3,893
+template-fallback rows.
