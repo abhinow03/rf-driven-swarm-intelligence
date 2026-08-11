@@ -1,0 +1,62 @@
+{
+  "per_class_threat_accuracy": {
+    "low": {
+      "n": 2,
+      "accuracy": 0.5,
+      "ci_lo": 0.09453120463920084,
+      "ci_hi": 0.9054687953607992,
+      "low_n_caveat": true
+    },
+    "medium": {
+      "n": 1,
+      "accuracy": 1.0,
+      "ci_lo": 0.2065493117918027,
+      "ci_hi": 1.0,
+      "low_n_caveat": true
+    },
+    "high": {
+      "n": 2,
+      "accuracy": 0.5,
+      "ci_lo": 0.09453120463920084,
+      "ci_hi": 0.9054687953607992,
+      "low_n_caveat": true
+    },
+    "critical": {
+      "n": 0,
+      "accuracy": null,
+      "ci_lo": null,
+      "ci_hi": null,
+      "low_n_caveat": true
+    }
+  },
+  "answerability": {
+    "accuracy_when_answerable": 0.6,
+    "n_answerable": 5,
+    "abstention_rate_when_unanswerable": 1.0,
+    "n_unanswerable": 1,
+    "over_abstention_rate": 0.14285714285714285
+  },
+  "escalation": {
+    "n": 7,
+    "correct": 0.42857142857142855,
+    "under_escalated": 0.14285714285714285,
+    "over_escalated": 0.14285714285714285,
+    "abstained": 0.2857142857142857
+  },
+  "schema_validity_rate": {
+    "rate": 0.875,
+    "n_valid": 7,
+    "n_total": 8
+  },
+  "critical_pair_tactical_accuracy": {
+    "n": 0,
+    "accuracy": null,
+    "low_n_caveat": true
+  },
+  "meta": {
+    "mode": "mock",
+    "adapter_path": null,
+    "n_cases": 8,
+    "generated_at_utc": "2026-08-11T09:31:30.314416+00:00"
+  }
+}
