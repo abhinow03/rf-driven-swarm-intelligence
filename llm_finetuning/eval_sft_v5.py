@@ -34,17 +34,19 @@ Two modes, both zero-GPU while v5-a is still training:
     branch is demonstrated end-to-end.
 
   --adapter <path> (default checkpoints/v5_sft/, the real training output
-    dir): REAL checkpoint resolution (resolve_adapter_path() -- finds the
-    highest-step checkpoint-<N> subdirectory, or uses <path> directly if it's
-    already a saved adapter) + REAL tokenizer + REAL meta-device base-model/
-    LoRA-config construction (load_model_dry_run(), same convention as
-    train_sft_v5.py's --dry-run: torch.cuda.memory_allocated()==0 asserted
-    before and after). The actual generation call is still stubbed
-    (stub_generate() -> mock_predict()) -- there is no real v5-a checkpoint
-    to generate from yet. Once one exists, only load_model_dry_run()'s
-    get_peft_model() call needs to become PeftModel.from_pretrained() and
-    stub_generate() needs to become a real model.generate() call; everything
-    else in this file is unaffected by that swap.
+    dir) --real: REAL checkpoint resolution (resolve_adapter_path()) + REAL
+    4-bit quantized model load (LocalHFClient, same config as training) +
+    REAL generation against --phase4-set (default
+    evaluation/phase4_eval_set.json). Prints a 3-case sanity check FIRST
+    (raw output for 3 hand-picked cases) before running the full batch --
+    this is a real gate, not cosmetic: read the printed output before
+    trusting anything downstream.
+
+  --adapter <path> (no --real): the zero-GPU dry-run path used while v5-a
+    was still training -- REAL checkpoint resolution + REAL meta-device
+    model/LoRA construction (load_model_dry_run(), torch.cuda.
+    memory_allocated()==0 asserted), generation still stubbed. Kept for
+    regression-testing the path-resolution logic without touching the GPU.
 
 --judge: also scores with the advisory-only judge (default_judge_client(),
   src/swarm_intent/llm/client.py -- NvidiaClient/meta-llama-3.1-70b-instruct,
@@ -329,6 +331,11 @@ def evaluate(cases: list[dict], predict_fn, judge_client=None) -> dict:
         # when judge_client=None; present-but-populated when a real judge is passed.
         # This separation IS the "advisory-only, never load-bearing" contract --
         # see tests/test_eval_sft_v5.py::test_judge_advisory_only for the check.
+        # Per-case raw/parsed output -- NOT read by any aggregate metric above,
+        # exposed so callers (e.g. score_memorization.py) can do their own
+        # per-case analysis without a second predict_fn pass.
+        "raw_by_case": raw_by_case,
+        "parsed_by_case": parsed_by_case,
         "judge_scores": judge_scores_by_case,
         "judge_overall_mean": (sum(judge_scores_by_case.values()) / len(judge_scores_by_case)
                                if judge_scores_by_case else None),
@@ -473,6 +480,68 @@ def stub_generate(case: dict) -> str:
     return mock_predict(case)
 
 
+def load_phase4_items(path: str = "evaluation/phase4_eval_set.json") -> list[dict]:
+    with open(path) as f:
+        payload = json.load(f)
+    return payload["items"]
+
+
+def build_case_from_phase4_item(item: dict) -> dict:
+    """Converts a phase4_eval_set.json item into evaluate()'s case shape."""
+    return {
+        "name": item["name"],
+        "pair": tuple(item["pair"]) if item.get("pair") else None,
+        "expected_threat": item.get("expected_threat"),
+        "has_ground_truth": item["has_ground_truth"],
+    }
+
+
+def build_prompt_from_phase4_item(item: dict) -> str:
+    from swarm_intent.inference import build_llm_prompt
+    from swarm_intent import pipeline_v2
+    return build_llm_prompt(pipeline_v2._preds_from_key_windows(item["key_windows"]), item["ctx"], {})
+
+
+def load_real_client(base_model: str, adapter_path: str, temperature: float = 0.0):
+    """REAL 4-bit quantized model + REAL adapter weights, on the GPU -- same
+    LocalHFClient code path every other eval script in this project uses
+    (v2_client/ft_client/rules_client in eval_real_stgt_output.py etc.), so
+    the load config (NF4 double-quant, bf16 compute) is identical to what
+    those comparison systems were loaded with, and to training's own
+    quantization config. temperature=0.0 -> greedy (do_sample=False in
+    LocalHFClient.generate), matching PREREGISTRATION.md's "greedy for every
+    HEADLINE number" requirement."""
+    from swarm_intent.llm.client import LocalHFClient
+    return LocalHFClient(base_model, adapter_path=adapter_path, temperature=temperature)
+
+
+def sanity_check_three_cases(client, items: list[dict]) -> None:
+    """Hand-picked: one low-threat steady state, one high/critical
+    transition, one multi-hop unanswerable case -- printed BEFORE any batch
+    run, so a garbage/malformed model can be caught before spending the full
+    eval budget on it."""
+    low_case = next((it for it in items if it.get("expected_threat") == "low"), items[0])
+    high_case = next((it for it in items if it.get("expected_threat") in ("high", "critical")
+                      and it["name"] != low_case["name"]), items[1])
+    unans_case = next((it for it in items if not it["has_ground_truth"]
+                       and it["name"] not in (low_case["name"], high_case["name"])), items[2])
+
+    print("=" * 90)
+    print("SANITY CHECK: 3 hand-picked cases, raw output BEFORE any batch run")
+    print("=" * 90)
+    for label, item in (("low-threat steady state", low_case),
+                        ("high/critical transition", high_case),
+                        ("multi-hop unanswerable", unans_case)):
+        prompt = build_prompt_from_phase4_item(item)
+        raw = client.generate(prompt)
+        parsed, valid = parse_and_validate(raw)
+        print(f"\n--- {label} ({item['name']}, expected_threat="
+             f"{item.get('expected_threat')}, has_ground_truth={item['has_ground_truth']}) ---")
+        print(f"schema_valid={valid}")
+        print(raw[:800])
+    print("\n" + "=" * 90)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--mock", "--dry-run", dest="mock", action="store_true",
@@ -488,6 +557,15 @@ def main():
     ap.add_argument("--judge", action="store_true",
                     help="also score with the advisory-only judge (default_judge_client()). "
                          "Requires NVIDIA_API_KEY.")
+    ap.add_argument("--real", action="store_true",
+                    help="REAL generation on the GPU (LocalHFClient, 4-bit, greedy) against "
+                         "--phase4-set. Requires --adapter to resolve to a real checkpoint.")
+    ap.add_argument("--phase4-set", default="evaluation/phase4_eval_set.json")
+    ap.add_argument("--batch-size", type=int, default=8)
+    ap.add_argument("--limit", type=int, default=None,
+                    help="only evaluate the first N phase4 items (smoke testing)")
+    ap.add_argument("--progress-task", default=None,
+                    help="if set, writes evaluation/progress/<task>.json (swarm_intent.progress.Reporter)")
     ap.add_argument("--out", default="logs/eval_v5_results.json")
     args = ap.parse_args()
 
@@ -501,19 +579,55 @@ def main():
     elif judge:
         print(f"judge: {JUDGE_MODEL} via NVIDIA NIM (advisory only)")
 
-    cases = mock_cases()
-
     if args.mock:
+        cases = mock_cases()
         results = evaluate(cases, mock_predict, judge_client=judge)
         adapter_path_reported = None
         mode = "mock"
-    else:
+    elif not args.real:
+        cases = mock_cases()
         resolved = resolve_adapter_path(args.adapter)
         tok, model = load_model_dry_run(args.base, resolved)
         results = evaluate(cases, stub_generate, judge_client=judge)
         adapter_path_reported = resolved
         mode = ("real_adapter_dryrun (checkpoint resolution + meta-device load are REAL; "
                "generation is still stubbed -- no real checkpoint weights loaded yet)")
+    else:
+        resolved = resolve_adapter_path(args.adapter)
+        all_items = load_phase4_items(args.phase4_set)
+        items = all_items[:args.limit] if args.limit else all_items
+        cases = [build_case_from_phase4_item(it) for it in items]
+        prompts_by_name = {it["name"]: build_prompt_from_phase4_item(it) for it in items}
+
+        client = load_real_client(args.base, resolved, temperature=0.0)  # greedy
+        # Sanity check searches the FULL population (all_items), never the
+        # --limit-truncated `items` -- a small --limit could otherwise make the
+        # 3 "hand-picked" cases collapse onto the same fallback item, as happened
+        # during this file's own development (--limit 3 caught it).
+        sanity_check_three_cases(client, all_items)
+
+        prompts_ordered = [prompts_by_name[c["name"]] for c in cases]
+        chunk_size = args.batch_size * 8  # report progress every 8 batches
+        print(f"=== batched generation, {len(prompts_ordered)} cases, batch_size={args.batch_size}, "
+             f"progress every {chunk_size} ===")
+        from swarm_intent.progress import Reporter
+        reporter = Reporter(args.progress_task or "eval_sft_v5_real", len(prompts_ordered)) \
+            if args.progress_task else None
+        raw_outputs = []
+        for start in range(0, len(prompts_ordered), chunk_size):
+            chunk = prompts_ordered[start:start + chunk_size]
+            raw_outputs.extend(client.generate_batch(chunk, batch_size=args.batch_size))
+            print(f"  {min(start + chunk_size, len(prompts_ordered))}/{len(prompts_ordered)} generated", flush=True)
+            if reporter:
+                reporter.update(len(chunk))
+        if reporter:
+            reporter.status = "done"
+            reporter._write()
+        raw_by_name = dict(zip((c["name"] for c in cases), raw_outputs))
+
+        results = evaluate(cases, lambda c: raw_by_name[c["name"]], judge_client=judge)
+        adapter_path_reported = resolved
+        mode = "real (greedy, temperature=0.0, LocalHFClient 4-bit)"
 
     results["meta"] = {"mode": mode, "adapter_path": adapter_path_reported, "n_cases": len(cases),
                        "judge_model": JUDGE_MODEL if judge else None,
