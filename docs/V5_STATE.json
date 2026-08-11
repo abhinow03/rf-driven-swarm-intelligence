@@ -1947,5 +1947,23 @@
       "prompt_overlap_final_check": {"result": "PASS", "note": "re-verified train/val/mining pairwise disjoint (0 overlap each pair), as the final gate per instruction"}
     }
   },
+  "parallel_prep": {
+    "date": "2026-08-11",
+    "note": "Built AHEAD of Phase 1 finishing, in a SEPARATE session from the Phase 1 corpus regeneration tmux job (which was using network/CPU only -- NVIDIA teacher API calls, no local GPU -- but this work independently avoided the GPU regardless). Does NOT advance phase/step above -- Phase 1 step 2 completion is not yet confirmed (regeneration of the 3893 template-fallback rows was still running when this was written).",
+    "scope": "v5-a only (plain-SFT baseline arm of the planned 4-way Phase 2 ablation: v5-a plain SFT / v5-b + context distillation / v5-c + logit-adjusted loss / v5-d unbalanced control). v5-b/c/d are follow-on work, not started.",
+    "train_sft_v5_py": {
+      "file": "llm_finetuning/train_sft_v5.py",
+      "config": "QLoRA, Qwen2.5-7B-Instruct, 4-bit NF4 double-quant, LoRA r=32/alpha=64 on all 7 projections (q/k/v/o/gate/up/down_proj) -- larger than train_qlora.py's r=16/alpha=32 given the ~10x larger Phase 1 corpus. assistant_only_loss=True is hardcoded (required, not a flag). per_device_train_batch_size=8, gradient_accumulation_steps=4 (effective batch 32, asserted in code), lr=1e-4, cosine schedule, warmup_ratio=0.03, 3 epochs, gradient_checkpointing (use_reentrant=False), paged_adamw_8bit, group_by_length, bf16, packing=False, eval_strategy=steps/eval_steps=50, load_best_model_at_end, save_steps=500, output_dir=checkpoints/v5_sft/.",
+      "dry_run_result": "PASS. torch.cuda.memory_allocated()==0 before AND after (verified via nvidia-smi too: 1085-1251MiB baseline unchanged). Base Qwen2.5-7B-Instruct chat_template has NO {% generation %} markers (confirmed, matches train_qlora.py's prior finding) -- trl 1.8.0's get_training_chat_template() DOES auto-swap in a training-compatible template (trl auto-swapped a training template: True), verified on a real tokenized row: 82/144 tokens masked as assistant-only, decoded span matches exactly the assistant JSON content. LoRA applied on device_map='meta': 80,740,352/7,696,356,864 trainable (1.05%). Effective-batch assert (8*4==32) passed.",
+      "load_path_guard": "validate_corpus() fails loudly (FileNotFoundError/ValueError with an explicit message) if the train/val file is missing, under a 9000/400-row floor, or has rows failing the {messages:[user,assistant]} + OUTPUT_SCHEMA-keys schema -- not exercised against the real corpus this session (dry-run path deliberately uses synthetic stub rows instead of reading data/sft_train_v5_phase1_val.jsonl, since that file was being actively rewritten by the separate Phase 1 regeneration job at the time)."
+    },
+    "eval_sft_v5_py": {
+      "file": "llm_finetuning/eval_sft_v5.py",
+      "metrics": "per-class threat accuracy (Wilson 95% CI, low-n caveat printed when n<10), accuracy_when_answerable / abstention_rate_when_unanswerable / over_abstention_rate as 3 separate fields, under-escalation/over-escalation reported separately and directionally (never pooled), JSON schema-validity rate, critical-pair tactical accuracy (same low-n caveat) -- all checked against AUDIT.md/src/swarm_intent/llm/evaluate.py/eval_real_stgt_output.py conventions before writing, no new metrics invented.",
+      "mock_run_result": "PASS -- exercised every metric branch on a synthetic 8-case battery (correct/under-escalated/over-escalated/over-abstained/correctly-abstained/schema-invalid all deliberately present). Output: logs/eval_v5_results.json.",
+      "real_inference": "scaffolded (--adapter flag exists) but explicitly refuses to run (SystemExit) this session -- no real v5-a checkpoint exists yet."
+    },
+    "rules_extension_proposal": "docs/RULES_EXTENSION_PROPOSAL.md -- new this session (did not exist before). One-pager for Dr. Patil: current 2 critical pairs, the fallback stratification and why it was chosen over extending RULES, the 2 candidate promotions ((converging,converging)/(encirclement,encirclement)) with the open recommended_action question, explicitly not blocking Phase 1."
+  },
   "started": "2026-08-07T19:47:41Z"
 }

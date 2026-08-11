@@ -2885,3 +2885,61 @@ stopping here to ask how to handle the distinct-summary hard fail before proceed
 (coverage report) and step 4 (preregistration re-verification) -- the answer is coupled to step
 1's still-open regeneration question, since both are downstream of the same 3,893
 template-fallback rows.
+
+## 2026-08-11 (parallel session) — v5-a scaffolding built ahead of Phase 1 finishing
+
+Built in a SEPARATE session from the Phase 1 corpus regeneration tmux job (regenerating the
+3,893 template-fallback rows found in step 1/step 2 above), with a hard constraint not to
+touch, read from, or wait on that job, and not to load any model onto GPU. This work does
+NOT advance `phase`/`step` in `docs/V5_STATE.json` -- Phase 1 step 2 is not yet confirmed
+complete. See `V5_STATE.json`'s new `parallel_prep` key for full detail; summary below.
+
+**Scope: v5-a only** (plain-SFT baseline arm of the planned Phase 2 4-way ablation). **v5-b
+(+ context distillation), v5-c (+ logit-adjusted loss), and v5-d (unbalanced control) are
+follow-on work, not started this session** -- noting explicitly so they aren't lost.
+
+**`llm_finetuning/train_sft_v5.py`** -- QLoRA, Qwen2.5-7B-Instruct, LoRA r=32/alpha=64 on all
+7 projections (larger than `train_qlora.py`'s r=16/alpha=32, given the ~10x bigger corpus),
+`assistant_only_loss=True` hardcoded (not opt-in), effective batch 8*4=32 (asserted in code),
+lr=1e-4, cosine/warmup 0.03, 3 epochs, the rest per the agreed v5 plan. `--dry-run` (the only
+mode run this session): built the model on `device_map="meta"`, asserted
+`torch.cuda.memory_allocated()==0` before AND after (also cross-checked against `nvidia-smi`:
+baseline unchanged at ~1.1GB, unrelated to this process) -- **zero GPU memory touched,
+verified, not assumed.** Re-verified (didn't just trust `train_qlora.py`'s prior note) that
+base Qwen2.5-7B-Instruct's chat template has no `{% generation %}` markers, and that trl
+1.8.0's `get_training_chat_template()` auto-swaps a training-compatible template that does --
+confirmed on a real tokenized row: 82/144 tokens masked as assistant-only, and the decoded
+masked span is exactly the assistant JSON content, nothing from the user turn. LoRA-wrapped
+meta model: 80,740,352/7,696,356,864 trainable (1.05%). Added `validate_corpus()` so a future
+real run fails loudly (not silently) on a missing/undersized/malformed-schema corpus file --
+not exercised against the real Phase 1 corpus this session, since `--dry-run`'s default
+`--val` path deliberately falls back to synthetic stub rows rather than reading
+`data/sft_train_v5_phase1_val.jsonl` while the other tmux job was actively rewriting it.
+
+**`llm_finetuning/eval_sft_v5.py`** -- full metrics structure per this project's established
+conventions (checked against `AUDIT.md`/`src/swarm_intent/llm/evaluate.py`/
+`eval_real_stgt_output.py` before writing anything new): per-class threat accuracy with
+Wilson 95% CI and an explicit low-n caveat below n=10 (critical has been n=2 for most of this
+project's history -- never reported as a bare percentage); `accuracy_when_answerable` /
+`abstention_rate_when_unanswerable` / `over_abstention_rate` as three separate fields, never
+blended; under-escalation and over-escalation reported separately and directionally (this
+project's dominant measured failure mode is under-escalation, not a pooled "escalation
+error"); JSON schema-validity rate; critical-pair tactical accuracy with the same low-n
+caveat. `--mock` (the only mode run this session): synthetic 8-case battery deliberately
+covering every branch (correct / under-escalated / over-escalated / over-abstained /
+correctly-abstained-on-unanswerable / schema-invalid) -- all metrics computed correctly end
+to end, written to `logs/eval_v5_results.json`. Real inference (`--adapter <path>`) is
+scaffolded but explicitly refuses to run (`SystemExit`) -- there is no real v5-a checkpoint
+yet.
+
+**`docs/RULES_EXTENSION_PROPOSAL.md`** -- did not exist before this session (checked first,
+per instruction). New one-pager for Dr. Patil: current RULES has exactly 2 distinct critical
+pairs (`converging<->encirclement`, both directions of one compound-escalation event); the
+Phase 1 fallback stratification (low/medium/high 3,600 each, critical capped at 1,200 across
+the 2 pairs) and why it was chosen over forcing a uniform 3,000/stratum target; the 2
+candidate promotions (`(converging,converging)`, `(encirclement,encirclement)`) with their
+tactical justification; the open question this project cannot resolve on its own -- what
+`recommended_action` a promoted pair should get (`alert_operator` unchanged,
+`deploy_countermeasure` to match the existing critical pair, or something narrower) -- framed
+as a question, not a proposed answer. Explicitly notes this is NOT blocking Phase 1, which
+already proceeded under the fallback.
