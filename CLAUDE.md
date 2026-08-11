@@ -85,4 +85,5 @@ One `Config` dataclass replaces the old `CFG`/`CFG_V2` dicts. Key invariants:
 
 - The migration deliberately removed hidden global state. Pass `cfg`, `device`, graph thresholds, and normalization stats **explicitly** — do not reintroduce module-level globals like the old `CFG`/`device`/`model_v2`.
 - Reproducibility: a single seeded `np.random.Generator` (from `cfg.seed`) is threaded through **all** sampling in `data.py`. Keep it that way — do not call `np.random.*` or `default_rng()` without the threaded `rng`.
-- Secrets come from the environment (`GROQ_API_KEY`). Never commit a key or a placeholder fallback key.
+- Secrets come from the environment (`GROQ_API_KEY`, `NVIDIA_API_KEY`). Never commit a key or a placeholder fallback key.
+- **Known-verified optimizations (FA2, the locked batch config, etc.) are defaults from init for all future training runs.** Any NEW numerics-affecting change (attention implementation, precision, batching/accumulation, loss masking) still requires a short equivalence check before being trusted at full scale, regardless of time pressure — this formalizes the FA2 verification done for v5-a so it isn't silently skipped next time under urgency.
