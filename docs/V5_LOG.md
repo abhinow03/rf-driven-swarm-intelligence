@@ -3295,3 +3295,37 @@ running a second 7B-model inference job concurrently risked both OOM and slowing
 Script written and syntax-checked only. Run the moment v5-a's tmux session reports training
 complete: `python llm_finetuning/prerun_baselines_phase4.py --expected-sha256
 6501b8d059bd6f6eb4ff43f725b63c01c4e8f1e11661cbeea7dbdeb37bd79bea`.
+
+# PHASE 2: v5-a evaluation
+
+## 2026-08-12 — step 0: freshness check, and a correction to this step's premise
+
+**Training confirmed complete**: 3 epochs, 1014 steps, train_loss 0.3418, eval_loss 0.2976,
+mean_token_accuracy 0.899, `assistant_only_loss=True` and effective batch 8*4=32 both
+re-confirmed directly from `checkpoints/v5_sft/training_args.bin` (not just trusted from the
+launch-time assertion).
+
+**Adapter freshness**: `checkpoints/v5_sft/adapter_model.safetensors` mtime (01:35:08) matches
+the training-completion timestamp exactly (progress file: done at 01:35:07) -- this is
+provably THIS run's adapter. `adapter_config.json` confirms r=32/alpha=64/all 7 target
+modules/base=Qwen2.5-7B-Instruct, matching the agreed plan. Locked: sha256
+`79b71224e2d04a6149adf63ec3fcfc825d58007ce4bfe144e5d1f0e7cb89aad5`.
+
+**Non-obvious finding**: `load_best_model_at_end=True` selected **checkpoint-500** as best
+(`trainer_state.json`: `best_metric=0.29753`, `best_model_checkpoint=checkpoint-500`) --
+eval_loss at step 1014 was 0.29762, essentially a plateau, not an improvement. The adapter
+actually being evaluated going forward is therefore checkpoint-500's learned weights
+(re-saved via `trainer.save_model()`, different file size/serialization but the same
+parameters per that flag's own contract), even though training ran the full 1014 steps. Worth
+knowing before over-interpreting anything about "3 full epochs of learning."
+
+**Phase 4 eval set integrity**: `evaluation/phase4_eval_set.json` sha256 still exactly
+`6501b8d0...` -- unchanged since locking, no regeneration needed.
+
+**Correction to this step's stated premise**: `evaluation/phase4_baselines_results.json`
+**does not exist**. The 4 comparison systems (v2, rules_in_prompt, v3b-fix, base) were never
+actually pre-run against the locked eval set -- the post-training-prep session explicitly
+DEFERRED this (GPU was at 100% utilization from training the entire time) and left
+`prerun_baselines_phase4.py` written but unexecuted, with the exact handoff command given in
+that session's final report. That command was not run before this session started. Flagging
+this directly rather than fabricating a join -- running it for real now as part of step 4.

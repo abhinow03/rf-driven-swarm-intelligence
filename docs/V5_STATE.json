@@ -1,7 +1,8 @@
 {
-  "phase": 1,
-  "step": 3,
-  "status": "PHASE 1 STEP 2 COMPLETE: corpus generation finished at 12001/12000 rows. PHASE 1 STEP 3 (quality-gate provenance check): steps 0-2 done and fallback-row regeneration complete (teacher-prose 93.3%, distinct-summary 93.6% PASS, 810 rows still fallback -- user accepted, see phase1_step3_fallback_regeneration_complete). Proceeding to step 3 (coverage report) and step 4 (preregistration re-verification). Earlier notes: PHASE 1 STEP 3 (quality-gate provenance check) step 0 done: all three provenance questions resolved -- see phase1_corpus_provenance_audit. Proceeding to steps 1-2 (teacher-prose gap, quality gates) next.",
+  "phase": 2,
+  "step": 0,
+  "status": "PHASE 1 COMPLETE (corpus + quality gates + coverage + preregistration + judge fix, all committed). PHASE 2 (v5-a training + evaluation) started for real: training finished (3 epochs, 1014 steps, train_loss 0.3418, eval_loss 0.2976, mean_token_accuracy 0.899, assistant_only_loss=True confirmed). Step 0 (freshness check) just completed -- see phase2.step0_freshness_check. Proceeding to steps 1-6 (real-adapter wiring, memorization scorer, full Phase 4 protocol, baselines join, preregistration check, judge verification on real output).",
+  "phase1_status_archived": "PHASE 1 STEP 2 COMPLETE: corpus generation finished at 12001/12000 rows. PHASE 1 STEP 3 (quality-gate provenance check): steps 0-2 done and fallback-row regeneration complete (teacher-prose 93.3%, distinct-summary 93.6% PASS, 810 rows still fallback -- user accepted, see phase1_step3_fallback_regeneration_complete). Proceeding to step 3 (coverage report) and step 4 (preregistration re-verification). Earlier notes: PHASE 1 STEP 3 (quality-gate provenance check) step 0 done: all three provenance questions resolved -- see phase1_corpus_provenance_audit. Proceeding to steps 1-2 (teacher-prose gap, quality gates) next.",
   "status_pre_step27": "Chain-2 generator-fix consolidation + source symmetrization COMPLETE (docs/V5_LOG.md step 26, 3 commits: 3591051 consolidation, 9061392 symmetrization, + docs/results commit -- no STGT/bridge/LLM code changed, same frozen strategy-5 checkpoint). Step 1: consolidated 5 duplicate copies of build_long_sequence_labeled into src/swarm_intent/eval_trajectories.py (4 live scripts now import it; 1 frozen historical-reproduction script deliberately excluded, documented); confirmed NONE of the 5 ever fed real STGT training data (that's generate_dataset(), separate code). Step 2: symmetrized LEAD_IN_RANGE (15,35)->(30,50), derived the same way as MIN_DWELL_RANGE (lead_in>=25 for a window-0 majority, no stride-slack term since window 0 always starts at t=0); verified source OBS_NONE 16.3%->0.0% at population scale. Step 3: chain-2 pair_acc 39.9%->65.8% (was 18.7% original baseline, 3.5x total), threat_acc 72.1%->76.3%. Step 4: refined 20-case taxonomy found 100% boundary/blend-timing-concentrated failures, 0% clean (non-boundary) misses. Step 5: chain-3+ false-positive rate investigated and RESOLVED (12.6%->1.8%, below the 9.0% original baseline, p=4.3e-07) -- mechanistically explained by the shared per-hop sampling loop, not a bug, not noise (dest-only-fix regression itself was only borderline significant, p=0.062). Step 6: blend-timing overlap re-checked, STILL 0.0%, unchanged across 3 independent formula revisions. Decision: B -- blend-timing distribution mismatch is the dominant remaining issue, should be fixed BEFORE any STGT training/capacity change, not decision A as step 25 projected. STOPPING per instruction -- no STGT retraining, no blend-distribution fix started this session.",
   "halts_cleared": [
     "phase1_step0_groq_key_rotation (superseded by provider switch)",
@@ -2122,6 +2123,33 @@
       "real_inference": "scaffolded (--adapter flag exists) but explicitly refuses to run (SystemExit) this session -- no real v5-a checkpoint exists yet."
     },
     "rules_extension_proposal": "docs/RULES_EXTENSION_PROPOSAL.md -- new this session (did not exist before). One-pager for Dr. Patil: current 2 critical pairs, the fallback stratification and why it was chosen over extending RULES, the 2 candidate promotions ((converging,converging)/(encirclement,encirclement)) with the open recommended_action question, explicitly not blocking Phase 1."
+  },
+  "phase2": {
+    "training_complete": {
+      "date": "2026-08-12",
+      "metrics": {"epochs": 3, "steps": 1014, "train_loss": 0.3418, "eval_loss": 0.2976,
+                 "mean_token_accuracy": 0.899, "best_metric_eval_loss": 0.2975340783596039,
+                 "best_model_checkpoint": "checkpoints/v5_sft/checkpoint-500"},
+      "note": "load_best_model_at_end=True selected checkpoint-500 as best (eval_loss 0.29753 vs step-1014's 0.29762 -- essentially a plateau after step 500, not a meaningful difference). The FINAL saved adapter at checkpoints/v5_sft/adapter_model.safetensors is therefore functionally checkpoint-500's weights (re-saved via trainer.save_model(), different serialization/size -- 323MB vs checkpoint-500's own 161MB safetensors file directly -- but the same learned parameters per load_best_model_at_end's own contract), not the step-1014 weights, even though training ran the full 1014 steps."
+    },
+    "step0_freshness_check": {
+      "date": "2026-08-12",
+      "adapter_freshness": {
+        "path": "checkpoints/v5_sft/adapter_model.safetensors",
+        "sha256_LOCK": "79b71224e2d04a6149adf63ec3fcfc825d58007ce4bfe144e5d1f0e7cb89aad5",
+        "adapter_config_sha256": "e36cb9e0526c854c4c16621fd7a7ee0ce1e6798d97119be30361f60d43a68f56",
+        "timestamp_matches_training_completion": true,
+        "note": "file mtime 2026-08-12 01:35:08 matches training completion (progress file: done at 01:35:07) -- confirmed this is THIS run's adapter, not stale. adapter_config.json confirms r=32, lora_alpha=64, all 7 target modules, base=Qwen/Qwen2.5-7B-Instruct -- matches the agreed v5 plan exactly.",
+        "assistant_only_loss_confirmed": true, "effective_batch_confirmed": "8*4=32"
+      },
+      "phase4_eval_set_integrity": {
+        "path": "evaluation/phase4_eval_set.json",
+        "recorded_sha256": "6501b8d059bd6f6eb4ff43f725b63c01c4e8f1e11661cbeea7dbdeb37bd79bea",
+        "actual_sha256_now": "6501b8d059bd6f6eb4ff43f725b63c01c4e8f1e11661cbeea7dbdeb37bd79bea",
+        "match": true, "verdict": "no regeneration needed -- file unchanged since locking"
+      },
+      "correction_to_task_premise": "evaluation/phase4_baselines_results.json does NOT exist -- the 4 comparison systems (v2, rules_in_prompt, v3b-fix, base) were NOT pre-run during the training wait, contrary to this step's premise. The post-training-prep session explicitly DEFERRED this (GPU at 100% utilization from training) and left prerun_baselines_phase4.py written-but-unexecuted with the exact handoff command -- that command was not run before this session. Flagged directly rather than fabricating a join; running it for real now as part of step 4."
+    }
   },
   "started": "2026-08-07T19:47:41Z"
 }
