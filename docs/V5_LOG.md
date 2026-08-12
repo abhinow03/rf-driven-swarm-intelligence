@@ -3619,3 +3619,48 @@ status string, and a results file predating this fix (no `pair_accuracy` field) 
 reports MISSING, never a silent pass.
 
 **All 6 preregistered bars are now computable. All 6 PASS.**
+
+## 2026-08-12 — step 3: same-population ceiling-normalized accuracy
+
+**Confirmed the two denominators did NOT match before this step.** The locked 83.0% threat
+ceiling was measured on seed=999 (n=1000, 509 pair-eligible). v5-a's Phase 4 evaluation used
+seed=4321 (n=1000, 498 has_ground_truth=True). Different trajectory subsets -- dividing v5-a's
+accuracy by the cross-population 83.0% figure would not have been a same-subset comparison.
+
+**Built a true same-population ceiling instead of just caveating the mismatch**:
+`llm_finetuning/compute_same_population_ceiling.py` regenerates the STGT+bridge pipeline on
+the EXACT locked seed=4321 trajectories (same code, deterministic, CPU-only) and computes
+whether the bridge's OWN concluded pair matches ground truth, on the identical 498
+has_ground_truth=True cases v5-a was scored on.
+
+**Real finding along the way: the regeneration did NOT reproduce the locked ctx text
+bit-for-bit on the first attempt -- 56-64/1000 sequences differed.** Diagnosed before trusting
+anything downstream (per instruction): the underlying `true_chain` (RNG-driven trajectory
+generation) and `bucket` (A/B/C classification) were IDENTICAL in every single mismatch --
+only the rendered `"Dominant formation: ..."` text line occasionally differed. Root cause,
+found directly in the source: `stgt_bridge.py` line 354,
+`dominant = max(set(valid_formations), key=valid_formations.count)` -- when two formations
+tie on window count, `max()` returns whichever one its `set` iterates first, and Python's
+per-process hash randomization for strings makes that iteration order differ across separate
+process invocations (though stable within one run). **This is a real, minor non-determinism
+bug** -- flagged for a future fix (a stable tie-break, e.g. sorting by `(count, name)`), not
+fixed here (out of scope: no retraining/tuning, and it provably does not affect `rules_key`/
+`bucket`, confirmed empirically across all 64 mismatches: 0 chain divergences, 0 bucket
+divergences, 64/64 cosmetic-text-only).
+
+**Same-population ceiling** (computed on the exact 498 cases, chain/bucket-verified
+unaffected by the tie-break artifact): **411/498 = 82.5%.**
+
+| | value |
+|---|---|
+| v5-a `accuracy_when_answerable` | 75.7% (n=497) |
+| **same-population ceiling** (seed=4321, n=498, same subset) | **82.5%** |
+| **ceiling-normalized accuracy (same population)** | **91.7%** |
+| cross-population ceiling (seed=999, n=509, historical, NOT same subset -- secondary reference only) | 83.0% |
+| ceiling-normalized accuracy (cross-population) | 91.2% |
+
+**The two same-population figures agree closely** (82.5% vs the historical 83.0%,
+91.7% vs 91.2% normalized) -- reassuring that the two independent ~500-trajectory draws are
+statistically consistent, but the 82.5%/91.7% same-population figures are the ones with a
+provable matching denominator and should be cited as primary; the 83.0%/91.2% cross-population
+figures are a secondary sanity check, not a rigorous match.

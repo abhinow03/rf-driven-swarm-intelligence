@@ -2248,6 +2248,20 @@
       "verdict": "v5-a clears the >=55% bar (63.6%, n=497). v5-a and v2 are essentially tied on this metric (unlike the 4.8pt v5-a lead on threat-tier accuracy) -- v5-a's advantage concentrates in threat-level calibration, not underlying intent/pair identification. Reported plainly, not just as another v5-a win.",
       "check_preregistration_updated": "12 tests passing; every pair_accuracy PASS/FAIL carries a '(PROXY: ...)' caveat; a results file missing the field reports MISSING, never a silent pass.",
       "status": "ALL 6 preregistered bars now computable. ALL 6 PASS."
+    },
+    "step3_same_population_ceiling": {
+      "date": "2026-08-12",
+      "denominator_mismatch_confirmed": "the locked 83.0% ceiling was measured on seed=999 (n=1000, 509 pair-eligible) -- a DIFFERENT trajectory subset than v5-a's seed=4321 (n=1000, 498 has_ground_truth=True) Phase 4 evaluation. Dividing directly would not have been a same-subset comparison.",
+      "regeneration_bug_found": "llm_finetuning/compute_same_population_ceiling.py regenerated the STGT+bridge pipeline on the exact locked seed=4321 trajectories -- 56-64/1000 sequences did NOT reproduce the locked ctx text bit-for-bit on first attempt. Diagnosed: true_chain and bucket (A/B/C) were identical in every mismatch, only the rendered 'Dominant formation:' text line differed. Root cause: stgt_bridge.py line 354, `dominant = max(set(valid_formations), key=valid_formations.count)` -- ties broken by set iteration order, which is hash-seed-dependent across separate Python process invocations (stable within one run). Confirmed empirically this does NOT affect rules_key/bucket (0/64 chain or bucket divergences) -- flagged as a minor non-determinism bug for a future fix (stable tie-break), not fixed here.",
+      "same_population_ceiling": {"hits": 411, "scored": 498, "accuracy": 0.8253},
+      "results": {
+        "v5a_accuracy_when_answerable": 0.7565,
+        "same_population_ceiling": 0.8253,
+        "ceiling_normalized_accuracy_same_population": 0.9167,
+        "cross_population_ceiling_seed999_secondary_reference": 0.830,
+        "ceiling_normalized_accuracy_cross_population": 0.9115
+      },
+      "verdict": "primary figure is the same-population 91.7% (82.5% ceiling, matching denominator provably). Cross-population 91.2% (83.0% ceiling, seed=999) is a secondary sanity check only -- the two agree closely, reassuring but not a substitute for the same-population figure."
     }
   },
   "started": "2026-08-07T19:47:41Z"

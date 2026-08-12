@@ -1,0 +1,8 @@
+{
+  "seed": 4321,
+  "n_sequences": 1000,
+  "integrity_mismatches": 64,
+  "ceiling_hits": 411,
+  "ceiling_scored": 498,
+  "ceiling_accuracy": 0.8253012048192772
+}
