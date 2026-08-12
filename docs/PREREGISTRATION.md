@@ -135,3 +135,42 @@ This document does not gate whether v5-a training is ALLOWED to run — it gates
 resulting numbers will be judged once training completes. Nothing here should be edited after
 v5-a's real Phase 4 numbers exist; if the protocol needs revision going forward, that is a
 new decision for v5-b/c/d, recorded as a new entry, not a silent edit of this one.
+
+## Erratum — 2026-08-12, post-hoc hardening audit
+
+Per this document's own rule above ("nothing here should be edited after real numbers exist"),
+this is an APPEND, not a rewrite — the original bars and their PASS results stand unedited.
+Two weaknesses in the original bars were identified after v5-a's real numbers existed, during
+a dedicated hardening audit. Recorded here with the reasoning, dated, as a provenance record.
+
+**(a) `over_abstention_rate` is unfalsifiable at 0% abstention.** The bar (`<=15.0%`) only
+measures incorrectly abstaining on ANSWERABLE cases. v5-a scored 0.2% — an excellent number by
+the letter of the bar — but this bar structurally cannot detect the OPPOSITE failure: v5-a's
+real `abstention_rate_when_unanswerable` came back at **0.0%** (n=502) — it never correctly
+abstains on genuinely unanswerable multi-hop cases either. A system that NEVER abstains,
+under any circumstance, clears `over_abstention_rate` trivially and perfectly every time,
+regardless of whether its abstention behavior is good, bad, or entirely absent. **This bar
+needs a paired under-abstention bar (e.g. `abstention_rate_when_unanswerable` held to some
+floor, not just a ceiling on the other direction) to be meaningful** — as written, a system
+that always answers and one that abstains exactly when it should are indistinguishable by this
+bar alone.
+
+**(b) `escalation_direction` as written encodes a pre-existing finding and cannot fail.** The
+original bar text: *"must remain the LARGER of the two escalation directions"* — phrased
+relative to under-escalation's own already-documented status as *"the dominant failure mode
+across every system measured so far"* (a fact established well before this document was
+written, e.g. `AUDIT.md` sec AC/AD). A bar defined as "matches the pattern we already know
+holds" is not a real constraint; it is very hard to fail given the pattern's history is
+consistent and strong. v5-a's real result (under=18.7%, over=5.6%) did clear this bar, and
+that PASS stands — but the bar's design should be acknowledged as weak evidence rather than
+a strong pass.
+
+**Correction to a specific claim considered during this audit**: an earlier draft of this
+erratum was asked to record that *"the earlier draft's numeric under-escalation `<=10%` bar
+would have FAILED at 18.7%."* **Checked directly against `docs/PREREGISTRATION.md`'s full git
+history (both commits: creation and the memorization-check amendment) — no numeric
+under-escalation bar was ever drafted or committed.** The escalation bar has only ever been
+the qualitative "must remain the larger direction" framing above. Not recording a correction
+for a bar that was never written — flagging the discrepancy instead, since the underlying
+critique in (b) (the bar is weak/tautological) stands on its own without needing an
+invented numeric bar to illustrate it.

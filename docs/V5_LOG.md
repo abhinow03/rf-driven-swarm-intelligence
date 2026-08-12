@@ -3664,3 +3664,27 @@ unaffected by the tie-break artifact): **411/498 = 82.5%.**
 statistically consistent, but the 82.5%/91.7% same-population figures are the ones with a
 provable matching denominator and should be cited as primary; the 83.0%/91.2% cross-population
 figures are a secondary sanity check, not a rigorous match.
+
+## 2026-08-12 — step 4: PREREGISTRATION.md erratum (provenance record, original bars unedited)
+
+Appended an "Erratum" section, not a rewrite -- per the document's own rule, nothing in the
+original bars/results was touched.
+
+**(a) `over_abstention_rate` is unfalsifiable at 0% abstention** -- recorded as a real
+weakness. It only measures incorrectly abstaining on answerable cases; a system that never
+abstains under any circumstance (v5-a: 0.0% `abstention_rate_when_unanswerable`, n=502) clears
+it trivially regardless of whether its abstention behavior is good or entirely absent. Needs a
+paired under-abstention floor to be meaningful.
+
+**(b) `escalation_direction` encodes a pre-existing finding and is weak evidence, not a strong
+pass** -- recorded as a real weakness. The bar is phrased relative to under-escalation's own
+already-documented historical dominance, making it easy to clear by construction. v5-a's PASS
+stands, but the bar's design should be read as confirming a known pattern, not as strong new
+evidence.
+
+**Checked and corrected one specific claim before writing the erratum**: was asked to record
+that an earlier draft had a numeric `<=10%` under-escalation bar that would have failed at
+18.7%. **Checked the full git history of `docs/PREREGISTRATION.md` (both commits, full diffs)
+-- no such bar was ever drafted or committed.** Recorded this directly in the erratum rather
+than inventing a correction for something that never existed; the (b) critique stands on its
+own without it.

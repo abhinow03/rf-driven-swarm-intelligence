@@ -2262,6 +2262,13 @@
         "ceiling_normalized_accuracy_cross_population": 0.9115
       },
       "verdict": "primary figure is the same-population 91.7% (82.5% ceiling, matching denominator provably). Cross-population 91.2% (83.0% ceiling, seed=999) is a secondary sanity check only -- the two agree closely, reassuring but not a substitute for the same-population figure."
+    },
+    "step4_preregistration_erratum": {
+      "date": "2026-08-12",
+      "type": "APPEND to docs/PREREGISTRATION.md, original bars/results unedited per the document's own rule",
+      "a_over_abstention_unfalsifiable": "over_abstention_rate (<=15%) only measures incorrectly abstaining on answerable cases -- a system that NEVER abstains (v5-a: 0.0% abstention_rate_when_unanswerable, n=502) clears it trivially regardless of whether its abstention behavior is good or absent. Needs a paired under-abstention floor to be meaningful.",
+      "b_escalation_direction_tautological": "the bar ('must remain the larger direction') is phrased relative to under-escalation's own already-documented historical dominance -- easy to clear by construction. v5-a's PASS stands but is weak evidence, not a strong new finding.",
+      "correction_made": "was asked to record an earlier draft's numeric <=10% under-escalation bar that would have failed at 18.7%. Checked the full git history of PREREGISTRATION.md (both commits, full diffs) -- no such bar was ever drafted or committed. Recorded this directly rather than inventing a correction for something that never existed."
     }
   },
   "started": "2026-08-07T19:47:41Z"
