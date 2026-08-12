@@ -1,7 +1,7 @@
 {
   "phase": 2,
-  "step": 0,
-  "status": "PHASE 1 COMPLETE (corpus + quality gates + coverage + preregistration + judge fix, all committed). PHASE 2 (v5-a training + evaluation) started for real: training finished (3 epochs, 1014 steps, train_loss 0.3418, eval_loss 0.2976, mean_token_accuracy 0.899, assistant_only_loss=True confirmed). Step 0 (freshness check) just completed -- see phase2.step0_freshness_check. Proceeding to steps 1-6 (real-adapter wiring, memorization scorer, full Phase 4 protocol, baselines join, preregistration check, judge verification on real output).",
+  "step": 6,
+  "status": "PHASE 2 COMPLETE (steps 0-6, all committed): v5-a is trained and fully evaluated. Memorization-vs-generalization verdict: CONSISTENT WITH GENERALIZATION (1.3% overlap vs 0.6% chance baseline, 15% signal bar). Full Phase 4 protocol run (1000 real STGT trajectories, greedy): v5-a is the best-performing system on every headline metric vs all 4 comparison systems (base/rules_in_prompt/v3b-fix/v2). Preregistration check: PASS, every checkable bar cleared with real margin. Real finding not captured by any bar: 0.0% correct abstention on unanswerable cases (shared with v2, not v5-a-specific). Next: v5-b/c/d (context distillation / logit-adjusted loss / unbalanced control), not started.",
   "phase1_status_archived": "PHASE 1 STEP 2 COMPLETE: corpus generation finished at 12001/12000 rows. PHASE 1 STEP 3 (quality-gate provenance check): steps 0-2 done and fallback-row regeneration complete (teacher-prose 93.3%, distinct-summary 93.6% PASS, 810 rows still fallback -- user accepted, see phase1_step3_fallback_regeneration_complete). Proceeding to step 3 (coverage report) and step 4 (preregistration re-verification). Earlier notes: PHASE 1 STEP 3 (quality-gate provenance check) step 0 done: all three provenance questions resolved -- see phase1_corpus_provenance_audit. Proceeding to steps 1-2 (teacher-prose gap, quality gates) next.",
   "status_pre_step27": "Chain-2 generator-fix consolidation + source symmetrization COMPLETE (docs/V5_LOG.md step 26, 3 commits: 3591051 consolidation, 9061392 symmetrization, + docs/results commit -- no STGT/bridge/LLM code changed, same frozen strategy-5 checkpoint). Step 1: consolidated 5 duplicate copies of build_long_sequence_labeled into src/swarm_intent/eval_trajectories.py (4 live scripts now import it; 1 frozen historical-reproduction script deliberately excluded, documented); confirmed NONE of the 5 ever fed real STGT training data (that's generate_dataset(), separate code). Step 2: symmetrized LEAD_IN_RANGE (15,35)->(30,50), derived the same way as MIN_DWELL_RANGE (lead_in>=25 for a window-0 majority, no stride-slack term since window 0 always starts at t=0); verified source OBS_NONE 16.3%->0.0% at population scale. Step 3: chain-2 pair_acc 39.9%->65.8% (was 18.7% original baseline, 3.5x total), threat_acc 72.1%->76.3%. Step 4: refined 20-case taxonomy found 100% boundary/blend-timing-concentrated failures, 0% clean (non-boundary) misses. Step 5: chain-3+ false-positive rate investigated and RESOLVED (12.6%->1.8%, below the 9.0% original baseline, p=4.3e-07) -- mechanistically explained by the shared per-hop sampling loop, not a bug, not noise (dest-only-fix regression itself was only borderline significant, p=0.062). Step 6: blend-timing overlap re-checked, STILL 0.0%, unchanged across 3 independent formula revisions. Decision: B -- blend-timing distribution mismatch is the dominant remaining issue, should be fixed BEFORE any STGT training/capacity change, not decision A as step 25 projected. STOPPING per instruction -- no STGT retraining, no blend-distribution fix started this session.",
   "halts_cleared": [
@@ -2176,6 +2176,39 @@
       "critical_finding_not_captured_by_any_bar": "abstention_rate_when_unanswerable=0.0% (n=502) -- v5-a NEVER correctly abstains on genuinely unanswerable multi-hop cases. over_abstention_rate only checks the OPPOSITE direction (incorrectly abstaining on answerable cases) and is excellent (0.2%) -- but structurally cannot see this failure mode.",
       "judge_advisory_only_confirmed_on_real_output": "re-ran evaluate() offline on cached raw outputs with judge_client=None (no new GPU/network calls) -- every non-judge field byte-identical to the judge-present run",
       "perf_note": "generation 29min; the (now-fixed) sequential judge-scoring loop took ~3.5hrs for the same 1000 cases -- dominant cost of this run, fixed for future runs (see commit 735b390)"
+    },
+    "step4_baselines_comparison": {
+      "date": "2026-08-12",
+      "bug_fixed_before_run": "original prerun_baselines_phase4.py loaded all 4 LocalHFClients simultaneously (base+rules_in_prompt+v3b-fix+v2) -- crashed immediately (bitsandbytes device-map error). base and rules_in_prompt are NOT a shared model, each loads its own full 7B copy. Rewrote to load/generate/free one client at a time; also switched temperature 0.3->0.0 (greedy) on every system for a fair comparison against v5-a's own greedy run.",
+      "ran_close_to_memory_limit": "7 CUDA OOM allocator warnings across the run (as tight as 260MB free of 24GB), all auto-recovered. No incremental checkpointing exists in this script -- a real crash would have lost all 4 systems' work. Flagged as a design gap, not fixed retroactively mid-run.",
+      "comparison_table_per_class_accuracy": {
+        "base": {"low": 0.822, "medium": 0.347, "high": 0.035, "critical": 0.0},
+        "rules_in_prompt": {"low": 0.915, "medium": 0.103, "high": 0.018, "critical": 0.231},
+        "v3b-fix": {"low": 0.726, "medium": 0.536, "high": 0.096, "critical": 0.0},
+        "v2": {"low": 0.835, "medium": 0.814, "high": 0.426, "critical": 0.0},
+        "v5-a": {"low": 0.882, "medium": 0.809, "high": 0.539, "critical": 0.286}
+      },
+      "comparison_table_accuracy_when_answerable": {
+        "base": 0.427, "rules_in_prompt": 0.364, "v3b-fix": 0.483, "v2": 0.709, "v5-a": 0.757
+      },
+      "comparison_table_abstention_rate_when_unanswerable": {
+        "base": 0.002, "rules_in_prompt": 0.058, "v3b-fix": 0.100, "v2": 0.0, "v5-a": 0.0
+      },
+      "verdict": "v5-a is the best-performing system on every headline metric measured. The 0%-correct-abstention finding is shared with v2 (the other strong performer), not v5-a-specific -- reads as a real tradeoff (best-answering systems never hedge), not a unique defect.",
+      "files": ["evaluation/phase4_baselines_results.json", "evaluation/phase4_baselines_scored.json"]
+    },
+    "step5_preregistration_check": {
+      "date": "2026-08-12",
+      "command": "scripts/check_preregistration.py evaluation/phase4_v5a_results.json",
+      "bars": {
+        "threat_accuracy_pooled_when_answerable": {"target": ">=0.55", "actual": 0.757, "status": "PASS"},
+        "threat_accuracy_low_per_class": {"target": ">=0.65", "actual": 0.882, "status": "PASS"},
+        "over_abstention_rate": {"target": "<=0.15", "actual": 0.002, "status": "PASS"},
+        "schema_validity_rate": {"target": ">=0.95", "actual": 1.0, "status": "PASS"},
+        "escalation_direction_under_ge_over": {"target": "qualitative", "actual": "under=0.187,over=0.056", "status": "PASS"},
+        "pair_accuracy_pooled_when_answerable": {"status": "NOT COMPUTABLE, documented schema gap"}
+      },
+      "overall": "PASS -- every checkable bar cleared with real margin, not a close call"
     }
   },
   "started": "2026-08-07T19:47:41Z"

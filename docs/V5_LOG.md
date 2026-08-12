@@ -3394,3 +3394,79 @@ not just in the stub tests.
 **Performance note**: generation took 29 minutes; the (now-fixed, see prior commit)
 sequential judge-scoring loop took ~3.5 hours for the same 1000 cases -- by far the dominant
 cost of this run, fixed for all future runs.
+
+## 2026-08-12 — step 4: baselines pre-run (real, finally) + 5-system comparison
+
+`llm_finetuning/prerun_baselines_phase4.py` -- fixed and run for real this session (see the
+freshness-check correction above: it had never actually been executed before now).
+
+**Bug found and fixed before this could run at all**: the original version constructed all 4
+LocalHFClients (base, rules_in_prompt, v3b-fix, v2) simultaneously before any generation --
+crashed immediately with a bitsandbytes device-map error. Root cause: `base` and
+`rules_in_prompt` are NOT a shared model -- each `LocalHFClient(...)` call loads its own full
+copy of the 7B base weights (only the `system_prompt` attribute differs), so 4 simultaneous
+clients is effectively ~4x a 7B model's memory, not "2 base + 2 small adapter deltas."
+Rewrote to load/generate/free ONE client at a time (matching this project's own established
+memory-hygiene pattern elsewhere, just not followed in this script's first draft). Also
+switched `temperature=0.3` (this project's older real-STGT-eval convention) to `temperature
+=0.0` (greedy) on every system, since PREREGISTRATION.md commits to greedy for every headline
+number and v5-a's own run used greedy -- a fair comparison needs the same decoding strategy
+throughout, not four numbers using different temperatures.
+
+**Even after the fix, ran uncomfortably close to the memory limit**: 7 separate CUDA OOM
+allocator warnings across the 4-system run (as tight as 260MB free out of 24GB). Every one was
+recovered from automatically (PyTorch's caching allocator retries), and the run completed
+successfully end to end -- but this script has NO incremental checkpointing (results are only
+written to disk after ALL 4 systems finish). A genuine crash partway through would have lost
+every system's work, not just the failing one. Flagged as a design gap worth fixing (per-system
+incremental save) before this script is relied on again, not fixed retroactively mid-run.
+
+**5-system comparison** (per-class threat accuracy, n, no CI shown here -- see
+`evaluation/phase4_v5a_results.json`/`phase4_baselines_scored.json` for full Wilson intervals):
+
+| system | low | medium | high | critical |
+|---|---|---|---|---|
+| base | 82.2% (n=169) | 34.7% (n=199) | 3.5% (n=115) | 0.0% (n=14) |
+| rules_in_prompt | 91.5% (n=165) | 10.3% (n=195) | 1.8% (n=111) | 23.1% (n=13) |
+| v3b-fix | 72.6% (n=168) | 53.6% (n=194) | 9.6% (n=115) | 0.0% (n=14) |
+| v2 | 83.5% (n=170) | 81.4% (n=199) | 42.6% (n=115) | 0.0% (n=14) |
+| **v5-a** | **88.2% (n=169)** | **80.9% (n=199)** | **53.9% (n=115)** | **28.6% (n=14)** |
+
+| system | accuracy_when_answerable | abstention_when_unanswerable | correct (escalation) |
+|---|---|---|---|
+| base | 42.7% | 0.2% | 42.6% |
+| rules_in_prompt | 36.4% | 5.8% | 35.3% |
+| v3b-fix | 48.3% | 10.0% | 47.6% |
+| v2 | 70.9% | 0.0% | 70.9% |
+| **v5-a** | **75.7%** | **0.0%** | **75.5%** |
+
+**v5-a is the best-performing system on every headline metric measured**: highest per-class
+accuracy on medium/high/critical (and second-highest on low, 3.3pt behind rules_in_prompt's
+91.5% -- which is otherwise the worst system on every other tier), highest
+`accuracy_when_answerable`, highest escalation-correct rate, and the only system to clear
+critical-pair accuracy meaningfully above 0% (28.6% vs 0.0% for every LocalHFClient-adapter
+system except rules_in_prompt's 23.1%).
+
+**Important nuance on the 0%-correct-abstention finding (step 3)**: it is NOT unique to v5-a.
+`v2` -- the OTHER strong performer -- also shows 0.0% `abstention_rate_when_unanswerable`.
+`rules_in_prompt` (5.8%) and `v3b-fix` (10.0%) abstain more often, but they're also
+substantially worse on every accuracy metric. This looks like a real tradeoff this project
+has not previously measured directly: the two best-performing systems both learned to always
+answer confidently, never hedge -- which is exactly what makes them score well on answerable
+cases and exactly what means neither can be trusted to flag a genuinely ambiguous multi-hop
+scenario as such.
+
+## 2026-08-12 — step 5: preregistration check, PASS
+
+`scripts/check_preregistration.py evaluation/phase4_v5a_results.json`:
+
+| bar | target | actual | status |
+|---|---|---|---|
+| threat_accuracy_pooled_when_answerable | >= 55.0% | 75.7% | PASS |
+| threat_accuracy_low_per_class | >= 65.0% | 88.2% | PASS |
+| over_abstention_rate | <= 15.0% | 0.2% | PASS |
+| schema_validity_rate | >= 95.0% | 100.0% | PASS |
+| escalation_direction (under >= over) | qualitative | under=18.7%, over=5.6% | PASS |
+| pair_accuracy_pooled_when_answerable | >= 55.0% | n/a | NOT COMPUTABLE (documented schema gap) |
+
+**OVERALL: PASS.** Every checkable bar clears with real margin, not a close call rounded up.

@@ -81,27 +81,39 @@ def main():
     payload = load_locked_eval_set(args.expected_sha256)
     items = payload["items"]
 
-    print("=== loading 4 model clients (v2, rules_in_prompt, v3b-fix, base) ===")
-    base_client = LocalHFClient(args.base, adapter_path=None, temperature=0.3)
-    rules_client = LocalHFClient(args.base, adapter_path=None, temperature=0.3, system_prompt=load_rules_txt())
-    ft_client = LocalHFClient(args.base, adapter_path=str(REPO / V3B_FIX_ADAPTER), temperature=0.3)
-    v2_client = LocalHFClient(args.base, adapter_path=str(REPO / V2_ADAPTER), temperature=0.3)
-
     prompts = [build_llm_prompt(pipeline_v2._preds_from_key_windows(it["key_windows"]), it["ctx"], {})
               for it in items]
 
-    print("=== batched generation, 4 systems ===")
-    results = {}
-    for label, client in (("base", base_client), ("rules_in_prompt", rules_client),
-                          ("v3b-fix", ft_client), ("v2", v2_client)):
-        print(f"  {label} ...")
-        raw = client.complete_batch(prompts, batch_size=BATCH_SIZE)
-        results[label] = {it["name"]: a for it, a in zip(items, raw)}
-
-    del base_client, rules_client, ft_client, v2_client
-    gc.collect()
+    # ONE client resident at a time -- loading all 4 simultaneously (as an
+    # earlier version of this script did) OOM'd: "base" and "rules_in_prompt"
+    # both load a full separate copy of the same base model (different
+    # system_prompt, not a shared object), so 4 simultaneous LocalHFClients is
+    # effectively ~4x a 7B model's memory, not 2 base + 2 adapter deltas.
+    # temperature=0.0 (greedy) on every system, NOT the 0.3 this project's
+    # older real-STGT evals used -- PREREGISTRATION.md commits to greedy for
+    # every headline number, and v5-a's own run used greedy, so this is
+    # needed for a fair apples-to-apples comparison.
     import torch
-    torch.cuda.empty_cache()
+    configs = [
+        ("base", None, None),
+        ("rules_in_prompt", None, load_rules_txt()),
+        ("v3b-fix", str(REPO / V3B_FIX_ADAPTER), None),
+        ("v2", str(REPO / V2_ADAPTER), None),
+    ]
+    results = {}
+    for label, adapter_path, system_prompt in configs:
+        print(f"=== loading {label} (adapter={adapter_path}) ===")
+        client = LocalHFClient(args.base, adapter_path=adapter_path, temperature=0.0, system_prompt=system_prompt)
+        print(f"  generating {len(prompts)} cases, batch_size={BATCH_SIZE} ...")
+        # generate_batch (RAW TEXT), not complete_batch (pre-parsed dicts) --
+        # score_phase4_baselines.py feeds this straight into eval_sft_v5.evaluate(),
+        # which calls parse_and_validate() itself and needs a raw string.
+        raw = client.generate_batch(prompts, batch_size=BATCH_SIZE)
+        results[label] = {it["name"]: a for it, a in zip(items, raw)}
+        del client
+        gc.collect()
+        torch.cuda.empty_cache()
+        print(f"  done, freed GPU memory: {torch.cuda.memory_allocated()} bytes still allocated")
 
     OUT_PATH.write_text(json.dumps({
         "eval_set_sha256": hashlib.sha256(EVAL_SET_PATH.read_text().encode()).hexdigest(),

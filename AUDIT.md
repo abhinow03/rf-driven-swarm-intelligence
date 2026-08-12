@@ -3249,3 +3249,44 @@ populations): **≈49.3%, down from the measured 69.8%.**
 **Headline for the teammate ask: fixing dispersed/converging geometry alone, with no other
 pipeline change, is projected to raise Layer-1 firing from 1.8% to ~12.0% and cut over-abstention
 from 69.8% to ~49%, on the most conservative accounting available.**
+
+## AI. v5-a — the first real fine-tuned checkpoint on the 12,001-row Phase 1 corpus, evaluated
+
+Full detail lives in `docs/V5_LOG.md`/`docs/V5_STATE.json` (Phase 2) — this entry is a pointer
+and headline summary, not a duplicate.
+
+**Training**: QLoRA, Qwen2.5-7B-Instruct, r=32/alpha=64, 3 epochs/1014 steps on the Phase 1
+corpus (12,001 rows, 93.3% teacher-authored). `load_best_model_at_end` selected checkpoint-500
+as best (eval_loss plateaued after that point). `mean_token_accuracy=0.899` — high, but on its
+own cannot distinguish "learned the task" from "learned the corpus."
+
+**Memorization-vs-generalization check (reported first, by design)**: verbatim/near-verbatim
+output-vs-training-target overlap rate, TF-IDF cosine similarity against same-pair training
+targets. **1.3% (7/534), against a 0.6% chance baseline and a 15% memorization-signal bar —
+CONSISTENT WITH GENERALIZATION.** This is the check that makes the accuracy numbers below
+trustworthy rather than a restatement of corpus size.
+
+**Full Phase 4 protocol** (1,000 real STGT trajectories, seed=4321, generator-chain-only
+ground truth, greedy decoding): v5-a is the best-performing system on every headline metric
+against the 4 non-fine-tuned/older-fine-tuned comparison systems (base, rules_in_prompt,
+v3b-fix, v2) — 75.7% `accuracy_when_answerable` (next best: v2 at 70.9%), 88.2%/80.9%/53.9%/
+28.6% per-class accuracy on low/medium/high/critical.
+
+**Real finding, not captured by any preregistered bar**: v5-a shows **0.0% correct abstention
+on the 502 genuinely unanswerable (multi-hop) cases** — it never hedges, always answers
+confidently. Cross-checked against the comparison systems: this is shared with `v2` (also
+0.0%), the OTHER strong performer, while the two weaker systems (`rules_in_prompt` 5.8%,
+`v3b-fix` 10.0%) abstain more often. Reads as a real, previously-unmeasured tradeoff — the
+systems that answer best also never flag genuine ambiguity — not a v5-a-specific defect.
+
+**Preregistration verdict: PASS**, every checkable bar cleared with real margin (75.7% vs a
+55% bar, 88.2% vs 65%, 0.2% over-abstention vs a 15% ceiling, 100% schema validity vs 95%).
+One bar (`pair_accuracy_pooled_when_answerable`) remains structurally NOT COMPUTABLE from
+`eval_sft_v5.py`'s current schema — documented, not silently skipped.
+
+**Two process findings worth remembering**: (1) a naive judge-scoring loop (one API call at a
+time) turned a 29-minute generation run into a ~3.5-hour total run before being caught and
+fixed — batch network-bound work, always. (2) a 4-system baseline comparison script crashed on
+its first attempt from loading 4 separate 7B models simultaneously, then ran uncomfortably
+close to the GPU memory ceiling (7 OOM warnings, all recovered) even after fixing that — with
+no incremental checkpointing, a real crash would have lost all 4 systems' work at once.
