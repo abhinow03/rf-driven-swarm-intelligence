@@ -35,33 +35,56 @@ def main():
         results = json.load(f)
     parsed_by_case = results["parsed_by_case"]
 
-    # Build (pair, situation_summary) for every ANSWERED case with a valid pair.
-    # "Answered" = not abstained, schema-valid, and the case has an identifiable
-    # (form_a, form_b) pair to index against (unanswerable/no-pair cases have
-    # nothing to compare against and are excluded, not scored as either outcome).
+    # Build (pair, situation_summary) for every ANSWERED case with an identifiable
+    # (form_a, form_b) pair.
+    #
+    # BUG FIXED (hardening audit step 1): originally this regex-extracted the pair
+    # from ctx TEXT via swarm_intent.coverage._extract_pair_from_ctx, which requires
+    # the phrase "Transition detected at t=..." -- but REAL production ctx text
+    # (stgt_bridge.py's bridge_predictions(), what this eval set actually contains)
+    # renders "Transition at t=..." WITHOUT "detected". coverage.py's own docstring
+    # already documented this exact discrepancy ("production's build_tactical_context()
+    # phrases this line differently... no 'detected'") but nothing had ever applied
+    # the fix to a real-output consumer -- this script was silently under-counting.
+    # For has_ground_truth=True cases the fix is simpler than a corrected regex: the
+    # TRUE (form_a,form_b) pair is already known independently (phase4_eval_set.json's
+    # `pair` field, derived from the generator's true_chain, never from ctx text) --
+    # use it directly, no extraction needed. For has_ground_truth=False (genuinely
+    # multi-hop) cases there IS no single true pair by definition, so those still use
+    # ctx-text extraction (kept as a secondary, lower-confidence signal, not "fixed"
+    # the same way -- there's nothing to fix it TO).
+    items_by_name = {it["name"]: it for it in json.load(open(REPO / "evaluation" / "phase4_eval_set.json"))["items"]}
+
     import sys as _sys
     _sys.path.insert(0, str(REPO / "src"))
     from swarm_intent.coverage import _extract_pair_from_ctx
 
-    items_by_name = {it["name"]: it for it in json.load(open(REPO / "evaluation" / "phase4_eval_set.json"))["items"]}
-
     eval_cases = []
     n_no_pair, n_abstained, n_invalid = 0, 0, 0
+    n_from_ground_truth, n_from_ctx_regex = 0, 0
     for name, parsed in parsed_by_case.items():
+        item = items_by_name[name]
         if parsed is None:
             n_invalid += 1
             continue
         if is_abstention(parsed.get("likely_intent", "")):
             n_abstained += 1
             continue
-        pair = _extract_pair_from_ctx(items_by_name[name]["ctx"])
-        if pair is None:
-            n_no_pair += 1
-            continue
+        if item["has_ground_truth"]:
+            pair = tuple(item["pair"])
+            n_from_ground_truth += 1
+        else:
+            pair = _extract_pair_from_ctx(item["ctx"])
+            if pair is None:
+                n_no_pair += 1
+                continue
+            n_from_ctx_regex += 1
         eval_cases.append({"name": name, "pair": pair, "situation_summary": parsed.get("situation_summary", "")})
 
     print(f"answered+pair-identifiable cases: {len(eval_cases)}/1000 "
-         f"(excluded: {n_invalid} invalid JSON, {n_abstained} abstained, {n_no_pair} no extractable pair)")
+         f"({n_from_ground_truth} from known ground-truth pair, {n_from_ctx_regex} from ctx-text "
+         f"regex on genuinely multi-hop cases) -- excluded: {n_invalid} invalid JSON, "
+         f"{n_abstained} abstained, {n_no_pair} no extractable pair (all multi-hop, no ground truth to fall back on)")
 
     rate, details = overlap_rate(eval_cases, index)
 

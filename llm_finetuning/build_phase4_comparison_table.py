@@ -48,27 +48,38 @@ def main():
 
     print()
     print("=" * 100)
-    print("answerability: accuracy_when_answerable / abstention_rate_when_unanswerable / over_abstention_rate")
+    print("answerability -- n shown for EVERY cell, not just accuracy_when_answerable's")
     print("=" * 100)
-    print("| system | accuracy_when_answerable | n | abstention_when_unanswerable | over_abstention_rate |")
-    print("|---|---|---|---|---|")
+    print("| system | accuracy_when_answerable (n) | abstention_when_unanswerable (n) | over_abstention_rate (n) |")
+    print("|---|---|---|---|")
     for sysname in SYSTEM_ORDER:
         a = all_results[sysname]["answerability"]
-        aw = f"{a['accuracy_when_answerable']:.1%}" if a["accuracy_when_answerable"] is not None else "n/a"
-        ab = f"{a['abstention_rate_when_unanswerable']:.1%}" if a["abstention_rate_when_unanswerable"] is not None else "n/a"
-        oa = f"{a['over_abstention_rate']:.1%}" if a["over_abstention_rate"] is not None else "n/a"
-        print(f"| {sysname} | {aw} | {a['n_answerable']} | {ab} | {oa} |")
+        n_unanswerable = a["n_unanswerable"]
+        # over_abstention_rate's own denominator (the GT/answerable-population total,
+        # NOT n_answerable, which already excludes the abstained ones) --
+        # n_answerable = gt_total * (1 - over_abstention_rate), so back out gt_total.
+        gt_total = round(a["n_answerable"] / (1 - a["over_abstention_rate"])) if a["over_abstention_rate"] < 1 else a["n_answerable"]
+        aw = f"{a['accuracy_when_answerable']:.1%} (n={a['n_answerable']})" if a["accuracy_when_answerable"] is not None else f"n/a (n={a['n_answerable']})"
+        ab = f"{a['abstention_rate_when_unanswerable']:.1%} (n={n_unanswerable})" if a["abstention_rate_when_unanswerable"] is not None else f"n/a (n={n_unanswerable})"
+        oa = f"{a['over_abstention_rate']:.1%} (n={gt_total})" if a["over_abstention_rate"] is not None else f"n/a (n={gt_total})"
+        print(f"| {sysname} | {aw} | {ab} | {oa} |")
+    print("\n(n_unanswerable=502 and the GT/answerable-population n=498 are CONSTANTS across "
+         "every system -- same locked eval set. accuracy_when_answerable's n varies slightly "
+         "per system because a system's own abstentions shrink its own answered-case count.)")
 
     print()
     print("=" * 100)
-    print("escalation direction (separate, never pooled)")
+    print("escalation direction (separate, never pooled) -- n is the GT population, constant across systems")
     print("=" * 100)
-    print("| system | n | correct | UNDER-escalated | OVER-escalated | abstained |")
+    print("| system | n | correct (n) | UNDER-escalated (n) | OVER-escalated (n) | abstained (n) |")
     print("|---|---|---|---|---|---|")
     for sysname in SYSTEM_ORDER:
         e = all_results[sysname]["escalation"]
-        print(f"| {sysname} | {e['n']} | {e['correct']:.1%} | {e['under_escalated']:.1%} | "
-             f"{e['over_escalated']:.1%} | {e['abstained']:.1%} |")
+        n = e["n"]
+        def cell(frac):
+            return f"{frac:.1%} (n={round(frac*n)})"
+        print(f"| {sysname} | {n} | {cell(e['correct'])} | {cell(e['under_escalated'])} | "
+             f"{cell(e['over_escalated'])} | {cell(e['abstained'])} |")
 
     print()
     print("=" * 100)

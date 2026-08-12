@@ -2226,6 +2226,19 @@
       "b_note": "v3b-fix's 1 malformed case (phase4_seq_329) is a genuine repetition-loop degeneration cut off at max_new_tokens -- matches the already-reported 99.9% schema-validity figure exactly.",
       "c_exception_swallow": "NONE. LocalHFClient.generate_batch() has try/finally with NO except clause -- any real exception from model.generate() propagates uncaught. The 7 OOM warnings during the baselines run were allocator-level retries (logged, not raised to Python), not swallowed exceptions.",
       "d_determinism_rerun": "had NEVER been done before this audit. Ran one now: llm_finetuning/check_determinism.py, 10 real prompts, v5-a real adapter, greedy, generated twice. diff_count=0/10. Result: evaluation/determinism_check.json."
+    },
+    "step1_denominators_and_memorization_bug": {
+      "date": "2026-08-12",
+      "full_partition_1000_cases": {
+        "has_ground_truth_true": {"n": 498, "answered": 497, "abstained": 1},
+        "has_ground_truth_false_multihop": {"n": 502, "answered": 502, "abstained": 0}
+      },
+      "bug_found": "memorization check regex-extracted pairs via swarm_intent.coverage._extract_pair_from_ctx, which requires 'Transition detected at t=...' -- but real production ctx text (stgt_bridge.py) renders 'Transition at t=...' (no 'detected'), a discrepancy coverage.py's own docstring already documented but had never been worked around for a real-output consumer. Silently excluded 110/498 has_ground_truth=True cases (54 bucket-A, 5 bucket-B, 51 bucket-C) from the memorization denominator.",
+      "fix": "for has_ground_truth=True cases, use phase4_eval_set.json's stored pair directly (from the generator's true chain, no ctx-text dependency) instead of regex extraction. has_ground_truth=False cases keep ctx-regex extraction (no single true pair exists to fall back on for genuinely multi-hop cases).",
+      "memorization_recompute": {"before": {"n": 534, "overlap_rate": 0.013}, "after": {"n": 644, "overlap_rate": 0.005}},
+      "verdict": "UNCHANGED, now on stronger evidence -- 0.5% is essentially AT the 0.6% null-hypothesis baseline on a 20% larger, more correctly-constructed sample. Still CONSISTENT WITH GENERALIZATION.",
+      "full_exclusion_accounting_356_cases": {"abstained": 1, "no_ctx_extractable_pair_multihop": 355, "note": "3 bucket-A, 1 bucket-B, 351 bucket-C among the 355 -- all has_ground_truth=False, no single true pair exists by construction, correct exclusion not a gap. 644+356=1000, fully accounted."},
+      "aside_not_chased": "3 has_ground_truth=False cases landed in bucket A -- model's own reduction resolved a genuinely 3+-hop trajectory into an apparently-clean pair. Real classification error, out of scope here, noted so it isn't lost."
     }
   },
   "started": "2026-08-07T19:47:41Z"

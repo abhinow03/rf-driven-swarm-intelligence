@@ -3514,3 +3514,63 @@ reconstructing it from memory, per instruction. Ran one now (cheap, GPU was free
 (temperature=0.0), generated twice back-to-back on the same client. **Diff count: 0/10.**
 Greedy decoding is confirmed deterministic on this model/hardware for this sample size.
 Result saved: `evaluation/determinism_check.json`.
+
+## 2026-08-12 — step 1: denominators for every cell, and a real bug in the memorization check
+
+**Full partition of the 1000 locked-eval-set cases** (constant across every system, same
+eval set):
+
+| | has_ground_truth=True (chain<=2) | has_ground_truth=False (chain>=3, multi-hop) | total |
+|---|---|---|---|
+| n | 498 | 502 | 1000 |
+| answered (non-abstained, schema-valid) | 497 | 502 | 999 |
+| abstained | 1 | 0 | 1 |
+| invalid JSON | 0 | 0 | 0 |
+
+**Bug found while accounting for the memorization check's 534/1000 denominator (the same
+silent-exclusion shape flagged for suspicion): 110 of the 466 excluded cases were
+has_ground_truth=TRUE** -- i.e. cases where a real answer exists, wrongly excluded from a
+check that's supposed to cover them. Root cause: the memorization check regex-extracted the
+`(form_a, form_b)` pair from ctx TEXT via `swarm_intent.coverage._extract_pair_from_ctx`,
+which requires the literal phrase `"Transition detected at t=..."` -- but REAL production ctx
+text (`stgt_bridge.py`'s `bridge_predictions()`, what this eval set actually contains) renders
+`"Transition at t=..."`, **without "detected."** `coverage.py`'s own module docstring already
+documented this exact discrepancy ("production's `build_tactical_context()` phrases this line
+differently... no 'detected'") -- it had just never been applied to a real-output consumer.
+Cross-tabbed the 110 against bucket: 54 bucket-A, 5 bucket-B, 51 bucket-C -- the 54 bucket-A
+cases are the clearest proof of the bug, since bucket A means the model's OWN reduction
+already resolved a clean pair from that exact ctx text; the regex just couldn't see it.
+
+**Fix**: for `has_ground_truth=True` cases, use the pair phase4_eval_set.json already stores
+(derived from the generator's true chain, independent of ctx text entirely) instead of
+regex-extracting anything. For `has_ground_truth=False` (genuinely multi-hop) cases there is
+no single true pair to fall back on by definition -- ctx-text regex extraction is kept there
+as a secondary, lower-confidence signal, unchanged.
+
+**Recomputed memorization check, denominator 534 -> 644**:
+
+| | n | overlap rate |
+|---|---|---|
+| before fix (regex-only) | 534 | 1.3% (7/534) |
+| **after fix (ground-truth pair for GT cases)** | **644** | **0.5% (3/644)** |
+
+**Verdict unchanged, now on stronger evidence**: still CONSISTENT WITH GENERALIZATION -- 0.5%
+is now essentially AT the 0.6% null-hypothesis baseline, not just inside a range near it, on a
+20% larger and more correctly-constructed sample.
+
+**Full accounting of all 356 cases still excluded from the (now 644-case) memorization
+check**: 1 abstained (the one has_ground_truth=True case that incorrectly declined to
+answer) + 355 has_ground_truth=False cases with no ctx-extractable pair (bucket mix: 3
+bucket-A, 1 bucket-B, 351 bucket-C -- these have no single true pair by construction, so
+exclusion is correct, not a gap). No case is unaccounted for: 644 + 356 = 1000.
+
+**Comparison table, rebuilt with n on every cell** (not just some): see
+`llm_finetuning/build_phase4_comparison_table.py`'s output, committed alongside this entry --
+every accuracy/rate figure in the answerability and escalation tables now carries its own n,
+including the previously-implicit `abstention_rate_when_unanswerable` (n=502, constant) and
+`over_abstention_rate` (n=498, constant) denominators.
+
+**Aside, not chased further here**: 3 of the has_ground_truth=False (genuinely multi-hop)
+cases landed in bucket A -- meaning the model's own reduction resolved what is actually a
+3+-hop trajectory into an apparently-clean pair. A real classification error, out of scope for
+this hardening pass, noted so it isn't lost.
