@@ -2211,5 +2211,22 @@
       "overall": "PASS -- every checkable bar cleared with real margin, not a close call"
     }
   },
+  "phase2_hardening_audit": {
+    "note": "post-hoc audit of the completed phase2 v5-a eval -- no retraining, no threshold tuning, no new adapter. Does not advance phase/step.",
+    "step0_missing_integrity_check": {
+      "date": "2026-08-12",
+      "a_systems_in_baselines_file": ["base", "rules_in_prompt", "v3b-fix", "v2"],
+      "b_malformed_empty_truncated_counts": {
+        "base": {"n": 1000, "empty": 0, "malformed": 0, "valid": 1000},
+        "rules_in_prompt": {"n": 1000, "empty": 0, "malformed": 0, "valid": 1000},
+        "v3b-fix": {"n": 1000, "empty": 0, "malformed": 1, "truncated_looking": 1, "valid": 999},
+        "v2": {"n": 1000, "empty": 0, "malformed": 0, "valid": 1000},
+        "v5-a": {"n": 1000, "empty": 0, "malformed": 0, "valid": 1000}
+      },
+      "b_note": "v3b-fix's 1 malformed case (phase4_seq_329) is a genuine repetition-loop degeneration cut off at max_new_tokens -- matches the already-reported 99.9% schema-validity figure exactly.",
+      "c_exception_swallow": "NONE. LocalHFClient.generate_batch() has try/finally with NO except clause -- any real exception from model.generate() propagates uncaught. The 7 OOM warnings during the baselines run were allocator-level retries (logged, not raised to Python), not swallowed exceptions.",
+      "d_determinism_rerun": "had NEVER been done before this audit. Ran one now: llm_finetuning/check_determinism.py, 10 real prompts, v5-a real adapter, greedy, generated twice. diff_count=0/10. Result: evaluation/determinism_check.json."
+    }
+  },
   "started": "2026-08-07T19:47:41Z"
 }

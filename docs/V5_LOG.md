@@ -3470,3 +3470,47 @@ scenario as such.
 | pair_accuracy_pooled_when_answerable | >= 55.0% | n/a | NOT COMPUTABLE (documented schema gap) |
 
 **OVERALL: PASS.** Every checkable bar clears with real margin, not a close call rounded up.
+
+# PHASE 2 HARDENING AUDIT (post-hoc, no retraining/tuning)
+
+## 2026-08-12 — step 0: the missing OOM-integrity check, answered from artifacts
+
+Four items requested, none of which appeared in the prior report. Answered from disk, not
+memory:
+
+**(a) Systems present in `evaluation/phase4_baselines_results.json`**: exactly 4 --
+`base`, `rules_in_prompt`, `v3b-fix`, `v2`, each with 1000 cases. (v5-a's real output lives
+separately in `evaluation/phase4_v5a_results.json`, produced by a different script.)
+
+**(b) Malformed/empty/truncated output counts per system** (checked `json.loads()` on every
+raw string):
+
+| system | n | empty | malformed JSON | of which truncated-looking | valid JSON |
+|---|---|---|---|---|---|
+| base | 1000 | 0 | 0 | 0 | 1000 |
+| rules_in_prompt | 1000 | 0 | 0 | 0 | 1000 |
+| v3b-fix | 1000 | 0 | 1 | 1 | 999 |
+| v2 | 1000 | 0 | 0 | 0 | 1000 |
+| v5-a | 1000 | 0 | 0 | 0 | 1000 |
+
+The one v3b-fix failure (`phase4_seq_329`) is a genuine model degeneration -- inspected
+directly: it entered a repetition loop emitting `‟` (a Unicode escape) hundreds of times
+and got cut off mid-string at `max_new_tokens` without ever closing the JSON. This matches the
+already-reported 99.9% (999/1000) schema-validity figure for v3b-fix exactly -- it was never
+hidden, just not spelled out at the raw-text level until now.
+
+**(c) Exception-swallow around `model.generate()`**: checked `LocalHFClient.generate_batch()`
+(`src/swarm_intent/llm/client.py`) directly. It has a `try: ... finally: ...` block around the
+generation loop -- **there is no `except` clause at all.** Any real exception from
+`model.generate()` would propagate uncaught and crash the calling script; the `finally` only
+restores `tok.padding_side`. **No exception-swallowing exists.** This also explains why the 7
+CUDA OOM allocator warnings during the baselines run didn't crash anything: those are
+allocator-level retry warnings (PyTorch recovering internally, logged but not raised to
+Python), not exceptions that would have hit this bare try/finally.
+
+**(d) Determinism re-run**: **had never been done.** Stating this plainly rather than
+reconstructing it from memory, per instruction. Ran one now (cheap, GPU was free):
+`llm_finetuning/check_determinism.py`, 10 real Phase 4 prompts, v5-a's real adapter, greedy
+(temperature=0.0), generated twice back-to-back on the same client. **Diff count: 0/10.**
+Greedy decoding is confirmed deterministic on this model/hardware for this sample size.
+Result saved: `evaluation/determinism_check.json`.
