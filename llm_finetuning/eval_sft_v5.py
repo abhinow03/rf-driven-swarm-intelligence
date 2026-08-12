@@ -207,18 +207,28 @@ def evaluate(cases: list[dict], predict_fn, judge_client=None) -> dict:
 
     judge_scores_by_case = {}
     if judge_client is not None:
-        for c in cases:
-            parsed = parsed_by_case[c["name"]]
-            if parsed is None:
-                continue
-            try:
-                judge_result = judge_client.complete(
-                    f"Rate this tactical assessment's quality from 1-5. "
-                    f"Return JSON: {{\"overall_score\": <int>}}.\n\n{json.dumps(parsed)}")
-                if "overall_score" in judge_result:
-                    judge_scores_by_case[c["name"]] = judge_result["overall_score"]
-            except Exception:
-                pass  # advisory only -- a judge failure must never affect headline metrics
+        judgeable = [c for c in cases if parsed_by_case[c["name"]] is not None]
+        prompts = [f"Rate this tactical assessment's quality from 1-5. "
+                  f"Return JSON: {{\"overall_score\": <int>}}.\n\n{json.dumps(parsed_by_case[c['name']])}"
+                  for c in judgeable]
+        complete_batch = getattr(judge_client, "complete_batch", None)
+        try:
+            if complete_batch is not None and len(prompts) > 1:
+                # Real clients (NvidiaClient/GroqClient) batch via a thread pool --
+                # network-bound, GIL-released during I/O -- 1000 sequential judge
+                # calls would otherwise dominate total runtime (confirmed: this was
+                # the bottleneck on the first real Phase 4 run, generation itself
+                # took 29min, judge scoring alone took far longer at one-at-a-time).
+                judge_results = complete_batch(prompts)
+            else:
+                judge_results = [judge_client.complete(p) for p in prompts]
+        except Exception:
+            judge_results = [{}] * len(prompts)  # advisory only -- a batch-level failure
+            # must never affect headline metrics; per-item failures inside complete_batch
+            # already degrade to {"error": ...} per-item, not raise, for real clients
+        for c, judge_result in zip(judgeable, judge_results):
+            if isinstance(judge_result, dict) and "overall_score" in judge_result:
+                judge_scores_by_case[c["name"]] = judge_result["overall_score"]
 
     n_valid = sum(valid_by_case.values())
     schema_validity_rate = {"rate": n_valid / len(cases) if cases else 0.0,
