@@ -75,9 +75,10 @@ REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO / "src"))
 sys.path.insert(0, str(REPO / "llm_finetuning"))
 
-from swarm_intent.llm.prompts import is_abstention, match_threat  # noqa: E402
+from swarm_intent.llm.prompts import is_abstention, match_threat, match_intent  # noqa: E402
 from swarm_intent.llm.client import default_judge_client, JUDGE_MODEL  # noqa: E402
 from swarm_intent.inference import OUTPUT_SCHEMA  # noqa: E402
+from build_sft_dataset import RULES  # noqa: E402
 
 DEFAULT_OUTPUT_DIR = "checkpoints/v5_sft/"
 CHECKPOINT_DIR_RE = re.compile(r"^checkpoint-(\d+)$")
@@ -331,12 +332,40 @@ def evaluate(cases: list[dict], predict_fn, judge_client=None) -> dict:
         "low_n_caveat": crit_scored < LOW_N_THRESHOLD,
     }
 
+    # --- pair accuracy (hardening audit step 2) ---
+    # GAP: OUTPUT_SCHEMA has no field asking the model to state which (form_a,form_b)
+    # pair it identified -- there is no literal "did the model's stated pair match the
+    # true pair" signal available without adding such a field and re-generating every
+    # system's output (cost: ~5 model loads x ~30min generation each, plus schema/
+    # prompt changes and re-validation -- not attempted here). PROXY used instead:
+    # does the model's likely_intent match RULES[true_pair]'s intent (match_intent(),
+    # same matching convention as match_threat() above)? This is MORE exacting than
+    # threat_level match (49 RULES pairs collapse onto only 4 threat tiers but many
+    # more distinct intents), and needs no new generation -- every case already
+    # carries its true `pair`. Explicitly a proxy, not literal pair-string matching;
+    # reported as such, not conflated with a real pair-guess field.
+    pair_hits, pair_scored = 0, 0
+    for c in gt_cases:
+        parsed = parsed_by_case[c["name"]]
+        if parsed is None or is_abstention(parsed.get("likely_intent", "")):
+            continue
+        pair_scored += 1
+        expected_intent = RULES[c["pair"]][1]
+        if match_intent(parsed.get("likely_intent", ""), expected_intent):
+            pair_hits += 1
+    pair_accuracy = {
+        "n": pair_scored, "accuracy": (pair_hits / pair_scored if pair_scored else None),
+        "method": "PROXY: likely_intent match against RULES[true_pair]'s intent, NOT literal "
+                 "pair-string matching (no such field exists in OUTPUT_SCHEMA)",
+    }
+
     return {
         "per_class_threat_accuracy": per_class,
         "answerability": answerability,
         "escalation": escalation,
         "schema_validity_rate": schema_validity_rate,
         "critical_pair_tactical_accuracy": critical_pair_tactical_accuracy,
+        "pair_accuracy": pair_accuracy,
         # ADVISORY ONLY -- never read by any of the fields above. judge_scores is {}
         # when judge_client=None; present-but-populated when a real judge is passed.
         # This separation IS the "advisory-only, never load-bearing" contract --
@@ -400,6 +429,12 @@ def print_report(results: dict):
         print(f"critical_pair_tactical_accuracy: {c['accuracy']:.1%} (n={c['n']}){caveat}")
     else:
         print(f"critical_pair_tactical_accuracy: n/a (n={c['n']})")
+
+    print()
+    p = results.get("pair_accuracy")
+    if p:
+        pv = f"{p['accuracy']:.1%} (n={p['n']})" if p["accuracy"] is not None else f"n/a (n={p['n']})"
+        print(f"pair_accuracy_pooled_when_answerable: {pv} -- {p['method']}")
 
     print()
     jm = results.get("judge_overall_mean")

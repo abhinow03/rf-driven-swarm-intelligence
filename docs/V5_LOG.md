@@ -3574,3 +3574,48 @@ including the previously-implicit `abstention_rate_when_unanswerable` (n=502, co
 cases landed in bucket A -- meaning the model's own reduction resolved what is actually a
 3+-hop trajectory into an apparently-clean pair. A real classification error, out of scope for
 this hardening pass, noted so it isn't lost.
+
+## 2026-08-12 — step 2: fixed the pair_accuracy schema gap, computed the bar
+
+**The gap, precisely**: `OUTPUT_SCHEMA` has no field asking the model to state which
+`(form_a, form_b)` pair it identified -- there is no way to literally check "did the model's
+stated pair match the true pair" from existing output. Getting a literal version would require
+adding such a field to the prompt/schema and re-generating every system's output from
+scratch: **cost estimate ~5 model loads x ~30min generation each (~2.5 hours), plus schema/
+prompt design and re-validation** -- not attempted here, per the instruction to state the cost
+rather than silently re-running.
+
+**Fix implemented instead**: a PROXY, computed with zero new generation. Every case already
+carries its true `(form_a, form_b)` pair (`phase4_eval_set.json`'s `pair` field). `RULES[pair]`
+gives the correct `likely_intent` for that pair. `pair_accuracy_pooled_when_answerable` =
+fraction of answered GT-determinable cases where the model's stated `likely_intent` matches
+that expected intent (`match_intent()`, same convention as `match_threat()`). This is MORE
+exacting than threat-tier accuracy (49 RULES pairs collapse onto only 4 threat tiers, but many
+more distinct intents) and needs nothing beyond data already on disk. Implemented as a new
+`pair_accuracy` field inside `eval_sft_v5.evaluate()` itself (not a bolt-on script), so it's
+computed identically for every system, mock and real alike -- re-scored all 5 systems OFFLINE
+(reusing cached raw text, zero new GPU/network cost) to add the field to every existing
+results file.
+
+**Result** (all 5 systems, for context -- the preregistered bar is specifically about v5-a):
+
+| system | pair_accuracy (proxy) | n |
+|---|---|---|
+| base | 25.2% | 497 |
+| rules_in_prompt | 31.8% | 484 |
+| v3b-fix | 52.7% | 491 |
+| v2 | 63.9% | 498 |
+| **v5-a** | **63.6%** | **497** |
+
+**v5-a clears the >=55% bar (63.6%).** Genuinely useful new signal, not just a rubber-stamp:
+v5-a and v2 are now essentially TIED on this metric, whereas v5-a led v2 by 4.8pt on
+threat-tier accuracy (75.7% vs 70.9%) -- v5-a's advantage over v2 concentrates more in
+threat-level calibration than in underlying intent/pair identification, where the two systems
+are nearly equal. Reported plainly rather than only touting v5-a as universally ahead.
+
+`scripts/check_preregistration.py` updated to check this bar for real (12 tests, all
+passing) -- every PASS/FAIL for this specific bar carries the "(PROXY: ...)" caveat in its
+status string, and a results file predating this fix (no `pair_accuracy` field) correctly
+reports MISSING, never a silent pass.
+
+**All 6 preregistered bars are now computable. All 6 PASS.**

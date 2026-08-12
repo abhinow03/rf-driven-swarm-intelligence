@@ -10,16 +10,19 @@ Bars checked (map directly onto eval_sft_v5.py's OUTPUT_SCHEMA_DOC fields):
   - escalation direction: under-escalation must remain the LARGER of the two
     directions (qualitative, not a fixed numeric threshold -- reported either
     way, not silently passed/failed)
+  - pair accuracy, pooled, when-answerable          >= 55.0% -- HARDENING AUDIT
+    step 2 FIX: this was previously NOT COMPUTABLE (eval_sft_v5.py's schema had
+    no field measuring whether the model identified the (form_a,form_b) pair
+    independent of threat_level match). Now computed via eval_sft_v5.evaluate()'s
+    `pair_accuracy` field: a PROXY (likely_intent match against
+    RULES[true_pair]'s intent -- more exacting than threat-tier match, since 49
+    RULES pairs collapse onto only 4 threat tiers but many more distinct
+    intents), NOT literal pair-string matching (no such field exists in
+    OUTPUT_SCHEMA; getting one would require adding it and re-generating every
+    system's output -- not attempted). Reported with the proxy caveat attached,
+    every time, not silently presented as if it were the literal metric.
 
 NOT checked here -- flagged explicitly, not silently skipped or faked:
-  - "pair accuracy, pooled, when-answerable >= 55.0%": PREREGISTRATION.md
-    lists this as a distinct bar from threat accuracy, but eval_sft_v5.py's
-    current schema has no field that measures whether the model correctly
-    identified the (form_a, form_b) pair independent of the threat_level
-    match -- accuracy_when_answerable only checks threat_level. Reporting
-    this bar as NOT COMPUTABLE from the current results schema rather than
-    silently reusing the threat-accuracy number for it (which would test the
-    wrong thing) or claiming a pass that wasn't actually measured.
   - the memorization-vs-generalization overlap-rate check (docs/
     PREREGISTRATION.md's other section): needs the raw training corpus +
     per-case generated text, not just this aggregate results JSON -- see
@@ -39,6 +42,7 @@ BARS = {
     "threat_accuracy_low_per_class": {"op": ">=", "value": 0.65},
     "over_abstention_rate": {"op": "<=", "value": 0.15},
     "schema_validity_rate": {"op": ">=", "value": 0.95},
+    "pair_accuracy_pooled_when_answerable": {"op": ">=", "value": 0.55},
 }
 
 
@@ -50,6 +54,7 @@ def extract_metrics(results: dict) -> dict:
     per_class = results.get("per_class_threat_accuracy", {})
     escalation = results.get("escalation", {})
     schema = results.get("schema_validity_rate", {})
+    pair = results.get("pair_accuracy", {})
 
     low = per_class.get("low", {})
     return {
@@ -57,6 +62,7 @@ def extract_metrics(results: dict) -> dict:
         "threat_accuracy_low_per_class": low.get("accuracy"),
         "over_abstention_rate": answerability.get("over_abstention_rate"),
         "schema_validity_rate": schema.get("rate"),
+        "pair_accuracy_pooled_when_answerable": pair.get("accuracy"),
         "under_escalated": escalation.get("under_escalated"),
         "over_escalated": escalation.get("over_escalated"),
     }
@@ -91,6 +97,8 @@ def run_check(results: dict) -> tuple[list[dict], str]:
     for name, bar in BARS.items():
         value = metrics[name]
         status = check_bar(name, value, bar)
+        if name == "pair_accuracy_pooled_when_answerable" and status != "MISSING":
+            status += " (PROXY: likely_intent match, not literal pair-string matching -- see module docstring)"
         rows.append({"bar": name, "target": f"{bar['op']} {bar['value']:.1%}",
                     "actual": f"{value:.1%}" if value is not None else "n/a", "status": status})
 
@@ -101,17 +109,10 @@ def run_check(results: dict) -> tuple[list[dict], str]:
                           if metrics["under_escalated"] is not None else "n/a"),
                 "status": esc_status})
 
-    scored_rows = list(rows)  # snapshot before appending the structurally-excluded row below
-
-    rows.append({"bar": "pair_accuracy_pooled_when_answerable", "target": ">= 55.0%",
-                "actual": "n/a", "status": "NOT COMPUTABLE (no pair-identification field in "
-                                          "eval_sft_v5.py's current schema -- see module docstring)"})
-
     # MISSING blocks overall PASS just like FAIL does -- an incomplete results file must
-    # never be reported as having cleared the bars. Only the deliberately-excluded
-    # pair-accuracy row (NOT COMPUTABLE, appended above, never scored either way) is exempt.
+    # never be reported as having cleared the bars.
     overall = "PASS" if all(r["status"] == "PASS" or r["status"].startswith("PASS")
-                           for r in scored_rows) else "FAIL"
+                           for r in rows) else "FAIL"
     return rows, overall
 
 

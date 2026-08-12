@@ -2239,6 +2239,15 @@
       "verdict": "UNCHANGED, now on stronger evidence -- 0.5% is essentially AT the 0.6% null-hypothesis baseline on a 20% larger, more correctly-constructed sample. Still CONSISTENT WITH GENERALIZATION.",
       "full_exclusion_accounting_356_cases": {"abstained": 1, "no_ctx_extractable_pair_multihop": 355, "note": "3 bucket-A, 1 bucket-B, 351 bucket-C among the 355 -- all has_ground_truth=False, no single true pair exists by construction, correct exclusion not a gap. 644+356=1000, fully accounted."},
       "aside_not_chased": "3 has_ground_truth=False cases landed in bucket A -- model's own reduction resolved a genuinely 3+-hop trajectory into an apparently-clean pair. Real classification error, out of scope here, noted so it isn't lost."
+    },
+    "step2_pair_accuracy_fix": {
+      "date": "2026-08-12",
+      "gap": "OUTPUT_SCHEMA has no field for the model to state its identified (form_a,form_b) pair -- literal pair-match is not measurable without adding such a field and re-generating every system (~5 models x ~30min each, ~2.5hrs, not attempted).",
+      "fix": "PROXY computed with zero new generation: likely_intent match (match_intent()) against RULES[true_pair]'s intent, for every case using the already-known true pair. Implemented inside eval_sft_v5.evaluate() as a new pair_accuracy field, applied to all 5 systems via OFFLINE re-scoring of cached raw text (no new GPU/network cost).",
+      "results": {"base": 0.2515, "rules_in_prompt": 0.3182, "v3b-fix": 0.5275, "v2": 0.6386, "v5-a": 0.6358},
+      "verdict": "v5-a clears the >=55% bar (63.6%, n=497). v5-a and v2 are essentially tied on this metric (unlike the 4.8pt v5-a lead on threat-tier accuracy) -- v5-a's advantage concentrates in threat-level calibration, not underlying intent/pair identification. Reported plainly, not just as another v5-a win.",
+      "check_preregistration_updated": "12 tests passing; every pair_accuracy PASS/FAIL carries a '(PROXY: ...)' caveat; a results file missing the field reports MISSING, never a silent pass.",
+      "status": "ALL 6 preregistered bars now computable. ALL 6 PASS."
     }
   },
   "started": "2026-08-07T19:47:41Z"

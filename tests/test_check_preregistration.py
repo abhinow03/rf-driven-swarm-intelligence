@@ -18,12 +18,13 @@ from check_preregistration import run_check  # noqa: E402
 
 
 def make_results(threat_acc=0.60, low_acc=0.70, over_abst=0.10, schema_rate=0.97,
-                 under_esc=0.10, over_esc=0.05):
+                 under_esc=0.10, over_esc=0.05, pair_acc=0.60):
     return {
         "answerability": {"accuracy_when_answerable": threat_acc, "over_abstention_rate": over_abst},
         "per_class_threat_accuracy": {"low": {"accuracy": low_acc}},
         "schema_validity_rate": {"rate": schema_rate},
         "escalation": {"under_escalated": under_esc, "over_escalated": over_esc},
+        "pair_accuracy": {"accuracy": pair_acc},
     }
 
 
@@ -39,6 +40,7 @@ class TestAllBarsPass(unittest.TestCase):
         self.assertEqual(by_bar["over_abstention_rate"], "PASS")
         self.assertEqual(by_bar["schema_validity_rate"], "PASS")
         self.assertTrue(by_bar["escalation_direction_under_ge_over"].startswith("PASS"))
+        self.assertTrue(by_bar["pair_accuracy_pooled_when_answerable"].startswith("PASS"))
 
 
 class TestSomeBarsFail(unittest.TestCase):
@@ -108,19 +110,39 @@ class TestMissingFields(unittest.TestCase):
         rows, _ = run_check(results)
         statuses = {r["status"] for r in rows}
         self.assertIn("MISSING", statuses)
-        self.assertNotIn("PASS", {r["status"] for r in rows if r["bar"] != "escalation_direction_under_ge_over"
-                                  and r["bar"] != "pair_accuracy_pooled_when_answerable"})
+        self.assertNotIn("PASS", {r["status"] for r in rows if r["bar"] != "escalation_direction_under_ge_over"})
 
 
-class TestPairAccuracyFlaggedNotComputable(unittest.TestCase):
-    def test_pair_accuracy_bar_always_reports_not_computable(self):
-        """This bar exists in PREREGISTRATION.md but has no corresponding
-        field in eval_sft_v5.py's schema -- must never be silently scored as
-        a pass, regardless of what the rest of the results look like."""
-        results = make_results()  # otherwise all-passing
+class TestPairAccuracy(unittest.TestCase):
+    """Hardening-audit fix: pair_accuracy is now computable (a PROXY -- see
+    module docstring) via eval_sft_v5.evaluate()'s pair_accuracy field. Every
+    result must carry the PROXY caveat in its status string, and a results
+    file predating this fix (no pair_accuracy field at all) must report
+    MISSING, never silently pass."""
+
+    def test_pair_accuracy_pass_carries_proxy_caveat(self):
+        results = make_results(pair_acc=0.60)  # bar is >=55%
         rows, _ = run_check(results)
         pair_row = next(r for r in rows if r["bar"] == "pair_accuracy_pooled_when_answerable")
-        self.assertIn("NOT COMPUTABLE", pair_row["status"])
+        self.assertTrue(pair_row["status"].startswith("PASS"))
+        self.assertIn("PROXY", pair_row["status"])
+
+    def test_pair_accuracy_below_bar_fails(self):
+        results = make_results(pair_acc=0.40)  # bar is >=55%
+        rows, overall = run_check(results)
+        pair_row = next(r for r in rows if r["bar"] == "pair_accuracy_pooled_when_answerable")
+        self.assertTrue(pair_row["status"].startswith("FAIL"))
+        self.assertEqual(overall, "FAIL")
+
+    def test_missing_pair_accuracy_field_reports_missing_not_a_silent_pass(self):
+        """A results file from before this fix (no pair_accuracy key at all)
+        must never be silently scored as passing this bar."""
+        results = make_results()
+        del results["pair_accuracy"]
+        rows, overall = run_check(results)
+        pair_row = next(r for r in rows if r["bar"] == "pair_accuracy_pooled_when_answerable")
+        self.assertEqual(pair_row["status"], "MISSING")
+        self.assertEqual(overall, "FAIL")
 
 
 if __name__ == "__main__":
