@@ -3688,3 +3688,51 @@ that an earlier draft had a numeric `<=10%` under-escalation bar that would have
 -- no such bar was ever drafted or committed.** Recorded this directly in the erratum rather
 than inventing a correction for something that never existed; the (b) critique stands on its
 own without it.
+
+## 2026-08-12 — step 5: pipeline_v2 with v5-a in Layer 3 -- the system that actually ships
+
+`llm_finetuning/eval_pipeline_v2_with_v5a.py`, same locked seed=4321 population. Regenerated
+full `bucket_info` (rules_key/guard_reasons/subtype, not just the bare "bucket" label
+`phase4_eval_set.json` stored) via the same integrity-checked regeneration as step 3 -- 0
+chain/bucket mismatches confirmed again before trusting anything downstream.
+
+**Layer firing rates (n=1000): Layer1=442 (44.2%), Layer2=14 (1.4%), Layer3=544 (54.4%).**
+
+**The key question this step exists to answer: does Layer 2 actually do the abstention job, or
+does the LLM (v5-a) end up doing it anyway?**
+
+| layer reached | n unanswerable cases | correctly abstained |
+|---|---|---|
+| Layer 1 (deterministic) | 9 | 0 (0.0%) |
+| Layer 2 (guard abstain) | 1 | 1 (100.0%) |
+| Layer 3 (v5-a) | 492 | 0 (0.0%) |
+| **END-TO-END** | **502** | **1 (0.2%)** |
+
+**Layer 2 is NOT meaningfully doing this job.** Of the 502 genuinely-unanswerable (multi-hop)
+cases, only 1 lands in Layer 2's bucket B -- Layer 2 IS perfect when it fires (100%, n=1), but
+it almost never fires on these cases, because bucket B is a small fraction of overall traffic
+(14/1000) and the vast majority of multi-hop trajectories get classified into bucket C (routed
+to Layer 3/the LLM), not bucket B. **The end-to-end correct-abstention-on-unanswerable rate for
+the actual shipping system is 0.2% -- barely different from the bare v5-a adapter's 0.0%.**
+The instruction's framing ("the bare-adapter 0% abstention number is being read against the
+wrong system") does not hold up empirically: routing through pipeline_v2 does not rescue this
+failure mode, because the routing logic sends almost all of it straight to the LLM anyway.
+(Also notable, tangential: 9 genuinely multi-hop cases were misrouted to Layer 1 as if they
+were clean bucket-A pairs -- a real STGT/bridge classification error, consistent with the
+smaller version of this same defect found in step 1's crosstab, out of scope to fix here.)
+
+**Threat accuracy, by contrast, IS meaningfully better end to end:**
+
+| | accuracy_when_answerable | n |
+|---|---|---|
+| bare v5-a adapter (no routing) | 75.7% | 497 |
+| **pipeline_v2 + v5-a (end to end)** | **87.8%** | **484** |
+
+A genuine, real win for the routing architecture -- Layer 1's 442 bucket-A cases get a
+deterministic RULES-dict threat_level (not the LLM's own judgment at all), which is
+substantially more reliable than asking the LLM to re-derive it from ctx text every time,
+pulling the pooled accuracy up 12.1 points over the bare-adapter number.
+
+**Summary: pipeline_v2 + v5-a is a real accuracy improvement over the bare adapter, but it
+does NOT fix the abstention problem -- both numbers should be read together, not the accuracy
+win alone.**

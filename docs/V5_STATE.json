@@ -2269,6 +2269,22 @@
       "a_over_abstention_unfalsifiable": "over_abstention_rate (<=15%) only measures incorrectly abstaining on answerable cases -- a system that NEVER abstains (v5-a: 0.0% abstention_rate_when_unanswerable, n=502) clears it trivially regardless of whether its abstention behavior is good or absent. Needs a paired under-abstention floor to be meaningful.",
       "b_escalation_direction_tautological": "the bar ('must remain the larger direction') is phrased relative to under-escalation's own already-documented historical dominance -- easy to clear by construction. v5-a's PASS stands but is weak evidence, not a strong new finding.",
       "correction_made": "was asked to record an earlier draft's numeric <=10% under-escalation bar that would have failed at 18.7%. Checked the full git history of PREREGISTRATION.md (both commits, full diffs) -- no such bar was ever drafted or committed. Recorded this directly rather than inventing a correction for something that never existed."
+    },
+    "step5_pipeline_v2_with_v5a": {
+      "date": "2026-08-12",
+      "layer_firing": {"layer1": 442, "layer2": 14, "layer3": 544},
+      "unanswerable_by_layer": {
+        "layer1_deterministic": {"n": 9, "correct_abstention": 0},
+        "layer2_guard": {"n": 1, "correct_abstention": 1},
+        "layer3_llm": {"n": 492, "correct_abstention": 0}
+      },
+      "end_to_end_correct_abstention_rate": 0.002,
+      "key_finding": "Layer 2 does NOT meaningfully do the abstention job -- only 1/502 unanswerable cases reach it (100% correct when it does, but n=1). 492/502 land in bucket C, routed straight to Layer 3 (v5-a), inheriting its bare 0.0% correct-abstention behavior unchanged. End-to-end: 0.2%, barely different from the bare adapter's 0.0%. The instruction's framing that routing rescues this does not hold up empirically.",
+      "end_to_end_accuracy_when_answerable": {"value": 0.878, "n": 484},
+      "accuracy_comparison": {"bare_v5a_adapter": 0.757, "pipeline_v2_plus_v5a": 0.878, "delta_points": 12.1},
+      "accuracy_finding": "genuine, real improvement -- Layer 1's 442 bucket-A cases get a deterministic RULES-dict threat_level instead of the LLM's own judgment, pulling pooled accuracy up substantially.",
+      "aside_not_chased": "9 genuinely multi-hop cases were misrouted to Layer 1 as clean bucket-A pairs -- a real STGT/bridge classification error, consistent with (larger-scale version of) the 3-case finding from step 1's crosstab.",
+      "verdict": "pipeline_v2+v5a is a real accuracy win (75.7%->87.8%) but does NOT fix the abstention problem (0.0%->0.2%) -- both numbers must be read together."
     }
   },
   "started": "2026-08-07T19:47:41Z"
