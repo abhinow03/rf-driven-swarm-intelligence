@@ -3329,3 +3329,68 @@ DEFERRED this (GPU was at 100% utilization from training the entire time) and le
 `prerun_baselines_phase4.py` written but unexecuted, with the exact handoff command given in
 that session's final report. That command was not run before this session started. Flagging
 this directly rather than fabricating a join -- running it for real now as part of step 4.
+
+## 2026-08-12 — step 2: memorization-vs-generalization verdict (real output, reported first)
+
+`llm_finetuning/run_memorization_check.py` against v5-a's real Phase 4 output. Of 1000 cases,
+534 were answered with an identifiable (form_a,form_b) pair (466 excluded: 1 abstained, 465
+had no extractable pair from ctx text -- almost all of these are the 544 bucket-C multi-hop
+sequences, whose ctx phrasing has no clean transition line to extract a pair from at all, not
+a bug).
+
+**Overlap rate: 1.3% (7/534)** near-duplicate (>=0.90 cosine similarity to a same-pair
+training target). Null-hypothesis baseline (measured on the real corpus, independently-
+generated teacher rows): 0.6%. Preregistered memorization-signal bar: >=15%.
+
+**VERDICT: CONSISTENT WITH GENERALIZATION.** 1.3% sits inside the expected chance range
+(~0.6-2%) for two independently-written same-pair descriptions to coincidentally overlap --
+far below the 15% bar that would indicate v5-a is reproducing memorized training prose rather
+than generating scenario-specific assessments. This directly resolves the ambiguity
+`mean_token_accuracy=0.899` alone could not: the accuracy numbers below are not an artifact of
+having memorized the corpus.
+
+## 2026-08-12 — step 3: full Phase 4 protocol, real output
+
+`llm_finetuning/eval_sft_v5.py --real --adapter checkpoints/v5_sft/ --judge`, greedy
+(temperature=0.0), 1000 real STGT trajectories (the locked eval set), 498/1000
+ground-truth-determinable.
+
+| threat | n | accuracy | 95% CI |
+|---|---|---|---|
+| low | 169 | 88.2% | [82.4%, 92.2%] |
+| medium | 199 | 80.9% | [74.9%, 85.8%] |
+| high | 115 | 53.9% | [44.8%, 62.7%] |
+| critical | 14 | 28.6% | [11.7%, 54.6%] |
+
+n=14 on critical clears this script's own n<10 caveat threshold but is still thin by this
+project's historical standard -- read the 95% CI (11.7-54.6%), not the point estimate alone.
+
+**Answerability**: `accuracy_when_answerable` 75.7% (n=497). `abstention_rate_when_unanswerable`
+**0.0% (n=502)**. `over_abstention_rate` 0.2%.
+
+**Critical finding, not captured by any preregistered bar**: v5-a NEVER correctly abstains on
+the 502 genuinely unanswerable (multi-hop, 3+-formation-transition) cases -- it confidently
+answers something every single time. `over_abstention_rate` (incorrectly abstaining on
+ANSWERABLE cases) is the only abstention-direction bar PREREGISTRATION.md defined, and it's
+excellent (0.2%) -- but that bar structurally cannot see this OTHER failure mode, since it
+only checks the opposite direction. Reporting this explicitly rather than letting a clean
+`over_abstention_rate` number imply abstention behavior is fine overall.
+
+**Escalation** (n=498): correct 75.5%, UNDER-escalated 18.7%, OVER-escalated 5.6%, abstained
+0.2%. Under-escalation remains the larger direction, consistent with every system measured in
+this project's history.
+
+**Schema validity: 100.0% (1000/1000).** Critical-pair tactical accuracy: 28.6% (n=14, same
+low-n read as above).
+
+**Judge (advisory only), real output, verified for the first time**: `judge_overall_mean`
+4.96/5 (n=1000) -- rated its own output very highly (unsurprising for a judge scoring
+well-formed, on-topic JSON; not independently meaningful without a comparison judge score for
+the other systems). Re-ran `evaluate()` OFFLINE on the exact same cached raw outputs with
+`judge_client=None` (no new GPU/network calls) and confirmed every non-judge field is
+byte-identical to the judge-present run -- the advisory-only contract holds on real output,
+not just in the stub tests.
+
+**Performance note**: generation took 29 minutes; the (now-fixed, see prior commit)
+sequential judge-scoring loop took ~3.5 hours for the same 1000 cases -- by far the dominant
+cost of this run, fixed for all future runs.
