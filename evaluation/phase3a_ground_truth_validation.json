@@ -1,0 +1,348 @@
+{
+  "n_records": 502,
+  "n_agree": 475,
+  "agreement_rate": 0.9462151394422311,
+  "n_disagreements": 27,
+  "n_disagreements_nondetect": 10,
+  "n_disagreements_confused": 17,
+  "ground_truth_mechanism_counts": {
+    "multi_hop": 435,
+    "oscillation": 67
+  },
+  "disagreements": [
+    {
+      "i": 105,
+      "true_chain": [
+        "shield",
+        "v_shape",
+        "encirclement"
+      ],
+      "stgt_category": "bucket_A_misrouted",
+      "stgt_mechanism": null,
+      "ground_truth_mechanism": "multi_hop",
+      "stgt_failure_mode": "did not detect multi-hop structure at all"
+    },
+    {
+      "i": 116,
+      "true_chain": [
+        "encirclement",
+        "dispersed",
+        "encirclement"
+      ],
+      "stgt_category": "multi_hop",
+      "stgt_mechanism": "multi_hop",
+      "ground_truth_mechanism": "oscillation",
+      "stgt_failure_mode": "detected multi-hop but assigned the wrong mechanism (oscillation vs multi_hop confused by a noisy intermediate read)"
+    },
+    {
+      "i": 146,
+      "true_chain": [
+        "converging",
+        "dispersed",
+        "encirclement"
+      ],
+      "stgt_category": "dispersed_converging_ambiguity",
+      "stgt_mechanism": null,
+      "ground_truth_mechanism": "multi_hop",
+      "stgt_failure_mode": "did not detect multi-hop structure at all"
+    },
+    {
+      "i": 218,
+      "true_chain": [
+        "dispersed",
+        "encirclement",
+        "v_shape",
+        "encirclement"
+      ],
+      "stgt_category": "oscillation",
+      "stgt_mechanism": "oscillation",
+      "ground_truth_mechanism": "multi_hop",
+      "stgt_failure_mode": "detected multi-hop but assigned the wrong mechanism (oscillation vs multi_hop confused by a noisy intermediate read)"
+    },
+    {
+      "i": 233,
+      "true_chain": [
+        "v_shape",
+        "dispersed",
+        "v_shape",
+        "encirclement"
+      ],
+      "stgt_category": "oscillation",
+      "stgt_mechanism": "oscillation",
+      "ground_truth_mechanism": "multi_hop",
+      "stgt_failure_mode": "detected multi-hop but assigned the wrong mechanism (oscillation vs multi_hop confused by a noisy intermediate read)"
+    },
+    {
+      "i": 291,
+      "true_chain": [
+        "v_shape",
+        "encirclement",
+        "converging"
+      ],
+      "stgt_category": "bucket_A_misrouted",
+      "stgt_mechanism": null,
+      "ground_truth_mechanism": "multi_hop",
+      "stgt_failure_mode": "did not detect multi-hop structure at all"
+    },
+    {
+      "i": 292,
+      "true_chain": [
+        "column",
+        "dispersed",
+        "converging"
+      ],
+      "stgt_category": "bucket_A_misrouted",
+      "stgt_mechanism": null,
+      "ground_truth_mechanism": "multi_hop",
+      "stgt_failure_mode": "did not detect multi-hop structure at all"
+    },
+    {
+      "i": 307,
+      "true_chain": [
+        "converging",
+        "dispersed",
+        "encirclement"
+      ],
+      "stgt_category": "oscillation",
+      "stgt_mechanism": "oscillation",
+      "ground_truth_mechanism": "multi_hop",
+      "stgt_failure_mode": "detected multi-hop but assigned the wrong mechanism (oscillation vs multi_hop confused by a noisy intermediate read)"
+    },
+    {
+      "i": 314,
+      "true_chain": [
+        "shield",
+        "v_shape",
+        "encirclement"
+      ],
+      "stgt_category": "bucket_A_misrouted",
+      "stgt_mechanism": null,
+      "ground_truth_mechanism": "multi_hop",
+      "stgt_failure_mode": "did not detect multi-hop structure at all"
+    },
+    {
+      "i": 385,
+      "true_chain": [
+        "converging",
+        "dispersed",
+        "converging"
+      ],
+      "stgt_category": "bucket_A_misrouted",
+      "stgt_mechanism": null,
+      "ground_truth_mechanism": "oscillation",
+      "stgt_failure_mode": "did not detect multi-hop structure at all"
+    },
+    {
+      "i": 406,
+      "true_chain": [
+        "converging",
+        "shield",
+        "encirclement"
+      ],
+      "stgt_category": "oscillation",
+      "stgt_mechanism": "oscillation",
+      "ground_truth_mechanism": "multi_hop",
+      "stgt_failure_mode": "detected multi-hop but assigned the wrong mechanism (oscillation vs multi_hop confused by a noisy intermediate read)"
+    },
+    {
+      "i": 413,
+      "true_chain": [
+        "dispersed",
+        "converging",
+        "dispersed",
+        "converging"
+      ],
+      "stgt_category": "oscillation",
+      "stgt_mechanism": "oscillation",
+      "ground_truth_mechanism": "multi_hop",
+      "stgt_failure_mode": "detected multi-hop but assigned the wrong mechanism (oscillation vs multi_hop confused by a noisy intermediate read)"
+    },
+    {
+      "i": 428,
+      "true_chain": [
+        "v_shape",
+        "diamond",
+        "encirclement"
+      ],
+      "stgt_category": "oscillation",
+      "stgt_mechanism": "oscillation",
+      "ground_truth_mechanism": "multi_hop",
+      "stgt_failure_mode": "detected multi-hop but assigned the wrong mechanism (oscillation vs multi_hop confused by a noisy intermediate read)"
+    },
+    {
+      "i": 512,
+      "true_chain": [
+        "column",
+        "converging",
+        "v_shape",
+        "converging"
+      ],
+      "stgt_category": "oscillation",
+      "stgt_mechanism": "oscillation",
+      "ground_truth_mechanism": "multi_hop",
+      "stgt_failure_mode": "detected multi-hop but assigned the wrong mechanism (oscillation vs multi_hop confused by a noisy intermediate read)"
+    },
+    {
+      "i": 520,
+      "true_chain": [
+        "dispersed",
+        "column",
+        "encirclement"
+      ],
+      "stgt_category": "bucket_A_misrouted",
+      "stgt_mechanism": null,
+      "ground_truth_mechanism": "multi_hop",
+      "stgt_failure_mode": "did not detect multi-hop structure at all"
+    },
+    {
+      "i": 525,
+      "true_chain": [
+        "dispersed",
+        "v_shape",
+        "encirclement",
+        "v_shape"
+      ],
+      "stgt_category": "oscillation",
+      "stgt_mechanism": "oscillation",
+      "ground_truth_mechanism": "multi_hop",
+      "stgt_failure_mode": "detected multi-hop but assigned the wrong mechanism (oscillation vs multi_hop confused by a noisy intermediate read)"
+    },
+    {
+      "i": 563,
+      "true_chain": [
+        "encirclement",
+        "dispersed",
+        "v_shape",
+        "encirclement"
+      ],
+      "stgt_category": "multi_hop",
+      "stgt_mechanism": "multi_hop",
+      "ground_truth_mechanism": "oscillation",
+      "stgt_failure_mode": "detected multi-hop but assigned the wrong mechanism (oscillation vs multi_hop confused by a noisy intermediate read)"
+    },
+    {
+      "i": 574,
+      "true_chain": [
+        "column",
+        "diamond",
+        "column",
+        "dispersed"
+      ],
+      "stgt_category": "bucket_A_misrouted",
+      "stgt_mechanism": null,
+      "ground_truth_mechanism": "multi_hop",
+      "stgt_failure_mode": "did not detect multi-hop structure at all"
+    },
+    {
+      "i": 611,
+      "true_chain": [
+        "dispersed",
+        "column",
+        "v_shape"
+      ],
+      "stgt_category": "bucket_A_misrouted",
+      "stgt_mechanism": null,
+      "ground_truth_mechanism": "multi_hop",
+      "stgt_failure_mode": "did not detect multi-hop structure at all"
+    },
+    {
+      "i": 618,
+      "true_chain": [
+        "converging",
+        "dispersed",
+        "converging"
+      ],
+      "stgt_category": "multi_hop",
+      "stgt_mechanism": "multi_hop",
+      "ground_truth_mechanism": "oscillation",
+      "stgt_failure_mode": "detected multi-hop but assigned the wrong mechanism (oscillation vs multi_hop confused by a noisy intermediate read)"
+    },
+    {
+      "i": 649,
+      "true_chain": [
+        "converging",
+        "diamond",
+        "column",
+        "converging"
+      ],
+      "stgt_category": "multi_hop",
+      "stgt_mechanism": "multi_hop",
+      "ground_truth_mechanism": "oscillation",
+      "stgt_failure_mode": "detected multi-hop but assigned the wrong mechanism (oscillation vs multi_hop confused by a noisy intermediate read)"
+    },
+    {
+      "i": 764,
+      "true_chain": [
+        "dispersed",
+        "encirclement",
+        "dispersed",
+        "converging"
+      ],
+      "stgt_category": "oscillation",
+      "stgt_mechanism": "oscillation",
+      "ground_truth_mechanism": "multi_hop",
+      "stgt_failure_mode": "detected multi-hop but assigned the wrong mechanism (oscillation vs multi_hop confused by a noisy intermediate read)"
+    },
+    {
+      "i": 781,
+      "true_chain": [
+        "encirclement",
+        "v_shape",
+        "encirclement"
+      ],
+      "stgt_category": "multi_hop",
+      "stgt_mechanism": "multi_hop",
+      "ground_truth_mechanism": "oscillation",
+      "stgt_failure_mode": "detected multi-hop but assigned the wrong mechanism (oscillation vs multi_hop confused by a noisy intermediate read)"
+    },
+    {
+      "i": 786,
+      "true_chain": [
+        "dispersed",
+        "shield",
+        "diamond"
+      ],
+      "stgt_category": "oscillation",
+      "stgt_mechanism": "oscillation",
+      "ground_truth_mechanism": "multi_hop",
+      "stgt_failure_mode": "detected multi-hop but assigned the wrong mechanism (oscillation vs multi_hop confused by a noisy intermediate read)"
+    },
+    {
+      "i": 869,
+      "true_chain": [
+        "converging",
+        "encirclement",
+        "converging"
+      ],
+      "stgt_category": "multi_hop",
+      "stgt_mechanism": "multi_hop",
+      "ground_truth_mechanism": "oscillation",
+      "stgt_failure_mode": "detected multi-hop but assigned the wrong mechanism (oscillation vs multi_hop confused by a noisy intermediate read)"
+    },
+    {
+      "i": 879,
+      "true_chain": [
+        "diamond",
+        "column",
+        "converging"
+      ],
+      "stgt_category": "terminal_transitioning",
+      "stgt_mechanism": "terminal_transitioning",
+      "ground_truth_mechanism": "multi_hop",
+      "stgt_failure_mode": "detected multi-hop but assigned the wrong mechanism (oscillation vs multi_hop confused by a noisy intermediate read)"
+    },
+    {
+      "i": 982,
+      "true_chain": [
+        "v_shape",
+        "encirclement",
+        "v_shape",
+        "encirclement"
+      ],
+      "stgt_category": "bucket_A_misrouted",
+      "stgt_mechanism": null,
+      "ground_truth_mechanism": "multi_hop",
+      "stgt_failure_mode": "did not detect multi-hop structure at all"
+    }
+  ]
+}
