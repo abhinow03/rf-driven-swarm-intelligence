@@ -1,0 +1,14 @@
+{
+  "prior_multi_hop": 435,
+  "prior_oscillation": 67,
+  "prior_total": 502,
+  "prior_ratio_multi_hop": 0.8665338645418327,
+  "prior_ratio_oscillation": 0.13346613545816732,
+  "strata_targets": {
+    "multi_hop": 780,
+    "oscillation": 120,
+    "terminal_transitioning": 100
+  },
+  "total_target": 1000,
+  "pct_of_existing_corpus": 8.332638946754438
+}
