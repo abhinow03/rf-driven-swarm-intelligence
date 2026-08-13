@@ -1,0 +1,20 @@
+{
+  "new_abstention_corpus_file": "data/abstention_corpus.jsonl",
+  "merged_into_training_file": false,
+  "n_new_rows_total": 1000,
+  "per_mechanism_counts": {
+    "multi_hop": 780,
+    "oscillation": 120,
+    "terminal_transitioning": 100
+  },
+  "teacher_used": false,
+  "n_rows_with_teacher_prose": 0,
+  "existing_rules_corpus_row_count": 12001,
+  "combined_corpus_size_if_merged": 13001,
+  "dedup_confirmation": {
+    "overlap_with_existing_corpus": 0,
+    "internal_duplicates": 0
+  },
+  "hard_gates_all_pass": true,
+  "safety_copy_verified_untouched": true
+}
