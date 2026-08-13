@@ -1,0 +1,41 @@
+[
+  {
+    "pair": "OLD_pre_dwell_fix_b680c80_628dc56 vs MID_post_consolidation_3591051",
+    "byte_identical": false,
+    "sha256_a": "e20273f0bb62a1a2f77d3889be11e2bea51c226df60b63de6575b6f74617d31c",
+    "sha256_b": "744d5b58ad97e3b682b563a1e6b07e2c20dad2270f8f2920cfca577a714d292f",
+    "n_compared": 1000,
+    "n_fully_identical_trajectories": 0,
+    "n_chain_differs": 991,
+    "n_same_chain_different_timestep_count": 9,
+    "n_same_chain_same_length_different_geometry": 0,
+    "first_chain_divergence_index": 1,
+    "classification": "GENUINELY DIFFERENT POPULATION -- generator-logic divergence: 991/1000 (99.1%) trajectories have a different formation chain entirely (RNG stream diverged, not incidental)"
+  },
+  {
+    "pair": "MID_post_consolidation_3591051 vs CURRENT_post_symmetrize_9061392_HEAD",
+    "byte_identical": false,
+    "sha256_a": "744d5b58ad97e3b682b563a1e6b07e2c20dad2270f8f2920cfca577a714d292f",
+    "sha256_b": "871a9dae4c6fdf08e1aed803592fa7c61b1a852c150693b5819fe2271717b96e",
+    "n_compared": 1000,
+    "n_fully_identical_trajectories": 0,
+    "n_chain_differs": 988,
+    "n_same_chain_different_timestep_count": 12,
+    "n_same_chain_same_length_different_geometry": 0,
+    "first_chain_divergence_index": 1,
+    "classification": "GENUINELY DIFFERENT POPULATION -- generator-logic divergence: 988/1000 (98.8%) trajectories have a different formation chain entirely (RNG stream diverged, not incidental)"
+  },
+  {
+    "pair": "OLD_pre_dwell_fix_b680c80_628dc56 vs CURRENT_post_symmetrize_9061392_HEAD",
+    "byte_identical": false,
+    "sha256_a": "e20273f0bb62a1a2f77d3889be11e2bea51c226df60b63de6575b6f74617d31c",
+    "sha256_b": "871a9dae4c6fdf08e1aed803592fa7c61b1a852c150693b5819fe2271717b96e",
+    "n_compared": 1000,
+    "n_fully_identical_trajectories": 0,
+    "n_chain_differs": 992,
+    "n_same_chain_different_timestep_count": 8,
+    "n_same_chain_same_length_different_geometry": 0,
+    "first_chain_divergence_index": 1,
+    "classification": "GENUINELY DIFFERENT POPULATION -- generator-logic divergence: 992/1000 (99.2%) trajectories have a different formation chain entirely (RNG stream diverged, not incidental)"
+  }
+]
