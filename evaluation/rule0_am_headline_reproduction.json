@@ -1,0 +1,7659 @@
+{
+  "locked_file": "eval_data/LOCKED_seed999_FINAL.json",
+  "locked_file_sha256": "871a9dae4c6fdf08e1aed803592fa7c61b1a852c150693b5819fe2271717b96e",
+  "checkpoint": "swarm_data/best_model.pt",
+  "n_pair_eligible": 494,
+  "strata": {
+    "pooled": {
+      "robust_True": {
+        "n": 494,
+        "pair_accuracy": 0.7732793522267206,
+        "threat_accuracy": 0.8299595141700404
+      },
+      "robust_False": {
+        "n": 494,
+        "pair_accuracy": 0.7672064777327935,
+        "threat_accuracy": 0.8238866396761133
+      }
+    },
+    "chain_1": {
+      "robust_True": {
+        "n": 275,
+        "pair_accuracy": 0.8581818181818182,
+        "threat_accuracy": 0.8763636363636363
+      },
+      "robust_False": {
+        "n": 275,
+        "pair_accuracy": 0.8545454545454545,
+        "threat_accuracy": 0.8727272727272727
+      }
+    },
+    "chain_2": {
+      "robust_True": {
+        "n": 219,
+        "pair_accuracy": 0.6666666666666666,
+        "threat_accuracy": 0.771689497716895
+      },
+      "robust_False": {
+        "n": 219,
+        "pair_accuracy": 0.6575342465753424,
+        "threat_accuracy": 0.7625570776255708
+      }
+    }
+  },
+  "cited": {
+    "pooled": {
+      "threat": 0.83,
+      "pair": 0.773
+    },
+    "chain_1": {
+      "threat": 0.876,
+      "pair": 0.858
+    },
+    "chain_2": {
+      "threat": 0.772,
+      "pair": 0.667
+    }
+  },
+  "discrepancies": [],
+  "per_record": [
+    {
+      "i": 1,
+      "chain_length": 2,
+      "gt_pair": [
+        "v_shape",
+        "column"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "column"
+      ]
+    },
+    {
+      "i": 3,
+      "chain_length": 1,
+      "gt_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "column"
+      ]
+    },
+    {
+      "i": 4,
+      "chain_length": 1,
+      "gt_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 6,
+      "chain_length": 1,
+      "gt_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 9,
+      "chain_length": 2,
+      "gt_pair": [
+        "encirclement",
+        "shield"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 14,
+      "chain_length": 1,
+      "gt_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "diamond"
+      ]
+    },
+    {
+      "i": 15,
+      "chain_length": 1,
+      "gt_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "converging",
+        "converging"
+      ]
+    },
+    {
+      "i": 16,
+      "chain_length": 1,
+      "gt_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "converging",
+        "converging"
+      ]
+    },
+    {
+      "i": 19,
+      "chain_length": 1,
+      "gt_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "diamond"
+      ]
+    },
+    {
+      "i": 20,
+      "chain_length": 2,
+      "gt_pair": [
+        "shield",
+        "converging"
+      ],
+      "recovered_pair": [
+        "shield",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "converging"
+      ]
+    },
+    {
+      "i": 21,
+      "chain_length": 2,
+      "gt_pair": [
+        "encirclement",
+        "shield"
+      ],
+      "recovered_pair": [
+        "encirclement",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "encirclement",
+        "shield"
+      ]
+    },
+    {
+      "i": 22,
+      "chain_length": 2,
+      "gt_pair": [
+        "converging",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "converging",
+        "encirclement"
+      ],
+      "recovered_pair_robust": [
+        "converging",
+        "encirclement"
+      ]
+    },
+    {
+      "i": 23,
+      "chain_length": 1,
+      "gt_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "converging",
+        "converging"
+      ]
+    },
+    {
+      "i": 24,
+      "chain_length": 1,
+      "gt_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 25,
+      "chain_length": 1,
+      "gt_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 29,
+      "chain_length": 2,
+      "gt_pair": [
+        "dispersed",
+        "shield"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "shield"
+      ]
+    },
+    {
+      "i": 31,
+      "chain_length": 2,
+      "gt_pair": [
+        "column",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "diamond"
+      ]
+    },
+    {
+      "i": 32,
+      "chain_length": 1,
+      "gt_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "column"
+      ]
+    },
+    {
+      "i": 35,
+      "chain_length": 1,
+      "gt_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "diamond"
+      ]
+    },
+    {
+      "i": 38,
+      "chain_length": 1,
+      "gt_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 39,
+      "chain_length": 1,
+      "gt_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair_robust": [
+        "encirclement",
+        "encirclement"
+      ]
+    },
+    {
+      "i": 40,
+      "chain_length": 2,
+      "gt_pair": [
+        "diamond",
+        "column"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": [
+        "diamond",
+        "column"
+      ]
+    },
+    {
+      "i": 41,
+      "chain_length": 2,
+      "gt_pair": [
+        "v_shape",
+        "diamond"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 42,
+      "chain_length": 1,
+      "gt_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "diamond"
+      ]
+    },
+    {
+      "i": 44,
+      "chain_length": 1,
+      "gt_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "diamond"
+      ]
+    },
+    {
+      "i": 45,
+      "chain_length": 2,
+      "gt_pair": [
+        "column",
+        "shield"
+      ],
+      "recovered_pair": [
+        "column",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "shield"
+      ]
+    },
+    {
+      "i": 46,
+      "chain_length": 2,
+      "gt_pair": [
+        "v_shape",
+        "shield"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "shield"
+      ]
+    },
+    {
+      "i": 47,
+      "chain_length": 1,
+      "gt_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair_robust": [
+        "encirclement",
+        "encirclement"
+      ]
+    },
+    {
+      "i": 48,
+      "chain_length": 2,
+      "gt_pair": [
+        "encirclement",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "diamond"
+      ]
+    },
+    {
+      "i": 51,
+      "chain_length": 2,
+      "gt_pair": [
+        "shield",
+        "converging"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 56,
+      "chain_length": 2,
+      "gt_pair": [
+        "encirclement",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "encirclement",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "encirclement",
+        "diamond"
+      ]
+    },
+    {
+      "i": 59,
+      "chain_length": 2,
+      "gt_pair": [
+        "encirclement",
+        "column"
+      ],
+      "recovered_pair": [
+        "encirclement",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "encirclement",
+        "column"
+      ]
+    },
+    {
+      "i": 60,
+      "chain_length": 1,
+      "gt_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "shield"
+      ]
+    },
+    {
+      "i": 61,
+      "chain_length": 2,
+      "gt_pair": [
+        "v_shape",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "converging"
+      ]
+    },
+    {
+      "i": 64,
+      "chain_length": 1,
+      "gt_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 66,
+      "chain_length": 2,
+      "gt_pair": [
+        "column",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "column",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 71,
+      "chain_length": 2,
+      "gt_pair": [
+        "converging",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "converging",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "converging",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 72,
+      "chain_length": 2,
+      "gt_pair": [
+        "column",
+        "encirclement"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 73,
+      "chain_length": 2,
+      "gt_pair": [
+        "encirclement",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "converging",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "converging",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 76,
+      "chain_length": 2,
+      "gt_pair": [
+        "converging",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "converging",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "converging",
+        "diamond"
+      ]
+    },
+    {
+      "i": 77,
+      "chain_length": 2,
+      "gt_pair": [
+        "v_shape",
+        "converging"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "converging"
+      ]
+    },
+    {
+      "i": 81,
+      "chain_length": 1,
+      "gt_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 84,
+      "chain_length": 2,
+      "gt_pair": [
+        "converging",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "converging",
+        "encirclement"
+      ],
+      "recovered_pair_robust": [
+        "converging",
+        "encirclement"
+      ]
+    },
+    {
+      "i": 85,
+      "chain_length": 2,
+      "gt_pair": [
+        "shield",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "shield",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 86,
+      "chain_length": 2,
+      "gt_pair": [
+        "encirclement",
+        "converging"
+      ],
+      "recovered_pair": [
+        "encirclement",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "encirclement",
+        "converging"
+      ]
+    },
+    {
+      "i": 87,
+      "chain_length": 1,
+      "gt_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "column"
+      ]
+    },
+    {
+      "i": 89,
+      "chain_length": 2,
+      "gt_pair": [
+        "shield",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "shield",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "diamond"
+      ]
+    },
+    {
+      "i": 91,
+      "chain_length": 1,
+      "gt_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "diamond"
+      ]
+    },
+    {
+      "i": 93,
+      "chain_length": 2,
+      "gt_pair": [
+        "diamond",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 95,
+      "chain_length": 2,
+      "gt_pair": [
+        "diamond",
+        "converging"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "converging"
+      ]
+    },
+    {
+      "i": 96,
+      "chain_length": 2,
+      "gt_pair": [
+        "v_shape",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "encirclement"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "encirclement"
+      ]
+    },
+    {
+      "i": 97,
+      "chain_length": 1,
+      "gt_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "shield"
+      ]
+    },
+    {
+      "i": 98,
+      "chain_length": 2,
+      "gt_pair": [
+        "dispersed",
+        "column"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "diamond"
+      ]
+    },
+    {
+      "i": 101,
+      "chain_length": 2,
+      "gt_pair": [
+        "diamond",
+        "converging"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "converging"
+      ]
+    },
+    {
+      "i": 102,
+      "chain_length": 2,
+      "gt_pair": [
+        "encirclement",
+        "column"
+      ],
+      "recovered_pair": [
+        "encirclement",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "encirclement",
+        "column"
+      ]
+    },
+    {
+      "i": 104,
+      "chain_length": 1,
+      "gt_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "converging",
+        "converging"
+      ]
+    },
+    {
+      "i": 106,
+      "chain_length": 1,
+      "gt_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 107,
+      "chain_length": 1,
+      "gt_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 108,
+      "chain_length": 2,
+      "gt_pair": [
+        "column",
+        "converging"
+      ],
+      "recovered_pair": [
+        "column",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "converging"
+      ]
+    },
+    {
+      "i": 110,
+      "chain_length": 1,
+      "gt_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair_robust": [
+        "encirclement",
+        "encirclement"
+      ]
+    },
+    {
+      "i": 112,
+      "chain_length": 2,
+      "gt_pair": [
+        "shield",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "shield",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 115,
+      "chain_length": 1,
+      "gt_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair_robust": [
+        "encirclement",
+        "encirclement"
+      ]
+    },
+    {
+      "i": 116,
+      "chain_length": 1,
+      "gt_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair_robust": [
+        "encirclement",
+        "encirclement"
+      ]
+    },
+    {
+      "i": 117,
+      "chain_length": 1,
+      "gt_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 120,
+      "chain_length": 1,
+      "gt_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 121,
+      "chain_length": 1,
+      "gt_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "shield"
+      ]
+    },
+    {
+      "i": 122,
+      "chain_length": 1,
+      "gt_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 128,
+      "chain_length": 1,
+      "gt_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 129,
+      "chain_length": 1,
+      "gt_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 131,
+      "chain_length": 1,
+      "gt_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 133,
+      "chain_length": 1,
+      "gt_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "shield"
+      ]
+    },
+    {
+      "i": 134,
+      "chain_length": 1,
+      "gt_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "diamond"
+      ]
+    },
+    {
+      "i": 136,
+      "chain_length": 2,
+      "gt_pair": [
+        "diamond",
+        "shield"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "shield"
+      ]
+    },
+    {
+      "i": 137,
+      "chain_length": 2,
+      "gt_pair": [
+        "shield",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "shield",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 138,
+      "chain_length": 2,
+      "gt_pair": [
+        "dispersed",
+        "column"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "column"
+      ]
+    },
+    {
+      "i": 140,
+      "chain_length": 1,
+      "gt_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 141,
+      "chain_length": 1,
+      "gt_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "shield"
+      ]
+    },
+    {
+      "i": 144,
+      "chain_length": 1,
+      "gt_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "diamond"
+      ]
+    },
+    {
+      "i": 145,
+      "chain_length": 1,
+      "gt_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 148,
+      "chain_length": 1,
+      "gt_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 149,
+      "chain_length": 2,
+      "gt_pair": [
+        "column",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "column",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 150,
+      "chain_length": 1,
+      "gt_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair_robust": [
+        "encirclement",
+        "encirclement"
+      ]
+    },
+    {
+      "i": 151,
+      "chain_length": 2,
+      "gt_pair": [
+        "diamond",
+        "shield"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "shield"
+      ]
+    },
+    {
+      "i": 152,
+      "chain_length": 1,
+      "gt_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "shield"
+      ]
+    },
+    {
+      "i": 153,
+      "chain_length": 1,
+      "gt_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 154,
+      "chain_length": 2,
+      "gt_pair": [
+        "dispersed",
+        "converging"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "converging"
+      ]
+    },
+    {
+      "i": 156,
+      "chain_length": 1,
+      "gt_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "diamond"
+      ]
+    },
+    {
+      "i": 157,
+      "chain_length": 1,
+      "gt_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "shield"
+      ]
+    },
+    {
+      "i": 158,
+      "chain_length": 2,
+      "gt_pair": [
+        "v_shape",
+        "shield"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "shield"
+      ]
+    },
+    {
+      "i": 160,
+      "chain_length": 2,
+      "gt_pair": [
+        "column",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "column",
+        "encirclement"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "encirclement"
+      ]
+    },
+    {
+      "i": 161,
+      "chain_length": 2,
+      "gt_pair": [
+        "encirclement",
+        "converging"
+      ],
+      "recovered_pair": [
+        "encirclement",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "encirclement",
+        "converging"
+      ]
+    },
+    {
+      "i": 162,
+      "chain_length": 1,
+      "gt_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 164,
+      "chain_length": 1,
+      "gt_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 166,
+      "chain_length": 1,
+      "gt_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "shield"
+      ]
+    },
+    {
+      "i": 167,
+      "chain_length": 1,
+      "gt_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 173,
+      "chain_length": 1,
+      "gt_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 174,
+      "chain_length": 2,
+      "gt_pair": [
+        "encirclement",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "encirclement",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "encirclement",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 178,
+      "chain_length": 2,
+      "gt_pair": [
+        "column",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "column",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 179,
+      "chain_length": 2,
+      "gt_pair": [
+        "shield",
+        "converging"
+      ],
+      "recovered_pair": [
+        "shield",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "converging"
+      ]
+    },
+    {
+      "i": 181,
+      "chain_length": 2,
+      "gt_pair": [
+        "column",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "column",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 182,
+      "chain_length": 2,
+      "gt_pair": [
+        "shield",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "shield",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 184,
+      "chain_length": 1,
+      "gt_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 188,
+      "chain_length": 2,
+      "gt_pair": [
+        "shield",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "shield",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 190,
+      "chain_length": 2,
+      "gt_pair": [
+        "dispersed",
+        "converging"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "converging"
+      ]
+    },
+    {
+      "i": 191,
+      "chain_length": 1,
+      "gt_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "column"
+      ]
+    },
+    {
+      "i": 197,
+      "chain_length": 2,
+      "gt_pair": [
+        "shield",
+        "encirclement"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 198,
+      "chain_length": 2,
+      "gt_pair": [
+        "converging",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "converging",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "converging",
+        "diamond"
+      ]
+    },
+    {
+      "i": 200,
+      "chain_length": 1,
+      "gt_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "converging",
+        "converging"
+      ]
+    },
+    {
+      "i": 203,
+      "chain_length": 2,
+      "gt_pair": [
+        "column",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "column",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 205,
+      "chain_length": 2,
+      "gt_pair": [
+        "diamond",
+        "column"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "column"
+      ]
+    },
+    {
+      "i": 206,
+      "chain_length": 1,
+      "gt_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "converging",
+        "converging"
+      ]
+    },
+    {
+      "i": 207,
+      "chain_length": 1,
+      "gt_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "shield"
+      ]
+    },
+    {
+      "i": 208,
+      "chain_length": 1,
+      "gt_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "shield"
+      ]
+    },
+    {
+      "i": 209,
+      "chain_length": 1,
+      "gt_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 213,
+      "chain_length": 2,
+      "gt_pair": [
+        "converging",
+        "column"
+      ],
+      "recovered_pair": [
+        "converging",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "converging",
+        "column"
+      ]
+    },
+    {
+      "i": 214,
+      "chain_length": 2,
+      "gt_pair": [
+        "diamond",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 218,
+      "chain_length": 1,
+      "gt_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "column"
+      ]
+    },
+    {
+      "i": 223,
+      "chain_length": 1,
+      "gt_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "column"
+      ]
+    },
+    {
+      "i": 227,
+      "chain_length": 1,
+      "gt_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "column"
+      ]
+    },
+    {
+      "i": 230,
+      "chain_length": 2,
+      "gt_pair": [
+        "column",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "column",
+        "encirclement"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "encirclement"
+      ]
+    },
+    {
+      "i": 231,
+      "chain_length": 2,
+      "gt_pair": [
+        "converging",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "converging",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "converging",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 233,
+      "chain_length": 1,
+      "gt_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "diamond"
+      ]
+    },
+    {
+      "i": 237,
+      "chain_length": 2,
+      "gt_pair": [
+        "v_shape",
+        "diamond"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 239,
+      "chain_length": 1,
+      "gt_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "converging",
+        "converging"
+      ]
+    },
+    {
+      "i": 241,
+      "chain_length": 1,
+      "gt_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "shield"
+      ]
+    },
+    {
+      "i": 242,
+      "chain_length": 1,
+      "gt_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 243,
+      "chain_length": 1,
+      "gt_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair_robust": [
+        "encirclement",
+        "encirclement"
+      ]
+    },
+    {
+      "i": 245,
+      "chain_length": 1,
+      "gt_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 247,
+      "chain_length": 1,
+      "gt_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "shield"
+      ]
+    },
+    {
+      "i": 249,
+      "chain_length": 1,
+      "gt_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 250,
+      "chain_length": 2,
+      "gt_pair": [
+        "column",
+        "shield"
+      ],
+      "recovered_pair": [
+        "column",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "shield"
+      ]
+    },
+    {
+      "i": 252,
+      "chain_length": 1,
+      "gt_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "shield"
+      ]
+    },
+    {
+      "i": 261,
+      "chain_length": 1,
+      "gt_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "diamond"
+      ]
+    },
+    {
+      "i": 262,
+      "chain_length": 1,
+      "gt_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 263,
+      "chain_length": 2,
+      "gt_pair": [
+        "converging",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "converging",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "converging",
+        "diamond"
+      ]
+    },
+    {
+      "i": 264,
+      "chain_length": 2,
+      "gt_pair": [
+        "column",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "column",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "diamond"
+      ]
+    },
+    {
+      "i": 265,
+      "chain_length": 1,
+      "gt_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 266,
+      "chain_length": 1,
+      "gt_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "converging",
+        "converging"
+      ]
+    },
+    {
+      "i": 270,
+      "chain_length": 1,
+      "gt_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "diamond"
+      ]
+    },
+    {
+      "i": 272,
+      "chain_length": 2,
+      "gt_pair": [
+        "v_shape",
+        "diamond"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 274,
+      "chain_length": 1,
+      "gt_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 276,
+      "chain_length": 2,
+      "gt_pair": [
+        "encirclement",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 277,
+      "chain_length": 2,
+      "gt_pair": [
+        "encirclement",
+        "column"
+      ],
+      "recovered_pair": [
+        "encirclement",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "encirclement",
+        "column"
+      ]
+    },
+    {
+      "i": 278,
+      "chain_length": 2,
+      "gt_pair": [
+        "dispersed",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 279,
+      "chain_length": 2,
+      "gt_pair": [
+        "v_shape",
+        "converging"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 280,
+      "chain_length": 1,
+      "gt_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 281,
+      "chain_length": 2,
+      "gt_pair": [
+        "column",
+        "converging"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 283,
+      "chain_length": 1,
+      "gt_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "shield"
+      ]
+    },
+    {
+      "i": 284,
+      "chain_length": 1,
+      "gt_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 285,
+      "chain_length": 1,
+      "gt_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 286,
+      "chain_length": 2,
+      "gt_pair": [
+        "converging",
+        "encirclement"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 287,
+      "chain_length": 2,
+      "gt_pair": [
+        "shield",
+        "column"
+      ],
+      "recovered_pair": [
+        "shield",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "column"
+      ]
+    },
+    {
+      "i": 289,
+      "chain_length": 1,
+      "gt_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "diamond"
+      ]
+    },
+    {
+      "i": 292,
+      "chain_length": 1,
+      "gt_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "diamond"
+      ]
+    },
+    {
+      "i": 293,
+      "chain_length": 2,
+      "gt_pair": [
+        "shield",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "shield",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 294,
+      "chain_length": 2,
+      "gt_pair": [
+        "encirclement",
+        "column"
+      ],
+      "recovered_pair": [
+        "encirclement",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "encirclement",
+        "column"
+      ]
+    },
+    {
+      "i": 295,
+      "chain_length": 1,
+      "gt_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "shield"
+      ]
+    },
+    {
+      "i": 297,
+      "chain_length": 2,
+      "gt_pair": [
+        "shield",
+        "converging"
+      ],
+      "recovered_pair": [
+        "shield",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "converging"
+      ]
+    },
+    {
+      "i": 299,
+      "chain_length": 1,
+      "gt_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "converging",
+        "converging"
+      ]
+    },
+    {
+      "i": 303,
+      "chain_length": 1,
+      "gt_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 305,
+      "chain_length": 1,
+      "gt_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 306,
+      "chain_length": 1,
+      "gt_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 309,
+      "chain_length": 2,
+      "gt_pair": [
+        "dispersed",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "converging",
+        "encirclement"
+      ],
+      "recovered_pair_robust": [
+        "converging",
+        "encirclement"
+      ]
+    },
+    {
+      "i": 312,
+      "chain_length": 2,
+      "gt_pair": [
+        "shield",
+        "column"
+      ],
+      "recovered_pair": [
+        "shield",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "column"
+      ]
+    },
+    {
+      "i": 313,
+      "chain_length": 1,
+      "gt_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "shield"
+      ]
+    },
+    {
+      "i": 314,
+      "chain_length": 2,
+      "gt_pair": [
+        "v_shape",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 316,
+      "chain_length": 1,
+      "gt_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair_robust": [
+        "encirclement",
+        "encirclement"
+      ]
+    },
+    {
+      "i": 317,
+      "chain_length": 1,
+      "gt_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 318,
+      "chain_length": 1,
+      "gt_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 319,
+      "chain_length": 2,
+      "gt_pair": [
+        "converging",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "converging",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "converging",
+        "diamond"
+      ]
+    },
+    {
+      "i": 321,
+      "chain_length": 1,
+      "gt_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 322,
+      "chain_length": 1,
+      "gt_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair_robust": [
+        "encirclement",
+        "encirclement"
+      ]
+    },
+    {
+      "i": 324,
+      "chain_length": 2,
+      "gt_pair": [
+        "dispersed",
+        "encirclement"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 328,
+      "chain_length": 1,
+      "gt_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 329,
+      "chain_length": 2,
+      "gt_pair": [
+        "dispersed",
+        "v_shape"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 334,
+      "chain_length": 2,
+      "gt_pair": [
+        "column",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 335,
+      "chain_length": 2,
+      "gt_pair": [
+        "dispersed",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "diamond"
+      ]
+    },
+    {
+      "i": 340,
+      "chain_length": 1,
+      "gt_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "column"
+      ]
+    },
+    {
+      "i": 341,
+      "chain_length": 2,
+      "gt_pair": [
+        "column",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "column",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 345,
+      "chain_length": 2,
+      "gt_pair": [
+        "v_shape",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 346,
+      "chain_length": 1,
+      "gt_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "diamond"
+      ]
+    },
+    {
+      "i": 347,
+      "chain_length": 2,
+      "gt_pair": [
+        "shield",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "shield",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "diamond"
+      ]
+    },
+    {
+      "i": 349,
+      "chain_length": 1,
+      "gt_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "shield"
+      ]
+    },
+    {
+      "i": 352,
+      "chain_length": 2,
+      "gt_pair": [
+        "shield",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "shield",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 353,
+      "chain_length": 2,
+      "gt_pair": [
+        "converging",
+        "shield"
+      ],
+      "recovered_pair": [
+        "converging",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "converging",
+        "shield"
+      ]
+    },
+    {
+      "i": 354,
+      "chain_length": 1,
+      "gt_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "diamond"
+      ]
+    },
+    {
+      "i": 355,
+      "chain_length": 2,
+      "gt_pair": [
+        "column",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "column",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 357,
+      "chain_length": 2,
+      "gt_pair": [
+        "dispersed",
+        "diamond"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 358,
+      "chain_length": 1,
+      "gt_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair_robust": [
+        "encirclement",
+        "encirclement"
+      ]
+    },
+    {
+      "i": 359,
+      "chain_length": 2,
+      "gt_pair": [
+        "dispersed",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "diamond"
+      ]
+    },
+    {
+      "i": 361,
+      "chain_length": 1,
+      "gt_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "shield"
+      ]
+    },
+    {
+      "i": 365,
+      "chain_length": 1,
+      "gt_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "shield"
+      ]
+    },
+    {
+      "i": 367,
+      "chain_length": 2,
+      "gt_pair": [
+        "v_shape",
+        "dispersed"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 372,
+      "chain_length": 2,
+      "gt_pair": [
+        "column",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "column",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "diamond"
+      ]
+    },
+    {
+      "i": 373,
+      "chain_length": 2,
+      "gt_pair": [
+        "column",
+        "converging"
+      ],
+      "recovered_pair": [
+        "column",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "converging"
+      ]
+    },
+    {
+      "i": 374,
+      "chain_length": 1,
+      "gt_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "column"
+      ]
+    },
+    {
+      "i": 375,
+      "chain_length": 1,
+      "gt_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 378,
+      "chain_length": 1,
+      "gt_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair_robust": [
+        "encirclement",
+        "encirclement"
+      ]
+    },
+    {
+      "i": 379,
+      "chain_length": 1,
+      "gt_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 381,
+      "chain_length": 1,
+      "gt_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "column"
+      ]
+    },
+    {
+      "i": 382,
+      "chain_length": 1,
+      "gt_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "diamond"
+      ]
+    },
+    {
+      "i": 390,
+      "chain_length": 2,
+      "gt_pair": [
+        "diamond",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 391,
+      "chain_length": 1,
+      "gt_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "converging",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "converging",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 392,
+      "chain_length": 1,
+      "gt_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair_robust": [
+        "encirclement",
+        "encirclement"
+      ]
+    },
+    {
+      "i": 395,
+      "chain_length": 1,
+      "gt_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "column"
+      ]
+    },
+    {
+      "i": 396,
+      "chain_length": 2,
+      "gt_pair": [
+        "shield",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "shield",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "diamond"
+      ]
+    },
+    {
+      "i": 399,
+      "chain_length": 1,
+      "gt_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "column"
+      ]
+    },
+    {
+      "i": 401,
+      "chain_length": 1,
+      "gt_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "column"
+      ]
+    },
+    {
+      "i": 403,
+      "chain_length": 1,
+      "gt_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 404,
+      "chain_length": 1,
+      "gt_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 405,
+      "chain_length": 1,
+      "gt_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair_robust": [
+        "encirclement",
+        "encirclement"
+      ]
+    },
+    {
+      "i": 411,
+      "chain_length": 2,
+      "gt_pair": [
+        "v_shape",
+        "column"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "column"
+      ]
+    },
+    {
+      "i": 415,
+      "chain_length": 2,
+      "gt_pair": [
+        "v_shape",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "converging"
+      ]
+    },
+    {
+      "i": 417,
+      "chain_length": 1,
+      "gt_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 419,
+      "chain_length": 2,
+      "gt_pair": [
+        "encirclement",
+        "converging"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 421,
+      "chain_length": 2,
+      "gt_pair": [
+        "diamond",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 422,
+      "chain_length": 1,
+      "gt_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 424,
+      "chain_length": 1,
+      "gt_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "diamond"
+      ]
+    },
+    {
+      "i": 426,
+      "chain_length": 2,
+      "gt_pair": [
+        "column",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "column",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "diamond"
+      ]
+    },
+    {
+      "i": 427,
+      "chain_length": 1,
+      "gt_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "diamond"
+      ]
+    },
+    {
+      "i": 432,
+      "chain_length": 2,
+      "gt_pair": [
+        "shield",
+        "column"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 433,
+      "chain_length": 2,
+      "gt_pair": [
+        "encirclement",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "encirclement",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "encirclement",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 434,
+      "chain_length": 1,
+      "gt_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "diamond"
+      ]
+    },
+    {
+      "i": 436,
+      "chain_length": 2,
+      "gt_pair": [
+        "encirclement",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "diamond"
+      ]
+    },
+    {
+      "i": 437,
+      "chain_length": 2,
+      "gt_pair": [
+        "diamond",
+        "converging"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 438,
+      "chain_length": 2,
+      "gt_pair": [
+        "v_shape",
+        "column"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "column"
+      ]
+    },
+    {
+      "i": 440,
+      "chain_length": 2,
+      "gt_pair": [
+        "dispersed",
+        "shield"
+      ],
+      "recovered_pair": [
+        "converging",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "converging",
+        "shield"
+      ]
+    },
+    {
+      "i": 442,
+      "chain_length": 2,
+      "gt_pair": [
+        "shield",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "shield",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "diamond"
+      ]
+    },
+    {
+      "i": 443,
+      "chain_length": 1,
+      "gt_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 444,
+      "chain_length": 1,
+      "gt_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 446,
+      "chain_length": 1,
+      "gt_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "column"
+      ]
+    },
+    {
+      "i": 447,
+      "chain_length": 1,
+      "gt_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "converging",
+        "converging"
+      ]
+    },
+    {
+      "i": 449,
+      "chain_length": 2,
+      "gt_pair": [
+        "shield",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "shield",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 451,
+      "chain_length": 2,
+      "gt_pair": [
+        "dispersed",
+        "converging"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 457,
+      "chain_length": 1,
+      "gt_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 459,
+      "chain_length": 2,
+      "gt_pair": [
+        "shield",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "shield",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 460,
+      "chain_length": 2,
+      "gt_pair": [
+        "shield",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "shield",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "diamond"
+      ]
+    },
+    {
+      "i": 463,
+      "chain_length": 1,
+      "gt_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "diamond"
+      ]
+    },
+    {
+      "i": 469,
+      "chain_length": 1,
+      "gt_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 470,
+      "chain_length": 1,
+      "gt_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "column"
+      ]
+    },
+    {
+      "i": 471,
+      "chain_length": 2,
+      "gt_pair": [
+        "converging",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "converging",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "converging",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 472,
+      "chain_length": 1,
+      "gt_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 473,
+      "chain_length": 2,
+      "gt_pair": [
+        "shield",
+        "encirclement"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 475,
+      "chain_length": 1,
+      "gt_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 482,
+      "chain_length": 2,
+      "gt_pair": [
+        "column",
+        "converging"
+      ],
+      "recovered_pair": [
+        "column",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "converging"
+      ]
+    },
+    {
+      "i": 484,
+      "chain_length": 1,
+      "gt_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "column"
+      ]
+    },
+    {
+      "i": 485,
+      "chain_length": 1,
+      "gt_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 486,
+      "chain_length": 2,
+      "gt_pair": [
+        "dispersed",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 487,
+      "chain_length": 1,
+      "gt_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 492,
+      "chain_length": 1,
+      "gt_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 497,
+      "chain_length": 1,
+      "gt_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 499,
+      "chain_length": 1,
+      "gt_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair_robust": [
+        "encirclement",
+        "encirclement"
+      ]
+    },
+    {
+      "i": 502,
+      "chain_length": 1,
+      "gt_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 503,
+      "chain_length": 1,
+      "gt_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 505,
+      "chain_length": 1,
+      "gt_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair_robust": [
+        "encirclement",
+        "encirclement"
+      ]
+    },
+    {
+      "i": 506,
+      "chain_length": 1,
+      "gt_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 507,
+      "chain_length": 1,
+      "gt_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 509,
+      "chain_length": 1,
+      "gt_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair_robust": [
+        "encirclement",
+        "encirclement"
+      ]
+    },
+    {
+      "i": 511,
+      "chain_length": 1,
+      "gt_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 513,
+      "chain_length": 2,
+      "gt_pair": [
+        "dispersed",
+        "column"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "column"
+      ]
+    },
+    {
+      "i": 514,
+      "chain_length": 1,
+      "gt_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 520,
+      "chain_length": 2,
+      "gt_pair": [
+        "diamond",
+        "column"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 522,
+      "chain_length": 2,
+      "gt_pair": [
+        "column",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "column",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "diamond"
+      ]
+    },
+    {
+      "i": 524,
+      "chain_length": 1,
+      "gt_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 525,
+      "chain_length": 2,
+      "gt_pair": [
+        "converging",
+        "v_shape"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 526,
+      "chain_length": 1,
+      "gt_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "shield"
+      ]
+    },
+    {
+      "i": 529,
+      "chain_length": 1,
+      "gt_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 530,
+      "chain_length": 1,
+      "gt_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "column"
+      ]
+    },
+    {
+      "i": 531,
+      "chain_length": 1,
+      "gt_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair_robust": [
+        "encirclement",
+        "encirclement"
+      ]
+    },
+    {
+      "i": 532,
+      "chain_length": 1,
+      "gt_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 535,
+      "chain_length": 1,
+      "gt_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 537,
+      "chain_length": 2,
+      "gt_pair": [
+        "dispersed",
+        "column"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 538,
+      "chain_length": 2,
+      "gt_pair": [
+        "converging",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "converging",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "converging",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 539,
+      "chain_length": 1,
+      "gt_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "shield"
+      ]
+    },
+    {
+      "i": 543,
+      "chain_length": 1,
+      "gt_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair_robust": [
+        "encirclement",
+        "encirclement"
+      ]
+    },
+    {
+      "i": 546,
+      "chain_length": 1,
+      "gt_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 547,
+      "chain_length": 1,
+      "gt_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "diamond"
+      ]
+    },
+    {
+      "i": 549,
+      "chain_length": 2,
+      "gt_pair": [
+        "diamond",
+        "column"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 553,
+      "chain_length": 2,
+      "gt_pair": [
+        "v_shape",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "diamond"
+      ]
+    },
+    {
+      "i": 555,
+      "chain_length": 1,
+      "gt_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "shield"
+      ]
+    },
+    {
+      "i": 556,
+      "chain_length": 1,
+      "gt_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "diamond"
+      ]
+    },
+    {
+      "i": 557,
+      "chain_length": 2,
+      "gt_pair": [
+        "shield",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "shield",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 558,
+      "chain_length": 1,
+      "gt_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "diamond"
+      ]
+    },
+    {
+      "i": 559,
+      "chain_length": 2,
+      "gt_pair": [
+        "v_shape",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 566,
+      "chain_length": 2,
+      "gt_pair": [
+        "converging",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "converging",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "converging",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 567,
+      "chain_length": 1,
+      "gt_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 572,
+      "chain_length": 2,
+      "gt_pair": [
+        "dispersed",
+        "converging"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "converging"
+      ]
+    },
+    {
+      "i": 573,
+      "chain_length": 1,
+      "gt_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 574,
+      "chain_length": 1,
+      "gt_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "shield"
+      ]
+    },
+    {
+      "i": 575,
+      "chain_length": 1,
+      "gt_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 578,
+      "chain_length": 1,
+      "gt_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 580,
+      "chain_length": 2,
+      "gt_pair": [
+        "converging",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "converging",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "converging",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 584,
+      "chain_length": 2,
+      "gt_pair": [
+        "v_shape",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "diamond"
+      ]
+    },
+    {
+      "i": 589,
+      "chain_length": 1,
+      "gt_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 591,
+      "chain_length": 2,
+      "gt_pair": [
+        "converging",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "converging",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "converging",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 593,
+      "chain_length": 1,
+      "gt_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "diamond"
+      ]
+    },
+    {
+      "i": 594,
+      "chain_length": 2,
+      "gt_pair": [
+        "diamond",
+        "shield"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "shield"
+      ]
+    },
+    {
+      "i": 595,
+      "chain_length": 1,
+      "gt_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "diamond"
+      ]
+    },
+    {
+      "i": 597,
+      "chain_length": 1,
+      "gt_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "shield"
+      ]
+    },
+    {
+      "i": 603,
+      "chain_length": 2,
+      "gt_pair": [
+        "diamond",
+        "encirclement"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 607,
+      "chain_length": 2,
+      "gt_pair": [
+        "column",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "column",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 609,
+      "chain_length": 1,
+      "gt_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "column"
+      ]
+    },
+    {
+      "i": 613,
+      "chain_length": 2,
+      "gt_pair": [
+        "dispersed",
+        "converging"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "converging"
+      ]
+    },
+    {
+      "i": 614,
+      "chain_length": 1,
+      "gt_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "diamond"
+      ]
+    },
+    {
+      "i": 615,
+      "chain_length": 1,
+      "gt_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "converging",
+        "converging"
+      ]
+    },
+    {
+      "i": 616,
+      "chain_length": 2,
+      "gt_pair": [
+        "dispersed",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 621,
+      "chain_length": 2,
+      "gt_pair": [
+        "dispersed",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "encirclement"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "encirclement"
+      ]
+    },
+    {
+      "i": 622,
+      "chain_length": 2,
+      "gt_pair": [
+        "column",
+        "shield"
+      ],
+      "recovered_pair": [
+        "column",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "shield"
+      ]
+    },
+    {
+      "i": 623,
+      "chain_length": 1,
+      "gt_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "diamond"
+      ]
+    },
+    {
+      "i": 624,
+      "chain_length": 1,
+      "gt_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 626,
+      "chain_length": 2,
+      "gt_pair": [
+        "diamond",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 630,
+      "chain_length": 2,
+      "gt_pair": [
+        "column",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "column",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 632,
+      "chain_length": 1,
+      "gt_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 634,
+      "chain_length": 1,
+      "gt_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "column"
+      ]
+    },
+    {
+      "i": 635,
+      "chain_length": 1,
+      "gt_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "diamond"
+      ]
+    },
+    {
+      "i": 637,
+      "chain_length": 2,
+      "gt_pair": [
+        "column",
+        "diamond"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 642,
+      "chain_length": 1,
+      "gt_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "shield"
+      ]
+    },
+    {
+      "i": 645,
+      "chain_length": 2,
+      "gt_pair": [
+        "shield",
+        "column"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 647,
+      "chain_length": 1,
+      "gt_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair_robust": [
+        "encirclement",
+        "encirclement"
+      ]
+    },
+    {
+      "i": 648,
+      "chain_length": 1,
+      "gt_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "column"
+      ]
+    },
+    {
+      "i": 650,
+      "chain_length": 1,
+      "gt_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "column"
+      ]
+    },
+    {
+      "i": 652,
+      "chain_length": 1,
+      "gt_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 653,
+      "chain_length": 2,
+      "gt_pair": [
+        "shield",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "shield",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "converging"
+      ]
+    },
+    {
+      "i": 654,
+      "chain_length": 1,
+      "gt_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "converging",
+        "converging"
+      ]
+    },
+    {
+      "i": 656,
+      "chain_length": 1,
+      "gt_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 658,
+      "chain_length": 2,
+      "gt_pair": [
+        "v_shape",
+        "shield"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "shield"
+      ]
+    },
+    {
+      "i": 659,
+      "chain_length": 2,
+      "gt_pair": [
+        "column",
+        "shield"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "shield"
+      ]
+    },
+    {
+      "i": 660,
+      "chain_length": 2,
+      "gt_pair": [
+        "v_shape",
+        "converging"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "converging"
+      ]
+    },
+    {
+      "i": 662,
+      "chain_length": 1,
+      "gt_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair_robust": [
+        "encirclement",
+        "encirclement"
+      ]
+    },
+    {
+      "i": 664,
+      "chain_length": 2,
+      "gt_pair": [
+        "encirclement",
+        "converging"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 668,
+      "chain_length": 1,
+      "gt_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "converging",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "converging",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 669,
+      "chain_length": 1,
+      "gt_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 674,
+      "chain_length": 2,
+      "gt_pair": [
+        "converging",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "converging",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "converging",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 675,
+      "chain_length": 1,
+      "gt_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 676,
+      "chain_length": 1,
+      "gt_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 677,
+      "chain_length": 1,
+      "gt_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "converging",
+        "converging"
+      ]
+    },
+    {
+      "i": 680,
+      "chain_length": 2,
+      "gt_pair": [
+        "converging",
+        "shield"
+      ],
+      "recovered_pair": [
+        "converging",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "converging",
+        "shield"
+      ]
+    },
+    {
+      "i": 682,
+      "chain_length": 2,
+      "gt_pair": [
+        "converging",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "converging",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "converging",
+        "diamond"
+      ]
+    },
+    {
+      "i": 683,
+      "chain_length": 1,
+      "gt_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "diamond"
+      ]
+    },
+    {
+      "i": 686,
+      "chain_length": 1,
+      "gt_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 687,
+      "chain_length": 2,
+      "gt_pair": [
+        "v_shape",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "encirclement"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "encirclement"
+      ]
+    },
+    {
+      "i": 690,
+      "chain_length": 1,
+      "gt_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 698,
+      "chain_length": 2,
+      "gt_pair": [
+        "column",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "column",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 699,
+      "chain_length": 2,
+      "gt_pair": [
+        "v_shape",
+        "column"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "column"
+      ]
+    },
+    {
+      "i": 703,
+      "chain_length": 1,
+      "gt_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "diamond"
+      ]
+    },
+    {
+      "i": 704,
+      "chain_length": 1,
+      "gt_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 706,
+      "chain_length": 1,
+      "gt_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "encirclement"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "encirclement"
+      ]
+    },
+    {
+      "i": 707,
+      "chain_length": 2,
+      "gt_pair": [
+        "dispersed",
+        "shield"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "shield"
+      ]
+    },
+    {
+      "i": 708,
+      "chain_length": 1,
+      "gt_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "column"
+      ]
+    },
+    {
+      "i": 709,
+      "chain_length": 1,
+      "gt_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair_robust": [
+        "encirclement",
+        "encirclement"
+      ]
+    },
+    {
+      "i": 714,
+      "chain_length": 1,
+      "gt_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "shield"
+      ]
+    },
+    {
+      "i": 715,
+      "chain_length": 2,
+      "gt_pair": [
+        "diamond",
+        "column"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "column"
+      ]
+    },
+    {
+      "i": 719,
+      "chain_length": 1,
+      "gt_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 725,
+      "chain_length": 2,
+      "gt_pair": [
+        "encirclement",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "encirclement",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "encirclement",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 726,
+      "chain_length": 1,
+      "gt_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "converging",
+        "converging"
+      ]
+    },
+    {
+      "i": 727,
+      "chain_length": 2,
+      "gt_pair": [
+        "encirclement",
+        "converging"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "converging"
+      ]
+    },
+    {
+      "i": 728,
+      "chain_length": 2,
+      "gt_pair": [
+        "shield",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "shield",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "diamond"
+      ]
+    },
+    {
+      "i": 729,
+      "chain_length": 2,
+      "gt_pair": [
+        "v_shape",
+        "shield"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "shield"
+      ]
+    },
+    {
+      "i": 732,
+      "chain_length": 2,
+      "gt_pair": [
+        "diamond",
+        "column"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "column"
+      ]
+    },
+    {
+      "i": 733,
+      "chain_length": 2,
+      "gt_pair": [
+        "diamond",
+        "encirclement"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 734,
+      "chain_length": 2,
+      "gt_pair": [
+        "converging",
+        "v_shape"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 735,
+      "chain_length": 2,
+      "gt_pair": [
+        "encirclement",
+        "shield"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "shield"
+      ]
+    },
+    {
+      "i": 736,
+      "chain_length": 1,
+      "gt_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair_robust": [
+        "encirclement",
+        "encirclement"
+      ]
+    },
+    {
+      "i": 738,
+      "chain_length": 1,
+      "gt_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "column"
+      ]
+    },
+    {
+      "i": 740,
+      "chain_length": 2,
+      "gt_pair": [
+        "diamond",
+        "shield"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "shield"
+      ]
+    },
+    {
+      "i": 746,
+      "chain_length": 1,
+      "gt_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 748,
+      "chain_length": 2,
+      "gt_pair": [
+        "dispersed",
+        "converging"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "converging"
+      ]
+    },
+    {
+      "i": 749,
+      "chain_length": 1,
+      "gt_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "diamond"
+      ]
+    },
+    {
+      "i": 750,
+      "chain_length": 1,
+      "gt_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 751,
+      "chain_length": 1,
+      "gt_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 753,
+      "chain_length": 2,
+      "gt_pair": [
+        "shield",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "shield",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "diamond"
+      ]
+    },
+    {
+      "i": 757,
+      "chain_length": 2,
+      "gt_pair": [
+        "encirclement",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 758,
+      "chain_length": 2,
+      "gt_pair": [
+        "v_shape",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 760,
+      "chain_length": 1,
+      "gt_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 762,
+      "chain_length": 1,
+      "gt_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "converging",
+        "converging"
+      ]
+    },
+    {
+      "i": 769,
+      "chain_length": 2,
+      "gt_pair": [
+        "dispersed",
+        "column"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "column"
+      ]
+    },
+    {
+      "i": 771,
+      "chain_length": 2,
+      "gt_pair": [
+        "shield",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "shield",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "diamond"
+      ]
+    },
+    {
+      "i": 774,
+      "chain_length": 1,
+      "gt_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 776,
+      "chain_length": 2,
+      "gt_pair": [
+        "diamond",
+        "converging"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 778,
+      "chain_length": 1,
+      "gt_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "column"
+      ]
+    },
+    {
+      "i": 779,
+      "chain_length": 2,
+      "gt_pair": [
+        "dispersed",
+        "converging"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "converging"
+      ]
+    },
+    {
+      "i": 781,
+      "chain_length": 2,
+      "gt_pair": [
+        "column",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "column",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 782,
+      "chain_length": 2,
+      "gt_pair": [
+        "v_shape",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "diamond"
+      ]
+    },
+    {
+      "i": 783,
+      "chain_length": 1,
+      "gt_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "column"
+      ]
+    },
+    {
+      "i": 785,
+      "chain_length": 1,
+      "gt_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "column"
+      ]
+    },
+    {
+      "i": 786,
+      "chain_length": 2,
+      "gt_pair": [
+        "converging",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "converging",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "converging",
+        "diamond"
+      ]
+    },
+    {
+      "i": 787,
+      "chain_length": 2,
+      "gt_pair": [
+        "shield",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "shield",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "diamond"
+      ]
+    },
+    {
+      "i": 788,
+      "chain_length": 1,
+      "gt_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 789,
+      "chain_length": 1,
+      "gt_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 790,
+      "chain_length": 1,
+      "gt_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 792,
+      "chain_length": 1,
+      "gt_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "column"
+      ]
+    },
+    {
+      "i": 794,
+      "chain_length": 1,
+      "gt_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 796,
+      "chain_length": 2,
+      "gt_pair": [
+        "diamond",
+        "encirclement"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 798,
+      "chain_length": 1,
+      "gt_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "column"
+      ]
+    },
+    {
+      "i": 800,
+      "chain_length": 1,
+      "gt_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "column"
+      ]
+    },
+    {
+      "i": 801,
+      "chain_length": 1,
+      "gt_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "column"
+      ]
+    },
+    {
+      "i": 802,
+      "chain_length": 1,
+      "gt_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "converging",
+        "converging"
+      ]
+    },
+    {
+      "i": 804,
+      "chain_length": 1,
+      "gt_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "column"
+      ]
+    },
+    {
+      "i": 805,
+      "chain_length": 1,
+      "gt_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "shield"
+      ]
+    },
+    {
+      "i": 808,
+      "chain_length": 2,
+      "gt_pair": [
+        "diamond",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 810,
+      "chain_length": 1,
+      "gt_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 813,
+      "chain_length": 1,
+      "gt_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "converging",
+        "converging"
+      ]
+    },
+    {
+      "i": 814,
+      "chain_length": 1,
+      "gt_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair_robust": [
+        "encirclement",
+        "encirclement"
+      ]
+    },
+    {
+      "i": 815,
+      "chain_length": 1,
+      "gt_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "shield"
+      ]
+    },
+    {
+      "i": 819,
+      "chain_length": 2,
+      "gt_pair": [
+        "v_shape",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "converging"
+      ]
+    },
+    {
+      "i": 823,
+      "chain_length": 2,
+      "gt_pair": [
+        "column",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "column",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 826,
+      "chain_length": 1,
+      "gt_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 829,
+      "chain_length": 2,
+      "gt_pair": [
+        "v_shape",
+        "shield"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "shield"
+      ]
+    },
+    {
+      "i": 833,
+      "chain_length": 1,
+      "gt_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "diamond"
+      ]
+    },
+    {
+      "i": 837,
+      "chain_length": 1,
+      "gt_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 838,
+      "chain_length": 1,
+      "gt_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair": [
+        "column",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "column"
+      ]
+    },
+    {
+      "i": 841,
+      "chain_length": 2,
+      "gt_pair": [
+        "encirclement",
+        "shield"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "shield"
+      ]
+    },
+    {
+      "i": 842,
+      "chain_length": 2,
+      "gt_pair": [
+        "dispersed",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 843,
+      "chain_length": 2,
+      "gt_pair": [
+        "converging",
+        "column"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 846,
+      "chain_length": 1,
+      "gt_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "converging",
+        "converging"
+      ]
+    },
+    {
+      "i": 848,
+      "chain_length": 2,
+      "gt_pair": [
+        "column",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 850,
+      "chain_length": 1,
+      "gt_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair_robust": [
+        "encirclement",
+        "encirclement"
+      ]
+    },
+    {
+      "i": 851,
+      "chain_length": 1,
+      "gt_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "diamond"
+      ]
+    },
+    {
+      "i": 852,
+      "chain_length": 1,
+      "gt_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "diamond"
+      ]
+    },
+    {
+      "i": 854,
+      "chain_length": 2,
+      "gt_pair": [
+        "encirclement",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 857,
+      "chain_length": 2,
+      "gt_pair": [
+        "shield",
+        "converging"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 860,
+      "chain_length": 1,
+      "gt_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "diamond"
+      ]
+    },
+    {
+      "i": 861,
+      "chain_length": 2,
+      "gt_pair": [
+        "shield",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "shield",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "converging"
+      ]
+    },
+    {
+      "i": 863,
+      "chain_length": 2,
+      "gt_pair": [
+        "diamond",
+        "v_shape"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 864,
+      "chain_length": 2,
+      "gt_pair": [
+        "v_shape",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "encirclement"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "encirclement"
+      ]
+    },
+    {
+      "i": 865,
+      "chain_length": 2,
+      "gt_pair": [
+        "v_shape",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 868,
+      "chain_length": 2,
+      "gt_pair": [
+        "diamond",
+        "shield"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "shield"
+      ]
+    },
+    {
+      "i": 869,
+      "chain_length": 1,
+      "gt_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 871,
+      "chain_length": 1,
+      "gt_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 876,
+      "chain_length": 1,
+      "gt_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair_robust": [
+        "encirclement",
+        "encirclement"
+      ]
+    },
+    {
+      "i": 878,
+      "chain_length": 2,
+      "gt_pair": [
+        "encirclement",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "encirclement",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "encirclement",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 880,
+      "chain_length": 1,
+      "gt_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "shield"
+      ]
+    },
+    {
+      "i": 882,
+      "chain_length": 1,
+      "gt_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "shield"
+      ]
+    },
+    {
+      "i": 884,
+      "chain_length": 1,
+      "gt_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 885,
+      "chain_length": 2,
+      "gt_pair": [
+        "column",
+        "diamond"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 886,
+      "chain_length": 2,
+      "gt_pair": [
+        "dispersed",
+        "converging"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "converging"
+      ]
+    },
+    {
+      "i": 887,
+      "chain_length": 1,
+      "gt_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "diamond"
+      ]
+    },
+    {
+      "i": 889,
+      "chain_length": 1,
+      "gt_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "shield"
+      ]
+    },
+    {
+      "i": 890,
+      "chain_length": 2,
+      "gt_pair": [
+        "shield",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "shield",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 896,
+      "chain_length": 1,
+      "gt_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "shield"
+      ]
+    },
+    {
+      "i": 897,
+      "chain_length": 1,
+      "gt_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 898,
+      "chain_length": 1,
+      "gt_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 899,
+      "chain_length": 1,
+      "gt_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "converging",
+        "converging"
+      ]
+    },
+    {
+      "i": 901,
+      "chain_length": 1,
+      "gt_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 902,
+      "chain_length": 2,
+      "gt_pair": [
+        "dispersed",
+        "converging"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "converging"
+      ]
+    },
+    {
+      "i": 904,
+      "chain_length": 1,
+      "gt_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 905,
+      "chain_length": 1,
+      "gt_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 908,
+      "chain_length": 1,
+      "gt_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "shield"
+      ]
+    },
+    {
+      "i": 910,
+      "chain_length": 2,
+      "gt_pair": [
+        "v_shape",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "converging"
+      ]
+    },
+    {
+      "i": 911,
+      "chain_length": 2,
+      "gt_pair": [
+        "shield",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "shield",
+        "encirclement"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "encirclement"
+      ]
+    },
+    {
+      "i": 913,
+      "chain_length": 2,
+      "gt_pair": [
+        "column",
+        "converging"
+      ],
+      "recovered_pair": [
+        "column",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "converging"
+      ]
+    },
+    {
+      "i": 914,
+      "chain_length": 2,
+      "gt_pair": [
+        "dispersed",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "diamond"
+      ]
+    },
+    {
+      "i": 915,
+      "chain_length": 1,
+      "gt_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 917,
+      "chain_length": 2,
+      "gt_pair": [
+        "v_shape",
+        "column"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 918,
+      "chain_length": 1,
+      "gt_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 922,
+      "chain_length": 1,
+      "gt_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "diamond"
+      ]
+    },
+    {
+      "i": 924,
+      "chain_length": 1,
+      "gt_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "shield"
+      ]
+    },
+    {
+      "i": 925,
+      "chain_length": 2,
+      "gt_pair": [
+        "converging",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "converging",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "converging",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 926,
+      "chain_length": 1,
+      "gt_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 927,
+      "chain_length": 1,
+      "gt_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 928,
+      "chain_length": 1,
+      "gt_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "diamond"
+      ]
+    },
+    {
+      "i": 929,
+      "chain_length": 1,
+      "gt_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair_robust": [
+        "encirclement",
+        "encirclement"
+      ]
+    },
+    {
+      "i": 930,
+      "chain_length": 1,
+      "gt_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "shield"
+      ]
+    },
+    {
+      "i": 931,
+      "chain_length": 1,
+      "gt_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair_robust": [
+        "encirclement",
+        "encirclement"
+      ]
+    },
+    {
+      "i": 934,
+      "chain_length": 2,
+      "gt_pair": [
+        "diamond",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 935,
+      "chain_length": 2,
+      "gt_pair": [
+        "column",
+        "diamond"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 936,
+      "chain_length": 1,
+      "gt_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 938,
+      "chain_length": 2,
+      "gt_pair": [
+        "encirclement",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "encirclement",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "encirclement",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 939,
+      "chain_length": 1,
+      "gt_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 940,
+      "chain_length": 2,
+      "gt_pair": [
+        "converging",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "converging",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "converging",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 943,
+      "chain_length": 1,
+      "gt_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 944,
+      "chain_length": 2,
+      "gt_pair": [
+        "diamond",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "converging"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "converging"
+      ]
+    },
+    {
+      "i": 946,
+      "chain_length": 2,
+      "gt_pair": [
+        "encirclement",
+        "column"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "column"
+      ]
+    },
+    {
+      "i": 953,
+      "chain_length": 2,
+      "gt_pair": [
+        "shield",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "shield",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 955,
+      "chain_length": 2,
+      "gt_pair": [
+        "diamond",
+        "shield"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "shield"
+      ]
+    },
+    {
+      "i": 956,
+      "chain_length": 1,
+      "gt_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 961,
+      "chain_length": 1,
+      "gt_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 962,
+      "chain_length": 1,
+      "gt_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "shield"
+      ]
+    },
+    {
+      "i": 964,
+      "chain_length": 2,
+      "gt_pair": [
+        "shield",
+        "column"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": [
+        "shield",
+        "column"
+      ]
+    },
+    {
+      "i": 965,
+      "chain_length": 1,
+      "gt_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair_robust": [
+        "encirclement",
+        "encirclement"
+      ]
+    },
+    {
+      "i": 966,
+      "chain_length": 2,
+      "gt_pair": [
+        "column",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "column",
+        "encirclement"
+      ],
+      "recovered_pair_robust": [
+        "column",
+        "encirclement"
+      ]
+    },
+    {
+      "i": 970,
+      "chain_length": 1,
+      "gt_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "recovered_pair_robust": [
+        "encirclement",
+        "encirclement"
+      ]
+    },
+    {
+      "i": 972,
+      "chain_length": 2,
+      "gt_pair": [
+        "encirclement",
+        "v_shape"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "v_shape"
+      ]
+    },
+    {
+      "i": 973,
+      "chain_length": 2,
+      "gt_pair": [
+        "converging",
+        "shield"
+      ],
+      "recovered_pair": [
+        "converging",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "converging",
+        "shield"
+      ]
+    },
+    {
+      "i": 978,
+      "chain_length": 2,
+      "gt_pair": [
+        "v_shape",
+        "shield"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "shield"
+      ]
+    },
+    {
+      "i": 979,
+      "chain_length": 1,
+      "gt_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 982,
+      "chain_length": 2,
+      "gt_pair": [
+        "encirclement",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "encirclement",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "encirclement",
+        "diamond"
+      ]
+    },
+    {
+      "i": 983,
+      "chain_length": 2,
+      "gt_pair": [
+        "encirclement",
+        "shield"
+      ],
+      "recovered_pair": null,
+      "recovered_pair_robust": null
+    },
+    {
+      "i": 985,
+      "chain_length": 2,
+      "gt_pair": [
+        "v_shape",
+        "shield"
+      ],
+      "recovered_pair": [
+        "v_shape",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "v_shape",
+        "shield"
+      ]
+    },
+    {
+      "i": 987,
+      "chain_length": 1,
+      "gt_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "diamond"
+      ]
+    },
+    {
+      "i": 988,
+      "chain_length": 2,
+      "gt_pair": [
+        "dispersed",
+        "column"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "column"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "column"
+      ]
+    },
+    {
+      "i": 990,
+      "chain_length": 2,
+      "gt_pair": [
+        "diamond",
+        "dispersed"
+      ],
+      "recovered_pair": [
+        "diamond",
+        "dispersed"
+      ],
+      "recovered_pair_robust": [
+        "diamond",
+        "dispersed"
+      ]
+    },
+    {
+      "i": 991,
+      "chain_length": 1,
+      "gt_pair": [
+        "converging",
+        "converging"
+      ],
+      "recovered_pair": [
+        "dispersed",
+        "encirclement"
+      ],
+      "recovered_pair_robust": [
+        "dispersed",
+        "encirclement"
+      ]
+    },
+    {
+      "i": 996,
+      "chain_length": 1,
+      "gt_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair": [
+        "shield",
+        "shield"
+      ],
+      "recovered_pair_robust": [
+        "shield",
+        "shield"
+      ]
+    }
+  ]
+}
