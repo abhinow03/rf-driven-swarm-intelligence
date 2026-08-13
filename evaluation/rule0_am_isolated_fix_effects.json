@@ -1,0 +1,81 @@
+{
+  "seed_base": 999,
+  "n_pair_eligible": 488,
+  "results_by_formula": {
+    "OLD_pre_dwell_fix": {
+      "pooled": {
+        "n": 488,
+        "pair_accuracy": 0.5389344262295082,
+        "threat_accuracy": 0.6536885245901639
+      },
+      "chain_1": {
+        "n": 243,
+        "pair_accuracy": 0.8436213991769548,
+        "threat_accuracy": 0.8600823045267489
+      },
+      "chain_2": {
+        "n": 245,
+        "pair_accuracy": 0.23673469387755103,
+        "threat_accuracy": 0.4489795918367347
+      }
+    },
+    "MID_dwell_fix_only": {
+      "pooled": {
+        "n": 488,
+        "pair_accuracy": 0.6168032786885246,
+        "threat_accuracy": 0.7909836065573771
+      },
+      "chain_1": {
+        "n": 243,
+        "pair_accuracy": 0.8436213991769548,
+        "threat_accuracy": 0.8600823045267489
+      },
+      "chain_2": {
+        "n": 245,
+        "pair_accuracy": 0.39183673469387753,
+        "threat_accuracy": 0.7224489795918367
+      }
+    },
+    "CURRENT_dwell_fix_and_symmetrize": {
+      "pooled": {
+        "n": 488,
+        "pair_accuracy": 0.7131147540983607,
+        "threat_accuracy": 0.7827868852459017
+      },
+      "chain_1": {
+        "n": 243,
+        "pair_accuracy": 0.8436213991769548,
+        "threat_accuracy": 0.8600823045267489
+      },
+      "chain_2": {
+        "n": 245,
+        "pair_accuracy": 0.5836734693877551,
+        "threat_accuracy": 0.7061224489795919
+      }
+    }
+  },
+  "historical_combined_figures": {
+    "pooled_threat": {
+      "OLD_pre_dwell_fix": 0.587,
+      "CURRENT_dwell_fix_and_symmetrize": 0.83,
+      "note": "58.7% (step11 trimfix, OLD population) -> 83.0% (CEILING.md 'current state', CURRENT population)"
+    },
+    "chain_2_pair": {
+      "OLD_pre_dwell_fix": 0.187,
+      "MID_dwell_fix_only": 0.399,
+      "CURRENT_dwell_fix_and_symmetrize": 0.658,
+      "note": "18.7% (baseline) -> 39.9% (step25 dwell-fix, MID-equivalent population) -> 65.8% (step26c symmetrized, CURRENT population)"
+    }
+  },
+  "isolated_pooled_threat": {
+    "OLD_pre_dwell_fix": 0.6536885245901639,
+    "MID_dwell_fix_only": 0.7909836065573771,
+    "CURRENT_dwell_fix_and_symmetrize": 0.7827868852459017
+  },
+  "isolated_chain2_pair": {
+    "OLD_pre_dwell_fix": 0.23673469387755103,
+    "MID_dwell_fix_only": 0.39183673469387753,
+    "CURRENT_dwell_fix_and_symmetrize": 0.5836734693877551
+  },
+  "method": "paired design -- same chain/spread/noise_std per trajectory index across all 3 formulas, forked from a shared per-trajectory RNG state right after the shared draws, so only the hop-timing formula differs between variants."
+}
