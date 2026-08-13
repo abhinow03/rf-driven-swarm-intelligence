@@ -3897,3 +3897,98 @@ those inputs. Only 1.8% (9/502) is a genuine, isolated guard-logic/classifier-ac
 Neither failure class is a quick fix: the dominant one (98.0%) requires corpus augmentation
 and a retrain, explicitly out of scope this session; the minor one (1.8%) needs STGT-level
 classification improvement to fully close, not just a `coverage.py` patch.**
+
+## 2026-08-13 — applying ONLY the guard-logic fix from the Layer-2-gap decision table
+
+Scope, stated up front: fixes the 9 `bucket_A_misrouted` cases only. No corpus change, no
+retraining -- both explicitly out of scope, per the decision table's own cost estimate for
+the 98.0% corpus-gap class.
+
+### Step 1: the fix
+
+`src/swarm_intent/coverage.py` gets a new, unconditional guard condition,
+`MAX_WINDOWS_PER_SINGLE_TRANSITION = 9`: how many strided windows a single formation-hold-
+or-transition segment can ever produce under this project's own generation regime (`data.py`'s
+`LEAD_IN_RANGE=(30,50)` / `BLEND_DURATION_RANGE=(10,25)` / `MIN_DWELL_RANGE=(40,60)` cap a
+single hop at 49+24+59=132 timesteps; `sliding_window_inference` at `window_size=50`/
+`stride=10` -- the only configuration used anywhere in this project -- turns that into
+`(132-50)//10+1 = 9` windows, the true maximum). Fires `"observation_too_long_for_reduced_
+state_count"` when `len(predictions) > 9` for a case that otherwise reduced to `<=2` known
+formations: more windows were observed than a genuine `<=2`-formation sequence could ever
+produce, so a real intermediate state was very likely present and silently dropped -- exactly
+the sec AK shape, where NONE of the 9 misrouted cases showed any per-window low-confidence or
+ambiguity signal at all (`llm_finetuning/inspect_misrouted_9_windows.py`'s window-by-window
+`class_probabilities` dump: the missing state, e.g. seq 105's `encirclement`, never won more
+than ~0.3% probability on ANY single window -- there was no local evidence to catch, only a
+structural/temporal one). Unconditional (not suppressed by `robust_recovered`, unlike
+`oov_name`/`dominant_history_contradiction`): robust reduction answers a different question
+(is noisy per-window disagreement trustworthy), not this one.
+
+Disclosed limitation, not fixed: this bound is exact only for this project's capped synthetic
+regime. A real deployment stream with a genuinely long-held single formation (no synthetic
+segment-length cap) would trip this guard too. Accepted because every case in this project's
+data is drawn from the same capped regime (zero false positives confirmed on the full
+1000-trajectory locked set below) -- flagged for revisit if this pipeline ever consumes an
+uncapped real-world stream. `tests/test_coverage.py::TestMaxWindowsConstantNotDrifted` imports
+`data.py`'s three ranges directly and asserts the hardcoded constant still matches their
+derivation, so a future range change fails loudly instead of silently invalidating the guard
+(`coverage.py` itself does not import `data.py`, to avoid pulling its `sklearn` dependency into
+this module's import surface).
+
+4 PRE-EXISTING tests in `tests/test_robust_reduction.py` used round 10-window fixtures
+(coincidentally 1 over the new bound, for reasons unrelated to this guard) and were trimmed to
+9 windows, preserving their original assertions exactly -- not weakened, not deleted.
+
+### Step 2: verified against the exact 9 cases, and against everything else
+
+`llm_finetuning/verify_guard_fix.py` regenerates the full 1000-trajectory locked population
+and diffs bucket/guard_reasons case-by-case against the pre-fix snapshot:
+
+**All 9 target cases (seq 105/291/292/314/385/520/574/611/982): `('A', [])` -> `('B',
+['observation_too_long_for_reduced_state_count'])`. ALL 9 FIXED: True.**
+
+**The other 493 has_ground_truth=False cases: 492 bucket-C cases completely unchanged; 1
+(the pre-existing `dispersed_converging_ambiguity` case) gained the new guard as a SECOND,
+co-occurring reason but stayed bucket B -- no routing change, not a regression.** The 3
+early-return conditions (`abstain`/`terminal_unknown`/`len(known_history)>=3`) are
+byte-for-byte untouched in this diff (confirmed by the fact that all 492 bucket-C cases are
+identical, not just similar).
+
+**Zero false positives on the 498 has_ground_truth=True cases** -- none newly flagged by the
+guard (checked directly, not inferred). Full 1000-trajectory bucket tally: A=433 (was 442),
+B=23 (was 14), C=544 (unchanged) -- exactly a 9-case shift from A to B, nothing else moved.
+
+### Step 3: full re-evaluation, pipeline_v2 + v5-a, same locked population
+
+`llm_finetuning/eval_pipeline_v2_with_v5a_postfix.py` (same protocol as the original step 5,
+integrity check narrowed to knowingly accept exactly these 9 verified bucket differences,
+still hard-fails on chain mismatches or any OTHER bucket difference):
+
+| metric | before | after | delta |
+|---|---|---|---|
+| Layer 1 (dict) | 442 (44.2%) | 433 (43.3%) | -9 |
+| Layer 2 (guard) | 14 (1.4%) | 23 (2.3%) | +9 |
+| Layer 3 (LLM) | 544 (54.4%) | 544 (54.4%) | 0 |
+| correct-abstention on unanswerable (n=502) | 1/502 (0.2%) | 10/502 (2.0%) | +9 cases, +1.8pt |
+| end-to-end threat accuracy (n=498 GT, `accuracy_when_answerable`) | 87.8% (425/484) | 87.8% (425/484) | 0 |
+| over-abstention (n=498 GT) | 2.8% (14/498) | 2.8% (14/498) | 0 |
+
+**Exactly the small, real shift expected, nothing larger: 9 cases moved from confident-wrong
+Layer-1 narration to correct Layer-2 abstention, Layer 3's 544 cases and the GT-true 498's
+threat accuracy are bit-for-bit unchanged.** No sign of over-firing -- the fix did not touch
+anything outside its 9-case target. `correct_abstention_by_layer` before/after:
+`{layer1: 0/9, layer2: 1/1 (100%), layer3: 0/492}` -> `{layer2: 10/10 (100%), layer3: 0/492}`
+(layer1 empty after the fix, as expected -- there is nothing left there to abstain wrongly on).
+
+### Step 4: full test suite
+
+175/175 tests pass (was 171 before this session's 4 new `TestMaxWindowsGuard`/
+`TestMaxWindowsConstantNotDrifted` tests; the 4 pre-existing `test_robust_reduction.py`
+fixtures needed trimming to stay under the new bound, described in step 1 -- everything else
+unaffected).
+
+**Verdict: the guard-logic fix from the decision table is applied, verified precise (exactly
+9 cases, zero collateral changes, zero false positives), and does not touch the corpus-gap
+98.0% majority -- Layer 3 traffic and its 0.0% correct-abstention on genuine multi-hop/
+oscillation input are exactly as diagnosed, unfixed, requiring corpus augmentation and a
+retrain neither attempted nor in scope here.**

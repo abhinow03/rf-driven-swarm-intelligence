@@ -44,8 +44,11 @@ class TestRobustFalseIsUnchanged(unittest.TestCase):
 
 class TestRobustReductionRecoversTrailingRun(unittest.TestCase):
     def test_trailing_transitioning_run_recovered_as_steady_state(self):
-        preds = [make_window("column", t) for t in range(0, 80, 10)] + \
-                [make_window("transitioning", t) for t in range(80, 100, 10)]
+        # 7 + 2 = 9 windows -- AUDIT.md sec AK/AL's MAX_WINDOWS_PER_SINGLE_TRANSITION
+        # guard bounds any single hold-or-transition at 9; kept at the bound (not
+        # under it) so this test also doubles as a check that the bound is inclusive.
+        preds = [make_window("column", t) for t in range(0, 70, 10)] + \
+                [make_window("transitioning", t) for t in range(70, 90, 10)]
         r = classify_observation(preds, robust=True)
         self.assertEqual(r["bucket"], BUCKET_A)
         self.assertEqual(r["rules_key"], ("column", "column"))
@@ -53,9 +56,10 @@ class TestRobustReductionRecoversTrailingRun(unittest.TestCase):
         self.assertEqual(r["robust_recovery"]["stripped_trailing"], 2)
 
     def test_trailing_run_after_a_real_transition_is_recovered_as_that_transition(self):
-        preds = ([make_window("column", t) for t in range(0, 40, 10)]
-                + [make_window("diamond", t) for t in range(40, 80, 10)]
-                + [make_window("transitioning", t) for t in range(80, 100, 10)])
+        # 3 + 4 + 2 = 9 windows -- see MAX_WINDOWS_PER_SINGLE_TRANSITION note above.
+        preds = ([make_window("column", t) for t in range(0, 30, 10)]
+                + [make_window("diamond", t) for t in range(30, 70, 10)]
+                + [make_window("transitioning", t) for t in range(70, 90, 10)])
         r = classify_observation(preds, robust=True)
         self.assertEqual(r["bucket"], BUCKET_A)
         self.assertEqual(r["rules_key"], ("column", "diamond"))
@@ -96,8 +100,9 @@ class TestRobustReductionRespectsThreshold(unittest.TestCase):
         self.assertEqual(r["bucket"], BUCKET_C)
 
     def test_clean_majority_above_threshold_recovers(self):
+        # 5 + 4 = 9 windows -- see MAX_WINDOWS_PER_SINGLE_TRANSITION note above.
         preds = ([make_window("column", t) for t in range(0, 50, 10)]
-                + [make_window("diamond", t) for t in range(50, 100, 10)])
+                + [make_window("diamond", t) for t in range(50, 90, 10)])
         r = classify_observation(preds, robust=True, robust_threshold=0.7)
         self.assertEqual(r["bucket"], BUCKET_A)
         self.assertEqual(r["rules_key"], ("column", "diamond"))
@@ -116,8 +121,9 @@ class TestDispersedConvergingGuardStillUnconditional(unittest.TestCase):
         self.assertIn("dispersed_converging_ambiguity", r["guard_reasons"])
 
     def test_oov_guard_suppressed_when_robust_recovers_but_ambiguity_guard_is_not(self):
-        preds = [make_window("column", t) for t in range(0, 80, 10)] + \
-                [make_window("transitioning", t) for t in range(80, 100, 10)]
+        # 7 + 2 = 9 windows -- see MAX_WINDOWS_PER_SINGLE_TRANSITION note above.
+        preds = [make_window("column", t) for t in range(0, 70, 10)] + \
+                [make_window("transitioning", t) for t in range(70, 90, 10)]
         r = classify_observation(preds, robust=True)
         # trailing run recovered cleanly, no ambiguous windows -> bucket A, no oov_name guard
         self.assertEqual(r["bucket"], BUCKET_A)

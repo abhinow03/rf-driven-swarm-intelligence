@@ -3362,3 +3362,33 @@ mis-parsed.
 full fix needs STGT-level work) — corpus gap 492/502 (98.0%, requires corpus augmentation +
 retrain, large cost, explicitly out of scope this session) — parsing bug 0/502 (ruled out,
 not merely unchecked).**
+
+## AL. Applying the guard-logic fix — the 9 cases only, corpus/retrain untouched
+
+Full detail in `docs/V5_LOG.md`'s "2026-08-13 — applying ONLY the guard-logic fix" entry;
+summarized here.
+
+`src/swarm_intent/coverage.py` gets one new unconditional guard,
+`MAX_WINDOWS_PER_SINGLE_TRANSITION = 9` — derived from `data.py`'s own `LEAD_IN_RANGE`/
+`BLEND_DURATION_RANGE`/`MIN_DWELL_RANGE` maxima (a single hop caps at 132 timesteps → 9
+windows at this project's universal `window_size=50`/`stride=10`), fires
+`"observation_too_long_for_reduced_state_count"` when an observation ran longer than any
+genuine ≤2-formation sequence could. Window-by-window `class_probabilities` inspection of all
+9 sec AK cases confirmed there was no PER-WINDOW signal to catch (the dropped state, e.g.
+seq 105's `encirclement`, never exceeded ~0.3% probability anywhere) — only the structural/
+temporal shape (too many windows for too few reported states) was available at all.
+
+**Verified precise**: all 9 target cases flip `('A', [])` → `('B', ['observation_too_long_
+for_reduced_state_count'])`. The other 493 has_ground_truth=False cases are unchanged (492
+bucket-C untouched; the 1 pre-existing guarded case gains a second co-occurring reason, no
+routing change). Zero false positives on the 498 has_ground_truth=True cases. Full 1000-
+trajectory bucket tally: A 442→433, B 14→23, C 544→544 — exactly a 9-case A→B shift.
+
+**Re-evaluated pipeline_v2+v5-a on the same locked population**: Layer 1 442→433, Layer 2
+14→23, Layer 3 544→544 (unchanged). Correct-abstention on the 502 unanswerable cases: 0.2%
+(1/502) → 2.0% (10/502) — the 9 cases moved from confident-wrong Layer-1 narration to correct
+Layer-2 abstention, exactly as targeted. End-to-end threat accuracy on the 498 GT-true cases:
+**87.8%, bit-for-bit unchanged** (these 9 cases were never in that population). Small, real,
+precisely-targeted shift, no sign of over-firing. 175/175 tests pass. The corpus-gap 98.0%
+majority (Layer 3's 0.0% correct-abstention on genuine multi-hop/oscillation input) is
+untouched, exactly as scoped — no corpus change, no retraining.

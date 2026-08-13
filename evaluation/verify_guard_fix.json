@@ -1,0 +1,191 @@
+{
+  "target_9_status": {
+    "105": {
+      "old": [
+        "A",
+        []
+      ],
+      "new": [
+        "B",
+        [
+          "observation_too_long_for_reduced_state_count"
+        ]
+      ],
+      "true_chain": [
+        "shield",
+        "v_shape",
+        "encirclement"
+      ]
+    },
+    "291": {
+      "old": [
+        "A",
+        []
+      ],
+      "new": [
+        "B",
+        [
+          "observation_too_long_for_reduced_state_count"
+        ]
+      ],
+      "true_chain": [
+        "v_shape",
+        "encirclement",
+        "converging"
+      ]
+    },
+    "292": {
+      "old": [
+        "A",
+        []
+      ],
+      "new": [
+        "B",
+        [
+          "observation_too_long_for_reduced_state_count"
+        ]
+      ],
+      "true_chain": [
+        "column",
+        "dispersed",
+        "converging"
+      ]
+    },
+    "314": {
+      "old": [
+        "A",
+        []
+      ],
+      "new": [
+        "B",
+        [
+          "observation_too_long_for_reduced_state_count"
+        ]
+      ],
+      "true_chain": [
+        "shield",
+        "v_shape",
+        "encirclement"
+      ]
+    },
+    "385": {
+      "old": [
+        "A",
+        []
+      ],
+      "new": [
+        "B",
+        [
+          "observation_too_long_for_reduced_state_count"
+        ]
+      ],
+      "true_chain": [
+        "converging",
+        "dispersed",
+        "converging"
+      ]
+    },
+    "520": {
+      "old": [
+        "A",
+        []
+      ],
+      "new": [
+        "B",
+        [
+          "observation_too_long_for_reduced_state_count"
+        ]
+      ],
+      "true_chain": [
+        "dispersed",
+        "column",
+        "encirclement"
+      ]
+    },
+    "574": {
+      "old": [
+        "A",
+        []
+      ],
+      "new": [
+        "B",
+        [
+          "observation_too_long_for_reduced_state_count"
+        ]
+      ],
+      "true_chain": [
+        "column",
+        "diamond",
+        "column",
+        "dispersed"
+      ]
+    },
+    "611": {
+      "old": [
+        "A",
+        []
+      ],
+      "new": [
+        "B",
+        [
+          "observation_too_long_for_reduced_state_count"
+        ]
+      ],
+      "true_chain": [
+        "dispersed",
+        "column",
+        "v_shape"
+      ]
+    },
+    "982": {
+      "old": [
+        "A",
+        []
+      ],
+      "new": [
+        "B",
+        [
+          "observation_too_long_for_reduced_state_count"
+        ]
+      ],
+      "true_chain": [
+        "v_shape",
+        "encirclement",
+        "v_shape",
+        "encirclement"
+      ]
+    }
+  },
+  "all_9_fixed": true,
+  "changed_within_502_unexpected": {
+    "146": {
+      "old": [
+        "B",
+        [
+          "dispersed_converging_ambiguity"
+        ]
+      ],
+      "new": [
+        "B",
+        [
+          "dispersed_converging_ambiguity",
+          "observation_too_long_for_reduced_state_count"
+        ]
+      ],
+      "true_chain": [
+        "converging",
+        "dispersed",
+        "encirclement"
+      ]
+    }
+  },
+  "unchanged_502_by_category": {
+    "C": 492
+  },
+  "bucket_tally_after_n1000": {
+    "C": 544,
+    "A": 433,
+    "B": 23
+  },
+  "false_positives_on_gt_true": []
+}

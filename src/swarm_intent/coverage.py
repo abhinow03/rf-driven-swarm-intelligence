@@ -40,6 +40,37 @@ BUCKET_A = "A"  # resolvable
 BUCKET_B = "B"  # guardable
 BUCKET_C = "C"  # unresolvable
 
+# AUDIT.md sec AK/AL: how many strided windows a SINGLE formation-hold-or-transition
+# segment can ever produce, at window_size=50/stride=10 (the only configuration used
+# anywhere in this project -- every sliding_window_inference call site passes these same
+# two values). Derived from src/swarm_intent/data.py's LEAD_IN_RANGE=(30,50)/
+# BLEND_DURATION_RANGE=(10,25)/MIN_DWELL_RANGE=(40,60): a single TRANSITION segment's raw
+# length is capped at their maxima, 49+24+59=132 timesteps; a single STEADY-STATE segment
+# is capped lower, at 100. sliding_window_inference((132-50)//10)+1 = 9 windows is the
+# true maximum either way -- tests/test_coverage.py::TestMaxWindowsConstantNotDrifted
+# imports those three ranges directly and asserts this constant is still their correct
+# derivation, so a future change to data.py's ranges fails loudly here instead of silently
+# invalidating this guard (coverage.py itself does not import from data.py, to keep this
+# module's own import surface free of data.py's sklearn dependency).
+#
+# sec AK found 9 real cases (seq 105/291/292/314/385/520/574/611/982, n_windows in
+# {15,16,17,26}, all well past 9) where the classifier's own per-window argmax never once
+# named a real 3rd formation the true generator chain actually had -- not a low-confidence
+# or ambiguous read on any single window, just silently absent from every window's top
+# classes. No existing guard is designed to catch "a state was dropped with no local
+# evidence of it" -- this one catches the STRUCTURAL shape instead: more windows were
+# observed than a genuine <=2-formation sequence could physically produce, so a missed
+# state is likely, regardless of what any individual window's own probabilities show.
+#
+# Known, disclosed limitation (not fixed by this guard): this bound is only exact for
+# THIS project's synthetic generation regime. A real deployment stream with a genuinely
+# long-held single steady formation (no synthetic segment-length cap) would trip this
+# guard too, forcing a Layer-2 hedge on a case that is actually resolvable. Accepted here
+# because every case in this project's eval/training data is drawn from the same capped
+# regime (confirmed zero false positives on the full 1000-trajectory locked set, sec AL) --
+# revisit if/when this pipeline consumes an uncapped real-world stream.
+MAX_WINDOWS_PER_SINGLE_TRANSITION = 9
+
 
 def _collapse_consecutive(seq):
     return [k for k, _ in groupby(seq)]
@@ -133,6 +164,13 @@ def classify_observation(predictions: list[dict], calibrator=None,
         guard_reasons.append("dispersed_converging_ambiguity")
     if predictions and all(p["formation_confidence"] < 0.6 for p in predictions):
         guard_reasons.append("low_confidence")
+    if len(predictions) > MAX_WINDOWS_PER_SINGLE_TRANSITION:
+        # AUDIT.md sec AK/AL -- see MAX_WINDOWS_PER_SINGLE_TRANSITION's own docstring.
+        # UNCONDITIONAL (not suppressed by robust_recovered): robust reduction's majority
+        # vote answers "is this noisy per-window disagreement trustworthy," a different
+        # question from "did the observation run long enough that a state was plausibly
+        # missed entirely" -- a confident robust recovery does not address this at all.
+        guard_reasons.append("observation_too_long_for_reduced_state_count")
 
     bucket = BUCKET_B if guard_reasons else BUCKET_A
     return {"bucket": bucket, "subtype": None, "rules_key": key, "guard_reasons": guard_reasons,

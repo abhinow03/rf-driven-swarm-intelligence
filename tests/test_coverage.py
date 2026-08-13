@@ -107,6 +107,73 @@ class TestBucketBGuards(unittest.TestCase):
         self.assertNotIn("low_confidence", r["guard_reasons"])
 
 
+class TestMaxWindowsGuard(unittest.TestCase):
+    """AUDIT.md sec AK/AL: catches the 9 real bucket_A_misrouted cases -- a
+    genuine 3+-formation sequence whose classifier read collapsed to a
+    confident 2-formation pair, with no per-window low-confidence/ambiguity
+    signal at all (an observation simply too long for the state count it
+    reduced to)."""
+
+    def test_steady_state_within_bound_is_still_resolvable(self):
+        preds = [make_window("column", t) for t in range(0, 90, 10)]  # 9 windows, at the bound
+        self.assertEqual(len(preds), 9)
+        r = classify_observation(preds)
+        self.assertEqual(r["bucket"], BUCKET_A)
+        self.assertNotIn("observation_too_long_for_reduced_state_count", r["guard_reasons"])
+
+    def test_clean_transition_within_bound_is_still_resolvable(self):
+        preds = ([make_window("v_shape", t) for t in range(0, 40, 10)]
+                + [make_window("encirclement", t) for t in range(40, 90, 10)])
+        self.assertEqual(len(preds), 9)
+        r = classify_observation(preds)
+        self.assertEqual(r["bucket"], BUCKET_A)
+        self.assertNotIn("observation_too_long_for_reduced_state_count", r["guard_reasons"])
+
+    def test_two_formations_but_too_many_windows_is_guardable(self):
+        """The exact sec AK shape: only 2 distinct formations ever appear in the
+        classifier's own read, every window confident, but the observation ran
+        longer than any genuine <=2-formation sequence could -- a real
+        intermediate state (e.g. seq 105's dropped "encirclement") was very
+        likely present and silently lost."""
+        preds = ([make_window("shield", t) for t in range(0, 30, 10)]
+                + [make_window("v_shape", t) for t in range(30, 170, 10)])
+        self.assertGreater(len(preds), 9)
+        r = classify_observation(preds)
+        self.assertEqual(r["bucket"], BUCKET_B)
+        self.assertIn("observation_too_long_for_reduced_state_count", r["guard_reasons"])
+        # the (from, to) pair is still reported (for the abstention message / any
+        # downstream diagnostic) -- only the BUCKET changes, not the derived key.
+        self.assertEqual(r["rules_key"], ("shield", "v_shape"))
+
+    def test_fires_regardless_of_robust_recovery(self):
+        """Unconditional, unlike oov_name/dominant_history_contradiction --
+        robust recovery answers a different question (is noisy per-window
+        disagreement trustworthy), not this one (did the observation run long
+        enough that a whole state was plausibly missed)."""
+        preds = ([make_window("shield", t) for t in range(0, 30, 10)]
+                + [make_window("v_shape", t) for t in range(30, 170, 10)])
+        r = classify_observation(preds, robust=True)
+        self.assertIn("observation_too_long_for_reduced_state_count", r["guard_reasons"])
+
+
+class TestMaxWindowsConstantNotDrifted(unittest.TestCase):
+    """coverage.py deliberately does NOT import from data.py (keeps this
+    module's import surface free of data.py's sklearn dependency) -- so
+    MAX_WINDOWS_PER_SINGLE_TRANSITION is a hand-derived constant, not a live
+    computation. This test is the tripwire: if data.py's ranges ever change,
+    this fails loudly instead of silently invalidating the guard."""
+
+    def test_constant_matches_current_data_py_ranges(self):
+        from swarm_intent.data import LEAD_IN_RANGE, BLEND_DURATION_RANGE, MIN_DWELL_RANGE
+        from swarm_intent.coverage import MAX_WINDOWS_PER_SINGLE_TRANSITION
+
+        max_transition_timesteps = (LEAD_IN_RANGE[1] - 1) + (BLEND_DURATION_RANGE[1] - 1) + (MIN_DWELL_RANGE[1] - 1)
+        max_windows = (max_transition_timesteps - 50) // 10 + 1
+        self.assertEqual(MAX_WINDOWS_PER_SINGLE_TRANSITION, max_windows,
+                         "data.py's LEAD_IN_RANGE/BLEND_DURATION_RANGE/MIN_DWELL_RANGE changed -- "
+                         "MAX_WINDOWS_PER_SINGLE_TRANSITION in coverage.py must be updated to match")
+
+
 class TestBucketCUnresolvable(unittest.TestCase):
     def test_all_unknown_is_unresolvable(self):
         preds = [make_window("transitioning", 0), make_window("transitioning", 10)]
