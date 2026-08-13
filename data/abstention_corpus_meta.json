@@ -1,0 +1,9098 @@
+{
+  "n_total": 1000,
+  "per_mechanism": {
+    "multi_hop": 780,
+    "oscillation": 120,
+    "terminal_transitioning": 100
+  },
+  "n_used_teacher": 0,
+  "teacher_enabled": false,
+  "seed": 4242,
+  "rows_detail": [
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "v_shape",
+        "converging",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "shield",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "converging",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "column",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "converging",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "column",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "v_shape",
+        "converging",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "diamond",
+        "v_shape",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "column",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "diamond",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "converging",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "diamond",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "encirclement",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "v_shape",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "shield",
+        "dispersed",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "encirclement",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "diamond",
+        "encirclement",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "encirclement",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "converging",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "encirclement",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "shield",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "dispersed",
+        "diamond",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "encirclement",
+        "column",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "diamond",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "column",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "encirclement",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "v_shape",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "encirclement",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "shield",
+        "dispersed",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "encirclement",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "v_shape",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "column",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "v_shape",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "dispersed",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "v_shape",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "v_shape",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "dispersed",
+        "diamond",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "column",
+        "shield",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "v_shape",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "encirclement",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "dispersed",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "diamond",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "dispersed",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "converging",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "converging",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "converging",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "converging",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "encirclement",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "dispersed",
+        "v_shape",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "diamond",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "column",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "v_shape",
+        "shield",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "dispersed",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "v_shape",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "converging",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "encirclement",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "diamond",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "dispersed",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "converging",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "shield",
+        "column",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "v_shape",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "encirclement",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "dispersed",
+        "shield",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "column",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "encirclement",
+        "converging",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "column",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "encirclement",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "v_shape",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "v_shape",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "encirclement",
+        "converging",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "column",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "diamond",
+        "v_shape",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "shield",
+        "converging",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "encirclement",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "diamond",
+        "dispersed",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "column",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "encirclement",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "shield",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "converging",
+        "shield",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "dispersed",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "column",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "v_shape",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "v_shape",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "shield",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "encirclement",
+        "dispersed",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "column",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "converging",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "dispersed",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "v_shape",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "diamond",
+        "converging",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "diamond",
+        "dispersed",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "diamond",
+        "shield",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "shield",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "v_shape",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "diamond",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "column",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "encirclement",
+        "dispersed",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "diamond",
+        "shield",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "v_shape",
+        "diamond",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "v_shape",
+        "column",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "v_shape",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "converging",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "encirclement",
+        "dispersed",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "shield",
+        "diamond",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "column",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "encirclement",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "column",
+        "v_shape",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "column",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "dispersed",
+        "encirclement",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "converging",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "shield",
+        "converging",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "converging",
+        "column",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "converging",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "v_shape",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "shield",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "diamond",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "encirclement",
+        "column",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "column",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "converging",
+        "encirclement",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "encirclement",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "encirclement",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "dispersed",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "shield",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "v_shape",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "encirclement",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "shield",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "v_shape",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "dispersed",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "v_shape",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "dispersed",
+        "converging",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "diamond",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "converging",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "diamond",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "column",
+        "diamond",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "encirclement",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "diamond",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "encirclement",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "shield",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "dispersed",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "v_shape",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "diamond",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "diamond",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "column",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "column",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "converging",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "v_shape",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "encirclement",
+        "diamond",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "diamond",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "shield",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "converging",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "shield",
+        "v_shape",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "column",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "column",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "dispersed",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "diamond",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "diamond",
+        "column",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "column",
+        "v_shape",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "column",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "shield",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "column",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "diamond",
+        "converging",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "diamond",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "converging",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "column",
+        "v_shape",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "v_shape",
+        "converging",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "column",
+        "dispersed",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "diamond",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "encirclement",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "dispersed",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "converging",
+        "shield",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "v_shape",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "dispersed",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "dispersed",
+        "diamond",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "converging",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "v_shape",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "encirclement",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "converging",
+        "column",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "encirclement",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "shield",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "column",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "diamond",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "encirclement",
+        "diamond",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "dispersed",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "dispersed",
+        "diamond",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "dispersed",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "encirclement",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "converging",
+        "encirclement",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "dispersed",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "encirclement",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "column",
+        "shield",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "encirclement",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "encirclement",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "converging",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "diamond",
+        "dispersed",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "dispersed",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "diamond",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "converging",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "shield",
+        "encirclement",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "shield",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "converging",
+        "column",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "converging",
+        "diamond",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "column",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "column",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "v_shape",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "dispersed",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "diamond",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "diamond",
+        "shield",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "column",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "converging",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "encirclement",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "encirclement",
+        "dispersed",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "column",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "v_shape",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "shield",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "diamond",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "diamond",
+        "shield",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "diamond",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "encirclement",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "dispersed",
+        "converging",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "shield",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "column",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "dispersed",
+        "diamond",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "dispersed",
+        "shield",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "shield",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "diamond",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "v_shape",
+        "converging",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "encirclement",
+        "converging",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "converging",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "converging",
+        "v_shape",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "diamond",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "diamond",
+        "dispersed",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "diamond",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "encirclement",
+        "column",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "diamond",
+        "dispersed",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "dispersed",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "diamond",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "diamond",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "v_shape",
+        "encirclement",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "dispersed",
+        "diamond",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "converging",
+        "shield",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "column",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "dispersed",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "column",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "v_shape",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "diamond",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "converging",
+        "v_shape",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "shield",
+        "converging",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "v_shape",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "shield",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "dispersed",
+        "shield",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "shield",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "converging",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "shield",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "converging",
+        "v_shape",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "dispersed",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "dispersed",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "shield",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "converging",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "dispersed",
+        "shield",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "encirclement",
+        "converging",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "dispersed",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "dispersed",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "v_shape",
+        "dispersed",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "encirclement",
+        "v_shape",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "v_shape",
+        "converging",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "converging",
+        "encirclement",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "shield",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "v_shape",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "encirclement",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "v_shape",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "dispersed",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "shield",
+        "converging",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "converging",
+        "encirclement",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "column",
+        "v_shape",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "v_shape",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "dispersed",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "column",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "dispersed",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "diamond",
+        "encirclement",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "diamond",
+        "v_shape",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "diamond",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "converging",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "encirclement",
+        "column",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "shield",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "dispersed",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "v_shape",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "dispersed",
+        "converging",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "converging",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "v_shape",
+        "encirclement",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "dispersed",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "dispersed",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "column",
+        "converging",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "encirclement",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "column",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "shield",
+        "encirclement",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "v_shape",
+        "encirclement",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "diamond",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "converging",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "shield",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "encirclement",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "diamond",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "shield",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "encirclement",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "dispersed",
+        "encirclement",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "diamond",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "column",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "column",
+        "diamond",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "column",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "encirclement",
+        "diamond",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "v_shape",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "converging",
+        "diamond",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "diamond",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "encirclement",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "v_shape",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "diamond",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "converging",
+        "v_shape",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "encirclement",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "encirclement",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "converging",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "column",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "v_shape",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "diamond",
+        "shield",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "diamond",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "diamond",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "encirclement",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "diamond",
+        "converging",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "diamond",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "encirclement",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "converging",
+        "v_shape",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "encirclement",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "shield",
+        "converging",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "shield",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "column",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "shield",
+        "converging",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "converging",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "v_shape",
+        "diamond",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "column",
+        "encirclement",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "dispersed",
+        "v_shape",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "dispersed",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "converging",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "encirclement",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "dispersed",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "encirclement",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "dispersed",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "dispersed",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "dispersed",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "v_shape",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "column",
+        "shield",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "v_shape",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "encirclement",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "converging",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "dispersed",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "diamond",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "converging",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "column",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "column",
+        "v_shape",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "encirclement",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "dispersed",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "v_shape",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "dispersed",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "diamond",
+        "shield",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "column",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "dispersed",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "diamond",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "dispersed",
+        "diamond",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "v_shape",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "column",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "converging",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "converging",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "shield",
+        "encirclement",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "v_shape",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "v_shape",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "column",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "diamond",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "shield",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "encirclement",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "shield",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "shield",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "encirclement",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "diamond",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "shield",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "column",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "v_shape",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "shield",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "shield",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "dispersed",
+        "v_shape",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "v_shape",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "dispersed",
+        "column",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "diamond",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "dispersed",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "column",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "shield",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "converging",
+        "diamond",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "converging",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "converging",
+        "diamond",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "dispersed",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "v_shape",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "encirclement",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "column",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "converging",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "diamond",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "diamond",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "converging",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "encirclement",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "dispersed",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "converging",
+        "dispersed",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "dispersed",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "shield",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "v_shape",
+        "converging",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "column",
+        "dispersed",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "diamond",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "diamond",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "v_shape",
+        "dispersed",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "v_shape",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "dispersed",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "encirclement",
+        "converging",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "converging",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "diamond",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "converging",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "column",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "converging",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "dispersed",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "dispersed",
+        "diamond",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "dispersed",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "diamond",
+        "encirclement",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "v_shape",
+        "column",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "dispersed",
+        "converging",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "v_shape",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "column",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "converging",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "v_shape",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "diamond",
+        "column",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "encirclement",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "converging",
+        "dispersed",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "shield",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "diamond",
+        "converging",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "column",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "converging",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "encirclement",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "v_shape",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "converging",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "shield",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "diamond",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "v_shape",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "v_shape",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "encirclement",
+        "dispersed",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "converging",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "encirclement",
+        "converging",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "dispersed",
+        "v_shape",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "converging",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "dispersed",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "converging",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "column",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "encirclement",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "encirclement",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "v_shape",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "v_shape",
+        "dispersed",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "converging",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "dispersed",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "v_shape",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "v_shape",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "dispersed",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "dispersed",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "diamond",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "shield",
+        "diamond",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "column",
+        "v_shape",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "column",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "dispersed",
+        "encirclement",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "converging",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "dispersed",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "diamond",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "shield",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "shield",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "column",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "v_shape",
+        "dispersed",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "dispersed",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "shield",
+        "encirclement",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "encirclement",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "dispersed",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "encirclement",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "column",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "v_shape",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "encirclement",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "diamond",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "dispersed",
+        "column",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "converging",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "diamond",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "column",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "column",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "diamond",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "column",
+        "v_shape",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "column",
+        "dispersed",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "dispersed",
+        "column",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "converging",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "column",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "encirclement",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "converging",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "diamond",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "column",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "diamond",
+        "dispersed",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "converging",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "encirclement",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "column",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "diamond",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "encirclement",
+        "shield",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "shield",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "v_shape",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "v_shape",
+        "diamond",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "v_shape",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "dispersed",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "dispersed",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "v_shape",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "v_shape",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "encirclement",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "v_shape",
+        "encirclement",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "converging",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "v_shape",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "shield",
+        "dispersed",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "v_shape",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "v_shape",
+        "dispersed",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "diamond",
+        "dispersed",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "converging",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "v_shape",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "diamond",
+        "converging",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "converging",
+        "v_shape",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "dispersed",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "dispersed",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "dispersed",
+        "v_shape",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "column",
+        "encirclement",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "column",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "converging",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "shield",
+        "converging",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "converging",
+        "dispersed",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "shield",
+        "diamond",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "encirclement",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "encirclement",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "encirclement",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "diamond",
+        "column",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "dispersed",
+        "v_shape",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "shield",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "converging",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "v_shape",
+        "shield",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "converging",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "dispersed",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "v_shape",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "v_shape",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "converging",
+        "encirclement",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "diamond",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "diamond",
+        "converging",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "encirclement",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "shield",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "v_shape",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "column",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "dispersed",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "column",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "column",
+        "converging",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "encirclement",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "column",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "diamond",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "shield",
+        "column",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "column",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "diamond",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "column",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "shield",
+        "encirclement",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "v_shape",
+        "column",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "converging",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "column",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "v_shape",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "encirclement",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "converging",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "converging",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "diamond",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "converging",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "encirclement",
+        "dispersed",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "v_shape",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "dispersed",
+        "converging",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "column",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "encirclement",
+        "shield",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "column",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "dispersed",
+        "shield",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "encirclement",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "shield",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "diamond",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "dispersed",
+        "v_shape",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "shield",
+        "column",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "v_shape",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "dispersed",
+        "encirclement",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "encirclement",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "column",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "encirclement",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "column",
+        "converging",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "v_shape",
+        "diamond",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "diamond",
+        "column",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "shield",
+        "dispersed",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "shield",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "converging",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "encirclement",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "converging",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "diamond",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "dispersed",
+        "v_shape",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "shield",
+        "v_shape",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "encirclement",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "encirclement",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "dispersed",
+        "diamond",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "encirclement",
+        "column",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "v_shape",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "diamond",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "encirclement",
+        "dispersed",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "column",
+        "converging",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "diamond",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "column",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "encirclement",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "shield",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "encirclement",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "shield",
+        "converging",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "shield",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "dispersed",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "converging",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "v_shape",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "encirclement",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "column",
+        "shield",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "converging",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "dispersed",
+        "diamond",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "diamond",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "column",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "shield",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "encirclement",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "column",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "v_shape",
+        "column",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "encirclement",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "encirclement",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "diamond",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "diamond",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "shield",
+        "converging",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "v_shape",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "column",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "encirclement",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "dispersed",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "column",
+        "v_shape",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "column",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "encirclement",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "converging",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "dispersed",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "dispersed",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "diamond",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "converging",
+        "v_shape",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "encirclement",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "encirclement",
+        "converging",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "encirclement",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "shield",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "converging",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "converging",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "shield",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "diamond",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "column",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "column",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "diamond",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "shield",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "shield",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "diamond",
+        "converging",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "encirclement",
+        "diamond",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "encirclement",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "column",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "v_shape",
+        "dispersed",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "v_shape",
+        "encirclement",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "diamond",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "shield",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "converging",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "shield",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "shield",
+        "v_shape",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "v_shape",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "shield",
+        "v_shape",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "dispersed",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "converging",
+        "column",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "encirclement",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "diamond",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "encirclement",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "dispersed",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "column",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "v_shape",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "converging",
+        "encirclement",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "shield",
+        "encirclement",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "shield",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "shield",
+        "converging",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "diamond",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "v_shape",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "column",
+        "shield",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "encirclement",
+        "column",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "dispersed",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "converging",
+        "column",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "diamond",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "v_shape",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "converging",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "column",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "dispersed",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "v_shape",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "dispersed",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "dispersed",
+        "shield",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "column",
+        "dispersed",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "encirclement",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "converging",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "dispersed",
+        "column",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "shield",
+        "column",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "v_shape",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "shield",
+        "dispersed",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "diamond",
+        "converging",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "column",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "diamond",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "v_shape",
+        "diamond",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "converging",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "encirclement",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "encirclement",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "v_shape",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "shield",
+        "dispersed",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "column",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "dispersed",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "column",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "diamond",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "shield",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "column",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "v_shape",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "column",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "column",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "converging",
+        "v_shape",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "diamond",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "dispersed",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "diamond",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "encirclement",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "diamond",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "column",
+        "converging",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "dispersed",
+        "converging",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "column",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "diamond",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "converging",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "v_shape",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "encirclement",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "shield",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "dispersed",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "column",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "diamond",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "shield",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "v_shape",
+        "converging",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "v_shape",
+        "shield",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "diamond",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "column",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "encirclement",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "diamond",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "dispersed",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "dispersed",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "shield",
+        "diamond",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "shield",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "shield",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "shield",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "converging",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "converging",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "encirclement",
+        "converging",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "column",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "converging",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "shield",
+        "converging",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "encirclement",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "v_shape",
+        "encirclement",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "diamond",
+        "encirclement",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "column",
+        "diamond",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "encirclement",
+        "dispersed",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "shield",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "v_shape",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "encirclement",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "column",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "converging",
+        "column",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "dispersed",
+        "converging",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "encirclement",
+        "diamond",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "encirclement",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "encirclement",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "dispersed",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "converging",
+        "v_shape",
+        "diamond",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "converging",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "v_shape",
+        "shield",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "shield",
+        "column",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "column",
+        "converging",
+        "column",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "multi_hop",
+      "chain": [
+        "diamond",
+        "converging",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "dispersed",
+        "v_shape",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "column",
+        "diamond",
+        "v_shape",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "encirclement",
+        "diamond",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "converging",
+        "encirclement",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "converging",
+        "shield",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "shield",
+        "encirclement",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "converging",
+        "shield",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "diamond",
+        "dispersed",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "column",
+        "dispersed",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "encirclement",
+        "dispersed",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "dispersed",
+        "diamond",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "dispersed",
+        "diamond",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "shield",
+        "v_shape",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "v_shape",
+        "diamond",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "v_shape",
+        "shield",
+        "converging",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "converging",
+        "encirclement",
+        "diamond",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "diamond",
+        "encirclement",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "column",
+        "dispersed",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "encirclement",
+        "v_shape",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "v_shape",
+        "converging",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "encirclement",
+        "converging",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "v_shape",
+        "converging",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "diamond",
+        "shield",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "dispersed",
+        "encirclement",
+        "converging",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "diamond",
+        "converging",
+        "v_shape",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "dispersed",
+        "v_shape",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "diamond",
+        "v_shape",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "diamond",
+        "encirclement",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "v_shape",
+        "shield",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "diamond",
+        "column",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "dispersed",
+        "column",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "dispersed",
+        "converging",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "v_shape",
+        "shield",
+        "v_shape",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "v_shape",
+        "dispersed",
+        "diamond",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "converging",
+        "encirclement",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "column",
+        "diamond",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "diamond",
+        "converging",
+        "diamond",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "v_shape",
+        "shield",
+        "encirclement",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "shield",
+        "column",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "encirclement",
+        "v_shape",
+        "shield",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "v_shape",
+        "encirclement",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "dispersed",
+        "diamond",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "v_shape",
+        "column",
+        "v_shape",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "dispersed",
+        "shield",
+        "diamond",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "column",
+        "shield",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "column",
+        "diamond",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "converging",
+        "encirclement",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "shield",
+        "dispersed",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "v_shape",
+        "shield",
+        "column",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "dispersed",
+        "v_shape",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "v_shape",
+        "converging",
+        "dispersed",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "diamond",
+        "converging",
+        "v_shape",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "dispersed",
+        "diamond",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "column",
+        "shield",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "dispersed",
+        "encirclement",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "converging",
+        "column",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "diamond",
+        "converging",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "encirclement",
+        "shield",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "converging",
+        "v_shape",
+        "encirclement",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "v_shape",
+        "diamond",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "converging",
+        "dispersed",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "dispersed",
+        "column",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "diamond",
+        "dispersed",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "v_shape",
+        "shield",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "shield",
+        "v_shape",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "shield",
+        "converging",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "v_shape",
+        "encirclement",
+        "converging",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "converging",
+        "diamond",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "shield",
+        "column",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "diamond",
+        "converging",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "converging",
+        "dispersed",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "diamond",
+        "v_shape",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "column",
+        "converging",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "converging",
+        "column",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "converging",
+        "encirclement",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "diamond",
+        "converging",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "diamond",
+        "converging",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "dispersed",
+        "shield",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "dispersed",
+        "converging",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "converging",
+        "encirclement",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "v_shape",
+        "dispersed",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "encirclement",
+        "column",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "shield",
+        "dispersed",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "converging",
+        "column",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "v_shape",
+        "converging",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "encirclement",
+        "dispersed",
+        "v_shape",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "encirclement",
+        "shield",
+        "converging",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "dispersed",
+        "encirclement",
+        "shield",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "column",
+        "diamond",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "diamond",
+        "encirclement",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "dispersed",
+        "encirclement",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "converging",
+        "diamond",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "v_shape",
+        "dispersed",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "diamond",
+        "v_shape",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "dispersed",
+        "encirclement",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "diamond",
+        "shield",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "dispersed",
+        "diamond",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "column",
+        "v_shape",
+        "diamond",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "dispersed",
+        "diamond",
+        "encirclement",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "diamond",
+        "converging",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "converging",
+        "column",
+        "encirclement",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "v_shape",
+        "dispersed",
+        "column",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "converging",
+        "dispersed",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "column",
+        "converging",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "dispersed",
+        "encirclement",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "shield",
+        "diamond",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "encirclement",
+        "shield",
+        "diamond",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "dispersed",
+        "v_shape",
+        "converging",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "shield",
+        "v_shape",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "column",
+        "shield",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "diamond",
+        "converging",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "converging",
+        "v_shape",
+        "diamond",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "shield",
+        "dispersed",
+        "shield",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "converging",
+        "encirclement",
+        "column",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "shield",
+        "dispersed",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "encirclement",
+        "column",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "column",
+        "dispersed",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "encirclement",
+        "converging",
+        "v_shape",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "diamond",
+        "encirclement",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "oscillation",
+      "chain": [
+        "shield",
+        "encirclement",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "v_shape",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "v_shape",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "dispersed",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "diamond",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "shield",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "dispersed",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "diamond",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "dispersed",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "dispersed",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "column",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "column",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "column",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "converging",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "diamond",
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "encirclement",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "shield",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "column",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "encirclement",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "converging",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "diamond",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "dispersed",
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "converging",
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "converging",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "shield",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "shield",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "shield",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "v_shape",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "encirclement",
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "dispersed",
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "shield"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "converging",
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "shield",
+        "diamond"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "encirclement"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "converging"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "dispersed"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "v_shape"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "column"
+      ],
+      "used_teacher": false
+    },
+    {
+      "mechanism": "terminal_transitioning",
+      "chain": [
+        "shield"
+      ],
+      "used_teacher": false
+    }
+  ]
+}
