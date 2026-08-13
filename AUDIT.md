@@ -3392,3 +3392,67 @@ Layer-2 abstention, exactly as targeted. End-to-end threat accuracy on the 498 G
 precisely-targeted shift, no sign of over-firing. 175/175 tests pass. The corpus-gap 98.0%
 majority (Layer 3's 0.0% correct-abstention on genuine multi-hop/oscillation input) is
 untouched, exactly as scoped — no corpus change, no retraining.
+
+## AM. Rule-0 follow-up — resolving finding 2b: the seed=999 population was never locked
+
+The Rule-0 audit (`scripts/rule0_audit_2026_08_13.py`) found no locked seed=999 trajectory
+file, only "same seed" cited across independently-rewritten generator scripts. This section
+resolves it: no fixes to any prior ceiling figure, no retraining — pure verification, then a
+lock going forward.
+
+**Step 1 (inventory, `scripts/rule0_2b_step1_inventory.py`)**: programmatic git archaeology
+found exactly 3 distinct population-generating code states ever to exist — `OLD` (inline copy
+in `phase0_ceiling.py`, unchanged commit b680c80 through 628dc56), `MID` (consolidated into
+`src/swarm_intent/eval_trajectories.py` at commit 3591051, 1-minute-lived, LEAD_IN_RANGE
+still (15,35)), `CURRENT` (symmetrized at commit 9061392 onward, LEAD_IN_RANGE=(30,50), still
+HEAD). **All 17 persisted `phase0_ceiling*`/`phase0_threat_ceiling*` output files attribute to
+`OLD`** — none to `CURRENT`. The headline "current state" figures (83.0%/77.3% pooled bridge,
+chain-1 87.6%/85.8%, chain-2 77.2%/66.7%) have **no persisted backing JSON anywhere** — prose
+citations only, in `CEILING.md`/`V5_LOG.md`/`V5_STATE.json`.
+
+**Step 2 (regenerate, `scripts/rule0_2b_regenerate_populations.py`)**: regenerated the real
+seed=999, n=1000 population under each of the 3 code states, full raw trajectories (chain,
+spread, noise_std, per-timestep positions, true labels), persisted to
+`eval_data/locked_seed999_<version>.json`. `CURRENT` verified deterministic first (2
+independent runs, byte-identical) before being trusted as a lock candidate.
+
+**Step 3 (diff, `scripts/rule0_2b_diff_populations.py`) — the number that decides whether any
+headline figure needs to change**: all 3 pairwise diffs are **GENUINELY DIFFERENT
+POPULATIONS**, not reordering or float noise — **988-992 of 1000 trajectories (98.8-99.2%)
+have a completely different formation chain** across the OLD/MID/CURRENT boundary. Root cause:
+each version's `build_long_sequence_labeled` consumes a different number of RNG draws per
+multi-hop trajectory (old fractional `blend_start`/`blend_end` sampling vs. the dwell-fixed
+`lead_in`/`blend_duration`/`dwell` sampling), so the shared `np.random.default_rng(999)` stream
+desyncs starting at trajectory index 1 and never resynchronizes. **"Same seed=999" was never
+"same population" for any comparison spanning the 3591051/9061392 boundary.**
+
+**Step 4 (impact list, `evaluation/rule0_2b_impact_list.json`)**: re-derived which historical
+ceiling numbers are trustworthy. **Trustworthy as same-population comparisons**: everything
+within the `OLD` lineage — the checkpoint-ablation chain (3.3%→4.7%→6.7%→~6%→12.2%) and the
+guard-logic-fix chain (domfix/guardfix/oovfix/trimfix, 12.2%→47.0%→52.3%/58.7%) both hold the
+population AND the locked strategy-5 checkpoint constant (hash-verified unchanged), isolating
+exactly the effect each commit claims. **Needs re-flagging**: the "58.7%→83.0%/77.3%" bridge
+and the "39.9%→65.8%" step26c result both span the OLD/CURRENT (or MID/CURRENT) boundary —
+`CEILING.md` already correctly flags 58.7% as stale, but the magnitude of the jump conflates
+the dwell-time/symmetrization fix's real, mechanistically-supported effect (`OBS_NONE`
+50.6%→0%, a population-shape-independent metric) with ordinary large-n resampling variance.
+The causal direction remains credible; the point-estimate delta should not be read as a
+same-trajectory before/after. **Confirmed unaffected**: the 82.5%/91.7% same-population
+ceiling-normalized figures (sec AJ) use the SEPARATE, already-locked seed=4321 population
+(`evaluation/phase4_eval_set.json`) — no relation to this seed=999 issue.
+
+**Step 5 (lock)**: `CURRENT` — the population `src/swarm_intent/eval_trajectories.py` actually
+generates today, matching every currently-shipped script — persisted as
+`eval_data/LOCKED_seed999_FINAL.json`, sha256'd, and recorded in `docs/PREREGISTRATION.md` and
+`docs/V5_STATE.json` as the single source of truth for every future seed=999 ceiling citation.
+`tests/test_locked_seed999_population.py` regenerates the population from live code and fails
+if its hash ever diverges from the locked file — the exact silent-drift failure mode this
+whole finding was about.
+
+**Step 6**: Rule-0 audit table item 2b updated from "GHOST — no locked file exists" to
+"RESOLVED — locked this session, `eval_data/LOCKED_seed999_FINAL.json`, drift-guarded by a
+test" (`scripts/rule0_audit_2026_08_13.py`, `evaluation/rule0_audit_2026_08_13_results.json`).
+
+**No prior ceiling figure was changed, corrected, or retracted by this section** — every
+number stands exactly as previously reported; this is a provenance/comparability audit, not a
+re-measurement.

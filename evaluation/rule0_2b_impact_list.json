@@ -1,0 +1,43 @@
+{
+  "finding": "Every persisted seed=999 ceiling output file (17/17) was measured against the OLD population (pre-dwell-fix, pre-consolidation, superseded 2026-08-09 18:24 by commit 3591051). Every headline 'current state' figure (83.0%/77.3% pooled bridge, chain-1 87.6%/85.8%, chain-2 77.2%/66.7%) was measured against the CURRENT population (post-symmetrize, since commit 9061392) and has NO persisted backing JSON -- prose-only citations in CEILING.md/V5_LOG.md/V5_STATE.json. Step 3's diff confirms these two populations are genuinely different at the trajectory level (98.8-99.2% of the 1000 draws differ), not a same-population re-measurement.",
+  "trustworthy_as_same_population_comparisons": [
+    {
+      "comparison": "phase0_ceiling.json (3.3%) -> _v2 (4.7%) -> _v3 (6.7%) -> _v4/_v4_robust (~6%) -> _v5 (12.2%)",
+      "reason": "all measured on the OLD population; deltas reflect real checkpoint/retraining changes (gap-2 fix, data scale, centroid-relative features, transitioning-FP fix), not population resampling.",
+      "verdict": "TRUSTWORTHY as checkpoint-ablation deltas, same population throughout"
+    },
+    {
+      "comparison": "_v5 domfix/guardfix/oovfix/trimfix chain: 12.2% -> 47.0% (guardfix) -> ~52.3%/58.7% (later fixes)",
+      "reason": "same OLD population, same locked strategy-5 checkpoint (hash-verified unchanged, commit 9020b52 'revert to strategy-5 checkpoint, verified by hash'); deltas isolate coverage.py/stgt_bridge.py guard-logic fixes only.",
+      "verdict": "TRUSTWORTHY as guard-logic-fix deltas, same population and same checkpoint"
+    },
+    {
+      "comparison": "_v6/threat_ceiling_v6 (strategy-6 regression, 4.9%/6.3%)",
+      "reason": "same OLD population; already treated in the docs as a rejected/reverted strategy, not part of the final lineage.",
+      "verdict": "TRUSTWORTHY as a same-population negative result, already correctly disclosed as reverted"
+    }
+  ],
+  "needs_reflagging_as_provisional_or_re_measured": [
+    {
+      "figure": "58.7% robust threat ceiling -> 83.0% pooled / 77.3% pair (CEILING.md 'compatibility bridge' section)",
+      "issue": "CEILING.md already flags 58.7% as 'stale' (correct), but frames the jump to 83.0%/77.3% purely as a dwell-time-fix effect. Step 3 shows the two figures were ALSO measured on a 98.8%+ different random draw -- the point-estimate delta conflates the generator fix's real, mechanistically-supported effect (OBS_NONE 50.6%->0%, a population-shape-independent metric) with ordinary large-n resampling variance. The causal direction (fix improves resolvability) remains credible; the exact magnitude should not be quoted as a same-population before/after.",
+      "recommendation": "re-measure 83.0%/77.3% against eval_data/LOCKED_seed999_FINAL.json once locked (step 5), and persist the output as a real JSON artifact -- it currently has none."
+    },
+    {
+      "figure": "chain-1 87.6%/85.8%, chain-2 77.2%/66.7% ('current state', CEILING.md 2026-08-10)",
+      "issue": "No persisted backing JSON exists anywhere in evaluation/ -- these numbers only exist as prose in CEILING.md/V5_LOG.md/V5_STATE.json. Cannot be independently re-verified from an artifact today.",
+      "recommendation": "re-run phase0_ceiling.py-equivalent scoring against the newly-locked population and persist a real evaluation/*.json backing file."
+    },
+    {
+      "figure": "step26c: chain-2 pair 39.9%->65.8%, threat 72.1%->76.3% (commit b411c96)",
+      "issue": "39.9% (post-dwell-fix-only, pre-symmetrize/pre-consolidation, measured in phase0_decompose_failures.py's own already-fixed inline copy per 2a564cd) vs 65.8% (post-symmetrize+consolidation, MID/CURRENT population) -- this comparison DOES span a population-changing boundary (symmetrization changed LEAD_IN_RANGE), so it is legitimately measuring the symmetrization fix's effect, but again on a resampled population, not a paired same-trajectory comparison.",
+      "recommendation": "same as above -- no action required beyond disclosure; the mechanism (source-side observability) is independently confirmed via OBS_NONE, a population-shape metric, not solely the accuracy delta."
+    }
+  ],
+  "confirmed_unaffected_not_part_of_this_seed999_issue": [
+    {
+      "figure": "82.5% / 91.7% same-population ceiling-normalized accuracy (AUDIT.md sec AJ)",
+      "reason": "measured on the SEED=4321 population (evaluation/phase4_eval_set.json), a separate, already-locked file, unrelated to the seed=999 lineage this audit covers. No population-identity issue here -- confirmed by llm_finetuning/compute_same_population_ceiling.py's own docstring, which already explicitly disclosed the seed=999-vs-seed=4321 population distinction before this audit."
+    }
+  ]
+}
