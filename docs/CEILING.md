@@ -111,6 +111,19 @@ stratified ones**: chain-1 87.6% threat / 85.8% pair, chain-2 77.2% threat / 66.
 program's original 70% pair-level floor and the 60-65% C-track-reconsideration threshold.
 Full detail: `HISTORY.md`'s 2026-08-10 part-8 decision entry.
 
+> **SUPERSEDED IN PART — 2026-08-13, AUDIT.md sec AM/AM-2 (Rule-0 follow-up).** The
+> 58.7%→83.0% delta above is real and reproduces exactly against a locked artifact
+> (`evaluation/rule0_am_headline_reproduction.json`, sha256-gated against
+> `eval_data/LOCKED_seed999_FINAL.json`), but it is a **population-confounded** comparison —
+> "58.7%" and "83.0%" were measured on two different random 1000-trajectory draws (seed=999
+> desynced across 3 independently-evolved generator copies, see sec AM), not the same
+> trajectories re-scored. A paired same-population re-measurement
+> (`evaluation/rule0_am_isolated_fix_effects.json`) isolating ONLY the dwell-time/
+> symmetrization fix finds the TRUE mechanistic effect is **+12.9pt (65.4%→78.3% pooled
+> threat)**, not +24.3pt — roughly half the historically-cited jump was population resampling,
+> not the fix. The fix is real and positive; the magnitude above is not to be cited as a
+> same-population measurement going forward. Use the isolated figure instead.
+
 ## Current state (stratified), 2026-08-09 — supersedes every pooled number below (chain-2 numbers here are further superseded above)
 
 `scripts/phase0_chainlength_breakdown.py --n 1000`, seed=999 (the standing ceiling
@@ -1104,3 +1117,14 @@ blend-overlap gap has now persisted, unmoved, through three formula iterations �
 experiment should target that mismatch directly (a 4th training regime, or a widened regime
 1, matching eval's actual realized blend shape), not a generic retrain. Not started this
 session, per instruction. Full detail: `docs/V5_LOG.md`'s 2026-08-09 step-26 entry.
+
+> **SUPERSEDED IN PART — 2026-08-13, AUDIT.md sec AM/AM-2 (Rule-0 follow-up).** The
+> 39.9%→65.8% chain-2 pair_acc row above is population-confounded (baseline/dest-only-fix/
+> both-fixes were 3 different random draws, not the same 245 trajectories re-scored — the
+> table's own "isolated" framing was code-lineage-isolated, not population-isolated). A
+> paired same-population re-measurement, same checkpoint and guard logic, same 245 chain-2
+> trajectories across all 3 formulas
+> (`evaluation/rule0_am_isolated_fix_effects.json`): **23.7% (OLD) → 39.2% (dest-only fix) →
+> 58.4% (both fixes)** — the symmetrization step's true isolated contribution is **+19.2pt**,
+> not the +25.9pt claimed above. Both fixes remain real, positive, and now population-
+> disentangled; the exact magnitudes above should not be cited as same-population deltas.

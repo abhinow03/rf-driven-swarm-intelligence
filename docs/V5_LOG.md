@@ -1550,6 +1550,21 @@ pair accuracy +47.1pt (18.7%→65.8%), more than 3.5x. Chain-1 stayed flat withi
 both fixes (population-composition shifts only, its own generation branch untouched by
 either).
 
+> **SUPERSEDED IN PART — 2026-08-13, AUDIT.md sec AM/AM-2 (Rule-0 follow-up).** "Isolated"
+> above meant code-lineage-isolated (each stage builds on the last), not population-isolated
+> — baseline/dest-only-fix/both-fixes each drew a genuinely different random 1000-trajectory
+> population (seed=999 desynced across the 3 formula versions; see sec AM). A TRUE paired
+> same-population re-measurement (same 245 chain-2 trajectories scored under all 3 formulas,
+> `evaluation/rule0_am_isolated_fix_effects.json`) finds source-symmetrization's real isolated
+> contribution is **+19.2pt pair accuracy (39.2%→58.4%)**, smaller than the +25.9pt claimed
+> here — some of that claimed gain was population resampling. The destination-fix's own
+> contribution and the overall "chain-2 more than triples" direction both remain real and
+> positive. Separately, the "chain-1 stayed flat within noise" claim is now confirmed
+> STRONGER than stated: in the paired design, chain-1 is bit-for-bit IDENTICAL across all 3
+> formulas (86.0% threat / 84.4% pair, n=243 exactly) — not merely flat within noise, since
+> chain-1's generation code path is untouched by either fix and, under a paired RNG fork, its
+> trajectories are literally the same draws every time.
+
 ### Step 4: refined failure taxonomy — boundary/blend-timing vs. clean miss
 
 20 fresh chain-2 failures under both fixes, manually traced
@@ -2509,6 +2524,20 @@ predates this session's port work entirely and was simply never recomputed as a 
 headline number after the dwell-time fix landed.
 
 Raw output: `evaluation/phase0_fullscale_ceiling_comparison.json`.
+
+> **SUPERSEDED IN PART — 2026-08-13, AUDIT.md sec AM/AM-2 (Rule-0 follow-up).** 83.0%/77.3%
+> reproduce EXACTLY against a locked, sha256-gated artifact
+> (`evaluation/rule0_am_headline_reproduction.json`, `eval_data/LOCKED_seed999_FINAL.json`) —
+> that part of this entry is fully confirmed, not just re-asserted. But the "58.7% -> 83.0%"
+> reconciliation IS a population-confounded comparison, not a same-population before/after
+> (seed=999 desynced across the generator versions that produced each figure — sec AM's
+> trajectory-by-trajectory diff found 98.8-99.2% of the 1000 draws differ). A paired
+> same-population re-measurement isolating only the generator fix
+> (`evaluation/rule0_am_isolated_fix_effects.json`) finds the TRUE mechanistic effect is
+> **+12.9pt pooled threat (65.4%→78.3%)**, roughly half the +24.3pt (58.7%→83.0%) claimed
+> above. The fix is real, positive, and the 70%-floor-clearing conclusion is unaffected
+> (83.0%/77.3% themselves are confirmed, not disputed) — only the causal attribution of HOW
+> MUCH of the historical jump came from the fix itself, versus an ordinary resample, changes.
 
 ---
 
