@@ -3456,3 +3456,46 @@ test" (`scripts/rule0_audit_2026_08_13.py`, `evaluation/rule0_audit_2026_08_13_r
 **No prior ceiling figure was changed, corrected, or retracted by this section** — every
 number stands exactly as previously reported; this is a provenance/comparability audit, not a
 re-measurement.
+
+## AM-2. Rule-0 follow-up to sec AM — reproducing and isolating the headline figures
+
+Sec AM located the population-boundary problem but didn't re-measure anything. This section
+does: reproduces the headline as a real artifact, isolates the two cross-boundary bridge
+claims from population resampling, and updates `CEILING.md`/`V5_LOG.md` in place (superseded
+notes, nothing deleted). No training, no corpus changes.
+
+**Step 1 (`scripts/rule0_am_reproduce_headline.py`)**: scored `eval_data/LOCKED_seed999_FINAL.json`
+directly (sha256-gated) through the current checkpoint + `classify_observation(robust=True)` +
+`RULES`, stratified by chain length. **All 3 headline figures reproduce EXACTLY**: pooled
+83.0% threat / 77.3% pair (n=494), chain-1 87.6%/85.8% (n=275), chain-2 77.2%/66.7% (n=219).
+Zero discrepancies — the prose-only figures now have a real, persisted, sha256-gated backing
+artifact (`evaluation/rule0_am_headline_reproduction.json`).
+
+**Step 2 (`scripts/rule0_am_isolate_fixes.py`)**: a paired design isolates the dwell-time/
+symmetrization fix from population resampling — for each of 1000 trajectory indices, forks a
+per-trajectory RNG right after the shared `(chain, spread, noise_std)` draws, then runs all 3
+hop-timing formulas (OLD/MID/CURRENT) from that identical forked state, so all 3 share the
+exact same chain population and differ only in transition timing. **Chain-1 (unaffected code
+path) is bit-for-bit IDENTICAL across all 3 formulas** (86.0% threat / 84.4% pair, n=243
+exactly) — validates the design and confirms `CEILING.md`'s "neither fix touches chain-1"
+claim more strongly than originally stated (identical, not just within-noise).
+
+**Isolated (same-population) deltas are real but smaller than the historically-cited,
+population-confounded ones**:
+
+| | historical (population-confounded) | isolated (same population) |
+|---|---|---|
+| pooled threat, OLD→CURRENT | 58.7%→83.0% (+24.3pt) | 65.4%→78.3% (**+12.9pt**) |
+| chain-2 pair, MID→CURRENT | 39.9%→65.8% (+25.9pt) | 39.2%→58.4% (**+19.2pt**) |
+
+Roughly half the previously-cited pooled improvement was population resampling, not the fix
+itself. **The fix is real and positive in both cases — only the magnitude was overstated.**
+Full output: `evaluation/rule0_am_isolated_fix_effects.json`.
+
+**Step 3**: `CEILING.md` and `V5_LOG.md` updated at the 4 locations carrying these claims
+(the part-8 compatibility-bridge section, the chain-2 symmetrization table, the step-26c
+reconciliation section, and the "isolated contribution" table) with dated
+(2026-08-13) superseded notes pointing to the two artifacts above. **Nothing deleted** — old
+figures remain, annotated. `83.0%/77.3%` themselves are unaffected (step 1 confirmed them
+exactly); only the causal attribution of how much of the historical delta came from the fix
+vs. an ordinary resample changes.
