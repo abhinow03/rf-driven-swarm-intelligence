@@ -1,0 +1,8155 @@
+{
+  "n_unanswerable": 502,
+  "category_counts": {
+    "multi_hop": 421,
+    "oscillation": 70,
+    "bucket_A_misrouted": 9,
+    "dispersed_converging_ambiguity": 1,
+    "terminal_transitioning": 1
+  },
+  "layer2_eligible_total": 1,
+  "layer3_eligible_total": 492,
+  "bucket_A_misrouted_total": 9,
+  "unanswerable_records": [
+    {
+      "i": 0,
+      "true_chain": [
+        "v_shape",
+        "diamond",
+        "converging",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 30,
+      "category": "multi_hop"
+    },
+    {
+      "i": 1,
+      "true_chain": [
+        "diamond",
+        "dispersed",
+        "v_shape",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 29,
+      "category": "multi_hop"
+    },
+    {
+      "i": 2,
+      "true_chain": [
+        "dispersed",
+        "column",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "oscillation"
+    },
+    {
+      "i": 3,
+      "true_chain": [
+        "diamond",
+        "shield",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "multi_hop"
+    },
+    {
+      "i": 4,
+      "true_chain": [
+        "diamond",
+        "column",
+        "diamond",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 25,
+      "category": "multi_hop"
+    },
+    {
+      "i": 7,
+      "true_chain": [
+        "shield",
+        "diamond",
+        "v_shape",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 29,
+      "category": "multi_hop"
+    },
+    {
+      "i": 8,
+      "true_chain": [
+        "shield",
+        "diamond",
+        "v_shape",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 30,
+      "category": "multi_hop"
+    },
+    {
+      "i": 9,
+      "true_chain": [
+        "column",
+        "dispersed",
+        "diamond",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 29,
+      "category": "multi_hop"
+    },
+    {
+      "i": 11,
+      "true_chain": [
+        "dispersed",
+        "shield",
+        "diamond",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 12,
+      "true_chain": [
+        "column",
+        "encirclement",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 13,
+      "true_chain": [
+        "column",
+        "dispersed",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 19,
+      "category": "multi_hop"
+    },
+    {
+      "i": 17,
+      "true_chain": [
+        "v_shape",
+        "dispersed",
+        "column",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 31,
+      "category": "multi_hop"
+    },
+    {
+      "i": 19,
+      "true_chain": [
+        "column",
+        "v_shape",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 20,
+      "true_chain": [
+        "dispersed",
+        "encirclement",
+        "dispersed",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 28,
+      "category": "multi_hop"
+    },
+    {
+      "i": 22,
+      "true_chain": [
+        "diamond",
+        "v_shape",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 15,
+      "category": "multi_hop"
+    },
+    {
+      "i": 23,
+      "true_chain": [
+        "column",
+        "diamond",
+        "encirclement",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 26,
+      "category": "multi_hop"
+    },
+    {
+      "i": 26,
+      "true_chain": [
+        "diamond",
+        "column",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 28,
+      "true_chain": [
+        "column",
+        "converging",
+        "v_shape",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 30,
+      "category": "multi_hop"
+    },
+    {
+      "i": 29,
+      "true_chain": [
+        "column",
+        "v_shape",
+        "shield",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 26,
+      "category": "multi_hop"
+    },
+    {
+      "i": 35,
+      "true_chain": [
+        "dispersed",
+        "diamond",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 37,
+      "true_chain": [
+        "shield",
+        "dispersed",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 40,
+      "true_chain": [
+        "diamond",
+        "column",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 42,
+      "true_chain": [
+        "shield",
+        "v_shape",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 43,
+      "true_chain": [
+        "dispersed",
+        "converging",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "multi_hop"
+    },
+    {
+      "i": 46,
+      "true_chain": [
+        "column",
+        "v_shape",
+        "column",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 48,
+      "true_chain": [
+        "converging",
+        "dispersed",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "oscillation"
+    },
+    {
+      "i": 49,
+      "true_chain": [
+        "shield",
+        "converging",
+        "column",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 30,
+      "category": "oscillation"
+    },
+    {
+      "i": 50,
+      "true_chain": [
+        "converging",
+        "encirclement",
+        "column",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 26,
+      "category": "multi_hop"
+    },
+    {
+      "i": 51,
+      "true_chain": [
+        "column",
+        "encirclement",
+        "diamond",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 24,
+      "category": "multi_hop"
+    },
+    {
+      "i": 52,
+      "true_chain": [
+        "diamond",
+        "converging",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 20,
+      "category": "oscillation"
+    },
+    {
+      "i": 57,
+      "true_chain": [
+        "diamond",
+        "column",
+        "converging",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 23,
+      "category": "oscillation"
+    },
+    {
+      "i": 59,
+      "true_chain": [
+        "column",
+        "converging",
+        "diamond",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 25,
+      "category": "multi_hop"
+    },
+    {
+      "i": 61,
+      "true_chain": [
+        "dispersed",
+        "column",
+        "encirclement",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 28,
+      "category": "multi_hop"
+    },
+    {
+      "i": 64,
+      "true_chain": [
+        "column",
+        "v_shape",
+        "column",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 26,
+      "category": "multi_hop"
+    },
+    {
+      "i": 65,
+      "true_chain": [
+        "encirclement",
+        "converging",
+        "column",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 28,
+      "category": "oscillation"
+    },
+    {
+      "i": 70,
+      "true_chain": [
+        "column",
+        "diamond",
+        "shield",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 26,
+      "category": "oscillation"
+    },
+    {
+      "i": 72,
+      "true_chain": [
+        "encirclement",
+        "column",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 73,
+      "true_chain": [
+        "diamond",
+        "dispersed",
+        "diamond",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 75,
+      "true_chain": [
+        "column",
+        "diamond",
+        "column",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 26,
+      "category": "multi_hop"
+    },
+    {
+      "i": 76,
+      "true_chain": [
+        "column",
+        "shield",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "multi_hop"
+    },
+    {
+      "i": 77,
+      "true_chain": [
+        "diamond",
+        "converging",
+        "shield",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 79,
+      "true_chain": [
+        "converging",
+        "shield",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 82,
+      "true_chain": [
+        "dispersed",
+        "converging",
+        "v_shape",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 85,
+      "true_chain": [
+        "diamond",
+        "column",
+        "dispersed",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 28,
+      "category": "multi_hop"
+    },
+    {
+      "i": 86,
+      "true_chain": [
+        "shield",
+        "column",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 14,
+      "category": "multi_hop"
+    },
+    {
+      "i": 87,
+      "true_chain": [
+        "converging",
+        "shield",
+        "dispersed",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 25,
+      "category": "multi_hop"
+    },
+    {
+      "i": 93,
+      "true_chain": [
+        "converging",
+        "v_shape",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 14,
+      "category": "multi_hop"
+    },
+    {
+      "i": 94,
+      "true_chain": [
+        "diamond",
+        "v_shape",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 97,
+      "true_chain": [
+        "shield",
+        "diamond",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 15,
+      "category": "multi_hop"
+    },
+    {
+      "i": 101,
+      "true_chain": [
+        "converging",
+        "diamond",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "multi_hop"
+    },
+    {
+      "i": 102,
+      "true_chain": [
+        "diamond",
+        "v_shape",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 103,
+      "true_chain": [
+        "dispersed",
+        "converging",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "oscillation"
+    },
+    {
+      "i": 105,
+      "true_chain": [
+        "shield",
+        "v_shape",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "A",
+      "subtype": null,
+      "guard_reasons": [],
+      "rules_key": [
+        "shield",
+        "v_shape"
+      ],
+      "n_windows": 17,
+      "category": "bucket_A_misrouted"
+    },
+    {
+      "i": 106,
+      "true_chain": [
+        "dispersed",
+        "diamond",
+        "shield",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 29,
+      "category": "multi_hop"
+    },
+    {
+      "i": 110,
+      "true_chain": [
+        "diamond",
+        "encirclement",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 113,
+      "true_chain": [
+        "diamond",
+        "column",
+        "converging",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 26,
+      "category": "multi_hop"
+    },
+    {
+      "i": 114,
+      "true_chain": [
+        "shield",
+        "column",
+        "dispersed",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 26,
+      "category": "multi_hop"
+    },
+    {
+      "i": 115,
+      "true_chain": [
+        "dispersed",
+        "diamond",
+        "converging",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 29,
+      "category": "multi_hop"
+    },
+    {
+      "i": 116,
+      "true_chain": [
+        "encirclement",
+        "dispersed",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 117,
+      "true_chain": [
+        "dispersed",
+        "diamond",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 19,
+      "category": "multi_hop"
+    },
+    {
+      "i": 118,
+      "true_chain": [
+        "diamond",
+        "column",
+        "converging",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 26,
+      "category": "multi_hop"
+    },
+    {
+      "i": 121,
+      "true_chain": [
+        "shield",
+        "encirclement",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "multi_hop"
+    },
+    {
+      "i": 126,
+      "true_chain": [
+        "diamond",
+        "v_shape",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 15,
+      "category": "multi_hop"
+    },
+    {
+      "i": 127,
+      "true_chain": [
+        "diamond",
+        "v_shape",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 14,
+      "category": "multi_hop"
+    },
+    {
+      "i": 128,
+      "true_chain": [
+        "column",
+        "converging",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 129,
+      "true_chain": [
+        "diamond",
+        "converging",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "multi_hop"
+    },
+    {
+      "i": 135,
+      "true_chain": [
+        "shield",
+        "diamond",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "oscillation"
+    },
+    {
+      "i": 138,
+      "true_chain": [
+        "converging",
+        "shield",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 140,
+      "true_chain": [
+        "encirclement",
+        "dispersed",
+        "converging",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 25,
+      "category": "multi_hop"
+    },
+    {
+      "i": 141,
+      "true_chain": [
+        "dispersed",
+        "v_shape",
+        "dispersed",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 28,
+      "category": "multi_hop"
+    },
+    {
+      "i": 142,
+      "true_chain": [
+        "encirclement",
+        "column",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 144,
+      "true_chain": [
+        "converging",
+        "dispersed",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "multi_hop"
+    },
+    {
+      "i": 145,
+      "true_chain": [
+        "shield",
+        "diamond",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 146,
+      "true_chain": [
+        "converging",
+        "dispersed",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "B",
+      "subtype": null,
+      "guard_reasons": [
+        "dispersed_converging_ambiguity"
+      ],
+      "rules_key": [
+        "converging",
+        "dispersed"
+      ],
+      "n_windows": 16,
+      "category": "dispersed_converging_ambiguity"
+    },
+    {
+      "i": 147,
+      "true_chain": [
+        "converging",
+        "encirclement",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 148,
+      "true_chain": [
+        "v_shape",
+        "column",
+        "shield",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 29,
+      "category": "multi_hop"
+    },
+    {
+      "i": 149,
+      "true_chain": [
+        "converging",
+        "diamond",
+        "v_shape",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 150,
+      "true_chain": [
+        "shield",
+        "column",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 15,
+      "category": "multi_hop"
+    },
+    {
+      "i": 152,
+      "true_chain": [
+        "converging",
+        "column",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 153,
+      "true_chain": [
+        "shield",
+        "v_shape",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 155,
+      "true_chain": [
+        "v_shape",
+        "shield",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "multi_hop"
+    },
+    {
+      "i": 156,
+      "true_chain": [
+        "diamond",
+        "v_shape",
+        "column",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 22,
+      "category": "oscillation"
+    },
+    {
+      "i": 158,
+      "true_chain": [
+        "converging",
+        "diamond",
+        "column",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 26,
+      "category": "multi_hop"
+    },
+    {
+      "i": 159,
+      "true_chain": [
+        "column",
+        "v_shape",
+        "converging",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 28,
+      "category": "multi_hop"
+    },
+    {
+      "i": 160,
+      "true_chain": [
+        "shield",
+        "encirclement",
+        "column",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 29,
+      "category": "multi_hop"
+    },
+    {
+      "i": 163,
+      "true_chain": [
+        "column",
+        "converging",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "oscillation"
+    },
+    {
+      "i": 165,
+      "true_chain": [
+        "column",
+        "v_shape",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 168,
+      "true_chain": [
+        "diamond",
+        "shield",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 169,
+      "true_chain": [
+        "dispersed",
+        "column",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "multi_hop"
+    },
+    {
+      "i": 173,
+      "true_chain": [
+        "column",
+        "converging",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "oscillation"
+    },
+    {
+      "i": 175,
+      "true_chain": [
+        "column",
+        "dispersed",
+        "column",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 176,
+      "true_chain": [
+        "converging",
+        "column",
+        "converging",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 28,
+      "category": "multi_hop"
+    },
+    {
+      "i": 177,
+      "true_chain": [
+        "encirclement",
+        "converging",
+        "shield",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 28,
+      "category": "multi_hop"
+    },
+    {
+      "i": 182,
+      "true_chain": [
+        "diamond",
+        "column",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "multi_hop"
+    },
+    {
+      "i": 185,
+      "true_chain": [
+        "column",
+        "shield",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 15,
+      "category": "multi_hop"
+    },
+    {
+      "i": 186,
+      "true_chain": [
+        "dispersed",
+        "column",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 187,
+      "true_chain": [
+        "diamond",
+        "v_shape",
+        "encirclement",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 30,
+      "category": "multi_hop"
+    },
+    {
+      "i": 188,
+      "true_chain": [
+        "column",
+        "v_shape",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 19,
+      "category": "multi_hop"
+    },
+    {
+      "i": 189,
+      "true_chain": [
+        "encirclement",
+        "column",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 15,
+      "category": "multi_hop"
+    },
+    {
+      "i": 191,
+      "true_chain": [
+        "diamond",
+        "column",
+        "diamond",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 28,
+      "category": "multi_hop"
+    },
+    {
+      "i": 193,
+      "true_chain": [
+        "column",
+        "v_shape",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 194,
+      "true_chain": [
+        "dispersed",
+        "encirclement",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "oscillation"
+    },
+    {
+      "i": 195,
+      "true_chain": [
+        "v_shape",
+        "encirclement",
+        "dispersed",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 196,
+      "true_chain": [
+        "encirclement",
+        "converging",
+        "column",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 198,
+      "true_chain": [
+        "shield",
+        "column",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 199,
+      "true_chain": [
+        "dispersed",
+        "column",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 200,
+      "true_chain": [
+        "shield",
+        "column",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 201,
+      "true_chain": [
+        "diamond",
+        "converging",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 15,
+      "category": "multi_hop"
+    },
+    {
+      "i": 203,
+      "true_chain": [
+        "column",
+        "diamond",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 204,
+      "true_chain": [
+        "dispersed",
+        "v_shape",
+        "shield",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 26,
+      "category": "multi_hop"
+    },
+    {
+      "i": 205,
+      "true_chain": [
+        "diamond",
+        "shield",
+        "diamond",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 28,
+      "category": "multi_hop"
+    },
+    {
+      "i": 208,
+      "true_chain": [
+        "column",
+        "dispersed",
+        "diamond",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 26,
+      "category": "multi_hop"
+    },
+    {
+      "i": 209,
+      "true_chain": [
+        "v_shape",
+        "diamond",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 210,
+      "true_chain": [
+        "v_shape",
+        "shield",
+        "v_shape",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 29,
+      "category": "multi_hop"
+    },
+    {
+      "i": 211,
+      "true_chain": [
+        "column",
+        "dispersed",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 212,
+      "true_chain": [
+        "column",
+        "v_shape",
+        "converging",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 213,
+      "true_chain": [
+        "shield",
+        "diamond",
+        "v_shape",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 24,
+      "category": "oscillation"
+    },
+    {
+      "i": 218,
+      "true_chain": [
+        "dispersed",
+        "encirclement",
+        "v_shape",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 23,
+      "category": "oscillation"
+    },
+    {
+      "i": 219,
+      "true_chain": [
+        "encirclement",
+        "converging",
+        "encirclement",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 28,
+      "category": "multi_hop"
+    },
+    {
+      "i": 220,
+      "true_chain": [
+        "dispersed",
+        "converging",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 15,
+      "category": "multi_hop"
+    },
+    {
+      "i": 221,
+      "true_chain": [
+        "shield",
+        "converging",
+        "column",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 30,
+      "category": "oscillation"
+    },
+    {
+      "i": 223,
+      "true_chain": [
+        "column",
+        "diamond",
+        "shield",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 224,
+      "true_chain": [
+        "diamond",
+        "column",
+        "v_shape",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 25,
+      "category": "oscillation"
+    },
+    {
+      "i": 226,
+      "true_chain": [
+        "shield",
+        "column",
+        "encirclement",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 230,
+      "true_chain": [
+        "encirclement",
+        "dispersed",
+        "v_shape",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 22,
+      "category": "multi_hop"
+    },
+    {
+      "i": 232,
+      "true_chain": [
+        "column",
+        "dispersed",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 14,
+      "category": "oscillation"
+    },
+    {
+      "i": 233,
+      "true_chain": [
+        "v_shape",
+        "dispersed",
+        "v_shape",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 26,
+      "category": "oscillation"
+    },
+    {
+      "i": 234,
+      "true_chain": [
+        "shield",
+        "dispersed",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 19,
+      "category": "multi_hop"
+    },
+    {
+      "i": 236,
+      "true_chain": [
+        "column",
+        "encirclement",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 15,
+      "category": "multi_hop"
+    },
+    {
+      "i": 240,
+      "true_chain": [
+        "v_shape",
+        "converging",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 243,
+      "true_chain": [
+        "v_shape",
+        "diamond",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "oscillation"
+    },
+    {
+      "i": 245,
+      "true_chain": [
+        "dispersed",
+        "encirclement",
+        "v_shape",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 246,
+      "true_chain": [
+        "shield",
+        "column",
+        "converging",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 29,
+      "category": "multi_hop"
+    },
+    {
+      "i": 253,
+      "true_chain": [
+        "encirclement",
+        "v_shape",
+        "shield",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 25,
+      "category": "multi_hop"
+    },
+    {
+      "i": 254,
+      "true_chain": [
+        "converging",
+        "column",
+        "encirclement",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 29,
+      "category": "multi_hop"
+    },
+    {
+      "i": 256,
+      "true_chain": [
+        "converging",
+        "dispersed",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 14,
+      "category": "multi_hop"
+    },
+    {
+      "i": 257,
+      "true_chain": [
+        "shield",
+        "dispersed",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 258,
+      "true_chain": [
+        "converging",
+        "dispersed",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "multi_hop"
+    },
+    {
+      "i": 260,
+      "true_chain": [
+        "converging",
+        "dispersed",
+        "column",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 26,
+      "category": "multi_hop"
+    },
+    {
+      "i": 261,
+      "true_chain": [
+        "encirclement",
+        "shield",
+        "v_shape",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 262,
+      "true_chain": [
+        "shield",
+        "converging",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 263,
+      "true_chain": [
+        "encirclement",
+        "converging",
+        "diamond",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 30,
+      "category": "multi_hop"
+    },
+    {
+      "i": 266,
+      "true_chain": [
+        "shield",
+        "column",
+        "dispersed",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 26,
+      "category": "multi_hop"
+    },
+    {
+      "i": 268,
+      "true_chain": [
+        "column",
+        "v_shape",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 14,
+      "category": "multi_hop"
+    },
+    {
+      "i": 273,
+      "true_chain": [
+        "diamond",
+        "converging",
+        "diamond",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 25,
+      "category": "multi_hop"
+    },
+    {
+      "i": 274,
+      "true_chain": [
+        "shield",
+        "v_shape",
+        "encirclement",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 26,
+      "category": "multi_hop"
+    },
+    {
+      "i": 276,
+      "true_chain": [
+        "diamond",
+        "encirclement",
+        "diamond",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 282,
+      "true_chain": [
+        "diamond",
+        "encirclement",
+        "shield",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 26,
+      "category": "multi_hop"
+    },
+    {
+      "i": 283,
+      "true_chain": [
+        "column",
+        "converging",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 286,
+      "true_chain": [
+        "dispersed",
+        "column",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 289,
+      "true_chain": [
+        "column",
+        "dispersed",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 290,
+      "true_chain": [
+        "dispersed",
+        "encirclement",
+        "shield",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 291,
+      "true_chain": [
+        "v_shape",
+        "encirclement",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "A",
+      "subtype": null,
+      "guard_reasons": [],
+      "rules_key": [
+        "v_shape",
+        "converging"
+      ],
+      "n_windows": 16,
+      "category": "bucket_A_misrouted"
+    },
+    {
+      "i": 292,
+      "true_chain": [
+        "column",
+        "dispersed",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "A",
+      "subtype": null,
+      "guard_reasons": [],
+      "rules_key": [
+        "dispersed",
+        "converging"
+      ],
+      "n_windows": 16,
+      "category": "bucket_A_misrouted"
+    },
+    {
+      "i": 293,
+      "true_chain": [
+        "v_shape",
+        "diamond",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "oscillation"
+    },
+    {
+      "i": 295,
+      "true_chain": [
+        "diamond",
+        "shield",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 15,
+      "category": "multi_hop"
+    },
+    {
+      "i": 296,
+      "true_chain": [
+        "encirclement",
+        "column",
+        "converging",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 24,
+      "category": "multi_hop"
+    },
+    {
+      "i": 297,
+      "true_chain": [
+        "encirclement",
+        "column",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "multi_hop"
+    },
+    {
+      "i": 298,
+      "true_chain": [
+        "column",
+        "v_shape",
+        "shield",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 26,
+      "category": "multi_hop"
+    },
+    {
+      "i": 304,
+      "true_chain": [
+        "shield",
+        "dispersed",
+        "column",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 305,
+      "true_chain": [
+        "column",
+        "converging",
+        "v_shape",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 306,
+      "true_chain": [
+        "v_shape",
+        "diamond",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "oscillation"
+    },
+    {
+      "i": 307,
+      "true_chain": [
+        "converging",
+        "dispersed",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 14,
+      "category": "oscillation"
+    },
+    {
+      "i": 312,
+      "true_chain": [
+        "column",
+        "shield",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "oscillation"
+    },
+    {
+      "i": 314,
+      "true_chain": [
+        "shield",
+        "v_shape",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "A",
+      "subtype": null,
+      "guard_reasons": [],
+      "rules_key": [
+        "shield",
+        "v_shape"
+      ],
+      "n_windows": 15,
+      "category": "bucket_A_misrouted"
+    },
+    {
+      "i": 315,
+      "true_chain": [
+        "diamond",
+        "shield",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 15,
+      "category": "multi_hop"
+    },
+    {
+      "i": 320,
+      "true_chain": [
+        "v_shape",
+        "column",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 19,
+      "category": "multi_hop"
+    },
+    {
+      "i": 321,
+      "true_chain": [
+        "encirclement",
+        "shield",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 15,
+      "category": "multi_hop"
+    },
+    {
+      "i": 323,
+      "true_chain": [
+        "encirclement",
+        "column",
+        "v_shape",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 25,
+      "category": "multi_hop"
+    },
+    {
+      "i": 324,
+      "true_chain": [
+        "dispersed",
+        "converging",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 326,
+      "true_chain": [
+        "v_shape",
+        "diamond",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 329,
+      "true_chain": [
+        "v_shape",
+        "dispersed",
+        "encirclement",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 29,
+      "category": "oscillation"
+    },
+    {
+      "i": 330,
+      "true_chain": [
+        "column",
+        "diamond",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 331,
+      "true_chain": [
+        "shield",
+        "encirclement",
+        "column",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "oscillation"
+    },
+    {
+      "i": 333,
+      "true_chain": [
+        "dispersed",
+        "encirclement",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 339,
+      "true_chain": [
+        "dispersed",
+        "column",
+        "v_shape",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 25,
+      "category": "multi_hop"
+    },
+    {
+      "i": 340,
+      "true_chain": [
+        "shield",
+        "encirclement",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "oscillation"
+    },
+    {
+      "i": 344,
+      "true_chain": [
+        "converging",
+        "diamond",
+        "column",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 31,
+      "category": "multi_hop"
+    },
+    {
+      "i": 348,
+      "true_chain": [
+        "dispersed",
+        "column",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 350,
+      "true_chain": [
+        "converging",
+        "encirclement",
+        "converging",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 29,
+      "category": "multi_hop"
+    },
+    {
+      "i": 352,
+      "true_chain": [
+        "v_shape",
+        "diamond",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "oscillation"
+    },
+    {
+      "i": 353,
+      "true_chain": [
+        "shield",
+        "diamond",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 19,
+      "category": "multi_hop"
+    },
+    {
+      "i": 357,
+      "true_chain": [
+        "shield",
+        "v_shape",
+        "converging",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 28,
+      "category": "multi_hop"
+    },
+    {
+      "i": 362,
+      "true_chain": [
+        "encirclement",
+        "v_shape",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 15,
+      "category": "multi_hop"
+    },
+    {
+      "i": 363,
+      "true_chain": [
+        "v_shape",
+        "dispersed",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 364,
+      "true_chain": [
+        "encirclement",
+        "v_shape",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 365,
+      "true_chain": [
+        "diamond",
+        "v_shape",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 370,
+      "true_chain": [
+        "column",
+        "v_shape",
+        "shield",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 25,
+      "category": "multi_hop"
+    },
+    {
+      "i": 373,
+      "true_chain": [
+        "v_shape",
+        "shield",
+        "v_shape",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 25,
+      "category": "multi_hop"
+    },
+    {
+      "i": 376,
+      "true_chain": [
+        "column",
+        "encirclement",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 381,
+      "true_chain": [
+        "v_shape",
+        "column",
+        "converging",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 28,
+      "category": "oscillation"
+    },
+    {
+      "i": 382,
+      "true_chain": [
+        "dispersed",
+        "shield",
+        "diamond",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 383,
+      "true_chain": [
+        "v_shape",
+        "dispersed",
+        "diamond",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 384,
+      "true_chain": [
+        "encirclement",
+        "diamond",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "oscillation"
+    },
+    {
+      "i": 385,
+      "true_chain": [
+        "converging",
+        "dispersed",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "A",
+      "subtype": null,
+      "guard_reasons": [],
+      "rules_key": [
+        "dispersed",
+        "converging"
+      ],
+      "n_windows": 17,
+      "category": "bucket_A_misrouted"
+    },
+    {
+      "i": 386,
+      "true_chain": [
+        "diamond",
+        "column",
+        "encirclement",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 26,
+      "category": "multi_hop"
+    },
+    {
+      "i": 388,
+      "true_chain": [
+        "v_shape",
+        "dispersed",
+        "v_shape",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 390,
+      "true_chain": [
+        "shield",
+        "diamond",
+        "v_shape",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 391,
+      "true_chain": [
+        "encirclement",
+        "converging",
+        "shield",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 28,
+      "category": "oscillation"
+    },
+    {
+      "i": 394,
+      "true_chain": [
+        "column",
+        "v_shape",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "oscillation"
+    },
+    {
+      "i": 395,
+      "true_chain": [
+        "column",
+        "diamond",
+        "encirclement",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 399,
+      "true_chain": [
+        "v_shape",
+        "column",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 402,
+      "true_chain": [
+        "converging",
+        "v_shape",
+        "converging",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 405,
+      "true_chain": [
+        "v_shape",
+        "shield",
+        "converging",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 29,
+      "category": "oscillation"
+    },
+    {
+      "i": 406,
+      "true_chain": [
+        "converging",
+        "shield",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 15,
+      "category": "oscillation"
+    },
+    {
+      "i": 407,
+      "true_chain": [
+        "v_shape",
+        "shield",
+        "column",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 26,
+      "category": "multi_hop"
+    },
+    {
+      "i": 409,
+      "true_chain": [
+        "v_shape",
+        "column",
+        "shield",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 29,
+      "category": "multi_hop"
+    },
+    {
+      "i": 410,
+      "true_chain": [
+        "v_shape",
+        "encirclement",
+        "shield",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 26,
+      "category": "multi_hop"
+    },
+    {
+      "i": 411,
+      "true_chain": [
+        "converging",
+        "v_shape",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 15,
+      "category": "multi_hop"
+    },
+    {
+      "i": 413,
+      "true_chain": [
+        "dispersed",
+        "converging",
+        "dispersed",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 29,
+      "category": "oscillation"
+    },
+    {
+      "i": 414,
+      "true_chain": [
+        "converging",
+        "shield",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 15,
+      "category": "multi_hop"
+    },
+    {
+      "i": 416,
+      "true_chain": [
+        "dispersed",
+        "converging",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "multi_hop"
+    },
+    {
+      "i": 417,
+      "true_chain": [
+        "v_shape",
+        "diamond",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "multi_hop"
+    },
+    {
+      "i": 419,
+      "true_chain": [
+        "column",
+        "converging",
+        "encirclement",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 26,
+      "category": "multi_hop"
+    },
+    {
+      "i": 421,
+      "true_chain": [
+        "encirclement",
+        "v_shape",
+        "shield",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 31,
+      "category": "multi_hop"
+    },
+    {
+      "i": 422,
+      "true_chain": [
+        "v_shape",
+        "diamond",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "multi_hop"
+    },
+    {
+      "i": 423,
+      "true_chain": [
+        "converging",
+        "dispersed",
+        "v_shape",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 26,
+      "category": "oscillation"
+    },
+    {
+      "i": 424,
+      "true_chain": [
+        "converging",
+        "shield",
+        "encirclement",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 28,
+      "category": "multi_hop"
+    },
+    {
+      "i": 427,
+      "true_chain": [
+        "v_shape",
+        "column",
+        "dispersed",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 29,
+      "category": "multi_hop"
+    },
+    {
+      "i": 428,
+      "true_chain": [
+        "v_shape",
+        "diamond",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "oscillation"
+    },
+    {
+      "i": 435,
+      "true_chain": [
+        "column",
+        "dispersed",
+        "encirclement",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 442,
+      "true_chain": [
+        "dispersed",
+        "converging",
+        "diamond",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 28,
+      "category": "oscillation"
+    },
+    {
+      "i": 444,
+      "true_chain": [
+        "column",
+        "v_shape",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 445,
+      "true_chain": [
+        "column",
+        "encirclement",
+        "dispersed",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "oscillation"
+    },
+    {
+      "i": 449,
+      "true_chain": [
+        "diamond",
+        "converging",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "multi_hop"
+    },
+    {
+      "i": 451,
+      "true_chain": [
+        "diamond",
+        "column",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 15,
+      "category": "multi_hop"
+    },
+    {
+      "i": 452,
+      "true_chain": [
+        "diamond",
+        "encirclement",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 454,
+      "true_chain": [
+        "column",
+        "v_shape",
+        "encirclement",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 26,
+      "category": "multi_hop"
+    },
+    {
+      "i": 455,
+      "true_chain": [
+        "shield",
+        "encirclement",
+        "column",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 28,
+      "category": "multi_hop"
+    },
+    {
+      "i": 456,
+      "true_chain": [
+        "v_shape",
+        "encirclement",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 15,
+      "category": "multi_hop"
+    },
+    {
+      "i": 458,
+      "true_chain": [
+        "column",
+        "converging",
+        "v_shape",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 26,
+      "category": "multi_hop"
+    },
+    {
+      "i": 459,
+      "true_chain": [
+        "converging",
+        "v_shape",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 462,
+      "true_chain": [
+        "dispersed",
+        "shield",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 14,
+      "category": "oscillation"
+    },
+    {
+      "i": 463,
+      "true_chain": [
+        "v_shape",
+        "converging",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 15,
+      "category": "multi_hop"
+    },
+    {
+      "i": 465,
+      "true_chain": [
+        "shield",
+        "column",
+        "encirclement",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 466,
+      "true_chain": [
+        "diamond",
+        "converging",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 467,
+      "true_chain": [
+        "encirclement",
+        "dispersed",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "multi_hop"
+    },
+    {
+      "i": 474,
+      "true_chain": [
+        "encirclement",
+        "dispersed",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "multi_hop"
+    },
+    {
+      "i": 476,
+      "true_chain": [
+        "shield",
+        "diamond",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 478,
+      "true_chain": [
+        "diamond",
+        "converging",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "multi_hop"
+    },
+    {
+      "i": 479,
+      "true_chain": [
+        "encirclement",
+        "converging",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 19,
+      "category": "multi_hop"
+    },
+    {
+      "i": 481,
+      "true_chain": [
+        "v_shape",
+        "converging",
+        "column",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 28,
+      "category": "multi_hop"
+    },
+    {
+      "i": 483,
+      "true_chain": [
+        "encirclement",
+        "diamond",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 486,
+      "true_chain": [
+        "v_shape",
+        "converging",
+        "encirclement",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 28,
+      "category": "multi_hop"
+    },
+    {
+      "i": 491,
+      "true_chain": [
+        "dispersed",
+        "v_shape",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 495,
+      "true_chain": [
+        "converging",
+        "v_shape",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "oscillation"
+    },
+    {
+      "i": 497,
+      "true_chain": [
+        "converging",
+        "column",
+        "v_shape",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 25,
+      "category": "multi_hop"
+    },
+    {
+      "i": 501,
+      "true_chain": [
+        "column",
+        "converging",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 502,
+      "true_chain": [
+        "shield",
+        "column",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 503,
+      "true_chain": [
+        "v_shape",
+        "converging",
+        "v_shape",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 508,
+      "true_chain": [
+        "v_shape",
+        "encirclement",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 509,
+      "true_chain": [
+        "encirclement",
+        "dispersed",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 511,
+      "true_chain": [
+        "v_shape",
+        "encirclement",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 14,
+      "category": "oscillation"
+    },
+    {
+      "i": 512,
+      "true_chain": [
+        "column",
+        "converging",
+        "v_shape",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 23,
+      "category": "oscillation"
+    },
+    {
+      "i": 513,
+      "true_chain": [
+        "v_shape",
+        "converging",
+        "column",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 30,
+      "category": "multi_hop"
+    },
+    {
+      "i": 519,
+      "true_chain": [
+        "v_shape",
+        "shield",
+        "converging",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 26,
+      "category": "multi_hop"
+    },
+    {
+      "i": 520,
+      "true_chain": [
+        "dispersed",
+        "column",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "A",
+      "subtype": null,
+      "guard_reasons": [],
+      "rules_key": [
+        "column",
+        "encirclement"
+      ],
+      "n_windows": 15,
+      "category": "bucket_A_misrouted"
+    },
+    {
+      "i": 523,
+      "true_chain": [
+        "v_shape",
+        "diamond",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 525,
+      "true_chain": [
+        "dispersed",
+        "v_shape",
+        "encirclement",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 25,
+      "category": "oscillation"
+    },
+    {
+      "i": 526,
+      "true_chain": [
+        "v_shape",
+        "converging",
+        "dispersed",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 28,
+      "category": "oscillation"
+    },
+    {
+      "i": 528,
+      "true_chain": [
+        "encirclement",
+        "dispersed",
+        "column",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 28,
+      "category": "multi_hop"
+    },
+    {
+      "i": 530,
+      "true_chain": [
+        "dispersed",
+        "converging",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 19,
+      "category": "multi_hop"
+    },
+    {
+      "i": 531,
+      "true_chain": [
+        "v_shape",
+        "dispersed",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 532,
+      "true_chain": [
+        "v_shape",
+        "converging",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 15,
+      "category": "multi_hop"
+    },
+    {
+      "i": 536,
+      "true_chain": [
+        "diamond",
+        "encirclement",
+        "v_shape",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 29,
+      "category": "multi_hop"
+    },
+    {
+      "i": 537,
+      "true_chain": [
+        "encirclement",
+        "v_shape",
+        "encirclement",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 539,
+      "true_chain": [
+        "shield",
+        "v_shape",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 540,
+      "true_chain": [
+        "diamond",
+        "shield",
+        "dispersed",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 541,
+      "true_chain": [
+        "column",
+        "v_shape",
+        "column",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 30,
+      "category": "multi_hop"
+    },
+    {
+      "i": 542,
+      "true_chain": [
+        "dispersed",
+        "converging",
+        "dispersed",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 544,
+      "true_chain": [
+        "diamond",
+        "column",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 546,
+      "true_chain": [
+        "shield",
+        "diamond",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "multi_hop"
+    },
+    {
+      "i": 553,
+      "true_chain": [
+        "dispersed",
+        "encirclement",
+        "converging",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 24,
+      "category": "multi_hop"
+    },
+    {
+      "i": 554,
+      "true_chain": [
+        "v_shape",
+        "column",
+        "converging",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 555,
+      "true_chain": [
+        "converging",
+        "shield",
+        "encirclement",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 26,
+      "category": "multi_hop"
+    },
+    {
+      "i": 556,
+      "true_chain": [
+        "diamond",
+        "dispersed",
+        "converging",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 26,
+      "category": "multi_hop"
+    },
+    {
+      "i": 557,
+      "true_chain": [
+        "dispersed",
+        "v_shape",
+        "dispersed",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 29,
+      "category": "multi_hop"
+    },
+    {
+      "i": 558,
+      "true_chain": [
+        "column",
+        "diamond",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 15,
+      "category": "multi_hop"
+    },
+    {
+      "i": 561,
+      "true_chain": [
+        "converging",
+        "v_shape",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "multi_hop"
+    },
+    {
+      "i": 562,
+      "true_chain": [
+        "diamond",
+        "encirclement",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 563,
+      "true_chain": [
+        "encirclement",
+        "dispersed",
+        "v_shape",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 25,
+      "category": "multi_hop"
+    },
+    {
+      "i": 564,
+      "true_chain": [
+        "encirclement",
+        "column",
+        "shield",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 26,
+      "category": "multi_hop"
+    },
+    {
+      "i": 568,
+      "true_chain": [
+        "diamond",
+        "shield",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "multi_hop"
+    },
+    {
+      "i": 569,
+      "true_chain": [
+        "diamond",
+        "shield",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 570,
+      "true_chain": [
+        "dispersed",
+        "shield",
+        "encirclement",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 571,
+      "true_chain": [
+        "column",
+        "shield",
+        "diamond",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 28,
+      "category": "multi_hop"
+    },
+    {
+      "i": 573,
+      "true_chain": [
+        "shield",
+        "dispersed",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 15,
+      "category": "multi_hop"
+    },
+    {
+      "i": 574,
+      "true_chain": [
+        "column",
+        "diamond",
+        "column",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "A",
+      "subtype": null,
+      "guard_reasons": [],
+      "rules_key": [
+        "diamond",
+        "dispersed"
+      ],
+      "n_windows": 26,
+      "category": "bucket_A_misrouted"
+    },
+    {
+      "i": 576,
+      "true_chain": [
+        "dispersed",
+        "column",
+        "dispersed",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 28,
+      "category": "multi_hop"
+    },
+    {
+      "i": 579,
+      "true_chain": [
+        "v_shape",
+        "converging",
+        "v_shape",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 26,
+      "category": "multi_hop"
+    },
+    {
+      "i": 580,
+      "true_chain": [
+        "v_shape",
+        "diamond",
+        "dispersed",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 28,
+      "category": "multi_hop"
+    },
+    {
+      "i": 583,
+      "true_chain": [
+        "shield",
+        "diamond",
+        "column",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 28,
+      "category": "multi_hop"
+    },
+    {
+      "i": 584,
+      "true_chain": [
+        "dispersed",
+        "encirclement",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 15,
+      "category": "multi_hop"
+    },
+    {
+      "i": 585,
+      "true_chain": [
+        "shield",
+        "column",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 19,
+      "category": "oscillation"
+    },
+    {
+      "i": 586,
+      "true_chain": [
+        "diamond",
+        "column",
+        "encirclement",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 31,
+      "category": "multi_hop"
+    },
+    {
+      "i": 587,
+      "true_chain": [
+        "shield",
+        "v_shape",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 588,
+      "true_chain": [
+        "dispersed",
+        "column",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 15,
+      "category": "multi_hop"
+    },
+    {
+      "i": 590,
+      "true_chain": [
+        "shield",
+        "column",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 15,
+      "category": "multi_hop"
+    },
+    {
+      "i": 593,
+      "true_chain": [
+        "dispersed",
+        "v_shape",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 595,
+      "true_chain": [
+        "shield",
+        "dispersed",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 596,
+      "true_chain": [
+        "encirclement",
+        "converging",
+        "shield",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 29,
+      "category": "multi_hop"
+    },
+    {
+      "i": 597,
+      "true_chain": [
+        "column",
+        "converging",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 599,
+      "true_chain": [
+        "v_shape",
+        "diamond",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 601,
+      "true_chain": [
+        "diamond",
+        "dispersed",
+        "converging",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 29,
+      "category": "multi_hop"
+    },
+    {
+      "i": 602,
+      "true_chain": [
+        "dispersed",
+        "v_shape",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 603,
+      "true_chain": [
+        "encirclement",
+        "column",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 605,
+      "true_chain": [
+        "column",
+        "shield",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 14,
+      "category": "multi_hop"
+    },
+    {
+      "i": 606,
+      "true_chain": [
+        "shield",
+        "v_shape",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "multi_hop"
+    },
+    {
+      "i": 607,
+      "true_chain": [
+        "diamond",
+        "encirclement",
+        "converging",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 28,
+      "category": "multi_hop"
+    },
+    {
+      "i": 609,
+      "true_chain": [
+        "column",
+        "encirclement",
+        "dispersed",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 26,
+      "category": "multi_hop"
+    },
+    {
+      "i": 611,
+      "true_chain": [
+        "dispersed",
+        "column",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "A",
+      "subtype": null,
+      "guard_reasons": [],
+      "rules_key": [
+        "column",
+        "v_shape"
+      ],
+      "n_windows": 17,
+      "category": "bucket_A_misrouted"
+    },
+    {
+      "i": 612,
+      "true_chain": [
+        "encirclement",
+        "dispersed",
+        "converging",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 28,
+      "category": "multi_hop"
+    },
+    {
+      "i": 613,
+      "true_chain": [
+        "v_shape",
+        "dispersed",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 614,
+      "true_chain": [
+        "encirclement",
+        "column",
+        "encirclement",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 25,
+      "category": "multi_hop"
+    },
+    {
+      "i": 617,
+      "true_chain": [
+        "dispersed",
+        "diamond",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 618,
+      "true_chain": [
+        "converging",
+        "dispersed",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 14,
+      "category": "multi_hop"
+    },
+    {
+      "i": 619,
+      "true_chain": [
+        "encirclement",
+        "dispersed",
+        "converging",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 621,
+      "true_chain": [
+        "column",
+        "v_shape",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 14,
+      "category": "oscillation"
+    },
+    {
+      "i": 622,
+      "true_chain": [
+        "column",
+        "shield",
+        "dispersed",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 28,
+      "category": "multi_hop"
+    },
+    {
+      "i": 623,
+      "true_chain": [
+        "encirclement",
+        "column",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 624,
+      "true_chain": [
+        "diamond",
+        "dispersed",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 629,
+      "true_chain": [
+        "encirclement",
+        "shield",
+        "column",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "oscillation"
+    },
+    {
+      "i": 633,
+      "true_chain": [
+        "column",
+        "v_shape",
+        "column",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 634,
+      "true_chain": [
+        "diamond",
+        "column",
+        "v_shape",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 28,
+      "category": "multi_hop"
+    },
+    {
+      "i": 637,
+      "true_chain": [
+        "encirclement",
+        "diamond",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 639,
+      "true_chain": [
+        "shield",
+        "v_shape",
+        "converging",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 26,
+      "category": "multi_hop"
+    },
+    {
+      "i": 640,
+      "true_chain": [
+        "column",
+        "shield",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 15,
+      "category": "oscillation"
+    },
+    {
+      "i": 641,
+      "true_chain": [
+        "diamond",
+        "shield",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 642,
+      "true_chain": [
+        "v_shape",
+        "dispersed",
+        "column",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 24,
+      "category": "multi_hop"
+    },
+    {
+      "i": 643,
+      "true_chain": [
+        "v_shape",
+        "converging",
+        "dispersed",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 647,
+      "true_chain": [
+        "diamond",
+        "v_shape",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "oscillation"
+    },
+    {
+      "i": 648,
+      "true_chain": [
+        "converging",
+        "dispersed",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "multi_hop"
+    },
+    {
+      "i": 649,
+      "true_chain": [
+        "converging",
+        "diamond",
+        "column",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 28,
+      "category": "multi_hop"
+    },
+    {
+      "i": 650,
+      "true_chain": [
+        "v_shape",
+        "converging",
+        "column",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 26,
+      "category": "multi_hop"
+    },
+    {
+      "i": 651,
+      "true_chain": [
+        "diamond",
+        "encirclement",
+        "converging",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 24,
+      "category": "multi_hop"
+    },
+    {
+      "i": 653,
+      "true_chain": [
+        "converging",
+        "diamond",
+        "encirclement",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 655,
+      "true_chain": [
+        "converging",
+        "dispersed",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "multi_hop"
+    },
+    {
+      "i": 657,
+      "true_chain": [
+        "diamond",
+        "column",
+        "converging",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 28,
+      "category": "multi_hop"
+    },
+    {
+      "i": 660,
+      "true_chain": [
+        "shield",
+        "dispersed",
+        "column",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 662,
+      "true_chain": [
+        "v_shape",
+        "encirclement",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 663,
+      "true_chain": [
+        "shield",
+        "dispersed",
+        "encirclement",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 29,
+      "category": "multi_hop"
+    },
+    {
+      "i": 664,
+      "true_chain": [
+        "dispersed",
+        "v_shape",
+        "column",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 29,
+      "category": "multi_hop"
+    },
+    {
+      "i": 667,
+      "true_chain": [
+        "shield",
+        "column",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 669,
+      "true_chain": [
+        "v_shape",
+        "diamond",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 670,
+      "true_chain": [
+        "diamond",
+        "column",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 14,
+      "category": "multi_hop"
+    },
+    {
+      "i": 671,
+      "true_chain": [
+        "v_shape",
+        "converging",
+        "encirclement",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 29,
+      "category": "multi_hop"
+    },
+    {
+      "i": 677,
+      "true_chain": [
+        "dispersed",
+        "shield",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "oscillation"
+    },
+    {
+      "i": 685,
+      "true_chain": [
+        "shield",
+        "column",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "oscillation"
+    },
+    {
+      "i": 686,
+      "true_chain": [
+        "v_shape",
+        "encirclement",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 692,
+      "true_chain": [
+        "converging",
+        "v_shape",
+        "diamond",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 26,
+      "category": "multi_hop"
+    },
+    {
+      "i": 694,
+      "true_chain": [
+        "encirclement",
+        "diamond",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 695,
+      "true_chain": [
+        "encirclement",
+        "converging",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "multi_hop"
+    },
+    {
+      "i": 696,
+      "true_chain": [
+        "v_shape",
+        "column",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 15,
+      "category": "multi_hop"
+    },
+    {
+      "i": 697,
+      "true_chain": [
+        "shield",
+        "v_shape",
+        "shield",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 28,
+      "category": "multi_hop"
+    },
+    {
+      "i": 698,
+      "true_chain": [
+        "column",
+        "shield",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 699,
+      "true_chain": [
+        "column",
+        "converging",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 15,
+      "category": "multi_hop"
+    },
+    {
+      "i": 700,
+      "true_chain": [
+        "encirclement",
+        "diamond",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 701,
+      "true_chain": [
+        "converging",
+        "dispersed",
+        "v_shape",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 704,
+      "true_chain": [
+        "column",
+        "diamond",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 706,
+      "true_chain": [
+        "diamond",
+        "shield",
+        "encirclement",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 707,
+      "true_chain": [
+        "column",
+        "shield",
+        "encirclement",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 708,
+      "true_chain": [
+        "dispersed",
+        "shield",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 710,
+      "true_chain": [
+        "converging",
+        "v_shape",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 716,
+      "true_chain": [
+        "dispersed",
+        "shield",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 15,
+      "category": "multi_hop"
+    },
+    {
+      "i": 718,
+      "true_chain": [
+        "v_shape",
+        "diamond",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "oscillation"
+    },
+    {
+      "i": 728,
+      "true_chain": [
+        "diamond",
+        "v_shape",
+        "diamond",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 29,
+      "category": "multi_hop"
+    },
+    {
+      "i": 730,
+      "true_chain": [
+        "shield",
+        "diamond",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 15,
+      "category": "multi_hop"
+    },
+    {
+      "i": 731,
+      "true_chain": [
+        "v_shape",
+        "converging",
+        "diamond",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "oscillation"
+    },
+    {
+      "i": 732,
+      "true_chain": [
+        "column",
+        "v_shape",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "multi_hop"
+    },
+    {
+      "i": 733,
+      "true_chain": [
+        "encirclement",
+        "diamond",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 14,
+      "category": "multi_hop"
+    },
+    {
+      "i": 735,
+      "true_chain": [
+        "dispersed",
+        "column",
+        "diamond",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 32,
+      "category": "multi_hop"
+    },
+    {
+      "i": 738,
+      "true_chain": [
+        "v_shape",
+        "column",
+        "encirclement",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 25,
+      "category": "multi_hop"
+    },
+    {
+      "i": 742,
+      "true_chain": [
+        "diamond",
+        "shield",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 20,
+      "category": "oscillation"
+    },
+    {
+      "i": 744,
+      "true_chain": [
+        "diamond",
+        "shield",
+        "encirclement",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 28,
+      "category": "oscillation"
+    },
+    {
+      "i": 748,
+      "true_chain": [
+        "v_shape",
+        "encirclement",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 749,
+      "true_chain": [
+        "column",
+        "shield",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 750,
+      "true_chain": [
+        "shield",
+        "dispersed",
+        "column",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 751,
+      "true_chain": [
+        "diamond",
+        "column",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "multi_hop"
+    },
+    {
+      "i": 756,
+      "true_chain": [
+        "encirclement",
+        "column",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 757,
+      "true_chain": [
+        "column",
+        "diamond",
+        "v_shape",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 762,
+      "true_chain": [
+        "diamond",
+        "encirclement",
+        "v_shape",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 28,
+      "category": "oscillation"
+    },
+    {
+      "i": 764,
+      "true_chain": [
+        "dispersed",
+        "encirclement",
+        "dispersed",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 26,
+      "category": "oscillation"
+    },
+    {
+      "i": 765,
+      "true_chain": [
+        "diamond",
+        "dispersed",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "oscillation"
+    },
+    {
+      "i": 766,
+      "true_chain": [
+        "dispersed",
+        "column",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "multi_hop"
+    },
+    {
+      "i": 767,
+      "true_chain": [
+        "column",
+        "v_shape",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 768,
+      "true_chain": [
+        "dispersed",
+        "v_shape",
+        "dispersed",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 771,
+      "true_chain": [
+        "v_shape",
+        "dispersed",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 15,
+      "category": "multi_hop"
+    },
+    {
+      "i": 772,
+      "true_chain": [
+        "dispersed",
+        "diamond",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "multi_hop"
+    },
+    {
+      "i": 773,
+      "true_chain": [
+        "converging",
+        "diamond",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 776,
+      "true_chain": [
+        "diamond",
+        "encirclement",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 15,
+      "category": "multi_hop"
+    },
+    {
+      "i": 777,
+      "true_chain": [
+        "diamond",
+        "converging",
+        "diamond",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 29,
+      "category": "multi_hop"
+    },
+    {
+      "i": 780,
+      "true_chain": [
+        "column",
+        "v_shape",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 781,
+      "true_chain": [
+        "encirclement",
+        "v_shape",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "multi_hop"
+    },
+    {
+      "i": 783,
+      "true_chain": [
+        "diamond",
+        "shield",
+        "column",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 25,
+      "category": "multi_hop"
+    },
+    {
+      "i": 786,
+      "true_chain": [
+        "dispersed",
+        "shield",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "oscillation"
+    },
+    {
+      "i": 787,
+      "true_chain": [
+        "dispersed",
+        "column",
+        "converging",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 30,
+      "category": "multi_hop"
+    },
+    {
+      "i": 788,
+      "true_chain": [
+        "diamond",
+        "shield",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 790,
+      "true_chain": [
+        "converging",
+        "v_shape",
+        "diamond",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 28,
+      "category": "multi_hop"
+    },
+    {
+      "i": 792,
+      "true_chain": [
+        "diamond",
+        "shield",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "multi_hop"
+    },
+    {
+      "i": 793,
+      "true_chain": [
+        "v_shape",
+        "shield",
+        "converging",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 28,
+      "category": "multi_hop"
+    },
+    {
+      "i": 794,
+      "true_chain": [
+        "diamond",
+        "shield",
+        "dispersed",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 797,
+      "true_chain": [
+        "diamond",
+        "converging",
+        "diamond",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 799,
+      "true_chain": [
+        "encirclement",
+        "shield",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "multi_hop"
+    },
+    {
+      "i": 802,
+      "true_chain": [
+        "column",
+        "shield",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 803,
+      "true_chain": [
+        "encirclement",
+        "dispersed",
+        "shield",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 28,
+      "category": "multi_hop"
+    },
+    {
+      "i": 805,
+      "true_chain": [
+        "dispersed",
+        "encirclement",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 806,
+      "true_chain": [
+        "converging",
+        "dispersed",
+        "encirclement",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 28,
+      "category": "multi_hop"
+    },
+    {
+      "i": 807,
+      "true_chain": [
+        "shield",
+        "diamond",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 810,
+      "true_chain": [
+        "dispersed",
+        "converging",
+        "v_shape",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 28,
+      "category": "multi_hop"
+    },
+    {
+      "i": 811,
+      "true_chain": [
+        "column",
+        "v_shape",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "multi_hop"
+    },
+    {
+      "i": 816,
+      "true_chain": [
+        "converging",
+        "dispersed",
+        "column",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 817,
+      "true_chain": [
+        "converging",
+        "encirclement",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 819,
+      "true_chain": [
+        "diamond",
+        "encirclement",
+        "column",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 26,
+      "category": "multi_hop"
+    },
+    {
+      "i": 821,
+      "true_chain": [
+        "dispersed",
+        "shield",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "oscillation"
+    },
+    {
+      "i": 824,
+      "true_chain": [
+        "encirclement",
+        "shield",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 15,
+      "category": "multi_hop"
+    },
+    {
+      "i": 825,
+      "true_chain": [
+        "shield",
+        "v_shape",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 829,
+      "true_chain": [
+        "converging",
+        "column",
+        "encirclement",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 831,
+      "true_chain": [
+        "diamond",
+        "converging",
+        "shield",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 26,
+      "category": "multi_hop"
+    },
+    {
+      "i": 832,
+      "true_chain": [
+        "v_shape",
+        "column",
+        "converging",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 24,
+      "category": "oscillation"
+    },
+    {
+      "i": 833,
+      "true_chain": [
+        "column",
+        "converging",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 15,
+      "category": "multi_hop"
+    },
+    {
+      "i": 834,
+      "true_chain": [
+        "dispersed",
+        "converging",
+        "shield",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 31,
+      "category": "oscillation"
+    },
+    {
+      "i": 836,
+      "true_chain": [
+        "shield",
+        "converging",
+        "shield",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 839,
+      "true_chain": [
+        "converging",
+        "dispersed",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 840,
+      "true_chain": [
+        "encirclement",
+        "v_shape",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "multi_hop"
+    },
+    {
+      "i": 841,
+      "true_chain": [
+        "diamond",
+        "dispersed",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 844,
+      "true_chain": [
+        "column",
+        "diamond",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 845,
+      "true_chain": [
+        "shield",
+        "column",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 846,
+      "true_chain": [
+        "encirclement",
+        "diamond",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 19,
+      "category": "multi_hop"
+    },
+    {
+      "i": 847,
+      "true_chain": [
+        "shield",
+        "v_shape",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 21,
+      "category": "multi_hop"
+    },
+    {
+      "i": 848,
+      "true_chain": [
+        "diamond",
+        "encirclement",
+        "v_shape",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 849,
+      "true_chain": [
+        "diamond",
+        "v_shape",
+        "column",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 29,
+      "category": "multi_hop"
+    },
+    {
+      "i": 851,
+      "true_chain": [
+        "shield",
+        "converging",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 853,
+      "true_chain": [
+        "shield",
+        "diamond",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 15,
+      "category": "multi_hop"
+    },
+    {
+      "i": 854,
+      "true_chain": [
+        "encirclement",
+        "converging",
+        "shield",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 28,
+      "category": "oscillation"
+    },
+    {
+      "i": 858,
+      "true_chain": [
+        "column",
+        "v_shape",
+        "encirclement",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 26,
+      "category": "multi_hop"
+    },
+    {
+      "i": 859,
+      "true_chain": [
+        "diamond",
+        "converging",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 15,
+      "category": "multi_hop"
+    },
+    {
+      "i": 861,
+      "true_chain": [
+        "encirclement",
+        "dispersed",
+        "converging",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 25,
+      "category": "multi_hop"
+    },
+    {
+      "i": 862,
+      "true_chain": [
+        "encirclement",
+        "column",
+        "converging",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 865,
+      "true_chain": [
+        "v_shape",
+        "shield",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 19,
+      "category": "multi_hop"
+    },
+    {
+      "i": 866,
+      "true_chain": [
+        "dispersed",
+        "diamond",
+        "v_shape",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 867,
+      "true_chain": [
+        "column",
+        "diamond",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 868,
+      "true_chain": [
+        "encirclement",
+        "dispersed",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 19,
+      "category": "multi_hop"
+    },
+    {
+      "i": 869,
+      "true_chain": [
+        "converging",
+        "encirclement",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 19,
+      "category": "multi_hop"
+    },
+    {
+      "i": 877,
+      "true_chain": [
+        "v_shape",
+        "diamond",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "multi_hop"
+    },
+    {
+      "i": 878,
+      "true_chain": [
+        "encirclement",
+        "converging",
+        "shield",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 28,
+      "category": "multi_hop"
+    },
+    {
+      "i": 879,
+      "true_chain": [
+        "diamond",
+        "column",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "terminal_unknown",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "terminal_transitioning"
+    },
+    {
+      "i": 880,
+      "true_chain": [
+        "column",
+        "dispersed",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 15,
+      "category": "multi_hop"
+    },
+    {
+      "i": 881,
+      "true_chain": [
+        "column",
+        "dispersed",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "multi_hop"
+    },
+    {
+      "i": 882,
+      "true_chain": [
+        "converging",
+        "dispersed",
+        "diamond",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 26,
+      "category": "multi_hop"
+    },
+    {
+      "i": 883,
+      "true_chain": [
+        "converging",
+        "encirclement",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 884,
+      "true_chain": [
+        "dispersed",
+        "shield",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 886,
+      "true_chain": [
+        "converging",
+        "v_shape",
+        "dispersed",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 28,
+      "category": "multi_hop"
+    },
+    {
+      "i": 887,
+      "true_chain": [
+        "v_shape",
+        "diamond",
+        "converging",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 29,
+      "category": "multi_hop"
+    },
+    {
+      "i": 888,
+      "true_chain": [
+        "v_shape",
+        "column",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "multi_hop"
+    },
+    {
+      "i": 889,
+      "true_chain": [
+        "v_shape",
+        "column",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 19,
+      "category": "multi_hop"
+    },
+    {
+      "i": 891,
+      "true_chain": [
+        "encirclement",
+        "shield",
+        "diamond",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 892,
+      "true_chain": [
+        "dispersed",
+        "encirclement",
+        "shield",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 29,
+      "category": "multi_hop"
+    },
+    {
+      "i": 893,
+      "true_chain": [
+        "dispersed",
+        "v_shape",
+        "diamond",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 26,
+      "category": "multi_hop"
+    },
+    {
+      "i": 894,
+      "true_chain": [
+        "v_shape",
+        "column",
+        "encirclement",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 26,
+      "category": "multi_hop"
+    },
+    {
+      "i": 895,
+      "true_chain": [
+        "column",
+        "converging",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 15,
+      "category": "multi_hop"
+    },
+    {
+      "i": 896,
+      "true_chain": [
+        "column",
+        "encirclement",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 15,
+      "category": "multi_hop"
+    },
+    {
+      "i": 904,
+      "true_chain": [
+        "column",
+        "diamond",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 908,
+      "true_chain": [
+        "column",
+        "encirclement",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "oscillation"
+    },
+    {
+      "i": 911,
+      "true_chain": [
+        "shield",
+        "encirclement",
+        "converging",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 31,
+      "category": "oscillation"
+    },
+    {
+      "i": 914,
+      "true_chain": [
+        "shield",
+        "v_shape",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 19,
+      "category": "multi_hop"
+    },
+    {
+      "i": 916,
+      "true_chain": [
+        "dispersed",
+        "converging",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "multi_hop"
+    },
+    {
+      "i": 918,
+      "true_chain": [
+        "dispersed",
+        "converging",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "oscillation"
+    },
+    {
+      "i": 920,
+      "true_chain": [
+        "diamond",
+        "v_shape",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 921,
+      "true_chain": [
+        "diamond",
+        "shield",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 19,
+      "category": "multi_hop"
+    },
+    {
+      "i": 925,
+      "true_chain": [
+        "v_shape",
+        "shield",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 926,
+      "true_chain": [
+        "converging",
+        "column",
+        "encirclement",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 28,
+      "category": "multi_hop"
+    },
+    {
+      "i": 929,
+      "true_chain": [
+        "converging",
+        "dispersed",
+        "column",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 30,
+      "category": "multi_hop"
+    },
+    {
+      "i": 931,
+      "true_chain": [
+        "converging",
+        "encirclement",
+        "shield",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 935,
+      "true_chain": [
+        "dispersed",
+        "v_shape",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "oscillation"
+    },
+    {
+      "i": 936,
+      "true_chain": [
+        "shield",
+        "diamond",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 938,
+      "true_chain": [
+        "encirclement",
+        "diamond",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 940,
+      "true_chain": [
+        "diamond",
+        "converging",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "oscillation"
+    },
+    {
+      "i": 946,
+      "true_chain": [
+        "diamond",
+        "dispersed",
+        "diamond",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 25,
+      "category": "multi_hop"
+    },
+    {
+      "i": 947,
+      "true_chain": [
+        "converging",
+        "dispersed",
+        "column",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 948,
+      "true_chain": [
+        "shield",
+        "column",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "multi_hop"
+    },
+    {
+      "i": 949,
+      "true_chain": [
+        "dispersed",
+        "encirclement",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "multi_hop"
+    },
+    {
+      "i": 950,
+      "true_chain": [
+        "converging",
+        "dispersed",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 951,
+      "true_chain": [
+        "v_shape",
+        "dispersed",
+        "converging",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 24,
+      "category": "multi_hop"
+    },
+    {
+      "i": 954,
+      "true_chain": [
+        "v_shape",
+        "encirclement",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 18,
+      "category": "multi_hop"
+    },
+    {
+      "i": 957,
+      "true_chain": [
+        "converging",
+        "diamond",
+        "encirclement",
+        "v_shape"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 25,
+      "category": "multi_hop"
+    },
+    {
+      "i": 959,
+      "true_chain": [
+        "diamond",
+        "dispersed",
+        "converging",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 961,
+      "true_chain": [
+        "encirclement",
+        "diamond",
+        "dispersed",
+        "shield"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 28,
+      "category": "multi_hop"
+    },
+    {
+      "i": 965,
+      "true_chain": [
+        "shield",
+        "diamond",
+        "converging",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 29,
+      "category": "multi_hop"
+    },
+    {
+      "i": 972,
+      "true_chain": [
+        "shield",
+        "column",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 974,
+      "true_chain": [
+        "encirclement",
+        "v_shape",
+        "shield",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 25,
+      "category": "multi_hop"
+    },
+    {
+      "i": 975,
+      "true_chain": [
+        "encirclement",
+        "diamond",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 982,
+      "true_chain": [
+        "v_shape",
+        "encirclement",
+        "v_shape",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "A",
+      "subtype": null,
+      "guard_reasons": [],
+      "rules_key": [
+        "v_shape",
+        "v_shape"
+      ],
+      "n_windows": 26,
+      "category": "bucket_A_misrouted"
+    },
+    {
+      "i": 985,
+      "true_chain": [
+        "diamond",
+        "converging",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 987,
+      "true_chain": [
+        "column",
+        "dispersed",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "oscillation",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 16,
+      "category": "oscillation"
+    },
+    {
+      "i": 989,
+      "true_chain": [
+        "shield",
+        "converging",
+        "column",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 990,
+      "true_chain": [
+        "column",
+        "encirclement",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 17,
+      "category": "multi_hop"
+    },
+    {
+      "i": 991,
+      "true_chain": [
+        "v_shape",
+        "shield",
+        "diamond",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 31,
+      "category": "multi_hop"
+    },
+    {
+      "i": 992,
+      "true_chain": [
+        "converging",
+        "shield",
+        "diamond"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 15,
+      "category": "multi_hop"
+    },
+    {
+      "i": 993,
+      "true_chain": [
+        "dispersed",
+        "diamond",
+        "shield",
+        "encirclement"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 28,
+      "category": "multi_hop"
+    },
+    {
+      "i": 996,
+      "true_chain": [
+        "dispersed",
+        "v_shape",
+        "dispersed",
+        "column"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 27,
+      "category": "multi_hop"
+    },
+    {
+      "i": 997,
+      "true_chain": [
+        "converging",
+        "column",
+        "encirclement",
+        "dispersed"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 25,
+      "category": "multi_hop"
+    },
+    {
+      "i": 999,
+      "true_chain": [
+        "column",
+        "dispersed",
+        "shield",
+        "converging"
+      ],
+      "has_ground_truth": false,
+      "bucket": "C",
+      "subtype": "multi_hop",
+      "guard_reasons": [],
+      "rules_key": null,
+      "n_windows": 28,
+      "category": "multi_hop"
+    }
+  ],
+  "misrouted_detail": [
+    {
+      "i": 105,
+      "true_chain": [
+        "shield",
+        "v_shape",
+        "encirclement"
+      ],
+      "rules_key": [
+        "shield",
+        "v_shape"
+      ],
+      "summary": {
+        "abstain": false,
+        "dominant_formation": "v_shape",
+        "formation_history": [
+          "shield",
+          "v_shape"
+        ],
+        "transitions_detected": [
+          {
+            "at_time_s": 15.0,
+            "from": "shield",
+            "to": "v_shape"
+          }
+        ],
+        "velocity_trend": "steady",
+        "delta_velocity": -0.01,
+        "stability_trend": "holding",
+        "mean_stability": 0.838,
+        "spread_dynamics": "stable spread",
+        "mean_approach_rate": 0.013,
+        "role_differentiation": false,
+        "mean_confidence": 0.938,
+        "low_conf_windows": 0,
+        "n_windows": 17,
+        "n_unknown_windows": 0,
+        "n_genuinely_oov_windows": 0,
+        "n_ambiguous_dispersed_converging_windows": 0,
+        "robust_reduction": null
+      }
+    },
+    {
+      "i": 291,
+      "true_chain": [
+        "v_shape",
+        "encirclement",
+        "converging"
+      ],
+      "rules_key": [
+        "v_shape",
+        "converging"
+      ],
+      "summary": {
+        "abstain": false,
+        "dominant_formation": "v_shape",
+        "formation_history": [
+          "v_shape",
+          "unknown",
+          "converging"
+        ],
+        "transitions_detected": [],
+        "velocity_trend": "steady",
+        "delta_velocity": -0.037,
+        "stability_trend": "holding",
+        "mean_stability": 0.803,
+        "spread_dynamics": "stable spread",
+        "mean_approach_rate": 0.059,
+        "role_differentiation": false,
+        "mean_confidence": 0.879,
+        "low_conf_windows": 1,
+        "n_windows": 16,
+        "n_unknown_windows": 3,
+        "n_genuinely_oov_windows": 0,
+        "n_ambiguous_dispersed_converging_windows": 0,
+        "robust_reduction": null
+      }
+    },
+    {
+      "i": 292,
+      "true_chain": [
+        "column",
+        "dispersed",
+        "converging"
+      ],
+      "rules_key": [
+        "dispersed",
+        "converging"
+      ],
+      "summary": {
+        "abstain": false,
+        "dominant_formation": "dispersed",
+        "formation_history": [
+          "dispersed",
+          "unknown",
+          "dispersed",
+          "converging"
+        ],
+        "transitions_detected": [
+          {
+            "at_time_s": 70.0,
+            "from": "dispersed",
+            "to": "converging"
+          }
+        ],
+        "velocity_trend": "steady",
+        "delta_velocity": -0.022,
+        "stability_trend": "holding",
+        "mean_stability": 0.811,
+        "spread_dynamics": "stable spread",
+        "mean_approach_rate": 0.003,
+        "role_differentiation": false,
+        "mean_confidence": 0.904,
+        "low_conf_windows": 2,
+        "n_windows": 16,
+        "n_unknown_windows": 2,
+        "n_genuinely_oov_windows": 0,
+        "n_ambiguous_dispersed_converging_windows": 0,
+        "robust_reduction": null
+      }
+    },
+    {
+      "i": 314,
+      "true_chain": [
+        "shield",
+        "v_shape",
+        "encirclement"
+      ],
+      "rules_key": [
+        "shield",
+        "v_shape"
+      ],
+      "summary": {
+        "abstain": false,
+        "dominant_formation": "v_shape",
+        "formation_history": [
+          "shield",
+          "v_shape"
+        ],
+        "transitions_detected": [
+          {
+            "at_time_s": 15.0,
+            "from": "shield",
+            "to": "v_shape"
+          }
+        ],
+        "velocity_trend": "steady",
+        "delta_velocity": -0.013,
+        "stability_trend": "holding",
+        "mean_stability": 0.836,
+        "spread_dynamics": "stable spread",
+        "mean_approach_rate": 0.014,
+        "role_differentiation": false,
+        "mean_confidence": 0.943,
+        "low_conf_windows": 1,
+        "n_windows": 15,
+        "n_unknown_windows": 0,
+        "n_genuinely_oov_windows": 0,
+        "n_ambiguous_dispersed_converging_windows": 0,
+        "robust_reduction": null
+      }
+    },
+    {
+      "i": 385,
+      "true_chain": [
+        "converging",
+        "dispersed",
+        "converging"
+      ],
+      "rules_key": [
+        "dispersed",
+        "converging"
+      ],
+      "summary": {
+        "abstain": false,
+        "dominant_formation": "dispersed",
+        "formation_history": [
+          "dispersed",
+          "unknown",
+          "converging"
+        ],
+        "transitions_detected": [],
+        "velocity_trend": "steady",
+        "delta_velocity": -0.016,
+        "stability_trend": "holding",
+        "mean_stability": 0.805,
+        "spread_dynamics": "stable spread",
+        "mean_approach_rate": 0.018,
+        "role_differentiation": false,
+        "mean_confidence": 0.919,
+        "low_conf_windows": 1,
+        "n_windows": 17,
+        "n_unknown_windows": 2,
+        "n_genuinely_oov_windows": 0,
+        "n_ambiguous_dispersed_converging_windows": 0,
+        "robust_reduction": null
+      }
+    },
+    {
+      "i": 520,
+      "true_chain": [
+        "dispersed",
+        "column",
+        "encirclement"
+      ],
+      "rules_key": [
+        "column",
+        "encirclement"
+      ],
+      "summary": {
+        "abstain": false,
+        "dominant_formation": "column",
+        "formation_history": [
+          "unknown",
+          "column",
+          "unknown",
+          "encirclement"
+        ],
+        "transitions_detected": [],
+        "velocity_trend": "steady",
+        "delta_velocity": -0.026,
+        "stability_trend": "holding",
+        "mean_stability": 0.795,
+        "spread_dynamics": "stable spread",
+        "mean_approach_rate": 0.001,
+        "role_differentiation": false,
+        "mean_confidence": 0.954,
+        "low_conf_windows": 0,
+        "n_windows": 15,
+        "n_unknown_windows": 5,
+        "n_genuinely_oov_windows": 0,
+        "n_ambiguous_dispersed_converging_windows": 0,
+        "robust_reduction": null
+      }
+    },
+    {
+      "i": 574,
+      "true_chain": [
+        "column",
+        "diamond",
+        "column",
+        "dispersed"
+      ],
+      "rules_key": [
+        "diamond",
+        "dispersed"
+      ],
+      "summary": {
+        "abstain": false,
+        "dominant_formation": "diamond",
+        "formation_history": [
+          "diamond",
+          "unknown",
+          "dispersed"
+        ],
+        "transitions_detected": [],
+        "velocity_trend": "steady",
+        "delta_velocity": 0.049,
+        "stability_trend": "holding",
+        "mean_stability": 0.85,
+        "spread_dynamics": "stable spread",
+        "mean_approach_rate": 0.018,
+        "role_differentiation": false,
+        "mean_confidence": 0.873,
+        "low_conf_windows": 3,
+        "n_windows": 26,
+        "n_unknown_windows": 2,
+        "n_genuinely_oov_windows": 0,
+        "n_ambiguous_dispersed_converging_windows": 0,
+        "robust_reduction": null
+      }
+    },
+    {
+      "i": 611,
+      "true_chain": [
+        "dispersed",
+        "column",
+        "v_shape"
+      ],
+      "rules_key": [
+        "column",
+        "v_shape"
+      ],
+      "summary": {
+        "abstain": false,
+        "dominant_formation": "column",
+        "formation_history": [
+          "unknown",
+          "column",
+          "unknown",
+          "v_shape"
+        ],
+        "transitions_detected": [],
+        "velocity_trend": "steady",
+        "delta_velocity": 0.048,
+        "stability_trend": "holding",
+        "mean_stability": 0.795,
+        "spread_dynamics": "stable spread",
+        "mean_approach_rate": -0.018,
+        "role_differentiation": false,
+        "mean_confidence": 0.887,
+        "low_conf_windows": 0,
+        "n_windows": 17,
+        "n_unknown_windows": 5,
+        "n_genuinely_oov_windows": 0,
+        "n_ambiguous_dispersed_converging_windows": 0,
+        "robust_reduction": null
+      }
+    },
+    {
+      "i": 982,
+      "true_chain": [
+        "v_shape",
+        "encirclement",
+        "v_shape",
+        "encirclement"
+      ],
+      "rules_key": [
+        "v_shape",
+        "v_shape"
+      ],
+      "summary": {
+        "abstain": false,
+        "dominant_formation": "v_shape",
+        "formation_history": [
+          "v_shape"
+        ],
+        "transitions_detected": [],
+        "velocity_trend": "steady",
+        "delta_velocity": 0.002,
+        "stability_trend": "holding",
+        "mean_stability": 0.838,
+        "spread_dynamics": "stable spread",
+        "mean_approach_rate": 0.007,
+        "role_differentiation": false,
+        "mean_confidence": 0.931,
+        "low_conf_windows": 0,
+        "n_windows": 26,
+        "n_unknown_windows": 0,
+        "n_genuinely_oov_windows": 0,
+        "n_ambiguous_dispersed_converging_windows": 0,
+        "robust_reduction": null
+      }
+    }
+  ]
+}

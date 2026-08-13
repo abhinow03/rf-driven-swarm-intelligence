@@ -3332,3 +3332,33 @@ determinism re-run (never previously done) confirmed greedy decoding is reproduc
 diffs); a SEPARATE non-determinism bug was found in `stgt_bridge.py`'s dominant-formation
 tie-break logic (hash-seed-dependent across process runs, confirmed cosmetic-only, does not
 affect `rules_key`/bucket outcomes).
+
+## AK. Diagnosing the Layer 2 gap (no fix, no retraining) — full detail in `V5_LOG.md`
+
+Sec AI/AJ's `pipeline_v2`+v5-a run found only 1/502 unanswerable cases reach Layer 2; 492 fall
+to Layer 3 and inherit v5-a's 0.0% correct-abstention. Full mechanism-level diagnosis in
+`docs/V5_LOG.md`'s "2026-08-13 — Layer-2-gap diagnosis" entry; summarized here.
+
+**Categorized all 502** (`llm_finetuning/categorize_unanswerable_502.py`, third independent
+confirmation of the seed=4321 regeneration's 0/0 integrity): 492/502 (98.0%) were ALWAYS
+architecturally scoped to Layer 3 (multi-hop 421, oscillation 70, terminal_transitioning 1) —
+`classify_observation`'s guard-check code (`coverage.py:100-135`) is provably unreachable for
+these, sitting after three earlier `return` statements for exactly this input shape, not a
+condition that evaluated false. Only 9/502 (1.8%) is a genuine guard-logic/classifier defect
+(`bucket_A_misrouted` — the model's classification silently dropped a real intermediate
+formation state; none of the 4 guard conditions are designed to catch that). 1/502 (0.2%)
+correctly reaches Layer 2 today.
+
+**Root cause of the 98.0%, confirmed at the corpus level**: zero of the v5-a training corpus's
+12,001 rows (`llm_finetuning/corpus_abstention_by_mechanism.py`) carry a multi-hop,
+terminal-transitioning, or oscillation pattern, or an abstention target label — every row is
+one of the 49 RULES-coverage pairs. 20 sampled real generations on this exact input shape
+(`llm_finetuning/sample_v5a_raw_generations.py`) show 0/20 abstention-like prose mismatched
+against the formal parser (ruling out a parsing-bug explanation) — instead, v5-a confidently
+narrates a SINGLE formation from the true multi-formation chain every time, undertrained, not
+mis-parsed.
+
+**Decision table (no fix applied): guard-logic bug 9/502 (1.8%, cheap partial mitigation,
+full fix needs STGT-level work) — corpus gap 492/502 (98.0%, requires corpus augmentation +
+retrain, large cost, explicitly out of scope this session) — parsing bug 0/502 (ruled out,
+not merely unchecked).**

@@ -1,0 +1,554 @@
+[
+  {
+    "i": 0,
+    "true_chain": [
+      "v_shape",
+      "diamond",
+      "converging",
+      "shield"
+    ],
+    "subtype": "multi_hop",
+    "raw_text": "{\n  \"situation_summary\": \"The UAV group maintained a diamond formation for most of the observation window, transitioning briefly to a shield formation and then dispersing. Velocity remained steady with minimal change, and the approach rate was slightly negative, indicating little closure toward the protected area.\",\n  \"threat_level\": \"medium\",\n  \"threat_reasoning\": \"Although the formation shows some defensive posture (shield) and the group is not rapidly closing, the steady velocity and lack of aggressive maneuvering suggest only a moderate threat.\",\n  \"likely_intent\": \"defensive\",\n  \"recommended_action\": \"monitor\",\n  \"confidence_in_assessment\": \"high\",\n  \"key_indicators\": [\n    \"Diamond formation dominant throughout most windows\",\n    \"Transition to shield formation at t=5.0s indicating defensive posture\",\n    \"Steady velocity (~5.6 m/s) with negligible approach rate (-0.022)\"\n  ],\n  \"follow_up_watch\": \"Watch for any increase in approach rate or shift to aggressive formations such as converging or attack_preparation.\"\n}",
+    "parsed": {
+      "situation_summary": "The UAV group maintained a diamond formation for most of the observation window, transitioning briefly to a shield formation and then dispersing. Velocity remained steady with minimal change, and the approach rate was slightly negative, indicating little closure toward the protected area.",
+      "threat_level": "medium",
+      "threat_reasoning": "Although the formation shows some defensive posture (shield) and the group is not rapidly closing, the steady velocity and lack of aggressive maneuvering suggest only a moderate threat.",
+      "likely_intent": "defensive",
+      "recommended_action": "monitor",
+      "confidence_in_assessment": "high",
+      "key_indicators": [
+        "Diamond formation dominant throughout most windows",
+        "Transition to shield formation at t=5.0s indicating defensive posture",
+        "Steady velocity (~5.6 m/s) with negligible approach rate (-0.022)"
+      ],
+      "follow_up_watch": "Watch for any increase in approach rate or shift to aggressive formations such as converging or attack_preparation."
+    },
+    "formal_abstain": false,
+    "raw_abstain_signal": [],
+    "mismatch": false
+  },
+  {
+    "i": 1,
+    "true_chain": [
+      "diamond",
+      "dispersed",
+      "v_shape",
+      "converging"
+    ],
+    "subtype": "multi_hop",
+    "raw_text": "{\n  \"situation_summary\": \"The UAV group is currently in a dispersed formation with steady velocity and minimal approach rate. Formation changes are rare and confidence in classification is high, indicating a non\\u2011aggressive posture.\",\n  \"threat_level\": \"low\",\n  \"threat_reasoning\": \"Low threat due to lack of aggressive maneuvers, stable spread, and only minor approach; the group shows no signs of encircling or attack preparation.\",\n  \"likely_intent\": \"surveillance\",\n  \"recommended_action\": \"monitor\",\n  \"confidence_in_assessment\": \"high\",\n  \"key_indicators\": [\n    \"Dispersed formation maintained throughout observation window\",\n    \"Steady velocity with negligible delta_v (+0.11 m/s)\",\n    \"Low approach rate (0.012) and stable spread\"\n  ],\n  \"follow_up_watch\": \"Watch for any shift toward tighter formations or increased approach rate that could indicate a change in intent.\"\n}",
+    "parsed": {
+      "situation_summary": "The UAV group is currently in a dispersed formation with steady velocity and minimal approach rate. Formation changes are rare and confidence in classification is high, indicating a non\u2011aggressive posture.",
+      "threat_level": "low",
+      "threat_reasoning": "Low threat due to lack of aggressive maneuvers, stable spread, and only minor approach; the group shows no signs of encircling or attack preparation.",
+      "likely_intent": "surveillance",
+      "recommended_action": "monitor",
+      "confidence_in_assessment": "high",
+      "key_indicators": [
+        "Dispersed formation maintained throughout observation window",
+        "Steady velocity with negligible delta_v (+0.11 m/s)",
+        "Low approach rate (0.012) and stable spread"
+      ],
+      "follow_up_watch": "Watch for any shift toward tighter formations or increased approach rate that could indicate a change in intent."
+    },
+    "formal_abstain": false,
+    "raw_abstain_signal": [],
+    "mismatch": false
+  },
+  {
+    "i": 2,
+    "true_chain": [
+      "dispersed",
+      "column",
+      "dispersed"
+    ],
+    "subtype": "oscillation",
+    "raw_text": "{\n  \"situation_summary\": \"The UAV group has been observed in a dispersed formation with steady velocity and minimal approach rate over the past minute. Formation changes are infrequent and lack clear role differentiation, indicating a non\\u2011aggressive posture.\",\n  \"threat_level\": \"low\",\n  \"threat_reasoning\": \"Low threat due to dispersed, stable spread, negligible approach rate, and high classifier confidence; no signs of coordinated attack or surveillance patterns.\",\n  \"likely_intent\": \"surveillance\",\n  \"recommended_action\": \"monitor\",\n  \"confidence_in_assessment\": \"high\",\n  \"key_indicators\": [\n    \"Dispersed formation throughout observation window\",\n    \"Steady velocity (~5.6 m/s) with near-zero approach rate (-0.026)\",\n    \"High classifier confidence (mean 0.94) and stable formation stability (0.82)\"\n  ],\n  \"follow_up_watch\": \"Watch for any shift toward tighter formations, increased approach rate, or emergence of role differentiation that could indicate a change in intent.\"\n}",
+    "parsed": {
+      "situation_summary": "The UAV group has been observed in a dispersed formation with steady velocity and minimal approach rate over the past minute. Formation changes are infrequent and lack clear role differentiation, indicating a non\u2011aggressive posture.",
+      "threat_level": "low",
+      "threat_reasoning": "Low threat due to dispersed, stable spread, negligible approach rate, and high classifier confidence; no signs of coordinated attack or surveillance patterns.",
+      "likely_intent": "surveillance",
+      "recommended_action": "monitor",
+      "confidence_in_assessment": "high",
+      "key_indicators": [
+        "Dispersed formation throughout observation window",
+        "Steady velocity (~5.6 m/s) with near-zero approach rate (-0.026)",
+        "High classifier confidence (mean 0.94) and stable formation stability (0.82)"
+      ],
+      "follow_up_watch": "Watch for any shift toward tighter formations, increased approach rate, or emergence of role differentiation that could indicate a change in intent."
+    },
+    "formal_abstain": false,
+    "raw_abstain_signal": [],
+    "mismatch": false
+  },
+  {
+    "i": 3,
+    "true_chain": [
+      "diamond",
+      "shield",
+      "converging"
+    ],
+    "subtype": "multi_hop",
+    "raw_text": "{\n  \"situation_summary\": \"The UAV group maintained a diamond formation that transitioned to a shield formation around 15 seconds into the observation window, indicating a shift toward a defensive posture. Velocity remained steady with minimal change, and the formation stayed stable throughout the period.\",\n  \"threat_level\": \"medium\",\n  \"threat_reasoning\": \"Although the group shows coordinated movement and a defensive shield formation, there is no clear aggressive approach or attack preparation; the steady velocity and lack of role differentiation suggest limited immediate threat, warranting a medium threat level.\",\n  \"likely_intent\": \"defensive\",\n  \"recommended_action\": \"monitor\",\n  \"confidence_in_assessment\": \"high\",\n  \"key_indicators\": [\n    \"Diamond-to-shield formation transition at t=15s\",\n    \"Steady velocity trend (delta_v=-0.10)\",\n    \"High classifier confidence (mean=0.95)\"\n  ],\n  \"follow_up_watch\": \"Watch for any increase in approach rate or shift to aggressive formations such as converging or attack_preparation.\"\n}",
+    "parsed": {
+      "situation_summary": "The UAV group maintained a diamond formation that transitioned to a shield formation around 15 seconds into the observation window, indicating a shift toward a defensive posture. Velocity remained steady with minimal change, and the formation stayed stable throughout the period.",
+      "threat_level": "medium",
+      "threat_reasoning": "Although the group shows coordinated movement and a defensive shield formation, there is no clear aggressive approach or attack preparation; the steady velocity and lack of role differentiation suggest limited immediate threat, warranting a medium threat level.",
+      "likely_intent": "defensive",
+      "recommended_action": "monitor",
+      "confidence_in_assessment": "high",
+      "key_indicators": [
+        "Diamond-to-shield formation transition at t=15s",
+        "Steady velocity trend (delta_v=-0.10)",
+        "High classifier confidence (mean=0.95)"
+      ],
+      "follow_up_watch": "Watch for any increase in approach rate or shift to aggressive formations such as converging or attack_preparation."
+    },
+    "formal_abstain": false,
+    "raw_abstain_signal": [],
+    "mismatch": false
+  },
+  {
+    "i": 4,
+    "true_chain": [
+      "diamond",
+      "column",
+      "diamond",
+      "dispersed"
+    ],
+    "subtype": "multi_hop",
+    "raw_text": "{\n  \"situation_summary\": \"The UAV group maintained a diamond formation early in the observation, then transitioned to a column and dispersed pattern while holding a steady velocity of about 5.6\\u202fm/s. Formation stability remained high and the spread showed minimal closure rate, indicating a non\\u2011aggressive, likely patrol behavior.\",\n  \"threat_level\": \"low\",\n  \"threat_reasoning\": \"Low threat is indicated by the lack of acceleration or aggressive maneuvering, the stable spread with negligible approach rate, and the transition to dispersed formations typical of surveillance or transit rather than attack preparation.\",\n  \"likely_intent\": \"patrol\",\n  \"recommended_action\": \"monitor\",\n  \"confidence_in_assessment\": \"high\",\n  \"key_indicators\": [\n    \"Diamond formation persisting for the first 15\\u202fs before dispersing\",\n    \"Steady velocity (~5.6\\u202fm/s) with minimal delta_v (-0.12)\",\n    \"High formation stability (mean\\u202f0.84) and stable spread (approach_rate\\u202f\\u2248\\u202f\\u20110.001)\"\n  ],\n  \"follow_up_watch\": \"Watch for any increase in approach rate, acceleration, or re\\u2011consolidation into aggressive formations such as line or wedge.\"\n}",
+    "parsed": {
+      "situation_summary": "The UAV group maintained a diamond formation early in the observation, then transitioned to a column and dispersed pattern while holding a steady velocity of about 5.6\u202fm/s. Formation stability remained high and the spread showed minimal closure rate, indicating a non\u2011aggressive, likely patrol behavior.",
+      "threat_level": "low",
+      "threat_reasoning": "Low threat is indicated by the lack of acceleration or aggressive maneuvering, the stable spread with negligible approach rate, and the transition to dispersed formations typical of surveillance or transit rather than attack preparation.",
+      "likely_intent": "patrol",
+      "recommended_action": "monitor",
+      "confidence_in_assessment": "high",
+      "key_indicators": [
+        "Diamond formation persisting for the first 15\u202fs before dispersing",
+        "Steady velocity (~5.6\u202fm/s) with minimal delta_v (-0.12)",
+        "High formation stability (mean\u202f0.84) and stable spread (approach_rate\u202f\u2248\u202f\u20110.001)"
+      ],
+      "follow_up_watch": "Watch for any increase in approach rate, acceleration, or re\u2011consolidation into aggressive formations such as line or wedge."
+    },
+    "formal_abstain": false,
+    "raw_abstain_signal": [],
+    "mismatch": false
+  },
+  {
+    "i": 7,
+    "true_chain": [
+      "shield",
+      "diamond",
+      "v_shape",
+      "dispersed"
+    ],
+    "subtype": "multi_hop",
+    "raw_text": "{\n  \"situation_summary\": \"The UAV group maintained a diamond formation for most of the observation window, showing stable spacing and low approach velocity. At around 15 seconds it transitioned to a converging pattern before dispersing, indicating a brief tightening followed by withdrawal. Overall behavior suggests a defensive posture rather than an aggressive advance.\",\n  \"threat_level\": \"medium\",\n  \"threat_reasoning\": \"Medium threat due to persistent coordinated flight and formation changes that could precede surveillance or engagement, but the low approach rate and lack of aggressive maneuvers keep the threat from being high.\",\n  \"likely_intent\": \"defensive\",\n  \"recommended_action\": \"monitor\",\n  \"confidence_in_assessment\": \"high\",\n  \"key_indicators\": [\n    \"Diamond formation held throughout much of the window\",\n    \"Transition to converging then dispersed at t=15s/135s\",\n    \"Low approach rate (~0.018 m/s) and steady velocity\"\n  ],\n  \"follow_up_watch\": \"Watch for any increase in approach rate or shift to aggressive formations such as line or wedge.\"\n}",
+    "parsed": {
+      "situation_summary": "The UAV group maintained a diamond formation for most of the observation window, showing stable spacing and low approach velocity. At around 15 seconds it transitioned to a converging pattern before dispersing, indicating a brief tightening followed by withdrawal. Overall behavior suggests a defensive posture rather than an aggressive advance.",
+      "threat_level": "medium",
+      "threat_reasoning": "Medium threat due to persistent coordinated flight and formation changes that could precede surveillance or engagement, but the low approach rate and lack of aggressive maneuvers keep the threat from being high.",
+      "likely_intent": "defensive",
+      "recommended_action": "monitor",
+      "confidence_in_assessment": "high",
+      "key_indicators": [
+        "Diamond formation held throughout much of the window",
+        "Transition to converging then dispersed at t=15s/135s",
+        "Low approach rate (~0.018 m/s) and steady velocity"
+      ],
+      "follow_up_watch": "Watch for any increase in approach rate or shift to aggressive formations such as line or wedge."
+    },
+    "formal_abstain": false,
+    "raw_abstain_signal": [],
+    "mismatch": false
+  },
+  {
+    "i": 8,
+    "true_chain": [
+      "shield",
+      "diamond",
+      "v_shape",
+      "diamond"
+    ],
+    "subtype": "multi_hop",
+    "raw_text": "{\n  \"situation_summary\": \"The UAV group is maintaining a diamond formation while transitioning through shield and v_shape configurations, indicating a defensive posture. Velocity remains steady with minimal approach rate, suggesting no aggressive advance.\",\n  \"threat_level\": \"medium\",\n  \"threat_reasoning\": \"Although the formation shows defensive characteristics, the ability to shift between formations and moderate classifier confidence warrants a medium threat assessment.\",\n  \"likely_intent\": \"defensive\",\n  \"recommended_action\": \"monitor\",\n  \"confidence_in_assessment\": \"high\",\n  \"key_indicators\": [\n    \"Diamond formation with high stability (0.84)\",\n    \"Steady velocity (~5.7 m/s) and negligible approach rate (-0.005)\",\n    \"Formation transitions (shield \\u2192 diamond \\u2192 v_shape) indicating tactical maneuvering\"\n  ],\n  \"follow_up_watch\": \"Watch for any increase in approach rate or shift to aggressive formations such as line or wedge.\"\n}",
+    "parsed": {
+      "situation_summary": "The UAV group is maintaining a diamond formation while transitioning through shield and v_shape configurations, indicating a defensive posture. Velocity remains steady with minimal approach rate, suggesting no aggressive advance.",
+      "threat_level": "medium",
+      "threat_reasoning": "Although the formation shows defensive characteristics, the ability to shift between formations and moderate classifier confidence warrants a medium threat assessment.",
+      "likely_intent": "defensive",
+      "recommended_action": "monitor",
+      "confidence_in_assessment": "high",
+      "key_indicators": [
+        "Diamond formation with high stability (0.84)",
+        "Steady velocity (~5.7 m/s) and negligible approach rate (-0.005)",
+        "Formation transitions (shield \u2192 diamond \u2192 v_shape) indicating tactical maneuvering"
+      ],
+      "follow_up_watch": "Watch for any increase in approach rate or shift to aggressive formations such as line or wedge."
+    },
+    "formal_abstain": false,
+    "raw_abstain_signal": [],
+    "mismatch": false
+  },
+  {
+    "i": 9,
+    "true_chain": [
+      "column",
+      "dispersed",
+      "diamond",
+      "converging"
+    ],
+    "subtype": "multi_hop",
+    "raw_text": "{\n  \"situation_summary\": \"The UAV group is currently in a diamond formation that has been stable over the observation window, with slight convergence observed. Velocity remains steady and formation stability is high, indicating coordinated but non\\u2011aggressive movement.\",\n  \"threat_level\": \"medium\",\n  \"threat_reasoning\": \"Although the formation shows signs of convergence, the lack of rapid acceleration or aggressive maneuvering suggests only a moderate threat; the high classifier confidence supports a reliable assessment of intent.\",\n  \"likely_intent\": \"patrol\",\n  \"recommended_action\": \"monitor\",\n  \"confidence_in_assessment\": \"high\",\n  \"key_indicators\": [\n    \"Diamond formation held throughout most windows\",\n    \"Steady velocity with minimal delta_v (+0.01)\",\n    \"High formation stability (mean 0.80) and low approach rate (0.014)\"\n  ],\n  \"follow_up_watch\": \"Watch for any increase in approach rate or shift to aggressive formations such as encircle or attack_preparation.\"\n}",
+    "parsed": {
+      "situation_summary": "The UAV group is currently in a diamond formation that has been stable over the observation window, with slight convergence observed. Velocity remains steady and formation stability is high, indicating coordinated but non\u2011aggressive movement.",
+      "threat_level": "medium",
+      "threat_reasoning": "Although the formation shows signs of convergence, the lack of rapid acceleration or aggressive maneuvering suggests only a moderate threat; the high classifier confidence supports a reliable assessment of intent.",
+      "likely_intent": "patrol",
+      "recommended_action": "monitor",
+      "confidence_in_assessment": "high",
+      "key_indicators": [
+        "Diamond formation held throughout most windows",
+        "Steady velocity with minimal delta_v (+0.01)",
+        "High formation stability (mean 0.80) and low approach rate (0.014)"
+      ],
+      "follow_up_watch": "Watch for any increase in approach rate or shift to aggressive formations such as encircle or attack_preparation."
+    },
+    "formal_abstain": false,
+    "raw_abstain_signal": [],
+    "mismatch": false
+  },
+  {
+    "i": 11,
+    "true_chain": [
+      "dispersed",
+      "shield",
+      "diamond",
+      "converging"
+    ],
+    "subtype": "multi_hop",
+    "raw_text": "{\n  \"situation_summary\": \"The UAV group began in a dispersed formation and transitioned to a shield formation around 70 seconds into the observation window. The formation has remained stable with low approach rate and steady velocity, indicating a defensive posture rather than an aggressive advance.\",\n  \"threat_level\": \"medium\",\n  \"threat_reasoning\": \"Although the group shows coordinated movement and a defensive shield formation, there is no clear evidence of hostile intent such as acceleration toward a target or attack preparation; thus the threat is assessed as medium.\",\n  \"likely_intent\": \"defensive\",\n  \"recommended_action\": \"monitor\",\n  \"confidence_in_assessment\": \"high\",\n  \"key_indicators\": [\n    \"Formation shifted from dispersed to shield at t\\u224870s\",\n    \"Steady velocity with minimal delta_v (-0.20)\",\n    \"Low approach rate (0.001) and stable spread\"\n  ],\n  \"follow_up_watch\": \"Watch for any increase in approach rate, shift to aggressive formations (e.g., diamond or converging), or sudden velocity changes that could indicate a change in intent.\"\n}",
+    "parsed": {
+      "situation_summary": "The UAV group began in a dispersed formation and transitioned to a shield formation around 70 seconds into the observation window. The formation has remained stable with low approach rate and steady velocity, indicating a defensive posture rather than an aggressive advance.",
+      "threat_level": "medium",
+      "threat_reasoning": "Although the group shows coordinated movement and a defensive shield formation, there is no clear evidence of hostile intent such as acceleration toward a target or attack preparation; thus the threat is assessed as medium.",
+      "likely_intent": "defensive",
+      "recommended_action": "monitor",
+      "confidence_in_assessment": "high",
+      "key_indicators": [
+        "Formation shifted from dispersed to shield at t\u224870s",
+        "Steady velocity with minimal delta_v (-0.20)",
+        "Low approach rate (0.001) and stable spread"
+      ],
+      "follow_up_watch": "Watch for any increase in approach rate, shift to aggressive formations (e.g., diamond or converging), or sudden velocity changes that could indicate a change in intent."
+    },
+    "formal_abstain": false,
+    "raw_abstain_signal": [],
+    "mismatch": false
+  },
+  {
+    "i": 12,
+    "true_chain": [
+      "column",
+      "encirclement",
+      "diamond"
+    ],
+    "subtype": "multi_hop",
+    "raw_text": "{\n  \"situation_summary\": \"The UAVs initially formed an encirclement but have begun to disperse, indicating a withdrawal maneuver. Their velocity remains steady and approach rate is minimal, suggesting they are not closing in on the protected area.\",\n  \"threat_level\": \"low\",\n  \"threat_reasoning\": \"Low threat because the formation is breaking up, approach rate is near zero, and there is no evidence of aggressive intent or acceleration toward the target.\",\n  \"likely_intent\": \"withdraw\",\n  \"recommended_action\": \"monitor\",\n  \"confidence_in_assessment\": \"high\",\n  \"key_indicators\": [\n    \"Encircling formation transitioning to dispersed\",\n    \"Steady velocity with negligible approach rate (~0.008)\",\n    \"High classifier confidence (>0.85) in formation detection\"\n  ],\n  \"follow_up_watch\": \"Watch for any re\\u2011formation of encirclement or increase in approach rate over the next observation window.\"\n}",
+    "parsed": {
+      "situation_summary": "The UAVs initially formed an encirclement but have begun to disperse, indicating a withdrawal maneuver. Their velocity remains steady and approach rate is minimal, suggesting they are not closing in on the protected area.",
+      "threat_level": "low",
+      "threat_reasoning": "Low threat because the formation is breaking up, approach rate is near zero, and there is no evidence of aggressive intent or acceleration toward the target.",
+      "likely_intent": "withdraw",
+      "recommended_action": "monitor",
+      "confidence_in_assessment": "high",
+      "key_indicators": [
+        "Encircling formation transitioning to dispersed",
+        "Steady velocity with negligible approach rate (~0.008)",
+        "High classifier confidence (>0.85) in formation detection"
+      ],
+      "follow_up_watch": "Watch for any re\u2011formation of encirclement or increase in approach rate over the next observation window."
+    },
+    "formal_abstain": false,
+    "raw_abstain_signal": [],
+    "mismatch": false
+  },
+  {
+    "i": 13,
+    "true_chain": [
+      "column",
+      "dispersed",
+      "diamond"
+    ],
+    "subtype": "multi_hop",
+    "raw_text": "{\n  \"situation_summary\": \"Over the past minute, the UAV group shifted from a dispersed column to a diamond formation while maintaining a steady speed of about 5.8\\u202fm/s. The formation is now stable with high classifier confidence, indicating coordinated behavior.\",\n  \"threat_level\": \"medium\",\n  \"threat_reasoning\": \"The transition to a diamond suggests consolidation or preparation for a coordinated maneuver, but the lack of aggressive velocity increase or hostile indicators keeps the threat at a moderate level.\",\n  \"likely_intent\": \"consolidate\",\n  \"recommended_action\": \"increase_surveillance\",\n  \"confidence_in_assessment\": \"high\",\n  \"key_indicators\": [\n    \"Formation changed from column to diamond at t=65s\",\n    \"Steady velocity (~5.8\\u202fm/s) with minimal delta_v (-0.04)\",\n    \"High classifier confidence (mean\\u202f0.97) and stable spread (approach_rate\\u202f0.016)\"\n  ],\n  \"follow_up_watch\": \"Watch for any further formation changes, acceleration, or signs of payload deployment in the next observation window.\"\n}",
+    "parsed": {
+      "situation_summary": "Over the past minute, the UAV group shifted from a dispersed column to a diamond formation while maintaining a steady speed of about 5.8\u202fm/s. The formation is now stable with high classifier confidence, indicating coordinated behavior.",
+      "threat_level": "medium",
+      "threat_reasoning": "The transition to a diamond suggests consolidation or preparation for a coordinated maneuver, but the lack of aggressive velocity increase or hostile indicators keeps the threat at a moderate level.",
+      "likely_intent": "consolidate",
+      "recommended_action": "increase_surveillance",
+      "confidence_in_assessment": "high",
+      "key_indicators": [
+        "Formation changed from column to diamond at t=65s",
+        "Steady velocity (~5.8\u202fm/s) with minimal delta_v (-0.04)",
+        "High classifier confidence (mean\u202f0.97) and stable spread (approach_rate\u202f0.016)"
+      ],
+      "follow_up_watch": "Watch for any further formation changes, acceleration, or signs of payload deployment in the next observation window."
+    },
+    "formal_abstain": false,
+    "raw_abstain_signal": [],
+    "mismatch": false
+  },
+  {
+    "i": 17,
+    "true_chain": [
+      "v_shape",
+      "dispersed",
+      "column",
+      "converging"
+    ],
+    "subtype": "multi_hop",
+    "raw_text": "{\n  \"situation_summary\": \"The UAV group started in a V\\u2011shape formation and transitioned to a dispersed configuration over the observation window. Velocity remained steady with minimal change, and the approach rate stayed near zero, indicating no aggressive closure toward the protected area.\",\n  \"threat_level\": \"low\",\n  \"threat_reasoning\": \"Low threat is indicated by the lack of coordinated attack formations, negligible approach velocity, and stable spread; the group appears to be conducting passive surveillance rather than preparing an assault.\",\n  \"likely_intent\": \"surveillance\",\n  \"recommended_action\": \"monitor\",\n  \"confidence_in_assessment\": \"high\",\n  \"key_indicators\": [\n    \"V\\u2011shape formation transitioning to dispersed\",\n    \"Steady velocity (~5.6\\u20115.8 m/s) with delta_v +0.19\",\n    \"Near\\u2011zero approach rate (0.012) and stable spread\"\n  ],\n  \"follow_up_watch\": \"Watch for any shift back to cohesive formations or a rise in approach rate that could signal a change in intent.\"\n}",
+    "parsed": {
+      "situation_summary": "The UAV group started in a V\u2011shape formation and transitioned to a dispersed configuration over the observation window. Velocity remained steady with minimal change, and the approach rate stayed near zero, indicating no aggressive closure toward the protected area.",
+      "threat_level": "low",
+      "threat_reasoning": "Low threat is indicated by the lack of coordinated attack formations, negligible approach velocity, and stable spread; the group appears to be conducting passive surveillance rather than preparing an assault.",
+      "likely_intent": "surveillance",
+      "recommended_action": "monitor",
+      "confidence_in_assessment": "high",
+      "key_indicators": [
+        "V\u2011shape formation transitioning to dispersed",
+        "Steady velocity (~5.6\u20115.8 m/s) with delta_v +0.19",
+        "Near\u2011zero approach rate (0.012) and stable spread"
+      ],
+      "follow_up_watch": "Watch for any shift back to cohesive formations or a rise in approach rate that could signal a change in intent."
+    },
+    "formal_abstain": false,
+    "raw_abstain_signal": [],
+    "mismatch": false
+  },
+  {
+    "i": 19,
+    "true_chain": [
+      "column",
+      "v_shape",
+      "encirclement"
+    ],
+    "subtype": "multi_hop",
+    "raw_text": "{\n  \"situation_summary\": \"The UAV group maintained a V\\u2011shape formation over the observation window, showing stable spacing and minimal velocity change. In the final 4 windows it transitioned to an encirclement pattern while maintaining high classifier confidence.\",\n  \"threat_level\": \"high\",\n  \"threat_reasoning\": \"Encircling behavior indicates intent to surround a target, which is assessed as high threat; combined with steady velocity and tight formation, the group poses a significant risk of hostile action.\",\n  \"likely_intent\": \"encircle\",\n  \"recommended_action\": \"alert_operator\",\n  \"confidence_in_assessment\": \"high\",\n  \"key_indicators\": [\n    \"V\\u2011shape formation persisting throughout most windows\",\n    \"Transition to encirclement in the last 4 windows with high confidence (0.97)\",\n    \"Stable spread and near\\u2011zero approach rate suggesting controlled maneuver\"\n  ],\n  \"follow_up_watch\": \"Watch for further reduction in inter\\u2011UAV distance or acceleration that could signal attack preparation.\"\n}",
+    "parsed": {
+      "situation_summary": "The UAV group maintained a V\u2011shape formation over the observation window, showing stable spacing and minimal velocity change. In the final 4 windows it transitioned to an encirclement pattern while maintaining high classifier confidence.",
+      "threat_level": "high",
+      "threat_reasoning": "Encircling behavior indicates intent to surround a target, which is assessed as high threat; combined with steady velocity and tight formation, the group poses a significant risk of hostile action.",
+      "likely_intent": "encircle",
+      "recommended_action": "alert_operator",
+      "confidence_in_assessment": "high",
+      "key_indicators": [
+        "V\u2011shape formation persisting throughout most windows",
+        "Transition to encirclement in the last 4 windows with high confidence (0.97)",
+        "Stable spread and near\u2011zero approach rate suggesting controlled maneuver"
+      ],
+      "follow_up_watch": "Watch for further reduction in inter\u2011UAV distance or acceleration that could signal attack preparation."
+    },
+    "formal_abstain": false,
+    "raw_abstain_signal": [],
+    "mismatch": false
+  },
+  {
+    "i": 20,
+    "true_chain": [
+      "dispersed",
+      "encirclement",
+      "dispersed",
+      "column"
+    ],
+    "subtype": "multi_hop",
+    "raw_text": "{\n  \"situation_summary\": \"Over the past 159.5 seconds, the UAV cluster shifted from a dispersed pattern to an encirclement formation around t=25\\u202fs, then transitioned to a V\\u2011shape while maintaining a steady velocity. The formation remains stable with high classifier confidence, indicating coordinated behavior.\",\n  \"threat_level\": \"high\",\n  \"threat_reasoning\": \"The encirclement suggests intent to surround a target, and the subsequent V\\u2011shape often precedes an attack or surveillance run, warranting a high threat assessment despite only moderate speed changes.\",\n  \"likely_intent\": \"encircle\",\n  \"recommended_action\": \"alert_operator\",\n  \"confidence_in_assessment\": \"high\",\n  \"key_indicators\": [\n    \"Encircling formation observed at t=25\\u202fs\",\n    \"Stable formation with high classifier confidence (0.95)\",\n    \"Steady velocity trend with slight increase (+0.05\\u202fm/s)\"\n  ],\n  \"follow_up_watch\": \"Watch for further tightening of the encirclement, emergence of attack\\u2011preparation signatures, or any sudden acceleration.\"\n}",
+    "parsed": {
+      "situation_summary": "Over the past 159.5 seconds, the UAV cluster shifted from a dispersed pattern to an encirclement formation around t=25\u202fs, then transitioned to a V\u2011shape while maintaining a steady velocity. The formation remains stable with high classifier confidence, indicating coordinated behavior.",
+      "threat_level": "high",
+      "threat_reasoning": "The encirclement suggests intent to surround a target, and the subsequent V\u2011shape often precedes an attack or surveillance run, warranting a high threat assessment despite only moderate speed changes.",
+      "likely_intent": "encircle",
+      "recommended_action": "alert_operator",
+      "confidence_in_assessment": "high",
+      "key_indicators": [
+        "Encircling formation observed at t=25\u202fs",
+        "Stable formation with high classifier confidence (0.95)",
+        "Steady velocity trend with slight increase (+0.05\u202fm/s)"
+      ],
+      "follow_up_watch": "Watch for further tightening of the encirclement, emergence of attack\u2011preparation signatures, or any sudden acceleration."
+    },
+    "formal_abstain": false,
+    "raw_abstain_signal": [],
+    "mismatch": false
+  },
+  {
+    "i": 22,
+    "true_chain": [
+      "diamond",
+      "v_shape",
+      "shield"
+    ],
+    "subtype": "multi_hop",
+    "raw_text": "{\n  \"situation_summary\": \"The UAV group maintained a shield formation throughout the observation window, showing stable velocity and minimal approach rate. Formation transitions occurred at predictable intervals without aggressive maneuvers, indicating a defensive posture.\",\n  \"threat_level\": \"medium\",\n  \"threat_reasoning\": \"Although the group is not exhibiting hostile intent, the persistent shield formation suggests preparation for potential defense or surveillance, warranting a medium threat level.\",\n  \"likely_intent\": \"defensive\",\n  \"recommended_action\": \"monitor\",\n  \"confidence_in_assessment\": \"high\",\n  \"key_indicators\": [\n    \"Persistent shield formation with high classifier confidence (0.92)\",\n    \"Steady velocity trend (delta_v \\u2248 -0.03) and low approach rate (0.017)\",\n    \"Formation stability holding (mean stability 0.84) and no role differentiation\"\n  ],\n  \"follow_up_watch\": \"Watch for any shift from shield to aggressive formations (e.g., line or wedge) or increases in approach rate that could signal offensive intent.\"\n}",
+    "parsed": {
+      "situation_summary": "The UAV group maintained a shield formation throughout the observation window, showing stable velocity and minimal approach rate. Formation transitions occurred at predictable intervals without aggressive maneuvers, indicating a defensive posture.",
+      "threat_level": "medium",
+      "threat_reasoning": "Although the group is not exhibiting hostile intent, the persistent shield formation suggests preparation for potential defense or surveillance, warranting a medium threat level.",
+      "likely_intent": "defensive",
+      "recommended_action": "monitor",
+      "confidence_in_assessment": "high",
+      "key_indicators": [
+        "Persistent shield formation with high classifier confidence (0.92)",
+        "Steady velocity trend (delta_v \u2248 -0.03) and low approach rate (0.017)",
+        "Formation stability holding (mean stability 0.84) and no role differentiation"
+      ],
+      "follow_up_watch": "Watch for any shift from shield to aggressive formations (e.g., line or wedge) or increases in approach rate that could signal offensive intent."
+    },
+    "formal_abstain": false,
+    "raw_abstain_signal": [],
+    "mismatch": false
+  },
+  {
+    "i": 23,
+    "true_chain": [
+      "column",
+      "diamond",
+      "encirclement",
+      "v_shape"
+    ],
+    "subtype": "multi_hop",
+    "raw_text": "{\n  \"situation_summary\": \"The UAV group maintained a column formation early in the observation, transitioning to a diamond shape around 10 seconds while holding a steady velocity of about 5.8 m/s. Formation stability remained high and the spread showed minimal change, indicating coordinated but non\\u2011aggressive movement.\",\n  \"threat_level\": \"medium\",\n  \"threat_reasoning\": \"Although the formation changed and velocity was steady, there were no signs of acceleration, encirclement, or hostile maneuvers; the behavior is consistent with routine surveillance/patrol activity, warranting a medium threat level.\",\n  \"likely_intent\": \"patrol\",\n  \"recommended_action\": \"increase_surveillance\",\n  \"confidence_in_assessment\": \"high\",\n  \"key_indicators\": [\n    \"Steady velocity (~5.8 m/s) with negligible delta_v (-0.05)\",\n    \"High formation stability (mean 0.84) and stable spread (approach_rate 0.004)\",\n    \"Transition from column to diamond at t=10s without aggressive acceleration or encircling patterns\"\n  ],\n  \"follow_up_watch\": \"Watch for any increase in approach rate, sudden velocity changes, or further formation shifts that could indicate a shift to attack preparation.\"\n}",
+    "parsed": {
+      "situation_summary": "The UAV group maintained a column formation early in the observation, transitioning to a diamond shape around 10 seconds while holding a steady velocity of about 5.8 m/s. Formation stability remained high and the spread showed minimal change, indicating coordinated but non\u2011aggressive movement.",
+      "threat_level": "medium",
+      "threat_reasoning": "Although the formation changed and velocity was steady, there were no signs of acceleration, encirclement, or hostile maneuvers; the behavior is consistent with routine surveillance/patrol activity, warranting a medium threat level.",
+      "likely_intent": "patrol",
+      "recommended_action": "increase_surveillance",
+      "confidence_in_assessment": "high",
+      "key_indicators": [
+        "Steady velocity (~5.8 m/s) with negligible delta_v (-0.05)",
+        "High formation stability (mean 0.84) and stable spread (approach_rate 0.004)",
+        "Transition from column to diamond at t=10s without aggressive acceleration or encircling patterns"
+      ],
+      "follow_up_watch": "Watch for any increase in approach rate, sudden velocity changes, or further formation shifts that could indicate a shift to attack preparation."
+    },
+    "formal_abstain": false,
+    "raw_abstain_signal": [],
+    "mismatch": false
+  },
+  {
+    "i": 26,
+    "true_chain": [
+      "diamond",
+      "column",
+      "converging"
+    ],
+    "subtype": "multi_hop",
+    "raw_text": "{\n  \"situation_summary\": \"The UAV group started in a diamond formation and transitioned to a dispersed pattern around 10 seconds before settling into a column formation. Velocity remained steady with minimal change, and the approach rate was low, indicating no aggressive advance.\",\n  \"threat_level\": \"low\",\n  \"threat_reasoning\": \"Low threat is indicated by the lack of acceleration, negligible approach rate, and the shift to a non\\u2011aggressive column formation; there is no evidence of hostile intent or rapid closure.\",\n  \"likely_intent\": \"surveillance\",\n  \"recommended_action\": \"monitor\",\n  \"confidence_in_assessment\": \"high\",\n  \"key_indicators\": [\n    \"Steady velocity (~5.6 m/s) with delta_v \\u2248 -0.01\",\n    \"Low approach rate (mean = 0.011)\",\n    \"Formation changed from diamond to dispersed then column without signs of attack preparation\"\n  ],\n  \"follow_up_watch\": \"Watch for any increase in approach rate or formation tightening that could signal a shift to surveillance or attack.\"\n}",
+    "parsed": {
+      "situation_summary": "The UAV group started in a diamond formation and transitioned to a dispersed pattern around 10 seconds before settling into a column formation. Velocity remained steady with minimal change, and the approach rate was low, indicating no aggressive advance.",
+      "threat_level": "low",
+      "threat_reasoning": "Low threat is indicated by the lack of acceleration, negligible approach rate, and the shift to a non\u2011aggressive column formation; there is no evidence of hostile intent or rapid closure.",
+      "likely_intent": "surveillance",
+      "recommended_action": "monitor",
+      "confidence_in_assessment": "high",
+      "key_indicators": [
+        "Steady velocity (~5.6 m/s) with delta_v \u2248 -0.01",
+        "Low approach rate (mean = 0.011)",
+        "Formation changed from diamond to dispersed then column without signs of attack preparation"
+      ],
+      "follow_up_watch": "Watch for any increase in approach rate or formation tightening that could signal a shift to surveillance or attack."
+    },
+    "formal_abstain": false,
+    "raw_abstain_signal": [],
+    "mismatch": false
+  },
+  {
+    "i": 28,
+    "true_chain": [
+      "column",
+      "converging",
+      "v_shape",
+      "encirclement"
+    ],
+    "subtype": "multi_hop",
+    "raw_text": "{\n  \"situation_summary\": \"The UAV group maintained a column formation early in the observation, then transitioned to a V\\u2011shape while slowly converging. Velocity remained steady and the approach rate was slightly negative, indicating minimal closure toward the observer.\",\n  \"threat_level\": \"low\",\n  \"threat_reasoning\": \"Low threat is indicated by the lack of aggressive maneuvers, negligible approach velocity, and a stable, non\\u2011aggressive formation pattern; the behavior aligns with routine surveillance rather than attack or interception.\",\n  \"likely_intent\": \"surveillance\",\n  \"recommended_action\": \"monitor\",\n  \"confidence_in_assessment\": \"high\",\n  \"key_indicators\": [\n    \"Steady velocity (~5.7 m/s) with minimal delta_v (-0.08)\",\n    \"Converging\\u2011to\\u2011dispersed transition at t=30\\u202fs followed by dispersal\",\n    \"High classifier confidence (mean\\u202f0.94) and stable formation spread\"\n  ],\n  \"follow_up_watch\": \"Watch for any increase in approach rate (>0.1), shift to aggressive formations (e.g., line or stack), or sudden acceleration that could signal a change in intent.\"\n}",
+    "parsed": {
+      "situation_summary": "The UAV group maintained a column formation early in the observation, then transitioned to a V\u2011shape while slowly converging. Velocity remained steady and the approach rate was slightly negative, indicating minimal closure toward the observer.",
+      "threat_level": "low",
+      "threat_reasoning": "Low threat is indicated by the lack of aggressive maneuvers, negligible approach velocity, and a stable, non\u2011aggressive formation pattern; the behavior aligns with routine surveillance rather than attack or interception.",
+      "likely_intent": "surveillance",
+      "recommended_action": "monitor",
+      "confidence_in_assessment": "high",
+      "key_indicators": [
+        "Steady velocity (~5.7 m/s) with minimal delta_v (-0.08)",
+        "Converging\u2011to\u2011dispersed transition at t=30\u202fs followed by dispersal",
+        "High classifier confidence (mean\u202f0.94) and stable formation spread"
+      ],
+      "follow_up_watch": "Watch for any increase in approach rate (>0.1), shift to aggressive formations (e.g., line or stack), or sudden acceleration that could signal a change in intent."
+    },
+    "formal_abstain": false,
+    "raw_abstain_signal": [],
+    "mismatch": false
+  },
+  {
+    "i": 29,
+    "true_chain": [
+      "column",
+      "v_shape",
+      "shield",
+      "v_shape"
+    ],
+    "subtype": "multi_hop",
+    "raw_text": "{\n  \"situation_summary\": \"The UAV group maintained a shield formation while transitioning between column and V\\u2011shape patterns over the observation window. Velocity remained steady with minimal approach rate, indicating a non\\u2011aggressive posture. Formation stability was high, suggesting coordinated but non\\u2011hostile behavior.\",\n  \"threat_level\": \"medium\",\n  \"threat_reasoning\": \"Although the group shows no signs of rapid closure or attack preparation, the ability to shift formations and maintain cohesion indicates potential surveillance or defensive intent, warranting a medium threat assessment.\",\n  \"likely_intent\": \"defensive\",\n  \"recommended_action\": \"monitor\",\n  \"confidence_in_assessment\": \"high\",\n  \"key_indicators\": [\n    \"Steady velocity (~5.7\\u20115.8 m/s) with negligible approach rate (+0.001)\",\n    \"High formation stability (mean 0.83) and consistent shield formation\",\n    \"Transition from column to V\\u2011shape and back to shield without acceleration\"\n  ],\n  \"follow_up_watch\": \"Watch for any increase in approach rate (>0.05 m/s), acceleration, or shift to aggressive formations such as line or wedge.\"\n}",
+    "parsed": {
+      "situation_summary": "The UAV group maintained a shield formation while transitioning between column and V\u2011shape patterns over the observation window. Velocity remained steady with minimal approach rate, indicating a non\u2011aggressive posture. Formation stability was high, suggesting coordinated but non\u2011hostile behavior.",
+      "threat_level": "medium",
+      "threat_reasoning": "Although the group shows no signs of rapid closure or attack preparation, the ability to shift formations and maintain cohesion indicates potential surveillance or defensive intent, warranting a medium threat assessment.",
+      "likely_intent": "defensive",
+      "recommended_action": "monitor",
+      "confidence_in_assessment": "high",
+      "key_indicators": [
+        "Steady velocity (~5.7\u20115.8 m/s) with negligible approach rate (+0.001)",
+        "High formation stability (mean 0.83) and consistent shield formation",
+        "Transition from column to V\u2011shape and back to shield without acceleration"
+      ],
+      "follow_up_watch": "Watch for any increase in approach rate (>0.05 m/s), acceleration, or shift to aggressive formations such as line or wedge."
+    },
+    "formal_abstain": false,
+    "raw_abstain_signal": [],
+    "mismatch": false
+  },
+  {
+    "i": 35,
+    "true_chain": [
+      "dispersed",
+      "diamond",
+      "converging"
+    ],
+    "subtype": "multi_hop",
+    "raw_text": "{\n  \"situation_summary\": \"Over the past 104.5 seconds, the UAV group maintained a diamond formation while slowly converging toward the observation point. Velocity remained steady with minimal acceleration, and formation stability was high. No abrupt maneuvers or role specialization were observed.\",\n  \"threat_level\": \"medium\",\n  \"threat_reasoning\": \"The converging motion indicates potential interest in the area, but the lack of aggressive acceleration, hostile posturing, or rapid formation changes keeps the threat at a moderate level.\",\n  \"likely_intent\": \"surveillance\",\n  \"recommended_action\": \"increase_surveillance\",\n  \"confidence_in_assessment\": \"high\",\n  \"key_indicators\": [\n    \"Diamond formation held throughout the window\",\n    \"Converging velocity trend with approach rate -0.079 m/s\",\n    \"High classifier confidence (0.93) despite one low-confidence window\"\n  ],\n  \"follow_up_watch\": \"Watch for any increase in approach rate, shift to aggressive formations (e.g., line or wedge), or sudden velocity spikes that could indicate attack preparation.\"\n}",
+    "parsed": {
+      "situation_summary": "Over the past 104.5 seconds, the UAV group maintained a diamond formation while slowly converging toward the observation point. Velocity remained steady with minimal acceleration, and formation stability was high. No abrupt maneuvers or role specialization were observed.",
+      "threat_level": "medium",
+      "threat_reasoning": "The converging motion indicates potential interest in the area, but the lack of aggressive acceleration, hostile posturing, or rapid formation changes keeps the threat at a moderate level.",
+      "likely_intent": "surveillance",
+      "recommended_action": "increase_surveillance",
+      "confidence_in_assessment": "high",
+      "key_indicators": [
+        "Diamond formation held throughout the window",
+        "Converging velocity trend with approach rate -0.079 m/s",
+        "High classifier confidence (0.93) despite one low-confidence window"
+      ],
+      "follow_up_watch": "Watch for any increase in approach rate, shift to aggressive formations (e.g., line or wedge), or sudden velocity spikes that could indicate attack preparation."
+    },
+    "formal_abstain": false,
+    "raw_abstain_signal": [],
+    "mismatch": false
+  }
+]

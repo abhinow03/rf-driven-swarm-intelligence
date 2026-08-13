@@ -3770,3 +3770,130 @@ declared intent-match proxy. Its weakest and least-supported result is the criti
 (28.6%, n=14, drawn from only 2 distinct RULES pairs) -- read the wide 95% CI
 ([11.7%, 54.6%], already reported in step 3 of the original comparison work), not the point
 estimate, whenever this number is cited going forward.*
+
+## 2026-08-13 — Layer-2-gap diagnosis, steps 1-3 (no fix yet, no retraining)
+
+Step 5 (2026-08-12) found only 1/502 has_ground_truth=False cases reach Layer 2; 492 fall to
+Layer 3 and inherit v5-a's 0.0% correct-abstention. This diagnoses WHY, in three parts, before
+any fix is proposed or applied.
+
+### Step 1: categorizing the 502
+
+`llm_finetuning/categorize_unanswerable_502.py` regenerates the locked seed=4321 population
+(CPU-only, deterministic, 0/0 chain/bucket integrity mismatches -- third independent
+confirmation of this regeneration's fidelity, after steps 3 and 5) and classifies every
+has_ground_truth=False case by its ACTUAL `classify_observation` bucket/subtype/guard_reasons:
+
+| category | layer-eligible-by-design | n | % of 502 |
+|---|---|---|---|
+| multi_hop | Layer 3 (guard code never reached) | 421 | 83.9% |
+| oscillation | Layer 3 (guard code never reached) | 70 | 13.9% |
+| bucket_A_misrouted | N/A -- bug (guard code reached, nothing fired) | 9 | 1.8% |
+| dispersed_converging_ambiguity | Layer 2 (guard code reached, correctly fired) | 1 | 0.2% |
+| terminal_transitioning | Layer 3 (guard code never reached) | 1 | 0.2% |
+
+**Layer-2-eligible total: 1/502 (0.2%). Layer-3-eligible-by-design total: 492/502 (98.0%).
+`bucket_A_misrouted` (a real guard-logic bug): 9/502 (1.8%).** Cross-validated exactly against
+step 5's own `unanswerable_by_layer`/`correct_abstention_by_layer` fields (`layer2_guard: 1`,
+`layer1_deterministic: 9`, `layer3_llm: 492`, `correct_abstention_by_layer: {layer2_guard: 1}`)
+-- independent re-derivation, same numbers. **The headline answer to "is this a Layer 2 bug or
+architecture behaving as designed": overwhelmingly the latter.** 492/502 (98.0%) were ALWAYS
+scoped to Layer 3 by this project's own design (`docs/PREREGISTRATION.md`'s protocol, the
+Phase 1 corpus spec) -- multi-hop chains and oscillation have no RULES key by construction, no
+guard was ever supposed to catch them. Only 9/502 (1.8%) is a genuine guard-logic defect.
+
+### Step 2: the guard code path, pulled for all 9 `bucket_A_misrouted` cases
+
+`src/swarm_intent/coverage.py:100-135`, the exact code evaluated per case (not summarized):
+
+```python
+if summary["n_genuinely_oov_windows"] > 0 and not robust_recovered:
+    guard_reasons.append("oov_name")
+if len(known_history) == 2 and not robust_recovered:
+    if summary["dominant_formation"] not in (key[0], key[1]):
+        guard_reasons.append("dominant_history_contradiction")
+if summary["n_ambiguous_dispersed_converging_windows"] > 0:
+    guard_reasons.append("dispersed_converging_ambiguity")
+if predictions and all(p["formation_confidence"] < 0.6 for p in predictions):
+    guard_reasons.append("low_confidence")
+```
+
+**But this code is never the mechanism for the other 492.** `classify_observation`'s control
+flow (lines 78-91) has THREE early `return` statements -- `abstain` (all-unknown), `history[-1]
+== UNKNOWN_FORMATION` (terminal), `len(known_history) >= 3` (multi_hop/oscillation) -- every
+one of which exits the function BEFORE `guard_reasons = []` is even initialized. The four guard
+conditions above are not "conditions that evaluated False" for 492/502 of these cases; they are
+code that never executes for them at all, by construction. This is the single most important
+fact this diagnosis surfaces: **Layer 2's guards structurally can only ever fire on cases
+where the model's own read ALREADY reduced to <=2 known formations** -- they cannot, by
+design, catch a case the classifier read as genuinely 3+-formation, no matter how that case
+should ideally be handled.
+
+For the 9 `bucket_A_misrouted` cases specifically (guard code WAS reached -- `known_history`
+had already collapsed to <=2 -- and NONE of the 4 conditions fired), all 9 checked directly:
+`n_genuinely_oov_windows=0` in every case (no window read outside `BASE_FORMATIONS`),
+`dominant_formation` is provably always one of `key`'s two members (per the guard's own
+code comment -- confirmed, not just asserted, in all 9), `n_ambiguous_dispersed_converging_
+windows=0` in every case, and `low_conf_windows` was never equal to the full window count
+(confidence was never uniformly bad) in any of the 9. **The model's classification genuinely,
+confidently lost a real intermediate formation state** (e.g. seq 105's true
+`['shield','v_shape','encirclement']` reduced to a clean, confident `('shield','v_shape')` --
+the classifier apparently never registered the `encirclement` segment as distinct at all,
+not as a low-confidence or ambiguous read, just as more `v_shape`). No existing guard
+condition is designed to catch "the classifier silently dropped a whole formation state" --
+that is an STGT classification-accuracy gap, not a guard-logic omission.
+
+### Step 3: the Layer-3-eligible subset (492 cases) -- why v5-a never abstains on them
+
+**(a) Corpus check, `llm_finetuning/corpus_abstention_by_mechanism.py`, full 12,001-row
+corpus (10,801 train + 600 val + 600 mining -- confirmed against `data/sft_train_v5_phase1_
+provenance.json`'s split counts, not assumed):**
+
+| mechanism | rows | abstention-labeled | % of mechanism |
+|---|---|---|---|
+| multi_hop | 0 | 0 | n/a |
+| terminal_transitioning | 0 | 0 | n/a |
+| oscillation | 0 | 0 | n/a |
+| resolvable (<=2 formations) | 12,001 | 0 | 0.0% |
+
+**Every single one of the 12,001 rows is one of the 49 RULES-coverage pairs (7 steady-state +
+42 transitions) -- confirmed directly (49 unique "Formation history:" strings in the corpus,
+matching 49 exactly). Zero rows anywhere in the corpus carry a multi_hop, terminal_
+transitioning, or oscillation pattern. Zero rows anywhere carry an abstention target label at
+all.** v5-a was never shown a single training example of the shape 492/502 of its real Layer-3
+traffic actually has. This is not a subtle imbalance -- the relevant training signal does not
+exist in the corpus at all, in either direction (neither the input shape nor the abstention
+output).
+
+**(b) 20 raw v5-a generations, `llm_finetuning/sample_v5a_raw_generations.py`, real Layer-3-
+eligible eval cases (multi_hop/oscillation/terminal_transitioning), greedy decode:**
+
+**0/20 show abstention-like prose** ("insufficient information," "cannot determine," etc. --
+checked against an 11-phrase list) **that the formal `likely_intent` parser fails to catch.**
+This rules out the step-1-of-the-prior-session bug CLASS (a real signal existing in raw text
+that a narrow parser/regex misses) as an explanation here. What the 20 samples show instead:
+v5-a answers EVERY one of them confidently, with `"confidence_in_assessment": "high"` in the
+large majority, by narrating only ONE formation from the true multi-formation chain (usually
+whichever the majority of windows classified as) as if the whole observation concerned it
+alone -- e.g. seq 2's true `['dispersed','column','dispersed']` (an oscillation) is described
+as steady, uneventful "dispersed formation... over the past minute," the middle `column`
+excursion never mentioned. **This is not a parsing bug and not a guard-logic bug -- it is
+genuine, unhedged undertrained behavior**, exactly consistent with (a): the model has no
+learned representation of "this input shape means I don't know," because it has never once
+seen that input shape paired with that output during training.
+
+### Step 4: decision table (no fix applied)
+
+| failure class | n of 502 | % | fixable how | cost |
+|---|---|---|---|---|
+| guard-logic bug (`bucket_A_misrouted`) | 9 | 1.8% | isolated code fix to `coverage.py` -- but the root cause is an STGT classification-accuracy gap (a real intermediate state silently dropped, not merely low-confidence or ambiguous), so a guard-side heuristic (e.g. flag long/many-window observations as lower-confidence) would catch SOME but not reliably all 9 without a genuine classifier improvement | small (hours) for a partial/heuristic mitigation; a complete fix needs STGT-level work, out of scope here |
+| genuine undertrained abstention (corpus gap) | 492 (of which 1 already correctly reaches Layer 2 and abstains) | 98.0% | corpus augmentation -- build genuinely new multi-hop/oscillation/terminal-transitioning training rows with abstention targets, at the SAME rigor the 49-pair Phase 1 corpus was built with (teacher-authored prose, dedup/distinctness checks, provenance tracking) -- then retrain v5-a or build a new v5-b/c/d arm, then re-run the full Phase 4 protocol | large -- a new corpus-generation sub-project comparable in scope to Phase 1 itself, plus a full retrain and re-evaluation; explicitly NOT attempted this session (no retraining, no fix, per the session's own scope) |
+| parsing bug (raw text vs. formal field mismatch) | 0 | 0.0% | n/a -- not observed in the 20-sample check; would be a cheap regex/keyword fix (same class as the "Transition detected" vs "Transition at" bug from the prior hardening session) if found, but there is no evidence here to justify chasing it further | none needed -- ruled out, not merely unchecked |
+
+**Verdict: the "Layer 2 gap" is almost entirely (98.0%) the architecture behaving exactly as
+designed on inputs it was always scoped to hand to the LLM layer, combined with a corpus that
+gives that LLM layer zero training signal for the one behavior (abstention) it needs on
+those inputs. Only 1.8% (9/502) is a genuine, isolated guard-logic/classifier-accuracy defect.
+Neither failure class is a quick fix: the dominant one (98.0%) requires corpus augmentation
+and a retrain, explicitly out of scope this session; the minor one (1.8%) needs STGT-level
+classification improvement to fully close, not just a `coverage.py` patch.**
