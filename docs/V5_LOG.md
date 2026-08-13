@@ -4021,3 +4021,32 @@ unaffected).
 98.0% majority -- Layer 3 traffic and its 0.0% correct-abstention on genuine multi-hop/
 oscillation input are exactly as diagnosed, unfixed, requiring corpus augmentation and a
 retrain neither attempted nor in scope here.**
+
+---
+
+# 2026-08-14 — Layer 2 extension attempt (no-retrain), FAILED the false-positive gate
+
+The 98.0%-majority corpus gap above prompted a "no-retrain first" attempt: route
+structurally-multi-hop/oscillation observations to a deterministic Layer-2 abstention
+instead of Layer 3, without touching the corpus or retraining. Full detail: `AUDIT.md` sec AN.
+
+Located the existing classifier (`categorize_unanswerable_502.py`, standalone, not
+pipeline-reachable), investigated `coverage.py`'s `len(known_history)>=3` early return
+(confirmed it fires on all 491 subtype-labeled cases; found 1 additional case masked by an
+earlier `terminal_unknown` early return, seq 879), wired a new `_structural_chain_reason()`
+check into `pipeline_v2.py`'s routing (both `_dispatch` and `_resolve_batched`).
+
+**Mandatory false-positive audit against all 498 has_ground_truth=True cases: 51 (10.2%)
+would newly misroute to guaranteed abstention.** Root cause: at `robust=False` (the shipped
+default), a genuinely 2-formation trajectory routinely produces a spurious 3rd intermediate
+formation group in STGT's raw per-window read (classifier noise, not a real 3rd formation) --
+`coverage.py`'s own `subtype` already mislabels these as `multi_hop` today; the new routing
+just changed what happens to them (previously Layer 3, sometimes correct; now guaranteed
+wrong). This is a real property of the structural signal, not a bug in this session's code.
+
+**Reverted** (`git revert`, commit `72b773d`) before any full re-eval ran, per the LOCKED
+CONFIG's hard gate ("if it fails the false-positive gate, the next step is a retrain with
+abstention examples"). 177/177 tests pass after the revert. **No corpus change, no
+retraining, no change to `coverage.py`'s 3 early returns, no change to the checkpoint or
+`stgt_bridge.py` -- exactly as scoped.** The no-retrain approach is now conclusively ruled
+out; a retrain with abstention examples is the next candidate, not attempted this session.

@@ -3499,3 +3499,58 @@ reconciliation section, and the "isolated contribution" table) with dated
 figures remain, annotated. `83.0%/77.3%` themselves are unaffected (step 1 confirmed them
 exactly); only the causal attribution of how much of the historical delta came from the fix
 vs. an ordinary resample changes.
+
+## AN. Layer 2 extension attempt — deterministic multi-hop/oscillation abstention (no-retrain, FAILED the false-positive gate)
+
+The no-retrain attempt at closing the Layer-2 gap (sec AK's 98.0% majority: multi-hop/
+oscillation cases falling through to Layer 3 and inheriting v5-a's 0.0% correct-abstention).
+Implemented, audited, **failed the mandatory false-positive gate, and was reverted** — per
+the session's own locked contingency, the next step is a retrain with abstention examples,
+not a further no-retrain iteration.
+
+**Step 1**: the existing structural classifier (multi_hop/oscillation/terminal_transitioning/
+OOV/contradiction/dispersed_converging) is `llm_finetuning/categorize_unanswerable_502.py`'s
+`categorize()` function, built on `coverage.py`'s `classify_observation()` output. **Standalone
+diagnostic — not reachable from the live pipeline** (never imported by `pipeline_v2.py` or
+`coverage.py`).
+
+**Step 2** (`llm_finetuning/investigate_layer2_early_returns.py`): confirmed all 491
+(421 multi_hop + 70 oscillation) subtype-labeled cases hit `coverage.py`'s
+`len(known_history)>=3` early return exactly (0 tautology mismatches). Found **one** case
+(seq 879, true_chain `['diamond','column','converging']`) where a DIFFERENT, EARLIER early
+return (`history[-1]==UNKNOWN_FORMATION`, `"terminal_unknown"`) fires first and masks a
+genuine 3-formation pattern underneath — real early-return-ORDER masking, architecture not a
+missing-condition bug. Per the LOCKED CONFIG, `coverage.py`'s 3 early returns were **not**
+modified to fix this.
+
+**Step 3** (`src/swarm_intent/pipeline_v2.py`, later reverted): added
+`_structural_chain_reason()`, recomputing `known_history` independently from
+`summary["formation_history"]` (bypassing which early return `coverage.py` took), wired into
+both `_dispatch` and `_resolve_batched` — bucket-C cases structurally spanning >=3 distinct
+formations would route to Layer 2 with `"structurally_unresolvable_multihop"`/
+`"structurally_unresolvable_oscillation"` instead of Layer 3.
+
+**Step 4 — MANDATORY false-positive audit, FAILED** (`llm_finetuning/
+audit_layer2_extension_false_positives.py`): **51/498 (10.2%)** has_ground_truth=True cases
+would newly misroute to guaranteed Layer-2 abstention. Root cause: ALL 51 already carry
+`bucket=C subtype=multi_hop` (1 `oscillation`) in `coverage.py`'s OWN EXISTING classification
+— the raw (`robust=False`, shipped default) per-window STGT read is noisy enough that a
+genuinely 2-formation trajectory routinely shows a spurious 3rd intermediate group (`"dispersed"`,
+`"converging"`, `"unknown"`, or an outright wrong formation name) between the true endpoints.
+This is not a defect in this session's new code — it is a real limitation of the underlying
+structural signal at `robust=False`, measured here for the first time. Full detail (every
+case, true answer, trigger reason): `evaluation/layer2_extension_false_positive_audit.json`.
+
+**Per the LOCKED CONFIG's hard gate, stopped immediately — did not proceed to step 5** (no
+full re-eval was run; `llm_finetuning/eval_pipeline_v2_with_v5a_layer2ext.py` was written but
+never executed). **Step 3's routing change was reverted** (`git revert`, commit `72b773d`) —
+leaving it live would have silently degraded 10.2% of real answerable cases. Full test suite
+re-confirmed clean (177/177) after the revert. Step 6's "one test per newly-caught category"
+was skipped, since that behavior no longer ships; the diagnostic scripts and this write-up are
+the durable record instead.
+
+**Conclusion, matching the session's own pre-committed contingency: this no-retrain approach
+does not work.** The structural signal needed to safely distinguish "genuinely 3+ formations"
+from "STGT's noisy 2-formation read" does not exist at `robust=False` without deciding the
+LLM's job for it incorrectly 1 case in 10. The next step, per the LOCKED CONFIG, is a retrain
+with abstention examples — not attempted this session.
