@@ -3290,3 +3290,45 @@ fixed — batch network-bound work, always. (2) a 4-system baseline comparison s
 its first attempt from loading 4 separate 7B models simultaneously, then ran uncomfortably
 close to the GPU memory ceiling (7 OOM warnings, all recovered) even after fixing that — with
 no incremental checkpointing, a real crash would have lost all 4 systems' work at once.
+
+## AJ. Correcting sec AI's headline claim — a post-hoc hardening audit
+
+Sec AI above is left unedited (append-only discipline) — this section corrects its headline,
+dated, with the reasoning. Full detail in `docs/V5_LOG.md`'s "PHASE 2 HARDENING AUDIT" entries
+(2026-08-12); this is a pointer and summary, not a duplicate.
+
+**Sec AI said "Preregistration verdict: PASS... One bar... remains structurally NOT
+COMPUTABLE."** That was accurate at the time it was written. A dedicated hardening audit then
+(1) fixed the `pair_accuracy` schema gap for real — computed via a declared PROXY
+(`likely_intent` match against `RULES[true_pair]`'s intent, not literal pair-string matching,
+since no such field exists in `OUTPUT_SCHEMA` and getting one would cost ~2.5 hours of
+re-generation across 5 systems, not attempted) — **v5-a scores 63.6% (n=497), clearing the
+>=55% bar**; and (2) found the memorization-check denominator itself had silently excluded 110
+real, ground-truth-determinable cases due to a separate ctx-text-parsing bug (fixed; overlap
+rate moved from 1.3%/n=534 to 0.5%/n=644, verdict unchanged — CONSISTENT WITH GENERALIZATION,
+now on stronger evidence).
+
+**Corrected headline: v5-a passes all 6 preregistered bars — 5 directly, 1
+(`pair_accuracy`) via a declared proxy.** Not "5 of 6, 1 not computable" (stale, pre-audit) and
+not an unqualified "6 of 6" (omits that bar #6 is a proxy, not a literal metric).
+
+**Every critical-tier figure carries an n=14-trajectories / n=2-distinct-RULES-pairs caveat,
+restated here rather than assumed carried over from sec AI**: 28.6% critical per-class threat
+accuracy and 28.6% critical-pair tactical accuracy are THE SAME 14 cases scored two ways, not
+independent confirmations, drawn from only 2 distinct ground-truth pairs
+(`converging<->encirclement`, both directions of one compound-escalation event). 95% CI on
+that 28.6%: **[11.7%, 54.6%]** — cite the interval, not the point estimate, whenever this
+number is used again.
+
+**Additional hardening findings, not in sec AI, briefly (full detail in `V5_LOG.md`)**:
+same-population ceiling-normalized accuracy is **91.7%** (75.7%/82.5%, both measured on the
+identical locked seed=4321 population — the historical 83.0% ceiling sec AI implicitly
+leaned on was a DIFFERENT trajectory subset, seed=999). `pipeline_v2` with v5-a in Layer 3
+(the system that actually ships) reaches **87.8%** end-to-end accuracy (a real 12.1pt
+improvement over the bare adapter) but does **NOT** fix the abstention problem — only 1/502
+unanswerable cases ever reach Layer 2's guard; the other 501 route straight to Layer 3 and
+inherit v5-a's own 0.0% correct-abstention behavior, for an end-to-end rate of 0.2%. A
+determinism re-run (never previously done) confirmed greedy decoding is reproducible (0/10
+diffs); a SEPARATE non-determinism bug was found in `stgt_bridge.py`'s dominant-formation
+tie-break logic (hash-seed-dependent across process runs, confirmed cosmetic-only, does not
+affect `rules_key`/bucket outcomes).

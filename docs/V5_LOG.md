@@ -3736,3 +3736,37 @@ pulling the pooled accuracy up 12.1 points over the bare-adapter number.
 **Summary: pipeline_v2 + v5-a is a real accuracy improvement over the bare adapter, but it
 does NOT fix the abstention problem -- both numbers should be read together, not the accuracy
 win alone.**
+
+## 2026-08-12 — step 6: correcting the headline claim
+
+The step-4/5 commit above (`4331910`, `ea7a2ce`) stated a bare **"OVERALL: PASS"** for the
+preregistration check, and a similarly bare "PASS, every checkable bar cleared" summary. That
+headline needs two corrections, not one:
+
+**(1) The "5 of 6 bars, 1 not computable" framing was accurate BEFORE this audit's own step 2,
+and is now stale.** At the time `eval_pipeline_v2` and the original comparison table were
+first built, `pair_accuracy_pooled_when_answerable` genuinely was NOT COMPUTABLE (no field
+existed) -- "PASS on 5 of 6 preregistered bars; 1 not computable" would have been the honest
+headline at THAT point, more honest than the flat "OVERALL: PASS" that was actually written.
+This audit's own step 2 (commit `4331910`) then fixed the schema gap and computed the bar for
+real (63.6%, a PROXY -- likely_intent match, not literal pair-string matching). **The current,
+correct headline is: PASS on 6 of 6 preregistered bars, one of which (pair_accuracy) is
+measured via a declared proxy, not a literal metric.** Neither "5 of 6" nor an unqualified
+"6 of 6" alone is the honest statement -- both the count AND the proxy caveat on bar #6 need
+to be stated together.
+
+**(2) Every critical-tier figure needs its n-count and the n=2-distinct-RULES-pairs caveat
+attached explicitly, every time it's cited, not just the first time:**
+
+| figure | value | n (trajectories) | caveat |
+|---|---|---|---|
+| critical per-class threat accuracy | 28.6% | 14 | only 2 distinct RULES pairs exist (`converging<->encirclement`, both directions of one compound-escalation event) -- 14 trajectories is already thin, but the underlying SCENARIO diversity is thinner still: every one of these 14 cases is a sample of just 2 possible ground-truth pairs |
+| critical-pair tactical accuracy | 28.6% | 14 | same 2-pair caveat -- this is not an independent confirmation of the row above, it is the SAME 14 cases scored the same way |
+| same-population ceiling, critical stratum specifically | not separately broken out -- the 82.5% same-population ceiling (step 3) is POOLED across all 4 tiers, not a critical-specific figure | 498 (pooled) | pooling masks how much of the 82.5% is driven by the much larger low/medium strata; a critical-only ceiling was not computed separately in this audit |
+
+**Corrected headline, stated once, completely**: *v5-a passes all 6 preregistered bars (n up
+to 1000, GT-determinable n=498) -- five directly, one (pair_accuracy, 63.6%, n=497) via a
+declared intent-match proxy. Its weakest and least-supported result is the critical tier
+(28.6%, n=14, drawn from only 2 distinct RULES pairs) -- read the wide 95% CI
+([11.7%, 54.6%], already reported in step 3 of the original comparison work), not the point
+estimate, whenever this number is cited going forward.*
