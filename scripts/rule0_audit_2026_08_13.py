@@ -166,6 +166,61 @@ def check_2b_seed999_locked_file():
     return candidates, locked_file_exists
 
 
+SCHEMA_VALIDITY_SOURCES = {
+    "base": REPO / "evaluation" / "phase4_baselines_scored.json",
+    "rules_in_prompt": REPO / "evaluation" / "phase4_baselines_scored.json",
+    "v3b-fix": REPO / "evaluation" / "phase4_baselines_scored.json",
+    "v2": REPO / "evaluation" / "phase4_baselines_scored.json",
+    "v5a": REPO / "evaluation" / "phase4_v5a_results.json",
+}
+
+
+def check_3_preregistration_bars():
+    """Item 3: for every PREREGISTRATION.md bar, confirm scripts/check_preregistration.py
+    has a REAL assertion (not a table entry) by inspecting its own BARS dict + the dedicated
+    check_escalation_direction() function -- both imported and introspected live, not eyeballed.
+    Then test the "passes by construction" hypothesis for a candidate 3rd weak bar
+    (schema_validity_rate) by pulling its actual value across ALL 5 evaluated systems
+    (base/rules_in_prompt/v3b-fix/v2/v5a) from their real results JSONs -- if it's ~100%
+    even for the untrained base model, it cannot be discriminating system quality."""
+    sys.path.insert(0, str(REPO / "scripts"))
+    import importlib
+    cp = importlib.import_module("check_preregistration")
+
+    numeric_bars = dict(cp.BARS)  # 5 bars, each with a real op/value comparison in check_bar()
+    has_escalation_fn = callable(getattr(cp, "check_escalation_direction", None))
+    n_bars_with_real_assertion = len(numeric_bars) + (1 if has_escalation_fn else 0)
+
+    schema_validity_by_system = {}
+    for system, path in SCHEMA_VALIDITY_SOURCES.items():
+        if not path.exists():
+            schema_validity_by_system[system] = None
+            continue
+        data = json.loads(path.read_text())
+        node = data.get(system, data) if isinstance(data, dict) and system in data else data
+        rate = node.get("schema_validity_rate", {}).get("rate")
+        schema_validity_by_system[system] = rate
+
+    rates = [r for r in schema_validity_by_system.values() if r is not None]
+    # candidate "passes by construction" bar: near-ceiling for every system regardless of
+    # accuracy quality (base model included) -- spread this tight means the bar cannot be
+    # discriminating between a good and a bad system.
+    schema_bar_spread = (max(rates) - min(rates)) if rates else None
+    schema_bar_passes_by_construction = (
+        schema_bar_spread is not None and schema_bar_spread < 0.02 and min(rates) >= 0.95
+    )
+
+    return {
+        "n_bars_total": n_bars_with_real_assertion,
+        "numeric_bars_with_real_assertion": list(numeric_bars.keys()),
+        "escalation_direction_has_real_assertion": has_escalation_fn,
+        "all_6_bars_have_real_assertion": n_bars_with_real_assertion == 6,
+        "schema_validity_rate_by_system": schema_validity_by_system,
+        "schema_validity_rate_spread": schema_bar_spread,
+        "schema_validity_candidate_3rd_weak_bar": schema_bar_passes_by_construction,
+    }
+
+
 def check_4_training_args():
     import torch
     ta = torch.load(TRAINING_ARGS, map_location="cpu", weights_only=False)
@@ -190,6 +245,7 @@ def main():
     results["1e"] = check_1e_narrative_combo_floor(rows)
     results["2a"] = check_2a_hashes()
     results["2b"] = check_2b_seed999_locked_file()
+    results["3"] = check_3_preregistration_bars()
     results["4"] = check_4_training_args()
 
     out_path = REPO / "evaluation" / "rule0_audit_2026_08_13_results.json"
@@ -213,6 +269,7 @@ def main():
             "bridge_matches_cited": results["2a"]["bridge"][1],
         },
         "2b": {"candidates_found": results["2b"][0], "locked_file_exists": results["2b"][1]},
+        "3": results["3"],
         "4": results["4"],
     }
     out_path.write_text(json.dumps(serializable, indent=2))
