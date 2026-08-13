@@ -1,0 +1,152 @@
+{
+  "population_code_lineage": {
+    "OLD_pre_dwell_fix": {
+      "carrier_file": "scripts/phase0_ceiling.py (inline copy)",
+      "first_commit": "b680c80",
+      "first_commit_date": "2026-08-08T01:54:13+05:30",
+      "last_unchanged_commit": "628dc56",
+      "last_unchanged_date": "2026-08-09T13:07:05+05:30",
+      "superseded_by_commit": "3591051",
+      "superseded_at": "2026-08-09T18:24:31+05:30"
+    },
+    "MID_post_consolidation_pre_symmetrize": {
+      "carrier_file": "src/swarm_intent/eval_trajectories.py",
+      "introduced_by_commit": "3591051",
+      "introduced_at": "2026-08-09T18:24:31+05:30",
+      "superseded_by_commit": "9061392",
+      "superseded_at": "2026-08-09T18:25:22+05:30"
+    },
+    "CURRENT_post_symmetrize": {
+      "carrier_file": "src/swarm_intent/eval_trajectories.py",
+      "introduced_by_commit": "9061392",
+      "introduced_at": "2026-08-09T18:25:22+05:30",
+      "superseded_by_commit": null,
+      "backs_headline_figures": [
+        "step26c chain-2 pair 39.9%->65.8%/threat 72.1%->76.3% (commit b411c96) -- NO persisted output JSON, prose-only",
+        "CEILING.md 'Current state, 2026-08-10': chain-1 87.6% threat/85.8% pair, chain-2 77.2% threat/66.7% pair (robust=True) -- NO persisted output JSON, prose-only",
+        "CEILING.md pooled bridge figure 83.0% threat/77.3% pair -- NO persisted output JSON, prose-only"
+      ]
+    }
+  },
+  "ceiling_output_files": [
+    {
+      "output_file": "evaluation/phase0_ceiling.json",
+      "commit": "4a88c6a",
+      "commit_date": "2026-08-08T02:01:51+05:30",
+      "commit_subject": "[v5-p0-s4] HALT GATE 1: pair-level ceiling measured at 3.3%, far below the 70% floor",
+      "population_code_state": "OLD_pre_dwell_fix"
+    },
+    {
+      "output_file": "evaluation/phase0_ceiling_v2.json",
+      "commit": "6801f78",
+      "commit_date": "2026-08-08T11:18:08+05:30",
+      "commit_subject": "[v5-p0-s4] retrained with gap-2 fix: ceiling 3.3% -> 4.7%, still HALT GATE 1",
+      "population_code_state": "OLD_pre_dwell_fix"
+    },
+    {
+      "output_file": "evaluation/phase0_ceiling_v3.json",
+      "commit": "e687b4a",
+      "commit_date": "2026-08-08T11:50:49+05:30",
+      "commit_subject": "[v5-p0-s4] scale data 3.3x + epochs 80->150: ceiling 4.7% -> 6.7%, still insufficient",
+      "population_code_state": "OLD_pre_dwell_fix"
+    },
+    {
+      "output_file": "evaluation/phase0_ceiling_v4.json",
+      "commit": "70c408d",
+      "commit_date": "2026-08-08T12:19:48+05:30",
+      "commit_subject": "[v5-p0-strategy2] centroid-relative features: window acc 36.9%->72.7%, pair-level ceiling still ~6%, root cause found",
+      "population_code_state": "OLD_pre_dwell_fix"
+    },
+    {
+      "output_file": "evaluation/phase0_ceiling_v4_robust.json",
+      "commit": "70c408d",
+      "commit_date": "2026-08-08T12:19:48+05:30",
+      "commit_subject": "[v5-p0-strategy2] centroid-relative features: window acc 36.9%->72.7%, pair-level ceiling still ~6%, root cause found",
+      "population_code_state": "OLD_pre_dwell_fix"
+    },
+    {
+      "output_file": "evaluation/phase0_ceiling_v5.json",
+      "commit": "a757d65",
+      "commit_date": "2026-08-08T12:47:50+05:30",
+      "commit_subject": "[v5-p0-strategy5] targeted transitioning-FP fix retrained: ceiling 6.1% -> 12.2% (roughly doubled)",
+      "population_code_state": "OLD_pre_dwell_fix"
+    },
+    {
+      "output_file": "evaluation/phase0_ceiling_v5_domfix.json",
+      "commit": "3e524a3",
+      "commit_date": "2026-08-09T12:58:45+05:30",
+      "commit_subject": "[v5-p0-step10] fix dominant_history_contradiction: tested a raw count tie, not the claim",
+      "population_code_state": "OLD_pre_dwell_fix"
+    },
+    {
+      "output_file": "evaluation/phase0_ceiling_v5_guardfix.json",
+      "commit": "7438f59",
+      "commit_date": "2026-08-09T10:53:49+05:30",
+      "commit_subject": "[v5-p0-step2] fix dispersed_converging_ambiguity guard: biggest gain of the program",
+      "population_code_state": "OLD_pre_dwell_fix"
+    },
+    {
+      "output_file": "evaluation/phase0_ceiling_v5_oovfix.json",
+      "commit": "2f34646",
+      "commit_date": "2026-08-09T12:53:13+05:30",
+      "commit_subject": "[v5-p0-step9] fix oov_name guard: conflated genuine OOV with valid transitioning class",
+      "population_code_state": "OLD_pre_dwell_fix"
+    },
+    {
+      "output_file": "evaluation/phase0_ceiling_v5_trimfix.json",
+      "commit": "628dc56",
+      "commit_date": "2026-08-09T13:07:05+05:30",
+      "commit_subject": "[v5-p0-step11] fix robust=True trim step: 62.5% spurious -> precision 63.8% -> 65.8%",
+      "population_code_state": "OLD_pre_dwell_fix"
+    },
+    {
+      "output_file": "evaluation/phase0_ceiling_v6.json",
+      "commit": "b2590e6",
+      "commit_date": "2026-08-08T22:07:00+05:30",
+      "commit_subject": "[v5-p0-step4] strategy 6 REGRESSES the ceiling: pair-level 12.2% -> 4.9%, threat 13.0% -> 6.3%",
+      "population_code_state": "OLD_pre_dwell_fix"
+    },
+    {
+      "output_file": "evaluation/phase0_threat_ceiling_v5.json",
+      "commit": "125d452",
+      "commit_date": "2026-08-08T21:02:34+05:30",
+      "commit_subject": "[v5-p0-step1] compute RULES-aware threat/intent/action ceiling: 13.0%/13.6%, barely above exact-pair (12.2%/12.8%)",
+      "population_code_state": "OLD_pre_dwell_fix"
+    },
+    {
+      "output_file": "evaluation/phase0_threat_ceiling_v5_domfix.json",
+      "commit": "3e524a3",
+      "commit_date": "2026-08-09T12:58:45+05:30",
+      "commit_subject": "[v5-p0-step10] fix dominant_history_contradiction: tested a raw count tie, not the claim",
+      "population_code_state": "OLD_pre_dwell_fix"
+    },
+    {
+      "output_file": "evaluation/phase0_threat_ceiling_v5_guardfix.json",
+      "commit": "7438f59",
+      "commit_date": "2026-08-09T10:53:49+05:30",
+      "commit_subject": "[v5-p0-step2] fix dispersed_converging_ambiguity guard: biggest gain of the program",
+      "population_code_state": "OLD_pre_dwell_fix"
+    },
+    {
+      "output_file": "evaluation/phase0_threat_ceiling_v5_oovfix.json",
+      "commit": "2f34646",
+      "commit_date": "2026-08-09T12:53:13+05:30",
+      "commit_subject": "[v5-p0-step9] fix oov_name guard: conflated genuine OOV with valid transitioning class",
+      "population_code_state": "OLD_pre_dwell_fix"
+    },
+    {
+      "output_file": "evaluation/phase0_threat_ceiling_v5_trimfix.json",
+      "commit": "628dc56",
+      "commit_date": "2026-08-09T13:07:05+05:30",
+      "commit_subject": "[v5-p0-step11] fix robust=True trim step: 62.5% spurious -> precision 63.8% -> 65.8%",
+      "population_code_state": "OLD_pre_dwell_fix"
+    },
+    {
+      "output_file": "evaluation/phase0_threat_ceiling_v6.json",
+      "commit": "b2590e6",
+      "commit_date": "2026-08-08T22:07:00+05:30",
+      "commit_subject": "[v5-p0-step4] strategy 6 REGRESSES the ceiling: pair-level 12.2% -> 4.9%, threat 13.0% -> 6.3%",
+      "population_code_state": "OLD_pre_dwell_fix"
+    }
+  ]
+}
