@@ -71,7 +71,8 @@ REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(REPO_ROOT / "llm_finetuning"))
 
 from .inference import build_llm_prompt  # noqa: E402
-from .coverage import classify_ctx, classify_observation, BUCKET_A, BUCKET_B, BUCKET_C  # noqa: E402
+from .coverage import classify_ctx, classify_observation, _collapse_consecutive, BUCKET_A, BUCKET_B, BUCKET_C  # noqa: E402
+from .stgt_bridge import UNKNOWN_FORMATION  # noqa: E402
 from .llm.client import _parse_llm_response  # noqa: E402
 from .llm.prior_correction import (  # noqa: E402
     CANDIDATES, THREAT_KEY_MARKER, find_key_marker_position, score_candidates,
@@ -93,7 +94,41 @@ GUARD_REASON_TEXT = {
     "dispersed_converging_ambiguity": "dispersed and converging classifier probabilities "
                                       "were within the ambiguity margin on at least one window",
     "low_confidence": "every available window fell below the 0.6 confidence threshold",
+    "structurally_unresolvable_multihop": "the observation structurally spans 3 or more distinct "
+                                          "formations (a multi-hop transition chain) that no single "
+                                          "(from, to) rule-table entry can represent",
+    "structurally_unresolvable_oscillation": "the observation structurally returns to an earlier "
+                                             "formation (an oscillation pattern) that no single "
+                                             "(from, to) rule-table entry can represent",
 }
+
+# AUDIT.md sec AN: deterministic Layer-2 extension for structurally unresolvable observations.
+# coverage.py's own len(known_history)>=3 early return (coverage.py:121-122) already
+# structurally identifies multi_hop/oscillation, but ALWAYS returns bucket C, and an earlier
+# early return (history[-1]==UNKNOWN_FORMATION, "terminal_unknown") can fire FIRST and mask
+# it entirely for cases whose final window is itself unclassified (confirmed: 1 real case,
+# seq 879 of the locked seed=4321 population, true_chain length 3, masked as terminal_unknown
+# -- see llm_finetuning/investigate_layer2_early_returns.py). Per the LOCKED CONFIG, coverage.py's
+# 3 early returns are NOT modified -- this recomputes known_history independently from
+# summary["formation_history"] (the exact same collapse coverage.py performs internally),
+# regardless of which bucket/subtype classify_observation ultimately assigned, so it also
+# catches cases coverage.py's early-return ORDER masks, without touching that order.
+_STRUCTURAL_MULTIHOP = "structurally_unresolvable_multihop"
+_STRUCTURAL_OSCILLATION = "structurally_unresolvable_oscillation"
+
+
+def _structural_chain_reason(bucket_info):
+    """None if the raw observation's known formation history has fewer than 3 distinct
+    entries; otherwise the structural reason string. Independent of bucket/subtype/robust
+    reduction -- reads only summary['formation_history'], always present regardless of which
+    early return coverage.py took (including the abstain path, where it degenerates to an
+    empty known_history and correctly returns None here)."""
+    summary = bucket_info.get("summary") or {}
+    history = summary.get("formation_history") or []
+    known_history = _collapse_consecutive([f for f in history if f != UNKNOWN_FORMATION])
+    if len(known_history) < 3:
+        return None
+    return _STRUCTURAL_OSCILLATION if known_history[0] == known_history[-1] else _STRUCTURAL_MULTIHOP
 
 LAYER1_NARRATOR_SYSTEM_PROMPT = (
     "You are a tactical AI analyst assisting a counter-UAV operator. The threat_level, "
@@ -239,6 +274,11 @@ def _dispatch(bucket_info, ctx, key_windows, rules_narrator_client, finetuned_cl
     if bucket == BUCKET_B:
         assessment = _layer2_abstain(bucket_info["guard_reasons"])
         return assessment, LAYER_2_GUARD, {"guard_reasons": bucket_info["guard_reasons"]}
+    structural_reason = _structural_chain_reason(bucket_info)
+    if structural_reason:
+        assessment = _layer2_abstain([structural_reason])
+        return assessment, LAYER_2_GUARD, {"guard_reasons": [structural_reason],
+                                           "subtype": bucket_info["subtype"]}
     assessment, correction = _layer3_llm(finetuned_client, ctx, key_windows, class_freq)
     return assessment, LAYER_3_LLM, {"subtype": bucket_info["subtype"], "correction": correction}
 
@@ -317,7 +357,14 @@ def _resolve_batched(items: list, rules_narrator_client, finetuned_client, class
         if bucket == BUCKET_A:
             a_idx.append(i)
         elif bucket == BUCKET_C:
-            c_idx.append(i)
+            structural_reason = _structural_chain_reason(item["bucket_info"])
+            if structural_reason:
+                item["assessment"] = _layer2_abstain([structural_reason])
+                item["layer"] = LAYER_2_GUARD
+                item["detail"] = {"guard_reasons": [structural_reason],
+                                  "subtype": item["bucket_info"]["subtype"]}
+            else:
+                c_idx.append(i)
         else:
             item["assessment"] = _layer2_abstain(item["bucket_info"]["guard_reasons"])
             item["layer"] = LAYER_2_GUARD
