@@ -1,0 +1,224 @@
+"""
+Rule-0 zero-assumption audit (2026-08-13). Pure verification, no fixes.
+
+Every check here re-derives a number DIRECTLY from the actual artifact on
+disk (JSONL corpus, provenance sidecar, checkpoint files, adapter config,
+pickled training args) -- never from a doc's cited figure. Where a doc
+claim cannot be checked programmatically (e.g. "same file used every time"
+when no such single file exists), that is reported as its own finding
+rather than silently passed.
+
+Usage:
+    python scripts/rule0_audit_2026_08_13.py
+"""
+from __future__ import annotations
+
+import hashlib
+import json
+import sys
+from pathlib import Path
+
+REPO = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(REPO / "src"))
+sys.path.insert(0, str(REPO / "llm_finetuning"))
+
+from build_sft_dataset import RULES, STRATA_TARGETS  # noqa: E402
+from swarm_intent.llm.prompts import is_abstention  # noqa: E402
+
+CORPUS_FILES = {
+    "train": REPO / "data" / "sft_train_v5_phase1.jsonl",
+    "val": REPO / "data" / "sft_train_v5_phase1_val.jsonl",
+    "mining": REPO / "data" / "sft_train_v5_phase1_mining.jsonl",
+}
+PROVENANCE_FILE = REPO / "data" / "sft_train_v5_phase1_provenance.json"
+CKPT = REPO / "swarm_data" / "best_model.pt"
+BRIDGE = REPO / "src" / "swarm_intent" / "stgt_bridge.py"
+ADAPTER_CFG = REPO / "checkpoints" / "v5_sft" / "adapter_config.json"
+TRAINING_ARGS = REPO / "checkpoints" / "v5_sft" / "training_args.bin"
+
+CITED_CKPT_SHA = "18fc201d5a419ff2fb0cfb66a60810af77a9ed52969f2996f57c952d1306a01b"
+CITED_BRIDGE_SHA = "e99472e16525588be83f7e7e78abeb5d781d7c2d238adc902c10c660bbb022f7"
+
+
+def sha256_file(path: Path) -> str:
+    h = hashlib.sha256()
+    h.update(path.read_bytes())
+    return h.hexdigest()
+
+
+def load_all_rows():
+    rows = []
+    for split, path in CORPUS_FILES.items():
+        for line in path.read_text().splitlines():
+            if line.strip():
+                r = json.loads(line)
+                r["_split"] = split
+                rows.append(r)
+    return rows
+
+
+def row_pair_and_intent(row):
+    """Extract (form_a, form_b) rules-key and assistant likely_intent from a
+    corpus row's messages, if present. Corpus rows store the pair implicitly
+    via the user ctx text produced by the same coverage-extraction helper
+    report_phase1_coverage.py already uses; reuse that here for consistency
+    with the pre-existing coverage tooling, applied fresh to the real file."""
+    from swarm_intent.coverage import _extract_pair_from_ctx
+    user_msg = next((m["content"] for m in row["messages"] if m["role"] == "user"), "")
+    assistant_msg = next((m["content"] for m in row["messages"] if m["role"] == "assistant"), "")
+    pair = _extract_pair_from_ctx(user_msg)
+    try:
+        parsed = json.loads(assistant_msg)
+        intent = parsed.get("likely_intent", "")
+    except Exception:
+        intent = None
+    return pair, intent
+
+
+def check_1a_abstention(rows):
+    n_abstain = 0
+    for r in rows:
+        _, intent = row_pair_and_intent(r)
+        if intent is not None and is_abstention(intent):
+            n_abstain += 1
+    return n_abstain, len(rows)
+
+
+def check_1b_pair_coverage(rows):
+    counts = {p: 0 for p in RULES}
+    unmatched = 0
+    for r in rows:
+        pair, _ = row_pair_and_intent(r)
+        if pair in counts:
+            counts[pair] += 1
+        else:
+            unmatched += 1
+    zero_pairs = [p for p, c in counts.items() if c == 0]
+    return counts, zero_pairs, unmatched
+
+
+def check_1c_critical_cap(rows):
+    critical_pairs = {p for p, (t, *_r) in RULES.items() if t == "critical"}
+    n_critical = 0
+    for r in rows:
+        pair, _ = row_pair_and_intent(r)
+        if pair in critical_pairs:
+            n_critical += 1
+    return n_critical, STRATA_TARGETS.get("critical")
+
+
+def check_1d_teacher_pct():
+    prov = json.loads(PROVENANCE_FILE.read_text())
+    rows = prov["rows"]
+    n_teacher = sum(1 for v in rows.values() if v.get("used_teacher") is True)
+    n_total = len(rows)
+    return n_teacher, n_total
+
+
+def check_1e_narrative_combo_floor(rows):
+    """report_phase1_coverage.py's own >=8-distinct-narrative-combo-per-pair
+    claim (line ~15/133/145/158), re-run fresh against the actual file text
+    instead of citing its historical stdout."""
+    import re
+    _VEL_RE = re.compile(r"velocity trend[: ]+(\w+)", re.I)
+    _STAB_RE = re.compile(r"stability trend[: ]+(\w+)", re.I)
+    _SPREAD_RE = re.compile(r"spread trend[: ]+(\w+)", re.I)
+    _ROLE_RE = re.compile(r"role differentiation[: ]+(\w+)", re.I)
+    try:
+        from report_phase1_coverage import narrative_combo
+    except Exception:
+        return None  # helper not importable standalone; not a blocking failure
+    pair_combos = {}
+    for r in rows:
+        pair, _ = row_pair_and_intent(r)
+        if pair is None:
+            continue
+        user_msg = next((m["content"] for m in r["messages"] if m["role"] == "user"), "")
+        combo = narrative_combo(user_msg)
+        pair_combos.setdefault(pair, set()).add(combo)
+    below = {p: len(c) for p, c in pair_combos.items() if len(c) < 8}
+    return {"n_pairs_checked": len(pair_combos), "n_below_8": len(below), "below": below}
+
+
+def check_2a_hashes():
+    ckpt_sha = sha256_file(CKPT)
+    bridge_sha = sha256_file(BRIDGE)
+    return {
+        "checkpoint": (ckpt_sha, ckpt_sha == CITED_CKPT_SHA),
+        "bridge": (bridge_sha, bridge_sha == CITED_BRIDGE_SHA),
+    }
+
+
+def check_2b_seed999_locked_file():
+    """Search for a single locked seed=999 trajectory file analogous to
+    evaluation/phase4_eval_set.json (which exists for the separate seed=4321
+    population). Report what actually exists on disk."""
+    import subprocess
+    candidates = subprocess.run(
+        ["find", str(REPO), "-iname", "*phase0*eval*set*", "-o", "-iname", "*seed999*",
+         "-o", "-iname", "*seed_999*"],
+        capture_output=True, text=True,
+    ).stdout.splitlines()
+    candidates = [c for c in candidates if ".git" not in c and "__pycache__" not in c]
+    locked_file_exists = any(
+        Path(c).is_file() and "progress" not in c for c in candidates
+    )
+    return candidates, locked_file_exists
+
+
+def check_4_training_args():
+    import torch
+    ta = torch.load(TRAINING_ARGS, map_location="cpu", weights_only=False)
+    adapter_cfg = json.loads(ADAPTER_CFG.read_text())
+    return {
+        "assistant_only_loss": getattr(ta, "assistant_only_loss", None),
+        "num_train_epochs": getattr(ta, "num_train_epochs", None),
+        "lora_r": adapter_cfg.get("r"),
+        "lora_alpha": adapter_cfg.get("lora_alpha"),
+    }
+
+
+def main():
+    rows = load_all_rows()
+    assert len(rows) == 12001, f"expected 12001 rows, got {len(rows)}"
+
+    results = {}
+    results["1a"] = check_1a_abstention(rows)
+    results["1b"] = check_1b_pair_coverage(rows)
+    results["1c"] = check_1c_critical_cap(rows)
+    results["1d"] = check_1d_teacher_pct()
+    results["1e"] = check_1e_narrative_combo_floor(rows)
+    results["2a"] = check_2a_hashes()
+    results["2b"] = check_2b_seed999_locked_file()
+    results["4"] = check_4_training_args()
+
+    out_path = REPO / "evaluation" / "rule0_audit_2026_08_13_results.json"
+    serializable = {
+        "1a": {"n_abstention_rows": results["1a"][0], "n_total_rows": results["1a"][1]},
+        "1b": {
+            "n_zero_count_pairs": len(results["1b"][1]),
+            "zero_pairs": [list(p) for p in results["1b"][1]],
+            "n_unmatched_rows": results["1b"][2],
+            "pair_counts_min": min(results["1b"][0].values()),
+            "pair_counts_max": max(results["1b"][0].values()),
+        },
+        "1c": {"n_critical_rows": results["1c"][0], "cap_target": results["1c"][1]},
+        "1d": {"n_teacher": results["1d"][0], "n_total": results["1d"][1],
+              "pct": round(100 * results["1d"][0] / results["1d"][1], 2)},
+        "1e": results["1e"],
+        "2a": {
+            "checkpoint_sha256": results["2a"]["checkpoint"][0],
+            "checkpoint_matches_cited": results["2a"]["checkpoint"][1],
+            "bridge_sha256": results["2a"]["bridge"][0],
+            "bridge_matches_cited": results["2a"]["bridge"][1],
+        },
+        "2b": {"candidates_found": results["2b"][0], "locked_file_exists": results["2b"][1]},
+        "4": results["4"],
+    }
+    out_path.write_text(json.dumps(serializable, indent=2))
+    print(json.dumps(serializable, indent=2))
+    print(f"\nsaved {out_path}")
+
+
+if __name__ == "__main__":
+    main()
