@@ -149,10 +149,16 @@ def check_2a_hashes():
     }
 
 
+LOCKED_SEED999_PATH = REPO / "eval_data" / "LOCKED_seed999_FINAL.json"
+CITED_LOCKED_SEED999_SHA = "871a9dae4c6fdf08e1aed803592fa7c61b1a852c150693b5819fe2271717b96e"
+
+
 def check_2b_seed999_locked_file():
-    """Search for a single locked seed=999 trajectory file analogous to
-    evaluation/phase4_eval_set.json (which exists for the separate seed=4321
-    population). Report what actually exists on disk."""
+    """AUDIT.md sec AM (2026-08-13 follow-up) resolved this finding: search for a single
+    locked seed=999 trajectory file analogous to evaluation/phase4_eval_set.json (which
+    exists for the separate seed=4321 population), AND -- now that one exists -- verify its
+    sha256 matches what docs/PREREGISTRATION.md and docs/V5_STATE.json cite, so this check
+    stays meaningful after the fix instead of just detecting file presence."""
     import subprocess
     candidates = subprocess.run(
         ["find", str(REPO), "-iname", "*phase0*eval*set*", "-o", "-iname", "*seed999*",
@@ -163,7 +169,10 @@ def check_2b_seed999_locked_file():
     locked_file_exists = any(
         Path(c).is_file() and "progress" not in c for c in candidates
     )
-    return candidates, locked_file_exists
+    canonical_locked_exists = LOCKED_SEED999_PATH.is_file()
+    canonical_sha = sha256_file(LOCKED_SEED999_PATH) if canonical_locked_exists else None
+    canonical_matches_cited = canonical_sha == CITED_LOCKED_SEED999_SHA if canonical_sha else False
+    return candidates, locked_file_exists, canonical_locked_exists, canonical_sha, canonical_matches_cited
 
 
 SCHEMA_VALIDITY_SOURCES = {
@@ -268,7 +277,16 @@ def main():
             "bridge_sha256": results["2a"]["bridge"][0],
             "bridge_matches_cited": results["2a"]["bridge"][1],
         },
-        "2b": {"candidates_found": results["2b"][0], "locked_file_exists": results["2b"][1]},
+        "2b": {
+            "candidates_found": results["2b"][0],
+            "locked_file_exists": results["2b"][1],
+            "canonical_locked_file": str(LOCKED_SEED999_PATH.relative_to(REPO)),
+            "canonical_locked_file_exists": results["2b"][2],
+            "canonical_sha256": results["2b"][3],
+            "canonical_matches_cited_hash": results["2b"][4],
+            "resolution": "RESOLVED 2026-08-13 (AUDIT.md sec AM) -- was GHOST at first audit, now locked "
+                          "with a drift-guard test (tests/test_locked_seed999_population.py)",
+        },
         "3": results["3"],
         "4": results["4"],
     }

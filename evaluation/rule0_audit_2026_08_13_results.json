@@ -1,0 +1,76 @@
+{
+  "1a": {
+    "n_abstention_rows": 0,
+    "n_total_rows": 12001
+  },
+  "1b": {
+    "n_zero_count_pairs": 0,
+    "zero_pairs": [],
+    "n_unmatched_rows": 0,
+    "pair_counts_min": 134,
+    "pair_counts_max": 612
+  },
+  "1c": {
+    "n_critical_rows": 1218,
+    "cap_target": 1200
+  },
+  "1d": {
+    "n_teacher": 11191,
+    "n_total": 12001,
+    "pct": 93.25
+  },
+  "1e": {
+    "n_pairs_checked": 49,
+    "n_below_8": 0,
+    "below": {}
+  },
+  "2a": {
+    "checkpoint_sha256": "18fc201d5a419ff2fb0cfb66a60810af77a9ed52969f2996f57c952d1306a01b",
+    "checkpoint_matches_cited": true,
+    "bridge_sha256": "e99472e16525588be83f7e7e78abeb5d781d7c2d238adc902c10c660bbb022f7",
+    "bridge_matches_cited": true
+  },
+  "2b": {
+    "candidates_found": [
+      "/home/pw26_akp_01/aadhya/uav-llm/evaluation/progress/phase0_robust_sweep_gen_seed999.json",
+      "/home/pw26_akp_01/aadhya/uav-llm/eval_data/locked_seed999_CURRENT_post_symmetrize_9061392_HEAD.json",
+      "/home/pw26_akp_01/aadhya/uav-llm/eval_data/locked_seed999_OLD_pre_dwell_fix_b680c80_628dc56.json",
+      "/home/pw26_akp_01/aadhya/uav-llm/eval_data/locked_seed999_MID_post_consolidation_3591051.json",
+      "/home/pw26_akp_01/aadhya/uav-llm/eval_data/LOCKED_seed999_FINAL.json",
+      "/home/pw26_akp_01/aadhya/uav-llm/tests/test_locked_seed999_population.py"
+    ],
+    "locked_file_exists": true,
+    "canonical_locked_file": "eval_data/LOCKED_seed999_FINAL.json",
+    "canonical_locked_file_exists": true,
+    "canonical_sha256": "871a9dae4c6fdf08e1aed803592fa7c61b1a852c150693b5819fe2271717b96e",
+    "canonical_matches_cited_hash": true,
+    "resolution": "RESOLVED 2026-08-13 (AUDIT.md sec AM) -- was GHOST at first audit, now locked with a drift-guard test (tests/test_locked_seed999_population.py)"
+  },
+  "3": {
+    "n_bars_total": 6,
+    "numeric_bars_with_real_assertion": [
+      "threat_accuracy_pooled_when_answerable",
+      "threat_accuracy_low_per_class",
+      "over_abstention_rate",
+      "schema_validity_rate",
+      "pair_accuracy_pooled_when_answerable"
+    ],
+    "escalation_direction_has_real_assertion": true,
+    "all_6_bars_have_real_assertion": true,
+    "schema_validity_rate_by_system": {
+      "base": 1.0,
+      "rules_in_prompt": 1.0,
+      "v3b-fix": 0.999,
+      "v2": 1.0,
+      "v5a": 1.0
+    },
+    "schema_validity_rate_spread": 0.0010000000000000009,
+    "schema_validity_candidate_3rd_weak_bar": true
+  },
+  "4": {
+    "assistant_only_loss": true,
+    "num_train_epochs": 3,
+    "lora_r": 32,
+    "lora_alpha": 64
+  }
+}
