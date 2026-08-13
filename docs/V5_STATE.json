@@ -2287,5 +2287,15 @@
       "verdict": "pipeline_v2+v5a is a real accuracy win (75.7%->87.8%) but does NOT fix the abstention problem (0.0%->0.2%) -- both numbers must be read together."
     }
   },
+  "rule0_seed999_lock": {
+    "date": "2026-08-13",
+    "finding": "Rule-0 audit (scripts/rule0_audit_2026_08_13.py) found no locked seed=999 trajectory file -- 'same seed=999 protocol' was cited across 3 independently-evolved copies of the trajectory generator that had silently diverged. Trajectory-by-trajectory diff (scripts/rule0_2b_diff_populations.py) confirmed 98.8-99.2% of the 1000 draws differ across OLD/MID/CURRENT generator versions -- genuinely different populations, not reordering or float noise. All 17 prior phase0_ceiling*/phase0_threat_ceiling* output files attribute to the OLD (pre-dwell-fix) population; the current headline figures (83.0%/77.3% pooled, chain-1 87.6%/85.8%, chain-2 77.2%/66.7%) attribute to CURRENT and had no persisted backing file at all.",
+    "locked_file": "eval_data/LOCKED_seed999_FINAL.json",
+    "locked_file_sha256": "871a9dae4c6fdf08e1aed803592fa7c61b1a852c150693b5819fe2271717b96e",
+    "generator_source": "src/swarm_intent/eval_trajectories.py at HEAD (post commit 9061392, symmetrized LEAD_IN_RANGE=(30,50))",
+    "drift_guard_test": "tests/test_locked_seed999_population.py -- regenerates from live code, fails if sha256 diverges from the locked file",
+    "no_prior_figures_changed": "this is a provenance/comparability audit only -- every previously-reported ceiling number stands exactly as reported; see evaluation/rule0_2b_impact_list.json for which comparisons are same-population-trustworthy vs. need the population-boundary caveat attached",
+    "full_writeup": "AUDIT.md sec AM"
+  },
   "started": "2026-08-07T19:47:41Z"
 }

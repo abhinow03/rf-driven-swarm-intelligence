@@ -47,6 +47,21 @@ classifier's own upper bound — no downstream LLM layer can exceed information 
 already lost, so a bar at or above this ceiling would be unachievable by construction and is
 explicitly rejected.
 
+> **Seed=999 population lock (AUDIT.md sec AM, Rule-0 audit follow-up, 2026-08-13):** prior to
+> this entry, "seed=999" was cited across 3 independently-evolved copies of the trajectory
+> generator that had silently diverged — a trajectory-by-trajectory diff found 98.8-99.2% of
+> the 1000 draws differ between them, so "same seed" never meant "same population" for any
+> figure measured before commit `9061392`. The 83.0%/77.3% figure above was measured on the
+> population `src/swarm_intent/eval_trajectories.py` generates as of `9061392` onward — that
+> exact population is now locked at `eval_data/LOCKED_seed999_FINAL.json`,
+> **sha256 `871a9dae4c6fdf08e1aed803592fa7c61b1a852c150693b5819fe2271717b96e`**, verified
+> byte-reproducible from live code by `tests/test_locked_seed999_population.py`. **Every
+> future seed=999 ceiling citation must be measured against this locked file** (or a fresh
+> regeneration verified to match its hash); earlier `phase0_ceiling*`/`phase0_threat_ceiling*`
+> output files (v2 through v6, domfix/guardfix/oovfix/trimfix) were all measured on the
+> superseded pre-lock population and are not population-comparable to this or any future
+> figure. Full derivation: `evaluation/rule0_2b_impact_list.json`.
+
 The other available reference point is this project's best PRIOR real-STGT-output measurement
 from any fine-tuned adapter: **v2 scored 51.8% `accuracy_when_answerable` (pooled) / 68.6%
 per-class on `low` threat** on the n=249 GT-determinable real-STGT battery (`AUDIT.md` sec AF).
