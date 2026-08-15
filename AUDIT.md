@@ -3595,3 +3595,55 @@ The original validation script reused one generic failure-mode string across the
 mislabeled) but a real inaccuracy in the artifact, now documented rather than silently
 propagated further.
 
+### Step 3: terminal_transitioning's true frequency — 0%, on two populations, and sec AK's "1/502" wasn't real
+
+The review request named "the `LOCKED_seed999_FINAL.json` 502-case population" — this conflates
+two different artifacts. Sec AK's 502-case unanswerable population is the
+`has_ground_truth=False` subset of `evaluation/phase4_eval_set.json` (seed=**4321**, n=1000);
+`eval_data/LOCKED_seed999_FINAL.json` is a separate, unrelated seed=**999**, n=1000 population
+from sec AM's Rule-0 lock, used only for ceiling measurements, never for Phase 3a. Both are
+checked, explicitly disambiguated, rather than silently guessing which one was meant
+(`llm_finetuning/report_terminal_transitioning_frequency.py`, no GPU needed for either — both
+populations carry `chain`/`true_labels` or an already-materialized `true_chain`):
+
+| population | terminal_transitioning frequency |
+|---|---|
+| `LOCKED_seed999_FINAL.json` (seed=999, n=1000) | **0/1000 (0.0%)** |
+| `phase4_eval_set.json`'s 502-case unanswerable subset (seed=4321) | **0/502 (0.0%)** |
+
+**Sec AK's cited "1/502" was never a real terminal_transitioning instance.** It's seq 879 —
+already identified in step 2's table as a multi_hop/terminal_transitioning disagreement: true
+chain `diamond->column->converging` (a plain 3-formation multi_hop case), but STGT's noisy read
+happened to end in an `unknown` window, and `coverage.py`'s early-return order (already
+documented in sec AN step 2 as "early-return-order masking," same case) evaluates the
+`terminal_unknown` check before the `len(known_history)>=3` multi_hop check, so sec AK's
+STGT-derived categorization mapped it to `terminal_transitioning` by construction of the bucket
+logic's evaluation order, not because a transition was genuinely caught mid-blend.
+
+**Recommendation: drop the `terminal_transitioning` stratum from the corpus, do not keep it at
+100 rows.** Reasoning, tied to deployment risk rather than Phase 1 parity:
+1. **The measured natural frequency is 0% on two independent, real populations** — not "rare,"
+   genuinely absent under standard (untruncated) generation. There is no real-world case this
+   stratum protects against that isn't already artificial-by-construction.
+2. **The 100 rows currently in the corpus are synthetic constructions** (deliberately truncated
+   mid-blend, per `docs/PHASE3A_ABSTENTION_CORPUS.md` step 3) — not sampled from anything a
+   deployed system would ever actually see feeding through the real simulator/STGT path at
+   `window_size=50`/`stride=10`, the only configuration this project ships. Training on a
+   stratum with a real-world incidence of 0% risks teaching the model to hedge on a pattern it
+   will structurally never encounter, at the cost of corpus rows that could instead reinforce
+   `multi_hop`/`oscillation` (the 98.0% of real unanswerable cases, sec AK) more deeply.
+3. **This is not the same situation as Phase 1's critical-tier over-sampling** (the precedent
+   `docs/PHASE3A_ABSTENTION_CORPUS.md` step 2 originally cited) — critical-tier threat scenarios
+   are rare but DO occur in the real distribution (2/49 RULES pairs, non-zero); over-sampling a
+   real-but-rare class is a standard, defensible correction for class imbalance.
+   terminal_transitioning's 0% isn't imbalance, it's absence — there is nothing to rebalance
+   toward.
+4. If an observer-truncation-mid-transition scenario becomes a genuine product requirement
+   later (e.g. a real deployment stream that reports on a fixed cadence regardless of whether a
+   transition just started), that is a deliberate, disclosed synthetic-augmentation decision to
+   make explicitly at that time — not something to carry forward by default parity with a
+   stratum whose only justification was an STGT-noise artifact now traced to its exact cause.
+
+**If step 3's recommendation is accepted, the corpus total changes from 1,000 to 900 rows**
+(780 multi_hop + 120 oscillation), pending sign-off alongside the teacher-regeneration decision
+in step 1.
