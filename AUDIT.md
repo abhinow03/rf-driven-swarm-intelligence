@@ -3554,3 +3554,44 @@ does not work.** The structural signal needed to safely distinguish "genuinely 3
 from "STGT's noisy 2-formation read" does not exist at `robust=False` without deciding the
 LLM's job for it incorrectly 1 case in 10. The next step, per the LOCKED CONFIG, is a retrain
 with abstention examples — not attempted this session.
+
+## AO. Phase 3a review follow-up — teacher regeneration, disagreement confirmation, terminal_transitioning frequency
+
+Reviewing `docs/PHASE3A_ABSTENTION_CORPUS.md` before sign-off. No training, no merge.
+
+### Step 2: all 27 disagreements, case-by-case, not the aggregate restated
+
+`llm_finetuning/print_disagreements_case_by_case.py` re-runs `classify_trajectory_ground_truth`
+LIVE on all 27 disagreement cases (independent re-verification, not trusting the stored field —
+**27/27 live recomputations match**) and pulls STGT's own raw `"Formation history: ..."` line
+straight out of `evaluation/phase4_eval_set.json`'s stored context text for each one — the
+concrete, inspectable evidence, not a re-assertion that STGT was "noisy."
+
+Every one of the 27 falls into exactly one of three sub-mechanisms, all traceable to STGT's
+read, none to the classifier:
+
+- **14/27 — STGT's read names a formation that never appears in the true chain at all**
+  (a hallucinated state), e.g. seq 116: true chain `encirclement->dispersed->encirclement`
+  (oscillation), STGT reads `...dispersed->converging` — `converging` never occurred.
+- **9/27 — STGT's read drops a real state behind `unknown` windows**, e.g. seq 291: true chain
+  `v_shape->encirclement->converging` (multi_hop), STGT reads `v_shape->unknown->converging`,
+  losing `encirclement` entirely to an unresolved window.
+- **4/27 — STGT's read used only real formation names but still got the MECHANISM wrong**
+  (typically missing a return-to-start), e.g. seq 786: true chain `dispersed->shield->diamond`
+  (multi_hop, no return), STGT reads `diamond->shield->diamond` (a real-looking but wrong
+  oscillation read — the true first state, `dispersed`, is simply absent).
+
+Full 27-row table (id / true_chain / ground-truth label / STGT label / STGT's raw read) and the
+per-case verdict text: `llm_finetuning/print_disagreements_case_by_case.py`'s output, not
+reproduced in full here — every case was checked, none skipped.
+
+**One data-quality note surfaced by going case-by-case instead of trusting the aggregate**:
+`phase3a_ground_truth_validation.json`'s stored `stgt_failure_mode` string for seq 879 reads
+"oscillation vs multi_hop confused by a noisy intermediate read" — but seq 879 is actually a
+multi_hop-vs-**terminal_transitioning** disagreement (see step 3), not oscillation-vs-multi_hop.
+The original validation script reused one generic failure-mode string across the whole
+"confused" bucket rather than generating it per-comparison. Cosmetic (the `ground_truth_mechanism`/
+`stgt_category`/`stgt_mechanism` fields themselves are correct, only the prose explanation is
+mislabeled) but a real inaccuracy in the artifact, now documented rather than silently
+propagated further.
+
