@@ -66,7 +66,7 @@ population is 435 multi_hop (86.7%) / 67 oscillation (13.3%) / 0 terminal_transi
 |---|---|---|
 | multi_hop | 780 | dominant mechanism; 900-row multi_hop+oscillation pool split at the exact 86.7:13.3 ratio measured above |
 | oscillation | 120 | secondary mechanism; same ratio |
-| terminal_transitioning | 100 | deliberately over-sampled relative to its 0.0% natural frequency — a real, distinct, structurally valid mechanism (an observer catching a single-hop transition mid-blend is an ordinary real-world shape) that would otherwise have zero training examples. Same precedent as Phase 1's own `STRATA_TARGETS` over-sampling the rare "critical" threat tier. |
+| terminal_transitioning | 100 | deliberately over-sampled relative to its 0.0% natural frequency — a real, distinct, structurally valid mechanism (an observer catching a single-hop transition mid-blend is an ordinary real-world shape) that would otherwise have zero training examples. Same precedent as Phase 1's own `STRATA_TARGETS` over-sampling the rare "critical" threat tier. **SUPERSEDED, see AUDIT.md sec AO step 3**: the "critical"-tier analogy doesn't hold — critical threats are real-but-rare (non-zero true frequency); terminal_transitioning measured 0/1000 and 0/502 on two independent real populations, and the one figure this reasoning leaned on (sec AK's "1/502") was itself an artifact of STGT's read order, not a real occurrence. Recommendation: drop this stratum (100 rows), pending sign-off. |
 | **total** | **1,000** | ~8.3% of the existing 12,001-row corpus — large enough to meaningfully teach the dominant real-world abstention behavior (multi_hop/oscillation are 98.0% of ALL real unanswerable observations per sec AK) without risking the over-abstention failure mode `PREREGISTRATION.md` already flags as gameable at low abstention volume. |
 
 ## 3. Generation (`llm_finetuning/build_abstention_corpus.py`)
@@ -87,15 +87,20 @@ final hop's blend region (a random cut point within the last contiguous run of
 `TRANSITION_CLASS` in `true_labels`) — the destination formation genuinely never gets
 confirmed, by construction, not by narrative claim.
 
-**Teacher**: `NVIDIA_API_KEY` is not set in this environment. Per explicit user confirmation,
-generation ran with `--no-teacher` (rule-clean templated prose, the same fallback
-`build_sft_dataset.py` itself supports for smoke tests) — **the answerability label was never
-going to come from the teacher regardless** (see LOCKED CONFIG); only response prose quality
-is affected. A future session with the key set can regenerate the same 1,000 rows with teacher
-prose via `--append`-style accumulation, matching Phase 1's own workflow.
+**Teacher**: `NVIDIA_API_KEY` was not set when generation first ran; that run used
+`--no-teacher` (rule-clean templated prose) — **the answerability label was never going to
+come from the teacher regardless** (see LOCKED CONFIG); only response prose quality was
+affected. **Superseded**: a key was supplied in the AUDIT.md sec AO review follow-up and the
+corpus was regenerated with the teacher enabled — 999/1000 rows (99.9%) teacher-authored,
+written to the SEPARATE file `data/abstention_corpus_teacher.jsonl` (the original
+`data/abstention_corpus.jsonl` is untouched, both exist pending the merge decision). All 4
+hard gates re-passed against the teacher file. See sec AO step 1 for the concurrency-tuning
+detail (the script's default concurrency throttled the key to an 11.9% teacher-usage rate;
+`--concurrency 3` reached 99.9%).
 
-**Result**: exactly 780 / 120 / 100 = 1,000 rows generated, 0 resamples needed across all
-1,000 (construction and the step 1 verifier agreed on every sample, every time).
+**Result**: exactly 780 / 120 / 100 = 1,000 rows generated in both the no-teacher and teacher
+runs, 0 resamples needed across all 1,000 in either run (construction and the step 1 verifier
+agreed on every sample, every time, regardless of teacher availability).
 
 ## 4. Hard gates (`scripts/phase3a_step4_gates.py`) — ALL PASS
 

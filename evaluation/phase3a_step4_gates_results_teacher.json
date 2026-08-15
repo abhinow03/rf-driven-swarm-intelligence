@@ -1,0 +1,10 @@
+{
+  "gate_a_pass": true,
+  "gate_b_pass": true,
+  "gate_b_overlap": 0,
+  "gate_b_internal_dupes": 0,
+  "gate_c_pass": true,
+  "gate_c_mislabeled": [],
+  "gate_d_pass": true,
+  "overall_pass": true
+}

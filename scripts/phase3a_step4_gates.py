@@ -15,9 +15,12 @@ Gate d: checkpoints/v5_sft_v5a_PROTECTED/ still sha256-matches the original -- p
 
 Usage:
     python scripts/phase3a_step4_gates.py
+    python scripts/phase3a_step4_gates.py --corpus data/abstention_corpus_teacher.jsonl \
+        --meta data/abstention_corpus_teacher_meta.json --out-suffix _teacher
 """
 from __future__ import annotations
 
+import argparse
 import json
 import random
 import sys
@@ -28,8 +31,6 @@ sys.path.insert(0, str(REPO / "src"))
 
 from swarm_intent.ground_truth_abstention import classify_trajectory_ground_truth  # noqa: E402
 
-CORPUS_PATH = REPO / "data" / "abstention_corpus.jsonl"
-META_PATH = REPO / "data" / "abstention_corpus_meta.json"
 TARGETS_PATH = REPO / "evaluation" / "phase3a_strata_targets.json"
 EXISTING_CORPUS_FILES = [
     REPO / "data" / "sft_train_v5_phase1.jsonl",
@@ -124,9 +125,15 @@ def gate_d():
 
 
 def main():
-    meta = json.loads(META_PATH.read_text())
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--corpus", default=str(REPO / "data" / "abstention_corpus.jsonl"))
+    ap.add_argument("--meta", default=str(REPO / "data" / "abstention_corpus_meta.json"))
+    ap.add_argument("--out-suffix", default="")
+    args = ap.parse_args()
+
+    meta = json.loads(Path(args.meta).read_text())
     targets = json.loads(TARGETS_PATH.read_text())
-    new_rows = load_jsonl(CORPUS_PATH)
+    new_rows = load_jsonl(Path(args.corpus))
     assert len(new_rows) == meta["n_total"]
 
     ok_a = gate_a(meta, targets)
@@ -148,7 +155,7 @@ def main():
         "gate_b_internal_dupes": n_internal_dupes, "gate_c_pass": ok_c,
         "gate_c_mislabeled": mislabeled, "gate_d_pass": ok_d, "overall_pass": overall,
     }
-    out_path = REPO / "evaluation" / "phase3a_step4_gates_results.json"
+    out_path = REPO / "evaluation" / f"phase3a_step4_gates_results{args.out_suffix}.json"
     out_path.write_text(json.dumps(out, indent=2))
     print(f"\nsaved {out_path}")
     sys.exit(0 if overall else 1)
