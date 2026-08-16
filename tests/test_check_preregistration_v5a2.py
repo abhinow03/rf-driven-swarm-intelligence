@@ -1,8 +1,12 @@
 """
 Tests for scripts/check_preregistration_v5a2.py. Every bar gets at least one test that FAILS
 when the condition making the bar meaningful is absent -- e.g. a synthetic 0%-abstention
-results blob must fail bar e (proving it isn't vacuous, the way v5-a's real 0.0%
+results blob must fail bar f (proving it isn't vacuous, the way v5-a's real 0.0%
 abstention_rate_when_unanswerable does), not just a test that a good number passes.
+
+Erratum part 3: all bars now score against ONE population (evaluation/seed999_eval_set.json),
+so every test passes items/parsed_by_case through the single `results`/`items` path -- no more
+separate seed999_results/seed999_items plumbing (erratum part 2's two-population split).
 
 Usage:
     python -m unittest tests.test_check_preregistration_v5a2 -v
@@ -95,20 +99,22 @@ class TestRealPairAccuracy(unittest.TestCase):
 
 
 class TestRegressionVsV5a(unittest.TestCase):
-    """Bar i: catches catastrophic forgetting on the same population v5-a was scored on.
-    Must fail a threat_accuracy well below v5-a's real 75.65% baseline, and must fail a
-    pair_accuracy well below v5-a's REAL (non-proxy) 57.83% baseline -- not the old 63.6%
-    proxy figure, which would be a stale, non-comparable denominator."""
+    """Bar i: catches catastrophic forgetting on the same population v5-a was scored on
+    (evaluation/seed999_eval_set.json, per erratum part 3). Must fail a threat_accuracy well
+    below v5-a's real 78.9% baseline (5pp tolerance), and must fail a pair_accuracy well below
+    v5-a's REAL (non-proxy) 63.6% baseline (8pp tolerance -- widened per erratum part 3, since
+    measuring the SAME v5-a model on two different populations produced a 5.7pp gap on its
+    own)."""
 
     def test_threat_accuracy_far_below_v5a_baseline_fails_regression_bar(self):
-        results = make_results(threat_acc=0.30)  # v5-a real: 0.7565, tolerance 5pp -> floor 0.7065
+        results = make_results(threat_acc=0.30)  # v5-a real: 0.789, tolerance 5pp -> floor 0.739
         rows, overall = run_check(results, memorization=None, items=[])
         by_bar = {r["bar"]: r["status"] for r in rows}
         self.assertEqual(by_bar["regression_vs_v5a_threat_accuracy"], "FAIL")
         self.assertEqual(overall, "FAIL")
 
     def test_threat_accuracy_matching_v5a_baseline_passes_regression_bar(self):
-        results = make_results(threat_acc=0.7565)
+        results = make_results(threat_acc=0.789)
         rows, _ = run_check(results, memorization=None, items=[])
         by_bar = {r["bar"]: r["status"] for r in rows}
         self.assertEqual(by_bar["regression_vs_v5a_threat_accuracy"], "PASS")
@@ -134,17 +140,27 @@ class TestRegressionVsV5a(unittest.TestCase):
         by_bar = {r["bar"]: r["status"] for r in rows}
         self.assertEqual(by_bar["regression_vs_v5a_pair_accuracy"], "PASS")
 
+    def test_widened_pair_tolerance_still_catches_a_real_regression(self):
+        """The 8pp pair-accuracy tolerance was widened to absorb measured population-selection
+        noise (5.7pp) -- confirm it's not so wide it stops catching a real, large regression.
+        A model correct on 0/5 cases (0%) must still fail against the 55.6% floor."""
+        items = [make_answerable_item(f"c{i}", ["diamond", "shield"]) for i in range(5)]
+        parsed = {f"c{i}": {"situation_summary": "no formation activity", "likely_intent": "unknown"}
+                 for i in range(5)}
+        results = make_results(parsed_by_case=parsed)
+        rows, overall = run_check(results, memorization=None, items=items)
+        by_bar = {r["bar"]: r["status"] for r in rows}
+        self.assertEqual(by_bar["regression_vs_v5a_pair_accuracy"], "FAIL")
+
 
 class TestAbstentionBarsAreNotVacuous(unittest.TestCase):
     """The whole point of bar f: v5-a scored 0.0% on this exact check (never abstains).
     A results blob that never abstains MUST fail here -- if it didn't, the bar would be
     exactly as vacuous as the old schema_validity_rate bar this document explicitly drops.
 
-    Erratum part 2: bar f now scores against a SEPARATE seed=999 population/results file
-    (evaluation/seed999_eval_set.json + --seed999-results), not the main results_json/items
-    used for a/b/c/g/i -- these tests route through seed999_results/seed999_items
-    accordingly, and also confirm bar f reports MISSING when seed999_results isn't supplied
-    at all (never silently falls back to scoring the wrong population)."""
+    Erratum part 3: bar f now scores against the SAME single population/results file as
+    every other bar (evaluation/seed999_eval_set.json) -- no more separate seed999_results
+    plumbing (that was erratum part 2's two-population design, superseded)."""
 
     def _unanswerable_population(self):
         return [
@@ -156,13 +172,8 @@ class TestAbstentionBarsAreNotVacuous(unittest.TestCase):
             make_unanswerable_item("osc2", ["column", "v_shape", "column"]),   # oscillation
         ]
 
-    def test_no_seed999_results_reports_missing_not_silently_scored_from_main_results(self):
-        items = self._unanswerable_population()
-        parsed = {it["name"]: {"situation_summary": "ambiguous", "likely_intent": "unknown"}
-                 for it in items}
-        # parsed_by_case IS present in the main results, but bar f must not read it from here.
-        results = make_results(parsed_by_case=parsed)
-        rows, _ = run_check(results, memorization=None, items=[])
+    def test_no_parsed_by_case_reports_missing_not_silent_pass(self):
+        rows, _ = run_check(make_results(), memorization=None, items=self._unanswerable_population())
         by_bar = {r["bar"]: r["status"] for r in rows}
         self.assertEqual(by_bar["correct_abstention_rate_multi_hop"], "MISSING")
         self.assertEqual(by_bar["correct_abstention_rate_oscillation"], "MISSING")
@@ -175,10 +186,8 @@ class TestAbstentionBarsAreNotVacuous(unittest.TestCase):
         items = self._unanswerable_population()
         parsed = {it["name"]: {"situation_summary": "steady formation", "likely_intent": "patrol"}
                  for it in items}
-        seed999_results = {"parsed_by_case": parsed}
-        results = make_results()
-        rows, overall = run_check(results, memorization=None, items=[],
-                                  seed999_results=seed999_results, seed999_items=items)
+        results = make_results(parsed_by_case=parsed)
+        rows, overall = run_check(results, memorization=None, items=items)
         by_bar = {r["bar"]: r["status"] for r in rows}
         self.assertEqual(by_bar["correct_abstention_rate_multi_hop"], "FAIL")
         self.assertEqual(by_bar["correct_abstention_rate_oscillation"], "FAIL")
@@ -188,10 +197,8 @@ class TestAbstentionBarsAreNotVacuous(unittest.TestCase):
         items = self._unanswerable_population()
         parsed = {it["name"]: {"situation_summary": "ambiguous, multiple formation changes",
                                "likely_intent": "unknown"} for it in items}
-        seed999_results = {"parsed_by_case": parsed}
-        results = make_results()
-        rows, _ = run_check(results, memorization=None, items=[],
-                            seed999_results=seed999_results, seed999_items=items)
+        results = make_results(parsed_by_case=parsed)
+        rows, _ = run_check(results, memorization=None, items=items)
         by_bar = {r["bar"]: r["status"] for r in rows}
         self.assertEqual(by_bar["correct_abstention_rate_multi_hop"], "PASS")
         self.assertEqual(by_bar["correct_abstention_rate_oscillation"], "PASS")
@@ -206,10 +213,8 @@ class TestAbstentionBarsAreNotVacuous(unittest.TestCase):
                  if it["name"].startswith("mh") else
                  {"situation_summary": "steady", "likely_intent": "patrol"}
                  for it in items}
-        seed999_results = {"parsed_by_case": parsed}
-        results = make_results()
-        rows, _ = run_check(results, memorization=None, items=[],
-                            seed999_results=seed999_results, seed999_items=items)
+        results = make_results(parsed_by_case=parsed)
+        rows, _ = run_check(results, memorization=None, items=items)
         pooled_rows = [r for r in rows if r["bar"].startswith("correct_abstention_rate_pooled")]
         self.assertEqual(len(pooled_rows), 1)
         self.assertEqual(pooled_rows[0]["status"], "N/A")
@@ -229,10 +234,8 @@ class TestAbstentionBarsAreNotVacuous(unittest.TestCase):
                 "situation_summary": "ambiguous" if mechanism_is_mh else "steady formation",
                 "likely_intent": "unknown" if mechanism_is_mh else "patrol",
             }
-        seed999_results = {"parsed_by_case": parsed}
-        results = make_results()
-        rows, overall = run_check(results, memorization=None, items=[],
-                                  seed999_results=seed999_results, seed999_items=items)
+        results = make_results(parsed_by_case=parsed)
+        rows, overall = run_check(results, memorization=None, items=items)
         by_bar = {r["bar"]: r["status"] for r in rows}
         self.assertEqual(by_bar["correct_abstention_rate_multi_hop"], "PASS")
         self.assertEqual(by_bar["correct_abstention_rate_oscillation"], "FAIL")

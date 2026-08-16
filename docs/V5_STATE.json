@@ -2388,6 +2388,24 @@
       "step2_rewire": "scripts/check_preregistration_v5a2.py now takes --seed999-results (separate from the main results_json); bars correct_abstention_rate_multi_hop/oscillation and the diagnostic correct_abstention_rate_pooled score exclusively from it, MISSING without it (confirmed not to silently fall back to the main results file's parsed_by_case). Bars a/b/c/g/i unchanged, still on phase4_eval_set.json (seed=4321). The bar set now deliberately spans two populations by design -- resolves erratum part 1's disclosed distributional-leakage concern.",
       "rule0_recheck": "PASS", "full_suite": "221/221 pass",
       "full_writeup": "docs/PREREGISTRATION_V5A2.md erratum part 2; AUDIT.md sec AQ erratum part 2"
+    },
+    "erratum_3_2026_08_16": {
+      "note": "erratum part 3, appended after erratum parts 1-2 and the original lock -- none edited.",
+      "step1_premise_corrected": "no v5a2 inference exists anywhere -- v5a2 has not been trained in any session. The prompt assumed a v5a2 bars-f inference run already existed over seed=999; it didn't. Stated plainly, not fabricated.",
+      "step2_v5a_seed999_eval": {
+        "note": "real GPU evaluation of the already-trained, frozen, protected v5-a adapter over evaluation/seed999_eval_set.json -- not v5a2, not training.",
+        "safety_copy_reverified": "PASS, byte-identical + read-only, 29 files",
+        "results_file": "evaluation/v5a_seed999_results.json",
+        "threat_accuracy": {"seed4321": 0.7565, "seed999": 0.789, "n_seed4321": 497, "n_seed999": 493, "z_test_p": 0.22},
+        "pair_accuracy_real": {"seed4321": 0.5783, "seed999": 0.6356, "n_seed4321": 498, "n_seed999": 494, "z_test_p": 0.065},
+        "abstention_and_schema": "identical across populations (0.0% correct-abstention, 0.2% over-abstention, 100.0% schema validity)",
+        "same_population_ceiling_seed999": {"threat": 0.830, "pair": 0.773, "n": 494, "method": "scripts/rule0_am_reproduce_headline.py, live re-reproduction", "matches_ceiling_md_cited": true, "stale_509_figure_traced_to_prelock_population": true}
+      },
+      "steps3_4_decision": "PROCEED with unification (not STOP) -- not statistically distinguishable at n~500 (z-test p=0.22/0.065, Wilson CIs overlap). One disclosed adjustment: pair_accuracy regression tolerance widened 5pp->8pp (measured population-selection noise alone was 5.73pp); threat tolerance unchanged at 5pp (its gap, 3.25pp, was already inside it).",
+      "step3_implementation": "scripts/check_preregistration_v5a2.py fully rewritten -- ALL bars now score against evaluation/seed999_eval_set.json + a single results file. Erratum part 2's dual-population --seed999-results plumbing removed. evaluation/phase4_eval_set.json no longer read by this script.",
+      "updated_constants": {"SAME_POPULATION_CEILING": 0.830, "V5A_REAL_THREAT_ACCURACY": 0.789, "V5A_REAL_PAIR_ACCURACY": 0.6356, "threat_regression_tolerance_pp": 0.05, "pair_regression_tolerance_pp": 0.08},
+      "rule0_recheck": "PASS", "full_suite": "222/222 pass",
+      "full_writeup": "docs/PREREGISTRATION_V5A2.md erratum part 3; AUDIT.md sec AQ erratum part 3"
     }
   },
   "started": "2026-08-07T19:47:41Z"

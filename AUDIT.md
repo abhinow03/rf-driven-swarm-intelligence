@@ -3947,3 +3947,43 @@ two populations by design — this IS the resolution to erratum part 1's disclos
 distributional-leakage concern, not a new inconsistency.
 
 Full suite: 221/221 pass. Rule 0 self-check: PASS.
+
+### Erratum, part 3 (2026-08-16) — full population unification
+
+`docs/PREREGISTRATION_V5A2.md`'s erratum part 3 has the full detail; summarized here.
+
+**Step 1, premise corrected**: no v5a2 inference exists anywhere — v5a2 has not been trained
+in any session. The prompt assumed a "v5a2 bars f inference run" already existed over the
+seed=999 population; it didn't. Stated plainly rather than fabricating a result.
+
+**Step 2, real GPU eval (not training)**: `checkpoints/v5_sft_v5a_PROTECTED/` re-verified
+byte-identical/read-only, then re-ran v5-a (already trained, frozen) over
+`evaluation/seed999_eval_set.json` via `llm_finetuning/eval_sft_v5.py --real --adapter
+checkpoints/v5_sft_v5a_PROTECTED/ --phase4-set evaluation/seed999_eval_set.json` (unmodified
+script, just a different input file) — 1000 real generations, GPU, tmux. Result: v5-a scores
+**78.9% threat-accuracy / 63.6% pair-accuracy (real, literal)** on seed=999, vs the existing
+75.65%/57.83% on seed=4321 — both HIGHER, but neither difference statistically significant
+(two-proportion z-test: threat p=0.22, pair p=0.065; Wilson 95% CIs overlap both). Abstention/
+over-abstention/schema figures are identical across populations. A live re-reproduction of the
+seed=999 same-population STGT ceiling (`scripts/rule0_am_reproduce_headline.py`) confirmed
+**83.0% threat / 77.3% pair, n=494** — exact match to `docs/CEILING.md`'s cited headline,
+confirming the current locked file (a stray "509 pair-eligible" figure elsewhere in project
+history traced to a pre-lock, now-superseded population, not the current one).
+
+**Steps 3/4 decision: PROCEED with unification** (not the STOP branch) — the populations are
+not statistically distinguishable for v5-a's accuracy at n≈500. One disclosed adjustment: the
+pair_accuracy regression tolerance widened from 5pp to **8pp**, since the measured
+population-selection noise alone (5.73pp, same frozen model, two populations) would have put a
+5pp tolerance at real risk of firing on noise, not genuine regression. Threat's 5pp tolerance
+was left unchanged (its cross-population gap, 3.25pp, was already comfortably inside it).
+
+**Step 3, implementation**: `scripts/check_preregistration_v5a2.py` fully rewritten — every
+bar now scores against `evaluation/seed999_eval_set.json` and a single results file; erratum
+part 2's dual-population `--seed999-results` plumbing removed entirely, no longer needed.
+`evaluation/phase4_eval_set.json` is no longer read by this script (remains a valid, separate
+locked artifact elsewhere). Smoke-tested end-to-end against the real
+`evaluation/v5a_seed999_results.json`: a/b/c/g/i pass (v5-a vs itself, as expected), bars f
+correctly fail (v5-a's known 0.0% correct-abstention gap, confirmed present on this
+population too).
+
+Full suite: 222/222 pass. Rule 0 self-check: PASS.

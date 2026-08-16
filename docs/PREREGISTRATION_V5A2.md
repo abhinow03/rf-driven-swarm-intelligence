@@ -378,3 +378,108 @@ Full test suite: **221/221 pass** (19 in `test_check_preregistration_v5a2.py`, u
 `TestAbstentionBarsAreNotVacuous` rewired to route through `seed999_results`/`seed999_items`,
 plus one new MISSING-without-seed999-results test). `scripts/rule0_audit_v5a2_preregistration.py`
 re-run: **PASS**.
+
+---
+
+## Erratum, part 3 — 2026-08-16 (full population unification)
+
+Append-only, per this document's own rule. Nothing above this line, including erratum parts
+1 and 2, was edited. All prior locks are left untouched.
+
+### Step 1: premise corrected — no v5a2 inference exists at all
+
+**The prompt that produced this erratum assumed a "v5a2 bars f inference run" already existed
+over the seed=999-derived population. It does not.** v5a2 has not been trained in any session
+— every prior erratum, including part 2, was explicit that no training has happened. The only
+artifact that existed over `evaluation/seed999_eval_set.json` before this erratum was the
+STGT+bridge population file itself (`ctx`/`key_windows`/`has_ground_truth`, zero LLM output).
+There is no v5a2 per-case output anywhere to extract a/b/c from — step 1 as posed cannot
+proceed, and nothing was "zero new LLM inference" here because there was no existing LLM
+inference to reuse. Stated plainly rather than fabricating a result or silently reinterpreting
+the question.
+
+### Step 2: v5-a re-run on the seed=999 population — real GPU inference, not v5a2, not training
+
+`checkpoints/v5_sft_v5a_PROTECTED/` sha256 re-verified first (`scripts/phase3a_verify_safety_copy.py`):
+all 29 files byte-identical, read-only — **PASS**, unchanged from every prior check this
+session. Evaluating v5-a (already trained, frozen, protected) over a new population is not
+v5a2 training and not new training of any kind — the same category of work that already
+produced `evaluation/phase4_v5a_results.json`, now reused on a different input file
+(`llm_finetuning/eval_sft_v5.py --real --adapter checkpoints/v5_sft_v5a_PROTECTED/
+--phase4-set evaluation/seed999_eval_set.json`, unmodified — that script already accepted an
+arbitrary `--phase4-set` path). Ran in tmux, 1000 real generations, GPU (LocalHFClient,
+4-bit, greedy) — result: `evaluation/v5a_seed999_results.json`.
+
+**Comparison, seed=4321 (existing) vs seed=999 (new), same frozen v5-a model:**
+
+| metric | seed=4321 (existing) | seed=999 (new) | gap | statistical significance |
+|---|---|---|---|---|
+| threat_accuracy_pooled_when_answerable | 75.65% (n=497) | **78.9% (n=493)** | +3.25pp | two-proportion z-test p=0.22 — NOT significant |
+| pair_accuracy (REAL, literal) | 57.83% (288/498) | **63.56% (314/494)** | +5.73pp | two-proportion z-test p=0.065 — NOT significant at 0.05, borderline |
+| abstention_rate_when_unanswerable | 0.0% (n=502) | 0.0% (n=506) | 0pp | identical |
+| over_abstention_rate | 0.2% | 0.2% | 0pp | identical |
+| under_escalation_rate | 18.7% | 18.4% | -0.3pp | negligible |
+| over_escalation_rate | 5.6% | 2.6% | -3.0pp | not tested, smaller absolute magnitude |
+| schema_validity_rate | 100.0% | 100.0% | 0pp | identical |
+
+Both accuracy metrics are HIGHER on seed=999, consistently (not a mixed result), but neither
+crosses conventional statistical significance at n≈500 each (Wilson 95% CIs overlap on both:
+threat [71.7%,79.2%] vs [75.1%,82.3%]; pair [53.5%,62.1%] vs [59.2%,67.7%]). The pair_accuracy
+gap (p=0.065) is the closest to significant and is flagged, not glossed over.
+
+**A live, freshly-reproduced same-population STGT ceiling for seed=999 was also required**
+(bar c's future denominator) — re-ran `scripts/rule0_am_reproduce_headline.py` fresh rather
+than trusting a cited figure: **83.0% threat / 77.3% pair, n=494 pair-eligible** (exact match
+to `docs/CEILING.md`'s own cited headline, confirming the CURRENT locked file, not a stale
+population — a stray "509 pair-eligible" figure floating in some older `V5_STATE.json` prose
+was checked directly against the live locked file and found to be from a pre-lock population;
+the live, current count is 494, matching `seed999_eval_set.json`'s own `has_ground_truth=True`
+count exactly).
+
+### Steps 3/4 decision: PROCEED with unification, with one disclosed adjustment
+
+Per the two-proportion z-tests (p=0.22, p=0.065 — neither below the conventional 0.05
+threshold) and the fully overlapping Wilson 95% CIs, **the two populations are not
+statistically distinguishable for v5-a's measured accuracy at this sample size** — this
+satisfies "close," and unification proceeds (step 3), not the STOP branch (step 4).
+
+**One disclosed, load-bearing adjustment**: the pair_accuracy regression tolerance is widened
+from 5.0pp to **8.0pp**. Reasoning: this measurement showed that re-scoring the IDENTICAL,
+frozen v5-a model on two different-but-similar populations produces a 5.73pp swing in
+pair_accuracy on its own, with zero real model change. A 5pp regression tolerance would
+therefore have been at real risk of firing on population-selection noise alone, not genuine
+degradation — an 8pp tolerance keeps ~2.3pp of margin above the measured noise floor while
+still catching a real, large regression (verified:
+`test_widened_pair_tolerance_still_catches_a_real_regression`, a 0%-correct model still fails
+the widened floor). Threat_accuracy's tolerance is left at 5.0pp — its observed cross-
+population gap (3.25pp) was comfortably inside it already.
+
+### Step 3: implementation — full unification
+
+`scripts/check_preregistration_v5a2.py` fully rewritten: ALL bars (a/b/c/d/f/g/i, plus the
+diagnostic pooled/schema rows) now score against `evaluation/seed999_eval_set.json` and a
+SINGLE results JSON — the `--seed999-results`/dual-population plumbing from erratum part 2 is
+removed entirely (no longer needed once every bar shares one population).
+`evaluation/phase4_eval_set.json` is no longer read by this script at all (it remains a valid,
+separately-locked artifact for other purposes elsewhere in the project, untouched).
+
+| constant | old (seed=4321) | new (seed=999) |
+|---|---|---|
+| `SAME_POPULATION_CEILING` | 0.8253 | **0.830** |
+| `V5A_REAL_THREAT_ACCURACY` | 0.7565 | **0.789** |
+| `V5A_REAL_PAIR_ACCURACY` | 0.5783 | **0.6356** |
+| threat regression tolerance | 5.0pp | 5.0pp (unchanged) |
+| pair regression tolerance | 5.0pp | **8.0pp** |
+
+Smoke-tested end-to-end against the real `evaluation/v5a_seed999_results.json` (v5-a scoring
+itself — a real, not synthetic, sanity check): threat/pair/ceiling/regression bars all PASS
+(as expected, v5-a vs its own baseline); bars f correctly FAIL (v5-a's known 0.0%
+correct-abstention gap, now confirmed present on this population too, not an artifact of the
+seed=4321 corpus-derivation concern erratum part 1 raised).
+
+### Verification
+
+Full test suite: **222/222 pass** (20 in `test_check_preregistration_v5a2.py`, up from 19 —
+`TestAbstentionBarsAreNotVacuous` simplified back to the single-population form, plus one new
+test confirming the widened pair tolerance still catches a real regression).
+`scripts/rule0_audit_v5a2_preregistration.py` re-run: **PASS**.
