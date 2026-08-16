@@ -1,0 +1,17 @@
+{
+  "merged_corpus_rows": 12901,
+  "pooled_original_corpus_rows": 12001,
+  "teacher_authored_rows_total": 11191,
+  "pairkeyed_rows_any_provenance_merged": 12001,
+  "new_abstention_rows_contributing_a_pair_key": 0,
+  "teacher_authored_pairkeyed_rows": 11191,
+  "null_hypothesis_baseline_fresh": 0.00741667411312662,
+  "n_near_duplicate": 83,
+  "n_scored": 11191,
+  "old_v5a_baseline_for_reference_only": {
+    "rate": 0.006,
+    "n_near_dup": 56,
+    "n_scored": 10080
+  },
+  "note": "computed on data/sft_train_v5_phase3a_merged.jsonl (12,901 rows), teacher-authored rows only (data/sft_train_v5_phase1_provenance.json), NOT reused from v5-a's original 0.6% figure -- see module docstring."
+}

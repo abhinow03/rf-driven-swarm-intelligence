@@ -1,0 +1,5987 @@
+{
+  "metric": "pair_accuracy_pooled_when_answerable (literal, non-proxy)",
+  "n": 498,
+  "n_scored": 498,
+  "n_correct": 288,
+  "n_extraction_failed": 1,
+  "pair_accuracy": 0.5783132530120482,
+  "old_proxy_pair_accuracy": 0.6358,
+  "old_proxy_n": 497,
+  "extraction_method": "llm_finetuning/literal_pair_extraction.py",
+  "validation": "llm_finetuning/validate_literal_pair_extraction.py, 19/30 (63.3%) raw agreement on hand sample, 0 extraction bugs found among the 11 mismatches (all traced to genuine model narration errors)",
+  "per_case": [
+    {
+      "name": "phase4_seq_5",
+      "true_pair": [
+        "shield",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_6",
+      "true_pair": [
+        "shield",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "shield",
+        "v_shape"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_10",
+      "true_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_14",
+      "true_pair": [
+        "v_shape",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_15",
+      "true_pair": [
+        "converging",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "converging",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_16",
+      "true_pair": [
+        "converging",
+        "converging"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_18",
+      "true_pair": [
+        "diamond",
+        "column"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_21",
+      "true_pair": [
+        "v_shape",
+        "converging"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_24",
+      "true_pair": [
+        "v_shape",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_25",
+      "true_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_27",
+      "true_pair": [
+        "shield",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "shield",
+        "diamond"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_30",
+      "true_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_31",
+      "true_pair": [
+        "shield",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_32",
+      "true_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_33",
+      "true_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_34",
+      "true_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_36",
+      "true_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_38",
+      "true_pair": [
+        "v_shape",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_39",
+      "true_pair": [
+        "column",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_41",
+      "true_pair": [
+        "column",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_44",
+      "true_pair": [
+        "shield",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_45",
+      "true_pair": [
+        "encirclement",
+        "converging"
+      ],
+      "extracted_pair": [
+        "converging",
+        "encirclement"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_47",
+      "true_pair": [
+        "shield",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "shield",
+        "diamond"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_53",
+      "true_pair": [
+        "dispersed",
+        "column"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "column"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_54",
+      "true_pair": [
+        "column",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "column",
+        "diamond"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_55",
+      "true_pair": [
+        "shield",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "shield",
+        "encirclement"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_56",
+      "true_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_58",
+      "true_pair": [
+        "v_shape",
+        "converging"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_60",
+      "true_pair": [
+        "shield",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_62",
+      "true_pair": [
+        "column",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_63",
+      "true_pair": [
+        "converging",
+        "converging"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_66",
+      "true_pair": [
+        "column",
+        "shield"
+      ],
+      "extracted_pair": [
+        "column",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_67",
+      "true_pair": [
+        "diamond",
+        "column"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_68",
+      "true_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_69",
+      "true_pair": [
+        "dispersed",
+        "column"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "column"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_71",
+      "true_pair": [
+        "v_shape",
+        "converging"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_74",
+      "true_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_78",
+      "true_pair": [
+        "column",
+        "column"
+      ],
+      "extracted_pair": [
+        "column",
+        "column"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_80",
+      "true_pair": [
+        "dispersed",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_81",
+      "true_pair": [
+        "column",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "column",
+        "column"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_83",
+      "true_pair": [
+        "converging",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_84",
+      "true_pair": [
+        "column",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "column",
+        "diamond"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_88",
+      "true_pair": [
+        "column",
+        "column"
+      ],
+      "extracted_pair": [
+        "column",
+        "column"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_89",
+      "true_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_90",
+      "true_pair": [
+        "column",
+        "shield"
+      ],
+      "extracted_pair": [
+        "column",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_91",
+      "true_pair": [
+        "converging",
+        "converging"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_92",
+      "true_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_95",
+      "true_pair": [
+        "diamond",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_96",
+      "true_pair": [
+        "column",
+        "column"
+      ],
+      "extracted_pair": [
+        "column",
+        "column"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_98",
+      "true_pair": [
+        "shield",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_99",
+      "true_pair": [
+        "v_shape",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_100",
+      "true_pair": [
+        "column",
+        "column"
+      ],
+      "extracted_pair": [
+        "column",
+        "column"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_104",
+      "true_pair": [
+        "converging",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_107",
+      "true_pair": [
+        "diamond",
+        "shield"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_108",
+      "true_pair": [
+        "diamond",
+        "column"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "column"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_109",
+      "true_pair": [
+        "converging",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "converging",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_111",
+      "true_pair": [
+        "diamond",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_112",
+      "true_pair": [
+        "shield",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_119",
+      "true_pair": [
+        "v_shape",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "shield"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_120",
+      "true_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_122",
+      "true_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_123",
+      "true_pair": [
+        "v_shape",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_124",
+      "true_pair": [
+        "v_shape",
+        "column"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "column"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_125",
+      "true_pair": [
+        "column",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "column",
+        "diamond"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_130",
+      "true_pair": [
+        "converging",
+        "converging"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_131",
+      "true_pair": [
+        "diamond",
+        "column"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_132",
+      "true_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_133",
+      "true_pair": [
+        "converging",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_134",
+      "true_pair": [
+        "column",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_136",
+      "true_pair": [
+        "v_shape",
+        "column"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_137",
+      "true_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_139",
+      "true_pair": [
+        "column",
+        "column"
+      ],
+      "extracted_pair": [
+        "column",
+        "column"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_143",
+      "true_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_151",
+      "true_pair": [
+        "dispersed",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "diamond"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_154",
+      "true_pair": [
+        "encirclement",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_157",
+      "true_pair": [
+        "shield",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "shield",
+        "v_shape"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_161",
+      "true_pair": [
+        "encirclement",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "converging",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_162",
+      "true_pair": [
+        "encirclement",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_164",
+      "true_pair": [
+        "shield",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "shield",
+        "diamond"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_166",
+      "true_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_167",
+      "true_pair": [
+        "converging",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "encirclement",
+        "converging"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_170",
+      "true_pair": [
+        "v_shape",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_171",
+      "true_pair": [
+        "shield",
+        "converging"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_172",
+      "true_pair": [
+        "converging",
+        "converging"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_174",
+      "true_pair": [
+        "diamond",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_178",
+      "true_pair": [
+        "shield",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_179",
+      "true_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_180",
+      "true_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_181",
+      "true_pair": [
+        "shield",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "shield",
+        "diamond"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_183",
+      "true_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_184",
+      "true_pair": [
+        "converging",
+        "converging"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_190",
+      "true_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_192",
+      "true_pair": [
+        "shield",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_197",
+      "true_pair": [
+        "column",
+        "converging"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_202",
+      "true_pair": [
+        "encirclement",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "converging",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_206",
+      "true_pair": [
+        "shield",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_207",
+      "true_pair": [
+        "encirclement",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "encirclement",
+        "v_shape"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_214",
+      "true_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_215",
+      "true_pair": [
+        "v_shape",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_216",
+      "true_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_217",
+      "true_pair": [
+        "v_shape",
+        "converging"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_222",
+      "true_pair": [
+        "v_shape",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_225",
+      "true_pair": [
+        "v_shape",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_227",
+      "true_pair": [
+        "v_shape",
+        "converging"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_228",
+      "true_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_229",
+      "true_pair": [
+        "shield",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_231",
+      "true_pair": [
+        "shield",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_235",
+      "true_pair": [
+        "column",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_237",
+      "true_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_238",
+      "true_pair": [
+        "diamond",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "v_shape"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_239",
+      "true_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_241",
+      "true_pair": [
+        "dispersed",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "diamond"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_242",
+      "true_pair": [
+        "encirclement",
+        "shield"
+      ],
+      "extracted_pair": [
+        "encirclement",
+        "v_shape"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_244",
+      "true_pair": [
+        "converging",
+        "converging"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_247",
+      "true_pair": [
+        "column",
+        "column"
+      ],
+      "extracted_pair": [
+        "column",
+        "column"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_248",
+      "true_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_249",
+      "true_pair": [
+        "shield",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_250",
+      "true_pair": [
+        "dispersed",
+        "column"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_251",
+      "true_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_252",
+      "true_pair": [
+        "diamond",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_255",
+      "true_pair": [
+        "v_shape",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_259",
+      "true_pair": [
+        "shield",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "shield",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_264",
+      "true_pair": [
+        "encirclement",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_265",
+      "true_pair": [
+        "dispersed",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "shield"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_267",
+      "true_pair": [
+        "converging",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "converging"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_269",
+      "true_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_270",
+      "true_pair": [
+        "v_shape",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_271",
+      "true_pair": [
+        "diamond",
+        "converging"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_272",
+      "true_pair": [
+        "diamond",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_275",
+      "true_pair": [
+        "column",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_277",
+      "true_pair": [
+        "dispersed",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_278",
+      "true_pair": [
+        "converging",
+        "shield"
+      ],
+      "extracted_pair": [
+        "converging",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_279",
+      "true_pair": [
+        "shield",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_280",
+      "true_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_281",
+      "true_pair": [
+        "column",
+        "column"
+      ],
+      "extracted_pair": [
+        "column",
+        "column"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_284",
+      "true_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_285",
+      "true_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_287",
+      "true_pair": [
+        "encirclement",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_288",
+      "true_pair": [
+        "converging",
+        "column"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_294",
+      "true_pair": [
+        "converging",
+        "column"
+      ],
+      "extracted_pair": [
+        "column",
+        "column"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_299",
+      "true_pair": [
+        "column",
+        "converging"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_300",
+      "true_pair": [
+        "diamond",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_301",
+      "true_pair": [
+        "diamond",
+        "shield"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_302",
+      "true_pair": [
+        "shield",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_303",
+      "true_pair": [
+        "shield",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_308",
+      "true_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_309",
+      "true_pair": [
+        "diamond",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_310",
+      "true_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_311",
+      "true_pair": [
+        "converging",
+        "converging"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_313",
+      "true_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_316",
+      "true_pair": [
+        "shield",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_317",
+      "true_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_318",
+      "true_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_319",
+      "true_pair": [
+        "shield",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "shield",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_322",
+      "true_pair": [
+        "shield",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_325",
+      "true_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_327",
+      "true_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "extracted_pair": null,
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_328",
+      "true_pair": [
+        "shield",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_332",
+      "true_pair": [
+        "v_shape",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_334",
+      "true_pair": [
+        "dispersed",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_335",
+      "true_pair": [
+        "converging",
+        "converging"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_336",
+      "true_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_337",
+      "true_pair": [
+        "column",
+        "converging"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_338",
+      "true_pair": [
+        "converging",
+        "column"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_341",
+      "true_pair": [
+        "converging",
+        "converging"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_342",
+      "true_pair": [
+        "converging",
+        "converging"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_343",
+      "true_pair": [
+        "column",
+        "column"
+      ],
+      "extracted_pair": [
+        "column",
+        "column"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_345",
+      "true_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_346",
+      "true_pair": [
+        "converging",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_347",
+      "true_pair": [
+        "shield",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_349",
+      "true_pair": [
+        "shield",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_351",
+      "true_pair": [
+        "column",
+        "column"
+      ],
+      "extracted_pair": [
+        "column",
+        "column"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_354",
+      "true_pair": [
+        "shield",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_355",
+      "true_pair": [
+        "column",
+        "converging"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_356",
+      "true_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_358",
+      "true_pair": [
+        "converging",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_359",
+      "true_pair": [
+        "converging",
+        "converging"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_360",
+      "true_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_361",
+      "true_pair": [
+        "dispersed",
+        "column"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_366",
+      "true_pair": [
+        "converging",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "converging",
+        "encirclement"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_367",
+      "true_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_368",
+      "true_pair": [
+        "column",
+        "column"
+      ],
+      "extracted_pair": [
+        "column",
+        "column"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_369",
+      "true_pair": [
+        "column",
+        "converging"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_371",
+      "true_pair": [
+        "shield",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_372",
+      "true_pair": [
+        "column",
+        "column"
+      ],
+      "extracted_pair": [
+        "column",
+        "column"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_374",
+      "true_pair": [
+        "dispersed",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_375",
+      "true_pair": [
+        "converging",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "converging",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_377",
+      "true_pair": [
+        "column",
+        "column"
+      ],
+      "extracted_pair": [
+        "column",
+        "column"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_378",
+      "true_pair": [
+        "encirclement",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_379",
+      "true_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_380",
+      "true_pair": [
+        "diamond",
+        "column"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_387",
+      "true_pair": [
+        "converging",
+        "converging"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_389",
+      "true_pair": [
+        "shield",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_392",
+      "true_pair": [
+        "encirclement",
+        "column"
+      ],
+      "extracted_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_393",
+      "true_pair": [
+        "v_shape",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_396",
+      "true_pair": [
+        "v_shape",
+        "shield"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_397",
+      "true_pair": [
+        "v_shape",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_398",
+      "true_pair": [
+        "converging",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_400",
+      "true_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_401",
+      "true_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_403",
+      "true_pair": [
+        "shield",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "shield",
+        "v_shape"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_404",
+      "true_pair": [
+        "converging",
+        "converging"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_408",
+      "true_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_412",
+      "true_pair": [
+        "column",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_415",
+      "true_pair": [
+        "shield",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_418",
+      "true_pair": [
+        "shield",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "shield",
+        "diamond"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_420",
+      "true_pair": [
+        "converging",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "converging",
+        "diamond"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_425",
+      "true_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_426",
+      "true_pair": [
+        "shield",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_429",
+      "true_pair": [
+        "encirclement",
+        "column"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "column"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_430",
+      "true_pair": [
+        "v_shape",
+        "converging"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_431",
+      "true_pair": [
+        "column",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_432",
+      "true_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_433",
+      "true_pair": [
+        "dispersed",
+        "shield"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "converging"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_434",
+      "true_pair": [
+        "column",
+        "converging"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_436",
+      "true_pair": [
+        "shield",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_437",
+      "true_pair": [
+        "converging",
+        "converging"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_438",
+      "true_pair": [
+        "column",
+        "converging"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_439",
+      "true_pair": [
+        "converging",
+        "converging"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_440",
+      "true_pair": [
+        "converging",
+        "column"
+      ],
+      "extracted_pair": [
+        "converging",
+        "column"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_441",
+      "true_pair": [
+        "encirclement",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_443",
+      "true_pair": [
+        "converging",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "converging"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_446",
+      "true_pair": [
+        "converging",
+        "converging"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_447",
+      "true_pair": [
+        "converging",
+        "converging"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_448",
+      "true_pair": [
+        "v_shape",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_450",
+      "true_pair": [
+        "converging",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_453",
+      "true_pair": [
+        "shield",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_457",
+      "true_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_460",
+      "true_pair": [
+        "diamond",
+        "column"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "column"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_461",
+      "true_pair": [
+        "encirclement",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_464",
+      "true_pair": [
+        "column",
+        "converging"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_468",
+      "true_pair": [
+        "diamond",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_469",
+      "true_pair": [
+        "v_shape",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_470",
+      "true_pair": [
+        "shield",
+        "column"
+      ],
+      "extracted_pair": [
+        "shield",
+        "column"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_471",
+      "true_pair": [
+        "dispersed",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_472",
+      "true_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_473",
+      "true_pair": [
+        "column",
+        "column"
+      ],
+      "extracted_pair": [
+        "column",
+        "column"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_475",
+      "true_pair": [
+        "diamond",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_477",
+      "true_pair": [
+        "shield",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_480",
+      "true_pair": [
+        "encirclement",
+        "column"
+      ],
+      "extracted_pair": [
+        "encirclement",
+        "column"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_482",
+      "true_pair": [
+        "encirclement",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "encirclement",
+        "v_shape"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_484",
+      "true_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_485",
+      "true_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_487",
+      "true_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_488",
+      "true_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_489",
+      "true_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_490",
+      "true_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_492",
+      "true_pair": [
+        "converging",
+        "converging"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_493",
+      "true_pair": [
+        "shield",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_494",
+      "true_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_496",
+      "true_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_498",
+      "true_pair": [
+        "encirclement",
+        "converging"
+      ],
+      "extracted_pair": [
+        "converging",
+        "encirclement"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_499",
+      "true_pair": [
+        "column",
+        "column"
+      ],
+      "extracted_pair": [
+        "column",
+        "column"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_500",
+      "true_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_504",
+      "true_pair": [
+        "column",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "column",
+        "encirclement"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_505",
+      "true_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_506",
+      "true_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_507",
+      "true_pair": [
+        "converging",
+        "converging"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_510",
+      "true_pair": [
+        "shield",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_514",
+      "true_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_515",
+      "true_pair": [
+        "shield",
+        "converging"
+      ],
+      "extracted_pair": [
+        "shield",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_516",
+      "true_pair": [
+        "column",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_517",
+      "true_pair": [
+        "encirclement",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "encirclement",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_518",
+      "true_pair": [
+        "shield",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "shield",
+        "v_shape"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_521",
+      "true_pair": [
+        "shield",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_522",
+      "true_pair": [
+        "shield",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_524",
+      "true_pair": [
+        "converging",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_527",
+      "true_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_529",
+      "true_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_533",
+      "true_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_534",
+      "true_pair": [
+        "dispersed",
+        "shield"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_535",
+      "true_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_538",
+      "true_pair": [
+        "diamond",
+        "shield"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_543",
+      "true_pair": [
+        "column",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "column",
+        "diamond"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_545",
+      "true_pair": [
+        "column",
+        "column"
+      ],
+      "extracted_pair": [
+        "column",
+        "column"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_547",
+      "true_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_548",
+      "true_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_549",
+      "true_pair": [
+        "v_shape",
+        "column"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_550",
+      "true_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_551",
+      "true_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_552",
+      "true_pair": [
+        "column",
+        "column"
+      ],
+      "extracted_pair": [
+        "column",
+        "column"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_559",
+      "true_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_560",
+      "true_pair": [
+        "converging",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "converging"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_565",
+      "true_pair": [
+        "dispersed",
+        "column"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "column"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_566",
+      "true_pair": [
+        "diamond",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_567",
+      "true_pair": [
+        "encirclement",
+        "column"
+      ],
+      "extracted_pair": [
+        "encirclement",
+        "column"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_572",
+      "true_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_575",
+      "true_pair": [
+        "shield",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "shield",
+        "v_shape"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_577",
+      "true_pair": [
+        "column",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_578",
+      "true_pair": [
+        "encirclement",
+        "converging"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_581",
+      "true_pair": [
+        "converging",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "converging",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_582",
+      "true_pair": [
+        "v_shape",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_589",
+      "true_pair": [
+        "encirclement",
+        "column"
+      ],
+      "extracted_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_591",
+      "true_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_592",
+      "true_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_594",
+      "true_pair": [
+        "encirclement",
+        "converging"
+      ],
+      "extracted_pair": [
+        "converging",
+        "encirclement"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_598",
+      "true_pair": [
+        "column",
+        "converging"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_600",
+      "true_pair": [
+        "dispersed",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_604",
+      "true_pair": [
+        "column",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_608",
+      "true_pair": [
+        "v_shape",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_610",
+      "true_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_615",
+      "true_pair": [
+        "converging",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "converging",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_616",
+      "true_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_620",
+      "true_pair": [
+        "column",
+        "column"
+      ],
+      "extracted_pair": [
+        "column",
+        "column"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_625",
+      "true_pair": [
+        "encirclement",
+        "column"
+      ],
+      "extracted_pair": [
+        "encirclement",
+        "column"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_626",
+      "true_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_627",
+      "true_pair": [
+        "converging",
+        "converging"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_628",
+      "true_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_630",
+      "true_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_631",
+      "true_pair": [
+        "converging",
+        "converging"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_632",
+      "true_pair": [
+        "converging",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "converging",
+        "encirclement"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_635",
+      "true_pair": [
+        "converging",
+        "converging"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_636",
+      "true_pair": [
+        "converging",
+        "converging"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_638",
+      "true_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_644",
+      "true_pair": [
+        "v_shape",
+        "column"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_645",
+      "true_pair": [
+        "encirclement",
+        "converging"
+      ],
+      "extracted_pair": [
+        "converging",
+        "encirclement"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_646",
+      "true_pair": [
+        "shield",
+        "converging"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_652",
+      "true_pair": [
+        "dispersed",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "encirclement"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_654",
+      "true_pair": [
+        "dispersed",
+        "converging"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "converging"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_656",
+      "true_pair": [
+        "diamond",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_658",
+      "true_pair": [
+        "encirclement",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "converging"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_659",
+      "true_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_661",
+      "true_pair": [
+        "v_shape",
+        "column"
+      ],
+      "extracted_pair": [
+        "column",
+        "column"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_665",
+      "true_pair": [
+        "shield",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_666",
+      "true_pair": [
+        "converging",
+        "converging"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_668",
+      "true_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_672",
+      "true_pair": [
+        "converging",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "converging"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_673",
+      "true_pair": [
+        "shield",
+        "column"
+      ],
+      "extracted_pair": [
+        "shield",
+        "column"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_674",
+      "true_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_675",
+      "true_pair": [
+        "column",
+        "column"
+      ],
+      "extracted_pair": [
+        "column",
+        "column"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_676",
+      "true_pair": [
+        "v_shape",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_678",
+      "true_pair": [
+        "v_shape",
+        "converging"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_679",
+      "true_pair": [
+        "shield",
+        "converging"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_680",
+      "true_pair": [
+        "dispersed",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_681",
+      "true_pair": [
+        "converging",
+        "converging"
+      ],
+      "extracted_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_682",
+      "true_pair": [
+        "shield",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "shield",
+        "diamond"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_683",
+      "true_pair": [
+        "converging",
+        "converging"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_684",
+      "true_pair": [
+        "dispersed",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_687",
+      "true_pair": [
+        "column",
+        "column"
+      ],
+      "extracted_pair": [
+        "column",
+        "column"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_688",
+      "true_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_689",
+      "true_pair": [
+        "diamond",
+        "column"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_690",
+      "true_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_691",
+      "true_pair": [
+        "converging",
+        "converging"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_693",
+      "true_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_702",
+      "true_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_703",
+      "true_pair": [
+        "v_shape",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "converging",
+        "encirclement"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_705",
+      "true_pair": [
+        "converging",
+        "converging"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_709",
+      "true_pair": [
+        "encirclement",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "encirclement",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_711",
+      "true_pair": [
+        "converging",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "encirclement"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_712",
+      "true_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_713",
+      "true_pair": [
+        "shield",
+        "converging"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_714",
+      "true_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_715",
+      "true_pair": [
+        "dispersed",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "diamond"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_717",
+      "true_pair": [
+        "column",
+        "column"
+      ],
+      "extracted_pair": [
+        "column",
+        "column"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_719",
+      "true_pair": [
+        "shield",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_720",
+      "true_pair": [
+        "column",
+        "column"
+      ],
+      "extracted_pair": [
+        "column",
+        "column"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_721",
+      "true_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_722",
+      "true_pair": [
+        "shield",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_723",
+      "true_pair": [
+        "converging",
+        "converging"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_724",
+      "true_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_725",
+      "true_pair": [
+        "shield",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_726",
+      "true_pair": [
+        "diamond",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_727",
+      "true_pair": [
+        "encirclement",
+        "column"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "encirclement"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_729",
+      "true_pair": [
+        "shield",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_734",
+      "true_pair": [
+        "encirclement",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "shield",
+        "diamond"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_736",
+      "true_pair": [
+        "encirclement",
+        "column"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "encirclement"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_737",
+      "true_pair": [
+        "shield",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "shield",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_739",
+      "true_pair": [
+        "shield",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "shield",
+        "v_shape"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_740",
+      "true_pair": [
+        "shield",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_741",
+      "true_pair": [
+        "converging",
+        "converging"
+      ],
+      "extracted_pair": [
+        "converging",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_743",
+      "true_pair": [
+        "dispersed",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_745",
+      "true_pair": [
+        "diamond",
+        "converging"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_746",
+      "true_pair": [
+        "diamond",
+        "converging"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_747",
+      "true_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_752",
+      "true_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_753",
+      "true_pair": [
+        "diamond",
+        "shield"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_754",
+      "true_pair": [
+        "diamond",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_755",
+      "true_pair": [
+        "encirclement",
+        "converging"
+      ],
+      "extracted_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_758",
+      "true_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_759",
+      "true_pair": [
+        "converging",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "converging",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_760",
+      "true_pair": [
+        "diamond",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_761",
+      "true_pair": [
+        "v_shape",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_763",
+      "true_pair": [
+        "column",
+        "column"
+      ],
+      "extracted_pair": [
+        "column",
+        "column"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_769",
+      "true_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_770",
+      "true_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_774",
+      "true_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_775",
+      "true_pair": [
+        "column",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_778",
+      "true_pair": [
+        "encirclement",
+        "column"
+      ],
+      "extracted_pair": [
+        "encirclement",
+        "column"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_779",
+      "true_pair": [
+        "converging",
+        "converging"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_782",
+      "true_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_784",
+      "true_pair": [
+        "column",
+        "column"
+      ],
+      "extracted_pair": [
+        "column",
+        "column"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_785",
+      "true_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_789",
+      "true_pair": [
+        "v_shape",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "shield"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_791",
+      "true_pair": [
+        "shield",
+        "converging"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_795",
+      "true_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_796",
+      "true_pair": [
+        "converging",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "converging"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_798",
+      "true_pair": [
+        "column",
+        "column"
+      ],
+      "extracted_pair": [
+        "column",
+        "column"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_800",
+      "true_pair": [
+        "encirclement",
+        "column"
+      ],
+      "extracted_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_801",
+      "true_pair": [
+        "diamond",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_804",
+      "true_pair": [
+        "shield",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_808",
+      "true_pair": [
+        "dispersed",
+        "column"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_809",
+      "true_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_812",
+      "true_pair": [
+        "dispersed",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_813",
+      "true_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_814",
+      "true_pair": [
+        "column",
+        "column"
+      ],
+      "extracted_pair": [
+        "column",
+        "column"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_815",
+      "true_pair": [
+        "shield",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_818",
+      "true_pair": [
+        "encirclement",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "encirclement",
+        "converging"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_820",
+      "true_pair": [
+        "encirclement",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_822",
+      "true_pair": [
+        "v_shape",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "shield"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_823",
+      "true_pair": [
+        "column",
+        "column"
+      ],
+      "extracted_pair": [
+        "column",
+        "column"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_826",
+      "true_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_827",
+      "true_pair": [
+        "shield",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_828",
+      "true_pair": [
+        "shield",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_830",
+      "true_pair": [
+        "v_shape",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_835",
+      "true_pair": [
+        "converging",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "converging",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_837",
+      "true_pair": [
+        "dispersed",
+        "column"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "column"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_838",
+      "true_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_842",
+      "true_pair": [
+        "dispersed",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_843",
+      "true_pair": [
+        "diamond",
+        "shield"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_850",
+      "true_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_852",
+      "true_pair": [
+        "shield",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_855",
+      "true_pair": [
+        "shield",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_856",
+      "true_pair": [
+        "column",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_857",
+      "true_pair": [
+        "dispersed",
+        "shield"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_860",
+      "true_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_863",
+      "true_pair": [
+        "encirclement",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_864",
+      "true_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_870",
+      "true_pair": [
+        "converging",
+        "converging"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_871",
+      "true_pair": [
+        "v_shape",
+        "converging"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_872",
+      "true_pair": [
+        "shield",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "shield",
+        "diamond"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_873",
+      "true_pair": [
+        "converging",
+        "column"
+      ],
+      "extracted_pair": [
+        "converging",
+        "column"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_874",
+      "true_pair": [
+        "converging",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "converging"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_875",
+      "true_pair": [
+        "encirclement",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "encirclement",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_876",
+      "true_pair": [
+        "v_shape",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "encirclement"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_885",
+      "true_pair": [
+        "column",
+        "column"
+      ],
+      "extracted_pair": [
+        "column",
+        "column"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_890",
+      "true_pair": [
+        "converging",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_897",
+      "true_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_898",
+      "true_pair": [
+        "converging",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "converging",
+        "encirclement"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_899",
+      "true_pair": [
+        "converging",
+        "shield"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "converging"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_900",
+      "true_pair": [
+        "converging",
+        "converging"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_901",
+      "true_pair": [
+        "shield",
+        "converging"
+      ],
+      "extracted_pair": [
+        "shield",
+        "encirclement"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_902",
+      "true_pair": [
+        "converging",
+        "converging"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_903",
+      "true_pair": [
+        "shield",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_905",
+      "true_pair": [
+        "v_shape",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_906",
+      "true_pair": [
+        "column",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_907",
+      "true_pair": [
+        "shield",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "shield",
+        "diamond"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_909",
+      "true_pair": [
+        "shield",
+        "converging"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_910",
+      "true_pair": [
+        "shield",
+        "column"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_912",
+      "true_pair": [
+        "dispersed",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_913",
+      "true_pair": [
+        "shield",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_915",
+      "true_pair": [
+        "shield",
+        "column"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_917",
+      "true_pair": [
+        "shield",
+        "column"
+      ],
+      "extracted_pair": [
+        "shield",
+        "column"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_919",
+      "true_pair": [
+        "converging",
+        "converging"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_922",
+      "true_pair": [
+        "dispersed",
+        "converging"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "converging"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_923",
+      "true_pair": [
+        "shield",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "shield",
+        "encirclement"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_924",
+      "true_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_927",
+      "true_pair": [
+        "converging",
+        "converging"
+      ],
+      "extracted_pair": [
+        "converging",
+        "converging"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_928",
+      "true_pair": [
+        "column",
+        "converging"
+      ],
+      "extracted_pair": [
+        "column",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_930",
+      "true_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_932",
+      "true_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_933",
+      "true_pair": [
+        "encirclement",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "encirclement"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_934",
+      "true_pair": [
+        "encirclement",
+        "column"
+      ],
+      "extracted_pair": [
+        "encirclement",
+        "column"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_937",
+      "true_pair": [
+        "shield",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_939",
+      "true_pair": [
+        "diamond",
+        "converging"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_941",
+      "true_pair": [
+        "encirclement",
+        "column"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "encirclement"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_942",
+      "true_pair": [
+        "converging",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "converging",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_943",
+      "true_pair": [
+        "converging",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_944",
+      "true_pair": [
+        "dispersed",
+        "column"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_945",
+      "true_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_952",
+      "true_pair": [
+        "dispersed",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_953",
+      "true_pair": [
+        "encirclement",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "encirclement",
+        "diamond"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_955",
+      "true_pair": [
+        "diamond",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_956",
+      "true_pair": [
+        "encirclement",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "converging",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_958",
+      "true_pair": [
+        "converging",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_960",
+      "true_pair": [
+        "converging",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "converging",
+        "encirclement"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_962",
+      "true_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_963",
+      "true_pair": [
+        "column",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "column",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_964",
+      "true_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_966",
+      "true_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_967",
+      "true_pair": [
+        "converging",
+        "converging"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_968",
+      "true_pair": [
+        "column",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_969",
+      "true_pair": [
+        "column",
+        "column"
+      ],
+      "extracted_pair": [
+        "column",
+        "column"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_970",
+      "true_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_971",
+      "true_pair": [
+        "shield",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_973",
+      "true_pair": [
+        "converging",
+        "column"
+      ],
+      "extracted_pair": [
+        "column",
+        "column"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_976",
+      "true_pair": [
+        "shield",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_977",
+      "true_pair": [
+        "dispersed",
+        "converging"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_978",
+      "true_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_979",
+      "true_pair": [
+        "v_shape",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "encirclement",
+        "encirclement"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_980",
+      "true_pair": [
+        "diamond",
+        "shield"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_981",
+      "true_pair": [
+        "v_shape",
+        "converging"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_983",
+      "true_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "extracted_pair": [
+        "diamond",
+        "diamond"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_984",
+      "true_pair": [
+        "shield",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "shield",
+        "v_shape"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_986",
+      "true_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_988",
+      "true_pair": [
+        "dispersed",
+        "encirclement"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_994",
+      "true_pair": [
+        "shield",
+        "shield"
+      ],
+      "extracted_pair": [
+        "shield",
+        "shield"
+      ],
+      "correct": true
+    },
+    {
+      "name": "phase4_seq_995",
+      "true_pair": [
+        "v_shape",
+        "dispersed"
+      ],
+      "extracted_pair": [
+        "dispersed",
+        "dispersed"
+      ],
+      "correct": false
+    },
+    {
+      "name": "phase4_seq_998",
+      "true_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "extracted_pair": [
+        "v_shape",
+        "v_shape"
+      ],
+      "correct": true
+    }
+  ]
+}

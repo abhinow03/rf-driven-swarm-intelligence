@@ -3800,3 +3800,89 @@ numbers.
 `python -m unittest discover -s tests -v` (PYTHONPATH=src, `.venv`): **193 tests, 193 pass, 0
 failures, 0 errors** — includes the 4 new `test_phase3a_merged_corpus.py` tests. No training
 run. Stopping here per the instruction.
+
+## AQ. v5a2 preregistration — locking bars before training
+
+No training this session. `docs/PREREGISTRATION_V5A2.md` is the deliverable; this section is
+the working log behind it.
+
+### Step 1: upstream artifact re-verification
+
+All three sha256 re-computed live (not trusted from the last recorded value):
+`checkpoints/v5_sft_v5a_PROTECTED/`'s `adapter_model.safetensors` = `79b71224...` (matches
+training completion, safety-copy creation, and right now — three independent timestamps, zero
+drift); `data/sft_train_v5_phase3a_merged.jsonl` = `5123a833...` (matches sec AP step 4's
+lock); `eval_data/LOCKED_seed999_FINAL.json` = `871a9dae...` (matches sec AM's lock). No
+mismatch. Confirmed the three are structurally non-overlapping artifacts (a checkpoint
+directory, a JSONL corpus, a JSON trajectory population), not the same file twice.
+
+### Step 2: non-proxy `pair_accuracy`
+
+Root cause: `OUTPUT_SCHEMA` has no literal-pair field; `likely_intent` is a many-to-one
+function of the pair via `RULES`, so the old proxy (63.6%, n=497) was always lossy. Fix:
+`llm_finetuning/literal_pair_extraction.py` mines the model's own free text
+(`situation_summary`/`key_indicators`/`threat_reasoning`) for literally-stated formation
+names — zero new inference. Two text hazards found and fixed during hand-validation
+(`llm_finetuning/validate_literal_pair_extraction.py`, n=30, seed=7): non-chronological prose
+(the dominant/current state is often narrated before the transition history — fixed by giving
+explicit "from A to B (to C...)" chain phrasing priority, with a sentence-boundary guard added
+after a shorter synthetic test caught a bridging bug real corpus text hadn't exposed) and a
+vocabulary collision (`converging`/`dispersed` name both a formation type and a spread-
+dynamics trend descriptor elsewhere in this project's own tactical-context template — fixed by
+requiring "formation"/"configuration" adjacency to count as a formation claim).
+
+**19/30 (63.3%) raw agreement on the hand-checked sample, 0 extraction bugs found among the 11
+mismatches** — every mismatch is the extractor correctly reporting a genuine model error.
+**Real pair_accuracy, full population (n=498): 57.8% (288/498, 1 extraction failure)**,
+replacing the 63.6% proxy as the correct v5-a baseline for every bar that references it.
+
+### Steps 3-5: the bar set, stratification, training-approach decision
+
+Full reasoning and every number: `docs/PREREGISTRATION_V5A2.md` sections 2-4. Headline
+additions closing v5-a's gaps: `under_abstention_rate` (NEW, floor >=25%, closes v5-a's exact
+0.0% abstention_rate_when_unanswerable gap) paired with the existing `over_abstention_rate`
+ceiling so neither "never abstain" nor "always abstain" can pass both; `correct_abstention_rate_multi_hop`/
+`_oscillation` scored as two SEPARATE floors (25%/20%) rather than pooled, closing sec AK's
+masking pattern; `escalation_direction` reinstated as a real numeric ceiling
+(under_escalation_rate <=25%, vs the old qualitative "under>=over" bar shown to pass by
+construction, sec AM); `regression_vs_v5a` (NEW) at a tight 5pp tolerance on both threat and
+REAL pair accuracy, measured on the exact same phase4_eval_set.json population v5-a was scored
+on; `schema_validity_rate` dropped as a scored bar (shown non-discriminating even for the
+untrained base model) but kept as a reported diagnostic. `ceiling_normalized_accuracy`'s
+numerator and denominator both confirmed on the SAME population (phase4_eval_set.json, n=498)
+— sec AM's cross-population mistake not repeated. `eval_data/LOCKED_seed999_FINAL.json` used
+nowhere as a bar's primary numerator/denominator, only as the pre-existing secondary reference.
+
+**Training-approach decision: fresh QLoRA on the full 12,901-row merged corpus**, not
+continued-training from v5-a's adapter on just the 900 new rows — the latter risks real,
+structural catastrophic forgetting (a second phase with zero interleaved exposure to the
+original 12,001 RULES rows) and has no validated precedent in this project. Full reasoning:
+`docs/PREREGISTRATION_V5A2.md` section 4.
+
+Fresh null-hypothesis baseline for the memorization check (bar j), re-measured on the merged
+corpus rather than reusing v5-a's 0.6%: **0.74% (83/11,191)**, teacher-authored pair-keyed
+rows only (`data/sft_train_v5_phase1_provenance.json`). Confirmed empirically — not assumed —
+that the 900 new abstention rows contribute 0 pair-keyed rows to this check (they describe
+multi_hop/oscillation mechanisms, not a single RULES pair).
+
+### Step 6: Rule 0 self-check
+
+`scripts/rule0_audit_v5a2_preregistration.py` confirms every one of the 10 PASS/FAIL bars
+traces to a live assertion in `scripts/check_preregistration_v5a2.py`'s `BARS` dict (or a
+dedicated function, for escalation/memorization) and is referenced by at least one test in
+`tests/test_check_preregistration_v5a2.py` that asserts a FAIL outcome (not just a PASS) —
+**first run caught a real gap** (the two `regression_vs_v5a_*` bars had no dedicated test),
+fixed by adding `TestRegressionVsV5a`, re-run: **PASS**. Full result:
+`evaluation/rule0_v5a2_preregistration_audit.json`.
+
+Smoke-tested `check_preregistration_v5a2.py` against v5-a's own real results
+(`evaluation/phase4_v5a_results.json`) as a sanity check (not a v5a2 result): correctly PASSes
+bars a/b/c/d/g/i (v5-a genuinely clears those) and correctly FAILs bars e/f×2 (v5-a's known
+0.0% abstention gap) — confirms the new bars discriminate a real, known-bad case rather than
+passing everything trivially.
+
+### Step 7: lock
+
+`docs/PREREGISTRATION_V5A2.md` sha256 `af62a867a753a1e43993cc734a056566c3160ac8dde8f47150a9e21c6056c322`
+recorded in `docs/V5_STATE.json`'s new `v5a2_preregistration_lock` block, timestamped before
+any v5a2 result exists. **Training was not run in this session.**

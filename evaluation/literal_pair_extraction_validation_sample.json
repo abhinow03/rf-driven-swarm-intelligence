@@ -1,0 +1,499 @@
+[
+  {
+    "name": "phase4_seq_342",
+    "true_chain": [
+      "converging"
+    ],
+    "true_pair": [
+      "converging",
+      "converging"
+    ],
+    "extracted_pair": [
+      "converging",
+      "converging"
+    ],
+    "match": true,
+    "situation_summary": "Multiple UAVs are observed in a converging formation moving steadily toward the protected area with a negative approach rate, indicating they are closing distance. The formation has remained stable over the observation window with no transitions."
+  },
+  {
+    "name": "phase4_seq_976",
+    "true_chain": [
+      "shield"
+    ],
+    "true_pair": [
+      "shield",
+      "shield"
+    ],
+    "extracted_pair": [
+      "shield",
+      "shield"
+    ],
+    "match": true,
+    "situation_summary": "A group of UAVs is maintaining a shield formation with steady velocity and minimal approach rate, indicating a defensive posture. No formation changes or aggressive maneuvers observed over the past 40 seconds."
+  },
+  {
+    "name": "phase4_seq_162",
+    "true_chain": [
+      "encirclement",
+      "shield"
+    ],
+    "true_pair": [
+      "encirclement",
+      "shield"
+    ],
+    "extracted_pair": [
+      "shield",
+      "shield"
+    ],
+    "match": false,
+    "situation_summary": "The UAV group maintained a shield formation throughout the observation window, showing stable velocity and improving formation cohesion. No clear offensive maneuvers or transitions were observed."
+  },
+  {
+    "name": "phase4_seq_408",
+    "true_chain": [
+      "v_shape"
+    ],
+    "true_pair": [
+      "v_shape",
+      "v_shape"
+    ],
+    "extracted_pair": [
+      "v_shape",
+      "v_shape"
+    ],
+    "match": true,
+    "situation_summary": "A group of UAVs is maintaining a stable V-shaped formation while moving at a steady speed of approximately 5.6 m/s. The formation shows no transitions or aggressive maneuvers, indicating a routine surveillance pattern."
+  },
+  {
+    "name": "phase4_seq_680",
+    "true_chain": [
+      "dispersed",
+      "diamond"
+    ],
+    "true_pair": [
+      "dispersed",
+      "diamond"
+    ],
+    "extracted_pair": [
+      "diamond",
+      "diamond"
+    ],
+    "match": false,
+    "situation_summary": "The UAV group maintained a diamond formation throughout the observation window, showing stable spacing and minimal velocity change. Formation cohesion remained high with no transitions or aggressive maneuvers observed."
+  },
+  {
+    "name": "phase4_seq_54",
+    "true_chain": [
+      "column",
+      "diamond"
+    ],
+    "true_pair": [
+      "column",
+      "diamond"
+    ],
+    "extracted_pair": [
+      "column",
+      "diamond"
+    ],
+    "match": true,
+    "situation_summary": "The UAV group maintained a diamond formation throughout the observation window, showing steady velocity and minimal approach rate. Formation stability remained high and there was no clear role differentiation or aggressive maneuvering."
+  },
+  {
+    "name": "phase4_seq_78",
+    "true_chain": [
+      "column"
+    ],
+    "true_pair": [
+      "column",
+      "column"
+    ],
+    "extracted_pair": [
+      "column",
+      "column"
+    ],
+    "match": true,
+    "situation_summary": "A small group of UAVs is maintaining a tight column formation with steady velocity and minimal lateral movement. The formation has remained unchanged over the observation window, indicating coordinated but non\u2011aggressive behavior."
+  },
+  {
+    "name": "phase4_seq_852",
+    "true_chain": [
+      "shield"
+    ],
+    "true_pair": [
+      "shield",
+      "shield"
+    ],
+    "extracted_pair": [
+      "shield",
+      "shield"
+    ],
+    "match": true,
+    "situation_summary": "A group of UAVs is maintaining a shield formation with steady velocity and minimal approach rate, indicating a defensive posture. The formation has remained stable over the observation window with high classifier confidence."
+  },
+  {
+    "name": "phase4_seq_545",
+    "true_chain": [
+      "column"
+    ],
+    "true_pair": [
+      "column",
+      "column"
+    ],
+    "extracted_pair": [
+      "column",
+      "column"
+    ],
+    "match": true,
+    "situation_summary": "A small group of UAVs is maintaining a tight column formation while moving at a steady speed of about 5.8 m/s. The formation shows no signs of maneuvering or acceleration, and the spread remains stable with a slight negative approach rate indicating minimal closure."
+  },
+  {
+    "name": "phase4_seq_96",
+    "true_chain": [
+      "column"
+    ],
+    "true_pair": [
+      "column",
+      "column"
+    ],
+    "extracted_pair": [
+      "column",
+      "column"
+    ],
+    "match": true,
+    "situation_summary": "A small group of UAVs is maintaining a column formation with steady velocity and minimal lateral movement. The formation shows high stability and no signs of aggressive maneuvering or intent to engage."
+  },
+  {
+    "name": "phase4_seq_377",
+    "true_chain": [
+      "column"
+    ],
+    "true_pair": [
+      "column",
+      "column"
+    ],
+    "extracted_pair": [
+      "column",
+      "column"
+    ],
+    "match": true,
+    "situation_summary": "A small group of UAVs is maintaining a column formation with steady velocity and minimal lateral movement. The formation has remained unchanged over the observation window, indicating coordinated but non\u2011aggressive flight."
+  },
+  {
+    "name": "phase4_seq_604",
+    "true_chain": [
+      "column",
+      "dispersed"
+    ],
+    "true_pair": [
+      "column",
+      "dispersed"
+    ],
+    "extracted_pair": [
+      "dispersed",
+      "dispersed"
+    ],
+    "match": false,
+    "situation_summary": "The UAV group remains in a dispersed formation with steady velocity and minimal approach rate. No formation transitions or aggressive maneuvers observed over the past minute. Behavior is consistent with routine surveillance."
+  },
+  {
+    "name": "phase4_seq_62",
+    "true_chain": [
+      "column",
+      "encirclement"
+    ],
+    "true_pair": [
+      "column",
+      "encirclement"
+    ],
+    "extracted_pair": [
+      "encirclement",
+      "encirclement"
+    ],
+    "match": false,
+    "situation_summary": "The UAVs have maintained an encirclement formation over the past 50 seconds, showing stable spacing and minimal velocity change. This persistent pattern suggests a deliberate effort to surround the protected area."
+  },
+  {
+    "name": "phase4_seq_942",
+    "true_chain": [
+      "converging",
+      "dispersed"
+    ],
+    "true_pair": [
+      "converging",
+      "dispersed"
+    ],
+    "extracted_pair": [
+      "converging",
+      "dispersed"
+    ],
+    "match": true,
+    "situation_summary": "Over the past 44.5 seconds, the UAVs have been observed in a converging formation that transitioned to a dispersed state while maintaining a steady velocity. The formation is currently stable with minimal approach rate, indicating a lack of aggressive maneuvering."
+  },
+  {
+    "name": "phase4_seq_514",
+    "true_chain": [
+      "v_shape"
+    ],
+    "true_pair": [
+      "v_shape",
+      "v_shape"
+    ],
+    "extracted_pair": [
+      "v_shape",
+      "v_shape"
+    ],
+    "match": true,
+    "situation_summary": "A group of UAVs is maintaining a stable V-shaped formation while moving at a steady speed of approximately 5.7 m/s. The formation shows no transitions or aggressive maneuvers, indicating a routine surveillance pattern."
+  },
+  {
+    "name": "phase4_seq_238",
+    "true_chain": [
+      "diamond",
+      "v_shape"
+    ],
+    "true_pair": [
+      "diamond",
+      "v_shape"
+    ],
+    "extracted_pair": [
+      "diamond",
+      "v_shape"
+    ],
+    "match": true,
+    "situation_summary": "The UAV group maintained a diamond formation for the first 15 seconds before transitioning to a shield formation, then to a V\u2011shape at 25 seconds. Velocity remained steady with minimal change, and formation stability stayed high."
+  },
+  {
+    "name": "phase4_seq_41",
+    "true_chain": [
+      "column",
+      "dispersed"
+    ],
+    "true_pair": [
+      "column",
+      "dispersed"
+    ],
+    "extracted_pair": [
+      "dispersed",
+      "dispersed"
+    ],
+    "match": false,
+    "situation_summary": "The UAV group remains in a dispersed formation with steady velocity and minimal approach rate. No formation transitions or aggressive maneuvers observed over the past minute. Behavior is consistent with routine surveillance."
+  },
+  {
+    "name": "phase4_seq_90",
+    "true_chain": [
+      "column",
+      "shield"
+    ],
+    "true_pair": [
+      "column",
+      "shield"
+    ],
+    "extracted_pair": [
+      "column",
+      "shield"
+    ],
+    "match": true,
+    "situation_summary": "The UAV group maintained a shield formation throughout the observation window, showing stable velocity and minimal approach rate. Formation transitions occurred at t=5.0s and t=10.0s from column to diamond and then to shield, respectively, indicating a controlled, defensive posture."
+  },
+  {
+    "name": "phase4_seq_446",
+    "true_chain": [
+      "converging"
+    ],
+    "true_pair": [
+      "converging",
+      "converging"
+    ],
+    "extracted_pair": [
+      "converging",
+      "converging"
+    ],
+    "match": true,
+    "situation_summary": "Multiple UAVs are observed in a converging formation moving steadily toward the protected area with a negative approach rate, indicating they are closing distance. The formation has remained stable over the observation window with high classifier confidence."
+  },
+  {
+    "name": "phase4_seq_434",
+    "true_chain": [
+      "column",
+      "converging"
+    ],
+    "true_pair": [
+      "column",
+      "converging"
+    ],
+    "extracted_pair": [
+      "converging",
+      "converging"
+    ],
+    "match": false,
+    "situation_summary": "Multiple UAVs are observed in a converging formation moving steadily toward the protected area with a slight inward approach rate. The formation has remained stable over the observation window, indicating coordinated movement."
+  },
+  {
+    "name": "phase4_seq_71",
+    "true_chain": [
+      "v_shape",
+      "converging"
+    ],
+    "true_pair": [
+      "v_shape",
+      "converging"
+    ],
+    "extracted_pair": [
+      "converging",
+      "converging"
+    ],
+    "match": false,
+    "situation_summary": "Multiple UAVs are observed in a converging formation, moving steadily toward the protected area while gradually spreading out. The formation has remained stable over the observation window, indicating coordinated behavior."
+  },
+  {
+    "name": "phase4_seq_265",
+    "true_chain": [
+      "dispersed",
+      "diamond"
+    ],
+    "true_pair": [
+      "dispersed",
+      "diamond"
+    ],
+    "extracted_pair": [
+      "dispersed",
+      "shield"
+    ],
+    "match": false,
+    "situation_summary": "The UAV group began in a dispersed formation and transitioned to a shield formation around 10 seconds into the observation window. Velocity remained steady with a slight increase, while the formation stayed stable and the spread showed minimal closure. These patterns suggest a defensive posture rather than an aggressive advance."
+  },
+  {
+    "name": "phase4_seq_92",
+    "true_chain": [
+      "dispersed"
+    ],
+    "true_pair": [
+      "dispersed",
+      "dispersed"
+    ],
+    "extracted_pair": [
+      "dispersed",
+      "dispersed"
+    ],
+    "match": true,
+    "situation_summary": "The UAV group remains in a dispersed formation with steady velocity and minimal approach rate. No formation changes or aggressive maneuvers observed over the past 34.5 seconds."
+  },
+  {
+    "name": "phase4_seq_560",
+    "true_chain": [
+      "converging",
+      "encirclement"
+    ],
+    "true_pair": [
+      "converging",
+      "encirclement"
+    ],
+    "extracted_pair": [
+      "v_shape",
+      "converging"
+    ],
+    "match": false,
+    "situation_summary": "Multiple drones are observed converging toward a common point while maintaining a stable V\u2011shape formation. Their velocity remains steady and they are closing in on each other at a moderate rate, indicating coordinated movement."
+  },
+  {
+    "name": "phase4_seq_438",
+    "true_chain": [
+      "column",
+      "converging"
+    ],
+    "true_pair": [
+      "column",
+      "converging"
+    ],
+    "extracted_pair": [
+      "converging",
+      "converging"
+    ],
+    "match": false,
+    "situation_summary": "Multiple UAVs are observed in a converging formation moving steadily toward the protected area with a slight negative velocity trend. Formation stability is degrading while the spread remains stable, indicating coordinated movement. High classifier confidence supports the reliability of these observations."
+  },
+  {
+    "name": "phase4_seq_63",
+    "true_chain": [
+      "converging"
+    ],
+    "true_pair": [
+      "converging",
+      "converging"
+    ],
+    "extracted_pair": [
+      "converging",
+      "converging"
+    ],
+    "match": true,
+    "situation_summary": "Multiple UAVs are observed in a converging formation moving steadily toward the protected area with a slight positive approach rate. The formation has remained stable over the observation window without transitions."
+  },
+  {
+    "name": "phase4_seq_857",
+    "true_chain": [
+      "dispersed",
+      "shield"
+    ],
+    "true_pair": [
+      "dispersed",
+      "shield"
+    ],
+    "extracted_pair": [
+      "dispersed",
+      "shield"
+    ],
+    "match": true,
+    "situation_summary": "The UAV group began in a dispersed configuration and transitioned to a shield formation over the observation window. Velocity remained steady with a slight increase, while formation stability improved and spread stayed stable. No aggressive maneuvers or role differentiation were observed."
+  },
+  {
+    "name": "phase4_seq_578",
+    "true_chain": [
+      "encirclement",
+      "converging"
+    ],
+    "true_pair": [
+      "encirclement",
+      "converging"
+    ],
+    "extracted_pair": [
+      "v_shape",
+      "dispersed"
+    ],
+    "match": false,
+    "situation_summary": "Over the past minute, the UAV swarm shifted from a V\u2011shape to a dispersed configuration while maintaining a steady speed of about 5.6\u202fm/s. The group is spreading apart rather than closing in, indicating a withdrawal or disengagement maneuver."
+  },
+  {
+    "name": "phase4_seq_125",
+    "true_chain": [
+      "column",
+      "diamond"
+    ],
+    "true_pair": [
+      "column",
+      "diamond"
+    ],
+    "extracted_pair": [
+      "column",
+      "diamond"
+    ],
+    "match": true,
+    "situation_summary": "The UAV group maintained a diamond formation throughout the observation window, showing steady velocity and minimal approach rate. Formation stability remained high and there was no clear role differentiation or aggressive maneuvering."
+  },
+  {
+    "name": "phase4_seq_247",
+    "true_chain": [
+      "column"
+    ],
+    "true_pair": [
+      "column",
+      "column"
+    ],
+    "extracted_pair": [
+      "column",
+      "column"
+    ],
+    "match": true,
+    "situation_summary": "A small group of UAVs is maintaining a tight column formation while moving at a steady speed of approximately 5.8 m/s. The formation shows no signs of maneuvering or acceleration, and the spread remains stable with a slight negative approach rate indicating minimal closure."
+  }
+]

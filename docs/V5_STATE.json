@@ -2339,5 +2339,31 @@
     "next_step_not_taken_here": "v5a2 training on this merged corpus is a separate, later prompt -- not run in this session",
     "full_writeup": "AUDIT.md sec AP"
   },
+  "v5a2_preregistration_lock": {
+    "date": "2026-08-16",
+    "no_training_this_session": true,
+    "file": "docs/PREREGISTRATION_V5A2.md",
+    "file_sha256_LOCK": "af62a867a753a1e43993cc734a056566c3160ac8dde8f47150a9e21c6056c322",
+    "purpose": "timestamp proving this document predates any v5a2 training result -- locked the moment it was finalized, same discipline as rule0_seed999_lock/phase3a_corpus_finalization.",
+    "upstream_artifacts_reverified_live": {
+      "checkpoints/v5_sft_v5a_PROTECTED/adapter_model.safetensors": "79b71224e2d04a6149adf63ec3fcfc825d58007ce4bfe144e5d1f0e7cb89aad5",
+      "data/sft_train_v5_phase3a_merged.jsonl": "5123a833274a168af2d420cc833f6c51b1493202a3e2b05e06b8e44fd8e2ab6b",
+      "eval_data/LOCKED_seed999_FINAL.json": "871a9dae4c6fdf08e1aed803592fa7c61b1a852c150693b5819fe2271717b96e"
+    },
+    "real_pair_accuracy_v5a": {
+      "value": 0.5783, "n": 498,
+      "method": "llm_finetuning/literal_pair_extraction.py, non-proxy -- supersedes the old likely_intent-match proxy (0.6358, n=497) for every bar that references v5-a's pair accuracy",
+      "validation": "llm_finetuning/validate_literal_pair_extraction.py, 19/30 hand-checked, 0 extraction bugs found"
+    },
+    "fresh_null_hypothesis_baseline": {
+      "value": 0.0074, "n_near_dup": 83, "n_scored": 11191,
+      "note": "re-measured on the 12,901-row merged corpus, teacher-authored pair-keyed rows only -- NOT reused from v5-a's 0.6% figure. Confirmed the 900 new abstention rows contribute 0 pair-keyed rows."
+    },
+    "check_script": "scripts/check_preregistration_v5a2.py",
+    "test_suite": "tests/test_check_preregistration_v5a2.py (17 tests) + tests/test_literal_pair_extraction.py (9 tests)",
+    "rule0_self_check": "scripts/rule0_audit_v5a2_preregistration.py -- PASS (evaluation/rule0_v5a2_preregistration_audit.json)",
+    "training_approach_decision": "fresh QLoRA on the full 12,901-row merged corpus, same hyperparameters as v5-a (r=32, alpha=64, all 7 target modules, assistant-only loss, batch 8x4=32) -- NOT continued-training from v5-a's adapter. Reasoning: docs/PREREGISTRATION_V5A2.md section 4.",
+    "full_writeup": "AUDIT.md sec AQ"
+  },
   "started": "2026-08-07T19:47:41Z"
 }
