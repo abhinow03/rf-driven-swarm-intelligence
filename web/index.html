@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Counter-UAV Swarm Intent — Defense Demo</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-title">
+    <h1>Counter-UAV Swarm Intent</h1>
+    <span class="subtitle">defense demo</span>
+  </div>
+  <div id="status-bar" class="status-bar">loading status…</div>
+</header>
+
+<nav class="acts-nav">
+  <button class="act-tab active" data-act="act1">Act 1 — Model Contrast</button>
+  <button class="act-tab" data-act="act2">Act 2 — Pipeline Architecture</button>
+  <button class="act-tab" data-act="act3">Act 3 — Live Scenario</button>
+</nav>
+
+<main>
+
+  <!-- ================= ACT 1 ================= -->
+  <section id="act1" class="act-panel active">
+    <h2>Three systems, one scenario — showing the progress across model versions</h2>
+    <div id="act1-scenario" class="scenario-card">loading…</div>
+
+    <div id="act1-buttons" class="model-buttons"></div>
+
+    <div id="act1-systems" class="systems-row"></div>
+  </section>
+
+  <!-- ================= ACT 2 ================= -->
+  <section id="act2" class="act-panel">
+    <h2>pipeline_v2's 3-layer routing — one real case per layer</h2>
+    <div id="act2-cases" class="cases-column">loading…</div>
+  </section>
+
+  <!-- ================= ACT 3 ================= -->
+  <section id="act3" class="act-panel">
+    <h2>Live scenario, full pipeline</h2>
+    <div id="act3-disclosure" class="disclosure-box">loading…</div>
+
+    <form id="act3-form" class="act3-form">
+      <label>Formation A
+        <select id="form-a" required></select>
+      </label>
+      <label>Formation B
+        <select id="form-b" required></select>
+      </label>
+      <button type="submit" id="act3-run">Run Live</button>
+    </form>
+
+    <div id="act3-result" class="act3-result"></div>
+  </section>
+
+</main>
+
+<script src="/app.js"></script>
+</body>
+</html>
