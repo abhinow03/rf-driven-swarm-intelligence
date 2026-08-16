@@ -1,5 +1,12 @@
 # v5a2 Preregistration — locked before training
 
+> **FINAL — 2026-08-16.** This document is now FINAL: three errata (definitional/redundancy
+> fixes, bar-f file binding, full population unification) are closed, and a combined sha256
+> over this file + `scripts/check_preregistration_v5a2.py` + its two test files is locked in
+> `docs/V5_STATE.json`'s `v5a2_preregistration_FINAL_lock` (superseding the original step-7
+> lock, which only covered this document's pre-erratum content). **Any further change requires
+> starting a new versioned document (e.g. `PREREGISTRATION_V5A2b.md`), not another erratum.**
+
 **This document, once committed, is immutable except via a dated erratum appended at the
 bottom — same rule as `docs/PREREGISTRATION.md`.** This is the last planned attempt before
 demo prep. Every known failure mode from v5-a's cycle (AUDIT.md secs AA–AO, `docs/V5_STATE.json`)

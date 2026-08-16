@@ -2406,6 +2406,41 @@
       "updated_constants": {"SAME_POPULATION_CEILING": 0.830, "V5A_REAL_THREAT_ACCURACY": 0.789, "V5A_REAL_PAIR_ACCURACY": 0.6356, "threat_regression_tolerance_pp": 0.05, "pair_regression_tolerance_pp": 0.08},
       "rule0_recheck": "PASS", "full_suite": "222/222 pass",
       "full_writeup": "docs/PREREGISTRATION_V5A2.md erratum part 3; AUDIT.md sec AQ erratum part 3"
+    },
+    "v5a2_preregistration_FINAL_lock": {
+      "date": "2026-08-16",
+      "supersedes": "v5a2_preregistration_lock (the original step-7 lock -- that lock's file_sha256_LOCK is left untouched, it correctly records the pre-erratum document; this FINAL lock is the current, authoritative one going forward)",
+      "close_out_checks": {
+        "bar_i_floors_confirmed_live_not_stale": {
+          "regression_vs_v5a_threat_accuracy_floor": 0.739,
+          "regression_vs_v5a_pair_accuracy_floor": 0.5556,
+          "method": "read live from BARS dict via python import, not from source inspection alone -- confirmed computed dynamically as V5A_REAL_*_ACCURACY minus the (widened, for pair) tolerance, NOT hardcoded to the superseded seed=4321 values (0.7065/0.528). No bug found.",
+          "verdict": "CORRECT, no fix needed"
+        },
+        "safety_copy_reverified_live": {
+          "result": "PASS -- 29 files byte-identical, read-only",
+          "note": "also independently re-verified immediately before the seed=999 v5-a eval run in erratum part 3 (same result); re-checked again fresh for this close-out"
+        }
+      },
+      "combined_sha256": {
+        "method": "sha256 over the concatenated raw bytes of the 4 files below, in this exact order, each file's full current content (no normalization/whitespace-stripping)",
+        "file_order": [
+          "docs/PREREGISTRATION_V5A2.md",
+          "scripts/check_preregistration_v5a2.py",
+          "tests/test_check_preregistration_v5a2.py",
+          "tests/test_literal_pair_extraction.py"
+        ],
+        "per_file_sha256": {
+          "docs/PREREGISTRATION_V5A2.md": "ba5a1c78a09a4c9971255eab2c1fcd6fbf31ba4ae76215f5999a217cbc83d8dd",
+          "scripts/check_preregistration_v5a2.py": "2f02b150c418b3bb3b7ed65e0972e73f50389f0e9f6411b51fe84ea0fb1f8042",
+          "tests/test_check_preregistration_v5a2.py": "ad205a0478d710b7dda44573c7fcedfdfed2fecd6b500a436c9a23cc34a7596e",
+          "tests/test_literal_pair_extraction.py": "291ef639388aff5e9fe7c8d099ace8c3920d9e424c4e3986f875ee5b00e32be7"
+        },
+        "combined_sha256_LOCK": "edddf746f41efa45b1e55306d9cee89fe2aa08965fced04341cc5b63dd628ba8"
+      },
+      "status": "FINAL -- any further change requires a new versioned document (e.g. PREREGISTRATION_V5A2b.md), not another erratum on this file",
+      "rule0_recheck": "PASS", "full_suite": "222/222 pass",
+      "full_writeup": "docs/PREREGISTRATION_V5A2.md top-of-file FINAL note; AUDIT.md sec AQ close-out"
     }
   },
   "started": "2026-08-07T19:47:41Z"

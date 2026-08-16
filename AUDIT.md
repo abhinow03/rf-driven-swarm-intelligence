@@ -3987,3 +3987,31 @@ correctly fail (v5-a's known 0.0% correct-abstention gap, confirmed present on t
 population too).
 
 Full suite: 222/222 pass. Rule 0 self-check: PASS.
+
+### Close-out (2026-08-16) — final lock
+
+**Step 1**: bar i's coded floors confirmed **correct, no bug** — read live via Python import
+(`BARS['regression_vs_v5a_threat_accuracy']['value']` = 0.739, `['regression_vs_v5a_pair_accuracy']['value']`
+= 0.5556), confirming they're computed dynamically from the erratum-part-3 seed=999 baseline
+(`0.789 - 0.05`, `0.6356 - 0.08`), not hardcoded to the superseded seed=4321 values
+(0.7065/0.528). Nothing to fix.
+
+**Step 2**: `checkpoints/v5_sft_v5a_PROTECTED/` re-verified live — **PASS**, byte-identical,
+read-only, 29 files. Confirmed this was already done immediately before erratum part 3's
+v5-a seed=999 eval run (same result); re-checked fresh again for this close-out.
+
+**Step 3, FINAL LOCK**: both checks came back clean, so the lock proceeded without any
+pre-lock fix. Combined sha256 computed over the concatenated raw bytes of
+`docs/PREREGISTRATION_V5A2.md` + `scripts/check_preregistration_v5a2.py` +
+`tests/test_check_preregistration_v5a2.py` + `tests/test_literal_pair_extraction.py`, in that
+order: `edddf746f41efa45b1e55306d9cee89fe2aa08965fced04341cc5b63dd628ba8` — recorded in
+`docs/V5_STATE.json`'s new `v5a2_preregistration_FINAL_lock`, explicitly superseding the
+original step-7 lock (which is left untouched, since it correctly records the pre-erratum
+document). Top-of-file FINAL note added to `docs/PREREGISTRATION_V5A2.md` per the instruction
+(the one authorized exception to the file's own append-only-erratum rule, since it's the
+explicit close-out action, not a substantive edit).
+
+Rule 0 self-check: **PASS**. Full suite: **222/222 pass**.
+
+**`docs/PREREGISTRATION_V5A2.md` is now FINAL.** Any further change requires a new versioned
+document, not another erratum.
