@@ -11,6 +11,9 @@ tqdm>=4.66
 # LLM layer (baseline API client)
 requests>=2.31
 
+# Defense demo web interface (scripts/demo_web.py). Install on the GPU box only.
+# flask>=3.0
+
 # LLM fine-tuning (see llm_finetuning/). Install on the GPU box / Colab only.
 # transformers>=4.44
 # peft>=0.12
