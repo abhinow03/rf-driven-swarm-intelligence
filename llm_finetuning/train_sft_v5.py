@@ -354,7 +354,12 @@ def main():
 
     trainer = SFTTrainer(model=model, args=sft_cfg, train_dataset=ds_train,
                         eval_dataset=ds_val, processing_class=tok, callbacks=callbacks or None)
-    trainer.train()
+
+    from transformers.trainer_utils import get_last_checkpoint
+    last_ckpt = get_last_checkpoint(args.out) if os.path.isdir(args.out) else None
+    if last_ckpt:
+        print(f"Resuming from checkpoint: {last_ckpt}")
+    trainer.train(resume_from_checkpoint=last_ckpt)
     trainer.save_model(args.out)
     tok.save_pretrained(args.out)
 
