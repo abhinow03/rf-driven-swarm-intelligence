@@ -2297,5 +2297,47 @@
     "no_prior_figures_changed": "this is a provenance/comparability audit only -- every previously-reported ceiling number stands exactly as reported; see evaluation/rule0_2b_impact_list.json for which comparisons are same-population-trustworthy vs. need the population-boundary caveat attached",
     "full_writeup": "AUDIT.md sec AM"
   },
+  "phase3a_corpus_finalization": {
+    "date": "2026-08-16",
+    "merge_only_no_training": true,
+    "decisions_applied": {
+      "drop_terminal_transitioning": "confirmed 0.0% natural frequency on two independent populations (LOCKED_seed999_FINAL.json 0/1000, phase4_eval_set.json's 502-case unanswerable subset 0/502), AUDIT.md sec AO step 3",
+      "corpus_variant_carried_forward": "data/abstention_corpus_teacher.jsonl (99.9% teacher-authored), not the no-teacher data/abstention_corpus.jsonl"
+    },
+    "step1_population_identity_check": {
+      "compared": ["evaluation/phase4_eval_set.json (seed=4321)", "eval_data/LOCKED_seed999_FINAL.json (seed=999)"],
+      "finding": "GENUINELY DIFFERENT POPULATIONS -- different seed, different schema (post-inference eval set vs raw generator-trajectory lock), different provenance script. 16/1000 chain matches at compared indices is chance noise (expected ~11.3 from a 7-formation vocabulary; 15/16 matches are single-formation chains), not overlap.",
+      "strata_target_implication": "no re-derivation needed -- phase3a_strata_targets.json was derived exclusively from the seed=4321 lineage (categorize_unanswerable_502.json) and never touched the seed=999 file",
+      "script": "llm_finetuning/phase3a_population_identity_check.py",
+      "result_file": "evaluation/phase3a_population_identity_check.json"
+    },
+    "step2_trim": {
+      "source": "data/abstention_corpus_teacher.jsonl (1000 rows: 780 multi_hop / 120 oscillation / 100 terminal_transitioning)",
+      "dropped": "100 terminal_transitioning rows",
+      "output_file": "data/abstention_corpus_teacher_trimmed900.jsonl",
+      "final_composition": {"multi_hop": 780, "oscillation": 120, "total": 900},
+      "gate_a": "PASS (multi_hop 780/780, oscillation 120/120; terminal_transitioning intentionally dropped, not scored)",
+      "gate_b": "PASS (0 overlap with existing 12,001-row corpus, 0 internal duplicates)",
+      "result_file": "evaluation/phase3a_step4_gates_results_trimmed900.json"
+    },
+    "step3_merge": {
+      "existing_corpus_files": ["data/sft_train_v5_phase1.jsonl (10801)", "data/sft_train_v5_phase1_val.jsonl (600)", "data/sft_train_v5_phase1_mining.jsonl (600)"],
+      "existing_total": 12001,
+      "new_rows": 900,
+      "merged_total": 12901,
+      "output_file": "data/sft_train_v5_phase3a_merged.jsonl",
+      "source_files_overwritten": false,
+      "corpus_wide_dedup": "0 duplicate keys across the full 12,901-row merged file (not just new-vs-old)",
+      "result_file": "evaluation/phase3a_merge_dedup_results.json"
+    },
+    "step4_lock": {
+      "merged_corpus_path": "data/sft_train_v5_phase3a_merged.jsonl",
+      "merged_corpus_sha256": "5123a833274a168af2d420cc833f6c51b1493202a3e2b05e06b8e44fd8e2ab6b",
+      "row_count": 12901,
+      "drift_guard_test": "tests/test_phase3a_merged_corpus.py -- reconstructs from the 4 live source files, fails if sha256 diverges from this recorded value"
+    },
+    "next_step_not_taken_here": "v5a2 training on this merged corpus is a separate, later prompt -- not run in this session",
+    "full_writeup": "AUDIT.md sec AP"
+  },
   "started": "2026-08-07T19:47:41Z"
 }

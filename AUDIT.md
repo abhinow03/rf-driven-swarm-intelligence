@@ -3777,3 +3777,20 @@ never surface): exact user-message-string key, same convention as `build_sft_dat
 | duplicate rows | 0 |
 
 **ZERO INTERNAL DUPLICATES, corpus-wide.** Full results: `evaluation/phase3a_merge_dedup_results.json`.
+
+### Step 4: sha256 lock + docs
+
+`data/sft_train_v5_phase3a_merged.jsonl` sha256:
+`5123a833274a168af2d420cc833f6c51b1493202a3e2b05e06b8e44fd8e2ab6b` — recorded in
+`docs/V5_STATE.json`'s new `phase3a_corpus_finalization` block (same discipline as
+`rule0_seed999_lock`: file path, sha256, row count, drift-guard test pointer), alongside the
+step 1-3 summary numbers for a single self-contained record.
+
+Drift guard: `tests/test_phase3a_merged_corpus.py` — reconstructs the merged file from its 4
+live source files (deterministic concatenation, no randomness) and fails if the sha256 ever
+diverges from the locked value. 4/4 pass.
+
+`docs/PHASE3A_ABSTENTION_CORPUS.md` updated with a new section 6 (append-only, original
+sections left as the historical record of the pre-finalization state) covering the final
+composition (780/120/900), the population-identity finding from step 1, and the merge/lock
+numbers.

@@ -117,9 +117,59 @@ agreed on every sample, every time, regardless of teacher availability).
 12,001 existing RULES rows = 13,001 combined corpus size if merged. Every number in this
 report is pulled live from the persisted artifacts, not re-typed.
 
-## What this phase did NOT do
+## What this phase did NOT do (as of the original generation session)
 
 No training. No modification to `checkpoints/v5_sft/` or the new
 `checkpoints/v5_sft_v5a_PROTECTED/` safety copy (both read-only, re-verified after every
 step). No edits to the existing 12,001 RULES rows — `data/abstention_corpus.jsonl` is
 strictly additive and stands alone pending review. No merge into any training file.
+
+**Superseded by section 6 below**: the merge has since happened (append-only, into a NEW
+file, still no training).
+
+## 6. Finalization — merge only, no training (AUDIT.md sec AP)
+
+Decisions applied: drop `terminal_transitioning` entirely (0.0% natural frequency on two
+independent populations, sec AO step 3); carry forward `data/abstention_corpus_teacher.jsonl`
+(99.9% teacher-authored), not the no-teacher version.
+
+**Population identity check** (step 1): `evaluation/phase4_eval_set.json` (seed=4321) and
+`eval_data/LOCKED_seed999_FINAL.json` (seed=999) are confirmed **genuinely different
+populations** — different seed, different schema (post-inference eval set vs. raw
+generator-trajectory lock), different provenance script. 16/1000 chain matches at compared
+indices is chance noise (expected ~11.3 from a 7-formation vocabulary; 15/16 of the observed
+matches are single-formation chains), not evidence of overlap. Since Phase 3a's strata
+targets were derived exclusively from the seed=4321 lineage (`categorize_unanswerable_502.json`
+→ `phase3a_ground_truth_validation.json` → `phase3a_strata_targets.json`) and never touched
+the seed=999 file, **the strata targets required no re-derivation.**
+
+**Trim** (step 2): `terminal_transitioning`'s 100 rows dropped from
+`data/abstention_corpus_teacher.jsonl` into a new file,
+`data/abstention_corpus_teacher_trimmed900.jsonl`. Gates a/b re-run and PASS:
+
+| stratum | rows |
+|---|---|
+| multi_hop | 780 |
+| oscillation | 120 |
+| **total** | **900** |
+
+**Merge** (step 3): the 900-row trimmed corpus appended to the existing 12,001-row Phase 1
+corpus (train+val+mining pooled) into a new file, `data/sft_train_v5_phase3a_merged.jsonl` —
+none of the four source files overwritten.
+
+| | rows |
+|---|---|
+| existing Phase 1 corpus | 12,001 |
+| trimmed abstention corpus | 900 |
+| **merged total** | **12,901** |
+
+Corpus-wide dedup (not just new-vs-old): **0 duplicate keys across all 12,901 rows.**
+
+**Lock** (step 4): `data/sft_train_v5_phase3a_merged.jsonl` sha256 =
+`5123a833274a168af2d420cc833f6c51b1493202a3e2b05e06b8e44fd8e2ab6b`, recorded in
+`docs/V5_STATE.json`'s `phase3a_corpus_finalization` block, drift-guarded by
+`tests/test_phase3a_merged_corpus.py` (reconstructs from the 4 live source files, fails if the
+hash ever diverges).
+
+**Still not done here**: no training. v5a2 training on this merged corpus is a separate,
+later prompt.
