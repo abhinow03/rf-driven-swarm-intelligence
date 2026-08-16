@@ -168,3 +168,138 @@ finalized — the timestamp that proves this document predates any v5a2 result. 
 
 **Training was not run in this session.** The training prompt is a separate, later step,
 pending sign-off on this document.
+
+---
+
+## Erratum — 2026-08-16 (post-lock, three definitional gaps found on review)
+
+Append-only, per this document's own rule (section header 0). Nothing above this line was
+edited. Original file lock (`docs/V5_STATE.json`'s `v5a2_preregistration_lock.file_sha256_LOCK`
+= `af62a867a753a1e43993cc734a056566c3160ac8dde8f47150a9e21c6056c322`) is left untouched — it
+correctly records what the document said BEFORE this erratum, which is exactly its purpose.
+
+### 1. `under_abstention_rate` — was pooled, mathematically redundant with bar f, renamed and dropped as a scored bar
+
+**Exact formula as implemented** (`scripts/check_preregistration_v5a2.py`,
+`correct_abstention_and_per_mechanism`, quoted verbatim):
+```python
+gt_false = [it for it in items if not it["has_ground_truth"]]
+by_mechanism: dict[str, list[bool]] = {}
+pooled = []
+for it in gt_false:
+    parsed = parsed_by_case.get(it["name"])
+    if parsed is None:
+        continue
+    mechanism = classify_trajectory_ground_truth(it["true_chain"], true_labels=None)
+    if mechanism is None:
+        continue  # not actually unanswerable by this classifier -- skip, don't misscore
+    correct = is_abstention(str(parsed.get("likely_intent", "")))
+    pooled.append(correct)
+    by_mechanism.setdefault(mechanism, []).append(correct)
+# rate(pooled) = sum(pooled) / len(pooled)
+```
+
+**Confirmed (a): pooled abstention frequency across all has_ground_truth=False cases,
+regardless of mechanism** — computed live against `evaluation/phase4_eval_set.json`: **502**
+has_ground_truth=False cases total, all 502 classify cleanly as either `multi_hop` (435) or
+`oscillation` (67) via `classify_trajectory_ground_truth` (0 dropped as `mechanism=None`,
+since every has_ground_truth=False case in this file has `len(true_chain)>=3` by
+construction, which the `len(chain)>=3` branch always resolves). This corrects a smaller
+inaccuracy in the original document's prose, which cited 421/70 (a different artifact,
+`categorize_unanswerable_502.json`'s STGT-**bucket**-based sub-categorization, not the
+ground-truth-chain classifier this script actually runs) — 435/67 is the right figure, and
+also matches `evaluation/phase3a_strata_targets.json`'s own `prior_multi_hop`/`prior_oscillation`
+fields, confirming it as the correct lineage.
+
+**Confirmed: `pooled` is exactly the concatenation of `by_mechanism[MULTI_HOP]` and
+`by_mechanism[OSCILLATION]`** (since `mechanism` is never `None` for this population, per
+above) — so `rate(pooled)` is algebraically identical to the n-weighted average of
+`correct_abstention_rate_multi_hop` and `correct_abstention_rate_oscillation`:
+`(435*rate_mh + 67*rate_osc) / 502`. **It is not independent information — it is fully
+determined by bar f's two numbers plus their fixed weights.** Keeping it as a third scored
+bar alongside f's two components adds no anti-gaming protection (if a system never abstains,
+BOTH f floors already fail independently — verified by
+`tests/test_check_preregistration_v5a2.py::TestAbstentionBarsAreNotVacuous::test_never_abstaining_fails_both_mechanism_bars`)
+and reintroduces exactly the "a strong mechanism can hide a weak one in one pooled number"
+risk (sec AK) this document elsewhere commits to avoiding.
+
+**Name was also misleading independent of the redundancy finding**: "under_abstention_rate"
+was intended to read as "abstention rate, measured **under** (conditioned on) the
+unanswerable population" — an atypical, easily misread use of "under" (the more natural
+reading is "the rate of under-abstaining," i.e. failing to abstain, which would want a
+CEILING, not the floor this bar used). **Corrected: renamed to
+`correct_abstention_rate_pooled`**, matching bar f's own naming convention for its two
+components.
+
+**Fix applied**: removed from `BARS` (no longer scored into `OVERALL`); still computed and
+reported in every run, now as a diagnostic-only row (`status: "N/A"`), same treatment as
+`schema_validity_rate`. **The document's original bar table (section 2) is left as originally
+written** — readers should treat its `under_abstention_rate` row as superseded by this
+erratum, not edited in place.
+
+### 2. Bar j's cited v5-a baseline — corrected in prose, confirmed no live bug
+
+**Corrected figure: v5-a's real, re-verified memorization overlap is 0.5% (3/644, precisely
+0.4658%)**, not the 1.3% (7/534) this document's section 2 table and `AUDIT.md` sec AQ cited.
+The 534-case denominator predates a real pair-extraction bug fix (`AUDIT.md`, "v5-hardening-step1",
+commit `5d5ea61`: *"rate moved from 1.3%/n=534 to 0.5%/n=644, verdict unchanged"*) — the
+original document cited the stale, pre-fix figure by checking an earlier `V5_STATE.json`
+entry (`step2_memorization_verdict`) without following the correction forward into `AUDIT.md`'s
+own later record of it.
+
+**Confirmed via `grep -n "534\|0\.013\|1\.3%" scripts/check_preregistration_v5a2.py` — zero
+matches.** The stale figure appears nowhere in any executable code path. The script's actual
+`check_memorization()` function compares a future v5a2 run's measured overlap rate against
+exactly two live constants: `FRESH_NULL_HYPOTHESIS_BASELINE = 0.0074` (v5a2's own
+corpus-derived chance baseline, unrelated to v5-a's historical number) and the fixed `0.15`
+signal bar. **This was a display/reporting artifact in this document's prose and in
+`AUDIT.md`'s narrative, not a live bug** — no comparison, threshold, or scored value was ever
+computed from the wrong number. Fixed: `scripts/check_preregistration_v5a2.py`'s module
+docstring now cites 0.5%/n=644 explicitly, with a note explaining the correction and pointing
+here.
+
+### 3. File binding for bars f (and the now-diagnostic pooled figure) — confirmed, NOT switched, flagged as an open question
+
+**Confirmed by reading the code** (`PHASE4_EVAL_SET` constant, `load_phase4_items()`,
+`scripts/check_preregistration_v5a2.py`): bars d/f/g/i and the diagnostic pooled figure are
+scored against **`evaluation/phase4_eval_set.json` (seed=4321)**, with
+`classify_trajectory_ground_truth` applied fresh to each case's `true_chain` — **NOT**
+`eval_data/LOCKED_seed999_FINAL.json` (seed=999). This is confirmed as the CURRENT, ACTUAL
+behavior, not assumed.
+
+**This was NOT changed, and no change is made in this erratum**, for two reasons stated
+plainly rather than silently deferred:
+
+1. **It matches this document's own explicit design requirement**, set in the prompt that
+   produced it: *"confirm no bar silently pools across the seed=999/seed=4321 population
+   boundary sec AP found."* Switching bars f to `LOCKED_seed999_FINAL.json` while every other
+   bar stays on `phase4_eval_set.json` would itself CREATE a cross-population split within
+   the same bar set — the exact failure mode sec AM's lesson exists to prevent, not a fix for
+   it.
+2. **It is not a file-path swap.** `eval_data/LOCKED_seed999_FINAL.json` contains only raw
+   generator trajectories (`chain`/`positions`/`true_labels`/`n_timesteps`) — zero model
+   output, zero precomputed `ctx`/`key_windows` tactical-context text. Scoring bars f against
+   it would require building and validating an entirely new STGT+bridge+context-generation
+   inference pipeline over that population from scratch — substantive new work, not a bug fix,
+   and out of scope for a no-training erratum review.
+
+**A real, adjacent concern is disclosed instead of silently resolved either way**:
+`evaluation/phase3a_strata_targets.json`'s 780/120 multi_hop/oscillation corpus mixture was
+itself derived from `phase4_eval_set.json`'s own category proportions (via
+`categorize_unanswerable_502.json`, confirmed same seed=4321 lineage). Scoring bars f on the
+same population whose distribution shaped the training corpus's stratum ratio is a soft,
+population-level methodological concern (not case-level literal leakage — no training row is
+a real eval case) worth being honest about, not something this erratum can resolve
+unilaterally. **Left open, explicitly, for a decision**: either (a) accept
+`phase4_eval_set.json` for bars f with this caveat now disclosed, or (b) commission the new
+`LOCKED_seed999_FINAL.json` eval pipeline as prerequisite work before v5a2 training. Not
+decided here.
+
+### Verification after the code fix
+
+`scripts/rule0_audit_v5a2_preregistration.py` re-run: **PASS** (updated `DOCUMENT_BARS` list,
+9 scored bars, no `under_abstention_rate`). Full test suite
+(`python -m unittest discover -s tests`): **220/220 pass** (18 in
+`test_check_preregistration_v5a2.py`, up from 17 — added a dedicated test proving the pooled
+figure is reported as a diagnostic and numerically equals the n-weighted average of bar f's
+two components).

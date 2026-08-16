@@ -13,21 +13,38 @@ Bars (see docs/PREREGISTRATION_V5A2.md section 2 for full reasoning):
   c. ceiling_normalized_accuracy                 >= 85.0%  (denominator: locked same-population
      ceiling 0.8253, evaluation/phase3a... see compute_same_population_ceiling.py / V5_STATE.json)
   d. over_abstention_rate                        <= 15.0%
-  e. under_abstention_rate (NEW)                 >= 25.0%  -- fraction of has_ground_truth=False
-     cases where is_abstention(likely_intent) is True. Ground truth for which cases are
-     has_ground_truth=False comes ONLY from phase4_eval_set.json's true_chain (the Phase 3a
-     simulator-based classifier), never from stgt_bridge's own read -- LOCKED CONFIG.
   f. correct_abstention_rate_multi_hop           >= 25.0%  -- SEPARATE from oscillation, never pooled.
   f. correct_abstention_rate_oscillation         >= 20.0%
   g. escalation_direction (under_escalation_rate) <= 25.0%  -- real numeric ceiling.
   i. regression_vs_v5a: threat_accuracy          >= 70.65% (v5-a's 75.65% - 5.0pp)
      regression_vs_v5a: pair_accuracy (REAL)     >= 52.8%  (v5-a's REAL 57.8% - 5.0pp)
   j. memorization_vs_generalization              overlap rate < 15.0% signal bar, compared
-     against the FRESH null-hypothesis baseline 0.74% (83/11,191), not v5-a's reused 0.6%.
+     against the FRESH null-hypothesis baseline 0.74% (83/11,191) -- this is v5a2's OWN
+     corpus-derived chance baseline, NOT v5-a's historical measured overlap (which is 0.5%,
+     n=644, post regex-fix -- AUDIT.md line ~3308 -- an EARLIER draft of this document/AUDIT
+     write-up cited the stale pre-fix 1.3%/n=534 figure in PROSE only; that number was never
+     read by any code path here, confirmed by grep -- see docs/PREREGISTRATION_V5A2.md's
+     dated erratum).
 
 NOT a PASS/FAIL bar (dropped, reported as a diagnostic only):
   h. schema_validity_rate -- shown to pass at ~100% even for the untrained base model
      (scripts/rule0_audit_2026_08_13.py), does not discriminate capability.
+  e. correct_abstention_rate_pooled (formerly "under_abstention_rate", RENAMED and DROPPED
+     as a scored bar per the dated erratum) -- proven mathematically identical to the
+     n-weighted average of bar f's two components (both are computed from the exact same
+     per-case is_abstention() booleans over the exact same has_ground_truth=False population,
+     with mechanism=None cases excluded from all three). A pooled bar sitting alongside f is
+     exactly the kind of "strong mechanism masks a weak one" risk this document elsewhere
+     commits to avoiding (sec AK) -- and it adds no anti-gaming protection f doesn't already
+     provide on its own (if a system never abstains, BOTH f floors already fail
+     independently). Still computed and reported for transparency, never scored into overall.
+
+OPEN QUESTION, not resolved by this file (see docs/PREREGISTRATION_V5A2.md's dated erratum,
+step 3): bars f/d currently score against evaluation/phase4_eval_set.json (seed=4321) --
+by original design (see PHASE4_EVAL_SET below), NOT eval_data/LOCKED_seed999_FINAL.json
+(seed=999). Switching would require building an entirely new STGT+bridge+context-generation
+pipeline over that file (it currently has zero model-output artifacts, only raw generator
+trajectories) -- a substantive redesign, not a bug fix, and NOT made here without sign-off.
 
 Usage:
     python scripts/check_preregistration_v5a2.py <v5a2_results.json> [--memorization <overlap_results.json>]
@@ -47,6 +64,9 @@ from swarm_intent.ground_truth_abstention import classify_trajectory_ground_trut
 from swarm_intent.llm.prompts import is_abstention  # noqa: E402
 from literal_pair_extraction import extract_literal_pair, true_pair_from_chain  # noqa: E402
 
+# Bars d/e(diagnostic)/f/g/i are scored against THIS file (seed=4321) by original design --
+# see the OPEN QUESTION note in the module docstring re: eval_data/LOCKED_seed999_FINAL.json
+# (seed=999), which is NOT used here and would need a new eval pipeline to be used at all.
 PHASE4_EVAL_SET = REPO / "evaluation" / "phase4_eval_set.json"
 SAME_POPULATION_CEILING = 0.8253  # locked, docs/V5_STATE.json step3_same_population_ceiling
 V5A_REAL_THREAT_ACCURACY = 0.7565
@@ -59,7 +79,6 @@ BARS = {
     "pair_accuracy_pooled_when_answerable_real": {"op": ">=", "value": 0.45},
     "ceiling_normalized_accuracy": {"op": ">=", "value": 0.85},
     "over_abstention_rate": {"op": "<=", "value": 0.15},
-    "under_abstention_rate": {"op": ">=", "value": 0.25},
     "correct_abstention_rate_multi_hop": {"op": ">=", "value": 0.25},
     "correct_abstention_rate_oscillation": {"op": ">=", "value": 0.20},
     "escalation_under_escalation_rate": {"op": "<=", "value": 0.25},
@@ -88,9 +107,11 @@ def real_pair_accuracy(parsed_by_case: dict, items: list[dict]) -> float | None:
     return n_correct / n_scored if n_scored else None
 
 
-def under_abstention_and_per_mechanism(parsed_by_case: dict, items: list[dict]) -> dict:
-    """Fraction of has_ground_truth=False cases correctly abstained on, pooled and split by
-    ground-truth mechanism (Phase 3a simulator-based classifier on true_chain, NEVER
+def correct_abstention_and_per_mechanism(parsed_by_case: dict, items: list[dict]) -> dict:
+    """Fraction of has_ground_truth=False cases correctly abstained on, pooled (diagnostic
+    only -- see module docstring, "correct_abstention_rate_pooled" is mathematically the
+    n-weighted average of the two per-mechanism rates below, not independent information) and
+    split by ground-truth mechanism (Phase 3a simulator-based classifier on true_chain, NEVER
     stgt_bridge's read -- LOCKED CONFIG)."""
     gt_false = [it for it in items if not it["has_ground_truth"]]
     by_mechanism: dict[str, list[bool]] = {}
@@ -110,7 +131,7 @@ def under_abstention_and_per_mechanism(parsed_by_case: dict, items: list[dict]) 
         return sum(bools) / len(bools) if bools else None
 
     return {
-        "under_abstention_rate": rate(pooled),
+        "correct_abstention_rate_pooled": rate(pooled),
         "n_pooled": len(pooled),
         "correct_abstention_rate_multi_hop": rate(by_mechanism.get(MULTI_HOP, [])),
         "n_multi_hop": len(by_mechanism.get(MULTI_HOP, [])),
@@ -127,7 +148,7 @@ def extract_metrics(results: dict, memorization: dict | None, items: list[dict] 
     if items is None:
         items = load_phase4_items()
     pair_acc = real_pair_accuracy(parsed_by_case, items) if parsed_by_case else None
-    abst = under_abstention_and_per_mechanism(parsed_by_case, items) if parsed_by_case else {}
+    abst = correct_abstention_and_per_mechanism(parsed_by_case, items) if parsed_by_case else {}
 
     threat_acc = answerability.get("accuracy_when_answerable")
     ceiling_norm = (threat_acc / SAME_POPULATION_CEILING) if threat_acc is not None else None
@@ -139,7 +160,7 @@ def extract_metrics(results: dict, memorization: dict | None, items: list[dict] 
         "pair_accuracy_pooled_when_answerable_real": pair_acc,
         "ceiling_normalized_accuracy": ceiling_norm,
         "over_abstention_rate": answerability.get("over_abstention_rate"),
-        "under_abstention_rate": abst.get("under_abstention_rate"),
+        "correct_abstention_rate_pooled_diagnostic_only": abst.get("correct_abstention_rate_pooled"),
         "correct_abstention_rate_multi_hop": abst.get("correct_abstention_rate_multi_hop"),
         "correct_abstention_rate_oscillation": abst.get("correct_abstention_rate_oscillation"),
         "escalation_under_escalation_rate": escalation.get("under_escalated"),
@@ -189,6 +210,14 @@ def run_check(results: dict, memorization: dict | None, items: list[dict] | None
         "actual": (f"{metrics['memorization_overlap_rate']:.1%}"
                   if metrics["memorization_overlap_rate"] is not None else "n/a"),
         "status": memo_status,
+    })
+
+    pooled_abst = metrics["correct_abstention_rate_pooled_diagnostic_only"]
+    rows.append({
+        "bar": "correct_abstention_rate_pooled (DIAGNOSTIC ONLY, not scored -- mathematically "
+               "the n-weighted average of the two mechanism bars above, see erratum)",
+        "target": "n/a",
+        "actual": f"{pooled_abst:.1%}" if pooled_abst is not None else "n/a", "status": "N/A",
     })
 
     schema_rate = metrics["schema_validity_rate_diagnostic_only"]

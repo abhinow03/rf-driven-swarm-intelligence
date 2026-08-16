@@ -22,14 +22,16 @@ REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO / "scripts"))
 sys.path.insert(0, str(REPO / "tests"))
 
-# The 9 PASS/FAIL bars from docs/PREREGISTRATION_V5A2.md section 2, plus the memorization
-# bar (checked separately, not via the BARS dict) and the explicitly-dropped diagnostic.
+# The 8 PASS/FAIL bars per the erratum (docs/PREREGISTRATION_V5A2.md section 2, corrected --
+# "under_abstention_rate" dropped as a scored bar, proven mathematically redundant with the
+# two mechanism bars below), plus the memorization bar (checked separately, not via the BARS
+# dict) and the explicitly-dropped diagnostics (schema_validity_rate,
+# correct_abstention_rate_pooled).
 DOCUMENT_BARS = [
     "threat_accuracy_pooled_when_answerable",
     "pair_accuracy_pooled_when_answerable_real",
     "ceiling_normalized_accuracy",
     "over_abstention_rate",
-    "under_abstention_rate",
     "correct_abstention_rate_multi_hop",
     "correct_abstention_rate_oscillation",
     "escalation_under_escalation_rate",
@@ -89,7 +91,7 @@ def check_every_bar_has_a_non_vacuous_test():
     # "non-vacuous" specifically: at least one test per abstention/memorization/escalation bar
     # asserts a FAIL outcome, not just a PASS outcome (a bar that can only ever be tested
     # passing hasn't been shown capable of catching a bad system).
-    has_fail_assertion_for_abstention = "FAIL" in test_source and "under_abstention_rate" in test_source
+    has_fail_assertion_for_abstention = "FAIL" in test_source and "correct_abstention_rate_multi_hop" in test_source
     has_fail_assertion_for_memorization = 'assertTrue(by_bar["memorization_vs_generalization"].startswith("FAIL"))' in test_source
     has_fail_assertion_for_escalation = "test_escalation_ceiling_is_a_real_numeric_bound_not_qualitative" in test_source
 

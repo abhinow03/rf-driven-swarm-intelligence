@@ -2363,7 +2363,16 @@
     "test_suite": "tests/test_check_preregistration_v5a2.py (17 tests) + tests/test_literal_pair_extraction.py (9 tests)",
     "rule0_self_check": "scripts/rule0_audit_v5a2_preregistration.py -- PASS (evaluation/rule0_v5a2_preregistration_audit.json)",
     "training_approach_decision": "fresh QLoRA on the full 12,901-row merged corpus, same hyperparameters as v5-a (r=32, alpha=64, all 7 target modules, assistant-only loss, batch 8x4=32) -- NOT continued-training from v5-a's adapter. Reasoning: docs/PREREGISTRATION_V5A2.md section 4.",
-    "full_writeup": "AUDIT.md sec AQ"
+    "full_writeup": "AUDIT.md sec AQ",
+    "erratum_2026_08_16": {
+      "note": "appended AFTER this lock's file_sha256_LOCK was recorded -- that hash is left untouched, it correctly records the pre-erratum document state. Do not treat it as stale/wrong; it is a historical timestamp, not a live pointer.",
+      "finding_1": "under_abstention_rate was pooled (435 multi_hop + 67 oscillation, corrects an earlier 421/70 citation), mathematically the n-weighted average of bar f's two components -- dropped as a scored bar, renamed correct_abstention_rate_pooled, kept as a diagnostic only.",
+      "finding_2": "bar j's cited v5-a baseline was stale (1.3%/n=534); real re-verified figure is 0.5%/n=644 (already fixed elsewhere in this file's history, v5-hardening-step1). Confirmed a prose/citation error only -- zero executable code paths in check_preregistration_v5a2.py ever read the stale number.",
+      "finding_3": "bars f confirmed scored against evaluation/phase4_eval_set.json (seed=4321), never eval_data/LOCKED_seed999_FINAL.json -- matches this document's own design requirement. NOT switched (would need a new inference pipeline, not a bug fix). Adjacent concern disclosed, not resolved: the abstention corpus's strata mixture was itself derived from phase4_eval_set.json's own category proportions.",
+      "code_fixed": ["scripts/check_preregistration_v5a2.py", "scripts/rule0_audit_v5a2_preregistration.py", "tests/test_check_preregistration_v5a2.py"],
+      "rule0_recheck": "PASS", "full_suite": "220/220 pass",
+      "full_writeup": "docs/PREREGISTRATION_V5A2.md erratum section; AUDIT.md sec AQ erratum"
+    }
   },
   "started": "2026-08-07T19:47:41Z"
 }

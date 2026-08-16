@@ -150,28 +150,48 @@ class TestAbstentionBarsAreNotVacuous(unittest.TestCase):
             make_unanswerable_item("osc2", ["column", "v_shape", "column"]),   # oscillation
         ]
 
-    def test_never_abstaining_fails_under_abstention_and_both_mechanism_bars(self):
+    def test_never_abstaining_fails_both_mechanism_bars(self):
+        """Erratum: the pooled 'under_abstention_rate' bar was dropped -- proven
+        mathematically identical to the n-weighted average of the two mechanism bars, so it
+        added no protection beyond them. This test now asserts on f alone, which already
+        fully catches the never-abstain case on its own (both floors fail independently)."""
         items = self._unanswerable_population()
         parsed = {it["name"]: {"situation_summary": "steady formation", "likely_intent": "patrol"}
                  for it in items}
         results = make_results(parsed_by_case=parsed)
         rows, overall = run_check(results, memorization=None, items=items)
         by_bar = {r["bar"]: r["status"] for r in rows}
-        self.assertEqual(by_bar["under_abstention_rate"], "FAIL")
         self.assertEqual(by_bar["correct_abstention_rate_multi_hop"], "FAIL")
         self.assertEqual(by_bar["correct_abstention_rate_oscillation"], "FAIL")
         self.assertEqual(overall, "FAIL")
 
-    def test_always_correctly_abstaining_passes_all_three(self):
+    def test_always_correctly_abstaining_passes_both_mechanism_bars(self):
         items = self._unanswerable_population()
         parsed = {it["name"]: {"situation_summary": "ambiguous, multiple formation changes",
                                "likely_intent": "unknown"} for it in items}
         results = make_results(parsed_by_case=parsed)
         rows, _ = run_check(results, memorization=None, items=items)
         by_bar = {r["bar"]: r["status"] for r in rows}
-        self.assertEqual(by_bar["under_abstention_rate"], "PASS")
         self.assertEqual(by_bar["correct_abstention_rate_multi_hop"], "PASS")
         self.assertEqual(by_bar["correct_abstention_rate_oscillation"], "PASS")
+
+    def test_pooled_abstention_is_reported_diagnostic_only_never_scored(self):
+        """Confirms the rename/drop actually took effect: the pooled figure still appears in
+        the report (useful for eyeballing) but as an N/A-status diagnostic row, and its value
+        is exactly the n-weighted average of the two mechanism rates -- proving it carries no
+        information the separate bars didn't already have."""
+        items = self._unanswerable_population()
+        parsed = {it["name"]: {"situation_summary": "ambiguous", "likely_intent": "unknown"}
+                 if it["name"].startswith("mh") else
+                 {"situation_summary": "steady", "likely_intent": "patrol"}
+                 for it in items}
+        results = make_results(parsed_by_case=parsed)
+        rows, _ = run_check(results, memorization=None, items=items)
+        pooled_rows = [r for r in rows if r["bar"].startswith("correct_abstention_rate_pooled")]
+        self.assertEqual(len(pooled_rows), 1)
+        self.assertEqual(pooled_rows[0]["status"], "N/A")
+        # 4 multi_hop correct + 0 oscillation correct = 4/6 = 66.7%, the n-weighted average.
+        self.assertEqual(pooled_rows[0]["actual"], "66.7%")
 
     def test_mechanisms_scored_separately_a_strong_one_cannot_mask_a_weak_one(self):
         """sec AK's masking pattern: pooling let a strong mechanism hide a weak one. Here

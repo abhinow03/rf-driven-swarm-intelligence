@@ -3886,3 +3886,36 @@ passing everything trivially.
 `docs/PREREGISTRATION_V5A2.md` sha256 `af62a867a753a1e43993cc734a056566c3160ac8dde8f47150a9e21c6056c322`
 recorded in `docs/V5_STATE.json`'s new `v5a2_preregistration_lock` block, timestamped before
 any v5a2 result exists. **Training was not run in this session.**
+
+### Erratum (2026-08-16, appended to sec AQ) — three definitional gaps found on review
+
+`docs/PREREGISTRATION_V5A2.md`'s own erratum section has the full detail; summarized here.
+
+1. **`under_abstention_rate` was pooled abstention frequency across all 502 has_ground_truth=False
+   cases (435 multi_hop + 67 oscillation, via `classify_trajectory_ground_truth` on
+   `phase4_eval_set.json`'s `true_chain` — corrects an earlier 421/70 citation here, which was
+   actually `categorize_unanswerable_502.json`'s STGT-bucket sub-categorization, a different
+   artifact) — and it is mathematically the n-weighted average of bar f's two components, not
+   independent information. Dropped as a scored bar (adds no protection f doesn't already
+   provide alone), renamed `correct_abstention_rate_pooled`, kept as a diagnostic. The original
+   name was also misleading on its own terms (read naturally as "rate of failing to abstain,"
+   which would want a ceiling, not the floor it used).**
+2. **Bar j's cited v5-a baseline (1.3%/n=534) was stale — the real, re-verified figure is
+   0.5%/n=644, per a real pair-extraction bug fix already recorded in this file's own
+   "v5-hardening-step1" entry.** Confirmed via `grep` that the stale number appears in zero
+   executable code paths in `scripts/check_preregistration_v5a2.py` — a prose/citation error
+   in this document and in this AUDIT.md section, not a live scoring bug. Fixed in the
+   script's docstring; no behavior changed.
+3. **Bars f are confirmed, by reading the code, to score against `evaluation/phase4_eval_set.json`
+   (seed=4321), never `eval_data/LOCKED_seed999_FINAL.json`** — matching this document's own
+   explicit design requirement to not cross the seed=999/4321 boundary (sec AP). NOT switched:
+   `LOCKED_seed999_FINAL.json` has zero precomputed model-output/context artifacts (raw
+   trajectories only), so using it would require a new inference pipeline, not a bug fix. A
+   real, adjacent concern is disclosed instead: the abstention corpus's 780/120 strata mixture
+   was itself derived from `phase4_eval_set.json`'s own category proportions, so scoring bars
+   f on the same population is a soft, population-level (not case-level) methodological
+   concern, left open for an explicit decision rather than resolved silently either way.
+
+Code fixed (`scripts/check_preregistration_v5a2.py`, `scripts/rule0_audit_v5a2_preregistration.py`,
+`tests/test_check_preregistration_v5a2.py`). Rule 0 self-check re-run: PASS. Full suite:
+220/220 pass.
