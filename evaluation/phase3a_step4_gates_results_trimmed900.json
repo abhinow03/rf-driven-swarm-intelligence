@@ -1,0 +1,14 @@
+{
+  "final_composition": {
+    "multi_hop": 780,
+    "oscillation": 120
+  },
+  "final_total": 900,
+  "gate_a_pass": true,
+  "gate_b_pass": true,
+  "gate_b_overlap": 0,
+  "gate_b_internal_dupes": 0,
+  "overall_pass": true,
+  "corpus_file": "data/abstention_corpus_teacher_trimmed900.jsonl",
+  "meta_file": "data/abstention_corpus_teacher_trimmed900_meta.json"
+}

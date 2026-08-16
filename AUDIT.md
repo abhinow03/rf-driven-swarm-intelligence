@@ -3724,3 +3724,32 @@ per sec AO step 3 it was "used only for ceiling measurements, never for Phase 3a
 two files are confirmed genuinely different populations serving different purposes, and the
 strata targets never touched the seed=999 file in the first place, **the 780/120/100 (now
 780/120, post-drop) strata targets stand as-is.**
+
+### Step 2: trim -- drop `terminal_transitioning`'s 100 rows from the teacher corpus
+
+`llm_finetuning/phase3a_finalize_trim.py` drops the 100 `terminal_transitioning` rows from
+`data/abstention_corpus_teacher.jsonl` (index-aligned against
+`data/abstention_corpus_teacher_meta.json`'s `rows_detail`, same order both files were
+generated in) and writes the result to a **new** file,
+`data/abstention_corpus_teacher_trimmed900.jsonl` (+ matching `_meta.json`) — the source
+900+100-row teacher corpus is left untouched, same non-destructive discipline as sec AO step
+1's "neither overwrites the other."
+
+**Final stratified composition confirmed: 780 multi_hop / 120 oscillation / 900 total**
+(899/900 rows teacher-authored — one row lost its teacher row along with the dropped 100,
+consistent with sec AO step 1's 999/1000 overall teacher rate).
+
+Gates a/b from sec AO step 4 re-run on the trimmed file (`scripts/phase3a_step4_gates.py`'s
+gate_a/gate_b logic, adapted: gate a scores only `multi_hop`/`oscillation` against the
+preregistered targets — `terminal_transitioning`'s absence is reported as "intentionally
+dropped" per the signed-off decision, not scored as a gate failure):
+
+| gate | result |
+|---|---|
+| a — multi_hop actual=780 target=780 | PASS |
+| a — oscillation actual=120 target=120 | PASS |
+| a — terminal_transitioning | intentionally dropped, not scored |
+| b — overlap with existing 12,001-row RULES corpus | 0 |
+| b — internal duplicates within trimmed corpus | 0 |
+
+**GATE A: PASS. GATE B: PASS.** Full results: `evaluation/phase3a_step4_gates_results_trimmed900.json`.
