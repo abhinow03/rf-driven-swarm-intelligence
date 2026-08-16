@@ -2372,6 +2372,22 @@
       "code_fixed": ["scripts/check_preregistration_v5a2.py", "scripts/rule0_audit_v5a2_preregistration.py", "tests/test_check_preregistration_v5a2.py"],
       "rule0_recheck": "PASS", "full_suite": "220/220 pass",
       "full_writeup": "docs/PREREGISTRATION_V5A2.md erratum section; AUDIT.md sec AQ erratum"
+    },
+    "erratum_2_2026_08_16": {
+      "note": "erratum part 2, appended after erratum part 1 and after the original lock -- neither prior artifact edited.",
+      "step1_finding": "CONFIRMED -- a single v5a2 run over the seed=999 population would split into both has_ground_truth subsets in one pass, same as phase4_eval_set.json's 498/502, once ctx/key_windows/has_ground_truth are derived first (LOCKED_seed999_FINAL.json only has raw chain/positions/true_labels). That derivation cost ZERO new methodology -- llm_finetuning/build_seed999_eval_set.py reuses the exact sliding_window_inference+classify_observation pattern scripts/rule0_am_reproduce_headline.py already runs on this file, loading positions instead of generating them. Ran in 6m10s, CPU-only, all 1000 records.",
+      "seed999_eval_set": {
+        "path": "evaluation/seed999_eval_set.json",
+        "sha256": "00aca8a552fce9beb0316bc929c66d825955561bcc577899f56b4d5c3b96deaf",
+        "source_locked_file_sha256": "871a9dae4c6fdf08e1aed803592fa7c61b1a852c150693b5819fe2271717b96e",
+        "n_sequences": 1000, "n_has_ground_truth_true": 494, "n_has_ground_truth_false": 506,
+        "mechanism_split_unanswerable": {"multi_hop": 443, "oscillation": 63},
+        "comparison_to_phase4_eval_set": {"multi_hop": 435, "oscillation": 67, "n": 502},
+        "build_script": "llm_finetuning/build_seed999_eval_set.py"
+      },
+      "step2_rewire": "scripts/check_preregistration_v5a2.py now takes --seed999-results (separate from the main results_json); bars correct_abstention_rate_multi_hop/oscillation and the diagnostic correct_abstention_rate_pooled score exclusively from it, MISSING without it (confirmed not to silently fall back to the main results file's parsed_by_case). Bars a/b/c/g/i unchanged, still on phase4_eval_set.json (seed=4321). The bar set now deliberately spans two populations by design -- resolves erratum part 1's disclosed distributional-leakage concern.",
+      "rule0_recheck": "PASS", "full_suite": "221/221 pass",
+      "full_writeup": "docs/PREREGISTRATION_V5A2.md erratum part 2; AUDIT.md sec AQ erratum part 2"
     }
   },
   "started": "2026-08-07T19:47:41Z"

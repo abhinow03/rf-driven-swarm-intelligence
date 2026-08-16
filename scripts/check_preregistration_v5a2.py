@@ -13,8 +13,10 @@ Bars (see docs/PREREGISTRATION_V5A2.md section 2 for full reasoning):
   c. ceiling_normalized_accuracy                 >= 85.0%  (denominator: locked same-population
      ceiling 0.8253, evaluation/phase3a... see compute_same_population_ceiling.py / V5_STATE.json)
   d. over_abstention_rate                        <= 15.0%
-  f. correct_abstention_rate_multi_hop           >= 25.0%  -- SEPARATE from oscillation, never pooled.
-  f. correct_abstention_rate_oscillation         >= 20.0%
+  f. correct_abstention_rate_multi_hop           >= 25.0%  -- SEPARATE from oscillation, never
+     pooled. Scored against evaluation/seed999_eval_set.json (seed=999, NOT phase4_eval_set.json
+     -- see erratum part 2), requires --seed999-results, reports MISSING without it.
+  f. correct_abstention_rate_oscillation         >= 20.0%  -- same population as above.
   g. escalation_direction (under_escalation_rate) <= 25.0%  -- real numeric ceiling.
   i. regression_vs_v5a: threat_accuracy          >= 70.65% (v5-a's 75.65% - 5.0pp)
      regression_vs_v5a: pair_accuracy (REAL)     >= 52.8%  (v5-a's REAL 57.8% - 5.0pp)
@@ -39,15 +41,19 @@ NOT a PASS/FAIL bar (dropped, reported as a diagnostic only):
      provide on its own (if a system never abstains, BOTH f floors already fail
      independently). Still computed and reported for transparency, never scored into overall.
 
-OPEN QUESTION, not resolved by this file (see docs/PREREGISTRATION_V5A2.md's dated erratum,
-step 3): bars f/d currently score against evaluation/phase4_eval_set.json (seed=4321) --
-by original design (see PHASE4_EVAL_SET below), NOT eval_data/LOCKED_seed999_FINAL.json
-(seed=999). Switching would require building an entirely new STGT+bridge+context-generation
-pipeline over that file (it currently has zero model-output artifacts, only raw generator
-trajectories) -- a substantive redesign, not a bug fix, and NOT made here without sign-off.
+RESOLVED (erratum part 2, docs/PREREGISTRATION_V5A2.md): bars f now score against
+evaluation/seed999_eval_set.json (seed=999, built by llm_finetuning/build_seed999_eval_set.py
+from eval_data/LOCKED_seed999_FINAL.json's ALREADY-EXISTING positions -- zero new trajectory
+generation, only the already-proven sliding_window_inference + classify_observation building
+blocks scripts/rule0_am_reproduce_headline.py already runs on this exact file). Bars a/b/c/g/i
+remain on evaluation/phase4_eval_set.json (seed=4321) -- the bar set now deliberately spans
+two populations, by design, specifically to avoid the distributional-leakage concern flagged
+in erratum part 1 (phase4_eval_set.json's own category proportions shaped the abstention
+corpus's strata mixture; seed=999 was never involved in that derivation).
 
 Usage:
-    python scripts/check_preregistration_v5a2.py <v5a2_results.json> [--memorization <overlap_results.json>]
+    python scripts/check_preregistration_v5a2.py <v5a2_results.json> \
+        --seed999-results <v5a2_seed999_results.json> [--memorization <overlap_results.json>]
 """
 from __future__ import annotations
 
@@ -64,10 +70,11 @@ from swarm_intent.ground_truth_abstention import classify_trajectory_ground_trut
 from swarm_intent.llm.prompts import is_abstention  # noqa: E402
 from literal_pair_extraction import extract_literal_pair, true_pair_from_chain  # noqa: E402
 
-# Bars d/e(diagnostic)/f/g/i are scored against THIS file (seed=4321) by original design --
-# see the OPEN QUESTION note in the module docstring re: eval_data/LOCKED_seed999_FINAL.json
-# (seed=999), which is NOT used here and would need a new eval pipeline to be used at all.
+# Bars a/b/c/g/i score against THIS file (seed=4321).
 PHASE4_EVAL_SET = REPO / "evaluation" / "phase4_eval_set.json"
+# Bars f (and the diagnostic pooled figure) score against THIS file (seed=999), built by
+# llm_finetuning/build_seed999_eval_set.py -- see module docstring, "RESOLVED".
+SEED999_EVAL_SET = REPO / "evaluation" / "seed999_eval_set.json"
 SAME_POPULATION_CEILING = 0.8253  # locked, docs/V5_STATE.json step3_same_population_ceiling
 V5A_REAL_THREAT_ACCURACY = 0.7565
 V5A_REAL_PAIR_ACCURACY = 0.5783
@@ -89,6 +96,11 @@ BARS = {
 
 def load_phase4_items():
     data = json.loads(PHASE4_EVAL_SET.read_text())
+    return data["items"]
+
+
+def load_seed999_items():
+    data = json.loads(SEED999_EVAL_SET.read_text())
     return data["items"]
 
 
@@ -140,7 +152,9 @@ def correct_abstention_and_per_mechanism(parsed_by_case: dict, items: list[dict]
     }
 
 
-def extract_metrics(results: dict, memorization: dict | None, items: list[dict] | None = None) -> dict:
+def extract_metrics(results: dict, memorization: dict | None, items: list[dict] | None = None,
+                    seed999_results: dict | None = None,
+                    seed999_items: list[dict] | None = None) -> dict:
     answerability = results.get("answerability", {})
     escalation = results.get("escalation", {})
     parsed_by_case = results.get("parsed_by_case", {})
@@ -148,7 +162,18 @@ def extract_metrics(results: dict, memorization: dict | None, items: list[dict] 
     if items is None:
         items = load_phase4_items()
     pair_acc = real_pair_accuracy(parsed_by_case, items) if parsed_by_case else None
-    abst = correct_abstention_and_per_mechanism(parsed_by_case, items) if parsed_by_case else {}
+
+    # Bars f (and the diagnostic pooled figure) score against the SEPARATE seed=999 population
+    # -- a distinct results file/run, not results/items above. MISSING (not silently computed
+    # from the wrong population) if --seed999-results wasn't supplied.
+    if seed999_results is not None:
+        if seed999_items is None:
+            seed999_items = load_seed999_items()
+        seed999_parsed_by_case = seed999_results.get("parsed_by_case", {})
+        abst = (correct_abstention_and_per_mechanism(seed999_parsed_by_case, seed999_items)
+               if seed999_parsed_by_case else {})
+    else:
+        abst = {}
 
     threat_acc = answerability.get("accuracy_when_answerable")
     ceiling_norm = (threat_acc / SAME_POPULATION_CEILING) if threat_acc is not None else None
@@ -191,8 +216,11 @@ def check_memorization(rate: float | None) -> str:
             f"{FRESH_NULL_HYPOTHESIS_BASELINE:.1%}, below the 15.0% signal bar")
 
 
-def run_check(results: dict, memorization: dict | None, items: list[dict] | None = None) -> tuple[list[dict], str]:
-    metrics = extract_metrics(results, memorization, items=items)
+def run_check(results: dict, memorization: dict | None, items: list[dict] | None = None,
+             seed999_results: dict | None = None,
+             seed999_items: list[dict] | None = None) -> tuple[list[dict], str]:
+    metrics = extract_metrics(results, memorization, items=items,
+                              seed999_results=seed999_results, seed999_items=seed999_items)
     rows = []
     for name, bar in BARS.items():
         value = metrics[name]
@@ -242,7 +270,11 @@ def print_report(rows: list[dict], overall: str):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("results_json", help="path to a v5a2 eval results JSON")
+    ap.add_argument("results_json", help="path to a v5a2 eval results JSON (phase4_eval_set.json population)")
+    ap.add_argument("--seed999-results", default=None,
+                    help="path to a v5a2 eval results JSON over evaluation/seed999_eval_set.json "
+                         "-- required for bars f (correct_abstention_rate_multi_hop/oscillation); "
+                         "MISSING without it, never silently scored from the wrong population")
     ap.add_argument("--memorization", default=None,
                     help="path to a memorization overlap-rate results JSON "
                          "(score_memorization.py output, must include 'overlap_rate')")
@@ -254,8 +286,12 @@ def main():
     if args.memorization:
         with open(args.memorization) as f:
             memorization = json.load(f)
+    seed999_results = None
+    if args.seed999_results:
+        with open(args.seed999_results) as f:
+            seed999_results = json.load(f)
 
-    rows, overall = run_check(results, memorization)
+    rows, overall = run_check(results, memorization, seed999_results=seed999_results)
     print_report(rows, overall)
     sys.exit(0 if overall == "PASS" else 1)
 

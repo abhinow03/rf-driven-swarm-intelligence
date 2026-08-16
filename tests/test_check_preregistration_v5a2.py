@@ -136,9 +136,15 @@ class TestRegressionVsV5a(unittest.TestCase):
 
 
 class TestAbstentionBarsAreNotVacuous(unittest.TestCase):
-    """The whole point of bars e/f: v5-a scored 0.0% on this exact check (never abstains).
+    """The whole point of bar f: v5-a scored 0.0% on this exact check (never abstains).
     A results blob that never abstains MUST fail here -- if it didn't, the bar would be
-    exactly as vacuous as the old schema_validity_rate bar this document explicitly drops."""
+    exactly as vacuous as the old schema_validity_rate bar this document explicitly drops.
+
+    Erratum part 2: bar f now scores against a SEPARATE seed=999 population/results file
+    (evaluation/seed999_eval_set.json + --seed999-results), not the main results_json/items
+    used for a/b/c/g/i -- these tests route through seed999_results/seed999_items
+    accordingly, and also confirm bar f reports MISSING when seed999_results isn't supplied
+    at all (never silently falls back to scoring the wrong population)."""
 
     def _unanswerable_population(self):
         return [
@@ -150,16 +156,29 @@ class TestAbstentionBarsAreNotVacuous(unittest.TestCase):
             make_unanswerable_item("osc2", ["column", "v_shape", "column"]),   # oscillation
         ]
 
+    def test_no_seed999_results_reports_missing_not_silently_scored_from_main_results(self):
+        items = self._unanswerable_population()
+        parsed = {it["name"]: {"situation_summary": "ambiguous", "likely_intent": "unknown"}
+                 for it in items}
+        # parsed_by_case IS present in the main results, but bar f must not read it from here.
+        results = make_results(parsed_by_case=parsed)
+        rows, _ = run_check(results, memorization=None, items=[])
+        by_bar = {r["bar"]: r["status"] for r in rows}
+        self.assertEqual(by_bar["correct_abstention_rate_multi_hop"], "MISSING")
+        self.assertEqual(by_bar["correct_abstention_rate_oscillation"], "MISSING")
+
     def test_never_abstaining_fails_both_mechanism_bars(self):
-        """Erratum: the pooled 'under_abstention_rate' bar was dropped -- proven
+        """Erratum part 1: the pooled 'under_abstention_rate' bar was dropped -- proven
         mathematically identical to the n-weighted average of the two mechanism bars, so it
-        added no protection beyond them. This test now asserts on f alone, which already
-        fully catches the never-abstain case on its own (both floors fail independently)."""
+        added no protection beyond them. This test asserts on f alone, which already fully
+        catches the never-abstain case on its own (both floors fail independently)."""
         items = self._unanswerable_population()
         parsed = {it["name"]: {"situation_summary": "steady formation", "likely_intent": "patrol"}
                  for it in items}
-        results = make_results(parsed_by_case=parsed)
-        rows, overall = run_check(results, memorization=None, items=items)
+        seed999_results = {"parsed_by_case": parsed}
+        results = make_results()
+        rows, overall = run_check(results, memorization=None, items=[],
+                                  seed999_results=seed999_results, seed999_items=items)
         by_bar = {r["bar"]: r["status"] for r in rows}
         self.assertEqual(by_bar["correct_abstention_rate_multi_hop"], "FAIL")
         self.assertEqual(by_bar["correct_abstention_rate_oscillation"], "FAIL")
@@ -169,8 +188,10 @@ class TestAbstentionBarsAreNotVacuous(unittest.TestCase):
         items = self._unanswerable_population()
         parsed = {it["name"]: {"situation_summary": "ambiguous, multiple formation changes",
                                "likely_intent": "unknown"} for it in items}
-        results = make_results(parsed_by_case=parsed)
-        rows, _ = run_check(results, memorization=None, items=items)
+        seed999_results = {"parsed_by_case": parsed}
+        results = make_results()
+        rows, _ = run_check(results, memorization=None, items=[],
+                            seed999_results=seed999_results, seed999_items=items)
         by_bar = {r["bar"]: r["status"] for r in rows}
         self.assertEqual(by_bar["correct_abstention_rate_multi_hop"], "PASS")
         self.assertEqual(by_bar["correct_abstention_rate_oscillation"], "PASS")
@@ -185,8 +206,10 @@ class TestAbstentionBarsAreNotVacuous(unittest.TestCase):
                  if it["name"].startswith("mh") else
                  {"situation_summary": "steady", "likely_intent": "patrol"}
                  for it in items}
-        results = make_results(parsed_by_case=parsed)
-        rows, _ = run_check(results, memorization=None, items=items)
+        seed999_results = {"parsed_by_case": parsed}
+        results = make_results()
+        rows, _ = run_check(results, memorization=None, items=[],
+                            seed999_results=seed999_results, seed999_items=items)
         pooled_rows = [r for r in rows if r["bar"].startswith("correct_abstention_rate_pooled")]
         self.assertEqual(len(pooled_rows), 1)
         self.assertEqual(pooled_rows[0]["status"], "N/A")
@@ -206,8 +229,10 @@ class TestAbstentionBarsAreNotVacuous(unittest.TestCase):
                 "situation_summary": "ambiguous" if mechanism_is_mh else "steady formation",
                 "likely_intent": "unknown" if mechanism_is_mh else "patrol",
             }
-        results = make_results(parsed_by_case=parsed)
-        rows, overall = run_check(results, memorization=None, items=items)
+        seed999_results = {"parsed_by_case": parsed}
+        results = make_results()
+        rows, overall = run_check(results, memorization=None, items=[],
+                                  seed999_results=seed999_results, seed999_items=items)
         by_bar = {r["bar"]: r["status"] for r in rows}
         self.assertEqual(by_bar["correct_abstention_rate_multi_hop"], "PASS")
         self.assertEqual(by_bar["correct_abstention_rate_oscillation"], "FAIL")

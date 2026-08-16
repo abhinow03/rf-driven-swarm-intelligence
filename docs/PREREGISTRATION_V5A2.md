@@ -303,3 +303,78 @@ decided here.
 `test_check_preregistration_v5a2.py`, up from 17 — added a dedicated test proving the pooled
 figure is reported as a diagnostic and numerically equals the n-weighted average of bar f's
 two components).
+
+---
+
+## Erratum, part 2 — 2026-08-16 (bar-f file binding resolved)
+
+Append-only, per this document's own rule. Nothing above this line, including erratum part 1,
+was edited. Original file lock is left untouched.
+
+### Step 1: CONFIRMED — a single v5a2 run over the seed=999 population can produce both splits, and building the eval-set-shaped file needed to do it costs ~6 minutes, CPU-only, zero new methodology
+
+**Yes**, with one precise clarification. `eval_data/LOCKED_seed999_FINAL.json` does NOT itself
+contain `ctx`/`key_windows`/`has_ground_truth` (only raw `chain`/`positions`/`true_labels`/
+`n_timesteps` — confirmed in erratum part 1) — so a v5a2 LLM run cannot point at that file
+directly, the same way it points at `phase4_eval_set.json`. But producing the missing fields
+requires **zero new methodology**: `scripts/rule0_am_reproduce_headline.py` already runs
+`sliding_window_inference` + `classify_observation` directly on this exact file's own
+`positions` array (proven, already-committed code, run repeatedly for ceiling measurements).
+`llm_finetuning/build_seed999_eval_set.py` (new, this session) does exactly that, mirroring
+`generate_phase4_eval_set.py`'s item-construction logic verbatim but **loading** `chain`/
+`positions` from the locked file instead of **generating** them fresh — no `sample_chain`,
+no `build_long_sequence`, no new trajectories. Run: integrity-gated (refuses if the locked
+file's sha256 has drifted), CPU-only, **6m10s wall-clock for all 1000 records**
+(rate ≈2.7/s, matching `rule0_am_reproduce_headline.py`'s own precedent timing). Output:
+`evaluation/seed999_eval_set.json` (sha256 `00aca8a552fce9beb0316bc929c66d825955561bcc577899f56b4d5c3b96deaf`),
+in the exact same item shape `phase4_eval_set.json` uses (`name`/`true_chain`/`ctx`/
+`key_windows`/`bucket`/`has_ground_truth`).
+
+**Once this file exists, one v5a2 LLM generation pass over its 1000 items would naturally
+split into both populations in the same run** — 494 has_ground_truth=True / 506
+has_ground_truth=False — exactly the same mechanism `phase4_eval_set.json`'s own run used to
+produce 498/502. **So: not literally zero new work (the conversion script + its ~6-minute
+run), but zero new inference *methodology*, and well inside a "20-minute fix" — not the
+"new pipeline" erratum part 1 correctly flagged as out of scope for a same-file switch.**
+The distinction erratum part 1 drew (STGT+bridge reuse vs. a whole new pipeline) was the
+right one; what was missing was recognizing the STGT+bridge half could be assembled from
+already-proven pieces this cheaply.
+
+### Step 2: rewired — bars f now score against `evaluation/seed999_eval_set.json`
+
+`scripts/check_preregistration_v5a2.py` now takes a **separate** `--seed999-results` argument
+(a v5a2 eval results JSON over `seed999_eval_set.json`'s items) — bars
+`correct_abstention_rate_multi_hop`/`_oscillation` (and the diagnostic-only
+`correct_abstention_rate_pooled`) are computed from it exclusively. **Bars a/b/c/g/i are
+unchanged, still on `phase4_eval_set.json`.** Without `--seed999-results`, bars f report
+`MISSING` — confirmed by a new test
+(`test_no_seed999_results_reports_missing_not_silently_scored_from_main_results`) that the
+bars do NOT silently fall back to scoring the wrong population even when the main
+`results_json` happens to also contain a `parsed_by_case`.
+
+**Mechanism counts, seed=999 unanswerable population (n=506), compared to `phase4_eval_set.json`'s
+(n=502) — confirmed similar, not assumed:**
+
+| | seed=999 (n=506) | seed=4321 / `phase4_eval_set.json` (n=502) |
+|---|---|---|
+| multi_hop | 443 (87.5%) | 435 (86.7%) |
+| oscillation | 63 (12.5%) | 67 (13.3%) |
+| chain length 3 | 248 (49.0%) | 269 (53.6%) |
+| chain length 4 | 258 (51.0%) | 233 (46.4%) |
+
+Mechanism split within ~1pp on both dimensions — close enough that bar f's floors (25%/20%)
+were not re-tuned for this population; chain-length composition differs a bit more (~5pp) but
+in a direction that, if anything, makes seed=999 slightly harder (more length-4 chains), not
+easier — no adjustment made, flagged for visibility.
+
+The bar set now deliberately spans two populations by design: a/b/c/g/i on seed=4321, f on
+seed=999. **This is the intended fix for erratum part 1's disclosed concern** (seed=4321's own
+category proportions shaped the abstention corpus's strata mixture; seed=999 was never
+involved in that derivation) — not a new inconsistency, the resolution to one.
+
+### Verification
+
+Full test suite: **221/221 pass** (19 in `test_check_preregistration_v5a2.py`, up from 18 —
+`TestAbstentionBarsAreNotVacuous` rewired to route through `seed999_results`/`seed999_items`,
+plus one new MISSING-without-seed999-results test). `scripts/rule0_audit_v5a2_preregistration.py`
+re-run: **PASS**.

@@ -30,7 +30,7 @@
     "schema_validity_marked_diagnostic_only_in_source": true
   },
   "non_vacuous_tests": {
-    "n_tests_collected": 18,
+    "n_tests_collected": 19,
     "bars_referenced_in_test_source": {
       "threat_accuracy_pooled_when_answerable": true,
       "pair_accuracy_pooled_when_answerable_real": true,

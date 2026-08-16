@@ -3919,3 +3919,31 @@ any v5a2 result exists. **Training was not run in this session.**
 Code fixed (`scripts/check_preregistration_v5a2.py`, `scripts/rule0_audit_v5a2_preregistration.py`,
 `tests/test_check_preregistration_v5a2.py`). Rule 0 self-check re-run: PASS. Full suite:
 220/220 pass.
+
+### Erratum, part 2 (2026-08-16) — bar-f file binding resolved
+
+`docs/PREREGISTRATION_V5A2.md`'s erratum part 2 has the full detail; summarized here.
+
+**Step 1, CONFIRMED**: a single v5a2 run over the seed=999 population WOULD naturally split
+into both has_ground_truth splits in one pass, same as `phase4_eval_set.json`'s 498/502 —
+but only after `ctx`/`key_windows`/`has_ground_truth` are derived first, since
+`LOCKED_seed999_FINAL.json` only has raw `chain`/`positions`/`true_labels`. That derivation
+costs **zero new methodology**: `llm_finetuning/build_seed999_eval_set.py` (new) reuses
+exactly the `sliding_window_inference`+`classify_observation` pattern
+`scripts/rule0_am_reproduce_headline.py` already runs on this same file, swapping trajectory
+GENERATION for trajectory LOADING. Ran in **6m10s, CPU-only, all 1000 records** — well inside
+a "20-minute fix." Output: `evaluation/seed999_eval_set.json`
+(sha256 `00aca8a552fce9beb0316bc929c66d825955561bcc577899f56b4d5c3b96deaf`), 494/506
+has_ground_truth split.
+
+**Step 2, rewired**: `scripts/check_preregistration_v5a2.py` takes a new `--seed999-results`
+argument; bars f (and the diagnostic pooled figure) score exclusively from it — MISSING
+without it, confirmed not to silently fall back to the main results file even when one is
+present. Mechanism counts on seed=999 (443 multi_hop / 63 oscillation, n=506) confirmed
+similar to seed=4321's 435/67 (n=502) — within ~1pp on mechanism split, ~5pp on chain-length
+composition (seed=999 skews slightly harder, more length-4 chains) — not re-tuned, flagged.
+Bars a/b/c/g/i unchanged, still on `phase4_eval_set.json`. The bar set now deliberately spans
+two populations by design — this IS the resolution to erratum part 1's disclosed
+distributional-leakage concern, not a new inconsistency.
+
+Full suite: 221/221 pass. Rule 0 self-check: PASS.
