@@ -1,0 +1,114 @@
+"""Defense demo, Act 2: the architecture story -- pipeline_v2's 3-layer routing.
+
+Reuses src/swarm_intent/pipeline_v2.py's actual assess_ctx() / classify_ctx()
+unmodified -- no routing or scoring logic is reimplemented here, only the
+model-loading (one hot-swapped client, see demo_common.HotSwapClient) and
+presentation (layer-attribution banners) are new.
+
+DELIBERATE DEVIATION from pipeline_v2's usual eval wiring (disclosed, not
+silent): eval_pipeline_v2.py normally routes Layer 3 to the v3b-fix adapter.
+This demo instead routes Layer 3 to config/demo_config.ACTIVE_ADAPTER (v5-a
+now, v5a2 later) -- the whole point of the demo's swap seam is to show the
+CURRENT production LLM inside the real pipeline architecture, not v3b-fix.
+class_freq (pipeline_v2's per-adapter prior-correction frequency table) is
+read from ACTIVE_ADAPTER_TRAIN_FILE to match, per the same per-adapter-
+frequency convention pipeline_v2.default_class_freq() uses for v3b-fix.
+
+Cases are pulled programmatically from the locked seed=999 eval set, one per
+bucket letter (A=Layer 1 dict hit, B=Layer 2 guard, C=Layer 3 LLM) -- first
+match in file order, not hand-picked.
+
+Usage:
+    python scripts/demo_act2_pipeline.py
+"""
+from __future__ import annotations
+
+import sys
+from pathlib import Path
+
+REPO = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(REPO / "src"))
+sys.path.insert(0, str(REPO))
+sys.path.insert(0, str(REPO / "scripts"))
+sys.path.insert(0, str(REPO / "config"))
+
+from swarm_intent import pipeline_v2  # noqa: E402
+from swarm_intent.coverage import BUCKET_A, BUCKET_B, BUCKET_C  # noqa: E402
+
+import demo_common as dc  # noqa: E402
+import demo_config  # noqa: E402
+
+BUCKET_LABELS = {BUCKET_A: "Layer 1 dict hit", BUCKET_B: "Layer 2 guard", BUCKET_C: "Layer 3 LLM"}
+
+
+def run_one_case(client, class_freq, item: dict) -> None:
+    bucket_info = pipeline_v2.classify_ctx(item["ctx"], item["key_windows"])
+    bucket = bucket_info["bucket"]
+
+    dc.banner(f"CASE {item['name']!r} ({BUCKET_LABELS.get(bucket, bucket)}) "
+             f"pair={item.get('pair')} has_ground_truth={item['has_ground_truth']}")
+    print(item["ctx"])
+    print()
+
+    adapter_ctx = (client.use_adapter(None) if bucket == BUCKET_A
+                   else client.use_adapter("active") if bucket == BUCKET_C
+                   else client.use_adapter(None))  # bucket B: no model call, adapter state irrelevant
+
+    try:
+        with adapter_ctx:
+            assessment, layer, detail = pipeline_v2.assess_ctx(
+                rules_narrator_client=client, finetuned_client=client,
+                ctx=item["ctx"], key_windows=item["key_windows"], class_freq=class_freq)
+    except Exception as e:
+        print(f"PIPELINE FAILED: {type(e).__name__}: {e}")
+        return
+
+    dc.layer_banner(layer)
+    if layer == pipeline_v2.LAYER_1_DETERMINISTIC:
+        print(f"rule-table key: {detail['rules_key']} -- RULES[{tuple(detail['rules_key'])}] "
+             f"determined threat/intent/action directly, no LLM decision involved")
+        if detail["llm_deviation"]:
+            print(f"(narrator LLM tried to deviate on {list(detail['llm_deviation'])} -- overwritten, logged)")
+    elif layer == pipeline_v2.LAYER_2_GUARD:
+        print("guard reason(s): " + "; ".join(pipeline_v2.GUARD_REASON_TEXT.get(r, r)
+                                              for r in detail["guard_reasons"]))
+    else:
+        print(f"subtype: {detail['subtype']} -- no RULES entry can exist for this case, "
+             f"ACTIVE_ADAPTER's judgment is load-bearing here")
+        corr = detail["correction"]
+        if corr.get("applied"):
+            print(f"prior-corrected threat_level: {corr['corrected_argmax']}")
+
+    print()
+    print("final assessment:")
+    for k in ("threat_level", "likely_intent", "recommended_action", "confidence_in_assessment"):
+        print(f"  {k}: {assessment.get(k)}")
+    print()
+
+
+def run(client: "dc.HotSwapClient" = None):
+    cases = [dc.pick_bucket_case(b) for b in (BUCKET_A, BUCKET_B, BUCKET_C)]
+
+    dc.banner("ACT 2: pipeline_v2's 3-layer architecture -- one case per layer")
+
+    owns_client = client is None
+    if owns_client:
+        dc.gpu_free_gib(required_gib=15.0)
+        client = dc.HotSwapClient(demo_config.BASE_MODEL, temperature=0.0)
+        client.add_adapter("active", demo_config.ACTIVE_ADAPTER)
+
+    class_freq = pipeline_v2._train_class_freq(demo_config.ACTIVE_ADAPTER_TRAIN_FILE)
+
+    for item in cases:
+        run_one_case(client, class_freq, item)
+
+    if owns_client:
+        del client
+        import gc
+        gc.collect()
+        import torch
+        torch.cuda.empty_cache()
+
+
+if __name__ == "__main__":
+    run()
