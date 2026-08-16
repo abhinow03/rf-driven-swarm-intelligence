@@ -26,6 +26,11 @@ runs/
 # transient run state, not a deliverable, regenerated every run.
 evaluation/progress/
 
+# Defense demo web interface's Act 1/2 cache -- regenerate with
+# scripts/build_demo_webdata.py whenever config/demo_config.ACTIVE_ADAPTER
+# changes. GPU-state-dependent output, not a deliverable.
+evaluation/demo_webdata.json
+
 # OS / editor
 .DS_Store
 .vscode/

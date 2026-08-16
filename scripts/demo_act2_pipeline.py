@@ -41,28 +41,37 @@ import demo_config  # noqa: E402
 BUCKET_LABELS = {BUCKET_A: "Layer 1 dict hit", BUCKET_B: "Layer 2 guard", BUCKET_C: "Layer 3 LLM"}
 
 
-def run_one_case(client, class_freq, item: dict) -> None:
-    bucket_info = pipeline_v2.classify_ctx(item["ctx"], item["key_windows"])
-    bucket = bucket_info["bucket"]
+def build_one_case(client, class_freq: dict, item: dict) -> dict:
+    """Pure data, no printing -- reused by print_report() below and
+    scripts/build_demo_webdata.py for the web interface's cached Act 2 payload."""
+    result = dc.run_pipeline_case(client, class_freq, item["ctx"], item["key_windows"])
+    return {
+        "case_name": item["name"], "pair": item.get("pair"),
+        "has_ground_truth": item["has_ground_truth"], "ctx": item["ctx"],
+        "bucket": result["bucket"], "bucket_label": BUCKET_LABELS.get(result["bucket"], result["bucket"]),
+        "layer": result["layer"], "detail": result["detail"],
+        "assessment": result["assessment"], "error": result["error"],
+    }
 
-    dc.banner(f"CASE {item['name']!r} ({BUCKET_LABELS.get(bucket, bucket)}) "
-             f"pair={item.get('pair')} has_ground_truth={item['has_ground_truth']}")
-    print(item["ctx"])
+
+def build(client: "dc.HotSwapClient") -> list[dict]:
+    class_freq = pipeline_v2._train_class_freq(demo_config.ACTIVE_ADAPTER_TRAIN_FILE)
+    cases = [dc.pick_bucket_case(b) for b in (BUCKET_A, BUCKET_B, BUCKET_C)]
+    return [build_one_case(client, class_freq, item) for item in cases]
+
+
+def print_one_case(c: dict) -> None:
+    dc.banner(f"CASE {c['case_name']!r} ({c['bucket_label']}) "
+             f"pair={c['pair']} has_ground_truth={c['has_ground_truth']}")
+    print(c["ctx"])
     print()
 
-    adapter_ctx = (client.use_adapter(None) if bucket == BUCKET_A
-                   else client.use_adapter("active") if bucket == BUCKET_C
-                   else client.use_adapter(None))  # bucket B: no model call, adapter state irrelevant
-
-    try:
-        with adapter_ctx:
-            assessment, layer, detail = pipeline_v2.assess_ctx(
-                rules_narrator_client=client, finetuned_client=client,
-                ctx=item["ctx"], key_windows=item["key_windows"], class_freq=class_freq)
-    except Exception as e:
-        print(f"PIPELINE FAILED: {type(e).__name__}: {e}")
+    if c["error"]:
+        print(f"PIPELINE FAILED: {c['error']}")
+        print()
         return
 
+    layer, detail, assessment = c["layer"], c["detail"], c["assessment"]
     dc.layer_banner(layer)
     if layer == pipeline_v2.LAYER_1_DETERMINISTIC:
         print(f"rule-table key: {detail['rules_key']} -- RULES[{tuple(detail['rules_key'])}] "
@@ -86,9 +95,7 @@ def run_one_case(client, class_freq, item: dict) -> None:
     print()
 
 
-def run(client: "dc.HotSwapClient" = None):
-    cases = [dc.pick_bucket_case(b) for b in (BUCKET_A, BUCKET_B, BUCKET_C)]
-
+def run(client: "dc.HotSwapClient" = None) -> list[dict]:
     dc.banner("ACT 2: pipeline_v2's 3-layer architecture -- one case per layer")
 
     owns_client = client is None
@@ -97,10 +104,9 @@ def run(client: "dc.HotSwapClient" = None):
         client = dc.HotSwapClient(demo_config.BASE_MODEL, temperature=0.0)
         client.add_adapter("active", demo_config.ACTIVE_ADAPTER)
 
-    class_freq = pipeline_v2._train_class_freq(demo_config.ACTIVE_ADAPTER_TRAIN_FILE)
-
-    for item in cases:
-        run_one_case(client, class_freq, item)
+    data = build(client)
+    for c in data:
+        print_one_case(c)
 
     if owns_client:
         del client
@@ -108,6 +114,8 @@ def run(client: "dc.HotSwapClient" = None):
         gc.collect()
         import torch
         torch.cuda.empty_cache()
+
+    return data
 
 
 if __name__ == "__main__":

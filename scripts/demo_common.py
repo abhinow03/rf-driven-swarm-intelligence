@@ -193,6 +193,32 @@ FACT_V5A_ZERO_ABSTENTION = (
 )
 
 
+def run_pipeline_case(client, class_freq: dict, ctx: str, key_windows: list) -> dict:
+    """Shared by demo_act2_pipeline.py, demo_act3_live.py, and
+    scripts/build_demo_webdata.py so all three presentations (terminal Act 2,
+    terminal Act 3, web interface) route through pipeline_v2.assess_ctx()
+    the exact same way -- classify bucket, pick the right adapter state
+    (base for Layer 1's narrator, ACTIVE_ADAPTER for Layer 3, irrelevant for
+    Layer 2's no-model-call guard), dispatch, and catch failures explicitly
+    (never silently relabeled as success). Returns a dict, not printed."""
+    from swarm_intent.coverage import BUCKET_A, BUCKET_C
+
+    bucket_info = pipeline_v2.classify_ctx(ctx, key_windows)
+    bucket = bucket_info["bucket"]
+    adapter_name = None if bucket in (BUCKET_A,) else ("active" if bucket == BUCKET_C else None)
+
+    try:
+        with client.use_adapter(adapter_name):
+            assessment, layer, detail = pipeline_v2.assess_ctx(
+                rules_narrator_client=client, finetuned_client=client,
+                ctx=ctx, key_windows=key_windows, class_freq=class_freq)
+        return {"bucket": bucket, "layer": layer, "detail": detail,
+                "assessment": assessment, "error": None}
+    except Exception as e:
+        return {"bucket": bucket, "layer": None, "detail": None,
+                "assessment": None, "error": f"{type(e).__name__}: {e}"}
+
+
 def banner(text: str, char: str = "=", width: int = 90) -> None:
     print(char * width)
     print(text)

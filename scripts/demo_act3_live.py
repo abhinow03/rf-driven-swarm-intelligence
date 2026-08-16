@@ -75,52 +75,48 @@ def prompt_formations() -> tuple[str, str] | None:
     return form_a, form_b
 
 
-def run(client: "dc.HotSwapClient" = None, seed: int = None):
-    print(DISCLOSURE)
-
-    owns_client = client is None
-    if owns_client:
-        dc.gpu_free_gib(required_gib=15.0)
-        client = dc.HotSwapClient(demo_config.BASE_MODEL, temperature=0.0)
-        client.add_adapter("active", demo_config.ACTIVE_ADAPTER)
+def run_scenario(client: "dc.HotSwapClient", form_a: str, form_b: str, seed: int = None) -> dict:
+    """Pure data, no printing -- reused by print_scenario() below and
+    scripts/demo_web.py's live /api/act3 endpoint, so the terminal and web
+    presentations run the exact same scenario-build + pipeline path."""
+    if form_a not in BASE_FORMATIONS or form_b not in BASE_FORMATIONS:
+        bad = [f for f in (form_a, form_b) if f not in BASE_FORMATIONS]
+        return {"form_a": form_a, "form_b": form_b, "error": f"not a valid formation: {bad}"}
 
     class_freq = pipeline_v2._train_class_freq(demo_config.ACTIVE_ADAPTER_TRAIN_FILE)
     rng = random.Random(seed if seed is not None else random.SystemRandom().randint(0, 2**31))
 
-    formations = prompt_formations()
-    if formations is None:
-        print("no input given -- Act 3 skipped")
-        return
-
-    form_a, form_b = formations
     try:
         ctx, key_windows = synth_context(form_a, form_b, rng)
     except Exception as e:
-        print(f"SCENARIO BUILD FAILED: {type(e).__name__}: {e} -- no assessment produced")
+        return {"form_a": form_a, "form_b": form_b,
+                "error": f"SCENARIO BUILD FAILED: {type(e).__name__}: {e}"}
+
+    result = dc.run_pipeline_case(client, class_freq, ctx, key_windows)
+    if result["error"]:
+        return {"form_a": form_a, "form_b": form_b, "ctx": ctx,
+                "error": f"GENERATION FAILED: {result['error']}"}
+
+    return {"form_a": form_a, "form_b": form_b, "ctx": ctx, "error": None,
+            "bucket": result["bucket"], "layer": result["layer"],
+            "detail": result["detail"], "assessment": result["assessment"]}
+
+
+def print_scenario(data: dict) -> None:
+    dc.banner(f"ACT 3 LIVE: {data['form_a']} -> {data['form_b']}")
+    if data["error"] and "ctx" not in data:
+        print(data["error"])
+        print()
         return
-
-    dc.banner(f"ACT 3 LIVE: {form_a} -> {form_b}")
-    print(ctx)
+    print(data["ctx"])
     print()
-
-    bucket_info = pipeline_v2.classify_ctx(ctx, key_windows)
-    bucket = bucket_info["bucket"]
-    from swarm_intent.coverage import BUCKET_A, BUCKET_C
-    adapter_ctx = (client.use_adapter(None) if bucket == BUCKET_A
-                   else client.use_adapter("active") if bucket == BUCKET_C
-                   else client.use_adapter(None))
-
-    try:
-        with adapter_ctx:
-            assessment, layer, detail = pipeline_v2.assess_ctx(
-                rules_narrator_client=client, finetuned_client=client,
-                ctx=ctx, key_windows=key_windows, class_freq=class_freq)
-    except Exception as e:
-        print(f"GENERATION FAILED: {type(e).__name__}: {e}")
+    if data["error"]:
+        print(data["error"])
         print("(no assessment produced -- this is reported as a failure, not silently "
              "relabeled as a successful abstention or answer)")
         return
 
+    layer, detail, assessment = data["layer"], data["detail"], data["assessment"]
     dc.layer_banner(layer)
     if layer == pipeline_v2.LAYER_1_DETERMINISTIC:
         print(f"rule-table key: {detail['rules_key']}")
@@ -136,6 +132,25 @@ def run(client: "dc.HotSwapClient" = None, seed: int = None):
     for k in ("threat_level", "likely_intent", "recommended_action", "confidence_in_assessment"):
         print(f"  {k}: {assessment.get(k)}")
     print()
+
+
+def run(client: "dc.HotSwapClient" = None, seed: int = None):
+    print(DISCLOSURE)
+
+    owns_client = client is None
+    if owns_client:
+        dc.gpu_free_gib(required_gib=15.0)
+        client = dc.HotSwapClient(demo_config.BASE_MODEL, temperature=0.0)
+        client.add_adapter("active", demo_config.ACTIVE_ADAPTER)
+
+    formations = prompt_formations()
+    if formations is None:
+        print("no input given -- Act 3 skipped")
+        return
+
+    form_a, form_b = formations
+    data = run_scenario(client, form_a, form_b, seed=seed)
+    print_scenario(data)
 
     if owns_client:
         del client
