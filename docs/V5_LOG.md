@@ -4050,3 +4050,67 @@ abstention examples"). 177/177 tests pass after the revert. **No corpus change, 
 retraining, no change to `coverage.py`'s 3 early returns, no change to the checkpoint or
 `stgt_bridge.py` -- exactly as scoped.** The no-retrain approach is now conclusively ruled
 out; a retrain with abstention examples is the next candidate, not attempted this session.
+
+---
+
+# 2026-08-16 — v5a2 train/val split carved (pre-training, no training run yet)
+
+`docs/PREREGISTRATION_V5A2.md` is FINAL (sec AQ close-out) and pre-flight for the actual
+v5a2 training run re-verified all three locked hashes clean, but surfaced a real gap: the
+phase3a merge (sec AP) produced `data/sft_train_v5_phase3a_merged.jsonl` (12,901 rows) as a
+flat pool -- phase1 train (10,801) + phase1 val (600) + phase1 mining (600) + abstention_900,
+concatenated in that order (verified byte-for-byte against the four source files) -- with no
+held-out val split of its own. `train_sft_v5.py` requires a genuine `--val` file, and
+`eval_strategy="steps"` / `load_best_model_at_end=True` / `metric_for_best_model="eval_loss"`
+make eval_loss load-bearing for checkpoint selection, not cosmetic. This is a training-data
+artifact gap, not a preregistered bar, so it's resolved here without touching
+`PREREGISTRATION_V5A2.md`.
+
+`scripts/carve_v5a2_val_split.py` carves a fresh stratified split from the full 12,901-row
+pool:
+- Non-abstention rows (12,001) stratified by `threat_level` (low/medium/high/critical),
+  parsed from each row's assistant JSON. Phase 1's own train/val/mining threat_level
+  proportions were checked first and found closely matched (train 10.1/29.4/30.7/29.8%,
+  val 8.7/30.8/30.2/30.3%, mining 12.2/32.8/27.3/27.7% for critical/high/low/medium) --
+  confirming Phase 1's val was itself a proportional stratified sample, so proportional
+  stratified sampling here is a faithful replication of Phase 1's design, not a new one.
+- Abstention rows (900) stratified by mechanism (multi_hop=780, oscillation=120), read from
+  `abstention_corpus_teacher_trimmed900_meta.json`'s `rows_detail`, whose per-row order was
+  spot-checked (30-sample) against the jsonl's actual formation-history text and matched
+  exactly.
+- Each stratum sampled at v5-a's own val fraction, 600/10801 = 5.5550%, seed=20260816.
+
+| stratum | pool | val | train | val_frac |
+|---|---|---|---|---|
+| critical | 1,218 | 68 | 1,150 | 5.58% |
+| high | 3,562 | 198 | 3,364 | 5.56% |
+| low | 3,655 | 203 | 3,452 | 5.55% |
+| medium | 3,566 | 198 | 3,368 | 5.55% |
+| multi_hop | 780 | 43 | 737 | 5.51% |
+| oscillation | 120 | 7 | 113 | 5.83% |
+| **total** | **12,901** | **717** | **12,184** | **5.56%** |
+
+No stratum fell below the 20-row minimum-for-meaningful-split threshold (smallest is
+oscillation's 120-row pool / 7-row val slice).
+
+Zero row-level overlap verified by content-hash diff of the two output files (not just by
+construction from disjoint indices) -- `0` hashes in common, `717 + 12,184 = 12,901` unique
+hashes recovered, matching the phase3a merge's own corpus-wide dedup guarantee.
+
+Output: `data/sft_train_v5a2_train.jsonl` (12,184 rows,
+sha256 `ce56869c47cfe5666bccc638b26d53d523ef4193d825eaf581cfd45d08359639`),
+`data/sft_train_v5a2_val.jsonl` (717 rows,
+sha256 `c564c0a1cebaa0efc073eb49fe18b677fc9dc9ec8c299fe0acd0213637690f7e`).
+
+**Non-comparability caveat, stated explicitly so it isn't assumed later:** this val set is
+**not** directly comparable to v5-a's original 600-row phase1 val -- different corpus
+(12,901-row pool including 900 abstention rows vs. phase1's 12,001-row pool), different
+composition, different seed. v5a2's `eval_loss` trajectory during training should be read as
+a **within-run signal only** (is this training run itself converging / overfitting), never
+compared numerically against v5-a's `eval_loss` curve as if the two were scored against the
+same population -- they are not. Any future comparison of v5-a vs v5a2 quality must go
+through `scripts/check_preregistration_v5a2.py`'s bars against `evaluation/seed999_eval_set.json`,
+not through comparing training-time eval_loss values.
+
+Full detail and root-cause note: `AUDIT.md` sec AQ, "Erratum, part 4 -- val split gap
+discovered at training pre-flight."

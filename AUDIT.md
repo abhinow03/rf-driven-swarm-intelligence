@@ -4015,3 +4015,50 @@ Rule 0 self-check: **PASS**. Full suite: **222/222 pass**.
 
 **`docs/PREREGISTRATION_V5A2.md` is now FINAL.** Any further change requires a new versioned
 document, not another erratum.
+
+### Erratum, part 4 (2026-08-16) — val split gap discovered at training pre-flight
+
+This does **not** touch `docs/PREREGISTRATION_V5A2.md` (still FINAL, no edits) — it is a
+training-data-artifact gap, orthogonal to the preregistered bars.
+
+Pre-flight for the actual v5a2 training run re-verified all three locked hashes clean
+(checkpoint safety copy, corpus sha256, combined preregistration-stack sha256 — all PASS),
+and determined `train_sft_v5.py` hardcodes every hyperparameter in its own script body except
+`--train`/`--val`/`--out`/`--model`, so hyperparameter drift risk was already effectively
+zero. But it surfaced that `data/sft_train_v5_phase3a_merged.jsonl` (12,901 rows) has no
+designated `--val` counterpart: the phase3a merge (sec AP) preserved row count and corpus-
+wide dedup but never carved out or preserved a held-out validation split — it's a flat pool
+of phase1 train (10,801) + phase1 val (600) + phase1 mining (600) + abstention_900,
+concatenated in that order. `train_sft_v5.py`'s `eval_strategy="steps"` /
+`load_best_model_at_end=True` / `metric_for_best_model="eval_loss"` make eval_loss
+load-bearing for checkpoint selection, not cosmetic logging, so this had to be resolved
+before training, not worked around with a guess.
+
+**Root-cause lesson:** sec AP's finalization checklist verified population identity, row
+count, dedup, and sha256 lock for the merged corpus — but never checked that a train/val
+partition survived the merge, because no step in that turn's instructions asked for it
+explicitly and the merge silently defaulted to "just concatenate everything." This is exactly
+the kind of gap the four PREREGISTRATION_V5A2.md errata were meant to catch in advance
+(definitional gaps, file-binding gaps, population-boundary gaps) but didn't, because it lives
+one layer below the preregistration — in the training *script's own structural requirements*,
+not in the scored bars. Should have been caught during sec AP's finalization ("does the
+merged output still support everything the next training run structurally needs?"), caught
+instead at training pre-flight. For any future corpus merge that feeds a script with
+`load_best_model_at_end`, add "does a --val file still exist and is it disjoint from --train"
+to the finalization checklist itself.
+
+`scripts/carve_v5a2_val_split.py` resolved it: stratified by `threat_level`
+(low/medium/high/critical) for the 12,001 non-abstention rows and by mechanism
+(multi_hop/oscillation) for the 900 abstention rows, each stratum sampled at v5-a's own val
+fraction (600/10801 = 5.555%), seed=20260816. Confirmed Phase 1's train/val/mining
+threat_level proportions already closely matched each other before choosing this design,
+i.e. proportional stratified sampling is a replication of Phase 1's own approach, not a new
+invention. Output: `data/sft_train_v5a2_train.jsonl` (12,184 rows) +
+`data/sft_train_v5a2_val.jsonl` (717 rows), zero row-level overlap confirmed by content-hash
+diff (not just by construction). Full stratification table and non-comparability caveat
+(v5a2's eval_loss is a within-run signal only, not comparable to v5-a's original val
+eval_loss) recorded in `docs/V5_LOG.md`.
+
+No training was run in this turn. Training with `--train data/sft_train_v5a2_train.jsonl
+--val data/sft_train_v5a2_val.jsonl --out checkpoints/v5_sft_v5a2/` remains pending a
+separate, explicit training prompt.
