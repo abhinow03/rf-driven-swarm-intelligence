@@ -1,0 +1,15 @@
+{
+  "existing_per_file_counts": {
+    "sft_train_v5_phase1.jsonl": 10801,
+    "sft_train_v5_phase1_val.jsonl": 600,
+    "sft_train_v5_phase1_mining.jsonl": 600
+  },
+  "existing_total": 12001,
+  "new_rows": 900,
+  "merged_total": 12901,
+  "n_unique_keys": 12901,
+  "n_duplicate_keys": 0,
+  "n_duplicate_rows": 0,
+  "zero_internal_duplicates": true,
+  "out_path": "data/sft_train_v5_phase3a_merged.jsonl"
+}

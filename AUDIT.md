@@ -3753,3 +3753,27 @@ dropped" per the signed-off decision, not scored as a gate failure):
 | b — internal duplicates within trimmed corpus | 0 |
 
 **GATE A: PASS. GATE B: PASS.** Full results: `evaluation/phase3a_step4_gates_results_trimmed900.json`.
+
+### Step 3: merge -- 12,001 existing + 900 trimmed abstention = 12,901, zero duplicates corpus-wide
+
+`llm_finetuning/phase3a_finalize_merge.py` pools the existing Phase 1 corpus (the same three
+files gate_b treats as "the existing 12,001-row RULES corpus": `sft_train_v5_phase1.jsonl`
+10,801 + `sft_train_v5_phase1_val.jsonl` 600 + `sft_train_v5_phase1_mining.jsonl` 600 = 12,001)
+and appends the trimmed 900-row abstention corpus, writing the result to a **new** file,
+`data/sft_train_v5_phase3a_merged.jsonl` — none of the four source files are overwritten.
+
+**MERGED TOTAL: 12,901 rows.**
+
+Dedup re-run across the **full merged file**, not just new-vs-old (sec AO step 1's gate_b
+already confirmed 0 new-vs-old overlap; this additionally checks whether the 12,001-row
+existing corpus itself had any pre-existing internal duplication a new-vs-old-only check would
+never surface): exact user-message-string key, same convention as `build_sft_dataset.py`'s
+`--append` path.
+
+| | |
+|---|---|
+| unique keys | 12,901 |
+| duplicate keys | 0 |
+| duplicate rows | 0 |
+
+**ZERO INTERNAL DUPLICATES, corpus-wide.** Full results: `evaluation/phase3a_merge_dedup_results.json`.
