@@ -1,0 +1,56 @@
+{
+  "live_assertions": {
+    "document_bars": [
+      "threat_accuracy_pooled_when_answerable",
+      "pair_accuracy_pooled_when_answerable_real",
+      "ceiling_normalized_accuracy",
+      "over_abstention_rate",
+      "under_abstention_rate",
+      "correct_abstention_rate_multi_hop",
+      "correct_abstention_rate_oscillation",
+      "escalation_under_escalation_rate",
+      "regression_vs_v5a_threat_accuracy",
+      "regression_vs_v5a_pair_accuracy"
+    ],
+    "bars_in_check_script_BARS_dict": [
+      "ceiling_normalized_accuracy",
+      "correct_abstention_rate_multi_hop",
+      "correct_abstention_rate_oscillation",
+      "escalation_under_escalation_rate",
+      "over_abstention_rate",
+      "pair_accuracy_pooled_when_answerable_real",
+      "regression_vs_v5a_pair_accuracy",
+      "regression_vs_v5a_threat_accuracy",
+      "threat_accuracy_pooled_when_answerable",
+      "under_abstention_rate"
+    ],
+    "missing_from_dict": [],
+    "all_document_bars_have_live_assertion": true,
+    "memorization_has_dedicated_function": true,
+    "memorization_function_uses_real_threshold_not_hardcoded_pass": true,
+    "schema_validity_correctly_excluded_from_BARS_dict": true,
+    "schema_validity_marked_diagnostic_only_in_source": true
+  },
+  "non_vacuous_tests": {
+    "n_tests_collected": 17,
+    "bars_referenced_in_test_source": {
+      "threat_accuracy_pooled_when_answerable": true,
+      "pair_accuracy_pooled_when_answerable_real": true,
+      "ceiling_normalized_accuracy": true,
+      "over_abstention_rate": true,
+      "under_abstention_rate": true,
+      "correct_abstention_rate_multi_hop": true,
+      "correct_abstention_rate_oscillation": true,
+      "escalation_under_escalation_rate": true,
+      "regression_vs_v5a_threat_accuracy": true,
+      "regression_vs_v5a_pair_accuracy": true,
+      "memorization_vs_generalization": true
+    },
+    "bars_with_no_test_reference": [],
+    "all_document_bars_referenced_by_a_test": true,
+    "has_a_failing_case_for_abstention_bars": true,
+    "has_a_failing_case_for_memorization_bar": true,
+    "has_a_failing_case_for_escalation_bar": true
+  },
+  "overall_pass": true
+}
