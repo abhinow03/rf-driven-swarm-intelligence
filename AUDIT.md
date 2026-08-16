@@ -3794,3 +3794,9 @@ diverges from the locked value. 4/4 pass.
 sections left as the historical record of the pre-finalization state) covering the final
 composition (780/120/900), the population-identity finding from step 1, and the merge/lock
 numbers.
+
+### Step 5: full test suite -- 193/193 pass
+
+`python -m unittest discover -s tests -v` (PYTHONPATH=src, `.venv`): **193 tests, 193 pass, 0
+failures, 0 errors** — includes the 4 new `test_phase3a_merged_corpus.py` tests. No training
+run. Stopping here per the instruction.
