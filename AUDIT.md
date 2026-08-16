@@ -3685,3 +3685,42 @@ logic's evaluation order, not because a transition was genuinely caught mid-blen
 **If step 3's recommendation is accepted, the corpus total changes from 1,000 to 900 rows**
 (780 multi_hop + 120 oscillation), pending sign-off alongside the teacher-regeneration decision
 in step 1.
+
+## AP. Phase 3a finalization -- merge only, no training
+
+Decisions signed off going into this section: drop `terminal_transitioning` entirely (900-row
+corpus, sec AO step 3); carry forward `data/abstention_corpus_teacher.jsonl` (99.9%
+teacher-authored), not the no-teacher version.
+
+### Step 1: population identity check -- `phase4_eval_set.json` vs `LOCKED_seed999_FINAL.json`
+
+Same diffing discipline as sec AM's OLD/MID/CURRENT population diff
+(`scripts/rule0_2b_diff_populations.py`): don't assume equivalence from matching `n`, check
+seed, schema, provenance, and actual content
+(`llm_finetuning/phase3a_population_identity_check.py`,
+`evaluation/phase3a_population_identity_check.json`).
+
+**Genuinely different populations, not the same content under a different filename:**
+
+| | `phase4_eval_set.json` | `LOCKED_seed999_FINAL.json` |
+|---|---|---|
+| seed | 4321 | 999 |
+| schema | `true_chain`/`ctx`/`key_windows`/`bucket`/`has_ground_truth` + top-level `checkpoint_sha256`/`stgt_bridge_sha256` | `chain`/`positions`/`true_labels`/`n_timesteps`, no model-inference fields |
+| nature | post-STGT+bridge inference eval set | raw generator-trajectory lock, no model ever run on it in this artifact |
+| provenance | `generate_phase4_eval_set.py` — its own docstring: "SEED=4321: fresh, disjoint from every seed already used elsewhere in this project's history ... 999 ceiling" | `scripts/rule0_2b_regenerate_populations.py` lineage, sec AM Rule-0 lock |
+
+Different seed, different schema, different generation script confirm this on metadata alone.
+Content check: 16/1000 chains match at the same index — below what it looks like at first
+glance, this is **chance noise, not overlap**: expected chance-level matches from a
+7-formation vocabulary at these indices is ~11.3, and 15 of the 16 observed matches are
+single-formation (length-1) chains, each an independent ~1/7 coincidence. 16 vs an expected
+~11.3 is not a meaningful excess.
+
+**Strata-target implication: no re-derivation needed.** `evaluation/phase3a_strata_targets.json`
+was derived from `evaluation/categorize_unanswerable_502.json`, which regenerates the
+seed=4321 population (same seed/lineage as `phase4_eval_set.json`, confirmed by reading its
+own source). `LOCKED_seed999_FINAL.json` (seed=999) is not anywhere in that derivation chain —
+per sec AO step 3 it was "used only for ceiling measurements, never for Phase 3a." Since the
+two files are confirmed genuinely different populations serving different purposes, and the
+strata targets never touched the seed=999 file in the first place, **the 780/120/100 (now
+780/120, post-drop) strata targets stand as-is.**

@@ -1,0 +1,102 @@
+{
+  "phase4_eval_set": {
+    "path": "evaluation/phase4_eval_set.json",
+    "sha256": "6501b8d059bd6f6eb4ff43f725b63c01c4e8f1e11661cbeea7dbdeb37bd79bea",
+    "seed": 4321,
+    "n_sequences": 1000,
+    "schema_keys": [
+      "checkpoint_sha256",
+      "items",
+      "n_sequences",
+      "seed",
+      "stgt_bridge_sha256"
+    ],
+    "item_schema_keys": [
+      "bucket",
+      "ctx",
+      "has_ground_truth",
+      "key_windows",
+      "name",
+      "noise_std",
+      "spread",
+      "true_chain"
+    ],
+    "checkpoint_sha256": "18fc201d5a419ff2fb0cfb66a60810af77a9ed52969f2996f57c952d1306a01b",
+    "stgt_bridge_sha256": "e99472e16525588be83f7e7e78abeb5d781d7c2d238adc902c10c660bbb022f7",
+    "produced_by": "llm_finetuning/generate_phase4_eval_set.py (docstring: 'SEED=4321: fresh, disjoint from every seed already used elsewhere in this project's history ... 999 ceiling')",
+    "nature": "post-STGT+bridge inference eval set (true_chain + STGT-derived ctx/key_windows/bucket per item)"
+  },
+  "locked_seed999_final": {
+    "path": "eval_data/LOCKED_seed999_FINAL.json",
+    "sha256": "871a9dae4c6fdf08e1aed803592fa7c61b1a852c150693b5819fe2271717b96e",
+    "seed": 999,
+    "n": 1000,
+    "version_tag": "CURRENT_post_symmetrize_9061392_HEAD",
+    "schema_keys": [
+      "n",
+      "records",
+      "seed",
+      "version"
+    ],
+    "record_schema_keys": [
+      "chain",
+      "i",
+      "n_timesteps",
+      "noise_std",
+      "positions",
+      "spread",
+      "true_labels"
+    ],
+    "produced_by": "scripts/rule0_2b_regenerate_populations.py lineage (sec AM Rule-0 lock), used only for ceiling measurements per sec AO step 3",
+    "nature": "raw generator trajectories (chain + positions + true_labels), no model inference run on it in this artifact"
+  },
+  "same_seed": false,
+  "same_n": true,
+  "same_schema": false,
+  "n_compared": 1000,
+  "n_chain_match": 16,
+  "pct_chain_match": 1.6,
+  "match_length_distribution": {
+    "1": 15,
+    "3": 1
+  },
+  "expected_chance_matches": 11.32,
+  "first_3_phase4_chains": [
+    [
+      "v_shape",
+      "diamond",
+      "converging",
+      "shield"
+    ],
+    [
+      "diamond",
+      "dispersed",
+      "v_shape",
+      "converging"
+    ],
+    [
+      "dispersed",
+      "column",
+      "dispersed"
+    ]
+  ],
+  "first_3_locked_chains": [
+    [
+      "converging",
+      "encirclement",
+      "column",
+      "encirclement"
+    ],
+    [
+      "v_shape",
+      "column"
+    ],
+    [
+      "v_shape",
+      "diamond",
+      "dispersed"
+    ]
+  ],
+  "matches_exceed_chance": false,
+  "classification": "GENUINELY DIFFERENT POPULATIONS -- different seed (4321 vs 999), different generation script/era (generate_phase4_eval_set.py's own docstring: 'SEED=4321: fresh, disjoint from every seed already used ... 999 ceiling'), different schema (post-inference eval set with checkpoint/bridge sha256 + ctx/key_windows/bucket, vs a raw generator-trajectory lock with chain/positions/true_labels only). 16/1000 chain matches at compared indices is consistent with chance (expected ~11.3 by chance alone from a 7-formation vocabulary; 15/16 observed matches are single-formation chains, ~1/7 chance each) -- not evidence of overlap. Confirmed both by metadata and by content, not assumed from filename/era."
+}
