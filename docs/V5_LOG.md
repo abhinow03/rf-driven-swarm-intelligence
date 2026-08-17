@@ -4114,3 +4114,63 @@ not through comparing training-time eval_loss values.
 
 Full detail and root-cause note: `AUDIT.md` sec AQ, "Erratum, part 4 -- val split gap
 discovered at training pre-flight."
+
+---
+
+# 2026-08-17 — v5a2 training run: pre-flight + live log
+
+**Pre-flight (re-verified live, this session, before training started):**
+
+| artifact | live sha256 | vs. record |
+|---|---|---|
+| `checkpoints/v5_sft_v5a_PROTECTED/` (29 files, `scripts/phase3a_verify_safety_copy.py`) | `adapter_model.safetensors` = `79b71224e2d04a6149adf63ec3fcfc825d58007ce4bfe144e5d1f0e7cb89aad5` | MATCH -- 29/29 files byte-identical, all read-only, 0 mismatches |
+| `data/sft_train_v5a2_train.jsonl` (12,184 rows) | `ce56869c47cfe5666bccc638b26d53d523ef4193d825eaf581cfd45d08359639` | MATCH |
+| `data/sft_train_v5a2_val.jsonl` (717 rows) | `c564c0a1cebaa0efc073eb49fe18b677fc9dc9ec8c299fe0acd0213637690f7e` | MATCH |
+| `docs/PREREGISTRATION_V5A2.md` + `scripts/check_preregistration_v5a2.py` + `tests/test_check_preregistration_v5a2.py` + `tests/test_literal_pair_extraction.py`, concatenated in that order | `edddf746f41efa45b1e55306d9cee89fe2aa08965fced04341cc5b63dd628ba8` | MATCH |
+
+No mismatch, nothing halted.
+
+`llm_finetuning/train_sft_v5.py`'s hardcoded hyperparameters diffed live against
+`checkpoints/v5_sft_v5a_PROTECTED/training_args.bin` (v5-a's actual run, loaded via
+`torch.load(..., weights_only=False)`): `num_train_epochs=3`, `per_device_train_batch_size=8`,
+`gradient_accumulation_steps=4`, `learning_rate=1e-4`, `lr_scheduler_type=cosine`,
+`warmup_ratio=0.03`, `bf16=True`, `optim=paged_adamw_8bit`, `eval_strategy=steps`,
+`eval_steps=50`, `load_best_model_at_end=True`, `metric_for_best_model=eval_loss`,
+`greater_is_better=False`, `assistant_only_loss=True`, `gradient_checkpointing=True` --
+**every field identical**. Only differences: `output_dir` (`checkpoints/v5_sft/` ->
+`checkpoints/v5_sft_v5a2/`) and the train/val data paths, both expected.
+
+GPU check (RTX 4090, 24564MiB): 614MiB used / ~40% util, all attributable to desktop
+compositor processes (Xorg, gnome-shell, firefox, runSofa, gmsh) -- no CUDA/compute process
+present, memory reading steady across 3 samples. Cleared to train without contention.
+
+**Launch**: `llm_finetuning/train_sft_v5.py --train data/sft_train_v5a2_train.jsonl --val
+data/sft_train_v5a2_val.jsonl --out checkpoints/v5_sft_v5a2/ --progress-task v5a2_train`, in
+tmux session `v5a2_train`, stdout/stderr teed to `docs/v5a2_train_raw.log`.
+
+Corpus validation at launch: train 12,184 rows / val 717 rows, both schema-valid (>= the
+script's 9000/400 floors). Assistant-mask check on a real row: 257/794 tokens masked
+(non-trivial, confirms `assistant_only_loss=True` is actually masking as intended on this
+tokenizer/trl/transformers combination).
+
+1,143 total optimizer steps (3 epochs over 12,184 rows at effective batch 32), observed rate
+~25.3-25.6s/it early on -> ETA roughly 8 hours wall-clock. Live loss/eval_loss/
+mean_token_accuracy appended below as the run progresses.
+
+**Reminder (per the non-comparability caveat above): this run's `eval_loss` is a
+within-run convergence signal only, not comparable to v5-a's original val numbers.**
+
+| step | epoch | loss | eval_loss | mean_token_accuracy | grad_norm | lr | notes |
+|---|---|---|---|---|---|---|---|
+| 11 | 0.026 | 1.2 | -- | 0.7243 | 0.7031 | 2.571e-05 | first logged step |
+| 20 | 0.053 | 0.9084 | -- | 0.7603 | 0.5977 | 5.429e-05 | |
+| 50 | 0.131 | -- | 0.4876 | 0.8463 (eval) | -- | -- | first eval checkpoint (eval_steps=50) |
+| 100 | 0.263 | -- | 0.4071 | 0.8659 (eval) | -- | -- | |
+| 129 | 0.34 | -- | -- | -- | -- | -- | **transient CUDA OOM warning** (`[W...] CUDACachingAllocator.cpp:3933`, failed to allocate 593MB, 22.6MB free at that instant) at the eval->train transition, where memory pressure peaks. Not a crash: `[W...]` is a caching-allocator retry warning, not a `RuntimeError`/`Traceback`; tmux session and the training process (pid confirmed via `ps aux`) stayed alive throughout, step 130 completed normally immediately after (25.64s/it, in line with the run's steady-state rate). Single occurrence so far; watching for recurrence. GPU reading immediately after: 19484MiB/24564MiB used, 96% util -- running close to the 24GB cap but not pinned at it. |
+| 150 | 0.394 | -- | 0.3798 | 0.8717 (eval) | -- | -- | no recurrence of the OOM warning |
+| 200 | 0.525 | -- | 0.3661 | 0.8759 (eval) | -- | -- | |
+| 250 | 0.657 | -- | 0.3534 | 0.8791 (eval) | -- | -- | |
+
+(Live monitor retuned after step ~20 to fire only on eval checkpoints (every 50 steps) plus
+failure/completion signals, to avoid ~140 events over an ~8h run. Full per-step loss curve
+remains in `docs/v5a2_train_raw.log` if needed later; this table samples eval checkpoints.)
