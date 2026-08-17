@@ -12,7 +12,15 @@ swarm_data/
 *.pt
 *.safetensors
 checkpoints/
+# checkpoints/v5_sft_v5a2/ specifically: actively written by an in-progress,
+# unscored training run as of Final_v1 -- covered by the checkpoints/ rule
+# above, called out explicitly so it's never accidentally force-added mid-run.
 adapters/
+
+# Live raw stdout/stderr tee from an in-progress training run
+# (llm_finetuning/train_sft_v5.py) -- regenerate by re-running the training
+# command; not a deliverable, and actively being appended to during training.
+docs/*_train_raw.log
 
 # Secrets
 .env
@@ -37,3 +45,8 @@ evaluation/demo_webdata.json
 .idea/
 
 # Keep notebook outputs out of git (run: nbstripout *.ipynb)
+
+# Stale one-off Rule-0-style audit dump at repo root (2026-07-30), superseded
+# by AUDIT.md's continuous record -- left on disk (not deleted), just kept
+# out of git status noise going forward.
+/audit.json
