@@ -1,5 +1,20 @@
 # RF-Driven Swarm Intelligence
 
+---
+
+## TL;DR (30 seconds)
+
+| Question | Answer |
+|----------|--------|
+| **What did we build?** | STGT (formation classifier) + deterministic rules + fine-tuned Qwen2.5-7B routing layer for UAV swarm tactical threat assessment. |
+| **What works?** | STGT formation accuracy 95.1% (vs ceiling), RULES path 78.9% threat-accuracy, confidence-flag layer 98.2% recall on unanswerable cases (0.0% false-flags). |
+| **What doesn't?** | The LLM's native abstention on genuinely unanswerable cases (multi-hop 3.4%, oscillation 1.6% vs ≥20%/≥25% targets). Mitigated by confidence-flag, not fixed. |
+| **What did we learn?** | Layered routing (not single-model) is necessary; in-context RULES surprisingly beat fine-tuning early on; abstention requires structural signal (not learned). |
+| **Current model?** | v5a2 (Qwen2.5-7B-Instruct, QLoRA fine-tuned on 12,901-row corpus). 8/10 preregistered bars pass. Shipped in demo. |
+| **What's next?** | Script cleanup (28 stale `.npy` references), confidence-flag layer is the deployed mitigation (complete + working). |
+
+---
+
 A counter-UAV pipeline that turns a swarm's drone-position trajectory into a tactical
 assessment: a Spatial-Temporal Graph Transformer (STGT) classifies formation and detects
 transitions, a bridge/rules layer resolves as much of that as it safely can deterministically,
